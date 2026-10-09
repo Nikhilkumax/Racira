@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ChevronRight, Sparkles, Clock, ArrowLeft } from "lucide-react";
 import { tools, type Tool } from "@/domains/pdf/registry/tools";
 import { PDF_SITE } from "@/domains/pdf/site";
+import { INDEX_SOON_PAGES } from "@/domains/pdf/indexing";
 import { IMPLEMENTED_SLUGS } from "@/domains/pdf/registry/implementedSlugs";
 import { toSlug } from "@/lib/utils/slug";
 
@@ -16,6 +17,79 @@ type PageProps = { params: Promise<{ slug: string }> };
 // Derive categories (subCategories) from the tools list
 const subcategoryNames = Array.from(new Set(tools.map(t => t.subCategory).filter(Boolean))) as string[];
 const toolBySlug = new Map(tools.map(t => [t.slug, t]));
+
+// ── Soon-page copy ────────────────────────────────────────────────────────
+// Many soon tools carry the same placeholder description in the registry
+// ("Free, private, and secure PDF tool."). Rendering it verbatim gave ~72
+// pages an identical meta description, so each soon page gets copy derived
+// from its own registry fields instead (name, subCategory, description).
+const PLACEHOLDER_DESCRIPTIONS = new Set([
+  "Free, private, and secure PDF tool.",
+  "Upcoming PDF tool",
+]);
+
+// Slug tokens that stay uppercase when a slug is humanised for disambiguation.
+const SLUG_ACRONYMS = new Set([
+  "pdf", "ocr", "svg", "csv", "xml", "html", "rtf", "zip", "ai", "xps",
+  "heic", "webp", "bmp", "png", "tiff", "mobi", "fb2", "ocg", "url",
+  "json", "epub", "tts", "gif", "jpg", "jpeg",
+]);
+
+function humanizeSlug(slug: string): string {
+  return slug
+    .split("-")
+    .map(w => (SLUG_ACRONYMS.has(w) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))
+    .join(" ");
+}
+
+// Only needed when several soon tools share a name (e.g. "PDF OCR", which is
+// both `ocr` and `ocr-pdf`), so their titles/descriptions can be told apart.
+const soonNameCounts = new Map<string, number>();
+for (const t of tools) {
+  if (t.status === "soon") soonNameCounts.set(t.name, (soonNameCounts.get(t.name) ?? 0) + 1);
+}
+const REPEATED_SOON_NAMES = new Set(
+  [...soonNameCounts].filter(([, count]) => count > 1).map(([n]) => n)
+);
+
+function soonLabel(tool: Tool): string {
+  if (!REPEATED_SOON_NAMES.has(tool.name)) return tool.name;
+  const group = tools.filter(t => t.status === "soon" && t.name === tool.name);
+  const subCategoryDistinguishes =
+    group.filter(t => t.subCategory === tool.subCategory).length === 1;
+  return `${tool.name} (${subCategoryDistinguishes ? tool.subCategory : humanizeSlug(tool.slug)})`;
+}
+
+function soonTitle(tool: Tool): string {
+  return `${soonLabel(tool)} — Coming Soon — ${PDF_SITE.copyrightName}`;
+}
+
+/** 120-160 char meta description built per tool; never the shared placeholder. */
+function soonDescription(tool: Tool): string {
+  const label = soonLabel(tool);
+  const sub = (tool.subCategory ?? "PDF").toLowerCase();
+  const raw = tool.description.trim();
+  const generic = PLACEHOLDER_DESCRIPTIONS.has(raw);
+  const action = generic ? `a browser-based ${sub} tool` : raw.replace(/\.$/, "");
+  const opener = generic ? `${label} is ${action}` : `${label}: ${action}`;
+  const tail = `${label} is coming soon to Racira.`;
+  const privacy = "Free and private — the file never leaves your device.";
+  const toolkit = `Part of our ${sub} toolkit.`;
+  const candidates = [
+    `${opener}. ${privacy} ${toolkit} ${tail}`,
+    `${opener}. ${privacy} ${tail}`,
+    `${opener}. ${toolkit} ${tail}`,
+    `${opener}. ${tail}`,
+  ];
+  let description = candidates.find(c => c.length <= 160) ?? candidates[candidates.length - 1];
+  if (description.length > 160) {
+    // Long name + long registry description: trim the action at a word boundary.
+    const budget = Math.max(0, 160 - label.length - 6 - tail.length);
+    const trimmed = action.slice(0, budget).replace(/\s+\S*$/, "") || action;
+    description = generic ? `${label} is ${trimmed}. ${tail}` : `${label}: ${trimmed}. ${tail}`;
+  }
+  return description;
+}
 
 function isSubcategory(slug: string) {
   return subcategoryNames.some(s => toSlug(s) === slug);
@@ -29,8 +103,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
   const tool = toolBySlug.get(slug);
   if (tool) {
-    // Soon tools get real titles for SEO but are noindexed
-    if (tool.status === 'soon') return { title: `${tool.name} — Coming Soon — ${PDF_SITE.copyrightName}`, description: `${tool.description} This tool is coming soon to Racira.`, robots: { index: false, follow: true } };
+    // Soon tools get real titles and a self-referencing canonical; whether they
+    // are excluded from the index is controlled by INDEX_SOON_PAGES
+    // (see domains/pdf/indexing.ts).
+    if (tool.status === 'soon') {
+      const meta: Metadata = {
+        title: soonTitle(tool),
+        description: soonDescription(tool),
+        alternates: { canonical: `/pdf/${slug}` },
+      };
+      if (!INDEX_SOON_PAGES) meta.robots = { index: false, follow: true };
+      return meta;
+    }
     return { title: `${tool.name} — ${PDF_SITE.copyrightName}`, description: tool.description, alternates: { canonical: `/pdf/${slug}` } };
   }
   return { title: "Not Found — Racira" };

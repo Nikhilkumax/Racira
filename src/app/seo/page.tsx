@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
 import {
   Search,
   Key,
@@ -130,9 +131,10 @@ function ToolGrid({ tools }: { tools: Tool[] }) {
 
 function ToolCard({ tool }: { tool: Tool }) {
   const Icon = tool.icon as React.ComponentType<{ className?: string }>;
-  // SEO tool pages all render the coming-soon template (no wired component),
-  // so every card is non-interactive with the "Soon" badge.
+  // Live tools open the wired component; upcoming tools open their Coming Soon
+  // page — every card is navigable, and the badge marks what is not built yet.
   const isLive = isLiveTool(tool, "seo");
+  const clickable = isLive || hasComingSoonPage(tool, "seo");
 
   const cardBody = (
     <>
@@ -153,7 +155,7 @@ function ToolCard({ tool }: { tool: Tool }) {
     </>
   );
 
-  if (!isLive) {
+  if (!clickable) {
     return (
       <div className="tool-card group relative cursor-default">
         {cardBody}

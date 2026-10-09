@@ -539,10 +539,16 @@ export function SpeechStudio() {
                   </div>
 
                   {/* What is already on this device, and only that. The list is
-                      read from local storage, never uploaded. */}
+                      read from local storage, never uploaded.
+
+                      Both rows below are reserved at their final height from
+                      the first render. The list arrives asynchronously (an
+                      OPFS read at mount, and again after a run stores a model),
+                      so without the reserve the pickers underneath would be
+                      pushed down by rows that were not there at paint time. */}
                   <div
                     data-testid="tts-stored-voices"
-                    className="flex flex-wrap items-center gap-x-2 gap-y-1"
+                    className="flex min-h-[22.75px] flex-wrap items-center gap-x-2 gap-y-1"
                   >
                     {voiceIsStored && (
                       <>
@@ -567,16 +573,20 @@ export function SpeechStudio() {
                     <p data-testid="tts-long-text-tip">{LONG_TEXT_TIP}</p>
                   )}
 
-                  {storedVoices.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={handleClearStoredVoices}
-                      disabled={busy}
-                      className="block rounded-md px-1.5 py-0.5 transition-colors hover:bg-surface-muted hover:text-foreground disabled:opacity-40"
-                    >
-                      Clear all saved voices ({storedVoices.length})
-                    </button>
-                  )}
+                  {/* Same reserve as the saved-voice row: the button appears
+                      with the list, never before it. */}
+                  <div className="flex min-h-[22.75px] items-center">
+                    {storedVoices.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={handleClearStoredVoices}
+                        disabled={busy}
+                        className="block rounded-md px-1.5 py-0.5 transition-colors hover:bg-surface-muted hover:text-foreground disabled:opacity-40"
+                      >
+                        Clear all saved voices ({storedVoices.length})
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -611,44 +621,52 @@ export function SpeechStudio() {
                 )}
 
                 {busy ? (
-                  // One bar for the whole run: a first-use download is its own
-                  // phase, then the parts. The percentage is completed parts
-                  // over total parts, so every visible change corresponds to
-                  // work that actually finished rather than an animation.
-                  <div className="space-y-3" data-testid="tts-generation-progress">
-                    <div aria-live="polite" className="space-y-1">
-                      <div className="flex items-center justify-between text-[13px]">
-                        <span className="font-medium" data-testid="tts-progress-label">
-                          {progressLabel}
-                        </span>
-                        <span
-                          data-testid="tts-progress-percent"
-                          className="font-mono tabular-nums text-muted-foreground"
-                        >
-                          {percent}%
-                        </span>
-                      </div>
-                      <p data-testid="tts-time-left" className="text-[12.5px] text-muted-foreground">
-                        {timeLeftLabel}
-                      </p>
-                    </div>
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-muted/30">
-                      <div
-                        className="h-full bg-brand transition-all duration-300"
-                        style={{ width: `${percent}%` }}
-                      />
-                    </div>
-                    <div className="flex justify-end">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={handleCancel}
-                        data-testid="tts-cancel"
-                        className="h-9 rounded-full px-4"
-                      >
-                        Cancel
-                      </Button>
-                    </div>
+                  // One row for the whole run, exactly the Generate button's
+                  // height (h-11): a first-use download is its own phase, then
+                  // the parts. The percentage is completed parts over total
+                  // parts, so every visible change corresponds to work that
+                  // actually finished rather than an animation. The fill is the
+                  // row's own background, and the percentage sits in a
+                  // fixed-width tabular column so 9% and 100% are the same
+                  // width. Keeping both states the same height is what stops
+                  // the swap from moving anything.
+                  <div
+                    aria-live="polite"
+                    data-testid="tts-generation-progress"
+                    className="relative flex h-11 w-full items-center gap-2 overflow-hidden rounded-full border border-border-subtle bg-surface-muted/40 pl-4 pr-1.5"
+                  >
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-y-0 left-0 bg-brand/15 transition-all duration-300"
+                      style={{ width: `${percent}%` }}
+                    />
+                    <span
+                      data-testid="tts-progress-label"
+                      className="relative truncate text-[13px] font-medium"
+                    >
+                      {progressLabel}
+                    </span>
+                    <span
+                      data-testid="tts-time-left"
+                      className="relative hidden text-[12px] text-muted-foreground sm:inline"
+                    >
+                      {timeLeftLabel}
+                    </span>
+                    <span
+                      data-testid="tts-progress-percent"
+                      className="relative ml-auto min-w-[4ch] shrink-0 text-right font-mono text-[13px] tabular-nums text-muted-foreground"
+                    >
+                      {percent}%
+                    </span>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleCancel}
+                      data-testid="tts-cancel"
+                      className="relative h-8 shrink-0 rounded-full px-3 text-[12px]"
+                    >
+                      Cancel
+                    </Button>
                   </div>
                 ) : (
                   <Button
@@ -663,98 +681,130 @@ export function SpeechStudio() {
             </div>
           </div>
 
-          {/* Audio player */}
-          {audioUrl && (
-            <div className="border-t border-border-subtle bg-surface-muted/40 px-5 py-4">
-              <audio
-                ref={audioRef}
-                data-testid="tts-audio"
-                src={audioUrl}
-                preload="metadata"
-                style={{ display: "none" }}
-                onLoadedMetadata={(e) => {
-                  const d = e.currentTarget.duration;
-                  setDuration(isFinite(d) ? d : 0);
-                }}
-                onDurationChange={(e) => {
-                  const d = e.currentTarget.duration;
-                  setDuration(isFinite(d) ? d : 0);
-                }}
-                onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
-                onError={(e) => {
-                  const el = e.currentTarget;
-                  console.error("[voice] <audio> error:", {
-                    code: el.error?.code,
-                    message: el.error?.message,
-                    networkState: el.networkState,
-                    readyState: el.readyState,
-                    src: el.src,
-                  });
-                }}
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-                onEnded={() => {
-                  setIsPlaying(false);
-                  setCurrentTime(0);
-                }}
-              />
-              {/* Two rows below sm, one row from sm up. On a narrow screen the
-                  transport (play, elapsed time, seek, duration) takes the first
-                  row and the actions take the second, so the row is never wider
-                  than the card. The seek input carries min-w-0 on purpose: a
-                  range input has an intrinsic width and is otherwise treated as
-                  unshrinkable, which is what pushed it and the buttons past the
-                  card's right edge on mobile. */}
+          {/* Audio player. The slot is always rendered at the player's final
+              height, so the first finished clip cannot grow the card and push
+              every section below it down. Before a clip exists the slot shows
+              the same transport, disabled and muted. */}
+          <div className="border-t border-border-subtle bg-surface-muted/40 px-5 py-4">
+            {audioUrl ? (
+              <>
+                <audio
+                  ref={audioRef}
+                  data-testid="tts-audio"
+                  src={audioUrl}
+                  preload="metadata"
+                  style={{ display: "none" }}
+                  onLoadedMetadata={(e) => {
+                    const d = e.currentTarget.duration;
+                    setDuration(isFinite(d) ? d : 0);
+                  }}
+                  onDurationChange={(e) => {
+                    const d = e.currentTarget.duration;
+                    setDuration(isFinite(d) ? d : 0);
+                  }}
+                  onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+                  onError={(e) => {
+                    const el = e.currentTarget;
+                    console.error("[voice] <audio> error:", {
+                      code: el.error?.code,
+                      message: el.error?.message,
+                      networkState: el.networkState,
+                      readyState: el.readyState,
+                      src: el.src,
+                    });
+                  }}
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                  onEnded={() => {
+                    setIsPlaying(false);
+                    setCurrentTime(0);
+                  }}
+                />
+                {/* Two rows below sm, one row from sm up. On a narrow screen the
+                    transport (play, elapsed time, seek, duration) takes the first
+                    row and the actions take the second, so the row is never wider
+                    than the card. The seek input carries min-w-0 on purpose: a
+                    range input has an intrinsic width and is otherwise treated as
+                    unshrinkable, which is what pushed it and the buttons past the
+                    card's right edge on mobile. */}
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <div className="flex min-w-0 flex-1 items-center gap-3">
+                    <Button
+                      type="button"
+                      size="icon"
+                      aria-label={isPlaying ? "Pause" : "Play"}
+                      onClick={handlePlayPause}
+                      className="h-11 w-11 flex-shrink-0 rounded-full bg-brand text-brand-foreground shadow-brand hover:bg-brand/90"
+                    >
+                      {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5 translate-x-[1px]" />}
+                    </Button>
+
+                    <span className="w-10 shrink-0 text-right font-mono text-sm tabular-nums text-muted-foreground">
+                      {fmt(currentTime)}
+                    </span>
+
+                    <input
+                      type="range"
+                      min={0}
+                      max={100}
+                      step={0.1}
+                      value={duration > 0 ? (currentTime / duration) * 100 : 0}
+                      onChange={handleSeek}
+                      aria-label="Seek"
+                      className="h-1 min-w-0 flex-1 cursor-pointer"
+                      style={{ accentColor: "var(--brand, #7c3aed)" }}
+                    />
+
+                    <span className="w-10 shrink-0 font-mono text-sm tabular-nums text-muted-foreground">
+                      {fmt(duration)}
+                    </span>
+                  </div>
+
+                  {/* Actions: a full-width row on mobile, a right-hand item in
+                      the single row from sm up. The 40px height keeps the touch
+                      target comfortable; desktop keeps its original 36px pill. */}
+                  <div className="flex flex-wrap items-center gap-2 sm:shrink-0 sm:flex-nowrap">
+                    <a
+                      href={audioUrl}
+                      download={`racira-tts-output.${format}`}
+                      data-testid="tts-download"
+                      className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full border border-border-subtle bg-surface px-4 text-sm font-semibold sm:h-9 sm:flex-none sm:px-3"
+                    >
+                      <Download className="h-3.5 w-3.5 shrink-0" />
+                      Download
+                    </a>
+                  </div>
+                </div>
+              </>
+            ) : (
+              /* The same two rows as the real player, so replacing this with a
+                 finished clip changes the muting and nothing else. The muted
+                 line is the only new copy, and it says where the result lands. */
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <div className="flex min-w-0 flex-1 items-center gap-3">
-                  <Button
-                    type="button"
-                    size="icon"
-                    aria-label={isPlaying ? "Pause" : "Play"}
-                    onClick={handlePlayPause}
-                    className="h-11 w-11 flex-shrink-0 rounded-full bg-brand text-brand-foreground shadow-brand hover:bg-brand/90"
-                  >
-                    {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5 translate-x-[1px]" />}
-                  </Button>
-
-                  <span className="w-10 shrink-0 text-right font-mono text-sm tabular-nums text-muted-foreground">
-                    {fmt(currentTime)}
+                  <span className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-brand/25 text-brand-foreground/70">
+                    <Play className="h-5 w-5 translate-x-[1px]" />
                   </span>
 
-                  <input
-                    type="range"
-                    min={0}
-                    max={100}
-                    step={0.1}
-                    value={duration > 0 ? (currentTime / duration) * 100 : 0}
-                    onChange={handleSeek}
-                    aria-label="Seek"
-                    className="h-1 min-w-0 flex-1 cursor-pointer"
-                    style={{ accentColor: "var(--brand, #7c3aed)" }}
-                  />
+                  <span className="w-10 shrink-0 text-right font-mono text-sm tabular-nums text-muted-foreground/60">
+                    00:00
+                  </span>
 
-                  <span className="w-10 shrink-0 font-mono text-sm tabular-nums text-muted-foreground">
-                    {fmt(duration)}
+                  <span aria-hidden="true" className="h-1 min-w-0 flex-1 rounded-full bg-muted/60" />
+
+                  <span className="w-10 shrink-0 font-mono text-sm tabular-nums text-muted-foreground/60">
+                    00:00
                   </span>
                 </div>
 
-                {/* Actions: a full-width row on mobile, a right-hand item in
-                    the single row from sm up. The 40px height keeps the touch
-                    target comfortable; desktop keeps its original 36px pill. */}
                 <div className="flex flex-wrap items-center gap-2 sm:shrink-0 sm:flex-nowrap">
-                  <a
-                    href={audioUrl}
-                    download={`racira-tts-output.${format}`}
-                    data-testid="tts-download"
-                    className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full border border-border-subtle bg-surface px-4 text-sm font-semibold sm:h-9 sm:flex-none sm:px-3"
-                  >
-                    <Download className="h-3.5 w-3.5 shrink-0" />
-                    Download
-                  </a>
+                  <span className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full border border-border-subtle bg-surface px-4 text-sm font-semibold text-muted-foreground/70 sm:h-9 sm:flex-none sm:px-3">
+                    <span className="truncate">Your audio will appear here</span>
+                  </span>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </section>

@@ -11,7 +11,7 @@
  * so nothing else in the repo would notice. This script is the thing that
  * notices.
  *
- * It checks four ways the artifact can really break:
+ * It checks five ways the artifact can really break:
  *   1. the file is missing (deleted, or renamed);
  *   2. the required record is absent (emptied, replaced with a comment);
  *   3. the record is present but no longer byte-exact — extra whitespace, a
@@ -20,7 +20,11 @@
  *      reformatted line still looks fine to a human and still parses to a
  *      human, but is no longer the record Google was told to expect;
  *   4. the file exists locally but is git-ignored, so it never reaches a
- *      deployment (a local-only pass with a production-only failure).
+ *      deployment (a local-only pass with a production-only failure);
+ *   5. the file exists and is not ignored, but is untracked — it only ever
+ *      existed on one machine, so a fresh clone (and every build made from it)
+ *      never receives the record at all. Deleting it and recreating it by hand
+ *      fails this check until it is added to the index again.
  *
  * Deliberately permissive about a *trailing* newline and CRLF line endings:
  * those are checkout/editor artifacts, not content errors, and ADS.TXT parsers
@@ -126,7 +130,7 @@ if (!existsSync(ADS_TXT)) {
     );
   }
 
-  // ── 4. is it actually committable? ──────────────────────────────
+  // ── 4/5. is it actually committable? ────────────────────────────
   // A git-ignored ads.txt works on the machine that has it and 404s in the
   // deployed build. `git check-ignore` exits 0 when ignored, 1 when not, 128 on
   // error (no repo / no git) — only the 0 case is a finding.
@@ -140,6 +144,24 @@ if (!existsSync(ADS_TXT)) {
         `Un-ignore it (a verified ads.txt must ship with the site).`,
     );
   }
+
+  // The other half of the same failure: present and not ignored, but never
+  // added to the index. `git ls-files --error-unmatch` exits 0 when the path is
+  // tracked, 1 when git does not know it, 128 on error (no repo / no git) — so
+  // again only the one status that means "this file is not going to be
+  // committed" is a finding. A recreated-by-hand file reads as correct on disk
+  // and still never reaches a deployment; this is what catches that.
+  const tracked = spawnSync("git", ["ls-files", "--error-unmatch", "public/ads.txt"], {
+    cwd: repoRoot,
+    stdio: "ignore",
+  });
+  if (tracked.status === 1) {
+    fail(
+      `public/ads.txt is not tracked by git, so it is not part of any commit and ` +
+        `nothing will serve it. Add it (git add public/ads.txt) — do not recreate ` +
+        `it per machine.`,
+    );
+  }
 }
 
 // ── report ────────────────────────────────────────────────────────
@@ -149,7 +171,7 @@ if (jsonOut) {
   for (const f of findings) console.log(`⚠  ${f}`);
   console.log(`\n${findings.length} AdSense verification finding(s).`);
   if (findings.length === 0) {
-    console.log(`✓ /public/ads.txt present and byte-exact (${EXPECTED_RECORD})`);
+    console.log(`✓ /public/ads.txt present, byte-exact and tracked (${EXPECTED_RECORD})`);
   }
 }
 

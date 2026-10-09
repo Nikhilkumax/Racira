@@ -1,0 +1,422 @@
+[
+  {
+    "slug": "sample-rate-calculator",
+    "keywords": ["Nyquist", "bandwidth", "sample rate", "aliases"],
+    "intro": "Sample Rate Calculator applies the Nyquist relationship in both directions: the rate a given bandwidth demands, and the bandwidth a given rate can carry. It also lists the common rates with what they are used for.",
+    "content": "Enter a highest frequency to find the minimum sample rate that can carry it, or a sample rate to find what it captures, and a table shows the four rates most often chosen.\n\nThe two panels and the table:\n\n- A frequency field from one to ninety six thousand hertz, defaulting to twenty thousand, which returns the minimum rate required.\n- A sample rate field from one to three hundred and eighty four thousand hertz, defaulting to forty eight thousand, which returns the highest frequency captured.\n- A table of four common rates, each with the bandwidth it captures and a note on what it is normally used for: forty four thousand one hundred for CD and general release, forty eight thousand as the video and streaming standard, ninety six thousand for high resolution production, and one hundred and ninety two thousand for archival work and sound design.\n\nThe rule behind both directions is the Nyquist criterion, and it is worth stating precisely because the intuition is easy to get backwards. Perfect capture of a frequency requires sampling at more than twice that frequency, so the rate needed is twice the highest frequency present, and the bandwidth a given rate can represent is half of it. A forty eight thousand hertz rate therefore carries up to twenty four thousand hertz, which is comfortably above the range of hearing and is why it is the standard for video and streaming. The word above in aliases is the reason this is not merely bookkeeping. Frequencies beyond half the rate are not simply lost when the signal is converted; they fold back into the audible range as false lower tones, and those artefacts cannot be removed afterwards because they are indistinguishable from real signal. That is why the rule is stated as a minimum and why converters filter above the cutoff rather than simply ignoring what is there. The table's bandwidth column is computed as exactly half of each rate, which is the theoretical figure; practical converters leave a little margin below it for the filter's transition band, so a forty eight thousand hertz recording is not expected to hold much content above about twenty two thousand.\n\nWhat it does not do:\n\n- It states the theoretical minimum rather than the rate a converter will actually choose.\n- No anti-aliasing filter behaviour is modelled, including the transition band that keeps real converters below the halfway point.\n- Nothing about bit depth, which is a separate axis of quality.\n- No dithering or resampling quality questions.\n- It does not measure the bandwidth of any file; the figures come from what you enter.\n- Nothing is uploaded, and no history is kept.\n\nUse it when a rate has to be chosen or checked: deciding what is needed for a recording containing ultrasonic content, working out why a rate is what it is, or confirming that a capture chain will not alias. When the depth rather than the rate is the variable, the bit depth calculator gives the dynamic range each depth provides, and when the practical consequence of both together is the question, the audio file size calculator turns them into storage.",
+    "howTo": [
+      "Enter the highest frequency the material has to carry and read the minimum rate required.",
+      "Or enter a sample rate and read the highest frequency it captures.",
+      "Compare the figure against the table of common rates.",
+      "Remember that anything above half the rate aliases rather than disappearing."
+    ],
+    "whenToUse": "Sample Rate Calculator is the tool for the bandwidth side of a capture decision. {{bit-depth-calculator|Bit Depth Calculator}} answers the matching question about dynamic range, and the two together determine what a recording can contain. {{sample-rate-reference|Sample Rate Reference}} is the reference table of rates for reading rather than calculating, and {{codec-compatibility-reference|Codec Compatibility Reference}} covers which formats accept which rates.",
+    "faqs": [
+      {
+        "q": "Why does the rate have to be more than twice the frequency?",
+        "a": "Because two samples per cycle is the minimum at which a waveform can be distinguished from its neighbours, and anything less leaves the shape ambiguous. Sampling a signal at more than twice its highest frequency gives exactly enough information to reconstruct it, which is the content of the Nyquist criterion."
+      },
+      {
+        "q": "What happens if a signal contains frequencies above half the rate?",
+        "a": "They fold back into the audible range as tones that were not in the original. A real converter therefore filters above its cutoff before sampling, because aliased content cannot be separated from genuine signal afterwards, which makes it the one error that cannot be repaired."
+      },
+      {
+        "q": "Why is forty eight thousand the standard when forty four thousand one hundred came first?",
+        "a": "Because it divides cleanly into video frame rates and gives a little more margin above the audible band. The CD rate was chosen for a different medium with different constraints, and both work well for music; the video world standardised on the higher figure."
+      },
+      {
+        "q": "Do I gain anything from recording above the range of hearing?",
+        "a": "The captured audio above twenty kilohertz is normally inaudible on its own, and the case for higher rates rests on processing rather than playback: some nonlinear effects and pitch shifts generate content above the audible band, and retaining it avoids folding that content down into something audible later."
+      },
+      {
+        "q": "Is half the rate reachable in practice?",
+        "a": "Not quite. A converter needs room to filter off the content just above the cutoff, so the usable bandwidth sits slightly below the halfway figure. Treat the calculated value as the ceiling rather than as a promise about a real recording chain."
+      }
+    ]
+  },
+  {
+    "slug": "bit-depth-calculator",
+    "keywords": ["quantisation", "dynamic range", "signal to noise ratio", "bit depth"],
+    "intro": "Bit Depth Calculator gives the dynamic range a given depth provides, and the depth needed to reach a target range. It is the arithmetic behind the familiar claim that each bit buys about six decibels.",
+    "content": "Enter a bit depth to read its dynamic range, or a target range to read the depth it needs, and a table compares six common depths.\n\nThe two panels and the table:\n\n- A bit depth field from one to sixty four, defaulting to sixteen, which returns the resulting dynamic range in decibels.\n- A target dynamic range field from two to six hundred decibels, defaulting to a hundred and twenty, which returns the depth that reaches it along with the slightly higher depth that rounds up to.\n- A table of six depths with their ranges and typical uses: eight and twelve bit as lo-fi and vintage sampler territory, sixteen as the release standard, twenty for high resolution and archival work, twenty four for recording and mastering, and thirty two bit float for internal headroom.\n\nThe formula is six point zero two times the number of bits plus one point seven six decibels, and each part of it means something. The six point oh two comes from the fact that each additional bit halves the size of the quantisation step, and halving a step is a factor of two in amplitude, which is very close to six decibels. The constant one point seven six is the signal to noise ratio of an ideal quantiser fed a full scale sine, and it accounts for the way quantisation error is distributed across a step rather than sitting at its worst value. The multiplication is what makes the rule of thumb memorable: every bit is about six decibels, so going from sixteen to twenty four bits buys roughly forty eight decibels, which is the difference between a range adequate for a finished release and one that leaves room to work with. The rounding question matters when the second panel is used. A target range rarely lands exactly on a whole number of bits, so the tool reports both the fractional answer and the depth that rounds up to, because a converter takes whole bits and the nearest lower depth would miss the target. Bits above twenty four in practice are about internal headroom rather than more audible detail: thirty two bit float is used inside a digital signal path because it can hold values above full scale without clipping, which makes it a working format rather than a delivery one.\n\nWhat the figure does not mean:\n\n- It is the theoretical range of an ideal quantiser, not what a given piece of hardware achieves.\n- It says nothing about distortion or the quality of the converter itself.\n- It ignores dither, which is applied precisely because quantisation error is not benign.\n- It does not describe the audible noise floor of a recording, which is usually set by the microphone and the room.\n- No file size consequence, since that depends on the sample rate too.\n- Nothing is measured from audio.\n\nUse it to make sense of a specification, to see how much room a depth leaves for processing, or to check a claim about a converter's range. When the bandwidth axis of a capture decision is the question rather than the level axis, the sample rate calculator covers the other half, and when both are being weighed against storage the audio file size calculator puts the two together. The loudness standards reference is the place to look when the question is how much range a delivery specification actually expects.",
+    "howTo": [
+      "Enter a bit depth to read the dynamic range it provides.",
+      "Or enter a target dynamic range to read the depth required and the next depth up.",
+      "Check the table for the depth that suits the job at hand.",
+      "Remember that six decibels per bit is the rule the arithmetic is built on."
+    ],
+    "whenToUse": "Bit Depth Calculator is the tool for the level side of a format decision, and it is the companion to the sample rate question. {{sample-rate-calculator|Sample Rate Calculator}} covers bandwidth instead. {{audio-file-size-calculator|Audio File Size Calculator}} combines the two into storage, and {{loudness-standards-reference|Loudness Standards Reference}} is what to read when a delivery specification sets the range a finished master is expected to have.",
+    "faqs": [
+      {
+        "q": "Why six decibels per bit?",
+        "a": "Because each extra bit halves the quantisation step, and halving an amplitude is a factor of two, which is six point oh two decibels. That is why the formula is a multiplication rather than something more complicated, and why the rule of thumb is close enough for mental arithmetic."
+      },
+      {
+        "q": "What is the one point seven six in the formula?",
+        "a": "It is the signal to noise ratio an ideal quantiser produces for a full scale sine wave, allowing for the way quantisation error spreads across a step. Without it the figure would be about one and three quarter decibels lower, which matters little at twenty four bits and a good deal at eight."
+      },
+      {
+        "q": "Do I need twenty four bits if nothing I record is that quiet?",
+        "a": "The benefit is seldom the extra range itself. Twenty four bits means the noise floor of the arithmetic sits far below anything the microphone or room will contribute, so the depth is not the limiting factor and levels can be set conservatively without any risk of the format being what gets heard."
+      },
+      {
+        "q": "Why is thirty two bit float different from thirty two bit integer?",
+        "a": "Because floating point spends some of its bits on an exponent, which lets it represent values above full scale without clipping. That makes it useful inside a processing chain, where intermediate gains can exceed the nominal maximum, and unnecessary for delivery, where the level is already settled."
+      },
+      {
+        "q": "Does a higher bit depth make a recording sound better?",
+        "a": "Not by itself. The audible noise floor of a real recording is set by the microphone, the preamp and the room, all of which are far above a sixteen bit floor in ordinary conditions. Depth is about leaving room to work, not about audible detail on its own."
+      }
+    ]
+  },
+  {
+    "slug": "audio-file-size-calculator",
+    "keywords": ["uncompressed", "bitrate", "PCM", "duration"],
+    "intro": "Audio File Size Calculator estimates how large a recording will be, both uncompressed and at a lossy bitrate. It answers the practical question of whether a project will fit.",
+    "content": "Set the duration and the format parameters and the panel gives two sizes side by side, along with how much smaller the compressed version is.\n\nThe inputs and the two results:\n\n- A duration in minutes from a tenth to six hundred, defaulting to three.\n- A sample rate chosen from seven standard values between twenty two thousand and fifty and one hundred and ninety two thousand hertz.\n- A channel count of mono, stereo or six channels for surround.\n- A bit depth of eight, sixteen, twenty four or thirty two bits.\n- A lossy bitrate from ninety six to three hundred and twenty kilobits per second, defaulting to the highest.\n- Two results, one for the uncompressed file and one for the compressed estimate, plus the ratio between them.\n\nThe two calculations are different in kind. For uncompressed PCM the size is the duration multiplied by the sample rate, the channel count and the depth in bytes, which is exact rather than approximate: a three minute stereo recording at forty four thousand one hundred hertz and sixteen bits comes to about fifteen megabytes, and the arithmetic is simply the number of samples times the bytes each one takes. For a lossy format the size is the bitrate multiplied by the duration, divided by eight to convert bits into bytes, and it does not depend on the sample rate, the channel count or the depth at all, because a lossy encoder has already thrown away whatever it needed to in order to hit its target. That is why the same three minutes comes to about seven megabytes at three hundred and twenty kilobits per second regardless of the source format. The ratio line is the interesting comparison, since it is the whole reason lossy formats exist: a typical result is somewhere between two and three times smaller, and a low bitrate can be an order of magnitude smaller again. The compressed figure is deliberately described as an estimate because a lossy file carries headers, tags and frame padding, and its real size depends on the encoder's decisions, so the arithmetic gives the payload rather than the file on disk.\n\nWhere the estimate is rough:\n\n- The compressed figure excludes container overhead, metadata and tag data.\n- No encoder efficiency differences are modelled; only the target bitrate matters.\n- Variable bitrate files will differ from the constant rate figure.\n- Lossless compressed formats such as FLAC are not estimated, though they sit between the two.\n- No consideration of how much content the file actually has.\n- Nothing is uploaded, and no file is measured.\n\nUse it to plan storage before a session, to decide whether a project fits on a drive, or to see what a format choice costs in size. When the question is how much data a stream carries rather than how much a file weighs, the streaming bitrate calculator works in bandwidth and monthly transfer instead, and when the parameters themselves need understanding rather than combining, the sample rate calculator and the bit depth calculator explain what each one buys.",
+    "howTo": [
+      "Enter the length of the material in minutes.",
+      "Choose the sample rate, channel count and bit depth for the uncompressed figure.",
+      "Choose a lossy bitrate for the compressed figure.",
+      "Compare the two sizes and the ratio between them."
+    ],
+    "whenToUse": "Audio File Size Calculator is the tool for working out whether a recording will fit, and what each format choice costs in space. {{streaming-bitrate-calculator|Streaming Bitrate Calculator}} covers the other direction, where the concern is bandwidth over a network rather than storage on a disk. {{sample-rate-calculator|Sample Rate Calculator}} and {{bit-depth-calculator|Bit Depth Calculator}} explain the two parameters that drive the uncompressed figure, and {{audio-bitrate-reference|Audio Bitrate Reference}} is the table to read when choosing a bitrate rather than calculating what it costs.",
+    "faqs": [
+      {
+        "q": "Why does the compressed size not depend on the sample rate?",
+        "a": "Because a lossy encoder is given a bitrate target and adjusts whatever it must to meet it. Rate, channels and depth affect how much the encoder has to throw away, not how many bits per second come out, so the file size follows the bitrate and the duration alone."
+      },
+      {
+        "q": "How accurate is the uncompressed figure?",
+        "a": "The sample arithmetic is exact, since it is the number of samples multiplied by the bytes each occupies. The file on disk will be slightly larger because of the header, which is a fixed few dozen bytes and therefore negligible for anything but a fraction of a second of audio."
+      },
+      {
+        "q": "What about a lossless compressed format?",
+        "a": "It sits between the two figures shown. Lossless compression typically removes twenty to fifty percent of the size of PCM depending on how compressible the signal is, with quiet or highly periodic material shrinking the most. The two results here bracket it rather than estimating it."
+      },
+      {
+        "q": "Why does doubling the sample rate double the size?",
+        "a": "Because twice as many samples are stored for the same duration, each taking the same number of bytes. The same is true of the channel count, which is why an uncompressed surround file is three times the size of a stereo one at the same rate and depth."
+      },
+      {
+        "q": "Can I use this to work out how much space a session will need?",
+        "a": "For the recorded audio, yes, though a real session also holds alternate takes, edits and often several versions of each track. Estimating from the final duration and then multiplying by the number of tracks and takes gives a more realistic working figure than the finished length alone."
+      }
+    ]
+  },
+  {
+    "slug": "streaming-bitrate-calculator",
+    "keywords": ["bandwidth", "listener count", "monthly transfer", "bitrate"],
+    "intro": "Streaming Bitrate Calculator works out the upload bandwidth a stream needs and the data it will transfer in a month. It is the arithmetic behind choosing a hosting plan.",
+    "content": "Set the audience size, the bitrate and the hours streamed per day, and the panel gives the bandwidth required and the monthly transfer.\n\nThe three inputs and two results:\n\n- A simultaneous listener count from one to a million, defaulting to five hundred.\n- A bitrate chosen from six values between sixty four and three hundred and twenty kilobits per second, defaulting to a hundred and twenty eight.\n- Hours streamed per day from half an hour to twenty four, in half-hour steps, defaulting to four.\n- A bandwidth result, shown in megabits per second once the figure is large enough, computed as the listener count multiplied by the bitrate.\n- A monthly transfer result over thirty days, shown in terabytes when it grows large.\n\nBoth figures follow from the same two numbers, and the order matters. The bandwidth is the bitrate multiplied by the number of people listening at once, because each listener needs their own copy of the stream and the server has to send them all simultaneously; at five hundred listeners and a hundred and twenty eight kilobits per second the requirement is sixty four megabits per second of sustained upload. The monthly transfer is the same sum multiplied by the time the stream runs, which is why the hours per day figure appears in one calculation and not the other. A stream that runs four hours a day for thirty days at five hundred listeners and a hundred and twenty eight kilobits per second moves well over three terabytes, and the fact that the same listener count produces a modest bandwidth figure and a very large transfer figure is the whole point of showing both. Bandwidth is what a moment costs and transfer is what the month costs, and hosting plans constrain one or the other depending on the provider. The advice in the panel is about headroom rather than arithmetic: protocol overhead means the real figure is somewhat above the payload calculation, and listener counts spike around announcements and at the start of a programme, so doubling the bandwidth figure before committing to a plan is a reasonable habit rather than an excess of caution.\n\nWhat the calculator leaves out:\n\n- Protocol and container overhead, which add to both figures in practice.\n- Variation in listener numbers over the month.\n- The cost of the audio being encoded, or of any video accompanying it.\n- Peak concurrency, which is what the plan must actually survive.\n- No allowance for retransmission or dropped connections.\n- Nothing about the source material, only the bitrate chosen.\n\nUse it before signing up for hosting, before planning a live broadcast of a known audience size, or to see how sensitive a monthly bill is to the bitrate chosen. When the question is the size of a file rather than the load of a stream, the audio file size calculator works in storage instead, and when the bitrate itself still has to be chosen against a quality target, the audio bitrate reference sets out what each figure is normally used for.",
+    "howTo": [
+      "Enter the number of people likely to be listening at the same time.",
+      "Choose the bitrate the stream will be encoded at.",
+      "Set how many hours a day it will run.",
+      "Read the bandwidth needed and the monthly transfer, then add headroom before choosing a plan."
+    ],
+    "whenToUse": "Streaming Bitrate Calculator is the tool for planning the network side of a broadcast, in both the instantaneous and the monthly sense. {{audio-file-size-calculator|Audio File Size Calculator}} answers the storage question for a file rather than a stream. {{bitrate-quality-converter|Bitrate Quality Converter}} is where the bitrate itself gets chosen against a quality target, and {{streaming-platform-loudness-guide|Streaming Platform Loudness Guide}} covers the level the material should be normalised to for each service.",
+    "faqs": [
+      {
+        "q": "Why is the monthly figure so much larger than the bandwidth?",
+        "a": "Because they measure different things. Bandwidth is how many bits per second have to be sent at any instant, while the monthly transfer is that rate accumulated over every second the stream runs. A modest bandwidth maintained for hours a day adds up to terabytes over a month."
+      },
+      {
+        "q": "Should I use the peak or the average listener count?",
+        "a": "The peak, for bandwidth, because a plan has to survive the busiest moment rather than the typical one. The monthly transfer is usually calculated from the average, since it is a total. Entering the peak in both places gives a deliberately safe estimate of the second figure."
+      },
+      {
+        "q": "How much headroom should I allow?",
+        "a": "Twice the calculated bandwidth is a common and reasonable habit. Protocol overhead adds a percentage, but the larger risk is that listeners arrive faster than expected, and an under-provisioned stream degrades for everyone rather than for the extra listeners alone."
+      },
+      {
+        "q": "Does a higher bitrate cost much more?",
+        "a": "It scales both figures directly, since everything is proportional to the bitrate. Going from a hundred and twenty eight to two hundred and fifty six kilobits per second doubles the bandwidth and the monthly transfer, which is why the choice of quality and the choice of plan are really the same decision."
+      },
+      {
+        "q": "What about listeners who drop and reconnect?",
+        "a": "Each reconnection starts a new stream, so the transferred data is slightly more than a single continuous session would imply. The effect is small for short interruptions and larger for unstable connections, which is one reason a calculated monthly figure is a floor rather than a ceiling."
+      }
+    ]
+  },
+  {
+    "slug": "midi-note-to-frequency",
+    "keywords": ["MIDI note", "equal temperament", "A4", "reference"],
+    "intro": "MIDI Note to Frequency converts a note number into the frequency it sounds at, with the tuning reference adjustable. It also shows the twelve notes around the one you entered for context.",
+    "content": "Enter a note number from zero to one hundred and twenty seven and read its name, its frequency, and the twelve notes around it.\n\nThe controls and output:\n\n- A note number field from zero to one hundred and twenty seven, defaulting to sixty nine, which is the note A4 at the standard reference.\n- A tuning reference slider for the note A4 from four hundred and fifteen to four hundred and sixty six hertz, defaulting to the standard four hundred and forty.\n- A large readout giving the frequency to two decimal places along with the note name and the reference in use.\n- A table of twelve note numbers centred on the one entered, each with its note name and frequency, so the neighbourhood can be read at a glance.\n\nThe conversion uses the MIDI numbering scheme together with equal temperament. Every note number is a semitone apart, and each semitone is a fixed ratio rather than a fixed number of hertz, so the whole scale can be generated from a single anchor point by multiplying by the twelfth root of two repeatedly. That anchor is the reference: the tool takes the standard relationship and then scales the whole result by the ratio between your reference and four hundred and forty, which means moving the slider shifts every note proportionally rather than transposing the keyboard. The note name is derived from the number itself, with the letter repeating every twelve numbers and the octave number incrementing at C rather than at A, which is the convention that most often catches people out. The table is there because a note number in isolation is hard to place: seeing that sixty nine is A4, that the note below is G sharp and the one above is A sharp, and what each of them sounds at, is usually enough to confirm that the number entered was the one intended. The whole thing is arithmetic on a single reference, so nothing needs measuring and nothing depends on any audio.\n\nWhat it does not do:\n\n- No decimal note numbers, so a detuned pitch is a matter for the other direction or for the cents calculator.\n- No temperament other than equal, so a just or historically tempered scale differs from the result.\n- No MIDI file reading, so a sequence has to be looked up note by note.\n- No instrument transposition, so a written note for a transposing instrument is not converted.\n- No audio, and nothing is played back.\n- Nothing is uploaded, and no history is kept.\n\nUse it when a sequence or a controller sends note numbers and the question is what they sound like, when a synthesizer has to be tuned to match another instrument in hertz, or when the reference itself is in doubt. When the input is a frequency and the question is the other way round, the frequency to MIDI note tool gives the nearest note plus the offset, and when a note name rather than a number is the starting point, the note frequency calculator accepts names as typed.",
+    "howTo": [
+      "Enter the MIDI note number, using sixty nine as a familiar starting point.",
+      "Read the note name and frequency, and check the reference the result assumes.",
+      "Move the reference slider if the material is not at modern pitch.",
+      "Use the table of twelve notes to confirm where the note sits in its neighbourhood."
+    ],
+    "whenToUse": "MIDI Note to Frequency is the tool for turning a note number into hertz, which is what a sequencer or controller speaks in. {{frequency-to-midi-note|Frequency to MIDI Note}} works in the opposite direction and adds the detuning, and {{note-frequency-calculator|Note Frequency Calculator}} accepts a written note name instead of a number. When the detuning rather than the note is the question, {{cents-calculator|Cents Calculator}} works directly in that unit.",
+    "faqs": [
+      {
+        "q": "Why does the octave number change at C rather than at A?",
+        "a": "Because scientific pitch notation labels the whole run of notes from C upward with the same octave number, so middle C is C4 and the B above it is B4 while the A below is A3. It is a convention rather than a consequence of the arithmetic, but it is the one every instrument and score follows."
+      },
+      {
+        "q": "What does the reference slider actually do?",
+        "a": "It scales the whole set of notes by the ratio between your chosen reference and four hundred and forty. Because equal temperament defines every note relative to the reference, moving it shifts every note proportionally rather than adding a fixed number of hertz, which is exactly how tuning to an older pitch works."
+      },
+      {
+        "q": "Can I enter a note number between two integers for a detuned pitch?",
+        "a": "The field is whole numbers only, since the point of the tool is the mapping between note numbers and names. For a pitch that sits between two notes, work in hertz with the frequency to MIDI note tool, which reports the exact fractional position along with the offset in cents."
+      },
+      {
+        "q": "Why is A4 note number sixty nine?",
+        "a": "Because the numbering starts at zero for the lowest note in the range and counts upward in semitones, and sixty nine semitones above that starting point lands on A4. The starting note itself is far below the range of hearing, which is why the low numbers are seldom used in practice."
+      },
+      {
+        "q": "Does the result depend on any audio settings?",
+        "a": "No. Nothing is measured and nothing is played; the frequency is computed from the note number and the reference alone. That also means the figure is exact rather than an estimate, and it holds whatever hardware or file it is later applied to."
+      }
+    ]
+  },
+  {
+    "slug": "frequency-to-midi-note",
+    "keywords": ["offset in cents", "fractional", "nearest note", "A4"],
+    "intro": "Frequency to MIDI Note names the note nearest a measured frequency and says how far off it is, in cents and as a fractional note number. It is the tool for making sense of a pitch reading.",
+    "content": "Enter a frequency and the panel gives the nearest note, its note number, the offset in cents and the exact fractional position.\n\nThe inputs and the four results:\n\n- A frequency field from a tenth of a hertz to twenty five thousand, defaulting to four hundred and fifty.\n- A tuning reference slider for the note A4 from four hundred and fifteen to four hundred and sixty six hertz.\n- A nearest note name and its whole note number.\n- A signed offset in cents, highlighted when the reading is within five cents of the note.\n- The exact fractional note number, to two decimal places, which is the position between notes that a synthesizer would need.\n\nThe calculation is the inverse of the note-number conversion. A frequency is measured, the reference is applied to bring it into the standard relationship, and the logarithm of the ratio to the reference is taken in base two and scaled by twelve, since there are twelve equal semitones in an octave. The integer part of that result names the nearest note and the fraction is how far the pitch sits between notes; multiplying the fraction by a hundred gives cents, a hundred of which make a semitone. The cents figure is the one that matters for tuning, because it is the same proportional distance at every pitch: a reading twenty cents sharp is a fifth of the way to the next note whether the note is low or high, whereas the same number of hertz would be a wide interval in the bass and a negligible one at the top. That is why the panel highlights a reading within five cents, which is roughly the point at which a sustained tone starts to sound out of tune to a listener. The reference slider matters because it changes what counts as the note. A reading taken from an instrument tuned to an older pitch will report a different note and offset if the reference is left at the modern figure, so the honest reading requires the reference to match the material. Every result here is derived from arithmetic on the number entered rather than from any audio, and it is exact.\n\nWhat it does not cover:\n\n- No pitch detection, so the frequency has to come from a tuner or a meter.\n- Equal temperament only, so a differently tempered instrument reads as a series of detunings.\n- No ambiguity resolution, so a pitch close to midway between two notes is reported as whichever is nearer.\n- Nothing about vibrato or a pitch that moves over time.\n- No instrument transposition for written notes.\n- Nothing is uploaded, and no history is kept.\n\nUse it when a measured frequency has to become a note name and a tuning error, which is how a strobe reading or a spectrum peak is usually interpreted. When the direction is a note number that has to become a frequency, the MIDI note to frequency tool does that, and when the input is a note name rather than a number, the note frequency calculator accepts names as written.",
+    "howTo": [
+      "Enter the measured frequency in hertz.",
+      "Set the tuning reference to match the instrument or recording.",
+      "Read the nearest note and the signed offset in cents.",
+      "Use the fractional note number if the pitch has to be placed in software."
+    ],
+    "whenToUse": "Frequency to MIDI Note is the interpretation step for any pitch measurement, turning a number in hertz into a note and a tuning error. {{midi-note-to-frequency|MIDI Note to Frequency}} converts the other way from a note number. {{note-frequency-calculator|Note Frequency Calculator}} combines both directions and also accepts written note names, and {{guitar-tuner|Guitar Tuner}} or {{instrument-tuner|Instrument Tuner}} produce the frequency reading in the first place.",
+    "faqs": [
+      {
+        "q": "What does a negative cents offset mean?",
+        "a": "That the measured pitch is below the nearest note. The sign is the direction and the magnitude is how far, so minus twenty cents describes a pitch a fifth of a semitone flat. When the reading is close enough that the sign is the only difference, the pitch is effectively in tune."
+      },
+      {
+        "q": "Why does the note name change when I move the reference?",
+        "a": "Because the reference defines what each note is. A pitch that reads as a sharp note at the modern tuning may read as the note below if the reference is lowered far enough, since the whole set of note frequencies moves with it. Choosing the reference that matches the material is what makes the reading meaningful."
+      },
+      {
+        "q": "How many cents off is audible?",
+        "a": "It depends on the material and the listener, but sustained tones start to sound out of tune from roughly five cents and become clearly wrong by about twenty. The panel highlights readings inside five cents for that reason, and it is a reasonable working threshold for tuning by ear."
+      },
+      {
+        "q": "What is the fractional note number for?",
+        "a": "It places the pitch between notes on the same scale that a synthesizer or sequencer uses, so a value of sixty nine point five is exactly halfway between A4 and the note above. For a pitch that needs to be reproduced rather than named, that figure is more useful than the cents offset."
+      },
+      {
+        "q": "Can it tell me which note a recording is in?",
+        "a": "Only one pitch at a time, and only if you already have a frequency for it. Identifying the key of a piece comes from the notes it uses rather than from a single measurement, and the note can then be confirmed with the note frequency calculator or the interval calculator."
+      }
+    ]
+  },
+  {
+    "slug": "cents-calculator",
+    "keywords": ["cents", "semitone", "ratio", "drift"],
+    "intro": "Cents Calculator measures the distance between two frequencies in cents, and shifts a frequency by a given number of cents. It is the unit that tuning actually happens in.",
+    "content": "Use either panel: two frequencies give the interval between them in cents, or a frequency and a cents figure give the result of shifting by that amount.\n\nThe two panels:\n\n- An interval panel taking two frequencies, defaulting to four hundred and forty and four hundred and fifty, and reporting the difference in cents with its sign along with the ratio between them.\n- A shift panel taking a base frequency and a cents figure, defaulting to four hundred and forty hertz and a hundred cents, and reporting the resulting frequency and the ratio the shift represents.\n- A note stating that a hundred cents make a semitone, that twelve hundred make an octave, and that audible tuning drift starts somewhere around five to ten cents on a sustained tone.\n\nThe cent is a unit of proportion rather than of frequency, and that is exactly why it is used. Its size is defined so that any equal-tempered semitone is exactly a hundred of them at every pitch, which means a figure in cents describes the same musical distance whether it applies to a bass note or the top of a piano. The arithmetic behind the first panel takes the logarithm of the ratio between the two frequencies and scales it so that a doubling comes to twelve hundred, so the answer for four hundred and forty to four hundred and fifty comes out a little under forty cents. The second panel runs the same relationship backwards, raising the base frequency by the ratio that the cents figure implies, which is the calculation needed when a recording is known to be a fixed number of cents sharp and has to be corrected. The panel reports the ratio alongside for a practical reason: some equalisers, oscillators and detune controls are marked in ratios rather than in cents, and the ratio is also the figure needed if the same proportional shift has to be applied to a whole set of frequencies rather than to one. What the numbers cannot do is decide what matters. A few cents is inaudible on a single sustained tone and yet very audible between two instruments sounding together, so the threshold in the note is a guide rather than a rule.\n\nWhere the calculator stops:\n\n- It takes frequencies, so a measurement has to come from elsewhere.\n- No temperament other than equal is assumed.\n- The interval is reported as a signed difference, so an octave and its inverse are distinguished only by the sign.\n- No handling of beats or of two tones sounding simultaneously.\n- Nothing about how a given drift sounds on a particular instrument.\n- Nothing is uploaded, and no history is kept.\n\nUse it when a tuning error has to be quantified, when a detune control marked in cents has to be translated into hertz, or when two readings need comparing. When the question is what note a frequency is rather than how far apart two of them are, the note frequency calculator and the frequency to MIDI note tool answer that, and when the interval has a musical name as well as a size, the interval calculator gives both.",
+    "howTo": [
+      "Enter two frequencies to read the interval between them in cents and as a ratio.",
+      "Or enter a base frequency and a cents figure to read the shifted frequency.",
+      "Use the ratio column when a control is marked in ratios rather than cents.",
+      "Compare the figure against the five to ten cent range where drift becomes audible."
+    ],
+    "whenToUse": "Cents Calculator is the tool when a pitch difference has to be measured or applied in the unit that tuning works in, whether the source is a measurement or a specification. {{note-frequency-calculator|Note Frequency Calculator}} names notes rather than measuring distances, and {{interval-calculator|Interval Calculator}} gives intervals their musical names. When the shift is going to be applied to audio rather than to a number, {{pitch-shift-calculator|Pitch Shift Calculator}} works out what a change in speed would do to pitch.",
+    "faqs": [
+      {
+        "q": "Why use cents instead of hertz?",
+        "a": "Because a cent is the same proportional distance at every pitch. Ten hertz is a large interval low down and a tiny one high up, so a figure in hertz means different things in different registers, while a figure in cents always means the same musical distance."
+      },
+      {
+        "q": "How much is a cent in hertz?",
+        "a": "It depends entirely on how high the note is, which is the point of the unit. Near the top of the piano a cent is a fraction of a hertz, and in the bass it is several, so the only way to answer the question is to ask at which frequency."
+      },
+      {
+        "q": "Why does the panel mention drift at five to ten cents?",
+        "a": "Because that is roughly where a sustained tone starts to sound out of tune to a listener. Below it, most material passes as in tune; above it, the pitch becomes noticeable, and by around twenty cents a unison sounds clearly wrong to anybody listening."
+      },
+      {
+        "q": "What does the ratio column add?",
+        "a": "Some controls are marked as a ratio rather than in cents, and a proportional shift applied to a set of frequencies is easier to express as a multiplier. The ratio and the cents figure describe the same relationship in two forms, so either can be used depending on what is being set."
+      },
+      {
+        "q": "Can I fix a recording that is a few cents sharp?",
+        "a": "The arithmetic here tells you the ratio needed, which a pitch shifter can then apply as a very small shift. Shifts of only a few cents are well inside the range where time-domain processing is transparent, so the correction is usually inaudible as processing."
+      }
+    ]
+  },
+  {
+    "slug": "playback-speed-calculator",
+    "keywords": ["speed", "duration", "pitch", "semitones"],
+    "intro": "Playback Speed Calculator works out the speed needed to turn one duration into another, and how far the pitch moves as a consequence. It quantifies the coupling between speed and pitch that tape-style playback produces.",
+    "content": "Enter the original and target durations and the panel gives the speed required, the resulting pitch shift, and the new duration.\n\nThe inputs and the three results:\n\n- An original duration in seconds from a tenth to twenty hours.\n- A target duration over the same range.\n- A speed figure as a multiplier to four decimal places.\n- The pitch shift in semitones, signed to two decimal places, which is what the speed change would do to the pitch.\n- The resulting duration, confirmed from the ratio.\n\nA block below restates the arithmetic for the common cases. One and a quarter times speed works out to about four semitones up and three quarters speed to about five semitones down, doubling speed raises the pitch by exactly an octave and halving it drops the pitch by an octave. Those figures are all the same relationship: speed and pitch move together in direct proportion when material is played at a different rate, because playing a recording faster is the same operation as resampling it, and resampling compresses the waveform in time and therefore multiplies every frequency by the same factor. The semitone figure comes from taking the logarithm of the speed in base two and multiplying by twelve, since an octave is a factor of two and contains twelve semitones, which is why a doubling comes out to exactly twelve and everything else falls between. The tool is explicit that this describes tape-style behaviour only. Changing speed without changing pitch is time stretching, which is a different operation entirely and is what the speed changer's keep-pitch mode does. Knowing which of the two applies before choosing a tool is the practical value here, because a speed change that was intended to be transparent will produce a very audible pitch shift if it is applied by resampling instead of by stretching.\n\nWhat it does not do:\n\n- It processes no audio, so nothing is rendered.\n- It assumes a constant speed across the whole file.\n- No time-stretching arithmetic, since that is a different operation with no pitch consequence.\n- No formant or timbre considerations for large stretches.\n- No handling of a speed that varies over time.\n- Nothing is uploaded, and no history is kept.\n\nUse it before applying a change: to see what a speed-up will do to the key of a track, to work out whether the pitch consequence is acceptable, or to decide between resampling and stretching. When the speed change has to be applied to real audio, the audio speed changer offers both the tape-style and the pitch-preserving modes, and the time stretcher covers the duration case alone. When the pitch shift rather than the speed is the thing being quantified, the pitch shift calculator approaches the same relationship from the pitch end. The arithmetic is worth running before any change is applied rather than after, because the pitch consequence is not something that can be corrected in the result without a second operation: a track resampled up by four percent has already lost its original key by the time anyone hears it.",
+    "howTo": [
+      "Enter the duration the material has now.",
+      "Enter the duration it needs to become.",
+      "Read the speed multiplier and the pitch shift in semitones that would follow.",
+      "Decide whether that pitch consequence is acceptable, or whether a time-stretch is needed instead."
+    ],
+    "whenToUse": "Playback Speed Calculator is the tool for seeing the pitch cost of a speed change before committing to it. {{audio-speed-changer|Audio Speed Changer}} applies the change with either the tape-style or the keep-pitch behaviour, and {{time-stretcher|Time Stretcher}} handles the duration without touching pitch. When the pitch consequence itself is the subject, {{pitch-shift-calculator|Pitch Shift Calculator}} works from that end of the same relationship.",
+    "faqs": [
+      {
+        "q": "Why does the pitch move at all?",
+        "a": "Because playing a recording faster means reading its samples at a different rate, which squashes the waveform in time and multiplies every frequency by the same factor. Speed and pitch are two views of one operation whenever resampling is involved."
+      },
+      {
+        "q": "Can I change speed without moving the pitch?",
+        "a": "Yes, by time stretching rather than resampling. A stretcher rebuilds the audio from overlapping grains so the duration changes while the frequencies stay put. That is a different operation from the one this calculator quantifies, and it is what the keep-pitch mode of the speed changer does."
+      },
+      {
+        "q": "Why is doubling speed exactly one octave?",
+        "a": "Because an octave is a factor of two in frequency, and doubling the speed doubles every frequency in the material. Twelve semitones also describes a factor of two, which is why the arithmetic has such a clean anchor point."
+      },
+      {
+        "q": "Is a small speed change safe to use on music?",
+        "a": "Up to a few percent the pitch shift is small enough that many listeners would not notice without a reference, and it is a common trick for making a track sit at a slightly different tempo. Beyond that the key change becomes the dominant effect, and a stretcher is usually the better tool."
+      },
+      {
+        "q": "How do I know which approach was used on a file I did not make?",
+        "a": "Listen to whether the pitch and the speed agree. If the material has moved in tempo and its key has moved with it, it was resampled; if the tempo changed and the key did not, it was stretched. There is no way to tell from the file contents alone, only from the relationship between the two."
+      }
+    ]
+  },
+  {
+    "slug": "pitch-shift-calculator",
+    "keywords": ["speed", "resampling", "cents", "reciprocal"],
+    "intro": "Pitch Shift Calculator quantifies two things: the interval between any two pitches, and how far a speed change would move one. It is a reference for the arithmetic behind pitch shifting rather than a tool that processes audio.",
+    "content": "Use either panel: two frequencies give the interval between them, or a speed percentage gives the pitch shift that resampling at that speed would produce.\n\nThe two panels:\n\n- An interval panel taking two frequencies and reporting the difference in cents and in semitones, along with the notes each frequency sits nearest to.\n- A speed panel with a slider from fifty to two hundred percent, reporting the shift in cents, where the base frequency lands afterwards, which note that is nearest, and the reciprocal speed that would return it to where it started.\n- A note explaining that time stretching changes duration without touching pitch while resampling moves both together, and that the coupling is exactly what the calculator quantifies.\n\nThe two panels describe the same relationship from opposite ends, and that is the point of having both. Given two pitches, the interval panel says how far apart they are, taking the logarithm of their ratio and scaling it into cents; a semitone comes out at a hundred and an octave at twelve hundred, which makes any interval legible at a glance. Given a speed, the speed panel says what resampling at that rate would do, which is the calculation behind speeding a record up or down and the reason a slightly fast tape changes the key of what is on it. Speed and pitch are proportional under resampling, so a hundred and five percent speed is about eighty five cents sharp, roughly a semitone, and it is worth remembering as a rule of thumb that about six percent of speed is about one semitone of pitch. The reciprocal line is the practical one: it gives the speed that undoes a change, which is what is needed to return a file to its original pitch after it has been played at a different rate, and it is simply the inverse of the percentage rather than a new calculation. Both panels are pure arithmetic on the figures entered, and no audio passes through the tool at all.\n\nWhat it does not do:\n\n- It processes no audio and produces no files.\n- It assumes resampling for the speed relationship, so it does not describe time stretching.\n- No formant or timbre effects of a large shift.\n- Equal temperament only for the note names.\n- No handling of a speed that varies over time.\n- Nothing is uploaded, and no history is kept.\n\nUse it to work out what a speed change would do to a pitch before applying it, to measure the interval between two readings, or to find the speed that returns a file to its original key. When the shift has to be applied to real audio with the pitch and duration decoupled, the audio pitch shifter does that, and when the question is the duration consequence of a speed change rather than the pitch consequence, the playback speed calculator approaches the same relationship from the timing end. Both panels are worth keeping in mind as a single relationship rather than two facts, since the interval between two pitches and the pitch consequence of a speed change are the same logarithm seen from different sides, and a figure in cents is often the quickest way to compare a measured interval against a proposed change.",
+    "howTo": [
+      "Enter two frequencies to read the interval between them in cents and semitones.",
+      "Or set a speed percentage to read the pitch shift it would produce.",
+      "Use the reciprocal figure to find the speed that undoes a change.",
+      "Remember that about six percent of speed is about one semitone of pitch."
+    ],
+    "whenToUse": "Pitch Shift Calculator is the tool for the arithmetic of pitch and speed relationships, and for checking a change before applying it. {{audio-pitch-shifter|Audio Pitch Shifter}} applies a shift while leaving the duration alone. {{playback-speed-calculator|Playback Speed Calculator}} covers the timing side of the same relationship, and {{cents-calculator|Cents Calculator}} works purely in the tuning unit when the interval is small enough that semitones are too coarse.",
+    "faqs": [
+      {
+        "q": "What is the reciprocal line for?",
+        "a": "It gives the speed that returns a shifted pitch to where it started, which is the inverse of the percentage you set. Playing a file at a hundred and five percent and then at the reciprocal speed brings it back to its original key, which is the practical way to undo a resample."
+      },
+      {
+        "q": "Is six percent of speed really a semitone?",
+        "a": "Very close to it. The exact figure is the twelfth root of two, which is about five point nine five percent, so six percent is a good mental approximation and the reason a slightly fast tape sounds about a semitone sharp."
+      },
+      {
+        "q": "Why does speed affect pitch at all?",
+        "a": "Because playing a recording at a different rate is resampling it, and resampling compresses or stretches the waveform in time. Every frequency in the signal is multiplied by the same factor, so the whole spectrum moves together and the key changes with the tempo."
+      },
+      {
+        "q": "How is this different from time stretching?",
+        "a": "Time stretching changes duration without resampling, by rebuilding the audio from overlapping grains, so the pitches stay where they are. The two operations have the same effect on duration and opposite effects on pitch, which is why a speed change is only safe when the pitch consequence is acceptable."
+      },
+      {
+        "q": "Can I use the interval panel to check a tuning?",
+        "a": "For an interval between two measured pitches, yes, and the cents figure is the one to read. For a single pitch measured against its intended note, the frequency to MIDI note tool is more direct because it names the note automatically."
+      }
+    ]
+  },
+  {
+    "slug": "musical-transpose-tool",
+    "keywords": ["chord symbols", "semitones", "key", "root"],
+    "intro": "Musical Transpose Tool rewrites a set of chord symbols into a new key. Paste a progression written as symbols and it returns the same progression transposed, with the spelling correct for the new key.",
+    "content": "Paste chord symbols into the left box, choose how far to transpose, and the right box shows the result while preserving the layout.\n\nThe controls and the output:\n\n- A text box for the chords to transpose, which accepts chord symbols separated by spaces, with line breaks preserved so a chart keeps its shape.\n- A transpose amount shown as a signed number of semitones, adjustable one step at a time, with quick buttons for a whole step up, three semitones down and a fourth up.\n- A second box showing the result, with the changed symbols emphasised and a copy control.\n- A reference line naming the major key the transposition produces and listing its notes.\n- A warning listing any words that looked like chord symbols but could not be parsed, left as written rather than silently altered.\n\nEverything the tool does rests on the distinction between a root letter and a pitch. Transposing by semitones is arithmetic on pitch, but writing the result down is a decision about spelling, and the tool resolves it by moving the root letter by the right number of letter steps and then adding whatever accidental is needed to reach the correct pitch. That is why the new symbols are spelled for the key they land in rather than as a list of sharps, and why the reference line shows the notes of the resulting key, which is a quick check that the answer is sensible. Whitespace is handled explicitly so that an aligned chart survives a round trip: runs of spaces and line breaks are carried through unchanged while only the chords themselves are rewritten. Anything that starts with a letter from A to G and fails to parse is reported rather than guessed at, which matters when a chart contains lyric fragments or rehearsal marks that happen to begin with a note letter. The transposition amount wraps around the twelve semitones of an octave, so stepping up from eleven returns to zero rather than running away, and the same input always produces the same output.\n\nWhat it does not do:\n\n- It processes no audio and plays nothing.\n- Only chord symbols, so tablature, notation and tab lines are not converted.\n- No capo suggestions or instrument transposition.\n- Enharmonic spelling follows the transposition rather than any house style.\n- Unrecognised words are left alone and reported rather than corrected.\n- Nothing is uploaded, and the text stays in the page.\n\nUse it when a chart has to move to a comfortable key for a singer, when a part has to be written out for an instrument in a different key, or when a progression is being tried in another key to see how it sits. When a single chord needs its full spelling or a quality outside the common set, the chord calculator covers the wider range of forms, and when the question is which chords belong in the target key, the chord progression builder lists them. A transposition is worth checking by playing the result rather than only reading it, since a chord symbol carries an implied voicing that a key change may place uncomfortably for the instrument even when the written notes are correct. If a passage sits badly after transposing, the usual answer is a different octave rather than a different key.",
+    "howTo": [
+      "Paste the chord symbols into the input box, keeping the layout if it matters.",
+      "Set how far to transpose using the nudge buttons or the quick presets.",
+      "Copy the transposed result from the output box.",
+      "Check the reference line and the unrecognised-words warning before using the chart."
+    ],
+    "whenToUse": "Musical Transpose Tool is the tool when a written chart has to move to another key, which is why it works in text rather than in audio. {{chord-calculator|Chord Calculator}} spells individual chords across a wider range of qualities, and {{scale-generator|Scale Generator}} shows the notes of the key the transposition lands in. When recorded audio rather than a chart has to change key, {{audio-pitch-shifter|Audio Pitch Shifter}} moves the sound itself.",
+    "faqs": [
+      {
+        "q": "Will the spelling be right in the new key?",
+        "a": "The root letter moves by the correct number of letter steps and the accidental is then chosen to reach the right pitch, which is how correct spelling is produced. The reference line listing the new key's notes is the quick way to confirm that the result looks like the key you expected."
+      },
+      {
+        "q": "What happens to words that are not chords?",
+        "a": "They are left exactly as written and reported in a warning below the output, which is deliberately conservative. A chart often contains lyric fragments or section markers, and silently changing something that merely starts with a note letter would be worse than leaving it alone."
+      },
+      {
+        "q": "Does the layout survive?",
+        "a": "Yes. Runs of spaces and the line breaks between them are preserved while the chords themselves are rewritten, so a chart laid out in columns keeps its alignment and can be pasted straight back into whatever it came from."
+      },
+      {
+        "q": "How far can I transpose?",
+        "a": "The amount wraps within the twelve semitones of an octave, since a transposition of thirteen semitones is the same as one of a single semitone. The quick buttons cover the common musical distances, and the step controls reach anything in between."
+      },
+      {
+        "q": "Can it transpose notation or tablature?",
+        "a": "Only chord symbols. Tablature describes where to put fingers rather than what pitches to sound, so it needs a different kind of conversion, and notation carries information about register and duration that a symbol list does not."
+      }
+    ]
+  },
+  {
+    "slug": "guitar-tuner",
+    "keywords": ["autocorrelation", "open strings", "cents", "preset"],
+    "intro": "Guitar Tuner listens through the microphone and tells you how far each string is from its target pitch. It is locked to standard guitar tuning, with a four string bass preset alongside it.",
+    "content": "Start listening and play one open string at a time; the needle shows how far the pitch is from its nearest target and which string it belongs to.\n\nThe interface:\n\n- A switch between the six string guitar preset and the four string bass preset.\n- A listening control that starts and stops the microphone, with an error message if access is refused.\n- A needle sweeping fifty cents either side of centre, where the middle means in tune and the bar turns green when the reading is within about five cents.\n- A row of targets showing each string's name, its note in words and its frequency, with the one being played highlighted.\n\nDetection is by normalized autocorrelation over a range from about forty to five hundred hertz, which covers the guitar's six open strings from the low E at about eighty two hertz to the high E at about three hundred and thirty. Autocorrelation works by comparing the signal with a delayed copy of itself and finding the delay at which they line up best, which is the period of the waveform; the normalization is what keeps a loud harmonic-rich pluck from being scored differently from a quiet one. The method is octave-safe, meaning that a strong second harmonic does not cause the reading to jump an octave, which is the failure mode most pitch detectors show on a plucked string. The cents figure is the distance from the target in hundredths of a semitone, so a needle at the centre means the string is within a few cents of its note and the bar turns green at that point. Audio from the microphone is analysed in the page and never recorded or uploaded, which is worth stating because a tuner is the one tool here that asks for a live input. Playing a single string cleanly is what makes the reading stable; two strings sounding together give the detector two periods at once to choose between.\n\nWhere it is limited:\n\n- Guitar and four string bass only, so other instruments need the chromatic tuner.\n- A noisy room can make the reading wander, since the detector has no way to know which sound was intended.\n- The note readout is the nearest target rather than the nearest note, so a string tuned far out can read as its neighbour.\n- No reference other than modern pitch.\n- Nothing is recorded or stored.\n- No alternative tunings, so a guitar in an open tuning reads against standard targets.\n\nUse it for the job it was named after: bringing a guitar or a bass to standard tuning before playing, checking an instrument that has been sitting in a case, or confirming which string is out. When the instrument is not a guitar or a bass, or the tuning is not standard, the instrument tuner works chromatically and includes presets for ukulele, violin and cello, which is the right tool for anything outside those two instruments. A tuner is the one place where a small amount of technique changes the reading more than any setting: letting a note ring rather than plucking repeatedly, and playing as close to the instrument as the microphone allows, gives a steadier figure than any adjustment to the controls.",
+    "howTo": [
+      "Allow microphone access and start listening.",
+      "Play one open string and let it ring without touching anything else.",
+      "Read the needle and the string name, and adjust the peg until the bar turns green.",
+      "Move through all six strings, then check the first one again."
+    ],
+    "whenToUse": "Guitar Tuner is the tool to reach for when the instrument is a guitar or a bass in standard tuning, because naming the string is faster than naming a note. {{instrument-tuner|Instrument Tuner}} works chromatically and covers ukulele, violin and cello as well. When the target frequencies need checking rather than sounding, {{note-frequency-calculator|Note Frequency Calculator}} gives them, and {{cents-calculator|Cents Calculator}} quantifies how far a reading is from where it should be.",
+    "faqs": [
+      {
+        "q": "Why does the reading jump between strings?",
+        "a": "Because the detector is reporting the nearest target rather than the nearest note, so a string tuned far below its pitch can land closer to the string below it. Tuning roughly by ear first and then using the tuner for the last few cents avoids the confusion."
+      },
+      {
+        "q": "Is the microphone recording anything?",
+        "a": "No. The audio is analysed frame by frame in the page and discarded immediately, and nothing is stored or transmitted. Stopping the listening control releases the microphone, which is the state worth leaving it in when you have finished."
+      },
+      {
+        "q": "What does autocorrelation do that a simpler method does not?",
+        "a": "It finds the period of the waveform by matching the signal against a delayed copy of itself, which is robust on a plucked string where the harmonic content is rich and the fundamental is not necessarily the loudest component. Simpler methods that look for the strongest peak often report the second harmonic instead of the note."
+      },
+      {
+        "q": "Why is the green zone about five cents wide?",
+        "a": "Because that is roughly where a sustained tone stops sounding out of tune. Tuning to within five cents of the target is comfortably in tune for playing, and chasing the last couple of cents on a guitar is usually defeated by the instrument's own intonation."
+      },
+      {
+        "q": "Can I tune to something other than standard pitch?",
+        "a": "The targets are fixed at modern pitch, so a guitar tuned to an older reference will read consistently sharp or flat across all six strings. When that is the intent, use the chromatic tuner, which reports the note and the offset without assuming a reference."
+      }
+    ]
+  },
+  {
+    "slug": "instrument-tuner",
+    "keywords": ["chromatic", "nearest note", "cents", "presets"],
+    "intro": "Instrument Tuner names the nearest note to whatever it hears and how far off it is, without assuming an instrument. Presets for guitar, bass, ukulele, violin and cello add a target when one is wanted.",
+    "content": "Start listening and play a note; the panel names the nearest note, gives the offset in cents, and can additionally point at an open string if a preset is selected.\n\nThe interface and the reading:\n\n- Five instrument presets alongside a chromatic mode, which is the default state until a preset is chosen.\n- A microphone control with an error message if access is refused.\n- A needle sweeping fifty cents either side of centre, centred when the pitch is within about five cents of a note.\n- A large readout giving the note name and the signed cents offset, plus the detected frequency.\n- A row of open string targets when a preset is selected, with the string being played highlighted and the direction to tune in named.\n\nChromatic mode is the whole point of the tool, and it works differently from an instrument-specific tuner. It does not ask which string is being played or compare the pitch against a list of targets; it converts the frequency to the nearest note on the twelve-note scale and reports the distance in cents, which is an interval of the same size at every pitch. That makes it usable on any instrument, on a voice, or on a pitch that does not correspond to any open string at all, which is what is needed when setting up an instrument with a capo, tuning a stopped note, or checking a note played high on the neck. Detection spans roughly fifty five hertz to a kilohertz, which covers the practical range of the instruments it is likely to be pointed at, and it uses the same octave-safe correlation method as the guitar tuner, so a strong harmonic does not produce a reading an octave out. The presets are an addition rather than a substitute: choosing one keeps the chromatic reading and adds an open string target beside it, with the direction to tune in, so a player who wants the string named as well as the note has both without losing the general behaviour. As with the other live tools, the microphone feed is analysed in the page and nothing is recorded.\n\nWhat it does not do:\n\n- No reading while several notes sound at once, since a single pitch has to dominate.\n- No alternative tunings beyond the open strings of the five presets.\n- A noisy environment can pull the reading toward whatever is loudest.\n- No temperament other than equal.\n- Nothing is saved, and nothing leaves the device.\n- No reference other than modern pitch.\n\nUse it for anything outside the guitar and bass case: tuning a ukulele, violin or cello, checking a note stopped partway up a neck, tuning a wind or brass instrument whose notes are set by the player, or working out what pitch a singer is actually landing on. When the instrument is a guitar or a bass in standard tuning, the guitar tuner names the string directly and is quicker for that job, and when the target frequencies themselves need checking, the note frequency calculator gives them by name.",
+    "howTo": [
+      "Allow microphone access and start listening, leaving chromatic mode selected for a general reading.",
+      "Play or sing a single note and hold it steadily.",
+      "Read the note name and the offset in cents, and adjust until the needle centres.",
+      "Choose an instrument preset if you want the open string named alongside the note."
+    ],
+    "whenToUse": "Instrument Tuner is the general purpose tuner: it names notes rather than strings, which makes it the right choice for anything other than a guitar or bass in standard tuning. {{guitar-tuner|Guitar Tuner}} is the quicker option for those two instruments specifically. When a target frequency needs to be confirmed rather than sounded, {{note-frequency-calculator|Note Frequency Calculator}} gives it, and {{scale-generator|Scale Generator}} is useful when the notes being checked belong to a scale rather than to a tuning.",
+    "faqs": [
+      {
+        "q": "What does chromatic mean here?",
+        "a": "That every one of the twelve notes in the octave is a valid answer, rather than only the open strings of a particular instrument. The tool finds whichever note is nearest the pitch it hears, which is what makes it work on anything from a ukulele to a voice."
+      },
+      {
+        "q": "Why does a preset still show the note name?",
+        "a": "Because the chromatic reading is always available and the preset adds information rather than replacing it. The note name tells you what pitch you are producing and the preset target tells you which string it should be, which is helpful when a string is far enough out to be nearer its neighbour."
+      },
+      {
+        "q": "How accurate is the cents reading?",
+        "a": "Accurate enough for tuning by ear to within a few cents on a steady note. A wavering or very short note gives a less stable reading, since the detector needs enough of the waveform to find its period, so holding the note is the way to get a reliable figure."
+      },
+      {
+        "q": "Can it tune a note that is stopped rather than open?",
+        "a": "Yes, in chromatic mode, because it does not care which string produced the sound. That is the main reason to prefer it over a string-based tuner when setting intonation or checking a note high on the neck, where the open string targets would be misleading."
+      },
+      {
+        "q": "Does anything get uploaded?",
+        "a": "No. The microphone audio is analysed in the page and discarded, and nothing is stored or sent anywhere. Stopping the listening control releases the microphone, and closing the page does the same."
+      }
+    ]
+  }
+]

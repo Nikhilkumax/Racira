@@ -5,10 +5,36 @@ import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { categories, getImageToolBySlug } from "@/domains/image/registry";
 import { IMAGE_SITE } from "@/domains/image/site";
+import { INDEX_SOON_PAGES } from "@/domains/image/indexing";
 import { toSlug } from "@/lib/utils/slug";
-import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
+import { buildSoonMetadata } from "@/lib/tools/soonMetadata";
+import { pickRelatedTools } from "@/lib/tools/soonRelated";
+import { ComingSoonToolPage } from "@/components/shared/ComingSoonToolPage";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
+
+/** Flat view of the registry used for related-tool picks and label qualifiers. */
+const ALL_IMAGE_TOOLS = categories.flatMap((cat: any) => cat.tools as any[]);
+
+/** Names repeated among this domain's upcoming tools — used to qualify labels. */
+const SOON_NAME_COUNTS = (() => {
+  const counts = new Map<string, number>();
+  for (const tool of ALL_IMAGE_TOOLS) {
+    if (tool.status === "live") continue;
+    counts.set(tool.name, (counts.get(tool.name) ?? 0) + 1);
+  }
+  return counts;
+})();
+
+/** The category a tool belongs to, for breadcrumbs and related picks. */
+function categoryOf(slug: string): string {
+  for (const cat of categories as any[]) {
+    if ((cat.tools as any[]).some((tool) => tool.slug === slug)) return cat.name;
+  }
+  return "Image";
+}
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -17,7 +43,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const category = categories.find((c: any) => toSlug(c.name) === slug);
   if (category) return { title: `${category.name} — ${IMAGE_SITE.copyrightName}`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/image/${slug}` } };
   const tool = getImageToolBySlug(slug);
-  if (tool) return { title: `${tool.name} — ${IMAGE_SITE.copyrightName}`, description: tool.description, alternates: { canonical: `/image/${slug}` }, robots: isComingSoonToolPage(tool, "image") ? { index: false, follow: false } : undefined };
+  if (tool) {
+    // Upcoming tools keep a self-canonical and real copy; INDEX_SOON_PAGES
+    // controls whether they are also indexable (domains/image/indexing.ts).
+    if (hasComingSoonPage(tool, "image")) {
+      return buildSoonMetadata(
+        { tool, domainKey: "image", siteName: IMAGE_SITE.copyrightName, categoryName: categoryOf(slug), soonNameCounts: SOON_NAME_COUNTS },
+        INDEX_SOON_PAGES,
+      );
+    }
+    return { title: `${tool.name} — ${IMAGE_SITE.copyrightName}`, description: tool.description, alternates: { canonical: `/image/${slug}` } };
+  }
   return { title: "Not Found — Racira" };
 }
 
@@ -56,8 +92,10 @@ function CategoryView({ category }: { category: any }) {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {category.tools.map((tool: any) => {
               const Icon = tool.icon || inferIcon(tool.name, tool.slug);
-              // No image tool page renders a real tool — every card is inert.
+              // Live tools open the real tool; upcoming tools open their Coming
+              // Soon page (never a 404) — same decision the ToolCard makes.
               const isLive = isLiveTool(tool, "image");
+              const clickable = isLive || hasComingSoonPage(tool, "image");
               const cardBody = (
                 <>
                   {!isLive && (
@@ -72,7 +110,7 @@ function CategoryView({ category }: { category: any }) {
                   <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
                 </>
               );
-              return isLive ? (
+              return clickable ? (
                 <Link key={tool.slug} href={`/image/${tool.slug}`} className="tool-card group hover:-translate-y-[3px]">
                   {cardBody}
                 </Link>
@@ -93,6 +131,33 @@ export default async function PolymorphicPage({ params }: PageProps) {
   const { slug } = await params;
   const category = categories.find((c: any) => toSlug(c.name) === slug);
   if (category) return <CategoryView category={category} />;
-  // No image tool page renders a real tool — every tool slug 404s.
+
+  const tool = getImageToolBySlug(slug);
+
+  // Upcoming tools render a Coming Soon page instead of 404ing.
+  if (tool && hasComingSoonPage(tool, "image")) {
+    const catName = categoryOf(slug);
+    const related = pickRelatedTools(ALL_IMAGE_TOOLS, {
+      currentSlug: slug,
+      basePath: "/image",
+      isLive: (t) => isLiveTool(t, "image"),
+      sameGroup: (t) => (t as any).category === catName || categoryOf((t as any).slug) === catName,
+    });
+    return (
+      <ComingSoonToolPage
+        toolName={tool.name}
+        toolDescription={tool.description}
+        icon={tool.icon}
+        siteName={IMAGE_SITE.copyrightName}
+        domainLabel="Image"
+        domainHref="/image"
+        categoryName={catName}
+        categoryHref={`/image/${toSlug(catName)}`}
+        relatedLive={related.live}
+        relatedSoon={related.soon}
+      />
+    );
+  }
+
   notFound();
 }

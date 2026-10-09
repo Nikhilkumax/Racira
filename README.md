@@ -41,6 +41,19 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## 🔒 Protect /public/ads.txt
+
+`public/ads.txt` is the AdSense site-verification record for racira.com. Do not
+delete, rename, reformat, or git-ignore it: nothing in the app imports it, so
+losing it is invisible locally and only surfaces as ads failing to serve in
+production. It must remain this single line, in `public/`, committed:
+
+    google.com, pub-7147460072564518, DIRECT, f08c47fec0942fa0
+
+`npm run check:ads` (node _scripts/adsense-verify-check.mjs) fails the build and
+the pre-push hook when the file is missing, not byte-exact, git-ignored, or
+untracked.
+
 ## 📄 License
 
 This project is proprietary.

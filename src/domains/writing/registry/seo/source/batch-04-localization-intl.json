@@ -1,0 +1,317 @@
+[
+  {
+    "slug": "language-detector",
+    "keywords": ["language detector", "function words", "confidence", "Latin script"],
+    "intro": "The language detector scores Latin-script text against 12 curated profiles using function words, distinctive letters and word endings, and shows the whole score table so the result can be checked rather than trusted.",
+    "content": "There is no language-identification model behind this language detector and no network call: the text is scored against curated profiles on three kinds of evidence, and every kind is printed so you can see why a language won. It is deliberately narrow, and it says so on the page rather than stretching into scripts and languages the profiles cannot cover.\n\n- Twelve curated Latin-script profiles, each carrying its own function words, distinctive letters and characteristic endings.\n- Function words — the closed-class words a language cannot avoid, such as the, der, que and och — count two points per occurrence.\n- Distinctive letters such as ñ, ß, ı and ł count one and a half points per occurrence.\n- Word endings such as zione, ung and ção count one point per word that uses one.\n- The score table lists every language with its total and its three evidence columns, so a result can be traced to the words that produced it.\n- Results carry the detected language, a confidence label, the word count and the count of Latin letters scored.\n- Copy report and Download language-detection.txt give the same table as plain text.\n- The report carries the evidence totals for the top languages, so two candidates can be compared without switching tabs.\n\nThe engine never invents a result. Short input is refused with a note that there is not enough text rather than guessed at; text in another script is reported as unsupported rather than forced into a Latin profile; and a close race between two languages lowers the confidence instead of hiding the ambiguity. The profiles are curated, which means closely related languages are deliberately narrowed to one profile per pair, and the limits are listed on the page: proper nouns, loanwords and one-word input can mislead any profile scorer, and a text that switches languages halfway through is scored as a whole. Because the scoring is a lookup against a fixed table with published weights, the same input always produces the same result, and the evidence columns mean the answer is auditable rather than merely asserted. The weights are fixed constants rather than tuned parameters, which is why the same sentence always lands in the same place in the table, and why a change in the result means a change in the text rather than in a model.\n\n- One profile per related pair: Swedish is profiled but not Danish or Norwegian, Czech but not Slovak, so a neighbouring language is often reported as its closest profile.\n- Short text is the weakest case: a handful of words can be dominated by a single loanword.\n- Non-Latin scripts are outside the profiles entirely and are reported as unsupported rather than misdetected.\n- A bilingual document is scored as one piece of text, so a translation pasted beside its source can split the score.\n- The result is a best match with a confidence label, not a claim about the writer.\n\nUse the detector as a first pass over text whose language you already suspect, not as a gate: read the evidence columns, and when two languages are close, treat the lower confidence as the honest answer. Then hand the text to the tool that needs the answer, such as the locale date formatter or the language-aware sort tool. If the top two languages share a script and a score, treat the detection as a question to answer by reading a paragraph rather than as a result to file.",
+    "howTo": [
+      "Paste or type the text; a sentence or two is enough for the detector to score it.",
+      "Read the detected language and the confidence label.",
+      "Open the score table and compare the three evidence columns across the top languages.",
+      "Copy report or Download language-detection.txt."
+    ],
+    "whenToUse": "Use the detector when you need a quick, inspectable read on which language Latin-script text is in. When the question is how the language will be rendered by the platform rather than what it is, the {{locale-date-formatter|Locale Date Formatter}} and the {{number-locale-formatter|Number Locale Formatter}} answer from the runtime's own locale data.\n\nWhen the text mixes directions rather than languages, the {{rtl-text-tester|RTL Text Tester}} reports what each paragraph's direction actually is.",
+    "faqs": [
+      {
+        "q": "Is this a machine-learning language model?",
+        "a": "No. It is a scored lookup against 12 curated profiles with published weights: two points per function word, one and a half per distinctive letter and one per characteristic ending. The same input always produces the same score table."
+      },
+      {
+        "q": "Why does it say there is not enough text?",
+        "a": "Because a short sample can be dominated by a single word. Rather than guess from two tokens, the detector refuses and says so, which is the more useful answer for anything you are about to publish."
+      },
+      {
+        "q": "Why is Danish reported as Swedish?",
+        "a": "Because related languages are deliberately narrowed to one profile per pair. Swedish, Czech and a few others stand in for their neighbour, and the page lists the limits rather than pretending the profile set is exhaustive."
+      },
+      {
+        "q": "What does the confidence label mean?",
+        "a": "It reflects the gap between the top score and the runner-up, not a probability. A close race lowers the label instead of hiding the ambiguity, so a low confidence is a genuine signal to read the table."
+      },
+      {
+        "q": "Can it detect non-Latin scripts such as Arabic or Chinese?",
+        "a": "No. Those scripts are outside the curated profiles and are reported as unsupported. For direction rather than language, the RTL Text Tester and the Bidirectional Text Tester are the right tools."
+      }
+    ]
+  },
+  {
+    "slug": "locale-date-formatter",
+    "keywords": ["locale date formatter", "Intl.DateTimeFormat", "date style", "time zone"],
+    "intro": "The locale date formatter renders one date and local time through the platform's own Intl.DateTimeFormat for any locale you choose, with ISO 8601 and UTC shown beside it.",
+    "content": "Date order is the classic localization bug, and this locale date formatter avoids inventing anything: every row it prints comes from the runtime's own Intl.DateTimeFormat, so the output matches what the platform actually ships for that locale rather than a table that has to be maintained by hand. The panel names Intl.DateTimeFormat in as many words, so nobody has to guess where the values come from.\n\n- Locale: a curated list of widely used BCP-47 tags with each region spelled out, and any valid tag you type is accepted.\n- Date style: Full, Long, Medium or Short, with the shape each one produces shown beside the label.\n- Time style: the same four-step choice for the time portion.\n- Display time zone: render the same instant in a chosen zone rather than the browser's.\n- Result rows: ISO 8601 (UTC) and the same instant rendered in UTC, beside the locale-formatted output.\n- Copy formatted date puts the chosen rendering on the clipboard.\n- The locale list covers the widely used BCP-47 tags with their regions spelled out, so en-GB and en-US can be compared directly.\n\nBecause the work is delegated to Intl.DateTimeFormat, the tool inherits both the platform's strengths and its limits in exactly the way the page describes. An invalid locale tag is caught and reported as an error rather than thrown at you, which matters when a tag arrives from a form or a query string. The ISO 8601 row is the anchor: a single unambiguous rendering that survives translation, so a developer can confirm that the locale rows and the source value describe the same instant. The display time zone control is what makes the comparison honest, since a date without a zone is a date relative to somebody. Nothing is guessed: the platform's own data decides month names, the order of day and month, and whether the clock is 12- or 24-hour for the locale. The tool also renders the same instant in UTC, which is the row to compare against a server log: a date is ambiguous until it is pinned to a zone, and pinning it here is one control. That is also why the tool refuses to print a date it cannot interpret: the input control supplies a local time, and the zone control decides what that time means.\n\n- The locale list is curated, because the web platform has no API that enumerates every locale; a valid tag you type still works.\n- Output is only as good as the runtime's data: an older engine may format a locale differently from a new one.\n- The tool formats one instant at a time; there is no bulk mode.\n- Parsing is limited to the browser's date-and-time input, so malformed input is reported rather than coerced.\n- A locale tag does not carry the date format a specific product wants; design guidelines can still override the platform's choice.\n- Nothing is uploaded: the formatting runs in the page from the input control's value.\n\nUse it when a date has to cross a locale boundary: check the ISO row for the machine, the locale row for the reader, and the UTC row when a server is involved. If the three agree about the instant, the date is safe to publish. Keep the ISO row where a machine can read it and treat the locale row as presentation.",
+    "howTo": [
+      "Set the date and local time in the input control.",
+      "Choose a locale, and a display time zone if the instant matters more than the device's zone.",
+      "Pick a date style and a time style; the result rows update immediately.",
+      "Compare the ISO 8601 and UTC rows with the locale output, then copy the rendering you need."
+    ],
+    "whenToUse": "Use the formatter when a date has to be correct in one locale and unambiguous for a machine. For the equivalent problem with figures, the {{number-locale-formatter|Number Locale Formatter}} applies the same platform data to separators, currency and units.\n\nWhen a whole document's dates and figures need reviewing together, the {{number-format-checker|Number Format Checker}} audits the mixture of conventions in the text itself.",
+    "faqs": [
+      {
+        "q": "Does the tool write its own date patterns?",
+        "a": "No. Every row is produced by the platform's Intl.DateTimeFormat for the locale you chose, so the result matches the runtime rather than a hand-maintained pattern that can drift out of date."
+      },
+      {
+        "q": "Why is the ISO 8601 row shown first?",
+        "a": "Because it is the unambiguous rendering. Comparing it with the locale rows confirms that the human-readable date and the source value describe the same instant, which is the check that catches a misplaced month."
+      },
+      {
+        "q": "What happens with an invalid locale tag?",
+        "a": "It is caught and reported as an error instead of thrown. That matters when a tag comes from a form or a URL: the page says the tag is invalid rather than failing silently or crashing."
+      },
+      {
+        "q": "Why can the same locale look different on two machines?",
+        "a": "Because the output comes from the browser's own locale data, and engines update that data at different times. An older runtime can render a locale differently from a newer one, which the page states as a limit."
+      },
+      {
+        "q": "Is my date sent anywhere?",
+        "a": "No. The value never leaves the page; the formatting is done by the runtime locally, which is why the tool works offline and why nothing appears in a network log."
+      }
+    ]
+  },
+  {
+    "slug": "number-locale-formatter",
+    "keywords": ["number locale formatter", "Intl.NumberFormat", "grouping separators", "currency"],
+    "intro": "The number locale formatter renders one number through the platform's Intl.NumberFormat in any locale, with styles for decimals, percents, currency and units, plus a comparison of the same number in other locales.",
+    "content": "A number is the same in every language and is written differently in most of them, which is what this number locale formatter exists to show: one value, rendered through Intl.NumberFormat for the locale you choose, across four styles, with the same number in other locales listed underneath for comparison. The comparison panel is not a second implementation: it is the same formatter called with different locale tags.\n\n- Locale: a curated list of widely used BCP-47 tags, and any valid tag you type is accepted.\n- Style: Decimal, Percent, Currency or Unit.\n- Currency and Unit each open their own selector when chosen, so the option set matches the style.\n- Notation: choose the notation the platform prints the figure in.\n- Grouping: Use grouping separators can be switched off to see the bare digits.\n- Min fraction digits and Max fraction digits accept an explicit value, or auto to leave the platform's choice in place.\n- Formatted output with Copy result, and a panel showing the same number in other locales.\n- Percent and unit styles take the same platform path, so the value keeps its meaning while its presentation changes.\n\nThe formatting is done by Intl.NumberFormat rather than by string editing, so separators, grouping, currency placement and unit spacing follow the runtime's own locale data. That is also why the page can promise the numbers are the platform's: nothing here re-implements a decimal mark, and an invalid locale tag is reported rather than thrown. The comparison panel is the part a reviewer reads: seeing 1,234,567.89 beside 1.234.567,89 makes the convention of a locale concrete, and the grouping switch shows what changes when a locale's default is removed. The numeric input is parsed by the same number parser the number format checker uses, so a value pasted with a foreign separator is read consistently across both tools. Nothing in the panel is computed by hand: the separators, the symbol placement and the space before a unit are the runtime's decisions, which is why the tool can be trusted for a locale it does not otherwise know. If a locale tag is rejected, the error names the tag rather than silently falling back to the browser's default.\n\n- The locale list is curated; the platform has no API that enumerates every locale, though a valid typed tag still works.\n- Output is only as current as the runtime's locale data, which browsers update on their own schedule.\n- One number at a time: for a document full of figures, the number format checker is the auditing tool.\n- A currency renders as the locale writes it; the tool does not convert between currencies.\n- Comparing two locales' output is informative rather than authoritative: a product's own style guide can differ from the platform's default.\n- Nothing is uploaded; the formatting happens in the page.\n\nUse it when a figure has to be presented to a specific audience or checked against what that audience expects. Render the same number in two locales side by side, copy the one you need, and keep the other in front of you while you edit, because a mixed document is the failure this pair of tools is designed to catch. A number in a table is read faster than the text around it, which is exactly why its convention is worth proving.",
+    "howTo": [
+      "Type a number such as 1234567.89.",
+      "Choose a locale and a style, then a currency or unit when the style needs one.",
+      "Adjust notation, grouping and fraction digits if you need a specific rendering.",
+      "Compare the formatted output with the other-locale panel, then Copy result."
+    ],
+    "whenToUse": "Use the formatter when one figure has to be rendered for one audience. When the problem is a document that mixes conventions, the {{number-format-checker|Number Format Checker}} audits the whole text and offers a one-convention rewrite.\n\nFor dates rather than figures, the {{locale-date-formatter|Locale Date Formatter}} applies the same platform locale data, and for sorting text whose locale matters, the {{locale-aware-sort-tool|Locale-Aware Sort Tool}} uses the platform's collator.",
+    "faqs": [
+      {
+        "q": "Does the tool implement locale rules itself?",
+        "a": "No. Grouping, separators, currency placement and unit spacing all come from the platform's Intl.NumberFormat. Nothing re-implements a decimal mark, so the output matches what the runtime ships for that locale."
+      },
+      {
+        "q": "Why does the same number look different in another browser?",
+        "a": "Because locale data ships with the engine and updates on its own schedule. A newer runtime can format a locale differently from an older one, which is a limit the page states rather than hides."
+      },
+      {
+        "q": "Can it convert currency values?",
+        "a": "No. The Currency style renders the value in the chosen currency's format; no exchange rate is applied, and no lookup happens. A converted number is a number you bring to the tool."
+      },
+      {
+        "q": "What does the grouping switch actually change?",
+        "a": "It removes the locale's grouping separators, showing the bare digits. It is the quickest way to show a colleague what the locale's default did to a long figure."
+      },
+      {
+        "q": "Is the number I type stored or sent anywhere?",
+        "a": "No. The value is formatted in the page by the runtime and never transmitted, so the tool works offline and leaves nothing behind in a request log."
+      }
+    ]
+  },
+  {
+    "slug": "rtl-text-tester",
+    "keywords": ["RTL text tester", "paragraph direction", "bidi controls", "first strong"],
+    "intro": "The RTL text tester reports each paragraph's direction from the first strong character, counts right-to-left and left-to-right letters and explicit bidi controls, and renders both directions side by side.",
+    "content": "Mixed direction text fails in ways that are invisible until a paragraph is rendered, which is why this RTL text tester does two things at once: it reports what each paragraph's direction actually is, and it shows the same text laid out both ways so the difference can be compared. Both halves are needed: a count says what the text contains, and a render says what a reader will see.\n\n- Detected direction: the paragraph direction of the whole input, computed from the first strong character.\n- Counts: right-to-left letters, left-to-right letters and explicit bidi controls, so a paragraph's composition is visible at a glance.\n- Paragraph by paragraph: each paragraph's own direction listed separately, because a document often mixes them.\n- Rendered side by side: the text shown once with a right-to-left direction and once left-to-right.\n- Preview direction: override the direction for the preview without changing the analysis.\n- Copy text puts the source on the clipboard ready for a layout test.\n- The paragraph list flags any paragraph whose direction differs from the document's, which is the fastest way to find one broken line.\n\nThe analysis approximates UAX #9 rules P2 and P3, the first-strong rule: a paragraph is right-to-left when its first strong letter belongs to a right-to-left script, left-to-right when the first strong letter comes from any other script, and neutral when the paragraph contains no letters at all — digits, punctuation or emoji only. Directional formatting characters are ignored while scanning, which is what the first-strong rule requires, so a paragraph that begins with an invisible control is still classified by its first real letter. The counts are the useful second signal: a paragraph that is mostly left-to-right letters with a right-to-left phrase inside is exactly the case where the direction of the container, not the text, decides how the phrase renders, and the side-by-side view makes that visible. The counts and the renders come from the same scan, so they cannot disagree, and because the scan is a character-class test rather than a layout engine it is fast enough to run on every keystroke.\n\n- It detects and displays; it does not reorder text or insert controls, which is the bidirectional text tester's job.\n- The paragraph direction is the first-strong approximation, not a full UAX #9 reordering, so a rare edge case can classify differently from a browser's layout engine.\n- Neutral paragraphs, made only of digits or punctuation, have no direction of their own.\n- Rendering depends on the fonts installed: a machine without an Arabic or Hebrew font shows boxes, not a direction problem.\n- Counting letters is not reordering them, so a paragraph can be majority right-to-left and still lay out correctly, or the reverse.\n- Nothing is stored or sent; the analysis runs in the page.\n\nUse it when a string arrives from a translator, a user, or a database and you need to know which way it will lay out before it reaches a layout you cannot change. Check the paragraph listing first, then the side-by-side render, and only then decide whether the container needs a direction attribute. A container with the wrong direction is the most common cause of a bidi failure, and it stays invisible until the text is rendered both ways.",
+    "howTo": [
+      "Paste or type text that mixes Arabic or Hebrew with Latin characters.",
+      "Read the detected paragraph direction and the three counts.",
+      "Scan the paragraph-by-paragraph list for paragraphs that differ from the whole.",
+      "Compare the right-to-left and left-to-right renders, optionally overriding the preview direction."
+    ],
+    "whenToUse": "Use the tester to find out what direction text will take. When the problem is the opposite — a segment that renders wrongly inside a paragraph and needs explicit control characters around it — the {{bidirectional-text-tester|Bidirectional Text Tester}} wraps the segment with the right pair.\n\nWhen a document contains invisible characters you cannot see at all, the {{unicode-text-normalizer|Unicode Text Normalizer}} lists them and can remove them.",
+    "faqs": [
+      {
+        "q": "How is the paragraph direction decided?",
+        "a": "By the first strong character, approximating UAX #9 rules P2 and P3: the first letter that is not a digit or punctuation decides. Directional formatting characters are skipped while scanning, so an invisible control cannot change the answer."
+      },
+      {
+        "q": "What does a neutral paragraph mean?",
+        "a": "It contains no letters — only digits, punctuation, spaces or emoji — so it has no direction of its own and takes the direction of whatever contains it. Those paragraphs are reported rather than given a direction."
+      },
+      {
+        "q": "Does the tool insert any Unicode controls?",
+        "a": "No. It analyses and renders. Inserting control characters around a segment is the Bidirectional Text Tester's job, which keeps the two concerns separate and the analysis honest."
+      },
+      {
+        "q": "Why do I see boxes instead of Arabic letters?",
+        "a": "Because the font installed on the machine has no glyphs for that script. The direction analysis is unaffected; the boxes are a font problem, not a bidi problem."
+      },
+      {
+        "q": "What are the explicit bidi controls it counts?",
+        "a": "The formatting characters that tell a renderer to switch direction or isolate a run. Counting them shows whether a document relies on invisible controls to lay out correctly, which is worth knowing before converting the file."
+      }
+    ]
+  },
+  {
+    "slug": "unicode-text-normalizer",
+    "keywords": ["unicode text normalizer", "normalization form", "NFC", "invisible characters"],
+    "intro": "The Unicode Text Normalizer applies any of the four normalization forms, reports what changed, and lists the invisible characters in the text so they can be seen and removed.",
+    "content": "Two strings that look identical can be different bytes, which is the problem this Unicode Text Normalizer addresses: it applies a chosen normalization form, tells you exactly what changed, and lists the invisible characters that a reader can never see. The two jobs belong together: a normalization that changes nothing can still hide a character, and an invisible character can survive every normalization.\n\n- Normalization form: NFC, NFD, NFKC or NFKD.\n- Remove invisible characters can be switched on to strip the format and control characters the unicode set defines.\n- Result rows: whether the output differs from the input, how many invisible characters were removed, and which forms the input was already stable in.\n- Measurements: UTF-16 length before and after, code points before and after, and counts of letters, digits and marks.\n- Character classes: control and format character counts, so a hidden control is reported even when nothing else changes.\n- Invisible characters found: a list of the characters, their names and where they sit.\n- Copy result and Download for the normalized output.\n- The stability report covers all four forms at once, which makes a pipeline choice checkable rather than a matter of habit.\n\nThe four forms are the ones the platform implements, applied directly rather than approximated: NFC and NFD are the canonical compositions and decompositions, and NFKC and NFKD add compatibility mappings that turn things such as full-width characters and ligatures into their plain equivalents. The stability report is the diagnostic part of the tool: plain ASCII text is stable in all four forms, and text that is stable in none is text whose rendering can change with the platform. The invisible-character list comes from a published set of ranges, so each removal can be justified by name rather than by position alone. Nothing is guessed and nothing is re-encoded: the bytes you paste are the bytes the tool analyses. The output comes from the platform's own normalize function, so the mapping is the standard's rather than an approximation of it, and the character-class counts come from the same scan that finds the invisible characters.\n\n- NFKC and NFKD change meaning as well as form for some characters, so compatibility normalization is a deliberate choice rather than a cleanup step.\n- Removing invisible characters can break text that legitimately uses a zero-width joiner, such as some emoji sequences and complex scripts.\n- The invisible list covers the documented ranges; a format character outside them is reported as a control rather than by name.\n- Normalization does not repair mojibake: text already decoded wrongly needs the character encoding converter.\n- The measurements describe the text you pasted, and CR or LF line endings count as characters.\n- Normalizing does not compare two strings: two texts can look identical and still differ after NFC if one carries a compatibility character.\n\nUse it when text behaves differently in two places that should be identical — a search that misses, a comparison that fails, a string that looks the same but is not. Normalize first, read the stability row second, and remove invisibles last, after checking whether they were doing something useful. The order matters: normalize for storage, and remove invisibles only once you know which ones the pipeline does not need.",
+    "howTo": [
+      "Paste the text; the analysis and the normalized output appear as you type.",
+      "Choose NFC, NFD, NFKC or NFKD depending on what the pipeline needs.",
+      "Read the stability, length and character-class rows to see what changed.",
+      "Review the invisible-character list, switch removal on if it is right for the text, then copy or download."
+    ],
+    "whenToUse": "Use the normalizer when identical-looking text behaves differently in a search, a comparison or a database. When the text was decoded with the wrong code page in the first place, the {{character-encoding-converter|Character Encoding Converter}} is the tool that repairs it.\n\nWhen the invisible characters include bidi controls and the question is what they do to layout, the {{rtl-text-tester|RTL Text Tester}} reports each paragraph's direction, and the {{bidirectional-text-tester|Bidirectional Text Tester}} wraps a segment in the controls it needs.",
+    "faqs": [
+      {
+        "q": "Which normalization form should I choose?",
+        "a": "NFC for storage and interchange, NFD when a pipeline needs decomposed characters, and NFKC or NFKD only when compatibility mapping is intended, because they can change what a character means as well as how it is stored."
+      },
+      {
+        "q": "What does the stability row tell me?",
+        "a": "Which forms the input was already stable in, meaning normalizing to that form would change nothing. Plain ASCII text is stable in all four; text stable in none is text whose bytes can vary between systems."
+      },
+      {
+        "q": "Is it safe to remove all invisible characters?",
+        "a": "Not always. A zero-width joiner is structural in some emoji sequences and some complex scripts, so removal can change how text renders. The list is there so the decision is yours, character by character."
+      },
+      {
+        "q": "Can this repair text that already looks like garbage?",
+        "a": "No. Once text has been decoded with the wrong code page the information is usually gone. Repair belongs to the character encoding converter, which works from bytes rather than from a normalized string."
+      },
+      {
+        "q": "Why do the length and code-point counts differ?",
+        "a": "Because UTF-16 length counts code units while code points count characters. An emoji is two code units and one code point, so the two figures are both useful and are shown side by side."
+      }
+    ]
+  },
+  {
+    "slug": "character-encoding-converter",
+    "keywords": ["character encoding converter", "UTF-8", "code page", "byte offset"],
+    "intro": "The character encoding converter moves text between eight encodings with in-house codecs, reporting every character a code page cannot represent instead of hiding it.",
+    "content": "Encoding bugs are quiet: a smart quote becomes a question mark, an accented letter becomes two, and nothing tells you where. This character encoding converter is written in-house precisely so that every byte it prints can be checked by hand against the label it claims. A code page is a mapping table, and the only way to be sure of a mapping is to be able to read it.\n\n- Eight encodings: UTF-8, UTF-16 little and big endian, UTF-32 little and big endian, windows-1252, iso-8859-1 and us-ascii.\n- Direction: encode text into bytes, or decode bytes back into text.\n- Byte output format and input format controls decide how the bytes are read and written.\n- Result figures: bytes produced, characters replaced, input characters and code points.\n- Lossy report: every unrepresentable character is listed with its source index, its code point and the byte offset where the question mark was written.\n- Replacement count: bytes that do not form valid text on decode become U+FFFD, and the count is shown.\n- Copy result and Download for the converted output.\n\nThe codecs are written out rather than delegated, and the reason is stated on the page: the platform's own label list is not what it looks like, because the WHATWG latin1 and ascii labels both decode through Windows-1252 in browsers. Writing each codec means iso-8859-1 really is Latin-1, where the byte value equals the code point, and us-ascii really stops at 0x7F. UTF-16 combines surrogate pairs on decode, UTF-32 reads one code point per character, windows-1252 includes the 0x80 to 0x9F block that carries the euro sign and the curly quotes, and UTF-8 replaces lone surrogates rather than emitting invalid bytes. No byte-order mark is added or expected: UTF-16 and UTF-32 output is bare, and a BOM in the input is decoded as an ordinary character, which the page states. The byte table is shown rather than summarised, with the offset column and the character counts beside it, so a mismatch can be traced to a single position in the stream.\n\n- A code page can only carry what it defines: everything else becomes a question mark and appears in the lossy report.\n- Decoding malformed bytes produces replacement characters instead of an error; the count says how many.\n- Without a byte-order mark, a UTF-16 or UTF-32 byte stream cannot be told from the other endianness by inspection alone.\n- The tool converts representations; it cannot recover information that a lossy encode already discarded.\n- Long inputs produce a long manual byte table, which is why decoding tends to be more readable than encoding for large files.\n- Byte formats are spelled out so a stream can be pasted and read, but very long inputs make the manual byte table hard to read.\n\nUse it when a file or a database field arrives with the wrong encoding: decode to find out where the damage starts, switch to the encoding that should have been used, and read the lossy report before you trust the result. The offset column is the part that turns a guess into a fix. Decode with the encoding that was wrongly assumed, read the offset, then encode with the one that should have been used.",
+    "howTo": [
+      "Choose whether you are encoding text into bytes or decoding bytes into text.",
+      "Choose the encoding; the input and output formats follow from that choice.",
+      "Paste the text or the byte sequence; the result and the lossy report update as you type.",
+      "Read the lossy or replacement list, then Copy result or Download."
+    ],
+    "whenToUse": "Use the converter when the problem is bytes: a file decoded as the wrong code page, a mangled import, or a stream that has to be checked byte by byte. When the bytes are fine and the problem is how text compares or stores, the {{unicode-text-normalizer|Unicode Text Normalizer}} handles normalization and invisible characters.\n\nWhen the bytes are fine but text sorts or renders oddly for a locale, the {{locale-aware-sort-tool|Locale-Aware Sort Tool}} and the {{rtl-text-tester|RTL Text Tester}} answer the layout questions instead.",
+    "faqs": [
+      {
+        "q": "Why not use the browser's built-in decoders?",
+        "a": "Because their labels are misleading: the WHATWG latin1 and ascii labels both decode through Windows-1252 in browsers. The codecs here are written out so iso-8859-1 means Latin-1 and us-ascii means bytes up to 0x7F, exactly as labelled."
+      },
+      {
+        "q": "What happens to a character the code page cannot represent?",
+        "a": "It is written as a question mark and reported in the lossy list with its source index and code point. The tool never silently drops a character, which is what makes a lossy conversion diagnosable."
+      },
+      {
+        "q": "Why does decoding sometimes produce replacement characters?",
+        "a": "Because the bytes do not form valid text for that encoding — a truncated UTF-8 sequence, an unpaired surrogate or an out-of-range UTF-32 value. Each one becomes U+FFFD and the replacements are counted."
+      },
+      {
+        "q": "Does the output include a byte-order mark?",
+        "a": "No, and none is expected on input. UTF-16 and UTF-32 output is bare, and a BOM you paste is decoded as an ordinary character, so it shows up in the character counts."
+      },
+      {
+        "q": "Can I convert between two encodings directly?",
+        "a": "Yes, in two steps: decode the current bytes into text, then switch to the target encoding. The lossy report after the second step is the record of anything the target cannot carry."
+      }
+    ]
+  },
+  {
+    "slug": "bidirectional-text-tester",
+    "keywords": ["bidirectional text tester", "control characters", "isolate", "visual comparison"],
+    "intro": "The Bidirectional Text Tester wraps a chosen segment — or the whole text — in an explicit pair of bidi control characters and shows the result with and without the controls.",
+    "content": "When a phrase in one direction sits inside a paragraph in another, the fix is not to change the text but to isolate the segment, which is exactly what this bidirectional text tester does: it adds the matching pair of control characters around the run you choose and shows the difference. The controls are ordinary characters, so the fix travels with the string into any editor that can store them.\n\n- Full text: the paragraph that mixes directions. The tool never edits the source: it produces a wrapped copy, so the original stays available for comparison.\n- Segment to isolate: an optional phrase to wrap; without it, the whole text is wrapped.\n- Control pair: the pair of bidi control characters to insert around the segment or text.\n- Wrapped output with Copy wrapped text and Download.\n- Result rows: whether the segment was replaced in place, appended as a new line, or whether the whole text was wrapped, plus the number of control characters added.\n- Letter counts: right-to-left and left-to-right letters in the source.\n- Visual comparison: the output shown once without the controls and once with them.\n- The control count is reported separately from the letter counts, so the audit and the analysis stay distinct, and the copied string matches the downloaded one.\n\nThe tool is deliberately a companion to the RTL text tester rather than a duplicate: that tool reports direction, this one changes it. Wrapping replaces the segment where it occurs in the full text, so the controls land around the run rather than around the document; when the segment cannot be located, the wrap is appended as a new line and the row says so instead of silently producing something else. The control count is the audit: the number of invisible characters added is shown, because the failure mode of this technique is forgetting that you added them. The visual comparison is the part that decides the question, since a bidi fix is judged by how it renders, and rendering is exactly what a description cannot convey. The wrap is applied to the first occurrence of the segment, and the row that reports where the result landed exists because guessing whether a replacement happened is exactly the failure this class of bug produces.\n\n- Control characters are invisible, so a fix that works can look like text that changed for no reason in another editor.\n- Isolating helps the renderer, not the reader: the underlying string comparison still sees the added characters.\n- The wrap is text-level only; it cannot change a container's direction attribute.\n- Without a font that covers the script, the visual comparison shows boxes rather than a bidi difference.\n- Nothing is stored or sent; the wrapping happens in the page.\n- Isolation changes rendering, not meaning: the reader sees the same words either way, which is the point and also the limit.\n- A wrapped string pasted into an editor that strips formatting characters loses the fix silently.\n\nUse it when a short phrase renders wrongly inside a paragraph and the paragraph's direction cannot be changed. Wrap the segment, read the visual comparison, then copy the result — and remember that the added controls travel with the string. Compare the two renders before copying, and if the difference is invisible, the wrap was not the problem.",
+    "howTo": [
+      "Paste the full paragraph that mixes directions.",
+      "Enter the segment to isolate, or leave it empty to wrap the whole text.",
+      "Choose the control pair to wrap with.",
+      "Check whether the segment was replaced in place, read the visual comparison, then copy or download."
+    ],
+    "whenToUse": "Use the tester when a segment inside a paragraph needs explicit isolation rather than a container change. To find out what the direction actually is first, the {{rtl-text-tester|RTL Text Tester}} reports the paragraph direction and counts the controls already present.\n\nWhen the visibility of those invisible characters is the problem — they are in a document and nobody can see them — the {{unicode-text-normalizer|Unicode Text Normalizer}} lists and can strip them, and the {{character-encoding-converter|Character Encoding Converter}} handles the byte-level version of the same confusion.",
+    "faqs": [
+      {
+        "q": "What does the control pair do?",
+        "a": "It brackets the chosen run with explicit bidi formatting characters, so the renderer treats the run as an isolated direction rather than letting it interact with the surrounding paragraph. The pair you pick decides the direction of the isolated run."
+      },
+      {
+        "q": "What happens if the segment is not found in the full text?",
+        "a": "It is appended as a new line and the result row says so, rather than wrapping something you did not ask for. That keeps the output predictable when the segment text does not match the paragraph exactly."
+      },
+      {
+        "q": "Why does the page show the output twice?",
+        "a": "Because the visual comparison is the only honest test of a bidi fix: the same string rendered with and without the controls, so the effect can be judged rather than described."
+      },
+      {
+        "q": "Are the added control characters visible?",
+        "a": "No, and that is both the point and the risk. They are counted in the result and listed in the output panel, because invisible characters that fix rendering can confuse a later edit or a string comparison."
+      },
+      {
+        "q": "Is this the same tool as the RTL text tester?",
+        "a": "No. The RTL tester detects and displays direction; this tool changes the text by adding explicit controls. One answers what will happen, the other changes it."
+      }
+    ]
+  },
+  {
+    "slug": "locale-aware-sort-tool",
+    "keywords": ["locale-aware sort tool", "collator", "natural numbers", "duplicate groups"],
+    "intro": "The Locale-Aware Sort Tool sorts lines with the platform's collator for the locale you choose, with optional natural-number ordering, punctuation handling, de-duplication and reverse order.",
+    "content": "Sorting looks like a solved problem until accented letters, numbers and punctuation arrive: item10 before item2, or Ärger in the wrong place entirely. This locale-aware sort tool delegates the comparison to the platform's own collator for the locale you choose, which is the only way to sort the way a language actually sorts. The lines are compared with the platform's collator, so the ordering matches the runtime's locale data rather than a hard-coded alphabet.\n\n- One item per line, so the input is a plain list rather than a table.\n- Sort locale: a curated list of BCP-47 tags, and any valid tag you type is accepted.\n- Case and accent sensitivity: choose how much of a difference between two letters the comparison should notice.\n- Natural numbers: with it on, item2 sorts before item10, because digit runs are compared as numbers rather than as text.\n- Ignore punctuation: punctuation stops deciding where a line sits.\n- Remove duplicates: duplicate lines are collapsed and reported as duplicate groups.\n- Z to A reverses the whole ordering.\n- The options compose: a case-insensitive, punctuation-ignoring, natural-order sort can be set in one pass, which is what a real contact list needs.\n- Result rows: lines in the output, duplicate groups found and the collator locale actually used, plus the why-locale-matters explanation.\n\nThe comparison comes from Intl.Collator, so the ordering a language expects is the ordering the platform ships: an umlaut is not a separate letter in every locale, ø and o are related in one place and not another, and a case-insensitive comparison is a locale-aware question rather than a lowercase operation. The natural-numbers option handles the common case where a plain string comparison puts item10 above item2, and de-duplication is decided by the same collator, so two lines that differ only in a way the locale ignores are reported as one group rather than quietly removed or quietly kept. Nothing is guessed, and an invalid locale is reported instead of thrown. The result rows name the collator locale actually used, which matters when a fallback occurred, and the duplicate groups are listed rather than merely counted so a surprising collapse can be checked.\n\n- Sort order is only as current as the runtime's locale data, which browsers update on their own schedule.\n- Natural ordering applies to digit runs; it does not understand versions or mixed alphanumeric schemes.\n- Two locales can legitimately produce different orders for the same list; neither is wrong, which is why the locale used is printed.\n- The input is line-based, so a field containing a newline has to be cleaned before it can be sorted.\n- De-duplication follows the collator's equality, so two lines the locale treats as identical collapse into one group.\n- The tool sorts lines; it does not sort columns or comma-separated fields.\n- Very large lists are processed in the page, so the browser is the practical limit.\n\nUse it when a list has to read correctly for a locale rather than merely be in order: check the duplicate-groups figure before copying, and try the case and accent settings side by side, because the difference between them is precisely the sort bug you were looking for. A list that is merely in order is not the same as a list ordered the way its readers expect.",
+    "howTo": [
+      "Paste one item per line.",
+      "Choose the sort locale, then set case and accent sensitivity for the comparison.",
+      "Switch on natural numbers, punctuation ignoring or duplicate removal as the list needs.",
+      "Read the collator locale and duplicate groups, then Copy sorted list or Download."
+    ],
+    "whenToUse": "Use the sort tool when the ordering must match a language's expectations rather than a code point table. When the problem is how the text is stored rather than sorted, the {{unicode-text-normalizer|Unicode Text Normalizer}} handles normalization and invisible characters, and for the byte level the {{character-encoding-converter|Character Encoding Converter}} is the right tool.\n\nWhen figures rather than words are being ordered or displayed for a locale, the {{number-locale-formatter|Number Locale Formatter}} applies the same platform data to the digits themselves.",
+    "faqs": [
+      {
+        "q": "Why do accented letters sort differently in different locales?",
+        "a": "Because collation is a language question, not a character question. The collator decides whether an accent is a difference at a different position or not a difference at all, which is why the locale select changes the ordering of the same list."
+      },
+      {
+        "q": "What does natural numbers change?",
+        "a": "It compares digit runs as numbers, so item2 comes before item10 instead of after it. Without it, the comparison is character by character, and a 1 sorts before a 2 no matter what follows."
+      },
+      {
+        "q": "How are duplicates detected?",
+        "a": "With the same collator used for sorting, so two lines that the locale treats as equal are reported as one duplicate group. That is stricter than a lowercase string comparison and looser than an exact byte match."
+      },
+      {
+        "q": "Can I sort by a locale I have not selected?",
+        "a": "Yes — the locale list is curated for convenience, but any valid BCP-47 tag you type is accepted, and the collator locale actually used is reported in the result rows."
+      },
+      {
+        "q": "Does the tool send my list anywhere?",
+        "a": "No. The comparison runs in the page through the platform's collator, so the list never leaves the browser and the tool works offline."
+      }
+    ]
+  },
+  {
+    "slug": "text-expansion-estimator",
+    "keywords": ["text expansion estimator", "expansion range", "placeholders", "character budget"],
+    "intro": "The text expansion estimator applies published expansion ranges to each English interface string so a layout can be planned for, with placeholders excluded and short strings flagged.",
+    "content": "Translating an interface changes how much room the strings take: German compounds run longer, Finnish agglutinates, and CJK text often shrinks. This text expansion estimator is the planning arithmetic for that problem and nothing more: each target locale carries a low and a high multiplier, the source string is measured in code points, and the estimate is reported with the range visible. Both ends of the range are printed because how much longer is a range, not a number.\n\n- One English string per line, so a whole screen's copy can be estimated at once.\n- Translate into: the target locale, each with its own published low and high expansion range and a note on why the language behaves that way.\n- Character budget per string: when set, the high estimate is checked against it and an over-budget flag is raised.\n- Estimate figures: low and high character counts for the whole set, the percentage change at each end, the over-budget count and the number of strings too short to trust.\n- Per-string detail: the row-by-row estimate for every line pasted.\n- The per-string table shows the base count and both ends of the range, so a single outlier is easy to spot.\n- Copy report and Download text-expansion.txt.\n\nThe arithmetic is deliberately simple and honest. Placeholders are never treated as translatable text: tokens such as {name}, percent-style and dollar-brace placeholders are measured separately, excluded from the base that expands, and added back unchanged, because a UI string's fixed parts should not be multiplied by a language's expansion factor. Strings shorter than ten translatable characters are flagged rather than silently trusted, since a two-letter label can grow by more than 200 percent in practice and a small absolute number hides that. The character budget turns the high estimate into an overflow flag, which is what a fixed-width button or a table column actually needs to know. What the numbers are not is equally important: they are not a translation and not a prediction for your specific copy, because real length depends on the translator, the terminology and the tone. The report keeps the range visible beside every figure for that reason: a single number would imply a precision the method does not have.\n\n- The ranges are planning guidance, wide on purpose; a specific translator can land outside them in either direction.\n- The estimate is measured in code points from the English source, not in rendered pixels, so font and weight still decide the final fit.\n- Placeholders are excluded from the expansion base, but their own length can still push a short string over a tight budget.\n- The tool estimates one source language; it cannot translate or verify a translation.\n- Very short strings are flagged, not corrected: they expand proportionally more and no multiplier fixes that.\n- The estimate assumes one line of text per string; a label that wraps is a layout problem the arithmetic cannot see.\n\nUse it before a layout is frozen: set the budget a real control allows, read the over-budget column, and treat the flagged short strings as the ones to test by hand. An estimate that arrives before the design does is worth more than an exact one that arrives after the strings are cut. Bring the over-budget list to the design review: it is the part of the report that changes a decision.",
+    "howTo": [
+      "Paste one English interface string per line.",
+      "Choose the target locale from the expansion list.",
+      "Set a character budget if the layout has a fixed width to respect.",
+      "Read the estimate, the over-budget and short-string counts, and the per-string detail, then copy or download the report."
+    ],
+    "whenToUse": "Use the estimator when a layout has to survive translation and the strings are not written yet. When the strings already exist in the target language and the question is their correct format rather than their length, the {{number-locale-formatter|Number Locale Formatter}} and the {{locale-date-formatter|Locale Date Formatter}} handle the embedded values.\n\nWhen a translated document's spelling conventions have drifted between variants, the {{consistent-spelling-checker|Consistent Spelling Checker}} reports the mix.",
+    "faqs": [
+      {
+        "q": "Do the percentages predict my actual translation?",
+        "a": "No. They are published planning ranges, wide on purpose. Real length depends on the translator, the terminology and the tone, so the estimate is a design constraint rather than a forecast."
+      },
+      {
+        "q": "Why are placeholders excluded from the count?",
+        "a": "Because a fixed token such as {name} is not translated and should not be multiplied by the language's expansion factor. It is measured separately, kept out of the expanding base, and added back unchanged."
+      },
+      {
+        "q": "Why are short strings flagged?",
+        "a": "Because strings under ten translatable characters expand proportionally more: a two-letter label can more than double, and a small absolute number hides a large ratio. The flag says a human should check that row."
+      },
+      {
+        "q": "What does the character budget do?",
+        "a": "It compares the high estimate with the limit you set and flags the strings that would overflow. That is exactly what a fixed-width button, tab label or table column needs to know before the design is final."
+      },
+      {
+        "q": "Is the text I paste sent anywhere?",
+        "a": "No. The estimate is arithmetic on your input, run in the page, so a whole screen's unreleased copy can be pasted without it leaving the browser."
+      }
+    ]
+  }
+]

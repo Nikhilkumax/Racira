@@ -12,234 +12,216 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B13_CREATIVE_SEO: Record<string, ToolSeo> = {
   "dialogue-practice-tool": {
-    keywords: ["dialogue practice tool", "dialogue", "said-bookisms", "attribution", "questions"],
-    intro:
-      "The dialogue practice tool gives you a prompt to write from and measures the exchange you write: who speaks, how long each speech runs, which attribution verbs you used and how many lines are questions.",
-    content: `The dialogue practice tool is built around the loop that improves dialogue fastest: write a short exchange, then look at what you actually did. It offers a prompt — two old friends at a funeral, a negotiation where both people want the same thing, a character with five words left before they leave — and a space to write the exchange, then measures the result. The measurement is deliberately plain, because a writer revising dialogue wants facts, not praise.
-
-The first fact is who speaks. Speeches written as a script line, with the name and a colon, are attributed directly; prose dialogue with quotation marks has its speaker read from the name before an attribution verb. From that the tool counts how many speeches each character has and how many words they carry, which is the fastest way to see that one character has quietly taken over an exchange. The average speech length does the same job at a different scale: a page of one-line exchanges reads as a tennis match, and a page of long speeches reads as two essays taking turns.
-
-The attribution verbs are the second fact. Every verb other than said, asked, replied and answered is listed as a said-bookism — hissing, barking, breathing and the rest — and a long list is a prompt to check how often a character is doing it. The tool counts adverb tags the same way, since "he said quietly" does a job the line itself could do. Neither list is a rule: a character is allowed to whisper. Counting the habits is what lets a writer decide which ones are worth keeping.
-
-The tool also counts how many speeches end in a question and how many in an exclamation. In an exchange, a run of questions with no answers reads as an interrogation, and a page where everyone is exclaiming reads as a shouting match; seeing the shape as a number is often enough to spot the problem. Narration lines between speeches are counted separately, so a passage that is mostly narration with a little dialogue is visible as such.
-
-Repetition across an exchange is the next thing the counts reveal. If two characters keep answering in the same sentence shape, or every speech opens with the other's name, the pattern is invisible while writing and obvious in the list. Reading the speeches back with the word counts beside them also shows where a beat is being explained rather than exchanged: a four-word line followed by a forty-word line usually means one character is talking at the other, which may be exactly right and may be the scene failing. The tool does not decide which — it puts the numbers where the decision is.
-
-Nothing is uploaded and nothing is stored beyond the tab, and the tool never rewrites a line. It measures an exchange you wrote against habits that are easy to miss in the middle of writing, and it says plainly that said-bookisms, adverb tags and question counts are prompts to consider rather than rules to obey.`,
-    howTo: [
-      { step: "Read the prompt, or press next prompt for another situation." },
-      { step: "Write the exchange, one speech per line as Name: \"speech\", or paste a passage." },
-      { step: "Check who speaks and how the words are distributed between them." },
-      { step: "Read the attribution verbs and adverb tags as prompts, not rules." },
-      { step: "Note the question and exclamation counts, then revise the lines you want to change." },
+    keywords: [
+      "dialogue practice tool",
+      "speeches",
+      "attribution verbs",
+      "said-bookisms",
     ],
-    whenToUse: `Use the dialogue practice tool when an exchange is drafted and you want to see its shape before you revise it. When the problem is the room the exchange happens in rather than the lines, the {{scene-description-builder|Scene Description Builder}} prompts the sensory details, and when a character in the exchange feels flat the {{character-profile-builder|Character Profile Builder}} asks what they want and need.
-
-If the exchange sits inside a scene you are still planning, the {{plot-point-mapper|Plot Point Mapper}} shows how the scene carries the beats around it.`,
+    intro:
+      "The Dialogue Practice Tool analyses an exchange for who talks how long, how speeches are attributed and where the adverb tags pile up.",
+    content:
+      "Dialogue is revised by hand more than any other prose, and this dialogue practice tool reports the things a writer would otherwise count manually. Paste an exchange — as a script with names and quoted lines, or as prose with quoted speech — and the analysis attributes speeches to speakers where it can, then reports speeches, average speech length, questions, exclamations, adverb tags, plain tags and narration lines. The who-speaks panel shows the share each speaker holds, which is usually the first surprise.\n\nThe attribution verbs panel lists the verbs used to carry the speech, separating the plain ones — said, asked, replied, answered — from the rest. Verbs other than the plain ones are said-bookisms, and the analysis names them rather than banning them, because a muttered line in the right place is doing work. The input note shows the accepted script form so a pasted exchange parses cleanly, and Copy report or Download takes the whole analysis out.\n\n- Script or prose input: names with quoted speech, or quoted speech with attribution.\n- Speech statistics: count, average length, questions and exclamations.\n- Tag statistics: plain tags versus adverb tags, and narration lines.\n- Who speaks: each speaker's share of the exchange.\n- Attribution verbs: the verbs found, with the plain set separated out.\n- Copy report and Download for the analysis as plain text.\n\nParsing walks the text for quoted spans and speaker patterns: a name before a known attribution verb starts a speaker, and prose without names falls back to quoting order. Tag detection uses a published verb list with a plain subset, and adverb tags are recognised by the ly-suffixed word after the verb. The counts are exact over what the parser matched, which is why the panel states the accepted input format rather than implying a reading of your prose that it cannot perform.\n\n- Attribution is pattern-based: a speaker line without a recognised pattern may be counted as narration.\n- Unusual verbs and dialect tags are invisible to a fixed verb list.\n- Average speech length mixes comic beats and speeches; the distribution is yours to read.\n- The tool reports said-bookisms as facts, not faults — sometimes a whispered line is correct.\n- Foreign-language dialogue runs through the same English patterns.\n\nThe reading order that works: who speaks first, because an imbalance changes the scene's power; then average speech, because long speeches in an argument read as monologues; then the tag panel, because a page where every line is adverb-tagged is telling you the dialogue is not carrying the emotion. Fix the imbalance, the monologue-length speech or the pile of adverb tags — one at a time — and re-paste — the report recomputes from scratch each time, so the counts after an edit are directly comparable with the counts before it rather than being an impression of improvement.\n\nThe neighbours cover the scene around the exchange: the scene description builder checks the setting prose for filter words, the character profile builder fixes the voices those speakers are supposed to have, and the word count tool gives the paragraph totals the exchange sits inside. A second pass over the same passage is usually where the report earns its keep: fix the balance, cut one adverb tag, paste again, and compare the counts rather than your memory of them.",
+    howTo: [
+      { step: "Paste the exchange as script lines or prose with quoted speech." },
+      { step: "Read the statistics panel for speeches, average speech, questions, exclamations and tag counts." },
+      { step: "Check who speaks for the balance, then the attribution verbs for the plain and not-so-plain set." },
+      { step: "Copy report or Download, revise one thing, and paste again to see the counts move." },
+    ],
+    whenToUse:
+      "Use the dialogue practice tool when an exchange reads flat and the numbers behind it are unknown. The {{scene-description-builder|Scene Description Builder}} checks the description around the dialogue for filter words, the {{character-profile-builder|Character Profile Builder}} fixes the voices these speakers are supposed to have, and the {{story-idea-generator|Story Idea Generator}} assembles the premise the conversation is carrying. Who they are arguing for belongs to the {{villain-motivation-builder|Villain Motivation Builder}} when one of them opposes the plot.",
     faqs: [
       {
+        q: "What input formats does it accept?",
+        a: "Either a script — name, colon, quoted speech — or prose with quoted lines and attribution verbs. The accepted script form is shown on the page so a pasted exchange parses cleanly.",
+      },
+      {
         q: "What is a said-bookism?",
-        a: "An attribution verb other than said, asked, replied or answered — hissed, barked, breathed and so on. The tool lists the ones it finds so you can decide which are earning their place; it does not ban them.",
+        a: "An attribution verb other than the plain set — said, asked, replied, answered. The tool names them rather than banning them, because a muttered line in the right place is doing real work.",
       },
       {
-        q: "How does it know who is speaking?",
-        a: "From a script prefix, such as a name and a colon before the speech, or from a name immediately before an attribution verb in prose. A speech the tool cannot attribute is counted as unnamed rather than guessed at.",
+        q: "Why is a speaker missing from who speaks?",
+        a: "Attribution is pattern-based: a line is assigned when a name sits next to a recognised verb or the script format is followed. Unrecognised speakers fall back to narration counts.",
       },
       {
-        q: "Does it rewrite my dialogue?",
-        a: "No. It measures the exchange and copies a report; it never edits a line. The point is to see the habits — how long speeches run, how many questions there are — so you can revise the lines yourself.",
+        q: "What is a healthy average speech length?",
+        a: "There is no target. The figure exists for comparison across the exchange: an argument whose speeches run long reads as a pair of monologues, and the average is where that shows first.",
       },
       {
-        q: "Is text uploaded anywhere?",
-        a: "No. There is no account and no upload, and the text lives only in the tab where you are working, so an unpublished exchange stays unpublished.",
-      },
-      {
-        q: "Why count questions and exclamations?",
-        a: "Because a run of questions with no answers reads as an interrogation and a page of exclamations reads as a shouting match. Seeing the count as a number makes both easy to spot in a passage that felt fine while writing it.",
+        q: "Does it judge my dialogue?",
+        a: "No. It counts speeches, tags and shares from patterns it states. Whether the adverb tags are wrong or the balance is deliberate is the editorial judgement the page leaves to you.",
       },
     ],
   },
 
   "scene-description-builder": {
-    keywords: ["scene description builder", "scene description", "filter words", "sensory details", "prompts"],
-    intro:
-      "The scene description builder asks a set of prompts about a place — light, weather, sound, smell, texture, mood — and turns your answers into a note sheet, with a check for the filter words that hold a reader back.",
-    content: `The scene description builder is a set of prompts, not a paragraph generator. It asks the questions a description answers — where the scene is, what time of day it is, where the light comes from, what the weather is doing, what can be heard and from how far off, what the air smells of, what a hand would touch, and what feeling the place should carry. You answer in short fields, and the tool assembles the answers into a note sheet in a fixed order, so the details are decided before the prose is written. That ordering is the whole method: a description drafted without the details decided tends to reach for whichever sense comes first.
-
-The sheet also reports its own completeness, listing the prompts still unanswered. That list is not a scold — a scene rarely needs all eight — but it makes the choice deliberate. A reader notices when a place has light and sound but no smell, and the missing lines on the sheet are exactly the ones that would have supplied it. The answers stay as labelled lines rather than prose so they cannot quietly become the paragraph: they are notes for the writer, and an unfinished field is visibly unfinished.
-
-Alongside the sheet, the builder checks a passage for filter words. Filters are the perception verbs — saw, heard, felt, noticed, watched, wondered, seemed — that narrate the act of perceiving instead of the thing perceived. "She saw the boat slip out" is one step removed from "the boat slipped out", and although a sentence sometimes needs the filter, a passage thick with them reads as a report rather than a scene. The tool lists the verbs it finds with their counts, so the habit is visible rather than invisible.
-
-This is a mechanical check on a small, well-defined habit, and the page says so. It does not judge a sentence, does not rewrite one, and does not know that a particular "saw" is doing essential work. Combined with the prompt sheet, though, it covers the two halves of writing description that are hardest to do by feel: deciding the details, and then getting out of the reader's way when they are on the page.
-
-A note sheet is also the fastest way to keep a setting consistent across scenes. If a harbour is described as grey and cold in chapter two, that chapter's sheet becomes the reference for chapter nine, and the notes for each place can be kept side by side. Because the sheet keeps the answers as labelled lines rather than prose, two scenes in the same place can be compared for the details they share and the ones that changed without meaning to — a quiet value of writing the answers down, since it is the setting as it holds across a whole book, not the single scene, that readers notice when it slips.
-
-Nothing is uploaded and nothing is stored beyond the tab. The sensory details of an unpublished setting are the sort of thing a writer does not want leaving the room, and nothing does.`,
-    howTo: [
-      { step: "Answer the prompts: place, time, light, weather, sound, smell, texture and mood." },
-      { step: "Read the note sheet, which keeps the answers in a fixed order." },
-      { step: "Check the completeness line for the prompts you left open." },
-      { step: "Paste the passage you wrote and read the filter-word check." },
-      { step: "Copy the notes or download the report and revise the passage yourself." },
+    keywords: [
+      "scene description builder",
+      "filter words",
+      "note sheet",
+      "sensory prompts",
     ],
-    whenToUse: `Use the scene description builder before writing a scene, when the details are still undecided, or after, when a passage feels thin and you want to see which senses are missing. When the problem is the talk in the scene rather than the setting, the {{dialogue-practice-tool|Dialogue Practice Tool}} measures the exchange, and when the scene reaches submission the {{manuscript-formatter|Manuscript Formatter}} handles the typography.
-
-If you are assembling the passage in Markdown, the {{markdown-editor|Markdown Editor}} keeps the notes and the draft in one place.`,
+    intro:
+      "The Scene Description Builder turns sensory prompts into a consistent note sheet and checks a passage for the filter words that push the reader away.",
+    content:
+      "Description goes wrong when the paragraph is written before the room exists, and this scene description builder inverts the order. Sensory prompts ask what is here — the details worth noticing before prose starts — and the tool assembles the answers into a note sheet, reporting how many fields are filled. The builder does not write prose; it lists what you noticed, field by field, so the details are decided before the paragraph is. A note sheet with five fields filled gives a paragraph five things to do, which is the difference between describing a place and naming it.\n\nThe filter-word check is the second half: paste the passage you wrote from the notes and the tool checks the passage for filter words — the perception verbs that narrate seeing instead of showing — saw, heard, felt, noticed. Those verbs put the reader a step away from the scene, and they are one of the most common revision notes description attracts. The report combines the sheet and the check, so one copy gives both the plan and the first edit.\n\n- Sensory prompts: the fields that ask what is here before the prose does.\n- Note sheet: the answers assembled in order, with fields filled counted.\n- Filter-word check: a mechanical list of perception verbs in a pasted passage.\n- Hit list: the verbs found, in document order, with their context.\n- Copy notes for the sheet, and Download for the whole report.\n- Scope panel: the statement that the builder lists rather than writes.\n\nThe prompts are fixed text and the sheet is assembled from whichever fields are filled; the filter check is a literal list of perception verbs matched case-insensitively over the passage. Both are published mechanisms with no model behind them, which is why the page can promise that the check finds exactly the listed verbs and nothing else. The counts come from the shared tokenizer, so the words figure agrees with the rest of the domain.\n\n- The filter list is finite: a perception verb outside it passes unflagged.\n- Some perception verbs earn their place — a story about watching is allowed to watch.\n- The prompts assume a place with texture; an interior scene may fill fewer fields honestly.\n- The note sheet is a list, not a paragraph: the prose is still yours to write.\n- Nothing is stored, so copy the notes before leaving the page.\n\nThe workflow is prompts first, prose second, check third: fill the sheet, write the paragraph from it, then paste the paragraph into the filter check and see how many of your sentences begin by reporting perception. Replacing saw with the thing seen is the whole lesson the check exists to teach. The sheet beside it is the preventive half of the same lesson: details chosen first leave fewer perception verbs to report later, and re-running it after the edit confirms the count dropped.\n\nThe neighbouring tools cover the scene's other halves: the dialogue practice tool analyses the exchange happening inside it, the world building template holds the larger setting the scene belongs to, and the character profile builder fixes the people walking through it.\n",
+    howTo: [
+      { step: "Answer the sensory prompts — what is here — before writing any prose." },
+      { step: "Read the note sheet and the fields-filled count to see where the scene is thin." },
+      { step: "Write the passage from the notes, then paste it into the filter-word check." },
+      { step: "Replace the flagged perception verbs where the scene can show instead, and copy the notes for reference." },
+    ],
+    whenToUse:
+      "Use the scene description builder when a place needs to exist before the paragraph does. The {{dialogue-practice-tool|Dialogue Practice Tool}} analyses the exchange happening inside the scene, and the {{world-building-template|World Building Template}} holds the larger setting this scene belongs to. The people walking through it are the {{character-profile-builder|Character Profile Builder}}'s subject, and the conflict they are caught in belongs to the {{conflict-and-resolution-planner|Conflict and Resolution Planner}}.",
     faqs: [
       {
-        q: "Does it write the description for me?",
-        a: "No. It asks the questions and keeps your answers as labelled notes. The prose is yours; the tool makes sure the light, sound, smell and texture were decided before you reached for the first one.",
+        q: "What does the builder actually produce?",
+        a: "A note sheet: the answers to the sensory prompts, assembled in order with a fields-filled count. It lists what you noticed rather than writing prose, which is what keeps the details yours.",
       },
       {
         q: "What are filter words?",
-        a: "Perception verbs such as saw, heard, felt and noticed that report the act of perceiving rather than the thing perceived. The tool lists them with counts so a habit of filtering every sensation is visible; a sentence that needs one is allowed to keep it.",
+        a: "Verbs that narrate perception instead of the thing perceived — saw, heard, felt, noticed. They place the reader a step away from the scene, and the check counts them in a pasted passage.",
       },
       {
-        q: "Do I have to fill every prompt?",
-        a: "No, and few scenes need all of them. The completeness line simply names the ones you left open so the choice is deliberate rather than accidental.",
+        q: "Are all perception verbs wrong?",
+        a: "No. The check is a revision prompt, not a rule; a story about watching is allowed to watch. The list is finite, and the page says so rather than implying full coverage.",
       },
       {
-        q: "Is my passage uploaded?",
-        a: "No. There is no account and no upload, and the notes and passage live only in this tab, so an unpublished setting and scene stay private.",
+        q: "Can it write the description for me?",
+        a: "No. The engine assembles your answers into a sheet and counts listed verbs in your passage. The prose between those two steps is deliberately left to you.",
+      },
+      {
+        q: "Are the notes saved?",
+        a: "No, the sheet lives in the page. Copy notes or Download the report before leaving, since nothing is stored after the session.",
       },
     ],
   },
 
   "poetry-form-guide": {
-    keywords: ["poetry form guide", "poetry", "syllables", "rhyme scheme", "fixed forms"],
-    intro:
-      "The poetry form guide is a reference to the common fixed forms — haiku, tanka, limerick, sonnet, villanelle and more — plus a checker that measures a draft's lines, approximate syllables and rhyme scheme against one.",
-    content: `The poetry form guide does two things: it is a reference to the fixed forms, and it measures a draft against one of them. The reference lists the haiku, tanka, limerick, cinquain, both sonnets, the villanelle, the sestina and free verse, with the line count, syllable pattern, rhyme scheme and metre that conventionally define each. Poetry has a long tradition of forms with exacting rules, and having the rules in front of you — rather than half-remembered — is most of what a guide is for.
-
-The checker takes that reference and turns it on your draft. Write a poem, choose the form, and the tool reports how many lines it has against the form's count, approximate syllables per line against the pattern, and the rhyme scheme your lines actually use. Where the draft differs, it says so in plain terms: this many lines instead of that many, syllables reading as a different pattern, a rhyme scheme of its own rather than the expected one. None of it is a verdict — poems break forms deliberately — but a difference you can see is a difference you can choose.
-
-The rhyme scheme is derived from the final sound of each line and labelled with letters, so four lines rhyming alternately come back as ABAB. That is a useful mirror, because a rhyme scheme intended and a rhyme scheme heard can differ. The syllable counts are approximate, using the same counter the domain's readability tools use, which does not know a poet's elisions or a name's pronunciation; the page labels them approximate because they are.
-
-What the guide does not do is check metre. Stress patterns — iambic pentameter and the rest — are a much larger problem than counting syllables, and the tool says plainly that it does not attempt it. It also does not suggest rhymes, write lines or score a poem. It reports the form's rules and then reports the gap between them and the draft, and leaves the judgement, which is where judgement belongs.
-
-The guide is also, deliberately, a reading list. A writer who has never counted the syllables in a haiku often finds that the three lines of five, seven and five are tighter than expected, and the same is true of a limerick's anapaestic swing or a villanelle's two refrains that repeat and finally meet. Measuring a draft against the form is a way of learning what the form asks by doing it, which is how most writers come to use these structures: not as constraints to obey, but as shapes that do work a free line cannot, and that reward a little patience with a rhythmic pleasure the unmeasured line does not have.
-
-The form data is the conventional description of each form, not a ruling on what a poem must be. A sestina's end-word rotation, a villanelle's refrains and a sonnet's turn are described as traditions describe them, and a poem that ignores every one of them is still a poem — just not a haiku, and the tool will say so without complaint.`,
-    howTo: [
-      { step: "Choose a fixed form: haiku, tanka, limerick, cinquain, a sonnet, villanelle, sestina or free verse." },
-      { step: "Read the form's rules in the reference panel: lines, syllables, rhyme and metre." },
-      { step: "Write or paste your draft, one line per line." },
-      { step: "Read the measured lines, approximate syllables and the rhyme scheme your draft uses." },
-      { step: "Check the notes for where the draft and the form differ, then decide what to change." },
+    keywords: [
+      "poetry form guide",
+      "rhyme scheme",
+      "syllables",
+      "free verse",
     ],
-    whenToUse: `Use the poetry form guide when you are writing in a fixed form and want the rules and a measurement of your draft rather than a memory of them. When you want to see the structure of a longer poem as a list, the {{outline-builder|Outline Builder}} numbers an outline of its parts, and for a plain count of words in a draft the {{word-count-tool|Word Count Tool}} answers quickly.
-
-When the poem is finished and needs cleaning up for a magazine, the {{markdown-editor|Markdown Editor}} keeps the plain text tidy while you work.`,
+    intro:
+      "The Poetry Form Guide references the common fixed forms and measures a draft's lines, approximate syllables and rhyme against the form it claims.",
+    content:
+      "A fixed form is a set of numbers, and this poetry form guide carries them: line counts, syllable patterns and rhyme schemes for the common forms — haiku, tanka, limerick, cinquain, both sonnets, the villanelle, the sestina and free verse — plus a checker that measures your draft against the form it claims. The form's rules panel shows the reference: lines, syllable pattern, rhyme scheme and a note on what the form is for, all copyable as a reference entry.\n\nPaste the draft one line per line and the measured panel reports lines, syllables and rhyme reads: the line count against the form's, the syllable pattern line by line, and the rhyme scheme derived from the final sounds of each line as letter labels. Where the draft parts company with the form is reported directly rather than scored. Free verse appears in the guide with no fixed line count or rhyme, because a reference that pretends free verse has rules is not a reference.\n\n- Nine forms: haiku, tanka, limerick, cinquain, Shakespearean and Petrarchan sonnets, villanelle, sestina and free verse.\n- Form rules: line count, syllable pattern, rhyme scheme and a description.\n- Line check: your line count against the form's.\n- Syllable check: approximate syllables per line against the pattern.\n- Rhyme reads: a scheme derived from line-ending sounds as letter labels.\n- Copy reference and Download report for the form and the check.\n\nThe checker counts lines from the shared tokenizer's sentence segments laid out per line, counts approximate syllables through the shared syllable counter, and derives a rhyme key from each line's final vowel sound and everything after it, labelling matches with letters. Approximate syllables are labelled as such on the page: a stress-aware metre check is a different and much larger problem, and this tool does not claim it. The form data itself is the conventional description of each form, held as reference values.\n\n- Syllable counts are approximate by the shared heuristic, so near-misses on a pattern are expected.\n- Rhyme is read from final sounds, so slant rhyme and eye rhyme are reported as misses.\n- Metre and stress are not checked; the form reference names them, the checker does not verify them.\n- The end-word rotation of a sestina is reference text, not something the checker can verify.\n- A free-verse draft passes by definition, which is what free verse means.\n\nThe workflow is to pick the form first and read its rules panel before drafting, because the useful moment for a form guide is line one rather than line fourteen. Once a draft exists, paste it and read the rhyme reads before the syllables, because the scheme is the part of a fixed form a reader hears first: a scheme that is wrong at the pattern level will not be rescued by syllable counts, while syllable drift on a rhyme that works is a line edit.\n\nThe neighbours cover the surrounding craft: the flash fiction timer gives prose a clock, the word count tool reports the plain totals, and the sentence count tool applies the same counting to prose rhythm rather than poetic lines.",
+    howTo: [
+      { step: "Choose a fixed form and read its rules: lines, syllable pattern, rhyme scheme and note." },
+      { step: "Paste your draft one line per line." },
+      { step: "Read the measured panel for line count, syllables per line and the derived rhyme reads." },
+      { step: "Copy the reference or download the report for the form and the check, then keep both beside the draft, then fix whichever of lines, syllables or rhyme is furthest from the form." },
+    ],
+    whenToUse:
+      "Use the poetry form guide when a poem claims a form and the numbers have to agree. The {{flash-fiction-timer|Flash Fiction Timer}} puts a clock on prose instead, the {{word-count-tool|Word Count Tool}} reports plain totals for any text, and the {{sentence-count-tool|Sentence Count Tool}} applies the same counting to prose rhythm. For prompts when the page is blank, the {{writing-prompt-generator|Writing Prompt Generator}} cycles an authored bank across five categories.",
     faqs: [
       {
+        q: "How does it check rhyme?",
+        a: "Each line's ending sound becomes a key — the final vowel and everything after it — and matching keys get the same letter, producing a scheme like A, A, B, B. Slant rhyme and eye rhyme read as misses by design.",
+      },
+      {
         q: "Are the syllable counts exact?",
-        a: "No, they are approximate. The counter is the same one the domain's readability tools use and it does not know a poet's elisions or how a proper noun is pronounced, so the page labels the counts as approximate rather than exact.",
-      },
-      {
-        q: "Does it check metre?",
-        a: "No. Metre is the pattern of stressed and unstressed syllables, which is a much larger problem than counting them, and the tool does not attempt it. It reports line counts, approximate syllables and rhyme.",
-      },
-      {
-        q: "How is the rhyme scheme worked out?",
-        a: "From the final sound of each line: lines ending in the same final vowel sound are labelled with the same letter, so alternating rhymes come back as ABAB. A near rhyme therefore reads as no rhyme, which the page notes.",
+        a: "No, they are approximations from the shared syllable heuristic and are labelled as such. A stress-aware metre check is a much larger problem, and the tool does not claim to perform one.",
       },
       {
         q: "Which forms are included?",
-        a: "Haiku, tanka, limerick, cinquain, Shakespearean and Petrarchan sonnets, villanelle, sestina and free verse, each with its line count, syllable pattern, rhyme scheme and, where relevant, its metre.",
+        a: "Haiku, tanka, limerick, cinquain, the Shakespearean and Petrarchan sonnets, the villanelle, the sestina and free verse — each with line count, syllable pattern, rhyme scheme and a note on what it is for.",
       },
       {
-        q: "Does it write or suggest anything?",
-        a: "No. It is a reference and a measurer. It does not suggest rhymes, generate lines or score the poem; it tells you where the draft and the form differ and leaves the decision to you.",
+        q: "Why is free verse in a form guide?",
+        a: "Because it is a form with no fixed line count or rhyme, and a reference that pretended otherwise would be wrong. The checker reports its lines and syllables without measuring them against a pattern.",
+      },
+      {
+        q: "Does it check metre?",
+        a: "No. The form reference names the conventional metre, but the checker measures lines, approximate syllables and rhyme only. Stress patterns are outside what it claims to do.",
       },
     ],
   },
 
   "character-profile-builder": {
-    keywords: ["character profile builder", "character profile", "want", "flaw", "arc"],
-    intro:
-      "The character profile builder prompts a character's role, want, need, flaw, strength, backstory, voice and arc, scores how much of the sheet is answered and flags the thin spots mechanically.",
-    content: `The character profile builder is a sheet of prompts with a score attached. It asks ten questions about a character — role, age, appearance, what they want, what they need, their flaw, their strength, the backstory behind the flaw, how they speak, and how they are different by the last page — and reports how many are answered. The score is not a grade; it is a way to see the gaps. A character profile that has a want and a flaw but no backstory is a different kind of incomplete from one with a rich history and nothing driving them, and the open-fields list makes which one you have obvious.
-
-The checks are the second half. They are mechanical, and they notice four specific thin spots. If the want and the need are worded identically, the tool points out that a character usually pursues one thing and lacks another — the gap between the two is what a story runs on. If there is a strength but no flaw, it notes that a strength without a flaw reads as a wish rather than a person. If no arc is named, it asks how the character is different at the end. And if there is neither a want nor a need, it says the character has nothing driving them through the story.
-
-Those checks are prompts to think, not verdicts, and the page says so. A character can be wonderfully alive with no backstory written down, and a flaw can be implied rather than stated; the tool cannot see either of those. What it can do is make sure a field is empty because you decided it should be rather than because you skipped it, which is the failure mode a profile sheet exists to prevent.
-
-The sheet renders as a markdown document with a heading per field, so it can live beside a scene board or a beat sheet in the same folder, and the report gathers the score, the open fields, the checks and the sheet in one copyable block. Everything runs in the browser: no account, no upload, no storage beyond the tab, and nothing is generated — the prompts ask the questions, and every answer is the writer's.
-
-A profile is most useful when it is read alongside the draft rather than instead of it. The fields answer questions a scene asks implicitly: why this character refuses an offer, what they notice in a room, which decision they cannot make. When a scene stalls, checking the profile against it usually locates the stall at a field that is empty or contradicted — a character acting against a want they were never given, or a flaw that never shows on the page. The sheet does the remembering so the draft can be read against it, and a gap the tool flags is often the exact question the next scene has to answer.
-
-That last point is the reason the tool is a sheet rather than a generator. A character that arrives fully written by a tool is not a character the writer knows; one arrived at by answering ten questions is. The profile builder does the asking and the bookkeeping, and leaves the imagining alone.`,
-    howTo: [
-      { step: "Give the character a name and a role, then work through the prompts." },
-      { step: "Answer what you know and leave the rest; the sheet tracks what is open." },
-      { step: "Read the completeness score to see how much of the character is decided." },
-      { step: "Read the checks for the thin spots: want against need, strength without flaw, no arc." },
-      { step: "Copy or download the character sheet and keep it beside the draft." },
+    keywords: [
+      "character profile builder",
+      "completeness",
+      "flaw",
+      "character sheet",
     ],
-    whenToUse: `Use the character profile builder when a character needs deciding on the page and you want the questions in front of you. When the character's decisions turn into trouble, the {{conflict-and-resolution-planner|Conflict & Resolution Planner}} shapes that trouble into escalating turns, and when the character carries a plot thread the {{plot-point-mapper|Plot Point Mapper}} shows where it lands.
-
-If you are working out how the character sounds, the {{dialogue-practice-tool|Dialogue Practice Tool}} gives you a prompt to write them into.`,
+    intro:
+      "The Character Profile Builder prompts a character's want, need, flaw and arc, scores completeness and flags the common thin spots.",
+    content:
+      "A character profile is a set of answers that have to agree, and this character profile builder prompts them field by field. Ten prompts cover the parts a draft leans on — role, age, a telling appearance detail, want, need, flaw, strength, the backstory event behind the flaw, voice and arc — and the completeness panel scores how many are answered and which are still open. The point is gaps: an empty field is a question the story will have to answer anyway.\n\nThe prompts to think about panel carries the mechanical checks, and they are prompts rather than verdicts: a want that is really the need, a strength with no matching flaw, a character with no arc. The tool never says a character is wrong, only that a field is empty or that two fields say the same thing. Copy sheet exports the profile as a markdown character sheet, which is the format the rest of this domain's reports also use, so a character sheet can sit beside a beat plan and a conflict plan without conversion, and Download takes the same text as a file.\n\n- Ten prompts: role, age, appearance, want, need, flaw, strength, backstory, voice and arc.\n- Completeness: prompts answered, with the open ones named.\n- Shape checks: want versus need, strength versus flaw, presence or absence of an arc.\n- Markdown export: the profile as a character sheet, copyable and downloadable.\n- Word count from the shared tokenizer, so the sheet's size is exact.\n\nEach prompt is fixed text that names what a useful answer looks like — one telling detail, not a full inventory; one verbal tic is enough — and the answers are stored as plain fields. Completeness is arithmetic over the fields, and the checks are comparisons between them: the want and need compared for sameness, the strength and flaw for balance, the arc for being non-empty. Nothing is generated and nothing is scored on quality; the engine asks the questions a memorable character answers.\n\n- The checks read structure, not prose: a thin answer passes every one of them.\n- Field matching is literal, so want and need phrased identically flag, but near-synonyms pass.\n- No archive: the profile lives in the page until you copy the sheet.\n- The prompts assume a tradition of character work; a genre with different conventions still has to fit these ten.\n- Completeness of ten out of ten says the fields are filled, not that the character works.\n\nThe habit that makes the tool earn its place is answering the flaw and the backstory together: one names a habit, the other names the event that installed it, and a profile where those two connect reads as a person rather than a list. Read the checks after that pair, because they are where the contradictions surface — want equal to need, or a strength the story never has to use.\n\nThe neighbouring builders cover the other characters and the shape around them: the villain motivation builder asks the antagonist-specific questions, the story idea generator assembles the premise the character wants inside, and the conflict planner names who opposes whom over what. A profile that passes them is not finished, but it is coherent, and coherence is what the next builder needs.",
+    howTo: [
+      { step: "Fill the prompts — name, role, age, appearance, want, need, flaw, strength, backstory, voice and arc." },
+      { step: "Read the completeness panel for prompts answered and the ones still open." },
+      { step: "Work through the prompts to think about, checking want against need and strength against flaw." },
+      { step: "Copy sheet or Download to export the profile as a markdown character sheet." },
+    ],
+    whenToUse:
+      "Use the character profile builder when a character exists in notes and needs a shape. The {{villain-motivation-builder|Villain Motivation Builder}} asks the antagonist-specific questions — wound, method, the line they will not cross — and the {{story-idea-generator|Story Idea Generator}} assembles the premise this character wants inside. Who opposes them belongs to the {{conflict-and-resolution-planner|Conflict and Resolution Planner}}, and the world they stand in is the world building template's territory.",
     faqs: [
       {
-        q: "Does it generate a character for me?",
-        a: "No. It asks ten prompts and scores your answers. Nothing is invented; every field holds what you wrote, and an empty field is left visibly empty rather than filled with a placeholder.",
+        q: "Which prompts does it ask?",
+        a: "Ten: role, age, appearance, want, need, flaw, strength, backstory, voice and arc. Each prompt names what a useful answer looks like, so the field itself teaches what to put in it.",
       },
       {
-        q: "Why is want against need so important?",
-        a: "Because the gap between what a character pursues and what they actually lack is what a story runs on. When the two are worded identically the tool points it out, since it usually means only one of them has been thought through.",
+        q: "What do the checks actually flag?",
+        a: "Empty fields and contradictions: a want that says the same thing as the need, a strength with no matching flaw, an arc left blank. They are prompts to think, never verdicts on quality.",
       },
       {
-        q: "Are the checks rules?",
-        a: "No, they are prompts. A flaw can be implied and a backstory can be deliberately withheld. The checks notice empty fields and two fields saying the same thing; they do not judge whether the character works.",
+        q: "How is completeness calculated?",
+        a: "How many prompts are answered out of ten, with the open ones named. It measures coverage of the profile, not the quality of the answers inside it.",
       },
       {
-        q: "Where is the profile kept?",
-        a: "Only in this tab, and in whatever you copy or download. There is no account and no upload, so a character sheet stays private until you choose to share it.",
+        q: "Can I export the profile?",
+        a: "Yes. Copy sheet produces the profile as a markdown character sheet and Download saves the same text as a file, so the character can live beside the draft.",
+      },
+      {
+        q: "Does it judge my character?",
+        a: "No. The engine asks the questions a memorable character answers and reports which are empty or duplicated. Whether the answers make a person is the part it leaves to you.",
       },
     ],
   },
 
   "conflict-and-resolution-planner": {
-    keywords: ["conflict planner", "conflicts", "escalation", "resolution", "stakes"],
-    intro:
-      "The conflict planner shapes one story conflict as a structure — who opposes whom, over what, at what cost — checks that the escalation turns actually change the situation, and asks what the resolution costs.",
-    content: `The conflict and resolution planner treats a conflict as a structure to be built, not a feeling to be described. You name the conflict, its type, the parties involved, the stakes, the resolution and what the resolution costs, and then list the escalation turns — the things that happen in order, each raising the pressure toward the end. The result is a small document that makes a conflict checkable: it either has a shape that rises, or it does not, and that is visible on one page.
-
-The escalation turns are the heart of it. A conflict that stays at one level of pressure for a whole story is not really escalating, and a reader feels the flatness even when they cannot name it. The tool asks for at least three turns and checks each one: a turn too short to describe a change is flagged, and two turns that say the same thing are flagged, because each turn should change the situation rather than repeat it. Counting turns and reading them in order is a fast way to see whether a middle section is doing its job or marking time.
-
-The stakes and the cost are the other half. Naming what is at stake forces the conflict into concrete terms — not "their relationship" but "the ledger that clears her father" — and naming what the resolution costs is what separates a resolution from a collapse. A conflict that ends with everything simply working out has usually lost its tension before the end, and the tool says so in exactly those words rather than leaving you to discover it in a reader's notes.
-
-The types listed are the conventional labels — person against person, self, society, nature, fate or technology — and they are a starting point rather than a taxonomy, since a story often carries several at once. The planner does not decide which type your conflict is, does not generate the turns and does not write the scene; it provides the slots, checks the shape and exports the plan as a markdown document to keep beside the draft.
-
-Keeping the plan in one place also makes it easy to check a drafted scene against it. A conflict planner is only useful if it is consulted, so the plan exports as plain markdown and reads top to bottom: the parties, the stakes, the turns in order, the resolution and its cost. Reading a scene with those fields beside it makes a missing turn, or a resolution that arrived from nowhere, visible — which is the difference between a plan that guides a revision and one that sits unread in a folder. None of it is generated, and the planner never edits a scene.
-
-Conflicts are the engine of a story, and the most common reason a promising one stalls is that the middle stopped escalating or the ending stopped costing anything. Making both explicit on one page is the cheapest way to catch that before a reader does, and it is all this tool claims to do.`,
-    howTo: [
-      { step: "Name the conflict and choose a type; then say who opposes whom." },
-      { step: "Write what is at stake and what the resolution costs, in concrete terms." },
-      { step: "List the escalation turns, one per line, in order — at least three." },
-      { step: "Read the shape notes for turns that repeat, turns too short to change anything, or a resolution with no cost." },
-      { step: "Copy or download the plan and keep it beside the draft." },
+    keywords: [
+      "conflict and resolution planner",
+      "escalating turns",
+      "resolution",
+      "person vs person",
     ],
-    whenToUse: `Use the conflict planner when a story's central trouble needs shaping into turns that rise, or when a middle section has gone flat. When the conflict is between characters who need deciding first, the {{character-profile-builder|Character Profile Builder}} works out what each of them wants, and when the conflict has to land at a particular point in the story the {{plot-point-mapper|Plot Point Mapper}} shows where it falls.
-
-If the conflict is really a beat in a larger structure, the {{story-beat-builder|Story Beat Builder}} tracks progress through the sheet around it.`,
+    intro:
+      "The Conflict and Resolution Planner shapes one conflict — who opposes whom, over what, at what cost — and tracks the escalating turns toward the resolution.",
+    content:
+      "A conflict is a shape before it is a plot, and this conflict and resolution planner makes the shape explicit. Name the conflict, choose its type from person vs person through person vs technology, state who opposes whom and what is at stake, then write the resolution and what it costs. The turns field holds the escalations in order, and the shape panel reports parts decided, turns recorded and open parts — the three numbers that say whether the conflict can carry a story yet.\n\nThe shape notes carry the engine's checks as prompts rather than verdicts: a conflict needs at least three escalating turns, every turn has to change the situation rather than repeat it, and a resolution without a cost is usually a collapse rather than an ending. Copy plan or Download produces the plan as markdown, which is how the shape becomes a document the outline can be written against. A plan that has a name, a type, a cost and three turns is also the document you hand a collaborator, because every field states the same thing in the same words.\n\n- Working name: the conflict called something the draft can refer to.\n- Type: person vs person, self, society, nature, fate or technology.\n- The facts: who opposes whom, what is at stake, the resolution and what it costs.\n- Escalating turns: the ordered list of changes that raise the conflict, minimum three.\n- Shape panel: parts decided, turns and open parts.\n- Shape notes: the mechanical checks, phrased as prompts.\n\nThe engine checks the shape rather than judging the idea: completeness is arithmetic over the fields and the turn list, and the escalation checks are comparisons — turn count against the minimum of three, presence of a cost beside the resolution, turns against each other for actually changing the situation. Every rule is stated in those terms on the page, so a flagged plan can be read against the rule that flagged it. Nothing is generated; the questions and the checks are the product.\n\n- A plan with three turns and a cost is complete by the tool's rules, not guaranteed to work.\n- Escalation quality — whether a turn raises rather than rearranges — stays a judgement the tool cannot make.\n- The type list is a classic taxonomy; a story can straddle two types without either being wrong.\n- No storage: the plan lives in the page until you copy it.\n- Word counts are exact but only describe the plan, never the draft it will become.\n\nThe pass that matters is the cost field: write the resolution first, then name what it costs, because a resolution with no price is the most common structural hole and the check will name it either way. Then read the turns in order and ask whether each one changes who is winning — if two turns could swap places without anyone noticing, the escalation is decoration rather than movement.\n\nThe neighbouring tools cover the structure around the conflict: the plot structure planner anchors the premise onto a structure's beats, the villain motivation builder profiles whoever embodies the opposition, and the ending generator drafts the six verdicts an ending can deliver once the cost is fixed.\n",
+    howTo: [
+      { step: "Name the conflict and choose its type from the six classic categories." },
+      { step: "Fill the facts: who opposes whom, what is at stake, the resolution and what it costs." },
+      { step: "Write the escalating turns in order — at least three, each changing the situation." },
+      { step: "Read the shape panel and notes, then copy or download the plan as markdown." },
+    ],
+    whenToUse:
+      "Use the conflict and resolution planner when a story needs its central opposition shaped before drafting. The {{plot-structure-planner|Plot Structure Planner}} anchors the premise onto a structure's beats, the {{villain-motivation-builder|Villain Motivation Builder}} profiles whoever embodies the opposition, and the {{ending-generator|Ending Generator}} drafts verdicts against the want and obstacle once the cost is fixed. Assembling the premise itself belongs to the {{story-idea-generator|Story Idea Generator}}.",
     faqs: [
       {
-        q: "Why at least three escalation turns?",
-        a: "Because a conflict that never rises reads as flat. Three turns is the minimum the tool asks for to show a rise, and each one should change the situation rather than restate it — the checks flag turns that repeat or are too short to describe a change.",
+        q: "How many escalating turns does it require?",
+        a: "Three, as a stated minimum. The engine counts the turns you enter and flags the plan when the count is short, because two turns cannot escalate — they alternate.",
       },
       {
-        q: "What does it mean that a resolution needs a cost?",
-        a: "That a conflict whose resolution takes nothing from anyone usually reads as a collapse rather than a win. The tool asks you to name what the resolution costs, and flags a resolution where nothing is given up.",
+        q: "Why does it care that the resolution has a cost?",
+        a: "A resolution without a cost is usually a collapse rather than an ending. The check reports a missing cost as a prompt, in exactly those terms, rather than judging the idea itself.",
       },
       {
-        q: "Are the conflict types exhaustive?",
-        a: "No. Person against person, self, society, nature, fate and technology are the conventional labels, and a story often carries several at once. They are a starting point for naming the conflict, not a complete system.",
+        q: "Which conflict types are offered?",
+        a: "Six classic categories: person vs person, self, society, nature, fate and technology. A story can straddle two of them without either being wrong — the type is a label, not a cage.",
       },
       {
-        q: "Does it write the scenes?",
-        a: "No. It provides the slots, checks the shape of the escalation and the cost of the resolution, and exports the plan as markdown. The turns and the resolution are yours to write.",
+        q: "Does it judge whether a turn really escalates?",
+        a: "No. It checks that turns exist, are at least three and are entered in order; whether each turn raises rather than rearranges is the judgement the shape notes ask you to make.",
+      },
+      {
+        q: "Can I export the plan?",
+        a: "Yes, Copy plan produces it as markdown and Download saves the same text. Nothing is stored in the page, so export before leaving.",
       },
     ],
   },

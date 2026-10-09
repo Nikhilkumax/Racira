@@ -1,290 +1,661 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator, Briefcase } from "lucide-react";
-import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from "recharts";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-interface HoursResult {
-  totalHours: number; // decimal hours
-  timeFormatted: string; // "8h 30m"
-  grossPay: number;
-  isError: boolean;
-  errorMsg?: string;
+interface HoursInputs {
+  start: string;
+  end: string;
+  breakMin: number;
+  hourlyRate: number;
+  regularThresholdH: number;
+  otMultiplier: number;
+  roundingMin: number;
+  decimals: number;
 }
 
-const calculateHours = (
-  startH: string, startM: string, startAmPm: string,
-  endH: string, endM: string, endAmPm: string,
-  breakM: string,
-  wageStr: string
-): HoursResult | null => {
-  const sh = parseInt(startH, 10);
-  const sm = parseInt(startM, 10);
-  const eh = parseInt(endH, 10);
-  const em = parseInt(endM, 10);
-  const bm = parseInt(breakM, 10);
-  const wage = parseFloat(wageStr);
-
-  if (isNaN(sh) || isNaN(sm) || isNaN(eh) || isNaN(em) || isNaN(bm) || isNaN(wage) ||
-      sh < 1 || sh > 12 || sm < 0 || sm > 59 ||
-      eh < 1 || eh > 12 || em < 0 || em > 59 || bm < 0 || wage < 0) {
-    return null;
-  }
-
-  try {
-    // Convert times to military minutes from midnight
-    let startTotalMins = (sh === 12 ? 0 : sh * 60) + sm;
-    if (startAmPm === "PM") startTotalMins += 12 * 60;
-
-    let endTotalMins = (eh === 12 ? 0 : eh * 60) + em;
-    if (endAmPm === "PM") endTotalMins += 12 * 60;
-
-    // Handle overnight shift
-    if (endTotalMins < startTotalMins) {
-      endTotalMins += 24 * 60;
-    }
-
-    const workedMins = endTotalMins - startTotalMins - bm;
-
-    if (workedMins < 0) {
-      return { totalHours: 0, timeFormatted: "0h 0m", grossPay: 0, isError: true, errorMsg: "Break time is longer than total shift time." };
-    }
-
-    const hours = Math.floor(workedMins / 60);
-    const mins = workedMins % 60;
-    const decimalHours = workedMins / 60;
-
-    const grossPay = decimalHours * wage;
-
-    return {
-      totalHours: parseFloat(decimalHours.toFixed(4)),
-      timeFormatted: `${hours}h ${mins}m`,
-      grossPay: parseFloat(grossPay.toFixed(2)),
-      isError: false
-    };
-
-  } catch (err) {
-    return { totalHours: 0, timeFormatted: "0h 0m", grossPay: 0, isError: true, errorMsg: "Calculation error." };
-  }
+const DEFAULTS: HoursInputs = {
+  start: "09:00",
+  end: "17:30",
+  breakMin: 30,
+  hourlyRate: 25,
+  regularThresholdH: 8,
+  otMultiplier: 1.5,
+  roundingMin: 0,
+  decimals: 2,
 };
 
-const HoursCalculator = () => {
-  const [sh, setSh] = useState("9");
-  const [sm, setSm] = useState("0");
-  const [sampm, setSampm] = useState("AM");
+const fmt = (v: number, d = 0) =>
+  Number.isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+const money = (v: number, d = 2) => (Number.isFinite(v) ? "$" + fmt(v, d) : "—");
 
-  const [eh, setEh] = useState("5");
-  const [em, setEm] = useState("30");
-  const [eampm, setEampm] = useState("PM");
+const fmtHm = (mins: number) => {
+  const m = Math.max(0, Math.round(mins));
+  return `${Math.floor(m / 60)}h ${String(m % 60).padStart(2, "0")}m`;
+};
 
-  const [bm, setBm] = useState("30"); // Unpaid break in minutes
-  const [wage, setWage] = useState("20");
+const ROUNDING_OPTIONS = [
+  { value: "0", label: "No rounding" },
+  { value: "5", label: "Nearest 5 minutes" },
+  { value: "15", label: "Nearest 15 minutes" },
+];
 
-  const [result, setResult] = useState<HoursResult | null>(null);
+const DECIMAL_OPTIONS = [
+  { value: "1", label: "1 decimal" },
+  { value: "2", label: "2 decimals" },
+];
 
-  const calculate = () => {
-    setResult(calculateHours(sh, sm, sampm, eh, em, eampm, bm, wage));
+const TIME_RE = /^([01]?\d|2[0-3]):[0-5]\d$/;
+
+interface HoursResult {
+  valid: boolean;
+  errorMsg: string;
+  spanMin: number;
+  breakApplied: number;
+  workedMin: number;
+  workedH: number;
+  regularH: number;
+  otH: number;
+  crossesMidnight: boolean;
+  regularPay: number;
+  otPay: number;
+  totalPay: number;
+  breakdown: { label: string; value: string; highlight?: boolean }[];
+}
+
+function calculateHours(i: HoursInputs): HoursResult {
+  const blank = (errorMsg: string): HoursResult => ({
+    valid: false,
+    errorMsg,
+    spanMin: 0,
+    breakApplied: 0,
+    workedMin: 0,
+    workedH: 0,
+    regularH: 0,
+    otH: 0,
+    crossesMidnight: false,
+    regularPay: 0,
+    otPay: 0,
+    totalPay: 0,
+    breakdown: [],
+  });
+
+  if (!TIME_RE.test(i.start) || !TIME_RE.test(i.end)) return blank("Enter both times as HH:MM in 24-hour form, e.g. 09:00 and 17:30.");
+  const nums = [i.breakMin, i.hourlyRate, i.regularThresholdH, i.otMultiplier, i.roundingMin, i.decimals];
+  if (!nums.every((v) => Number.isFinite(v))) return blank("Enter a number in every numeric field.");
+  if (i.breakMin < 0 || i.breakMin > 480) return blank("Unpaid break should be between 0 and 480 minutes.");
+  if (i.hourlyRate < 0 || i.hourlyRate > 10000) return blank("Hourly rate should be between $0 and $10,000.");
+  if (i.regularThresholdH < 1 || i.regularThresholdH > 16) return blank("The regular-hours threshold should be between 1 and 16 hours.");
+  if (i.otMultiplier < 1 || i.otMultiplier > 3) return blank("The overtime multiplier should be between 1.0 and 3.0.");
+
+  const toMin = (t: string) => {
+    const [h, m] = t.split(":").map((x) => parseInt(x, 10));
+    return h * 60 + m;
+  };
+  const startMin = toMin(i.start);
+  const endMin = toMin(i.end);
+  const crossesMidnight = endMin <= startMin;
+  const spanMin = crossesMidnight ? 1440 - startMin + endMin : endMin - startMin;
+
+  let workedMin = Math.max(0, spanMin - i.breakMin);
+  if (i.roundingMin > 0) {
+    workedMin = Math.round(workedMin / i.roundingMin) * i.roundingMin;
+  }
+  const breakApplied = Math.min(i.breakMin, spanMin);
+  const workedH = workedMin / 60;
+  const thresholdMin = i.regularThresholdH * 60;
+  const regularMin = Math.min(workedMin, thresholdMin);
+  const otMin = Math.max(0, workedMin - thresholdMin);
+  const regularH = regularMin / 60;
+  const otH = otMin / 60;
+  const regularPay = regularH * i.hourlyRate;
+  const otPay = otH * i.hourlyRate * i.otMultiplier;
+  const totalPay = regularPay + otPay;
+
+  const breakdown = [
+    { label: "Start time", value: i.start },
+    { label: "End time", value: i.end },
+    { label: "Shift crosses midnight", value: crossesMidnight ? "Yes" : "No" },
+    { label: "Gross span on the clock", value: `${fmtHm(spanMin)} (${fmt(spanMin / 60, 2)} h)` },
+    { label: "Unpaid break deducted", value: `−${fmt(breakApplied, 0)} min` },
+    { label: "Net hours worked", value: `${fmtHm(workedMin)} · ${fmt(workedH, 2)} h`, highlight: true },
+    { label: `Regular hours (first ${fmt(i.regularThresholdH, i.regularThresholdH === Math.round(i.regularThresholdH) ? 0 : 1)} h)`, value: fmt(regularH, 2) },
+    { label: `Overtime hours beyond ${fmt(i.regularThresholdH, i.regularThresholdH === Math.round(i.regularThresholdH) ? 0 : 1)} h`, value: fmt(otH, 2) },
+    { label: `Hourly rate`, value: money(i.hourlyRate) },
+    { label: "Regular pay", value: money(regularPay) },
+    { label: `Overtime pay at ${fmt(i.otMultiplier, 1)}×`, value: money(otPay) },
+    { label: "Total pay for the shift", value: money(totalPay), highlight: true },
+  ];
+
+  return {
+    valid: true,
+    errorMsg: "",
+    spanMin,
+    breakApplied,
+    workedMin,
+    workedH,
+    regularH,
+    otH,
+    crossesMidnight,
+    regularPay,
+    otPay,
+    totalPay,
+    breakdown,
+  };
+}
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  prefix?: string;
+  hint?: string;
+  error?: string;
+  type?: string;
+  min?: string;
+  max?: string;
+  step?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  onEnter,
+  prefix,
+  hint,
+  error,
+  type = "number",
+  min,
+  max,
+  step,
+  suffix,
+  tooltip,
+}: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div
+      className={`relative w-full flex items-center rounded-md border bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${
+        error ? "border-destructive" : "border-input"
+      }`}
+    >
+      {prefix && (
+        <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>
+      )}
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        max={max}
+        step={step}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && !error && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+    {error && <p className="text-[11px] text-destructive mt-1">{error}</p>}
+  </div>
+);
+
+const CompactSelect = ({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  tooltip,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  tooltip?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-background outline-none focus:outline-none border-none text-foreground"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
+
+export default function HoursCalculator() {
+  const [start, setStart] = useState(DEFAULTS.start);
+  const [end, setEnd] = useState(DEFAULTS.end);
+  const [breakMin, setBreakMin] = useState(String(DEFAULTS.breakMin));
+  const [hourlyRate, setHourlyRate] = useState(String(DEFAULTS.hourlyRate));
+  const [regularThresholdH, setRegularThresholdH] = useState(String(DEFAULTS.regularThresholdH));
+  const [otMultiplier, setOtMultiplier] = useState(String(DEFAULTS.otMultiplier));
+  const [roundingMin, setRoundingMin] = useState(String(DEFAULTS.roundingMin));
+  const [decimals, setDecimals] = useState(String(DEFAULTS.decimals));
+  const [showAdv, setShowAdv] = useState(false);
+
+  const getInputs = (): HoursInputs => ({
+    start,
+    end,
+    breakMin: parseFloat(breakMin) || 0,
+    hourlyRate: parseFloat(hourlyRate) || 0,
+    regularThresholdH: parseFloat(regularThresholdH) || 0,
+    otMultiplier: parseFloat(otMultiplier) || 0,
+    roundingMin: parseFloat(roundingMin) || 0,
+    decimals: parseFloat(decimals),
+  });
+
+  const [calcInputs, setCalcInputs] = useState<HoursInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<HoursResult>(() => calculateHours(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(calculateHours(inputs));
   };
 
-  useEffect(() => { calculate(); }, []);
-
-  const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
-  const ci = "w-full h-full px-2 text-base bg-transparent outline-none border-none text-foreground text-center font-mono";
-
-  const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
+  const reset = () => {
+    setStart(DEFAULTS.start);
+    setEnd(DEFAULTS.end);
+    setBreakMin(String(DEFAULTS.breakMin));
+    setHourlyRate(String(DEFAULTS.hourlyRate));
+    setRegularThresholdH(String(DEFAULTS.regularThresholdH));
+    setOtMultiplier(String(DEFAULTS.otMultiplier));
+    setRoundingMin(String(DEFAULTS.roundingMin));
+    setDecimals(String(DEFAULTS.decimals));
+    setCalcInputs(DEFAULTS);
+    setResults(calculateHours(DEFAULTS));
   };
+
+  const startOk = TIME_RE.test(start);
+  const endOk = TIME_RE.test(end);
+
+  const errors = {
+    start: startOk ? "" : "Use HH:MM, e.g. 09:00",
+    end: endOk ? "" : "Use HH:MM, e.g. 17:30",
+  };
+  const hasErrors = Object.values(errors).some(Boolean);
+
+  const d = Math.max(0, Math.min(2, calcInputs.decimals || 0));
 
   const faqs = [
-    { question: "What is an 'overnight shift' calculation?", answer: "If you clock in at 10:00 PM and clock out at 6:00 AM, standard subtraction (6 minus 10) results in a negative number. This calculator automatically detects overnight shifts (when the end time is mathematically earlier than the start time) and correctly adds 24 hours to the end time to calculate the true duration of the shift." },
-    { question: "Why is 8 hours and 30 minutes written as 8.5?", answer: "To calculate payroll, human resources departments must multiply your total hours by your hourly wage. You cannot mathematically multiply $20 by '8 hours and 30 minutes'. The time must be converted into a decimal. Because 30 minutes is exactly half of an hour (30/60 = 0.5), it becomes 8.5 decimal hours." },
-    { question: "Do unpaid breaks subtract from my total?", answer: "Yes. Federal labor laws generally require employers to provide a 30-minute unpaid meal break for shifts over a certain length. This time belongs to you, not the employer, meaning it must be subtracted from the total time between your clock-in and clock-out stamps." },
-    { question: "Is this my take-home pay?", answer: "No. This calculator provides your Gross Pay (the total amount you physically earned). Before you see a paycheck, your employer is legally required to withhold federal income tax, state income tax, Social Security (6.2%), and Medicare (1.45%). Your actual take-home pay (Net Pay) will be lower." },
+    {
+      question: "How does the calculator handle shifts that cross midnight?",
+      answer:
+        "When the end time is earlier than or equal to the start time, the shift is treated as running past midnight — a 22:00 to 06:00 entry resolves to 8 hours, not negative time. This matches how night-shift and on-call spans are actually worked, and the breakdown table flags the crossing explicitly so payroll review can see the assumption rather than guess at it.",
+    },
+    {
+      question: "Should I enter times in 24-hour or AM/PM form?",
+      answer:
+        "The calculator uses 24-hour form (HH:MM) because it removes the AM/PM ambiguity that causes most timesheet errors: 07:30 is 7:30 am and 19:30 is 7:30 pm. If you think in AM/PM, add 12 to afternoon and evening hours — 1:30 pm becomes 13:30. The validation rejects anything that is not a real clock time, so a typo like 25:00 or 9:7 fails loudly instead of silently corrupting the totals.",
+    },
+    {
+      question: "Why does payroll want decimal hours instead of hours and minutes?",
+      answer:
+        "Payroll systems multiply an hourly rate by hours as a single decimal number, so 8 hours 30 minutes must become 8.5 — dividing minutes by 60. Reporting 8.30 for 8h 30m is the classic timesheet mistake, and it shortchanges the worker by a fraction of an hour every shift. The calculator shows both forms side by side precisely so the conversion is visible: use hours-and-minutes to read the shift, decimal hours to enter it into payroll.",
+    },
+    {
+      question: "How does the overtime split work?",
+      answer:
+        "Hours up to the threshold (8 by default, adjustable) pay at the base rate and hours beyond it pay at the multiplier (1.5 by default). This mirrors a daily-overtime arrangement; many jurisdictions instead use weekly thresholds such as 40 hours, in which case run each day separately and sum the regular and overtime hours, or raise the threshold to model a weekly rule. Overtime law varies by state and country — the calculator computes the arithmetic, but the rules that apply to a specific job come from the employer's policy and local law.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Everyday Life", href: "/calculator#everyday-life" }, { label: "Hours Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Everyday Life", href: "/calculator#everyday-life" },
+          { label: "Hours Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hours Calculator</h1>
+
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          <div className="card-calculator flex flex-col gap-5 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-primary mb-1.5 font-bold">Clock In (Start Time)</label>
-              <div className="flex gap-2">
-                <div className="flex-1"><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Hour</div><div className={wrap}><input type="number" value={sh} onChange={e => setSh(e.target.value)} className={ci} min="1" max="12" /></div></div>
-                <div className="flex flex-col justify-end pb-2 font-bold text-lg">:</div>
-                <div className="flex-1"><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Minute</div><div className={wrap}><input type="number" value={sm} onChange={e => setSm(e.target.value)} className={ci} min="0" max="59" /></div></div>
-                <div className="w-24 flex items-end">
-                  <div className={`${wrap} w-full`}>
-                    <select value={sampm} onChange={e => setSampm(e.target.value)} className={ci}>
-                      <option value="AM">AM</option>
-                      <option value="PM">PM</option>
-                    </select>
-                  </div>
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Shift Times">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="start"
+                  label="Start Time"
+                  value={start}
+                  onChange={setStart}
+                  onEnter={runCalculate}
+                  type="text"
+                  error={errors.start}
+                  hint="24-hour HH:MM."
+                  tooltip="Clock-on time in 24-hour form, e.g. 09:00 or 22:00."
+                />
+                <CompactInput
+                  id="end"
+                  label="End Time"
+                  value={end}
+                  onChange={setEnd}
+                  onEnter={runCalculate}
+                  type="text"
+                  error={errors.end}
+                  hint="Earlier than start = overnight."
+                  tooltip="Clock-off time; an end earlier than the start is read as crossing midnight."
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <CompactInput
+                  id="break"
+                  label="Unpaid Break"
+                  value={breakMin}
+                  onChange={setBreakMin}
+                  onEnter={runCalculate}
+                  min="0"
+                  max="480"
+                  step="5"
+                  suffix="min"
+                  hint="Lunch and other unpaid time."
+                  tooltip="Total unpaid break minutes deducted from the span."
+                />
+                <CompactInput
+                  id="rate"
+                  label="Hourly Rate"
+                  value={hourlyRate}
+                  onChange={setHourlyRate}
+                  onEnter={runCalculate}
+                  min="0"
+                  step="0.5"
+                  prefix="$"
+                  hint="0 hides the pay rows."
+                  tooltip="Base hourly wage used for the regular and overtime pay split."
+                />
+              </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Overtime Rules">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="threshold"
+                        label="Regular Threshold"
+                        value={regularThresholdH}
+                        onChange={setRegularThresholdH}
+                        onEnter={runCalculate}
+                        min="1"
+                        max="16"
+                        step="0.5"
+                        suffix="h"
+                        hint="8 = daily OT after 8h."
+                        tooltip="Hours paid at the base rate before overtime begins."
+                      />
+                      <CompactInput
+                        id="otmult"
+                        label="OT Multiplier"
+                        value={otMultiplier}
+                        onChange={setOtMultiplier}
+                        onEnter={runCalculate}
+                        min="1"
+                        max="3"
+                        step="0.1"
+                        suffix="×"
+                        hint="1.5 is the common rate."
+                        tooltip="Overtime pay multiplier applied to hours beyond the threshold."
+                      />
+                    </div>
+                  </SubSection>
+                  <SubSection title="Rounding & Display">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactSelect
+                        id="rounding"
+                        label="Timesheet Rounding"
+                        value={roundingMin}
+                        onChange={setRoundingMin}
+                        options={ROUNDING_OPTIONS}
+                        tooltip="Some employers round net time to the nearest 5 or 15 minutes."
+                      />
+                      <CompactSelect
+                        id="decimals"
+                        label="Decimals"
+                        value={decimals}
+                        onChange={setDecimals}
+                        options={DECIMAL_OPTIONS}
+                        tooltip="Decimal places on hour and money figures."
+                      />
+                    </div>
+                  </SubSection>
                 </div>
-              </div>
+              )}
             </div>
 
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-orange-500 mb-1.5 font-bold">Clock Out (End Time)</label>
-              <div className="flex gap-2">
-                <div className="flex-1"><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Hour</div><div className={wrap}><input type="number" value={eh} onChange={e => setEh(e.target.value)} className={ci} min="1" max="12" /></div></div>
-                <div className="flex flex-col justify-end pb-2 font-bold text-lg">:</div>
-                <div className="flex-1"><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Minute</div><div className={wrap}><input type="number" value={em} onChange={e => setEm(e.target.value)} className={ci} min="0" max="59" /></div></div>
-                <div className="w-24 flex items-end">
-                  <div className={`${wrap} w-full`}>
-                    <select value={eampm} onChange={e => setEampm(e.target.value)} className={ci}>
-                      <option value="AM">AM</option>
-                      <option value="PM">PM</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="h-px w-full bg-border/50"></div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col">
-                <label className="text-sm font-medium text-foreground mb-1.5">Unpaid Break</label>
-                <div className={wrap}><input type="number" value={bm} onChange={e => setBm(e.target.value)} className={ci} min="0" /><span className="pr-3 text-muted-foreground text-sm">mins</span></div>
-              </div>
-              <div className="flex flex-col">
-                <label className="text-sm font-medium text-foreground mb-1.5">Hourly Wage</label>
-                <div className={wrap}><span className="pl-3 text-muted-foreground font-bold">$</span><input type="number" value={wage} onChange={e => setWage(e.target.value)} className={ci} min="0" step="any" /></div>
-              </div>
-            </div>
-
+            {/* BUTTONS */}
             <div className="flex gap-2.5 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={() => { setSh("9"); setSm("0"); setSampm("AM"); setEh("5"); setEm("30"); setEampm("PM"); setBm("30"); setWage("20"); }} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm">
+              <button
+                type="button"
+                onClick={runCalculate}
+                disabled={hasErrors}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            {result && result.isError ? (
-              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 flex items-center gap-3">
-                <div className="flex-1">
-                  <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Input Error</div>
-                  <div className="text-base font-medium text-foreground">{result.errorMsg}</div>
-                </div>
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
-            ) : result && (<>
-              
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
-                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Gross Shift Pay</div>
-                <div className="text-4xl font-extrabold text-primary tracking-tight font-mono">{formatCurrency(result.grossPay)}</div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  {result.timeFormatted} on the clock · {result.totalHours} decimal hours at ${wage}/hr
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-                {[
-                  ["Time on Clock", result.timeFormatted],
-                  ["Decimal Hours", `${result.totalHours}`],
-                  ["Unpaid Break", `${bm} min`],
-                ].map(([l, v], i) => (
-                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
-                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
-                    <div className="text-base font-bold text-foreground font-mono">{v}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                  <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Gross Shift Pay</div>
-                  <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                    <span className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight font-mono leading-tight">
-                      {formatCurrency(result.grossPay)}
-                    </span>
-                  </div>
-                </div>
-                <div className="bg-background border border-border/50 rounded-lg p-3 text-center md:w-40 shrink-0">
-                  <div className="text-xs font-bold text-muted-foreground uppercase mb-1">Time on Clock</div>
-                  <div className="text-2xl font-bold text-foreground font-mono">{result.timeFormatted}</div>
-                </div>
-              </div>
-
-              <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden mt-2">
-                <div className="bg-secondary/50 p-4 border-b border-border/50">
-                  <h3 className="font-bold text-foreground">Payroll Conversion</h3>
-                </div>
-                <div className="p-6 text-center">
-                  <div className="text-sm font-bold text-muted-foreground uppercase mb-2">Decimal Hours for Payroll</div>
-                  <div className="text-4xl font-extrabold text-primary font-mono">{result.totalHours}</div>
-                  <p className="text-sm text-muted-foreground mt-4 leading-relaxed max-w-xs">
-                    To calculate your paycheck, HR multiplies this exact decimal number by your hourly wage.
-                  </p>
-                </div>
-              </div>
-
-            </>)}
-            {result && !result.isError && (
-              <>
-                <div className="rounded-lg border border-border bg-card p-5">
-                  <h3 className="text-base font-bold mb-4">Shift Composition</h3>
-                  <ResponsiveContainer width="100%" height={250}>
-                    <PieChart>
-                      <Pie data={[{ name: "Worked", value: result.totalHours * 60 }, { name: "Break", value: parseInt(bm, 10) || 0 }]} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={85} paddingAngle={2}>
-                        <Cell fill="hsl(var(--primary))" />
-                        <Cell fill="#f59e0b" />
-                      </Pie>
-                      <Tooltip formatter={(v: number, n: string) => [`${v} min`, n]} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
-                      <Legend />
-                    </PieChart>
-                  </ResponsiveContainer>
-                  <p className="text-xs text-muted-foreground mt-2 text-center">Of {Math.round(result.totalHours * 60 + (parseInt(bm, 10) || 0))} minutes on the clock, {Math.round(parseInt(bm, 10) || 0)} are the unpaid break.</p>
-                </div>
-
-                <div className="bg-muted/30 rounded-lg p-5">
-                  <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
-                    {[
-                      ["Gross Pay", formatCurrency(result.grossPay)],
-                      ["Time on Clock", result.timeFormatted],
-                      ["Decimal Hours", `${result.totalHours}`],
-                      ["Unpaid Break", `${bm} min`],
-                      ["Hourly Wage", `${formatCurrency(parseFloat(wage) || 0)}/hr`],
-                      ["Payroll Multiplier", `${result.totalHours} × ${formatCurrency(parseFloat(wage) || 0)}`],
-                    ].map(([l, v]) => (
-                      <div key={l} className="flex justify-between">
-                        <span className="text-muted-foreground">{l}:</span>
-                        <span className="font-semibold text-foreground font-mono">{v}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </>
             )}
+
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Net Hours Worked</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? fmt(results.workedH, d) : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${fmtHm(results.workedMin)} from ${calcInputs.start} to ${calcInputs.end}${results.crossesMidnight ? " (overnight)" : ""}, net of a ${fmt(calcInputs.breakMin, 0)}-minute break`
+                  : "Enter valid HH:MM times to total the shift"}
+              </div>
+            </div>
+
+            {/* 2. 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Regular Hours</span>
+                <span className="font-extrabold text-foreground">{results.valid ? fmt(results.regularH, d) : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Overtime Hours</span>
+                <span className="font-extrabold text-foreground">{results.valid ? fmt(results.otH, d) : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Total Pay</span>
+                <span className="font-extrabold text-foreground">{results.valid && calcInputs.hourlyRate > 0 ? money(results.totalPay) : "—"}</span>
+              </div>
+            </div>
+
+            {/* 3. BREAKDOWN TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Timesheet Item</th>
+                    <th className="p-2.5 pr-3 text-right w-[230px]">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.valid ? (
+                    results.breakdown.map((row) => (
+                      <tr key={row.label} className={row.highlight ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                        <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                        <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td className="p-2.5 pl-3 text-muted-foreground" colSpan={2}>
+                        Enter the start and end times to build the timesheet.
+                      </td>
+                    </tr>
+                  )}
+                  {results.valid && (
+                    <tr className="font-bold bg-secondary/30 border-t-2 border-border">
+                      <td className="p-2.5 pl-3 text-foreground">Weekly projection (× 5 shifts)</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">
+                        {`${fmt(results.workedH * 5, 1)} h · ${calcInputs.hourlyRate > 0 ? money(results.totalPay * 5) + " gross" : "rate not set"}`}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Net hours (decimal)</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? fmt(results.workedH, d) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Net hours (h:mm)</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? fmtHm(results.workedMin) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Gross span on the clock</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? fmtHm(results.spanMin) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Break deducted</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? `${fmt(results.breakApplied, 0)} min` : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Regular hours</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? fmt(results.regularH, d) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Overtime hours</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? fmt(results.otH, d) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Regular / OT pay</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid && calcInputs.hourlyRate > 0 ? `${money(results.regularPay)} / ${money(results.otPay)}` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Crosses midnight</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? (results.crossesMidnight ? "Yes" : "No") : "—"}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        
+
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Mathematics of Payroll</h2>
-            <p>Tracking time for payroll is notoriously frustrating because clocks operate on a Base-60 mathematical system (60 minutes in an hour), but financial currency operates on a Base-10 system (100 cents in a dollar).</p>
-            <p>If you work 8 hours and 15 minutes, and your wage is $20 an hour, you cannot simply multiply 8.15 * 20. The answer you get ($163) is legally incorrect, and doing so will result in massive payroll violations. You must first convert the sexagesimal time into a standardized decimal format.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is an Hours Calculator?</h2>
+            <p>
+              An hours calculator totals the working time between a clock-on and a clock-off entry, deducts unpaid breaks, and — where a
+              rate is supplied — splits the result into regular and overtime pay. It exists because time arithmetic is deceptively easy to
+              get wrong by hand: a 9:00-to-17:30 span with a half-hour lunch is 8.0 hours, but shifts that cross midnight, spans with
+              multiple breaks, and the minutes-to-decimal conversion for payroll each add a place where manual maths quietly fails.
+            </p>
+            <p>
+              The calculator shows every intermediate figure — gross span, break deduction, net time in both hours-and-minutes and
+              decimal form — so the number entered into a timesheet can be traced back to the clock times rather than trusted blindly. That traceability matters as much as the total: when a payslip is queried weeks later, the first question is always which clock times produced which figure, and a calculator that shows its working answers it in seconds. The same record also makes patterns visible — recurring unpaid break slippage, chronic late finishes, or rounding policies that consistently favour one side — none of which a single monthly total ever reveals.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">Converting Minutes to Decimals</h2>
-            <p>To convert time for payroll, you must take the number of minutes you worked and divide it by 60. For example, 15 minutes divided by 60 equals 0.25. Therefore, a shift of 8 hours and 15 minutes is mathematically <strong>8.25 Decimal Hours</strong>.</p>
-            <p>Now, you can perform the financial calculation: 8.25 * $20 = $165. By properly converting to decimal time, you ensure you are paid the correct amount. This calculator handles the entire conversion automatically, subtracting your unpaid breaks and outputting the exact decimal format required by Human Resources.</p>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              Both times are converted to minutes past midnight and subtracted. When the end time is not later than the start time, the
+              shift is read as crossing midnight: 1440 minutes are added to the end before subtracting, so a 22:00 to 06:00 night shift
+              resolves to 8 hours rather than a negative figure. The unpaid break is then deducted, and the optional rounding rule snaps
+              the net time to the nearest 5 or 15 minutes for employers whose timesheet policy rounds.
+            </p>
+            <p>
+              The pay split applies the overtime rule: hours up to the threshold pay at the base rate, hours beyond it pay at the
+              multiplier — 8 hours and 1.5× by default, both adjustable. Pay figures are informational: set the rate to 0 and the pay rows
+              disappear, leaving a pure duration tool. A weekly projection at five identical shifts closes the table, which is a rough
+              planning figure rather than a payroll statement. The projection assumes no variation between days and no weekly overtime threshold, so treat it as a budgeting sketch: the moment shifts differ in length, or a weekly 40-hour rule applies, the daily arithmetic must be summed with the threshold set appropriately for the jurisdiction that governs the job.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">Overnight Shifts</h2>
-            <p>Another common issue with time calculation is the "graveyard" shift. If a nurse clocks in at 10:00 PM and clocks out at 6:00 AM, a basic subtraction formula (6 minus 10) results in a negative number (-4 hours). To solve this, payroll algorithms must detect that the end time is numerically smaller than the start time, and artificially add 24 hours to the end time to represent the next day. This calculator automatically detects overnight shifts and adjusts the math behind the scenes.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Gross Pay vs Net Pay</h2>
-            <p>It is important to remember that this calculator outputs your <strong>Gross Pay</strong>. This is the raw value of the time you sold to your employer. However, you will never see this full amount in your bank account. In the United States, employers are legally required to act as tax collectors for the federal government. Before writing your paycheck, they will automatically deduct 6.2% for Social Security, 1.45% for Medicare, and a sliding percentage for Federal and State Income Tax. Your final take-home amount is known as your <strong>Net Pay</strong>.</p>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card is the net hours worked as a decimal — the form payroll systems expect — with the hours-and-minutes
+              reading directly beneath it. The three-stat bar splits regular hours, overtime hours and total pay. The breakdown table
+              walks from clock times to pay, including the midnight-crossing flag, and the summary panel repeats the key figures in both
+              notations.
+            </p>
+            <p>
+              Two habits keep the results honest. First, always cross-check the h:mm form against your own memory of the shift before
+              using the decimal — 8.30 entered where 8.5 was meant is the most common timesheet error and it compounds every day it
+              repeats. Second, remember that overtime law is jurisdiction-specific: some places trigger daily overtime, most trigger at
+              40 weekly hours, and some jobs are exempt entirely. The calculator applies whatever threshold and multiplier you set, so
+              match them to the rules that actually govern the job rather than assuming the defaults are legal advice.
+            </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hours-calculator" />
           <PopularCalculators exclude="/calculator/hours-calculator" />
@@ -292,5 +663,4 @@ const HoursCalculator = () => {
       </div>
     </>
   );
-};
-export default HoursCalculator;
+}

@@ -9,260 +9,302 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B7_PROOFREADING_SEO: Record<string, ToolSeo> = {
   "spell-checker": {
-    keywords: ["spell checker", "spell check", "misspellings"],
-    intro:
-      "This spell checker names the dictionary behind it — the en_US Hunspell word list from the dictionary-en package, read by nspell and loaded in your browser on this page alone — so its misspellings and its suggestions can be checked rather than trusted.",
-    content: `A spell checker is only as good as the word list behind it, so this one names its own. The words come from the dictionary-en package, a Hunspell en_US dictionary derived from SCOWL, and the lookups are answered by nspell, which walks character edits to propose corrections. Both are open-source (MIT, and MIT AND BSD, about 41 KB and 562 KB unpacked), and both are imported lazily, so the dictionary text is fetched only by a visitor who opens this page. No word list was typed from memory into this tool.\\n\\nType or paste a draft and the scanner splits it into word-shaped tokens, decides which ones are worth looking up, and asks the dictionary about the rest. Six kinds of code-like span are skipped before any lookup: web addresses, email addresses, Markdown links, file names with a known extension, snake_case and SCREAMING_SNAKE identifiers, and anything inside backticks. Tokens shorter than two letters are ignored, and three checkboxes control the rest — ALL-CAPS acronyms, words containing digits, and camel-case brand shapes are skipped by default. The code-like spans are always skipped, because a URL is not a spelling and https is not a misspelling.\\n\\nSuggestions are generated, never hand-written. For each unknown word nspell walks single-character edits — deletions, transpositions, replacements and insertions — and keeps only the candidates that exist in the dictionary, which is why receive appears for recieve and separate for seperate. Up to six are shown, and suggestions are computed for the first 40 distinct unknown words, so a draft full of odd tokens cannot turn a millisecond into a stall. The remaining words are listed with a note that no suggestions were computed rather than being left to look mysterious.\\n\\nThe dictionary is the American English one, and the page says so because the results show it. colour, organise and centre are reported as unknown and offered color, organize and center. That is the dictionary talking, not a judgement about correctness: both spellings are English, and the tool would be lying if it pretended every reader shares one convention. If your document is British, add the handful of forms you rely on to the Words to accept field, or review the whole draft with the Consistent Spelling Checker, which treats US and UK forms as a style choice instead of an error.\\n\\nNames, jargon, brand names and code-like words are flagged as unknown, because a general dictionary has no way to hold them. Racira, Kubernetes, Nikhil and localhost are all misspellings to this tool. That is not a quirk to hide: it is the honest consequence of using a real dictionary, and the Words to accept box exists for exactly the proper nouns your work depends on. The summary separates words that were looked up from tokens that were skipped, so you can always see the size of the part the dictionary actually judged.\\n\\nWhat it cannot do is just as clear. It checks spelling and nothing else — no grammar, no punctuation, no sense of meaning — so form and from are both correct words to it, and a sentence can be spelled perfectly while saying the wrong thing. When a report is long, work through the most frequent words first, since a wrong spelling repeated is usually one habit rather than many mistakes. Nothing is uploaded: the dictionary and your text stay in the browser, and closing the tab removes both.`,
-    howTo: [
-      { step: "Paste your draft; the dictionary loads once for the page and lookups begin immediately after it is ready." },
-      { step: "Read the unknown words table from the top — the most frequent spelling is usually the one worth fixing first." },
-      { step: "Add the names, products and jargon you use to the Words to accept field so the real errors stand out." },
-      { step: "Apply the suggestions you agree with, remembering they come from edit distance against a dictionary, not from meaning." },
-      { step: "Download the report and keep it beside the draft while you make the changes." },
+    keywords: [
+      "spell checker",
+      "en_US Hunspell dictionary",
+      "nspell",
+      "misspellings",
     ],
-    whenToUse: `Use this spell check as the first mechanical pass over a draft, then hand the results to tools that answer different questions. When the question is which variant to use rather than whether a word exists, the {{consistent-spelling-checker|Consistent Spelling Checker}} compares US and UK forms across the whole document, and the {{homophone-confusion-detector|Homophone Confusion Detector}} covers the pairs a dictionary cannot judge at all, like their and there.\\n\\nIf a clean spell check leaves you wondering whether the prose itself works, the {{grammar-checker|Grammar Checker}} runs its published list of mechanical sentence checks next.`,
+    intro:
+      "The spell checker reads your draft against the dictionary-en en_US Hunspell word list, with every lookup and suggestion produced in the page by nspell. It names the dictionary it uses so its findings can be checked rather than trusted.",
+    content:
+      "Type or paste a draft and this spell checker splits it into word-shaped tokens, decides which tokens are worth looking up, and asks the en_US Hunspell dictionary about the rest. Every lookup happens in the page: the dictionary files are imported by the browser when this tool is opened, and nothing you paste is sent anywhere.\n\nThe dictionary is a real one, and the page names it. The word list is the dictionary-en package, version 4.0.0, a Hunspell en_US dictionary derived from SCOWL and licensed MIT AND BSD (about 562 KB unpacked). The lookups and the suggestions come from nspell (MIT, about 41 KB unpacked), imported lazily alongside the affix and dictionary files. No word list was typed from memory into this tool.\n\n- Skip rules, on by default and individually switchable: ALL-CAPS tokens such as API and NASA, tokens containing digits such as utf8 or ISO8601, and camel-case brand shapes such as iPhone or eBay.\n- Always skipped, whatever the switches say: six code-like span types (web addresses, email addresses, Markdown links, file names with known extensions, snake_case and SCREAMING_SNAKE identifiers, and anything inside backticks), tokens shorter than two letters, and non-Latin scripts.\n- Words to accept: a free-text field where names, products and jargon are added once and skipped for the rest of the session.\n- Suggestions: up to six per unknown word, computed for the first 40 distinct unknown words; later words are listed with a note that no suggestions were computed.\n- Reporting: unknown words grouped by spelling with a count and up to 12 occurrence positions, capped at 300 distinct words, with Copy report and Download.\n\nThe engine is deliberately thin, and that is what makes the result checkable. Tokens are cut with a Unicode pattern that keeps utf8 and ISO8601 whole instead of slicing them into pieces. A hyphenated token is looked up whole first, then each part of at least two letters, so well-know is reported as know, which is where the error actually is. Lookups normalise curly apostrophes to straight ones and lower-case the token. Suggestions are generated by walking single-character edits — deletion, transposition, replacement and insertion — and keeping only the candidates that exist in the dictionary, which is why receive appears for recieve. The extracted offsets point at the exact characters, so each finding can be located in the original text.\n\n- The dictionary is American English. colour, organise and centre are reported as unknown and offered color, organize and center; add the forms you intend to the accept field, or run the Consistent Spelling Checker to treat US and UK forms as a style choice rather than an error.\n- Names, brands and jargon are unknown to any general dictionary. Racira, Kubernetes and localhost are reported like misspellings, and the accept field exists for exactly that.\n- It checks spelling alone. There is no grammar, punctuation or meaning in the engine, so form and from are both correct words to it.\n- Suggestions come from edit distance, not intent: a typo can receive suggestions that share its shape rather than its sense.\n- The report is capped: 300 distinct words listed, 12 occurrences per word, and suggestions computed for the first 40.\n\nUse the summary to see the size of what was actually judged: words checked, tokens skipped, suggestions computed. Work through repeated spellings first, add the proper nouns your document depends on to the accept field, and then hand the text to the Homophone Confusion Detector for the word confusions a dictionary cannot resolve.",
+    howTo: [
+      { step: "Paste or type a draft; the dictionary loads once for this page and lookups begin when it is ready." },
+      { step: "Add the names, products and jargon you use to Words to accept so the real errors stand out." },
+      { step: "Leave the three skip switches on unless you want acronyms, digit-bearing tokens or brand shapes checked as well." },
+      { step: "Work down the unknown words table from the most frequent, then Copy report or Download the list." },
+    ],
+    whenToUse:
+      "Use this spell check as the first mechanical pass over a draft, then hand the text to the tools that answer different questions. When the question is which variant to use rather than whether a word exists, the {{consistent-spelling-checker|Consistent Spelling Checker}} compares US and UK forms across the whole document, and the {{homophone-confusion-detector|Homophone Confusion Detector}} covers the pairs a dictionary cannot judge at all, such as their and there.\n\nIf the spelling is clean and the sentence still carries a mechanical slip, the {{grammar-checker|Grammar Checker}} runs its published list of checks over the same text.",
     faqs: [
       {
-        q: "Which dictionary does this spell checker use?",
-        a: "The en_US Hunspell dictionary shipped in the dictionary-en package, version 4.0.0, derived from SCOWL and licensed MIT AND BSD. It is read by nspell, an MIT-licensed library that also produces the suggestions.",
+        q: "How does a hyphenated word get reported?",
+        a: "The whole compound is looked up first. If it is unknown, each part of at least two letters is looked up separately and only the rejected parts are reported, so well-know is reported as know rather than as the entire token.",
       },
       {
-        q: "Why is my own name flagged as a misspelling?",
-        a: "Because it is not in the dictionary, and no general dictionary contains every person, product and place. Add your names to the Words to accept field and they are skipped for the rest of the session, or leave them and ignore the findings.",
+        q: "What do the three skip switches change?",
+        a: "They control ALL-CAPS acronyms such as API, tokens containing digits such as utf8, and camel-case brand shapes such as iPhone. All three are skipped by default, and switching one off sends those tokens to the dictionary.",
       },
       {
-        q: "Why is colour reported when it is correct British English?",
-        a: "The dictionary is the American English one, so a British spelling is simply absent from it. The tool says so on the page rather than hiding it; use the accept field for the British forms you intend, or run the US and UK consistency check.",
+        q: "How many suggestions are computed, and for which words?",
+        a: "Suggestions are computed for the first 40 distinct unknown words, up to six each. Any word after that is listed with a note that no suggestions were computed, so a long list of odd tokens cannot stall the page.",
       },
       {
-        q: "Where do the suggestions come from?",
-        a: "From character edits, not a correction table. nspell generates candidates by deleting, swapping, replacing and inserting letters, then keeps only those that exist in the dictionary, so a suggestion is always a real word with a real edit from what you typed.",
+        q: "Why is a product name flagged as a misspelling?",
+        a: "Because a general dictionary does not contain private names, brands or jargon. Racira, Kubernetes and localhost are unknown words to it; adding them to Words to accept skips them for the rest of the session.",
       },
       {
-        q: "Does the spell check upload my document?",
-        a: "No. The dictionary files and your text are processed in the browser with client-side JavaScript. There is no server round-trip, nothing is stored, and closing the tab clears everything.",
+        q: "Which code-like spans are never looked up?",
+        a: "Six kinds: web addresses, email addresses, Markdown links, file names with known extensions, snake_case and SCREAMING_SNAKE identifiers, and anything inside backticks. They are excluded before any lookup, because a URL is not a spelling.",
       },
     ],
   },
 
   "homophone-confusion-detector": {
-    keywords: ["homophone confusion detector", "homophones", "word confusion"],
-    intro:
-      "The Homophone Confusion Detector checks 44 documented pairs — your and you're, its and it's, their and there, then and than — but only where the surrounding words make one spelling implausible, which is why it can name a reason instead of just a count.",
-    content: `Homophones sound alike and are spelled differently, which is exactly the kind of mistake a spelling checker cannot see: your and you're are both real words, so both pass. This homophone confusion detector looks at the words around each candidate instead of the candidate alone, and it publishes the pairs it knows so the claim is checkable rather than mystical. It is a narrow answer to a narrow problem: word confusion between two real words, which no dictionary can resolve. There are 44 pairs and 44 rules, one per pair.\\n\\nEvery rule is a construction. your going is flagged because a possessive is followed by a gerund; your book is not, because that is correct. more then enough is flagged because than is the comparison word and then is the time word, while and then we left stays clean. has past is flagged, has passed is not. Each finding carries the word as written, the spelling the context calls for, the pair it belongs to, and a one-line reason, so you can agree or overrule in a second.\\n\\nThe alternative — replacing every occurrence of than with then or vice versa — would be worse than useless. A blanket rule turns correct sentences into new errors, and the tool never does it: it reports, it never edits. That is also why the pair list is selective. Where two homophones fit the same context perfectly, no rule is written at all. I read it yesterday and I red it yesterday cannot be separated by the words around them, so no amount of rule-writing would help, and a noisy rule would train you to ignore the useful ones.\\n\\nWhat the detector cannot see is worth stating plainly. It has no idea what you meant; it knows constructions, not sentences. A deliberate pun, a quoted line of dialogue, an idiom or a regional usage can all put a flagged form in a place the rule does not expect, and a contraction inside a name or a title may be missed. The findings are questions to answer, never corrections to accept blindly.\\n\\nIn practice the tool earns its place because these errors survive every other check. A spell check passes them, a grammar check often ignores them, and the eye slides over them after the third reading, because the wrong form is a real word and looks plausible. Seeing them listed with the reason attached is usually enough to fix a habit permanently — most writers find one or two pairs account for nearly everything. A finding that repeats in the same construction is usually a phrase you type without reading, and rewriting that phrase once removes the whole family of hits.\\n\\nRun it before you run a spell check, or after, but run it on the final text rather than a first draft, because a sentence you are still restructuring may lose the construction that was flagged. Copy report gives you the list with the reasons, so the decisions can be made away from the screen, and the pair summary at the end shows which pairs actually mattered rather than leaving you with a total to interpret. Nothing is uploaded, and the text disappears with the tab.`,
-    howTo: [
-      { step: "Paste the draft; the 44 pair rules run across the whole text as you type." },
-      { step: "Read each finding with its reason: the word found, the pair, and the spelling the surrounding words call for." },
-      { step: "Check the sentence in context before changing anything — the tool reports, it never edits." },
-      { step: "Keep the findings you disagree with and note the pair; repeated habits show up clearly in the pair summary." },
-      { step: "Copy the report and re-run after editing, since rewriting a clause can remove the construction that fired." },
+    keywords: [
+      "homophone confusion detector",
+      "homophone pairs",
+      "context rules",
+      "word confusion",
     ],
-    whenToUse: `Use this detector on any draft where a wrong real word would embarrass you, and pair it with the checks that cover different word-level faults. The {{apostrophe-error-finder|Apostrophe Error Finder}} handles dropped and stray marks in contractions and possessives, including the forms this tool leaves alone on purpose, and the {{spell-checker|Spell Checker}} covers words that are not in the dictionary at all.\\n\\nWhen the confusion is a matter of sentence structure rather than a pair, the {{grammar-checker|Grammar Checker}} runs a published list of mechanical checks over the same text.`,
+    intro:
+      "The Homophone Confusion Detector checks 44 documented pairs — your and you're, its and it's, their and there, then and than — and only reports a spelling when the surrounding words make the other one implausible.",
+    content:
+      "Homophones sound alike and are spelled differently, which is exactly the mistake a spelling checker cannot see: your and you're are both real words, so both pass a dictionary. This homophone confusion detector looks at the words around each candidate instead of the candidate alone, and it publishes the homophone pairs it knows so the claim is checkable. The context rules are narrow by design: word confusion between two real words, which no dictionary can resolve.\n\n- The list holds 44 pairs, one rule per pair. Examples include its / it's, your / you're, their / there / they're, to / too / two, then / than, whose / who's, affect / effect, lose / loose, passed / past, quiet / quite, accept / except, advice / advise, peace / piece, principal / principle, stationary / stationery, complement / compliment, cite / site / sight, brake / break, lead / led, everyday / every day, weather / whether, desert / dessert, hole / whole, wait / weight, threw / through, right / write, which / witch, steal / steel, meat / meet, one / won, sea / see, sun / son, tail / tale, weak / week, aloud / allowed, bare / bear, throne / thrown, mail / male, plain / plane, board / bored, flour / flower, pair / pear and waist / waste.\n- One entry is a misspelling rather than a pair: alot is always reported as a lot, with no context needed.\n- Each finding carries the word as written, the spelling the context calls for, the pair, a one-line reason, and a snippet of about 30 characters either side so the sentence can be judged without hunting for it.\n- A pair summary counts the findings per pair, so the habits that repeat are visible at the top.\n\nEvery rule is a construction, and the patterns are built by four helpers so the lookaround order cannot be got wrong by hand: after places context in a leading? trailing lookahead, before places it in a leading lookbehind, around uses both, and exact matches the word with no context at all. The whole match is always the flagged word itself, so the reported offset points at the word rather than at the phrase around it. Matching is case-insensitive. When a rule suggests a replacement, the writer's capitalisation of the first letter is preserved, so Your going is corrected to You're going rather than you're going. Findings are sorted in document order and capped at 400, which a pathological input cannot exceed.\n\n- The tool has no idea what you meant. It knows these 44 constructions, not your sentences, so a pun, a line of dialogue, an idiom or a regional usage can put a flagged form where the rule does not expect it.\n- Pairs whose contexts are identical are not checked at all. Where read and red both fit the same surroundings, a rule would fire on correct sentences, so no rule exists.\n- The list is finite. A confusion not on it is not reported, and absence of a finding is not proof that every homophone in the draft is right.\n- Nothing is edited. Each finding is a question to answer; the draft changes only when you change it.\n- The per-pair summary is the part to read when a finding repeats, because a repeated construction is usually one typing habit rather than many mistakes.\n\nRun the detector on the text you are about to send rather than on a first draft, because a clause you are still restructuring can lose the construction that fired. Copy report gives you the word, the fix, the pair and the reason in one list, and the pair summary at the end shows which pairs actually mattered instead of leaving you with a bare total.",
+    howTo: [
+      { step: "Paste the draft; the 44 pair rules scan the whole text as you type." },
+      { step: "Read each finding against its sentence: the word, the suggested form, the pair and the reason are all listed." },
+      { step: "Check the pair summary for habits that repeat, since those are the ones worth rewriting first." },
+      { step: "Copy report or Download, then re-run after editing because a rewritten clause can remove the construction that fired." },
+    ],
+    whenToUse:
+      "Use this detector on any draft where a wrong real word would embarrass you, and pair it with the checks that cover the neighbouring faults. The {{apostrophe-error-finder|Apostrophe Error Finder}} handles dropped and stray marks in contractions and possessives, and the {{spell-checker|Spell Checker}} covers words that are not in the dictionary at all.\n\nWhen the confusion is a matter of sentence structure rather than a word pair, the {{grammar-checker|Grammar Checker}} runs a published list of mechanical checks over the same text.",
     faqs: [
       {
-        q: "How many homophone pairs does the detector know?",
-        a: "Forty-four documented pairs, each with its own context rule. They include your and you're, its and it's, their, there and they're, then and than, to, too and two, whose and who's, affect and effect, weather and whether, and lose and loose.",
+        q: "What do the four pattern helpers do?",
+        a: "They build each rule's lookaround: after puts the context in a trailing lookahead, before puts it in a leading lookbehind, around uses both, and exact needs no context. The whole match is always the flagged word, so offsets stay precise.",
       },
       {
-        q: "Why does it flag your going but not your book?",
-        a: "Because the rule is written around the construction, not the word. A possessive followed by a gerund is almost always meant to be you are, while your book is exactly right. Only the first pattern exists in the rule list.",
+        q: "Why does the detector stay silent on some homophones?",
+        a: "Because no context rule would be reliable where both spellings fit the same surroundings. Those pairs are excluded rather than guessed at, since a rule that fires on correct sentences trains you to ignore the useful findings.",
       },
       {
-        q: "Will it rewrite my text?",
-        a: "No. Every finding shows the word as written and the spelling the context calls for, side by side. Nothing changes in the draft unless you change it, so a finding you disagree with costs you nothing.",
+        q: "What is in a finding besides the suggested spelling?",
+        a: "The word as written, the pair it belongs to, a one-line reason, and a snippet of roughly 30 characters either side. The reason is what lets you agree or overrule in a second.",
       },
       {
-        q: "Why are some homophones not checked at all?",
-        a: "Because no context rule would be reliable. Where both spellings fit the same surroundings, a rule would fire on correct sentences, and a checker that cries wolf gets ignored. Those pairs are excluded rather than guessed at.",
+        q: "Is there a cap on how many findings are listed?",
+        a: "Yes, 400 findings in document order. The cap protects the page from a pathological input; the pair summary still shows which pairs produced them.",
       },
       {
-        q: "Can it tell that a flagged word is deliberate?",
-        a: "No, and it does not claim to. Dialogue, puns, idioms and quoted material can all put a flagged form where a rule does not expect it. Read each finding against the sentence and overrule it whenever the text is right.",
+        q: "Can a rule fire on a sentence that is actually correct?",
+        a: "Yes, and the page says so. Deliberate puns, dialogue, idioms and regional usage can put a flagged form where a rule does not expect it. The detector reports and never edits, so overruling a finding costs nothing.",
       },
     ],
   },
 
   "punctuation-checker": {
-    keywords: ["punctuation checker", "punctuation mistakes", "punctuation check"],
-    intro:
-      "This punctuation checker runs 11 mechanical checks over the character stream — spaces in the wrong place, punctuation doubled, brackets and quotes that do not pair up, paragraphs with no full stop — and names every one of them so a clean result can be read for what it is.",
-    content: `Punctuation mistakes divide into two kinds: the ones visible in the characters and the ones that depend on meaning. This punctuation checker concentrates on the first kind, because they are the ones a machine can find without pretending to understand the sentence. Eleven checks run, and all eleven are listed on the page.\\n\\nThe mechanical faults are the ones that survive a fast edit. A space before a comma or a full stop is reported as an error, and so is a missing space after one. Punctuation repeated — a double full stop, a comma after a comma — is reported as style, because a doubled mark is sometimes deliberate. An ellipsis written with two or four dots is flagged with the count, since three is the convention in both American and British practice. Brackets, braces and quotation marks are checked by type, so an unmatched opening parenthesis is named with the side that never closes. A paragraph that reaches its end without any terminal punctuation is reported, which is the fastest way to find the stroke that was never finished.\\n\\nThe last three checks are placement rather than presence: a hyphen used as a dash, a double hyphen standing in for one, and a space sitting just inside an opening or closing bracket. All three are reported as style, because all three can be house style somewhere.\\n\\nNear-misses are carved out deliberately, because a checker that fires on correct text is one you stop reading. A grouped number such as 1,000 is not a stray comma. A time such as 10:30 is not a missing space. The full stops in e.g. and i.e. and the initials in J.K. Rowling are not sentence ends, and the same abbreviation list is shared with the capitalisation checker so the two tools agree. A comma inside a closing quotation mark is accepted as written, and nothing inside a URL or an email address can fire at all. The abbreviation list is shared with the Capitalization Checker, so the same full stop cannot count as a sentence end in one tool and not in the other.\\n\\nWhat is left out is a judgement by design. A comma splice, the Oxford comma, a comma that changes the meaning of a clause, and the punctuation of dialogue all depend on what the sentence is doing. The tool says so on the page rather than guessing, and it points at the checks that do apply: a missing apostrophe belongs to the Apostrophe Error Finder, and a sentence that begins lower-case belongs to the Capitalization Checker.\\n\\nUse the counts as a map rather than a score. One rule firing eleven times is one habit; eleven rules firing once is a draft that needs a read-through. The two cases want different responses: fix the single habit first, then read the draft for the rest of the marks. Copy report and Download produce the list with a context snippet for each finding, so you can work through the fixes in one pass instead of hunting for the marks.`,
-    howTo: [
-      { step: "Paste your text; the 11 checks run as you type and the count for each appears in the grid." },
-      { step: "Fix the error-severity findings first — spaces and unmatched marks are unambiguous." },
-      { step: "Read the style findings in context: a deliberate ellipsis or dash run is yours to keep." },
-      { step: "Work through the paragraphs flagged without terminal punctuation, which are often unfinished." },
-      { step: "Download the report and tick off the fixes, then run the checks once more on the edited text." },
+    keywords: [
+      "punctuation checker",
+      "mechanical punctuation",
+      "unmatched brackets",
+      "missing space",
     ],
-    whenToUse: `Use this as the mark-level pass, after the wording is settled and before you look at anything larger. Word-level faults that are not marks belong to the {{apostrophe-error-finder|Apostrophe Error Finder}}, and a lower-case sentence start or a stray capital belongs to the {{capitalization-checker|Capitalization Checker}}.\\n\\nWhen the marks are clean but the sentences still carry mechanical slips, the {{grammar-checker|Grammar Checker}} covers repeated words, article agreement and unmatched brackets over the same text.`,
+    intro:
+      "The punctuation checker runs 11 mechanical checks over the character stream — spaces in the wrong place, punctuation doubled, brackets and quotes that do not pair up, paragraphs with no full stop — and labels each one as an error or a style note.",
+    content:
+      "Punctuation faults divide into two kinds: the ones visible in the characters and the ones that depend on meaning. This punctuation checker concentrates on mechanical punctuation, because those are the faults a machine can find without pretending to understand the sentence. Eleven checks run and all eleven are listed on the page, split into five errors and six style findings.\n\n- Errors: a space before a full stop, comma or other mark; a missing space after punctuation; unmatched brackets, whether round, square or curly, counted by type; an odd number of straight double quotation marks or a mismatch between curly opening and closing quotes; and a paragraph that ends without any terminal punctuation.\n- Style findings: the same mark repeated, an ellipsis written with other than exactly three dots, a hyphen with spaces on both sides standing in for a dash, two or more hyphens in a row, a space before a closing bracket, and a space after an opening one.\n- Every finding carries the rule label, the issue in words, a mechanical fix where one exists, the character offset and a short context snippet.\n- Per-rule counts are shown in a grid, so one rule firing eleven times reads differently from eleven rules firing once.\n\nThe checks read the character stream directly, and the near-misses are carved out deliberately, because a checker that fires on correct text is one you stop reading. A comma inside a grouped number such as 1,000 never counts as a missing space, and neither does a colon in a time such as 10:30. A shared list of 27 abbreviations — al, approx, cf, dept, e.g, est, etc, fig, ibid, i.e, inc, jr, ltd, mr, mrs, ms, no, pp, prof, sr, st, vs, vol and their relatives — keeps the full stop in e.g. and i.e. from being treated as a sentence end, and initials such as J.K. are excluded the same way. A window of 60 characters around a match is tested for web and email shapes, so nothing inside a URL can fire. Quotation marks are counted by type: straight marks are counted together, curly openings and closings separately, and an apostrophe is never counted as a quotation mark at all. Findings are sorted in document order and capped at 200, and the per-rule counts reflect that capped list.\n\n- Comma usage is out of scope by design: a comma splice, the Oxford comma, restrictive clauses and dialogue punctuation all depend on what the sentence is doing, and a pattern cannot judge them.\n- A missing apostrophe is a word-level issue and belongs to the Apostrophe Error Finder, not here.\n- Deliberate punctuation is reported at style severity so it can be overruled — a four-dot ellipsis, an em dash run or a raised eyebrow question mark is a choice, not automatically a fault.\n- The bracket checks count characters, not nesting: an unmatched brace is reported with the side that has no partner, but a correctly paired set that crosses another pair is not judged.\n- Nothing is rewritten. Each mechanical fix is a suggestion next to the finding, and the draft changes only when you apply it.\n\nUse the counts as a map rather than a score. One rule firing repeatedly is a single habit and usually a quick fix; a spread across many rules is a draft that needs a read-through for the marks. Copy report and Download give you the whole list with context, which is the fastest way to work through a document that has been through several editing passes.",
+    howTo: [
+      { step: "Paste your text; the 11 checks run as you type and each count appears in the grid." },
+      { step: "Fix the error findings first, since spaces and unmatched marks are unambiguous." },
+      { step: "Read the style findings in context — a deliberate ellipsis or dash run is yours to keep." },
+      { step: "Work through the paragraphs flagged without end punctuation, then Copy report or Download the list." },
+    ],
+    whenToUse:
+      "Use this as the mark-level pass, after the wording is settled and before you look at anything larger. Word-level faults that are not marks belong to the {{apostrophe-error-finder|Apostrophe Error Finder}}, and a lower-case sentence start or a stray capital belongs to the {{capitalization-checker|Capitalization Checker}}.\n\nWhen the marks are clean and the sentences still carry mechanical slips, the {{grammar-checker|Grammar Checker}} covers repeated words, article agreement and unmatched brackets over the same text.",
     faqs: [
       {
-        q: "Which punctuation faults does this tool actually find?",
-        a: "Eleven: a space before punctuation, a missing space after it, repeated punctuation, an ellipsis that is not three dots, unmatched brackets, unbalanced quotation marks, a paragraph with no end punctuation, a spaced hyphen, a double hyphen, a space after an opening bracket, and a space before a closing one.",
+        q: "What does the error and style split mean?",
+        a: "Five checks are errors: a space in the wrong place, a missing space, unmatched brackets, unbalanced quotation marks and a paragraph with no end punctuation. Six are style notes, including repeated marks, a non-standard ellipsis and dash conventions, and they are yours to overrule.",
       },
       {
-        q: "Does it check comma usage?",
-        a: "No, and that is deliberate. A comma splice, the Oxford comma and a comma that changes a clause all depend on meaning, and a pattern cannot judge them. Grouped numbers and times are excluded so the checks that do run stay quiet on correct text.",
+        q: "How does the checker treat e.g. and initials such as J.K.?",
+        a: "A shared list of 27 abbreviations keeps their full stops from counting as sentence ends, and initials are excluded the same way. The same abbreviation list is shared with the Capitalization Checker, so the two tools agree.",
       },
       {
-        q: "Why was my ellipsis flagged?",
-        a: "Because it used two or four dots instead of three. The finding is reported as style, not error — an intentional four-dot ellipsis is a legitimate convention — and the count is shown so you can decide.",
+        q: "Why is 1,000 not reported as a missing space?",
+        a: "Because a comma followed by a digit is a grouped number. A colon in a time such as 10:30 is excluded by the same guard, so the missing-space check stays quiet on correct text.",
       },
       {
-        q: "What does it do with quotation marks?",
-        a: "It counts them by type and reports an odd number as unbalanced. An apostrophe is never counted as a quotation mark, so don't and it's do not disturb the pairing; a straight quote and a curly quote are also counted separately.",
+        q: "How are quotation marks counted?",
+        a: "Straight double marks are counted together, curly opening and closing marks separately, and an apostrophe is never counted as a quotation mark. An odd number of straight marks, or a curly mismatch, is reported as unbalanced.",
       },
       {
-        q: "Can it fix the text for me?",
-        a: "It never edits the draft. Each finding carries a suggested fragment when a mechanical fix exists, and you apply it yourself. Copy report or Download gives you the full list with context.",
+        q: "What is the finding cap?",
+        a: "200 findings in document order, and the per-rule counts reflect that capped list. The cap keeps a pathological input from producing an unreadable report.",
       },
     ],
   },
 
   "apostrophe-error-finder": {
-    keywords: ["apostrophe error finder", "apostrophe mistakes", "missing apostrophe"],
+    keywords: [
+      "apostrophe error finder",
+      "missing apostrophe",
+      "contractions",
+      "stray apostrophe",
+    ],
     intro:
-      "The Apostrophe Error Finder works from a published list of 27 spellings that only exist without an apostrophe — dont, isnt, couldnt — plus checks for stray marks, doubled marks, decade apostrophes and mixed straight and curly styles.",
-    content: `The most common of all apostrophe mistakes is not a misplaced mark but a missing one: a missing apostrophe leaves a plausible string of letters, so the eye reads straight past it. This apostrophe error finder handles it with a closed list of 27 spellings that are only correct with the mark: dont, doesnt, didnt, isnt, arent, wasnt, werent, hasnt, havent, hadnt, couldnt, wouldnt, shouldnt, theyre, youre, whos and the rest. The list is printed in full on the tool page, so the claim is one you can check line by line.\\n\\nThree entries are real words on their own — lets, wont and im — and they are marked as needing evidence. A rule for them fires only when the next word proves the contraction: lets you and me go is reported and corrected to let's, while the plan lets you save is left alone. im followed by a verb or an adjective is treated as the contraction; the same logic applies to ive and the other ambiguous forms.\\n\\nAround that core sit four smaller checks. A decade written with an apostrophe (1990's) is flagged as style, because the modern convention is 1990s, while the possessive form the 1990's fashion is accepted. A stray apostrophe, one sitting where no contraction or possessive can be, is reported as an error; so is a doubled mark such as don''t. The last check reads the whole document for apostrophe styles: if it uses both the straight ' and the curly ’, the mix is reported as a typography issue, since switching between them is visible in print and invisible in the editor.\\n\\nThe engine deliberately stays out of the hardest cases. its and it's, whose and who's, and they're, their and there are context problems rather than apostrophe problems, so they belong to the Homophone Confusion Detector, which reads the surrounding words; a missing possessive apostrophe in the students books needs to know who owns what, which no character pattern can supply; and a plural possessive such as the dogs' toys is accepted exactly as written, never rewritten as dog's.\\n\\nWhat remains is a checker with a small, honest scope. It knows 27 spellings, three of them conditionally, and it never guesses at a word it has not been given. That is why it can be trusted on the findings it does produce, and why a clean result means the listed faults are absent rather than that every apostrophe in the draft is correct. A closed list cannot invent an apostrophe mistake, so every finding names a form that is printed on the page and can be checked by hand.\\n\\nRun it after the wording is settled, and run it on the whole document rather than paragraph by paragraph, so the mixed-style check has enough to compare. Copy report and Download produce a plain list of findings with the suggested fix, which is usually the fastest way to work through a draft that has lost its marks to copy and paste. In a repeated phrase one fix removes many findings, so start with whatever appears most often.`,
+      "The Apostrophe Error Finder works from a published list of 27 spellings that only exist without their apostrophe — dont, isnt, couldnt — plus checks for stray marks, doubled marks, decade apostrophes and mixed straight and curly styles.",
+    content:
+      "The most common apostrophe mistake is not a misplaced mark but a missing one: a dropped apostrophe in one of the everyday contractions leaves a plausible string of letters, so the eye reads straight past it. This apostrophe error finder handles that fault with a closed list of 27 spellings that are only correct with the mark, and the list is printed in full on the page so the claim can be checked line by line.\n\n- Missing apostrophe in a contraction: the published forms include dont, doesnt, didnt, isnt, arent, wasnt, werent, hasnt, havent, hadnt, couldnt, wouldnt, shouldnt, aint, oclock, youre, theyre, theres, thats, whats, heres and wheres.\n- Three entries are real words on their own — im, ive and lets — so they are marked as needing evidence and only fire when the next word proves the contraction.\n- Plural possessive: a word followed by 's and then a plural verb such as are, were, have, has, had, do, does or did is reported with the plural form.\n- Decade apostrophe: 1990's is reported at style severity, because the modern plural convention is 1990s while the possessive use is accepted as written.\n- Stray apostrophe: a mark at the end of a word, before punctuation or at a line end, with no partner and no word after it.\n- Doubled apostrophe: two marks in a row, including a straight and a curly one side by side.\n- Mixed styles: a document using both the straight ' and the curly ’ gets one typography finding, because the mix shows in typeset output.\n\nThe evidence logic is what keeps the ambiguous three quiet. Before flagging lets, the engine checks whether a subject-looking word sits immediately before it; when the word starts a clause, or when it is preceded by a lead-in such as and, but, now or please, the rule then requires a proven follower — a verb or determiner from a published list — so lets you and me go is reported while the plan lets you save is not. The same shape applies to im and ive. The plural-possessive rule pairs its subject test with the plural verb list, so a possessive that is genuinely singular is left alone. Every finding carries the character offset, a context snippet and a suggested fix, capitalisation preserved. The report is capped at 200 findings in document order, and the page shows the size of the published list it used.\n\n- Context homophones are not checked here. its and it's, whose and who's, and they're, their and there need the surrounding words, so they belong to the Homophone Confusion Detector.\n- A possessive that is simply missing cannot be found. In the students books, a machine would need to know that students is a noun and books is what they own, so no rule exists for it.\n- Plural possessives are accepted exactly as written: the dogs' toys is never rewritten as dog's.\n- The list is closed. A form outside the 27 published spellings is not guessed at, so a clean result means those listed faults are absent rather than that every apostrophe is correct.\n- The mixed-style finding is whole-document and fires once, not once per mark.\n\nRun the finder on the whole document rather than paragraph by paragraph so the mixed-style check has enough to compare, and start with whatever form repeats, because one fix removes many findings. Copy report and Download give the list with the suggested fix, which is the fastest way through a draft that has lost its marks to copy and paste.",
     howTo: [
       { step: "Paste the draft; the published list and the other five checks run as you type." },
-      { step: "Fix the missing-apostrophe findings first, starting with the forms that repeat." },
-      { step: "Check the lets, wont and im findings in context — the rule needs the next word as evidence." },
-      { step: "Read the decade findings and decide whether the style choice is yours to make." },
-      { step: "If mixed apostrophe styles are reported, convert the draft to one mark before publishing." },
+      { step: "Fix the missing-apostrophe findings first, starting with whichever form repeats." },
+      { step: "Check the im, ive and lets findings in context — those rules need the next word as evidence." },
+      { step: "Read the decade and mixed-style findings, then Copy report or Download the list." },
     ],
-    whenToUse: `Use this finder when the marks in a draft have been through copy and paste and need checking, and use its siblings for the faults it hands over. Contractions that need context — its and it's, whose and who's, their and there — are the {{homophone-confusion-detector|Homophone Confusion Detector}}'s job, and mark placement around brackets and quotes is the {{punctuation-checker|Punctuation Checker}}'s.\\n\\nWhen the apostrophe is right and the capitalisation around it is not, the {{capitalization-checker|Capitalization Checker}} covers sentence starts, the pronoun I and documented names.`,
+    whenToUse:
+      "Use this finder when the marks in a draft have been through copy and paste and need checking, and use its siblings for the faults it hands over. Contractions that need context — its and it's, whose and who's, their and there — are the {{homophone-confusion-detector|Homophone Confusion Detector}}'s job, and mark placement around brackets and quotes is the {{punctuation-checker|Punctuation Checker}}'s.\n\nWhen the apostrophe is right and the capitalisation around it is not, the {{capitalization-checker|Capitalization Checker}} covers sentence starts, the pronoun I and documented names.",
     faqs: [
       {
-        q: "How does the tool find a missing apostrophe without a dictionary?",
-        a: "It uses a published list of 27 spellings that only exist without the mark, such as dont and isnt, plus a condition for the three that are also real words. Anything outside that list is not guessed at.",
+        q: "How does the tool keep the plan lets you save out of the findings?",
+        a: "The ambiguous forms need evidence. If a subject-looking word sits immediately before lets, or the word starts a clause with a lead-in such as and or now, the rule then demands a proven follower like a verb or determiner; only then is the contraction reported.",
       },
       {
-        q: "Why was lets you and me go corrected but the plan lets you save not?",
-        a: "Because lets is a real word. The rule waits for the following word: a pronoun or a verb in a request proves the contraction, while a subject and infinitive afterwards proves the ordinary verb, so only the first sentence is flagged.",
+        q: "Why is 1990's only a style finding?",
+        a: "The plural decade convention is 1990s with no apostrophe, so the form is flagged at style severity. The possessive use, as in the 1990's biggest hits, is accepted as written and never rewritten.",
       },
       {
-        q: "Is 1990's wrong?",
-        a: "For the plural decade, the modern convention is 1990s with no apostrophe, so it is flagged as a style point rather than an error. The possessive form, as in the 1990's biggest hits, is accepted as written.",
+        q: "Why does the finder not check its and it's?",
+        a: "Those spellings are homophones rather than a missing mark: both are real words, and only the surrounding words say which is meant. The Homophone Confusion Detector owns that pair, and this tool stays quiet on it rather than duplicating a worse rule.",
       },
       {
-        q: "Why does it not check its and it's?",
-        a: "Those are homophones, not apostrophe patterns: both spellings are real, and only the surrounding words say which is meant. The Homophone Confusion Detector owns that pair, and this tool stays quiet on it rather than duplicating a worse rule.",
+        q: "What triggers the mixed apostrophe styles finding?",
+        a: "A document that contains both the straight ' and the curly ’. Each is correct on its own, but switching between them is visible in typeset output, so the mix is reported once as a typography note.",
       },
       {
-        q: "What is the mixed apostrophe styles finding?",
-        a: "It fires when a document contains both the straight mark and the curly one. Both are correct alone, but a draft that switches between them shows in typeset output, so the mix is reported as a typography note.",
+        q: "How many spellings does the published list contain?",
+        a: "27, and the whole list is printed on the page. Three of them — im, ive and lets — are conditional because they are real words on their own; the rest are always reported when they appear.",
       },
     ],
   },
 
   "capitalization-checker": {
-    keywords: ["capitalization checker", "capitalization errors", "sentence case"],
-    intro:
-      "This capitalization checker runs five published checks — lower-case sentence starts, the pronoun i, day, month, language and nationality names, ALL-CAPS words and capitals inside a word — and keeps the two style checks separate from the errors.",
-    content: `Capitalization errors are quiet ones. A lower-case word after a full stop does not look wrong in a paragraph of ordinary sentence case, which is why it survives a careful read and why a mechanical scan is worth running. This capitalization checker runs five checks, publishes all five, and separates the two it treats as style from the three it treats as errors.\\n\\nThe sentence-start check looks for the error itself: a full stop, question mark or exclamation mark, then a lower-case word. Reading the pattern rather than the parsed sentences is deliberate, because the shared sentence splitter needs a capital to recognise a sentence boundary at all, and a lower-case start would be invisible to it. A lower-case first word of the text, or of a new line, counts as well. Two carve-outs keep it quiet on academic prose: abbreviations such as e.g. and i.e. do not end a sentence, and initials such as J.K. do not either. A deliberate lower-case start after an ellipsis is left alone, because that pattern is a style choice in fiction and dialogue.\\n\\nThe pronoun rule finds a lower-case i standing alone and inside its contractions — i, i'm, i've, i'll, i'd — while staying out of i.e. and other abbreviations that merely begin with the letter. The name rule holds 81 day, month, language and nationality names and reports a lower-case list of the names itself. The long weekday and month names are read from the platform's Intl data at run time rather than typed into the engine, so the rule cannot drift from the names the browser actually prints.\\n\\nThe fourth and fifth checks are style. A word in ALL CAPS is reported unless it is on the published acronym list — API, URL, JSON, PDF, SEO, CEO, USA and their relatives — because emphasis and initialisms are both legitimate and a wall of capitals is a habit rather than a fault. A capital inside a word is reported unless the word is a known brand: iPhone, macOS, YouTube, GitHub, JavaScript and eBay are never rewritten, and the tool has no opinion about a name it does not recognise beyond listing it.\\n\\nScope matters here, and the page states it. Country, continent and planet names belong to the Proper Noun Checker, because that tool also looks for a name the document writes two different ways, which is the more useful question for a repeated name. Names that are also ordinary words — march, may, august, polish — are never flagged on their own in either tool, because a sentence about a march or a polish is not a sentence about a month or a country.\\n\\nUse the counts to see which habit the draft has. A single digits-only number under one rule is one fix; a spread across the style rules usually means the draft needs a decision about emphasis rather than a tidy-up. Copy report and Download produce the findings with the suggested form for each, so the fixes can be made in one pass.`,
-    howTo: [
-      { step: "Paste your text; all five checks run as you type and each count appears in the grid." },
-      { step: "Work through the sentence-start findings first — they usually cluster around one editing seam." },
-      { step: "Check the pronoun i findings, including contractions that begin a clause." },
-      { step: "Read the ALL-CAPS findings as a style question: keep the ones that are deliberate emphasis." },
-      { step: "Send country, continent and planet issues to the Proper Noun Checker, which owns them." },
+    keywords: [
+      "capitalization checker",
+      "sentence case",
+      "all caps",
+      "proper capitalization",
     ],
-    whenToUse: `Use this checker on any draft that has been edited in pieces, since a lower-case sentence start is usually the scar of a rewrite. Where the capitalisation problem is a name written two ways, the {{proper-noun-checker|Proper Noun Checker}} handles it with a documented lexicon and an inconsistency check.\\n\\nWhen the capital is right but the mark beside it is not, the {{punctuation-checker|Punctuation Checker}} covers unmatched brackets, doubled marks and a paragraph with no full stop, and the {{grammar-checker|Grammar Checker}} adds its own sentence-level checks over the same text.`,
+    intro:
+      "This capitalization checker runs five published checks — lower-case sentence starts, the pronoun i, day, month, language and nationality names, ALL-CAPS words and capitals inside a word — and keeps the two style checks separate from the three errors.",
+    content:
+      "Capitalization errors are quiet ones. A lower-case word after a full stop does not look wrong inside ordinary sentence case, which is why it survives a careful read and why a mechanical scan for proper capitalization is worth running. This capitalization checker runs five published checks, and the two treated as style — all caps runs and capitals inside a word — are kept apart from the three treated as errors.\n\n- Sentence starts lower-case (error): a full stop, question mark or exclamation mark followed by a lower-case word, or a lower-case first word of a line.\n- Lower-case i as the pronoun (error): i on its own and inside i'm, i've, i'll and i'd.\n- Lower-case day, month, language or nationality (error): 81 documented names, with words that are also ordinary English — march, may, august, polish and their relatives — excluded.\n- Word in all capitals (style): three or more capitals, minus a published acronym allowlist such as API, URL, JSON, PDF, SEO, CEO and USA.\n- Capital inside a word (style): minus a brand list that includes iPhone, macOS, YouTube, GitHub, JavaScript, eBay and others.\n\nThe sentence-start rule scans raw text rather than parsed sentences, and that is deliberate: the shared sentence splitter needs a capital letter after the full stop to recognise a sentence at all, so a lower-case start would be invisible to it. The pattern is instead the error itself — a terminator, a space, then a lower-case word — with the two cases that are not errors carved out: abbreviations such as e.g. and i.e., and initials such as J.K. The abbreviation list of 27 forms is shared with the Punctuation Checker, so one tool cannot treat a full stop as a sentence end while the other does not. A deliberate lower-case start after an ellipsis is left alone, because that pattern is a style choice in fiction and dialogue. The name rule reads the long weekday and month names from the platform's Intl data at run time rather than typing them into the engine, and takes the language and nationality lists from the same curated source the Proper Noun Checker uses. Findings are sorted in document order and capped at 200, with per-rule counts shown beside each check.\n\n- Country, continent and planet names are not checked here. They belong to the Proper Noun Checker, which also finds a name the document writes two different ways.\n- Names that are also ordinary words are never flagged on their own in either tool: a sentence about a march or a polish is not a sentence about a month or a country.\n- The acronym allowlist and the brand list are finite and published. A legitimate initialism that is not on the list will be reported as a style finding, and the fix is to leave it.\n- The checker has no grammar and no meaning. It can see that a word is capitalised the wrong way, not that the sentence is wrong.\n- Nothing is rewritten automatically; each finding shows the suggested form and leaves the draft untouched.\n\nUse the counts to see which habit a draft has. A single rule firing repeatedly is one fix; a spread across the two style rules usually means the draft needs a decision about emphasis rather than a tidy-up. Copy report and Download produce the findings with a suggested form for each, so the fixes can be made in one pass.",
+    howTo: [
+      { step: "Paste your text; all five checks run as you type and each count appears beside its check." },
+      { step: "Work through the sentence-start findings first — they usually cluster around one editing seam." },
+      { step: "Check the pronoun i findings, including the contractions i'm and i've." },
+      { step: "Read the ALL-CAPS and inner-capital findings as style questions, then Copy report or Download the list." },
+    ],
+    whenToUse:
+      "Use this checker on any draft that has been edited in pieces, since a lower-case sentence start is often the scar of a rewrite. Where the capitalisation problem is a name written two ways, the {{proper-noun-checker|Proper Noun Checker}} handles it with a documented lexicon and a consistency check.\n\nWhen the capital is right but the mark beside it is not, the {{punctuation-checker|Punctuation Checker}} covers unmatched brackets, doubled marks and a paragraph with no full stop.",
     faqs: [
       {
-        q: "Why does the checker report a lower-case word after a full stop?",
-        a: "Because that is the pattern of an unfinished edit. The rule looks for a terminator followed by a lower-case word and ignores abbreviations such as e.g. and initials such as J.K., so ordinary academic prose does not trip it.",
+        q: "Why does the sentence-start rule scan raw text instead of parsed sentences?",
+        a: "Because the shared sentence splitter needs a capital after the full stop to see a sentence boundary at all, so a lower-case start would never be recognised. Scanning for the error pattern directly is the only way to find it.",
       },
       {
-        q: "Why are country names not checked here?",
-        a: "They are the Proper Noun Checker's responsibility by design. That tool holds the documented place-name list and also finds a name the document writes in two different forms, which a case-only rule cannot do.",
+        q: "How many names does the name rule hold?",
+        a: "81 day, month, language and nationality names. The weekday and month names are read from the platform's Intl data at run time, and names that are also ordinary English words, such as march and may, are excluded from the rule.",
       },
       {
-        q: "Is writing in all capitals a mistake?",
-        a: "Not necessarily, which is why it is reported as style. Emphasis, initialisms and headings are all legitimate uses. The published acronym list keeps the everyday initialisms quiet so the remaining findings mean something.",
+        q: "Why is march never flagged as a month name?",
+        a: "Because it is ambiguous. A march is also a walk and a march is also music, so flagging the lower-case form alone would invent errors. The tool would rather miss a case than report one.",
       },
       {
-        q: "Why was the word iPhone not corrected?",
-        a: "Because the internal capital is part of the brand name. A list of known brand forms — iPhone, macOS, YouTube, GitHub, JavaScript, eBay and others — is exempt from the check, so the rule never rewrites a name that is correct.",
+        q: "Is an ALL-CAPS word treated as an error?",
+        a: "No, it is a style finding. Emphasis, initialisms and headings are legitimate uses; the published acronym allowlist keeps everyday initialisms quiet, and the remaining findings are yours to overrule.",
       },
       {
-        q: "Does it fix the text automatically?",
-        a: "No. Each finding shows the word as written and the suggested form, and the draft is never modified. The exemption lists and the rule list are both on the page, so every silence and every finding can be accounted for.",
+        q: "Why is GitHub not rewritten?",
+        a: "Because the internal capital is part of the brand name. A list of known brand forms — GitHub, iPhone, macOS, YouTube, JavaScript, eBay and others — is exempt from the inner-capital rule, so a correct name is never corrected.",
       },
     ],
   },
 
   "proper-noun-checker": {
-    keywords: ["proper noun checker", "proper nouns", "name consistency"],
+    keywords: [
+      "proper noun checker",
+      "name consistency",
+      "documented names",
+      "capitalised words",
+    ],
     intro:
-      "The Proper Noun Checker holds 248 documented names — continents, planets, languages, nationalities and countries, plus the day and month names read from the platform's Intl data — and finds both lower-case forms and names your draft writes two different ways.",
-    content: `Proper nouns are where a mechanical checker can be genuinely useful and genuinely dangerous, because a name the tool does not know is not a mistake. This proper noun checker draws that line clearly. It checks 248 documented names, it reports the names it does not know instead of correcting them, and it publishes the count so the scope can be judged.\\n\\nThe lexicon has two sources. The long weekday and month names are read from the platform's Intl data at run time, so they are never typed into the engine and cannot drift from the names the environment prints. The continents, planets, languages, nationalities and countries are a curated list that is shipped with the tool and counted on the page. A curated list is the honest description: this is a documented set of names, not a gazetteer, and no one should expect a town or a start-up to be in it.\\n\\nNineteen of the names are also ordinary English words, and those are never flagged on their own: turkey, may, march, august, earth, china, chile, jordan, mercury, polish, welsh and their relatives. The turkey was dry is a sentence about dinner, and the tool has no way to know better, so it waits for a capitalised context it can trust rather than firing on the word alone. That single decision removes most of the false positives a name list would otherwise produce. A clean run of the case check therefore says something narrow and checkable: none of the 248 documented names was written lower-case.\\n\\nThe second check reads your own document. If a word appears both capitalised mid-sentence and lower-case mid-sentence, the lower-case occurrences are reported and the capitalised form is shown as the documented one. A capital at the start of a sentence is never treated as evidence, because every first word of a sentence is capitalised, and neither is an ALL-CAPS heading. This is the check that catches the real-world problem: a name introduced one way in chapter one and spelled another way in chapter nine.\\n\\nSome capitalised words will inevitably fall outside the list, and the tool lists them instead of guessing. Up to twenty of the most frequent unknown capitalised words are shown, with their counts, explicitly marked as never corrected. That list is where your own characters, products and places appear, and it is also the honest measure of how much of the draft the lexicon could not see. Name consistency across a long document is the other half of the job, and it is the half only your own text can supply.\\n\\nRead the findings as two questions rather than one: is this name documented, and do I write it the same way twice? The first is answerable from the lexicon, the second from the report. Where a name appears in two forms, the majority form is usually the intended one, so start there and bring the outliers into line. Copy report and Download give you the findings, the suggested form and the unknown-name list together, which is what you need to settle a naming decision across a long document.`,
+      "The Proper Noun Checker holds 248 documented names across seven kinds and finds both lower-case forms and names a draft writes two different ways. Its unknown-name list is reported, never corrected.",
+    content:
+      "A proper noun checker is useful and dangerous in equal measure, because a name the tool does not know is not a mistake. This one draws that line clearly: it checks 248 documented names, runs a name consistency check across the forms your document uses, lists the capitalised words it does not recognise instead of correcting them, and publishes the count so the scope can be judged.\n\n- The lexicon holds seven kinds of name: 7 long weekday names and 12 long month names read from the platform's Intl data at run time, plus 8 continents, 8 planets, 39 languages, 54 nationalities and 120 countries from curated lists shipped with the tool.\n- 19 of the names are also ordinary English words — Turkey, May, March, August, Earth, Mercury, Chile, China, Georgia, India, Japan, Jordan and their relatives — and those are never flagged on their own.\n- The consistency check compares capitalised and lower-case forms of the same word when both appear away from a sentence start, and reports the lower-case occurrences against the capitalised form.\n- The unknown list shows up to 20 capitalised words that are not in the lexicon, most frequent first, explicitly marked as never corrected.\n\nThe case check scans tokens and compares them against two lookup structures: a lower-case map for single-word names and a phrase map for multi-word names, which are matched with spaces or hyphens between the parts, so a lower-case north America is caught against South America's neighbour in the list. Nineteen ambiguous names are excluded before any comparison, because the turkey was dry is a sentence about dinner. For every other lower-case token that matches a documented name, a finding carries the form found, the documented form and the kind of name. A capitalised token that is not in the lexicon is not treated as an error; it is counted, and the most frequent ones are listed as unverified so the part of the draft the lexicon could not see is visible. The consistency check builds a map of forms per lower-case word, ignores any occurrence at the start of a sentence and any ALL-CAPS token, and only fires when the same word appears in both a capitalised and a lower-case form; a short stopword list keeps ordinary function words out of it. Findings are capped at 200.\n\n- The lexicon is a curated list, not a gazetteer. Towns, companies, characters and new brands are outside it, which is the honest limit of a fixed list.\n- Ambiguous names are never flagged on their own, so a genuine lower-case Turkey or China in a sentence about the country can pass unnoticed.\n- A name written only in lower case, with no capitalised occurrence anywhere, is not detected by the consistency check — the check needs both forms in the text.\n- The unknown list is capped at 20 entries and is never treated as a mistake, so it is reading material rather than a findings list.\n- Multi-word matching covers documented multi-word names only; an unknown two-word name is not phrase-checked.\n\nRead the output as two questions rather than one: is this documented name lower-case, and does my draft write each name the same way twice? The first is answered by the lexicon, the second by your own text. Where a name appears in two forms, the majority form is usually the intended one, so start there and bring the outliers into line. Copy report and Download give you the findings and the unknown-name list together, which is what settles a naming decision across a long document.",
     howTo: [
       { step: "Paste your draft; documented names and repeated capitalised words are checked as you type." },
-      { step: "Look at the findings first: each names the form found, the documented form and the reason." },
-      { step: "Read the consistency findings carefully — they are about your own text, not the lexicon." },
-      { step: "Scan the unknown capitalised words list and check the spellings by hand; the tool will not correct them." },
-      { step: "Copy the report and apply one form for each name throughout the document." },
+      { step: "Read the findings first: each shows the form found, the documented form, the kind of name and the reason." },
+      { step: "Study the consistency findings closely — they are about your own text rather than the lexicon." },
+      { step: "Scan the capitalised words not in the lexicon and check those spellings by hand, then Copy report or Download." },
     ],
-    whenToUse: `Use this checker when a document repeats its own names and needs them to agree — a report, a manuscript, a set of product pages. Case rules that are not name lists belong to the {{capitalization-checker|Capitalization Checker}}, which covers sentence starts, the pronoun I and everyday name classes.\\n\\nWhen the name is a place spelled two ways for a different reason — colour next to color, centre next to center — the {{consistent-spelling-checker|Consistent Spelling Checker}} answers that question, and the {{grammar-checker|Grammar Checker}} covers the sentence-level checks over the same text.`,
+    whenToUse:
+      "Use this checker when a document repeats its own names and needs them to agree — a report, a manuscript, a set of product pages. Case rules that are not name lists belong to the {{capitalization-checker|Capitalization Checker}}, which covers sentence starts, the pronoun I and everyday name classes.\n\nWhen a name is spelled two ways because of a US and UK convention — colour beside color, centre beside center — the {{consistent-spelling-checker|Consistent Spelling Checker}} answers that question, and the {{spell-checker|Spell Checker}} covers words that are not in any dictionary.",
     faqs: [
       {
-        q: "How many names does the proper noun checker know?",
-        a: "248 documented names: continents, planets, languages, nationalities and countries, plus the long weekday and month names, which are read from the platform's Intl data at run time instead of being typed into the engine.",
+        q: "How many names are in the lexicon and where do they come from?",
+        a: "248 names across seven kinds: 7 weekday and 12 month names read from the platform's Intl data at run time, plus 8 continents, 8 planets, 39 languages, 54 nationalities and 120 countries from curated lists shipped with the tool.",
       },
       {
-        q: "Why is Turkey not flagged when I write about the bird?",
-        a: "Because nineteen of the names are also ordinary words and are marked ambiguous. Turkey, May, March, China, Jordan, Mercury and the rest are never reported on their own; the tool would rather miss a case than invent one.",
+        q: "Why is the lowercase chile in a recipe not flagged?",
+        a: "Because 19 names are also ordinary English words and are marked ambiguous. Chile joins Turkey, May, March, China, Jordan, Mercury and the rest; the tool would rather miss a case than report the wrong one.",
       },
       {
-        q: "How does the consistency check avoid flagging sentences that start with a word?",
-        a: "It ignores any occurrence at the start of a sentence and any ALL-CAPS heading before comparing forms. The check only fires when both a capitalised and a lower-case form appear away from a sentence start, which is real evidence rather than a side effect of grammar.",
+        q: "How does the consistency check avoid flagging a sentence's first word?",
+        a: "Every token is marked as sentence-initial when the gap before it contains a terminator or a newline, and those occurrences are ignored. ALL-CAPS tokens are ignored too, so a heading cannot make a lowercase form look like an inconsistency.",
       },
       {
-        q: "Why are some capitalised words listed but not corrected?",
-        a: "They are names the lexicon does not contain. Nothing outside the documented list is treated as a mistake, so those words appear in a separate list of unknown capitalised forms, capped at 20 and explicitly marked as never corrected.",
+        q: "What are the capitalised words not in the lexicon?",
+        a: "Names the curated list does not contain. Up to 20 are listed most frequent first, and the page states that nothing there is corrected. It is the honest measure of how much of the draft the lexicon could not see.",
       },
       {
-        q: "Can I rely on it for proofreading a manuscript?",
-        a: "Use it for the two questions it can answer: whether a documented name is lower-case, and whether your own draft writes a name the same way twice. It is a documented list, not a gazetteer, so treat the unknown-name list as the part you check by hand.",
+        q: "Does it check multi-word names such as South Korea?",
+        a: "Yes, for documented multi-word names. Those are matched as phrases with spaces or hyphens between the parts, so a lower-case spelling of a known country is caught alongside the single-word names.",
       },
     ],
   },
 
   "consistent-spelling-checker": {
-    keywords: ["consistent spelling checker", "spelling consistency", "US and UK spellings"],
-    intro:
-      "The Consistent Spelling Checker compares 95 published US and UK pairs across a whole document — color and colour, center and centre, defense and defence — and reports the mix rather than the spelling, because both forms are correct English.",
-    content: `American and British spellings are both correct; what reads badly is a document that uses one in the heading and the other in the paragraph. This consistent spelling checker exists for that problem and not for correctness. It compares US and UK spellings as two conventions rather than right and wrong, which is why its verdict is always about the document: it leans US, it leans UK, it mixes, or it contains none of the variants it knows.\\n\\nSpelling consistency is a document-level property, so the whole text is analysed at once. Ninety-five pairs are published on the page: color and colour, center and centre, defense and defence, catalog and catalogue, gray and grey, jewelry and jewellery, analyze and analyse, traveled and travelled and the rest of the list. On top of the listed pairs, three families are matched by their shared stem so a word that was never listed is still caught. The -ize and -ise family pairs organize with organise; the -yze and -yse family pairs analyze with analyse; and sixteen stems cover the doubled-consonant group, where traveled and travelled sit side by side. Stem matching is what makes the check useful on technical prose, where a writer picks up a suffix from a house style and applies it to words no list would enumerate.\\n\\nThe exclusions matter as much as the entries. Check and cheque, tire and tyre, curb and kerb, draft and draught, and storey and story are different words now, not variants of one another, so they are not compared and a document is never told to change them on this tool's account. The doubled-consonant group is matched against a published list of stems rather than by collapsing every double letter, because a blind rule pairs words that have nothing to do with each other — filed and filled, tiled and tilled — and those are different words with different meanings.\\n\\nA rule that applies to one side alone would produce noise, so the stem-matched families are reported only when both shapes appear in the document. Using traveled throughout is not evidence of anything, because both spellings are accepted on both sides of the Atlantic; using traveled and travelled in one draft is. The listed pairs work the other way round: they are reported even when the document is consistent, because then they are evidence of which variant the writer chose, and the summary counts both sides so the lean is visible.\\n\\nFindings come with the family, the forms found, the rule that matched and a status. A family marked mixed is a seam a reader can see; a family with one variant is simply the convention the document has settled into. Copy report and Download give the whole picture, which is the useful thing to hand to a co-author or an editor when the question is which convention the publication uses.\\n\\nBoth verdicts are legitimate outcomes. If the document is consistently British, nothing needs changing; if it is consistently American, the same. The tool reports the mix because a mix is the thing a reader notices, and leaves the choice of variant where it belongs — with the writer and the publication.`,
-    howTo: [
-      { step: "Paste the whole document, not a paragraph: consistency is only visible across the full text." },
-      { step: "Read the verdict first — a consistent result needs no changes at all." },
-      { step: "If the result is mixed, open the families table and look at the rows marked mixed." },
-      { step: "Choose the variant the document leans on and bring the outliers into line with it." },
-      { step: "Re-check after editing, since a family can drop out of the report once only one form remains." },
+    keywords: [
+      "consistent spelling checker",
+      "US and UK spellings",
+      "spelling consistency",
+      "variant spellings",
     ],
-    whenToUse: `Use this checker when a document has more than one author or has been through several revision passes, which is when variants drift. When the problem is a word the dictionary does not contain at all, the {{spell-checker|Spell Checker}} is the right tool, and when the question is whether the draft follows a named house style, the {{style-guide-adherence-checker|Style Guide Adherence Checker}} checks a published list of rules.\\n\\nIf a mixed result is really a punctuation or sentence-level habit, the {{grammar-checker|Grammar Checker}} runs its mechanical checks over the same text so both questions are covered in one pass.`,
+    intro:
+      "The Consistent Spelling Checker compares 95 published US and UK pairs, plus three stem-matched families, and reports the mix rather than the spelling, because both forms are correct English.",
+    content:
+      "US and UK spellings are both correct; what reads badly is a document that uses one variant in the heading and the other in the paragraph. This consistent spelling checker exists for that problem and not for correctness, which is why its verdict is always about the document rather than about a word: it reports spelling consistency across variant spellings.\n\n- 95 listed pairs are checked and reported even when the document is consistent, because then they are evidence of which variant the writer chose: color and colour, center and centre, defense and defence, catalog and catalogue, gray and grey, jewelry and jewellery, and the rest of the published list.\n- The -ize and -ise family is matched on the shared stem, so organize against organise fires on any word with that shape, not only the listed ones.\n- The -yze and -yse family does the same for analyze against analyse.\n- Sixteen published stems cover the doubled-consonant family — cancel, channel, dial, equal, fuel, jewel, label, level, marvel, model, quarrel, shovel, signal, total, travel and tunnel — so traveled beside travelled is detected without collapsing every double letter blindly.\n- Verdicts: consistent US, consistent UK, mixed, or no variant words present.\n- The families table shows each family's US and UK forms, the rule that matched, and whether it is mixed.\n\nEvery token of two or more ASCII letters is classified by four rules, and the rule that matched is carried into the report: listed pairs are looked up in two maps, one per variant; the stem families are matched by two regular expressions, one for the yze and yse shape with a stem of at least three letters and one for the ize and ise shape with a stem of at least four; and the doubled-consonant family matches a published stem followed either by the extra l and a suffix or by the suffix directly. The stem-matched families are kept only when both shapes appear in one document, because using traveled throughout is not evidence of anything, while the listed pairs are always kept. The analysis counts occurrences on both sides, reports which variant the document leans on, and lists the mixed families separately, since a mix is the thing a reader notices. Copy report and Download give the whole picture, which is the useful thing to hand to a co-author or an editor when the question is which convention a publication uses.\n\n- The pair list is finite, and the stem families cover suffix patterns only. A variant outside those shapes is not compared.\n- Pairs whose meanings have drifted apart are deliberately excluded: check and cheque, tire and tyre, curb and kerb, draft and draught, and storey and story are different words now, not variants of one another, so a document is never told to change them.\n- The tool makes no correctness claim and does not choose for you. A consistently British document needs no changes, and neither does a consistently American one.\n- Token matching is ASCII, so words in other scripts are not compared for variants.\n- The verdict is a document property: paste the whole text rather than a paragraph, or the answer describes only the excerpt.\n\nPaste the whole document, read the verdict first, and treat a consistent result as finished. When the result is mixed, choose the variant the document leans on and bring the outliers into line, then re-check, because a family drops out of the report once only one form remains. The list is also the place to settle a house-style question before the draft is shared rather than after an editor has changed half of it.",
+    howTo: [
+      { step: "Paste the whole document, not a paragraph, because consistency is a document-level property." },
+      { step: "Read the verdict first — a consistent result needs no changes at all." },
+      { step: "If the verdict is mixed, open the families table and look at the rows marked mixed." },
+      { step: "Bring the outliers into line with the variant the document leans on, then Copy report or Download the outcome." },
+    ],
+    whenToUse:
+      "Use this checker when a document has more than one author or has been through several revision passes, which is when variants drift. When the problem is a word the dictionary does not contain at all, the {{spell-checker|Spell Checker}} is the right tool, and when the question is whether a name is written two different ways, the {{proper-noun-checker|Proper Noun Checker}} answers it from a documented lexicon.\n\nWhen the mixed convention is a figure rather than a word, the {{number-format-checker|Number Format Checker}} reports decimal and grouping inconsistencies in the same document-level way.",
     faqs: [
       {
-        q: "How many US and UK pairs are compared?",
-        a: "Ninety-five published pairs, from color and colour to willful and wilful. On top of those, three stem-matched families cover the -ize and -ise words, the -yze and -yse words, and sixteen doubled-consonant stems.",
-      },
-      {
-        q: "Is a mixed result an error?",
-        a: "No. Both spellings are correct English; the finding is about one document mixing them, which reads like two hands wrote it. The tool reports which variant the draft leans on and leaves the choice with the writer.",
+        q: "What do the four rule labels mean?",
+        a: "Each finding is tagged with the rule that matched: listed for a published pair, ize-ise and yze-yse for the two stem families, and ll-l for the doubled-consonant family. The label tells you how the word was matched, so a finding is never a black box.",
       },
       {
         q: "Why are check and cheque not compared?",
-        a: "Because they are different words rather than variants. The same goes for tire and tyre, curb and kerb, draft and draught, and storey and story. Comparing them would mean telling you to change a word that is correct in your meaning.",
+        a: "Because their meanings have drifted apart. Check and cheque, tire and tyre, curb and kerb, draft and draught, and storey and story are different words now rather than variants, so they are excluded and a document is never told to change them on this tool's account.",
       },
       {
-        q: "Why is traveled alone not flagged?",
-        a: "Because one form on its own is not evidence: both traveled and travelled are accepted on both sides of the Atlantic. The stem-matched families are reported only when the document uses both shapes, which is the actual inconsistency.",
+        q: "Why are the stem-matched families only reported when mixed?",
+        a: "Because using traveled throughout is not evidence of anything, while using traveled and travelled in one draft is. The listed pairs work the other way round and are reported even when consistent, since then they show which variant the writer chose.",
       },
       {
-        q: "Does it change my spelling automatically?",
-        a: "No. It reports the families, the forms found and the counts, and you decide which convention to settle on. Copy report and Download give you the list to share with a co-author or editor.",
+        q: "What are the sixteen stems for?",
+        a: "They cover the doubled-consonant family, from cancel to travel. Matching a published stem is deliberate: collapsing every double letter would pair words that are not variants of each other at all, such as filed and filled.",
+      },
+      {
+        q: "Does the tool decide which variant I should use?",
+        a: "No. It reports the lean and the mixed families and leaves the choice with the writer and the publication. A consistently British document and a consistently American one are both finished results.",
       },
     ],
   },

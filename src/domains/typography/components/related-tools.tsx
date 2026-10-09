@@ -23,7 +23,7 @@ const CURATED_RELATED: Record<string, string[]> = {
   // ── Font Conversion & Export (batch 1) ───────────────────────────
   "font-base64-encoder": [
     "font-css-generator",
-    "font-character-extractor",
+    "font-license-inspector",
     "font-face-declaration-builder",
     "font-loading-strategy-builder",
   ],
@@ -37,7 +37,7 @@ const CURATED_RELATED: Record<string, string[]> = {
     "font-css-generator",
     "font-loading-strategy-builder",
     "css-fluid-typography-builder",
-    "variable-font-axis-exporter",
+    "font-license-inspector",
   ],
   "font-character-extractor": [
     "unicode-character-explorer",
@@ -81,7 +81,7 @@ const CURATED_RELATED: Record<string, string[]> = {
     "text-justification-previewer",
     "hyphenation-tester",
     "magazine-column-setter",
-    "print-type-specification-sheet",
+    "newspaper-typography-previewer",
   ],
   "drop-cap-generator": [
     "initial-cap-styler",
@@ -160,7 +160,7 @@ const CURATED_RELATED: Record<string, string[]> = {
   "body-text-legibility-grader": [
     "paragraph-width-optimizer",
     "line-height-optimizer",
-    "readability-score-calculator",
+    "font-for-elderly-simulator",
     "font-accessibility-evaluator",
   ],
   "color-on-color-text-checker": [
@@ -192,7 +192,7 @@ const CURATED_RELATED: Record<string, string[]> = {
   "print-type-specification-sheet": [
     "book-interior-layout-preview",
     "magazine-column-setter",
-    "running-head-previewer",
+    "caption-and-footnote-scale",
     "running-head-planner",
   ],
   "editorial-style-guide-generator": [
@@ -335,7 +335,7 @@ const CURATED_RELATED: Record<string, string[]> = {
     "font-size-preview",
     "type-scale-generator",
     "font-previewer",
-    "font-line-height-tester",
+    "custom-text-font-preview",
   ],
   "pangram-font-tester": [
     "font-specimen-sheet",
@@ -352,7 +352,7 @@ const CURATED_RELATED: Record<string, string[]> = {
   "multi-font-comparison": [
     "font-previewer",
     "font-pairing-suggester",
-    "font-specimen-sheet",
+    "font-style-contrast-analyzer",
     "brand-font-stack-builder",
   ],
   "font-size-preview": [
@@ -389,7 +389,7 @@ const CURATED_RELATED: Record<string, string[]> = {
     "font-pairing-suggester",
     "serif-sans-pairing-tool",
     "multi-font-comparison",
-    "contrast-pairing-checker",
+    "font-style-contrast-analyzer",
   ],
   "brand-font-stack-builder": [
     "css-font-stack-builder",
@@ -431,13 +431,13 @@ const CURATED_RELATED: Record<string, string[]> = {
     "serif-sans-pairing-tool",
     "display-body-pairing-tool",
     "font-harmony-visualizer",
-    "multi-font-comparison",
+    "monospace-pairing-tool",
   ],
   "serif-sans-pairing-tool": [
     "font-pairing-suggester",
     "display-body-pairing-tool",
     "multi-font-comparison",
-    "google-fonts-pairing-picker",
+    "monospace-pairing-tool",
   ],
   "display-body-pairing-tool": [
     "serif-sans-pairing-tool",
@@ -475,7 +475,7 @@ const CURATED_RELATED: Record<string, string[]> = {
     "baseline-grid-calculator",
     "paragraph-width-optimizer",
     "vertical-rhythm-builder",
-    "type-scale-generator",
+    "font-line-height-tester",
   ],
   "letter-spacing-calculator": [
     "css-letter-spacing-tool",
@@ -498,13 +498,13 @@ const CURATED_RELATED: Record<string, string[]> = {
   "type-hierarchy-planner": [
     "modular-scale-calculator",
     "heading-scale-visualizer",
-    "css-typography-token-generator",
+    "editorial-style-guide-generator",
     "vertical-rhythm-builder",
   ],
   "heading-scale-visualizer": [
     "css-typography-token-generator",
     "type-scale-generator",
-    "fluid-type-scale-builder",
+    "heading-caption-pairing",
     "css-clamp-calculator",
   ],
   "caption-and-footnote-scale": [
@@ -598,7 +598,7 @@ const CURATED_RELATED: Record<string, string[]> = {
   "glyph-browser": [
     "unicode-character-explorer",
     "glyph-comparison-tool",
-    "missing-glyph-detector",
+    "opentype-feature-explorer",
     "font-glyph-png-exporter",
   ],
   "unicode-character-explorer": [
@@ -634,7 +634,7 @@ const CURATED_RELATED: Record<string, string[]> = {
   "glyph-comparison-tool": [
     "glyph-browser",
     "multi-font-comparison",
-    "missing-glyph-detector",
+    "font-glyph-png-exporter",
     "font-specimen-sheet",
   ],
   "missing-glyph-detector": [

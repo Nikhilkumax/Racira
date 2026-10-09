@@ -11,220 +11,216 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B18_MARKETING_SEO: Record<string, ToolSeo> = {
   "landing-page-copy-builder": {
-    keywords: ["landing page copy builder", "landing page", "benefits", "proof", "next step"],
-    intro:
-      "The landing page copy builder assembles the skeleton a page reads in — hero line, named reader, benefits, proof and one next step — and checks each block before the design begins.",
-    content: `The landing page copy builder assembles the skeleton a landing page reads in: a hero line, the reader it names, three to seven benefits, a proof block and one next step. The builder supplies the order and the checks; the words are yours. Order matters here because a landing page is read top to bottom in a few seconds, and the job of each block is to earn the next one: the hero makes a promise, the audience confirms the page is for them, the benefits say what changes, the proof makes the claim credible, and the next step gives the reader something to do with the interest they just spent.
-
-The hero line gets the first check and the tightest one: twelve words or fewer, or the reader is skimming before the promise arrives. A hero that names the benefit and the category — cut first-response time in half — does more work than one that names the company, and the builder keeps the company line down at the foot of the page where it belongs. If the hero cannot be shortened, the promise probably has two parts, and splitting them is the fix rather than straining the line.
-
-The benefits block wants at least three entries and tolerates seven. Each benefit is a phrase, not a paragraph; the check flags anything past twenty words. The list is checked for length rather than quality because whether a benefit is true is the product's business, and whether it is readable is the page's. A reader scanning the numbered list should be able to tell, in one pass, what the page is offering and to whom.
-
-The proof block is the one most drafts skip. A figure, a named customer, a result with a date — proof is what turns a page of claims into a page of evidence, and the builder prompts for it explicitly. The next step is checked for the same reason a call to action is checked anywhere: one ask per page is the rule, and a page with three competing asks converts on none of them.
-
-Because the page is composed deterministically from the fields, reordering the benefits or swapping the hero is a single edit, and the word count gives the skeleton an honest size before any design work begins. The copy and download buttons take the text out cleanly for whoever writes the final pass.
-
-A last habit helps at the review stage: read the assembled page top to bottom in one pass, out loud, and notice where attention dips. Most dips happen where the benefits repeat the hero's idea instead of advancing it, or where the proof restates a benefit as if it were evidence. The fix is usually to delete rather than add — a landing page is one of the few documents where cutting a block improves the whole, because every removed sentence gives the next one more room. Keep the blocks in order and let the page argue one promise from five angles; a visitor should be able to stop reading at any block and still know what the page wants.\n\nNothing is uploaded and nothing is stored beyond the tab. The builder writes no claims and knows nothing about the product or the market; every benefit and proof sentence remains the writer's, and any comparative claim still needs checking before it ships.`,
-    howTo: [
-      { step: "Write the hero line and name the reader it is for." },
-      { step: "Add three to seven benefits, one phrase per line." },
-      { step: "Add the proof — a figure, a name or a result." },
-      { step: "Set one next step for the page." },
-      { step: "Read the checks, then copy the skeleton into the page builder." },
+    keywords: [
+      "landing page copy builder",
+      "hero line",
+      "benefits",
+      "proof",
     ],
-    whenToUse: `Use the landing page copy builder once the offer is settled and before the design is chosen, so the page's promise is decided before anyone argues about the layout. The offer itself is the {{value-proposition-builder|Value Proposition Builder}}'s job, and its benefit sentence should echo in the hero.\n\nWhen the page has its button, the {{cta-button-copy-generator|CTA Button Copy Generator}} keeps the label to a phrase, and a {{headline-analyzer|Headline Analyzer}} pass confirms the hero line carries a concrete detail rather than an adjective.`,
+    intro:
+      "The Landing Page Copy Builder assembles a hero line, an audience line, the benefits, a proof block and one next step into the skeleton of a landing page, then checks each block.",
+    content:
+      "A landing page is an argument in a fixed order, and this landing page copy builder assembles yours from six fields. Name the product, write the hero line, say who the page is for, list the benefits, supply the proof and the one next step; the tool stacks them in the order a reader scans — headline, audience, numbered benefits, why it holds up, next step, about the product — and checks each block against the published rules.\n\nThe page panel holds the six inputs. The output panel shows the assembled page with its word count, and the checks panel names what is missing or thin: no product name, no hero line, a hero line past twelve words, no audience, fewer than three benefits, more than seven. Scope and limits states what the builder does not verify — every claim stays the writer's.\n\n- Product: what the page is about, named once.\n- Hero line: one promise the page can keep, kept under twelve words.\n- Audience: who the page is for, named by situation rather than demographic.\n- Benefits: three to seven reasons to keep reading, numbered in the output.\n- Proof: the evidence block — a figure, a result, a name.\n- Next step: the single action the page asks for.\n- Checks: the six blocks and the two thresholds that decide them.\n\nThe assembly is block composition: each field is cleaned, the benefits are numbered in a list, and the blocks are joined in the published order with a blank line between them. The thresholds are arithmetic — a hero line over twelve words, a benefits list under three — and the checks report rather than repair. No claim is generated, no benefit is invented, and the page cannot verify that the proof is true.\n\n- The order is fixed; a page that needs a different argument order is out of scope.\n- Benefits are counted, not weighed — three weak reasons pass the check.\n- The proof block is not checked for a figure, unlike the case study and sales page tools.\n- The hero line length check is the only style rule; voice is left to the writer.\n- Nothing is stored, so copy the page before leaving it.\n\nWrite the benefits before the hero line and the hero line almost writes itself: the three or four reasons that survive the cut are the promise. Then read the page top to bottom as a skimmer would — hero, benefits, proof, next step — and check that each block answers the question the previous one raised. The checks panel is the last pass, not the first. Keep the page in one voice throughout: the hero line, the benefits and the next step should sound like the same person wrote them, because a page that changes register between blocks reads as a template.\n\nThe neighbours carry the page's parts: the Headline Analyzer scores the hero line's mechanics, the CTA Button Copy Generator writes the button the next step points at, and the Value Proposition Builder assembles the one-sentence pitch behind the page. When the page is for a launch, the Product Launch Copy Builder frames the announcement, and the case study template in this domain supplies the proof block with figures.",
+    howTo: [
+      { step: "Name the product and write the hero line." },
+      { step: "Add the audience, three to seven benefits, the proof and the next step." },
+      { step: "Read the assembled page top to bottom as a skimmer would." },
+      { step: "Work through the checks and copy the page." },
+    ],
+    whenToUse:
+      "Use the landing page copy builder when a page needs its skeleton and the words exist in fragments. The {{headline-analyzer|Headline Analyzer}} scores the hero line once it is written, and the {{cta-button-copy-generator|CTA Button Copy Generator}} builds the button for the next step. When the page sells long form, the {{sales-page-copywriting-tool|Sales Page Copywriting Tool}} extends the same argument across nine blocks, and the case study template in this domain writes the proof section.",
     faqs: [
       {
-        q: "How long should a landing page hero line be?",
-        a: "Twelve words or fewer. The builder flags anything past that because the hero is read at a glance; if the promise needs more words, it usually contains two promises and wants splitting.",
+        q: "How many benefits should a landing page list?",
+        a: "Three to seven. Fewer than three gives the reader no reason to keep reading, and past seven the page dilutes; the checks enforce both thresholds and report the count.",
       },
       {
-        q: "How many benefits should the page list?",
-        a: "Three to seven. Below three the page lacks reasons to keep reading; above seven the list stops being a decision and becomes a feature dump. Each entry should be a phrase, not a paragraph.",
-      },
-      {
-        q: "Why does the builder insist on proof?",
-        a: "Because proof is what turns claims into evidence, and it is the block most first drafts skip. A figure, a named customer or a dated result is enough; the check only asks that something specific be there.",
+        q: "Why does the hero line have a word limit?",
+        a: "Twelve words is the check's band because the hero line is read at a glance; past it the line becomes a paragraph and the reader skims to the benefits. The builder flags the length rather than cutting the line.",
       },
       {
         q: "Does the builder write the page copy?",
-        a: "No. It assembles the skeleton from your hero, benefits, proof and next step, and checks their shape. Every promise on the page is yours to make and to keep.",
+        a: "No. Every block is assembled from what you supply; the tool supplies the order and the checks. Nothing is invented and no claim is made on your behalf.",
+      },
+      {
+        q: "Can the blocks be reordered?",
+        a: "No. The order is the published one — headline, audience, benefits, proof, next step, about — because each block answers the question the previous one raises. A different argument needs a different tool.",
+      },
+      {
+        q: "Is the assembled page saved anywhere?",
+        a: "No. The assembly runs in the page from the fields you typed; nothing is stored or sent, and closing the tab discards the draft unless you copied it.",
       },
     ],
   },
 
   "ad-copy-framework-builder": {
-    keywords: ["ad copy framework builder", "framework", "AIDA", "PAS", "structure"],
-    intro:
-      "The ad copy framework builder reads one offer through three classic structures — AIDA, PAS and BAB — assembling a draft by slot and naming every slot the chosen framework still needs.",
-    content: `The ad copy framework builder takes one set of fields — product, audience, problem, agitate, benefit and proof — and reads them through three classic ad structures. AIDA moves attention to interest to desire to action; PAS states the problem, turns up the cost of leaving it alone, then presents the solution; BAB paints the world before, the world after, and the bridge between them. Switching frameworks re-renders the same offer in a different order, which is the fastest way to feel which shape suits a given medium.
-
-The framework field maps your words onto labelled slots, and the draft shows the labels as it assembles. That visibility is the point: a structure is only useful if the writer can see it while writing. AIDA's attention line is the problem stated so it stings; its interest line names who the product is built for; its desire line carries the benefit and the proof; its action line makes the single ask. PAS and BAB follow the same logic with their own slots, and the agitate field belongs to PAS alone — the check says so rather than pretending every framework wants every field.
-
-The checks are structural and honest. Each framework declares the fields it needs, and the builder names the ones that are empty — missing audience, missing proof, missing agitate — instead of assembling a draft with an invisible hole in it. A draft past 120 words is flagged as well, because an ad is read in seconds and the framework is not an excuse for length. The builder grades no copy and tests no performance; its job is the shape.
-
-Frameworks are scaffolds, not formulas, and the page says as much. An ad can follow AIDA perfectly and still fail on the offer, and the strongest line in a draft is often one the structure did not ask for. What the frameworks do reliably is prevent the two commonest omissions: stating a problem nobody has named, and asking for action without any desire built behind it.
-
-Because the draft is a pure function of the fields and the selected framework, trying all three structures is two clicks, and the word count stays visible while you compare. The copy button takes each draft out cleanly, so versions can sit side by side in a document while the real decision is made.
-
-One more way to use the builder: write all three drafts from the same fields and read them in sequence, as a reader would meet them. AIDA usually surfaces the strongest single line — its attention slot forces the problem into the open — while PAS tends to produce the most persuasive arc and BAB the clearest picture of the change. Because the fields are shared, the best line from one draft can be lifted into another without leaving the page, and the word counts stay visible while you compare. The structure you ship with matters less than the comparison having happened at all.\n\nNothing is uploaded and nothing is stored beyond the tab. The builder writes no hooks, makes no claims and knows nothing about the product or the market. It supplies the structures and the prompts; the offer, the evidence and the choice of shape remain the writer's.`,
-    howTo: [
-      { step: "Fill in the product, audience and problem." },
-      { step: "Add the agitate line if you are reading the offer through PAS." },
-      { step: "Add the benefit and the proof." },
-      { step: "Switch between AIDA, PAS and BAB and read the same offer in each shape." },
-      { step: "Clear every missing-slot check, then copy the draft that suits the medium." },
+    keywords: [
+      "ad copy framework builder",
+      "aida",
+      "pas",
+      "bab",
     ],
-    whenToUse: `Use the ad copy framework builder when an offer needs to be written quickly and the writer wants a structure to fill rather than a blank page. The benefit and the proof it draws on should already exist; if they do not yet, build them with the {{value-proposition-builder|Value Proposition Builder}} first.\n\nOnce the short form is working, the {{landing-page-copy-builder|Landing Page Copy Builder}} extends the same promise into a page, and the {{cta-button-copy-generator|CTA Button Copy Generator}} shrinks the action line into a label.`,
+    intro:
+      "The Ad Copy Framework Builder reads one offer through the AIDA, PAS and BAB structures, assembling each from the same six fields and checking every slot the framework needs.",
+    content:
+      "Three ad structures have survived because each answers a different reader, and this ad copy framework builder reads your offer through all three. Fill the fields — product, audience, problem, agitate, benefit and proof — and switch between AIDA, PAS and BAB to see the same facts in each shape: attention-interest-desire-action, problem-agitate-solution, before-after-bridge.\n\nThe framework panel holds the six fields and the three-way switch. The draft panel shows the assembled copy for the chosen framework, and the checks panel names the slots the framework needs that are still empty — PAS wants the agitate line, AIDA and BAB do not. Scope and limits states the builder's line: it writes no claims and knows nothing about the offer.\n\n- AIDA: attention, interest, desire, action — needs product, audience, problem, benefit and proof.\n- PAS: problem, agitate, solution — needs all six fields including the agitate line.\n- BAB: before, after, bridge — needs product, audience, problem, benefit and proof.\n- Fields: product, audience, problem, agitate, benefit, proof.\n- Slot hints: each slot carries a prompt describing what belongs in it.\n- Checks: the framework's required fields, named slot by slot.\n\nThe engine maps your fields onto the chosen framework's slots and joins them in the structure's order, ending each line as a sentence and capitalising where the pattern needs it. The three frameworks are data — id, label, slots with hints, and the fields each needs — so the checks are a comparison between the required list and the filled fields. No line is generated and no claim is added.\n\n- Three frameworks is a finite shelf; a structure outside them is out of scope.\n- The checks test presence, not quality — a weak benefit in every slot passes.\n- The agitate line is required by PAS alone, which is why switching frameworks changes the checks.\n- No claim is verified; the builder cannot know whether the proof is true.\n- Nothing is stored, so copy each framework's draft before switching.\n\nThe useful pass is writing the fields once and reading all three drafts in sequence: PAS punishes a vague problem line because the agitate has nothing to hold, and BAB punishes a vague after because the bridge has nothing to cross. Whichever framework collapses first is the one whose field needs work. Then keep the draft whose structure matches where the reader is — problem-aware readers get PAS, unaware readers get BAB. Rewrite the fields rather than the draft: the frameworks share every field, so one improved problem line improves all three readings at once, and the weakest draft is always the honest signal of which field is still thin. A framework is a lens, not a template, and the offer underneath it stays the same offer. When one draft reads badly, the fault is usually in the field the frameworks share, not in the framework you chose.\n\nThe neighbours cover the copy around the ad: the CTA Button Copy Generator writes the button the action slot points at, the Headline Analyzer scores the attention line's mechanics, and the Value Proposition Builder assembles the pitch the ad repeats. When the ad supports a launch, the Product Launch Copy Builder frames the announcement, and the sales page copywriting tool in this domain extends the argument.",
+    howTo: [
+      { step: "Fill the six fields: product, audience, problem, agitate, benefit and proof." },
+      { step: "Switch between AIDA, PAS and BAB and read each draft." },
+      { step: "Work through the checks — the slots the chosen framework still needs." },
+      { step: "Copy the draft whose structure matches the reader." },
+    ],
+    whenToUse:
+      "Use the ad copy framework builder when one offer has to be read through more than one structure. The {{cta-button-copy-generator|CTA Button Copy Generator}} writes the action line as a button, and the {{value-proposition-builder|Value Proposition Builder}} supplies the pitch the ad compresses. When the copy runs long, the {{sales-page-copywriting-tool|Sales Page Copywriting Tool}} applies the same field discipline across nine blocks, and the headline analyzer in this domain scores the attention line.",
     faqs: [
       {
-        q: "Which ad framework should I use?",
-        a: "It depends on the medium and the audience. AIDA suits a cold reader who needs the problem named and a reason to care; PAS suits a painful, well-understood problem; BAB suits a transformation the reader already wants. Try all three.",
+        q: "What is the difference between AIDA, PAS and BAB?",
+        a: "AIDA builds attention, interest, desire and action; PAS opens on the problem, agitates it and solves it; BAB shows the world before, the world after and the bridge between. The fields are the same; the order and the emphasis change.",
       },
       {
-        q: "What is the agitate field for?",
-        a: "It belongs to the PAS structure: one line on what the problem costs when it is left alone. AIDA and BAB do not use it, and the builder does not penalise you for filling it anyway.",
+        q: "Why does PAS need an extra field?",
+        a: "Because PAS is built on the agitate step — the cost of leaving the problem alone. AIDA and BAB do not have that slot, so the checks only require the agitate line when PAS is selected.",
       },
       {
-        q: "Does the builder score the copy?",
-        a: "No. It checks structure only: whether the slots the framework needs are filled, and whether the draft has outgrown an ad's length. Quality and performance are not things a builder can measure.",
+        q: "Does the builder write the claims?",
+        a: "No. It places your text into the framework's slots and checks that the slots the structure needs are filled. No claim is generated, and none is verified.",
       },
       {
-        q: "How long should an ad draft be?",
-        a: "As short as the medium allows; the builder flags anything past 120 words. An ad is read in seconds, and the framework exists to make the few seconds count rather than to add words.",
+        q: "Can I add a fourth framework?",
+        a: "Not in the tool. The three frameworks are a fixed shelf of published structures; a different one has to be written by hand, and the scope panel says so.",
+      },
+      {
+        q: "Are my fields kept between frameworks?",
+        a: "The fields stay while the page is open, so you can switch frameworks without retyping, but nothing is stored — closing the tab discards everything unless you copied the draft.",
       },
     ],
   },
 
   "social-post-caption-builder": {
-    keywords: ["social post caption builder", "caption", "platform", "hashtags", "character limit"],
-    intro:
-      "The social post caption builder renders one hook, body, link and hashtag list into captions for X, LinkedIn, Instagram and Facebook, measuring each against the platform's character limit and hashtag habits.",
-    content: `The social post caption builder takes one post — a hook, a body, a link and a list of hashtags — and renders it for four platforms at once. The same words produce four captions, each measured against the platform's published character limit: X at 280, LinkedIn at 3000, Instagram at 2200 and Facebook far beyond any caption worth writing. Seeing all four side by side is the point, because the caption that fits one platform comfortably can be a different post on another.
-
-The hook is the first line and the one line every platform gives you for free before a see-more. The builder checks that a hook exists and repeats it at the top of every caption; the body follows, then the link, then the hashtags. Because the arrangement is deterministic, a change to the hook appears in all four captions at once, which keeps a cross-posted idea honest rather than letting one platform's version drift.
-
-Hashtags get two checks, one global and one per platform. Past ten tags anywhere the builder warns that a wall of hashtags reads as spam; per platform, X and Facebook read best with three and five respectively, while Instagram tolerates more. The tags are normalised with a leading hash, so a bare word and a tagged word behave the same in the list.
-
-The link gets its own check on Instagram, where caption links are not clickable. The builder flags the link and suggests the bio or the first comment, which is the difference between a caption that sends traffic and one that quietly strands it. That single platform quirk is exactly the kind of thing a cross-posting tool should catch and a person writing four captions usually forgets.
-
-Each caption is shown with its exact character count against the limit, so truncation is a number rather than a surprise. The checks name the platform and the overage when a caption runs long, and the whole draft updates as the hook or body is edited, which makes trimming to fit a matter of watching numbers rather than guessing.
-
-Two more habits worth carrying into the platforms themselves. First, keep the hook under a hundred characters: on X the whole caption is short, and on LinkedIn and Facebook the hook is what shows before the see-more, so a long first line wastes the only guaranteed impression. Second, write the body so its first sentence still makes sense when the link preview is stripped away, since previews render differently on each network and a caption that depends on them reads as broken. The builder keeps one body for all four captions, which makes both habits easy to apply at once: fix the line once and every platform receives the better version. Test the hook on a phone before posting; the fold is narrower than the editor.\n\nNothing is uploaded and nothing is stored beyond the tab, and the builder schedules nothing and posts nothing. Character limits and link behaviour change over time; the numbers here are the documented ones, worth re-checking against a platform's help pages before a campaign leans on them.`,
-    howTo: [
-      { step: "Write the hook — the first line readers see." },
-      { step: "Add the body of the post." },
-      { step: "Add hashtags, space or comma separated, and a link." },
-      { step: "Read each platform's caption and its character count." },
-      { step: "Clear the checks — especially the Instagram link — and copy each caption to its platform." },
+    keywords: [
+      "social post caption builder",
+      "character limit",
+      "hashtags",
+      "caption",
     ],
-    whenToUse: `Use the social post caption builder when the same idea goes to more than one network in a day and nobody has time to write it four times. When the post is part of a recurring send, the {{email-template-library|Email Template Library}} covers the inbox side of the same message.\n\nThe first line does the work of a headline, so a {{headline-analyzer|Headline Analyzer}} pass on the hook is a fair check, and a {{tagline-generator|Tagline Generator}} can supply the short brand line a profile or a pinned post needs.`,
+    intro:
+      "The Social Post Caption Builder renders one post for four platforms, checks each against its character limit and hashtag cap, and says where the caption will be cut.",
+    content:
+      "One post does not fit four networks, and this social post caption builder shows exactly where it breaks. Write the hook, the body, the hashtags and the link; the tool renders the same post as a caption for X, LinkedIn, Instagram and Facebook, counts every caption's characters, and flags the platform habits that punish copy-paste — the 280-character limit on X, LinkedIn's hashtag cap of five, Instagram's ten-hashtag cap and its inability to carry a working link in the caption at all.\n\nThe post panel holds the four inputs. The captions panel lists one caption per platform with its character count and an over-limit flag, and the checks panel names the platform faults: a caption past the limit, more hashtags than the platform tolerates, and a link that will not work where it was placed. Scope and limits says what the builder does not know about reach or the algorithm.\n\n- Hook: the first line, which is all most feeds show before the fold.\n- Body: the rest of the post, kept plain.\n- Hashtags: normalised to start with a hash, capped per platform.\n- Link: appended where the platform allows it — Instagram is excluded by design.\n- Four platforms: X at 280 characters and three hashtags, LinkedIn at 3,000 and five, Instagram at 2,200 and ten, Facebook at 63,206 and five.\n- Per-platform character count and over-limit flag beside every caption.\n\nThe engine holds a small platform table — id, label, character limit, hashtag cap, and whether a link works in the caption — and renders the same parts through it four times. The over flag is arithmetic on the rendered length, and the hashtag cap is enforced by the table rather than by trimming, so nothing is silently changed. Every rule in the table is published on the page.\n\n- The limits are the published ones and change when platforms change them.\n- Hashtags past the cap are counted and flagged, never trimmed.\n- Character counts treat every character as one, including emoji and links.\n- Instagram's link rule is the only cross-platform behaviour modelled; feeds, threads and alt text are out of scope.\n- Nothing is stored, so copy each caption before leaving the page.\n\nThe order that works is hook, body, hashtags, link — then read the X caption first, because it is the harshest cut and the one that shows what the hook has to carry alone. A hook that survives 280 characters is a hook; a hook that only works with the body attached is an introduction. Then trim the hashtag list to the smallest cap in play, and the same list works everywhere. Keep one caption per platform rather than one caption trimmed four times, because the platforms disagree about links, tags and tone, and the differences are exactly what the table is there to show.\n\nThe neighbours cover the copy around the post: the Headline Analyzer scores the hook's mechanics, the CTA Button Copy Generator writes the click the post asks for, and the Email Subject Line Tester applies a parallel rubric to the inbox. When the post is part of a launch, the Product Launch Copy Builder frames the announcement, and the microcopy library in this domain covers the interface slots.",
+    howTo: [
+      { step: "Write the hook, the body, the hashtags and the link." },
+      { step: "Read each platform's caption and its character count." },
+      { step: "Fix the captions flagged over-limit or over the hashtag cap." },
+      { step: "Copy each platform's caption separately." },
+    ],
+    whenToUse:
+      "Use the social post caption builder when one post has to run on several networks and the limits decide the wording. The {{headline-analyzer|Headline Analyzer}} scores the hook as a headline, and the {{email-subject-line-tester|Email Subject Line Tester}} scores the inbox version of the same idea. When the post announces a product, the {{product-launch-copy-builder|Product Launch Copy Builder}} writes the announcement, and the CTA button copy generator in this domain finishes the call to action.",
     faqs: [
       {
-        q: "Which platforms does the caption builder cover?",
-        a: "X, LinkedIn, Instagram and Facebook. Each caption carries the platform's documented character limit — 280, 3000, 2200 and effectively unlimited — and its own hashtag guidance.",
+        q: "Why is my Instagram link flagged?",
+        a: "Instagram captions do not carry working links — the platform strips them — so the builder excludes the link from that caption and names the reason. The link belongs in the bio, which no caption tool can fill.",
       },
       {
-        q: "Why is the Instagram link flagged?",
-        a: "Because Instagram does not make caption links clickable. The builder suggests the bio or the first comment, which is where a link has to live if it is to send anyone anywhere.",
+        q: "What are the hashtag caps based on?",
+        a: "The published habits of each platform: three hashtags for X, five for LinkedIn, ten for Instagram, five for Facebook. Past the cap the tags stop helping and start reading as spam, so the builder flags the count.",
       },
       {
-        q: "How many hashtags should I use?",
-        a: "It depends on the platform: X reads best with three or fewer, LinkedIn and Facebook with about five, Instagram tolerates more. The builder warns past ten anywhere and flags each platform's own cap.",
+        q: "Are hashtags trimmed automatically?",
+        a: "No. The builder normalises them to start with a hash and counts them against each platform's cap; nothing is removed. Trimming is your call, and the checks panel tells you how far over you are.",
       },
       {
-        q: "Does the builder post anything?",
-        a: "No. It composes and measures captions in the browser; there is no scheduling, no account connection and no posting. The copy buttons are how a caption leaves the page.",
+        q: "Do emoji count toward the character limit?",
+        a: "Yes. The count treats every character as one, which is the conservative reading — some platforms count an emoji as two, so a caption that just fits here may not fit there.",
+      },
+      {
+        q: "Does the builder post anywhere?",
+        a: "No. It renders captions in the page from the text you typed; nothing is stored, sent or published. Copy each caption and post it yourself.",
       },
     ],
   },
 
   "product-launch-copy-builder": {
-    keywords: ["product launch copy builder", "launch", "announcement", "what is new", "next step"],
-    intro:
-      "The product launch copy builder assembles an announcement — product and date, what is new, who it is for, why it matters and one next step — and checks that nothing essential is missing.",
-    content: `The product launch copy builder assembles a launch announcement from its parts: the product and the date in the masthead, what is new, who it is for, why it matters and one next step. The order is the order a reader moves through an announcement — what, who, why, do — and the builder's job is to make sure each block exists before the copy is polished, because launch writing usually happens late and under pressure.
-
-The date gets a check that looks pedantic and is not: it must contain a digit. A launch date of soon contains no date to circle, no deadline for the team and no fact for a reader to plan around. The what field is checked for length as well as presence: one or two sentences, under thirty words. An announcement that explains the architecture has stopped being an announcement and become documentation, which belongs one link deeper.
-
-The why field is the one that decides whether the announcement is read. Newness alone is not news to anyone but the maker; why it matters is where the writer says what changes for the reader — the number that stops being a guess, the hour that comes back, the work that stops. The audience field follows the same logic from the other side: naming support teams of five to fifty tells a reader in three words whether the rest is for them.
-
-One next step is enforced, as it is across the other builders, because an announcement that asks for a trial, a follow and a share gets none of the three. The checks list every missing block with a sentence of reasoning, so the draft's gaps are a to-do list rather than a vague sense that something is off.
-
-Because the announcement is assembled from the fields, changing the date updates the masthead and everything else holds, which makes the copy reusable across the channels a launch always needs. The same draft serves as the email, the changelog entry and the social post with light editing, and the word count keeps it to the length a reader will actually finish.
-
-A launch announcement also benefits from being written before launch week rather than during it. The date field alone is a useful forcing function: entering a real date makes the remaining blanks — audience, why, next step — concrete enough to fill, whereas a draft without a date tends to stay abstract. When the announcement is finished, the same text can serve as the changelog entry, the email and the pinned post with light edits, and the first sentence about what is new rarely needs to change between them. What changes by channel is the next step, and the single next step the builder enforces is the one to swap deliberately rather than paste everywhere.\n\nNothing is uploaded and nothing is stored beyond the tab. The builder writes no news and makes no claims; it supplies the announcement's shape and the prompts, and the facts, the audience and the promise remain the writer's.`,
-    howTo: [
-      { step: "Name the product and the launch date." },
-      { step: "Say what is new in one or two sentences." },
-      { step: "Name who it is for and why it matters." },
-      { step: "Add the single next step." },
-      { step: "Clear the checks, then copy the announcement into each channel." },
+    keywords: [
+      "product launch copy builder",
+      "announcement",
+      "launch date",
+      "early access",
     ],
-    whenToUse: `Use the product launch copy builder for the internal and customer-facing announcement that goes out on the day. When the announcement is aimed at a news desk, the {{press-release-template|Press Release Template}} adds the dateline, quote and boilerplate that editors expect.\n\nIf the launch also updates how the team introduces itself, the {{bio-generator|Bio Generator}} can refresh the about text, and the {{email-template-library|Email Template Library}} covers the follow-up notes the launch generates.`,
+    intro:
+      "The Product Launch Copy Builder assembles the announcement skeleton — what is new, who it is for, why it matters, the date and one next step — and checks that nothing essential is missing.",
+    content:
+      "An announcement is five facts in a fixed order, and this product launch copy builder assembles yours from six fields. Name the product, give the date, say who it is for, what is new, why it matters and the one next step; the tool stacks them into an announcement — masthead, what is new, who it is for, why it matters, next step — and checks what is missing or vague.\n\nThe launch panel holds the six inputs. The output panel shows the assembled announcement with its word count, and the checks panel names the faults: no product, no date, a date with no digit in it, no audience, no what, a what past thirty words, and no why. Scope and limits says the builder writes no news — the announcement's facts are yours. The launch date anchors the masthead, and early access windows use the same five blocks with the date carrying the opening instead.\n\n- Product: the thing launching, named in the masthead.\n- Date: when it lands, and it must contain a digit to be circleable.\n- Audience: who the launch is for, which tells readers whether to keep reading.\n- What is new: one or two sentences, kept to a breath.\n- Why it matters: the reason a stranger should care — newness alone is not news.\n- Next step: the single action the announcement asks for.\n- Checks: the six fields, the date's digit test and the thirty-word limit on the what.\n\nThe engine composes blocks in the published order and joins them with their labels: the masthead pairs the product with a launching date, the what, audience and why blocks carry their own headings, and the next step closes. The checks are arithmetic — a digit test on the date, a word count on the what — and the fields are never invented. The same block-composition pattern as the landing page builder, applied to the announcement's shorter order.\n\n- The order is fixed and short; a launch that needs a longer argument is out of scope.\n- The date check looks for a digit, not for a real date — 32 February passes.\n- No claim about the product is verified, and none is written.\n- The audience field is free text; the tool cannot judge whether it is specific.\n- Nothing is stored, so copy the announcement before leaving the page.\n\nWrite the why before the what: a launch is only news to the maker, and the why field is where that changes — the reason a stranger should care is the only line that decides whether the announcement is read. Then make the date concrete, because readers plan around it and writers need the deadline, and keep the what to a breath so the audience line is still above the fold. Read the finished announcement as a reader who has never heard of the product: if the first two lines do not answer what this is and why it exists, the announcement is a note to the team rather than news for anyone else.\n\nThe neighbours write the copy around the announcement: the Landing Page Copy Builder turns the news into a page, the CTA Button Copy Generator writes the next step as a button, and the Email Subject Line Tester scores the line that carries it. When the announcement is long form, the Sales Page Copywriting Tool extends the argument, and the social post caption builder in this domain renders it for feeds.",
+    howTo: [
+      { step: "Name the product, the date and the audience." },
+      { step: "Write what is new and why it matters." },
+      { step: "Add the next step and read the assembled announcement." },
+      { step: "Work through the checks and copy the announcement." },
+    ],
+    whenToUse:
+      "Use the product launch copy builder when the news exists and the announcement needs its skeleton. The {{landing-page-copy-builder|Landing Page Copy Builder}} turns the announcement into a page, and the {{cta-button-copy-generator|CTA Button Copy Generator}} writes the next step. When the launch runs across channels, the {{social-post-caption-builder|Social Post Caption Builder}} renders it for feeds, and the email subject line tester in this domain scores the line that carries it.",
     faqs: [
       {
-        q: "What belongs in a launch announcement?",
-        a: "The product and date, what is new, who it is for, why it matters and one next step. The builder assembles those blocks in that order and flags any that are missing or still vague.",
+        q: "What does the announcement include?",
+        a: "Five blocks: the masthead with the product and launch date, what is new, who it is for, why it matters and the next step. Each is assembled from your fields in the published order, and the checks report what is missing.",
       },
       {
-        q: "Why does the builder insist the date contain a digit?",
-        a: "Because a date like soon gives readers nothing to plan around and the team no deadline. The check asks for a date that can be circled — exact or approximate, but calendared.",
+        q: "Why does the date need a digit?",
+        a: "A date without a number — soon, later this year — cannot be circled, and the check flags it. The digit test is deliberately loose: it cannot tell a real date from an impossible one, only a concrete one from a vague one.",
       },
       {
         q: "How long should the what section be?",
-        a: "One or two sentences, under thirty words. Past that the announcement has become documentation, which belongs a link deeper where a reader who is already interested will find it.",
+        a: "Under thirty words. The check flags anything longer, because an announcement's job is to make the reader decide whether to read more, not to replace the page it links to.",
       },
       {
-        q: "Is this the same as a press release?",
-        a: "No. An announcement is written for readers who already know you; a press release carries a dateline, a quote and boilerplate for a news desk. The two can share their facts but not their shape.",
+        q: "Does the builder write the news?",
+        a: "No. Every fact comes from your fields; the builder supplies the order, the labels and the checks. No claim is written and none is verified.",
+      },
+      {
+        q: "Is my announcement stored?",
+        a: "No. The assembly runs in the page from the fields you typed; nothing is stored or sent, and the draft is gone when the tab closes unless you copied it.",
       },
     ],
   },
 
   "case-study-template": {
-    keywords: ["case study template", "case study", "challenge", "results", "quote"],
-    intro:
-      "The case study template assembles the challenge, approach, quantified results and a client quote into the case study shape, checking the parts that make one credible.",
-    content: `The case study template assembles the shape a case study is read in: a named client with its sector, the challenge in the client's terms, the approach as numbered steps, results as metric and value pairs, and a sentence of the client's own words. The template supplies the order, which is conventional for a reason — a reader wants to know who, what hurt, what was done and what changed, in that sequence — and the checks make sure no part is missing or vague.
-
-The challenge block gets checked first, because it is the part that makes a case study a story rather than a testimonial. Stating the problem before the solution, in the client's words rather than the vendor's, is what earns the reader's trust for the results that follow. The approach needs at least two steps: a single line reads as a sales claim rather than a method, and a method is what a prospective client is actually shopping for.
-
-The results block is the heart of the credibility and the strictest checks. Results are entered as metric | value pairs, and every value must contain a figure — a percentage, a count, a duration — because a result without a number is a compliment. The builder also caps the list at six; a dashboard of small movements dilutes the two or three figures that decide the case, and the check asks for the decisive ones.
-
-The quote closes the study and does work no paraphrase can. A sentence from the client confirms the story is theirs, that the numbers were witnessed and that the words were approved. The check asks for a quote rather than a testimonial title, and the page notes that quotes need clearing before publication — along with every figure, which should come from the client's data rather than the vendor's estimate.
-
-Because the study is assembled deterministically from the fields, swapping a result or adding a step is one edit, and the word count keeps the draft in the range a reader will finish. The copy and download buttons export a clean block that can be edited for a deck, a page or a proposal.
-
-Writing the challenge before the results also protects the study from an easy failure: explaining the method in terms only the vendor understands. Read the challenge block and ask whether a reader who has never used the product would recognise the problem as theirs; if not, the words are too internal, and the results will feel like answers to a question nobody asked. The same test applies to the results block one more time before publication: each figure should be meaningful to the client, not merely large, and the quote should confirm the figure rather than decorate it. Two of three results that a client would repeat in their own meeting are worth more than six that only a dashboard can see.\n\nNothing is uploaded and nothing is stored beyond the tab. The template verifies nothing and knows no client; it supplies the shape and the prompts, and the story, the results and the permissions remain the writer's and the client's.`,
-    howTo: [
-      { step: "Name the client and the sector." },
-      { step: "State the challenge in the client's terms." },
-      { step: "List the approach as at least two steps." },
-      { step: "Add results as metric | value, with a figure in every value." },
-      { step: "Add the client's quote, clear the checks, then copy the study." },
+    keywords: [
+      "case study template",
+      "quantified results",
+      "challenge",
+      "approach",
     ],
-    whenToUse: `Use the case study template when a result needs to be written up for a sales page, a deck or a proposal and the shape has to be credible. The offer the study supports is the {{proposal-template|Proposal Template}}'s subject, and the same result often anchors a section of it.\n\nWhen the study is being announced rather than shown, the {{press-release-template|Press Release Template}} wraps the headline result in the dateline, quote and boilerplate a news desk expects.`,
+    intro:
+      "The Case Study Template assembles a challenge, an approach, results and a quote into the case study shape, then checks the parts that make one credible — a named client, steps and results with figures.",
+    content:
+      "A case study earns its name with figures, and this case study template assembles yours and checks whether the figures are there. Supply the client, the sector, the challenge, the approach steps, the results and a quote; the tool builds the study — title, challenge, numbered approach, results, quote — and flags the parts that make one credible: an unnamed client, fewer than two approach steps, and results with no number in the value.\n\nThe case panel holds the client, the sector and the challenge. The approach is one step per line and is numbered in the output; the results field is one result per line in the format metric | value, and the tool parses each pair and marks the quantified ones. The checks panel names what is missing, and the quote closes the study. Scope and limits states that the template writes no story and verifies no result. The stats line prints how many results were read and how many are quantified results, which is the study's evidence count at a glance.\n\n- Client and sector: the title of the study and the context it sits in.\n- Challenge: the situation before, in the client's terms.\n- Approach: one step per line, at least two, numbered in the output.\n- Results: one per line as metric | value; a value with a digit in it is marked quantified.\n- Quote: the client's line, placed at the end.\n- Checks: the named client, the two-step minimum, and the quantified-results test.\n\nThe engine composes the blocks in the published order, numbers the approach steps, and parses each result line on the pipe into a metric and a value. The quantified flag is a digit test on the value, and the checks are counts and presence tests. The assembly is string work; no story is written and no figure is computed or verified.\n\n- The template writes no narrative — the challenge and approach are your sentences.\n- The quantified flag is a digit test, not an audit of the result.\n- Results must use the pipe separator; a prose result line is treated as a metric with an empty value.\n- The order is fixed; a study with a different shape is out of scope.\n- Nothing is stored, so copy the study before leaving the page.\n\nWrite the results first and the challenge second: the figures decide which situation is worth describing, and a challenge written before the results usually describes the wrong problem. Then check the approach against the results — every step should be load-bearing for a figure, and a step that no result depends on is context, not approach. The quote is the last line to write, because it should say what the figures mean rather than repeat them. A case study with one quantified result and one honest step is more convincing than a list of five metrics with no method behind them, and the checks reward exactly that shape.\n\nThe neighbours carry the evidence further: the Testimonial Formatter turns quotes into social proof, the Sales Page Copywriting Tool places the study in a proof block, and the Landing Page Copy Builder uses its figures in a page's proof section. When the study sits behind an announcement, the Product Launch Copy Builder writes the news, and the value proposition builder in this domain compresses the finding.",
+    howTo: [
+      { step: "Name the client and sector and write the challenge." },
+      { step: "List the approach steps, one per line, and the results as metric | value." },
+      { step: "Add the client quote and read the assembled study." },
+      { step: "Work through the checks and copy the study." },
+    ],
+    whenToUse:
+      "Use the case study template when a result exists and the evidence needs its shape. The {{testimonial-formatter|Testimonial Formatter}} formats the quotes that surround it, and the {{sales-page-copywriting-tool|Sales Page Copywriting Tool}} places the study in a proof block. When the finding is one sentence, the {{value-proposition-builder|Value Proposition Builder}} compresses it, and the landing page copy builder in this domain uses the figures above the fold.",
     faqs: [
       {
-        q: "What makes a case study credible?",
-        a: "A named client, the challenge in their words, a method with at least two steps, results with figures in them and a sentence of the client's own. The template checks for each of those and verifies none of them.",
+        q: "What result format does the template expect?",
+        a: "One result per line as metric | value — for example First-response time | cut 40% in a month. The tool splits each line on the pipe and marks the value as quantified when it contains a digit.",
       },
       {
-        q: "Why does every result need a number?",
-        a: "Because a result without a number is a compliment. The check requires a figure in each value — percentage, count or duration — so the study rests on outcomes a reader can compare rather than on adjectives.",
+        q: "How many approach steps does a case study need?",
+        a: "At least two, and the check flags fewer. The steps are numbered in the output, and the discipline the check enforces is that every step should be load-bearing for one of the results.",
       },
       {
-        q: "How many results should a case study include?",
-        a: "Two or three decisive ones. The template warns below two and above six; a long list of small movements dilutes the figures that would otherwise carry the story.",
+        q: "Does the template verify my figures?",
+        a: "No. It flags a result with no digit in its value, because a result without a number is a claim, but it cannot audit whether the number is true. The scope panel states that.",
       },
       {
-        q: "Do I need permission to publish the quotes and figures?",
-        a: "Yes. The template cannot obtain it and says so. Every figure should come from the client's data, and the quote and the client's name should be cleared before anything is published.",
+        q: "Can I write the challenge as several paragraphs?",
+        a: "Yes — the challenge field takes prose, and the template places it under its heading unchanged. The approach and results are the structured fields; the challenge is the one block written as a story.",
       },
       {
-        q: "Does the template write the study?",
-        a: "No. It assembles the challenge, approach, results and quote you supply, and checks their shape. The story, the numbers and the permissions are all the writer's and the client's.",
+        q: "Is my case study saved?",
+        a: "No. The assembly runs in the page from the fields you typed; nothing is stored or sent, and the study is gone when the tab closes unless you copied it.",
       },
     ],
   },

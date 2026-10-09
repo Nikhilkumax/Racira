@@ -182,7 +182,8 @@ export const SEARCH_REGISTRY: ToolResult[] = CATEGORIES.flatMap((cat) =>
     name: tool.name,
     description: tool.description,
     slug: tool.slug,
-    href: `/photo/tool/${tool.slug}`,
+    // Flat tool route — /photo/tool/... is not a route in this app.
+    href: `/photo/${tool.slug}`,
     category: cat.name,
     isBuilt: tool.status === "live",
   }))

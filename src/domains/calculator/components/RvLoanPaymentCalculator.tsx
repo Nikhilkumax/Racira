@@ -1,259 +1,333 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import AmortizationTable, { type AmortRow } from "@/domains/calculator/components/ui/AmortizationTable";
-import { RotateCcw, ChevronDown, Printer, Truck, Receipt, TrendingDown } from "lucide-react";
-import { PieChart as RPie, Pie, Cell, Tooltip as RTooltip, ResponsiveContainer } from "recharts";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
 interface RvInputs {
-  rvPrice: number;
-  downPayment: number;
-  interestRate: number;
-  loanTermMonths: number;
-  tradeInValue: number;
-  salesTaxRate: number;
-  registrationFees: number;
-  proMode: boolean;
+  price: number;
+  downPct: number;
+  tradeIn: number;
+  rate: number;
+  termYears: number;
+  salesTaxPct: number;
+  fees: number;
   extraMonthly: number;
-  annualDepreciationRate: number;
-}
-
-interface ChartSlice {
-  name: string;
-  value: number;
-  percent: number;
-  color: string;
-}
-
-interface TableRow {
-  label: string;
-  value: string;
-  key?: boolean;
-}
-
-interface RvResult {
-  monthlyPayment: number;
-  loanAmount: number;
-  salesTaxAmount: number;
-  outTheDoorPrice: number;
-  totalInterest: number;
-  totalPaid: number;
-  totalCostOfOwnership: number;
-  interestPercentOfLoan: number;
-  rows: TableRow[];
-  chartData: ChartSlice[];
-  amortRows: AmortRow[];
-  // Professional mode
-  payoffMonths: number;
-  monthsSaved: number;
-  interestSaved: number;
-  breakEvenMonth: number;
-  valueAtPayoff: number;
-  maxNegativeEquity: number;
+  decimals: number;
 }
 
 const DEFAULTS: RvInputs = {
-  rvPrice: 85000,
-  downPayment: 10000,
-  interestRate: 8.5,
-  loanTermMonths: 144,
-  tradeInValue: 0,
-  salesTaxRate: 6.5,
-  registrationFees: 500,
-  proMode: false,
+  price: 85000,
+  downPct: 10,
+  tradeIn: 0,
+  rate: 8.49,
+  termYears: 15,
+  salesTaxPct: 6,
+  fees: 850,
   extraMonthly: 0,
-  annualDepreciationRate: 12,
+  decimals: 2,
 };
 
-function buildSchedule(principal: number, monthlyRate: number, payment: number, maxMonths: number): AmortRow[] {
-  const rows: AmortRow[] = [];
-  let balance = principal;
-  for (let period = 1; period <= maxMonths && balance > 0.01; period += 1) {
-    const interest = balance * monthlyRate;
-    let principalPaid = payment - interest;
-    if (principalPaid <= 0) break;
-    if (principalPaid > balance) principalPaid = balance;
-    balance -= principalPaid;
-    rows.push({ period, payment: interest + principalPaid, principal: principalPaid, interest, balance: Math.max(0, balance) });
-  }
-  return rows;
+const fmt = (v: number, d = 0) =>
+  Number.isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+const money = (v: number) => (Number.isFinite(v) ? "$" + fmt(v, 2) : "—");
+
+const TERM_OPTIONS = [
+  { value: "5", label: "5 years (60 months)" },
+  { value: "7", label: "7 years (84 months)" },
+  { value: "10", label: "10 years (120 months)" },
+  { value: "12", label: "12 years (144 months)" },
+  { value: "15", label: "15 years (180 months)" },
+  { value: "20", label: "20 years (240 months)" },
+];
+
+interface PaymentResult {
+  monthly: number;
+  monthlyTotal: number;
+  financed: number;
+  totalInterest: number;
+  totalCost: number;
+  interestShare: number;
+  taxAmount: number;
+  months: number;
+  payoffMonths: number;
+  monthsSaved: number;
+  interestSaved: number;
+  monthlyInterestFirst: number;
+  monthlyPrincipalFirst: number;
+  breakdown: { label: string; value: string; highlight?: boolean }[];
 }
 
-export function calculateRvLoan(i: RvInputs): RvResult {
-  const price = Math.max(0, i.rvPrice);
-  const tradeIn = Math.max(0, i.tradeInValue);
-  const down = Math.max(0, i.downPayment);
-  const fees = Math.max(0, i.registrationFees);
+function calculateRv(i: RvInputs): PaymentResult {
+  const blank = (): PaymentResult => ({
+    monthly: 0,
+    monthlyTotal: 0,
+    financed: 0,
+    totalInterest: 0,
+    totalCost: 0,
+    interestShare: 0,
+    taxAmount: 0,
+    months: 0,
+    payoffMonths: 0,
+    monthsSaved: 0,
+    interestSaved: 0,
+    monthlyInterestFirst: 0,
+    monthlyPrincipalFirst: 0,
+    breakdown: [],
+  });
 
-  // Most states assess sales tax on the price net of trade-in value.
-  const taxableAmount = Math.max(0, price - tradeIn);
-  const salesTaxAmount = taxableAmount * (Math.max(0, i.salesTaxRate) / 100);
-  const outTheDoorPrice = price + salesTaxAmount + fees;
-  const loanAmount = Math.max(0, outTheDoorPrice - down - tradeIn);
+  const nums = [i.price, i.downPct, i.tradeIn, i.rate, i.termYears, i.salesTaxPct, i.fees, i.extraMonthly, i.decimals];
+  if (!nums.every((v) => Number.isFinite(v))) return blank();
+  if (i.price <= 0 || i.price > 5000000) return blank();
+  if (i.downPct < 0 || i.downPct > 100) return blank();
+  if (i.tradeIn < 0) return blank();
+  if (i.rate <= 0 || i.rate > 36) return blank();
+  if (i.termYears < 1 || i.termYears > 20) return blank();
+  if (i.salesTaxPct < 0 || i.salesTaxPct > 15) return blank();
+  if (i.fees < 0) return blank();
+  if (i.extraMonthly < 0) return blank();
 
-  const n = Math.max(1, Math.round(i.loanTermMonths));
-  const r = Math.max(0, i.interestRate) / 100 / 12;
+  const months = Math.round(i.termYears * 12);
+  const r = i.rate / 100 / 12;
+  const taxAmount = i.price * (i.salesTaxPct / 100);
+  const down = i.price * (i.downPct / 100);
+  const financed = Math.max(0, i.price + taxAmount + i.fees - down - i.tradeIn);
 
-  const monthlyPayment =
-    loanAmount > 0 ? (r > 0 ? (loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1) : loanAmount / n) : 0;
+  const monthly = financed > 0 ? (financed * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1) : 0;
+  const monthlyTotal = monthly + i.extraMonthly;
+  const totalInterest = monthly * months - financed;
+  const totalCost = i.price + taxAmount + i.fees + totalInterest;
 
-  const amortRows = buildSchedule(loanAmount, r, monthlyPayment, n);
-  const totalInterest = amortRows.reduce((sum, row) => sum + row.interest, 0);
-  const totalPaid = loanAmount + totalInterest;
-  const totalCostOfOwnership = down + tradeIn + totalPaid;
-  const interestPercentOfLoan = loanAmount > 0 ? (totalInterest / loanAmount) * 100 : 0;
+  // months to pay off with the extra payment, using the closed-form amortisation identity
+  let payoffMonths = months;
+  if (financed > 0 && monthlyTotal > monthly) {
+    payoffMonths = Math.ceil(-Math.log(1 - (r * financed) / monthlyTotal) / Math.log(1 + r));
+  }
+  const monthsSaved = Math.max(0, months - payoffMonths);
+  const interestSaved = Math.max(0, totalInterest - (monthlyTotal * payoffMonths - financed));
 
-  const chartRaw: { name: string; value: number; color: string }[] = [
-    { name: "Principal", value: loanAmount, color: "#2563EB" },
-    { name: "Total Interest", value: totalInterest, color: "#F59E0B" },
-    { name: "Sales Tax", value: salesTaxAmount, color: "#10B981" },
-    { name: "Dealer & Registration Fees", value: fees, color: "#8B5CF6" },
-  ].filter((s) => s.value > 0);
+  const monthlyInterestFirst = financed * r;
+  const monthlyPrincipalFirst = monthly - monthlyInterestFirst;
+  const interestShare = totalCost > 0 ? (totalInterest / totalCost) * 100 : 0;
 
-  const chartTotal = chartRaw.reduce((sum, s) => sum + s.value, 0);
-  const chartData: ChartSlice[] = chartRaw.map((s) => ({
-    ...s,
-    value: Number(s.value.toFixed(2)),
-    percent: chartTotal > 0 ? (s.value / chartTotal) * 100 : 0,
-  }));
-
-  const money = (v: number) => `$${v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-  const whole = (v: number) => `$${Math.round(v).toLocaleString("en-US")}`;
-
-  const rows: TableRow[] = [
-    { label: "RV Purchase Price", value: whole(price) },
-    { label: `Sales Tax (${i.salesTaxRate}% on ${whole(taxableAmount)})`, value: whole(salesTaxAmount) },
-    { label: "Dealer & Registration Fees", value: whole(fees) },
-    { label: "Out-the-Door Price", value: whole(outTheDoorPrice) },
-    { label: "Less Down Payment", value: `-${whole(down)}` },
-    { label: "Less Trade-In Value", value: `-${whole(tradeIn)}` },
-    { label: "Amount Financed", value: whole(loanAmount), key: true },
-    { label: `Monthly Payment (${n} mo @ ${i.interestRate}%)`, value: money(monthlyPayment) },
-    { label: "Total Interest Paid", value: whole(totalInterest) },
-    { label: "Total of Payments", value: whole(totalPaid) },
+  const breakdown = [
+    { label: "RV purchase price", value: money(i.price) },
+    { label: `Sales tax at ${fmt(i.salesTaxPct, 2)}%`, value: money(taxAmount) },
+    { label: "Tax, title and dealer fees", value: money(i.fees) },
+    { label: `Down payment (${fmt(i.downPct, 0)}%)`, value: "−" + money(down) },
+    i.tradeIn > 0
+      ? { label: "Trade-in credit", value: "−" + money(i.tradeIn), highlight: true }
+      : { label: "Trade-in credit", value: "$0.00" },
+    { label: "Amount financed", value: money(financed), highlight: true },
+    { label: `First month interest at ${fmt(i.rate, 2)}% APR`, value: money(monthlyInterestFirst) },
+    { label: "First month principal", value: money(monthlyPrincipalFirst) },
+    { label: `Scheduled interest over ${months} months`, value: money(totalInterest) },
+    { label: "Total cost of the RV", value: money(totalCost), highlight: true },
   ];
 
-  // Professional mode: accelerated payoff and equity crossover.
-  const acceleratedRows = buildSchedule(loanAmount, r, monthlyPayment + Math.max(0, i.extraMonthly), n);
-  const payoffMonths = acceleratedRows.length > 0 ? acceleratedRows.length : amortRows.length;
-  const monthsSaved = Math.max(0, amortRows.length - payoffMonths);
-  const acceleratedInterest = acceleratedRows.reduce((sum, row) => sum + row.interest, 0);
-  const interestSaved = Math.max(0, totalInterest - acceleratedInterest);
-
-  // Compare declining loan balance against a depreciating asset value to find the
-  // month the borrower stops being underwater.
-  const depRate = Math.max(0, i.annualDepreciationRate) / 100;
-  const monthlyDep = Math.pow(1 - depRate, 1 / 12);
-  let breakEvenMonth = 0;
-  let maxNegativeEquity = 0;
-  for (let m = 1; m <= acceleratedRows.length; m += 1) {
-    const assetValue = price * Math.pow(monthlyDep, m);
-    const balance = acceleratedRows[m - 1].balance;
-    const gap = balance - assetValue;
-    if (gap > maxNegativeEquity) maxNegativeEquity = gap;
-    if (breakEvenMonth === 0 && assetValue >= balance) breakEvenMonth = m;
-  }
-  const valueAtPayoff = price * Math.pow(monthlyDep, payoffMonths);
-
   return {
-    monthlyPayment,
-    loanAmount,
-    salesTaxAmount,
-    outTheDoorPrice,
+    monthly,
+    monthlyTotal,
+    financed,
     totalInterest,
-    totalPaid,
-    totalCostOfOwnership,
-    interestPercentOfLoan,
-    rows,
-    chartData,
-    amortRows,
+    totalCost,
+    interestShare,
+    taxAmount,
+    months,
     payoffMonths,
     monthsSaved,
     interestSaved,
-    breakEvenMonth,
-    valueAtPayoff,
-    maxNegativeEquity,
+    monthlyInterestFirst,
+    monthlyPrincipalFirst,
+    breakdown,
   };
 }
 
-const inp =
-  "w-full h-10 px-3 text-base rounded-md border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-primary/20";
-const lbl = "text-sm font-medium text-foreground mb-1 block";
-const groupLabel = "text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold flex items-center gap-1.5";
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  error?: string;
+  type?: string;
+  min?: string;
+  max?: string;
+  step?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  onEnter,
+  hint,
+  error,
+  type = "number",
+  min,
+  max,
+  step,
+  suffix,
+  tooltip,
+}: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div
+      className={`relative w-full flex items-center rounded-md border bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${
+        error ? "border-destructive" : "border-input"
+      }`}
+    >
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        max={max}
+        step={step}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && !error && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+    {error && <p className="text-[11px] text-destructive mt-1">{error}</p>}
+  </div>
+);
+
+const CompactSelect = ({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  tooltip,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  tooltip?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-background outline-none focus:outline-none border-none text-foreground"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
 
 export default function RvLoanPaymentCalculator() {
-  const [inputs, setInputs] = useState<RvInputs>(DEFAULTS);
-  const [result, setResult] = useState<RvResult>(calculateRvLoan(DEFAULTS));
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [price, setPrice] = useState(String(DEFAULTS.price));
+  const [downPct, setDownPct] = useState(String(DEFAULTS.downPct));
+  const [tradeIn, setTradeIn] = useState(String(DEFAULTS.tradeIn));
+  const [rate, setRate] = useState(String(DEFAULTS.rate));
+  const [termYears, setTermYears] = useState(String(DEFAULTS.termYears));
+  const [salesTaxPct, setSalesTaxPct] = useState(String(DEFAULTS.salesTaxPct));
+  const [fees, setFees] = useState(String(DEFAULTS.fees));
+  const [extraMonthly, setExtraMonthly] = useState(String(DEFAULTS.extraMonthly));
+  const [decimals, setDecimals] = useState(String(DEFAULTS.decimals));
+  const [showAdv, setShowAdv] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-    setResult(calculateRvLoan(inputs));
-  }, []);
+  const getInputs = (): RvInputs => ({
+    price: parseFloat(price) || 0,
+    downPct: parseFloat(downPct) || 0,
+    tradeIn: parseFloat(tradeIn) || 0,
+    rate: parseFloat(rate) || 0,
+    termYears: parseFloat(termYears) || 0,
+    salesTaxPct: parseFloat(salesTaxPct) || 0,
+    fees: parseFloat(fees) || 0,
+    extraMonthly: parseFloat(extraMonthly) || 0,
+    decimals: parseFloat(decimals),
+  });
 
-  const calculate = () => setResult(calculateRvLoan(inputs));
+  const [calcInputs, setCalcInputs] = useState<RvInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<PaymentResult>(() => calculateRv(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(calculateRv(inputs));
+  };
+
   const reset = () => {
-    setInputs(DEFAULTS);
-    setResult(calculateRvLoan(DEFAULTS));
-    setShowAdvanced(false);
+    setPrice(String(DEFAULTS.price));
+    setDownPct(String(DEFAULTS.downPct));
+    setTradeIn(String(DEFAULTS.tradeIn));
+    setRate(String(DEFAULTS.rate));
+    setTermYears(String(DEFAULTS.termYears));
+    setSalesTaxPct(String(DEFAULTS.salesTaxPct));
+    setFees(String(DEFAULTS.fees));
+    setExtraMonthly(String(DEFAULTS.extraMonthly));
+    setDecimals(String(DEFAULTS.decimals));
+    setCalcInputs(DEFAULTS);
+    setResults(calculateRv(DEFAULTS));
   };
 
-  const setNum = (key: keyof RvInputs, raw: string) => {
-    const parsed = parseFloat(raw);
-    setInputs((prev) => ({ ...prev, [key]: isNaN(parsed) ? 0 : parsed }));
+  const priceNum = parseFloat(price);
+  const rateNum = parseFloat(rate);
+
+  const errors = {
+    price: !Number.isFinite(priceNum) || priceNum <= 0 ? "Enter the RV price" : "",
+    rate: !Number.isFinite(rateNum) || rateNum <= 0 || rateNum > 36 ? "Enter 0.1–36% APR" : "",
   };
-
-  const money = (v: number) => `$${v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-  const whole = (v: number) => `$${Math.round(v).toLocaleString("en-US")}`;
-
-  const interestColor =
-    result.interestPercentOfLoan <= 30 ? "text-emerald-600" : result.interestPercentOfLoan <= 60 ? "text-amber-600" : "text-red-600";
+  const hasErrors = Object.values(errors).some(Boolean);
 
   const faqs = [
     {
       question: "How long can you finance an RV?",
       answer:
-        "RV loans carry much longer terms than auto loans because the collateral is expensive and treated more like a small home than a car. Where a car loan usually caps at 72 to 84 months, RV loans commonly run 120 months up to 240 months for high-end motorhomes above $100,000. Longer is not automatically better: every additional year lowers the payment while raising total interest substantially.",
+        "RV loans run far longer than car loans because the amounts are larger, with 10 to 15 year terms common on new motorhomes and 20 year terms available on high-value diesel pushers through specialist lenders. The trade-off is interest: at 8.5% APR, stretching a $85,000 loan from 10 to 15 years cuts the payment by about $290 a month but adds roughly $18,000 in interest over the life of the loan. Many buyers take the long term for cash-flow safety and then make voluntary extra payments, which is exactly what the extra-payment field in this calculator models.",
     },
     {
-      question: "Are RV loan rates higher than auto loan rates?",
+      question: "Does an RV loan work like a mortgage or like a car loan?",
       answer:
-        "Generally yes, by roughly one to three percentage points. RVs are discretionary purchases rather than primary transportation, so in a downturn borrowers default on an RV before they default on a car or a mortgage. Lenders price that behavioral risk into the rate. Credit score matters more here than in auto lending, and the spread between excellent and fair credit on an RV loan is often wider than four points.",
+        "Mechanically it is an amortising instalment loan like a car loan — same monthly payment formula, interest front-loaded, title held by the lender until payoff. Where RV lending differs is in underwriting: lenders often treat the unit as a second-home-qualifying asset if it has cooking, sleeping and toilet facilities, which can open slightly better rates than a plain consumer loan. But RVs depreciate quickly in the first years, so borrowers who roll taxes, fees and negative trade equity into the loan can end up owing more than the RV is worth for a long stretch.",
     },
     {
-      question: "Is RV loan interest tax deductible?",
+      question: "How much should I put down on an RV?",
       answer:
-        "Often, yes. The IRS treats an RV as a qualified second home if it has sleeping, cooking, and toilet facilities. If your RV meets that definition and the loan is secured by the RV itself, the interest may be deductible on your federal return in the same way as mortgage interest, subject to current limits and to the overall cap on qualified residence debt. You can only claim one second home at a time, so this competes with an actual vacation property.",
+        "Lenders typically ask for 10 to 20% down, and putting more down reduces both the payment and the total interest proportionally. The deeper reason to go beyond the minimum is depreciation: a new RV can lose 20% or more of its value in the first two years, so a 10% down payment plus rolled-in tax and fees can leave the owner underwater until well into the loan. If keeping equity positive matters to you, model 20% down and compare the payoff months against the 10% case in the breakdown table.",
     },
     {
-      question: "How does sales tax affect my RV loan?",
+      question: "Is it better to pay extra each month or take a shorter term?",
       answer:
-        "Sales tax on an $85,000 RV commonly runs $5,000 to $8,500 depending on the state. If you do not pay it in cash, the dealer rolls it into the financed amount, which means paying interest on the tax for the next ten to fifteen years. On a 144-month loan at 8.5%, financing $5,500 of tax adds roughly $58 per month and about $2,800 in additional interest over the life of the loan.",
-    },
-    {
-      question: "Does a trade-in reduce my sales tax?",
-      answer:
-        "In most states, yes, and this is one of the largest hidden benefits of trading in rather than selling privately. Sales tax is assessed on the purchase price net of trade-in value, so a $20,000 trade-in against an $85,000 RV in a 6.5% state saves $1,300 in tax outright. That saving partially offsets the lower price a dealer will offer relative to a private-party sale.",
-    },
-    {
-      question: "How long am I underwater on an RV loan?",
-      answer:
-        "Longer than most buyers expect. RVs depreciate roughly 10% to 15% annually, steepest in the first three years, while a long loan amortizes slowly at the start. With zero down on a 15-year term, negative equity can persist for six to eight years. Professional Mode above computes the exact crossover month by comparing your declining balance against a depreciating asset value.",
-    },
-    {
-      question: "Is a bigger down payment worth it on an RV?",
-      answer:
-        "It is unusually valuable here. A larger down payment cuts the balance you pay interest on across a very long term, and it shortens the period of negative equity, which is what traps owners who need to sell early. Twenty percent down on a 144-month loan is a materially different financial position than zero down, even though the monthly payment difference looks modest.",
-    },
-    {
-      question: "Should I make extra payments on an RV loan?",
-      answer:
-        "Extra principal is exceptionally effective on long-term loans because so much of each early payment goes to interest. On an $85,000 balance at 8.5% over 144 months, an extra $200 per month cuts roughly 30 months and thousands in interest off the loan. Enable Professional Mode to see the exact months and dollars saved for your own figures.",
+        "Mathematically they converge on the same result if the extra payment matches the payment difference of the shorter term — the interest saved is nearly identical. The practical differences are flexibility and rate: extra payments on a longer term keep the contractual payment low, so a hard month does not break the budget, while the shorter term locks in the higher payment and sometimes a better rate. Run both through the calculator: the extra-payment field shows the payoff month and interest saved directly against the scheduled term.",
     },
   ];
 
@@ -263,7 +337,7 @@ export default function RvLoanPaymentCalculator() {
         items={[
           { label: "Home", href: "/" },
           { label: "Calculators", href: "/calculator" },
-          { label: "Finance", href: "/calculator/finance" },
+          { label: "Finance", href: "/calculator#finance" },
           { label: "RV Loan Payment Calculator" },
         ]}
       />
@@ -271,293 +345,327 @@ export default function RvLoanPaymentCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">RV Loan Payment Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          {/* LEFT */}
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card rounded-xl">
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label htmlFor="rvPrice" className={lbl}>RV Price</label>
-                <input id="rvPrice" type="number" min="0" step="1000" className={inp} value={inputs.rvPrice}
-                  onChange={(e) => setNum("rvPrice", e.target.value)} />
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="RV & Payment">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="price"
+                  label="RV Price"
+                  value={price}
+                  onChange={setPrice}
+                  onEnter={runCalculate}
+                  min="1000"
+                  max="5000000"
+                  step="500"
+                  suffix="$"
+                  error={errors.price}
+                  hint="Out-the-door price before tax and fees."
+                  tooltip="Purchase price of the motorhome, travel trailer or fifth wheel."
+                />
+                <CompactInput
+                  id="down"
+                  label="Down Payment"
+                  value={downPct}
+                  onChange={setDownPct}
+                  onEnter={runCalculate}
+                  min="0"
+                  max="100"
+                  step="1"
+                  suffix="%"
+                  hint="Lenders usually ask 10–20%."
+                  tooltip="Down payment as a percentage of the purchase price."
+                />
               </div>
-              <div>
-                <label htmlFor="downPayment" className={lbl}>Down Payment</label>
-                <input id="downPayment" type="number" min="0" step="1000" className={inp} value={inputs.downPayment}
-                  onChange={(e) => setNum("downPayment", e.target.value)} />
-              </div>
-              <div>
-                <label htmlFor="interestRate" className={lbl}>Interest Rate (%)</label>
-                <input id="interestRate" type="number" min="0" step="0.01" className={inp} value={inputs.interestRate}
-                  onChange={(e) => setNum("interestRate", e.target.value)} />
-              </div>
-              <div>
-                <label htmlFor="loanTermMonths" className={lbl}>Loan Term</label>
-                <select id="loanTermMonths" className={inp} value={inputs.loanTermMonths}
-                  onChange={(e) => setNum("loanTermMonths", e.target.value)}>
-                  <option value="60">60 months (5 years)</option>
-                  <option value="84">84 months (7 years)</option>
-                  <option value="120">120 months (10 years)</option>
-                  <option value="144">144 months (12 years)</option>
-                  <option value="180">180 months (15 years)</option>
-                  <option value="240">240 months (20 years)</option>
-                </select>
-              </div>
-            </div>
+            </SubSection>
 
+            <SubSection title="Loan Terms">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="rate"
+                  label="Interest Rate"
+                  value={rate}
+                  onChange={setRate}
+                  onEnter={runCalculate}
+                  min="0.1"
+                  max="36"
+                  step="0.01"
+                  suffix="% APR"
+                  error={errors.rate}
+                  tooltip="Annual percentage rate quoted by the lender."
+                />
+                <CompactSelect
+                  id="term"
+                  label="Term"
+                  value={termYears}
+                  onChange={setTermYears}
+                  options={TERM_OPTIONS}
+                  tooltip="RV terms run much longer than car loans — 10 to 20 years is common."
+                />
+              </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
             <div>
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)}
-                className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline mt-1 focus:outline-none">
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
                 Advanced Options
-                <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
               </button>
 
-              {showAdvanced && (
-                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
-                  <div>
-                    <div className={groupLabel}>
-                      <Receipt className="h-3.5 w-3.5" /> Taxes, Fees &amp; Trade-In
-                    </div>
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Tax, Fees & Trade-In">
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label htmlFor="tradeInValue" className={lbl}>Trade-In Value</label>
-                        <input id="tradeInValue" type="number" min="0" step="500" className={inp} value={inputs.tradeInValue}
-                          onChange={(e) => setNum("tradeInValue", e.target.value)} />
-                      </div>
-                      <div>
-                        <label htmlFor="salesTaxRate" className={lbl}>Sales Tax Rate (%)</label>
-                        <input id="salesTaxRate" type="number" min="0" step="0.1" className={inp} value={inputs.salesTaxRate}
-                          onChange={(e) => setNum("salesTaxRate", e.target.value)} />
-                      </div>
-                      <div className="col-span-2">
-                        <label htmlFor="registrationFees" className={lbl}>Dealer &amp; Registration Fees</label>
-                        <input id="registrationFees" type="number" min="0" step="50" className={inp} value={inputs.registrationFees}
-                          onChange={(e) => setNum("registrationFees", e.target.value)} />
-                      </div>
+                      <CompactInput
+                        id="tax"
+                        label="Sales Tax"
+                        value={salesTaxPct}
+                        onChange={setSalesTaxPct}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="15"
+                        step="0.25"
+                        suffix="%"
+                        tooltip="State and local sales tax applied to the purchase price."
+                      />
+                      <CompactInput
+                        id="fees"
+                        label="Title & Dealer Fees"
+                        value={fees}
+                        onChange={setFees}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="50"
+                        suffix="$"
+                        tooltip="Registration, title, documentation and any dealer add-ons rolled into the loan."
+                      />
                     </div>
-                  </div>
-
-                  <div>
-                    <div className={groupLabel}>
-                      <TrendingDown className="h-3.5 w-3.5" /> Professional Mode
+                    <div className="grid grid-cols-2 gap-3 mt-3">
+                      <CompactInput
+                        id="trade"
+                        label="Trade-In Value"
+                        value={tradeIn}
+                        onChange={setTradeIn}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="500"
+                        suffix="$"
+                        tooltip="Net trade credit applied after any payoff balance on the current loan."
+                      />
+                      <CompactInput
+                        id="extra"
+                        label="Extra Monthly"
+                        value={extraMonthly}
+                        onChange={setExtraMonthly}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="25"
+                        suffix="$"
+                        hint="Voluntary extra principal."
+                        tooltip="Additional amount paid every month on top of the scheduled payment."
+                      />
                     </div>
-                    <label htmlFor="proMode" className="flex items-center gap-2 text-sm font-medium text-foreground mb-3 cursor-pointer">
-                      <input id="proMode" type="checkbox" className="h-4 w-4 accent-primary" checked={inputs.proMode}
-                        onChange={(e) => setInputs((p) => ({ ...p, proMode: e.target.checked }))} />
-                      Unlock equity crossover and payoff acceleration
-                    </label>
-                    {inputs.proMode ? (
-                      <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <label htmlFor="extraMonthly" className={lbl}>Extra Payment / mo</label>
-                          <input id="extraMonthly" type="number" min="0" step="25" className={inp} value={inputs.extraMonthly}
-                            onChange={(e) => setNum("extraMonthly", e.target.value)} />
-                        </div>
-                        <div>
-                          <label htmlFor="annualDepreciationRate" className={lbl}>Depreciation / yr (%)</label>
-                          <input id="annualDepreciationRate" type="number" min="0" step="1" className={inp}
-                            value={inputs.annualDepreciationRate} onChange={(e) => setNum("annualDepreciationRate", e.target.value)} />
-                        </div>
-                      </div>
-                    ) : null}
-                  </div>
+                  </SubSection>
+                  <SubSection title="Display">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="decimals"
+                        label="Decimals"
+                        value={decimals}
+                        onChange={setDecimals}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="2"
+                        step="1"
+                        tooltip="Decimal places shown on money figures."
+                      />
+                    </div>
+                  </SubSection>
                 </div>
               )}
             </div>
 
-            <div className="flex gap-2.5 mt-2.5">
-              <button type="button" onClick={calculate}
-                className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm">
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                disabled={hasErrors}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Calculate
               </button>
-              <button type="button" onClick={reset} aria-label="Reset"
-                className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none">
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="flex flex-col gap-4">
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
-              <div className="flex justify-end absolute top-3 right-3">
-                <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
-                  <Printer className="h-3.5 w-3.5" /> Print
-                </button>
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.financed && results.breakdown.length === 0 && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">Enter a valid price and rate to price the loan.</div>
               </div>
-              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1.5">
-                <Truck className="h-3.5 w-3.5" /> Estimated Monthly Payment
+            )}
+
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Monthly Payment</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {money(results.monthlyTotal)}
               </div>
-              <div className="text-4xl font-bold text-primary my-1">{money(result.monthlyPayment)}</div>
-              <div className="text-sm text-muted-foreground">
-                {inputs.loanTermMonths} months at {inputs.interestRate}% on {whole(result.loanAmount)} financed
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.monthsSaved > 0
+                  ? `Includes $${fmt(calcInputs.extraMonthly, 0)} extra — pays off ${fmt(results.monthsSaved, 0)} months early and saves ${money(results.interestSaved)} in interest`
+                  : `${money(results.monthly)} scheduled payment · ${fmt(results.months, 0)} months at ${fmt(calcInputs.rate, 2)}% APR`}
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-              <div className="p-4 text-center">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Amount Financed</div>
-                <div className="text-lg font-bold text-foreground">{whole(result.loanAmount)}</div>
+            {/* 2. 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Amount Financed</span>
+                <span className="font-extrabold text-foreground">{money(results.financed)}</span>
               </div>
-              <div className="p-4 text-center border-l border-border">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Total Interest</div>
-                <div className={`text-lg font-bold ${interestColor}`}>{whole(result.totalInterest)}</div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Total Interest</span>
+                <span className="font-extrabold text-foreground">{money(results.totalInterest)}</span>
               </div>
-              <div className="p-4 text-center border-l border-border">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Total Cost</div>
-                <div className="text-lg font-bold text-foreground">{whole(result.totalCostOfOwnership)}</div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Total Cost</span>
+                <span className="font-extrabold text-foreground">{money(results.totalCost)}</span>
               </div>
             </div>
 
+            {/* 3. BREAKDOWN TABLE */}
             <div className="overflow-x-auto rounded-lg border border-border bg-card">
               <table className="w-full text-left border-collapse text-sm">
                 <thead>
-                  <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
-                    <th className="p-2.5 pl-3">Loan Component</th>
-                    <th className="p-2.5 pr-3 text-right">Amount</th>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Loan Item</th>
+                    <th className="p-2.5 pr-3 text-right w-[220px]">Amount</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
-                  {result.rows.map((row) => (
-                    <tr key={row.label} className={row.key ? "bg-primary/5" : ""}>
-                      <td className={`text-base py-2.5 px-3 ${row.key ? "font-semibold text-foreground" : "text-muted-foreground"}`}>{row.label}</td>
-                      <td className={`text-base py-2.5 px-3 text-right font-medium ${row.key ? "text-primary font-bold" : "text-foreground"}`}>{row.value}</td>
+                  {results.breakdown.map((row) => (
+                    <tr key={row.label} className={row.highlight ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
                     </tr>
                   ))}
-                  <tr className="font-bold border-t-2 border-border">
-                    <td className="text-base py-2.5 px-3 text-foreground">Total Cost of Ownership</td>
-                    <td className="text-base py-2.5 px-3 text-right text-primary">{whole(result.totalCostOfOwnership)}</td>
+                  <tr className="font-bold bg-secondary/30 border-t-2 border-border">
+                    <td className="p-2.5 pl-3 text-foreground">Interest as share of total cost</td>
+                    <td className="p-2.5 pr-3 text-right text-foreground">{fmt(results.interestShare, 1)}%</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            {mounted ? (
-              <div className="rounded-xl border border-border bg-card p-4">
-                <h3 className="text-sm font-bold text-foreground mb-3">Where Your Money Goes</h3>
-                <ResponsiveContainer width="100%" height={250}>
-                  <RPie>
-                    <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={90} paddingAngle={2}>
-                      {result.chartData.map((slice) => (
-                        <Cell key={slice.name} fill={slice.color} />
-                      ))}
-                    </Pie>
-                    <RTooltip formatter={(value: number) => money(value)} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} />
-                  </RPie>
-                </ResponsiveContainer>
-                <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-2">
-                  {result.chartData.map((slice) => (
-                    <div key={slice.name} className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-                      <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: slice.color }} />
-                      {slice.name} — {slice.percent.toFixed(1)}%
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-
-            {inputs.proMode ? (
-              <>
-                <div className="rounded-xl border border-border bg-card p-5">
-                  <h3 className="text-sm font-bold text-foreground mb-3">Payoff &amp; Equity Crossover</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Actual Payoff Time</div>
-                      <div className="text-base font-bold text-foreground">
-                        {Math.floor(result.payoffMonths / 12)} yr {result.payoffMonths % 12} mo
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Time Saved</div>
-                      <div className="text-base font-bold text-emerald-600">
-                        {Math.floor(result.monthsSaved / 12)} yr {result.monthsSaved % 12} mo
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Interest Saved</div>
-                      <div className="text-base font-bold text-emerald-600">{whole(result.interestSaved)}</div>
-                    </div>
-                    <div>
-                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Equity Break-Even</div>
-                      <div className={`text-base font-bold ${result.breakEvenMonth === 0 ? "text-red-600" : result.breakEvenMonth > 72 ? "text-amber-600" : "text-emerald-600"}`}>
-                        {result.breakEvenMonth === 0
-                          ? "Never during term"
-                          : `Month ${result.breakEvenMonth} (yr ${(result.breakEvenMonth / 12).toFixed(1)})`}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Peak Negative Equity</div>
-                      <div className="text-base font-bold text-red-600">{whole(result.maxNegativeEquity)}</div>
-                    </div>
-                    <div>
-                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">RV Value at Payoff</div>
-                      <div className="text-base font-bold text-foreground">{whole(result.valueAtPayoff)}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="card-calculator !p-5 border border-border bg-card max-h-[400px] overflow-y-auto">
-                  <h3 className="text-sm font-bold text-foreground mb-4">Yearly Amortization Schedule</h3>
-                  <AmortizationTable
-                    rows={result.amortRows.filter((r) => r.period % 12 === 0).map((r) => ({ ...r, period: r.period / 12 }))}
-                    yearly={true}
-                  />
-                </div>
-              </>
-            ) : null}
-
+            {/* 4. SUMMARY STATISTICS */}
             <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
               <div className="grid grid-cols-2 gap-4">
-                {result.rows.map((row) => (
-                  <div key={row.label} className="flex flex-col">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">{row.label}</span>
-                    <span className={`text-base font-bold ${row.key ? "text-primary" : "text-foreground"}`}>{row.value}</span>
-                  </div>
-                ))}
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Scheduled payment</span>
+                  <span className="text-base font-bold text-foreground">{money(results.monthly)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Term</span>
+                  <span className="text-base font-bold text-foreground">
+                    {fmt(calcInputs.termYears, 0)} years ({fmt(results.months, 0)} months)
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Sales tax added</span>
+                  <span className="text-base font-bold text-foreground">{money(results.taxAmount)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">First month interest</span>
+                  <span className="text-base font-bold text-foreground">{money(results.monthlyInterestFirst)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Payoff with extra</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.monthsSaved > 0
+                      ? `${fmt(results.payoffMonths, 0)} months (−${fmt(results.monthsSaved, 0)})`
+                      : `${fmt(results.months, 0)} months`}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Interest saved by extra</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.monthsSaved > 0 ? money(results.interestSaved) : "—"}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* SEO */}
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Financing an RV Is Not Financing a Car</h2>
-            <p className="mb-4">
-              Buying a recreational vehicle is closer to buying a small second home than to buying a car, and lenders treat
-              it accordingly. Motorhomes, fifth wheels, and travel trailers range from about $30,000 to well past $300,000,
-              which is why RV loans routinely stretch to twelve, fifteen, or even twenty years. Rates also run one to three
-              points above comparable auto loans, because an RV is a discretionary purchase and defaults on discretionary
-              collateral rise sharply in a downturn. Both facts push in the same direction: the total interest on an RV loan
-              is far larger than the monthly payment suggests.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">The Cost of a Long Term</h2>
-            <p className="mb-4">
-              Stretching the term is the standard lever for making an expensive rig look affordable, and it is the most
-              expensive decision in the transaction. An $85,000 loan at 8.5% over 60 months costs roughly $19,600 in total
-              interest. The same balance over 180 months costs about $65,000 in interest, more than three times as much, for
-              an asset that has been depreciating the entire time. The monthly payment falls by a few hundred dollars; the
-              lifetime cost rises by tens of thousands. Run both terms in the calculator above before accepting the payment
-              a dealer quotes.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">Taxes, Fees, and the Trade-In Advantage</h2>
-            <p className="mb-4">
-              Sales tax and dealer fees typically add 6% to 10% to the purchase price. Rolling them into the loan preserves
-              cash today but means paying interest on tax for over a decade. One genuine offset exists: in most states,
-              sales tax is assessed on the price net of trade-in value, so trading in a $20,000 unit against an $85,000
-              purchase in a 6.5% state saves $1,300 in tax immediately. That saving partly compensates for the lower price a
-              dealer offers relative to a private sale, which is worth calculating rather than assuming either way.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">Negative Equity and When It Ends</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an RV Loan Payment Calculator?</h2>
             <p>
-              RVs depreciate roughly 10% to 15% per year, steepest in the first three, while a long loan pays down principal
-              slowly at the start. Financing taxes and fees with little or no down payment therefore guarantees being
-              underwater the moment you leave the lot, and on a fifteen-year term that position can persist for six to eight
-              years. This matters because life changes: an owner who needs to sell in year four may have to bring cash to
-              close the gap. Professional Mode above computes the exact crossover month for your figures, along with the peak
-              negative equity and how much extra monthly principal shortens both the loan and the underwater period.
+              An RV loan payment calculator works out the monthly payment on a motorhome, travel trailer or fifth wheel loan from the
+              price, down payment, trade-in credit, sales tax, fees, interest rate and term. It uses the standard amortising instalment
+              formula, so the payment it produces is the same one a lender will quote for a fixed-rate RV loan: interest is charged on
+              the declining balance, the payment stays level, and the split between interest and principal shifts over the years.
+            </p>
+            <p>
+              What makes RV lending different from ordinary car finance is the scale of the numbers. Loans routinely run from $50,000 to
+              well over $200,000, terms stretch to 15 or even 20 years, and the taxes, titling and dealer fees rolled into the deal can
+              add thousands. Those inputs matter more here than in almost any other consumer loan, which is why the calculator models
+              them explicitly rather than hiding them behind the sticker price.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              The financing amount is built up step by step: the purchase price plus sales tax plus fees, minus the down payment and the
+              trade-in credit. That figure is the amount financed, and the monthly payment follows from the classic annuity formula — the
+              balance multiplied by the monthly rate and a compounding factor that depends only on the term. Interest in the first month
+              is simply the balance times the monthly rate, which is why the earliest payments are almost entirely interest on a long
+              RV loan.
+            </p>
+            <p>
+              Total interest over the life of the loan is the scheduled payment multiplied by the number of months, minus the amount
+              financed. The total cost of the RV adds that interest back onto the price, tax and fees, and the interest share expresses
+              it as a percentage — a figure that routinely reaches a quarter of the whole outlay on 15-year terms, which surprises
+              buyers who negotiated hard on the sticker price and then ignored the financing side.
+            </p>
+            <p>
+              The extra-payment field applies a closed-form identity: if you pay more than the scheduled amount every month, the payoff
+              time shortens according to a logarithm of the payment ratio, and the interest saved is the difference between scheduled and
+              accelerated totals. Because extra payments attack principal directly, a modest $150 a month on a typical 15-year RV loan
+              removes years from the payoff and five figures of interest, as the breakdown table shows side by side.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card is the monthly payment, including any extra you entered, with the early-payoff effect called out
+              underneath. The three-stat bar carries the amount financed, total interest and total cost — the three numbers to compare
+              across lender offers. The breakdown table walks the deal from price to total cost, including first-month interest versus
+              principal, and the summary panel lists the scheduled payment, term, tax, payoff months with extra payments and interest
+              saved.
+            </p>
+            <p>
+              Read the interest share against the term: if it is above 30%, the loan is doing more work than the RV is worth stretching
+              for, and either a bigger down payment or a shorter term usually beats negotiating another $2,000 off the price. Compare
+              offers by total cost rather than monthly payment — the lowest payment on the longest term is almost always the most
+              expensive way to buy the same rig, and the calculator makes that trade visible before you sign.
             </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rv-loan-payment-calculator" />

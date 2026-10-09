@@ -1,0 +1,562 @@
+[
+  {
+    "slug": "grammar-checker",
+    "keywords": [
+      "grammar checker",
+      "mechanical checks",
+      "commonly confused words",
+      "unmatched brackets"
+    ],
+    "intro": "The Grammar Checker runs six documented mechanical checks over your text and reports exactly which rule fired, where, and what to change.",
+    "content": "This grammar checker is a fixed list of mechanical rules, not a parser. It runs six documented mechanical checks over your text and reports exactly what it looked for — repeated words, a and an agreement, commonly confused words, sentence capitalisation, paragraph punctuation and unmatched brackets — so the result describes the rules rather than an editorial opinion. The list is published on the page, which is what makes a finding explainable instead of mysterious.\n\nEach finding carries the check that produced it, the issue itself, a suggested fix and a snippet of context. A summary panel counts issues by check so you can see which rule fired most often, and the what-is-checked panel lists every rule with its documented failure mode. Because every check is named, a false positive can be traced to the exact condition that caused it and judged in a second.\n\n- Repeated words: any word repeated back to back, including deliberate constructions such as had had.\n- a / an agreement: the article matched to the following sound, with exception lists for a university and an hour.\n- Commonly confused words: context rules for your and you are, its and it is, then and than, to and too, loose and lose, affect and effect, weather and whether.\n- Sentence capitalisation: a lowercase word after a full stop or question mark, with abbreviations such as e.g. excluded.\n- Paragraph punctuation: a paragraph that does not end in terminal punctuation.\n- Unmatched brackets and quotes: brackets, braces and quotation marks that do not pair up.\n\nThe checks are regular-expression rules over a Unicode token stream, each with a curated exception list. The a and an check consults two sound lists plus an acronym rule, so an MRI and a URL both come out right. The capitalisation check skips abbreviations and initials. Numbers, foreign-language text and unusual punctuation are treated literally. No model is involved, and the page says so plainly: the tool reports six checks and no more, which is what makes its output reproducible on the same text.\n\n- It is not a parser, so grammatical errors outside the six rules are not detected.\n- Deliberate repetition such as had had or a stylistic echo is flagged, and you have to judge it.\n- The confused-words rules are high precision but narrow: they cover the published pairs and nothing else.\n- Non-English text and unusual punctuation are treated literally, which can produce misses rather than errors.\n- The exception lists are finite, so a rare proper noun or a new coinage can misfire on the article check.\n\nWork through the findings table top to bottom and accept or dismiss each row: the context snippet exists so the call stays editorial. The suggested fix is a repair for the mechanical slip, not a substitute for rewriting. Copy report and Download produce the same list as plain text, which is useful for a revision note or a tracked change log.\n\nUse it as the mechanical pass before deeper edits: it clears the small slips that undermine a reader's trust — a doubled word, a stray an, it is written as its — without pretending to restructure a sentence. For the vocabulary beside those slips, reach for the tools that cover spelling and punctuation directly; for sentence-level structure, the companion analyzers in this category take over where the six rules stop.",
+    "howTo": [
+      "Paste a paragraph or a whole draft; the six checks run as you type.",
+      "Read the Issues by check panel to see which rules fired and how often.",
+      "Work through the findings table row by row — check, issue, suggested fix and context — and accept or dismiss each one.",
+      "Use Copy report or Download to keep the findings as plain text."
+    ],
+    "whenToUse": "Use the grammar checker as the first mechanical pass over a draft, before style-level edits. When the question is sentence construction rather than a rule, the {{passive-voice-detector|Passive Voice Detector}} finds the be plus participle patterns and the {{sentence-complexity-analyzer|Sentence Complexity Analyzer}} estimates how much each sentence carries. Words that are not in any dictionary at all belong to the {{spell-checker|Spell Checker}}, which catches the class of error this tool deliberately leaves alone.",
+    "faqs": [
+      {
+        "q": "Does the grammar checker use an AI model?",
+        "a": "No. It applies six published mechanical checks over a Unicode token stream, each with a curated exception list, and reports only what those rules find. That is why its output is identical every time you paste the same text."
+      },
+      {
+        "q": "Why was a deliberate repetition flagged as a repeated word?",
+        "a": "The repeated-word check flags any word repeated back to back, including constructions like had had that are correct English. The check cannot tell deliberate emphasis from a slip, so it reports the occurrence and leaves the judgement to you."
+      },
+      {
+        "q": "How accurate is the a and an check?",
+        "a": "It matches the article to the following sound using two curated lists plus an acronym rule, so a university and an hour both come out right. Rare proper nouns or brand-new words can still be misjudged, because the lists are finite."
+      },
+      {
+        "q": "Which confused word pairs does it cover?",
+        "a": "The published high-precision set: your and you're, its and it's, then and than, to and too, loose and lose, affect and effect, and weather and whether. It is not a blanket spell-check."
+      },
+      {
+        "q": "Why did the capitalisation check skip an abbreviation at the start of a sentence?",
+        "a": "Sentence capitalisation ignores abbreviations such as e.g. and initials, because those boundaries are not real sentence starts. That exclusion list is finite, so an unusual abbreviation may still be flagged."
+      }
+    ]
+  },
+  {
+    "slug": "passive-voice-detector",
+    "keywords": [
+      "passive voice detector",
+      "passive construction",
+      "past participle",
+      "expressed agent"
+    ],
+    "intro": "The Passive Voice Detector finds be plus past-participle constructions, marks the ones with an expressed agent as strong, and states where the heuristic is wrong.",
+    "content": "A passive construction is a form of be or get plus a past participle, and that is exactly what this passive voice detector looks for. When a by phrase follows within a few tokens the hit is marked strong, because an expressed agent is the clearest sign of a true passive; otherwise it is a candidate. The confidence column makes the difference visible instead of flattening every hit into one verdict. Adverb gaps are allowed between the verb and the participle, which is why a construction such as was carefully reviewed is found as well as the shortest possible form, and why the candidate list reads like prose rather than a pattern dump.\n\nCandidates are listed as you type, each with the phrase, the participle, its confidence and the sentence it sits in. The summary counts sentences with at least one candidate, the total candidates found, how many carry an expressed agent and how many do not, alongside the sentence and word totals. A final table ranks the sentences carrying the most candidates, which is where a passive-heavy paragraph shows up at a glance.\n\n- Candidate construction: a form of be, optionally separated from the participle by a common adverb.\n- Participle identification: an irregular participle from the shared list or a regular word ending in ed.\n- Confidence: strong when a by phrase follows within a few tokens, candidate otherwise.\n- Summary counts: sentences with candidates, total candidates, hits with and without an agent.\n- Sentence ranking: the sentences carrying the most passive constructions.\n- Copy report and Download export the candidate list as plain text.\n\nThe detector walks a Unicode token stream and checks three conditions: a be form, an optional adverb gap, and a participle from the irregular list or the regular ed pattern. It is a documented heuristic, not a parser. The irregular participle list is finite, and the tool states that an unusual participle may be missed. It also cannot know whether a flagged construction is stylistically fine — passive voice is the right choice when the actor is unknown or irrelevant, and the page says that too.\n\n- Adjectival participles look identical and are flagged as well: the door is closed is arguably a state, not an action.\n- get-passives are not detected separately, because get is usually a main verb.\n- The irregular participle list is finite, so an unusual form may be missed entirely.\n- A sentence with a passive candidate is not necessarily worse; the tool reports candidates, not errors.\n- Foreign-language text and quoted material are processed with the same English rules.\n\nUse the finding list as a review aid rather than a to-do list. Read each candidate in its sentence and ask who the actor is: if the sentence hides someone worth naming, rewrite it; if the actor is genuinely unknown or unimportant, leave it. The by-phrase count is a quick signal, because a passive with an expressed agent usually reads as avoidable.\n\nThe companion tools answer the neighbouring questions: the Grammar Checker covers the mechanical slips, the Sentence Complexity Analyzer estimates how much structure each sentence carries, and the Clarity Score Tool blends sentence length and vocabulary into a single review figure. None of them replaces reading the sentence yourself. A useful reading order is the candidate table first and the ranked sentences second: a paragraph whose top three sentences all carry candidates is the one where the voice is hiding actors, and rewriting for active voice usually names the actor and shortens the sentence at the same time, which is why editors reach for it even when no rule requires it.",
+    "howTo": [
+      "Paste a draft; candidates are listed as you type, with the sentence that contains each one.",
+      "Read the Passive voice panel for the candidate count, the with-agent and without-agent split, and the sentence totals.",
+      "Scan the candidate table — phrase, participle, confidence and sentence — and judge each hit in context.",
+      "Check the sentences carrying the most candidates, then copy or download the report."
+    ],
+    "whenToUse": "Use the passive voice detector when a draft feels evasive or slow and you want the be plus participle patterns in one list. The {{grammar-checker|Grammar Checker}} covers six mechanical rule checks instead of constructions, and the {{sentence-complexity-analyzer|Sentence Complexity Analyzer}} estimates how many clauses a sentence carries. When the question is the overall weight of a paragraph rather than one construction, the {{clarity-score-tool|Clarity Score Tool}} blends length, variety and vocabulary into a single figure.",
+    "faqs": [
+      {
+        "q": "How does the detector decide what counts as passive?",
+        "a": "It looks for a form of be or get, optionally separated by a common adverb, followed by a past participle. A by phrase within a few tokens marks the hit strong; everything else is a candidate."
+      },
+      {
+        "q": "Why was the door is closed flagged as passive?",
+        "a": "Adjectival participles look identical to passive constructions, so the heuristic flags them as well. The door is closed is arguably a state rather than an action, and the page says so directly."
+      },
+      {
+        "q": "Does it detect get-passives?",
+        "a": "No, not separately. Get is usually a main verb, so treating every get plus participle as passive would misfire far more often than it would help; the limitation is stated on the page."
+      },
+      {
+        "q": "Should every flagged sentence be rewritten?",
+        "a": "No. Passive voice is the right choice when the actor is unknown, obvious or deliberately de-emphasised. Read each candidate in context — the tool reports patterns, not errors."
+      },
+      {
+        "q": "What does the strong confidence label mean?",
+        "a": "A by phrase follows within a few tokens of the participle, giving an expressed agent. That is the clearest signal of a true passive construction, so those hits are marked strong rather than candidate."
+      }
+    ]
+  },
+  {
+    "slug": "readability-grade-scorer",
+    "keywords": [
+      "readability grade scorer",
+      "grade level",
+      "flesch-kincaid",
+      "smog index"
+    ],
+    "intro": "The Readability Grade Scorer applies five published formulas to one text and shows every count they are computed from.",
+    "content": "This readability grade scorer runs the five classic indices — Flesch-Kincaid, Gunning Fog, SMOG, Coleman-Liau and the Automated Readability Index — over a single text and reports each one beside an overall grade level. No index is invented and no score is estimated: each is a published formula applied to counts you can inspect on the same page.\n\nThe panel lists every score with its name, plus the inputs behind them: words, sentences, paragraphs, syllables, words of three or more syllables, Gunning complex words, average sentence length, syllables per word and words of seven or more letters. The how-to-read panel explains that the indices disagree by design — they weigh sentence length and word weight differently — and that short samples make all of them unstable. The panel under each index shows its formula, so a grade can be reproduced from the counts beside it rather than taken on trust.\n\n- Flesch-Kincaid Grade Level, from average sentence length and syllables per word.\n- Gunning Fog Index, from average sentence length and the share of complex words.\n- SMOG Index, from polysyllables and sentence count, with its 30-sentence validation caveat.\n- Coleman-Liau Index, which uses letters per 100 words instead of syllables.\n- Automated Readability Index, which uses characters and words.\n- An overall grade level summarising the set, plus the counts each formula consumed.\n\nSentence and word segmentation come from the shared Unicode tokenizer, and syllable counts come from the documented heuristic used across this domain: vowel groups with y included, silent-e handling, ed and es endings, repair for -ely adverbs and a curated exception table. The tool flags a sample below roughly 100 words as short, because every formula here becomes noisy on small inputs. Everything runs locally in the browser.\n\n- Syllable counts are heuristic, so every score carries that error; proper nouns and abbreviations are the main sources.\n- The formulas were calibrated on English prose and are not meaningful for other languages.\n- Short samples below about 100 words produce unstable scores, which the page flags.\n- The five indices can disagree by several grades on the same text, because they weight inputs differently.\n- A grade level describes the text, not the reader: background knowledge drives comprehension more than sentence length does.\n\nUse the scorer when you want one panel that shows five verdicts rather than one. Read the spread: when the indices cluster around a grade, the passage is consistently at that level, and when one runs away from the rest, the input that formula leans on — syllables, characters or letters — is the place to look. Paste a representative stretch rather than the first paragraph, because the sample determines the score more than anything else. And when the spread between indices is wide, look at the input that the outlying formula leans on: Coleman-Liau counts letters rather than syllables, and the Automated Readability Index uses characters per word, so a passage full of numbers and abbreviations pushes those two away from the syllable-based indices without any change in actual difficulty.\n\nThe individual calculators in this domain apply the same counts through a single formula each, and the tools aimed at sentence shape and clarity cover the structural side that grade levels compress into one number.",
+    "howTo": [
+      "Paste at least a few paragraphs of representative text; every score updates as you type.",
+      "Read the Reading level panel for the overall grade and the five named indices.",
+      "Check what the scores were computed from — words, sentences, syllables, complex words and ratios — to see which input drives a disagreement.",
+      "Copy all scores or Download the panel, and treat any result on a short sample as indicative."
+    ],
+    "whenToUse": "Use the readability grade scorer when you want the five published indices side by side, with the spread visible. The {{flesch-kincaid-score-calculator|Flesch-Kincaid Score Calculator}} zooms in on the two Flesch formulas and their arithmetic, while the {{gunning-fog-index-calculator|Gunning Fog Index Calculator}} and {{smog-index-calculator|SMOG Index Calculator}} each apply one formula in depth. When the structural side of readability matters as much as the vocabulary, the {{clarity-score-tool|Clarity Score Tool}} blends sentence length, variety and long sentences into a review figure.",
+    "faqs": [
+      {
+        "q": "Why do the five indices disagree?",
+        "a": "Each formula weights different inputs — syllables, characters, letters or complex words — so they move apart when a text is unusual in one dimension. The spread itself is informative: a passage clustering around one grade is consistent."
+      },
+      {
+        "q": "How much text should I paste?",
+        "a": "At least a few hundred words, and never less than about 100. Every formula here is noisy on short samples, which the page flags with a short-sample note."
+      },
+      {
+        "q": "Which grade level should I trust?",
+        "a": "Treat the overall figure as a summary and read the individual indices underneath it. No single formula is authoritative; agreement between them is the strongest signal."
+      },
+      {
+        "q": "Is a lower grade level always better?",
+        "a": "No. Grade level measures difficulty, not quality, and some material — legal, technical or literary — is legitimately dense. The question is whether the level matches the intended audience."
+      },
+      {
+        "q": "How exact are the syllable counts behind these scores?",
+        "a": "No. They come from a documented heuristic with silent-e, ed, es and -ely rules plus a curated exception table, so proper nouns and unusual words can shift every score slightly."
+      }
+    ]
+  },
+  {
+    "slug": "sentence-complexity-analyzer",
+    "keywords": [
+      "sentence complexity analyzer",
+      "clause count",
+      "subordinating conjunctions",
+      "words per clause"
+    ],
+    "intro": "The Sentence Complexity Analyzer estimates how many clauses each sentence carries and ranks the sentences carrying the most.",
+    "content": "This sentence complexity analyzer estimates how much structure each sentence carries. The clause count starts at one and rises by one for each coordinating conjunction, subordinating conjunction, relative pronoun, semicolon or colon in the sentence. Commas are reported but never counted, because a list of three items would otherwise look like four clauses. The estimate is deliberately called an estimate on the page: it is good at spotting sentences that carry too much and bad at fine grammatical distinctions.\n\nThe summary gives the average clauses per sentence, the average words per clause, the count of single-clause sentences, how many sentences carry three or more clauses, and the longest sentence. Two tables do the working: sentences carrying the most clauses show clauses, words and words per clause, and the longest sentences table adds the comma count so a heavy list does not get mistaken for heavy subordination. Sentences flagged in both tables are the ones to read first, because length and structure together are what actually make a sentence hard to follow.\n\n- Clause counting: one plus each coordinating conjunction, subordinating conjunction, relative pronoun, semicolon or colon.\n- Comma reporting: commas are shown per sentence but never counted as clauses.\n- Single-clause share: how many sentences carry no extra structure at all.\n- Heavy-sentence list: sentences with three or more clauses, ranked.\n- Longest-sentence table: words, clauses and commas side by side.\n- Copy analysis and Download export the per-sentence detail.\n\nThe engine walks sentences from the shared Unicode tokenizer and counts markers from three published lists — coordinating conjunctions, subordinating conjunctions and relative pronouns — plus semicolons and colons. That is a documented heuristic, not a parse: a sentence with several markers in a list context is counted as having several clauses even when the grammar says otherwise. The words per clause figure divides sentence length by the estimate, which is the number that actually predicts reading difficulty. Because the marker lists are published, the estimate is explainable rather than opaque: you can open a flagged sentence, count the conjunctions yourself and reproduce the figure. That transparency is the point of an estimate over a score, and it also explains the tool's limits — the same counting rules that make it auditable are what stop it from being a parse.\n\n- The clause count is an estimate, not a grammatical analysis; unusual constructions can be overcounted or undercounted.\n- Commas are never counted, so a long comma-heavy sentence can look simpler than it reads.\n- Lists and series inflate the marker count when they contain conjunctions.\n- Very short sentences can produce a words-per-clause figure that is not meaningful.\n- The lists are finite, so an unusual connector may be missed.\n\nRead the heavy-sentence table first and the averages second. A sentence with four or more estimated clauses and fewer than a dozen words per clause is usually the one to split; an average clauses per sentence above two across a whole document suggests the prose leans on subordination everywhere rather than in the one place that needs it. Steady counts across a document are usually a revision note for the section structure, while one outlier sentence is a sentence edit.\n\nThe sentence-shaped companions divide the work: the Sentence Variety Checker reports length rhythm rather than structure, the Sentence Count Tool gives the plain totals, and the Clarity Score Tool blends the structural signals into one review figure. None of them replaces reading the heaviest sentence aloud.",
+    "howTo": [
+      "Paste a paragraph or a whole draft; each sentence is measured as you type.",
+      "Read the Complexity at a glance panel for average clauses, words per clause and the heavy-sentence counts.",
+      "Work through the sentences carrying the most clauses, then the longest sentences with their comma counts.",
+      "Use Copy analysis or Download to keep the per-sentence detail."
+    ],
+    "whenToUse": "Use the sentence complexity analyzer when sentences feel heavy but you cannot see why, and the clause estimate gives you the ranking. The {{sentence-variety-checker|Sentence Variety Checker}} measures length rhythm rather than structure, the {{sentence-count-tool|Sentence Count Tool}} gives the plain sentence totals and averages, and the {{clarity-score-tool|Clarity Score Tool}} combines the structural signals into one figure. When a sentence needs rewriting rather than diagnosis, the sentence rewriter in this domain applies documented rewrites one sentence at a time.",
+    "faqs": [
+      {
+        "q": "How is the clause count calculated?",
+        "a": "Each sentence starts at one, and the count rises by one for every coordinating conjunction, subordinating conjunction, relative pronoun, semicolon or colon. Commas are reported but never counted."
+      },
+      {
+        "q": "Is this a grammatical parser?",
+        "a": "No. The clause count is a documented heuristic that identifies markers, not a parse. It is good at spotting sentences that carry too much and imprecise about fine grammatical distinctions."
+      },
+      {
+        "q": "Why does a list inflate the clause count?",
+        "a": "A series joined by conjunctions contains markers, and the estimate counts markers. Commas are excluded for exactly this reason, but a three-item list with and still reads as one extra clause."
+      },
+      {
+        "q": "What is a good average clauses per sentence?",
+        "a": "Most readable prose averages between one and two. Above two, subordination is spread through the document rather than concentrated in the sentences that actually need it."
+      },
+      {
+        "q": "Why show words per clause as well as words per sentence?",
+        "a": "Words per clause measures how packed each unit of structure is. A 40-word sentence split into four clauses reads very differently from a 40-word sentence with one."
+      }
+    ]
+  },
+  {
+    "slug": "overused-word-finder",
+    "keywords": [
+      "overused word finder",
+      "repeated words",
+      "frequency table",
+      "tokens apart"
+    ],
+    "intro": "The Overused Word Finder counts every word, ranks the repeats and lists the words that come back within a short window.",
+    "content": "This overused word finder reports repetition from the counts up: a frequency table of every word, a threshold you control, and a second list of words that return quickly — the repetitions a reader actually notices. It does not attach a verdict to any word, because repetition is a device as often as it is a flaw. The job is to make the pattern visible, and the two views do that differently. The frequency table answers which words this text leans on overall, and the window list answers which repeated words come back before the reader has moved on.\n\nSet the threshold to decide which words appear in the frequency table, and toggle whether function words are included. The panel shows the most repeated word and its count, how many words repeat within 40 tokens, and the threshold in use, so the report is reproducible. The frequency table lists word, count, share of text and occurrences per 1,000 words; the words-that-come-back-quickly list shows the word, how many tokens apart the repeats sit and the surrounding context.\n\n- Report words used at least: a threshold control, so one-off words stay out of the table.\n- Include function words: a toggle for the, and, of and similar closed-class words.\n- Frequency table: word, count, share of text and per-1,000-words rate.\n- Quick-return list: content words repeated within a 40-token window, with distance and context.\n- Summary figures: most repeated word, quick-return count and the threshold in use.\n- Copy report and Download export both tables as plain text.\n\nWord tokens come from the shared Unicode tokenizer, grouped case-insensitively; no stemming is applied, so a word and its inflections count separately. Context-window repeats are found by walking the token list and comparing each content word against the previous 40 tokens, which is why the list shows tokens apart rather than paragraph positions. The threshold and window are stated on the panel, so a colleague can reproduce the same table on the same text.\n\n- Frequency alone is not a fault: technical terms and character names repeat of necessity.\n- No stemming means run and running are counted separately, hiding some morphological repetition.\n- The 40-token window is a fixed convention, not a measured threshold of reader annoyance.\n- Function words dominate the raw table unless the toggle is off.\n- The tool reports counts, not style advice; the page says so in its what-this-does-not-say panel.\n\nRead the quick-return list first. A word that returns within a handful of tokens is the repetition a reader hears, while a high total across a whole document may just be a long text about one subject. Then check the frequency table for the words you did not expect to see near the top: those are the habits worth examining.\n\nThe vocabulary companions cover the other angles: the Word Count Tool gives the total that the share is computed against, the Keyword Density Analyzer reports two-word phrases as well as single terms, and the Vocabulary Richness Scorer measures how varied the vocabulary is overall rather than word by word. Checking both views also keeps the threshold honest: a word that tops the table at your chosen minimum but never appears in the window list is repetition spread across a long document rather than a habit inside one paragraph.",
+    "howTo": [
+      "Paste a draft; every word is counted and the tables build as you type.",
+      "Set the threshold for the frequency table and choose whether function words are included.",
+      "Read the quick-return list first — words repeated within 40 tokens — then the ranked frequency table.",
+      "Use Copy report or Download to keep both views as plain text."
+    ],
+    "whenToUse": "Use the overused word finder when a draft feels repetitive and you want the pattern quantified rather than guessed. The {{word-count-tool|Word Count Tool}} gives the total words that the share is measured against, the {{keyword-density-analyzer|Keyword Density Analyzer}} adds two-word phrases to the count, and the {{vocabulary-richness-scorer|Vocabulary Richness Scorer}} reports how varied the vocabulary is overall. When the repetition is a phrase rather than a word, the {{redundancy-finder|Redundancy Finder}} checks the pairs that repeat a meaning.",
+    "faqs": [
+      {
+        "q": "Does a high count mean the word is overused?",
+        "a": "No. A long technical document repeats its terms of art of necessity. The quick-return list is the better signal, because a word that returns within a few tokens is the repetition a reader notices."
+      },
+      {
+        "q": "Why are run and running counted separately?",
+        "a": "No stemming is applied, so each form is a distinct token. The trade-off keeps the table reproducible and exact at the cost of missing morphological repetition."
+      },
+      {
+        "q": "What does the 40-token window mean?",
+        "a": "The quick-return list flags a content word each time it appears within 40 tokens of a previous appearance. It is a fixed, stated convention designed to surface local repetition."
+      },
+      {
+        "q": "Why do function words dominate the frequency table?",
+        "a": "Words like the, of and and are the most common tokens in any English text. The include-function-words toggle exists so you can switch the table between content words and every word."
+      },
+      {
+        "q": "Can I compare two passages?",
+        "a": "Paste them one at a time; the tables describe the text in the box. Comparing counts across passages of different lengths is easiest with the per-1,000-words column."
+      }
+    ]
+  },
+  {
+    "slug": "cliche-detector",
+    "keywords": [
+      "cliche detector",
+      "curated list",
+      "tired phrases",
+      "phrase matches"
+    ],
+    "intro": "The Cliché Detector flags every phrase on a curated list of tired expressions and shows why each one is on it.",
+    "content": "This cliche detector matches your text against a curated list of tired phrases and shows each hit with the reason it is flagged. There is no model and no scoring anywhere in the tool: the curated list is the whole mechanism, it is published in the code, and the page reports the count it found. That makes every match explainable — you can read the list, disagree with an entry, and still know exactly why the flag appeared.\n\nMatching runs whole phrases only, with word boundaries, so a fragment never triggers a hit. Longer phrases win over shorter ones at the same position, overlapping matches are dropped in favour of the earliest, and the displayed phrase keeps its original capitalisation. The panel shows the number of clichés found; the matches table lists each phrase beside the reason it is on the list, and the scope panel states what the list can and cannot do.\n\n- Whole-phrase matching only, with word boundaries, so common words inside longer phrases never fire alone.\n- Longest-match-first ordering, so in order to beats a shorter fragment at the same position.\n- Overlap handling: the earliest match is kept and later overlaps are dropped.\n- Source capitalisation preserved in the report, so the match reads exactly as written.\n- Reason column: every one of the phrase matches carries the note explaining why it is considered tired.\n- Copy report and Download export the matches as plain text.\n\nThe detector normalises the text, then scans it once for the longest entries first, recording non-overlapping matches in document order. Because the list is literally matched and case-insensitive, the tool has no false-negative story beyond the list itself: a cliché that is not on the list will not be found, and the page says that plainly. Overlapping results are resolved deterministically, so re-running the detector on the same text cannot reorder the table, and the phrase shown in each row is the source text itself, which means an unusual capitalisation or a typo in your draft is displayed exactly as written rather than silently normalised. The curated list is finite by design — a detector that claims to find all clichés would need editorial judgement, which this tool leaves to you.\n\n- The list is finite; a tired phrase outside it is not flagged.\n- Clichés are genre-dependent: phrases that are stale in one register are jargon or idiom in another.\n- Literal matching only, so a paraphrase of a cliché passes unflagged.\n- No severity score is attached, because how much a cliché hurts depends on context.\n- Very short texts may contain none of the listed phrases and report zero matches.\n\nThe useful move is to treat the matches table as a reading list for your draft: for each hit, decide whether the phrase is doing work or standing in for thought. Replacing a cliché with the specific claim it hides is usually the fix, and the surrounding tools handle the wording side — the wordy phrase simplifier tightens expressions, the redundancy finder catches repeated meanings, and the jargon remover covers imported technical terms.\n\nNothing is uploaded. Matching runs in the browser against the published list, and the text disappears when you close the tab. Because matches are non-overlapping, a single passage is reported once and the table can be read top to bottom without meeting the same phrase twice.",
+    "howTo": [
+      "Paste a draft; every phrase on the curated list is flagged as you type.",
+      "Read the Clichés panel for the number of matches found.",
+      "Scan the matches table — phrase and why it is flagged — and decide which hits need rewriting.",
+      "Use Copy report or Download to keep the matches as plain text."
+    ],
+    "whenToUse": "Use the cliché detector when a draft reads as familiar and you want the tired phrases named. The {{wordy-phrase-simplifier|Wordy Phrase Simplifier}} replaces wordy expressions with shorter equivalents, the {{redundancy-finder|Redundancy Finder}} catches phrases whose parts repeat a meaning, and the {{jargon-remover|Jargon Remover}} handles imported technical vocabulary. For published copy that has to sound current, the tone and clarity tools describe the register those replacements move toward.",
+    "faqs": [
+      {
+        "q": "How does the detector find clichés?",
+        "a": "It matches whole phrases from a curated list, case-insensitively, with word boundaries. Longer phrases win at the same position, overlaps are dropped, and the source capitalisation is preserved in the report."
+      },
+      {
+        "q": "Why was a common phrase on the list not flagged?",
+        "a": "The list is finite. A phrase it does not contain cannot be found, which is why the scope panel says so: the tool detects the listed set and nothing beyond it."
+      },
+      {
+        "q": "Are clichés always wrong?",
+        "a": "No. A cliché can be the clearest way to say something in casual or genre writing. The tool flags occurrences, and the judgement about whether a phrase earns its place stays with you."
+      },
+      {
+        "q": "Does it flag phrases inside quotations?",
+        "a": "Yes. Matching is literal across the whole pasted text, including quoted material. The matches table shows the context so you can see where each hit sits."
+      },
+      {
+        "q": "Can I see the whole list?",
+        "a": "Yes. The list is published in the engine module behind the tool, and the page states the count it checked against, so the detection set is fully inspectable."
+      }
+    ]
+  },
+  {
+    "slug": "redundancy-finder",
+    "keywords": [
+      "redundancy finder",
+      "redundant phrases",
+      "repeated meaning",
+      "phrase list"
+    ],
+    "intro": "The Redundancy Finder flags phrases whose parts repeat a meaning and shows exactly which word repeats which.",
+    "content": "This redundancy finder flags redundant phrases — constructions whose second word repeats the meaning of the first — and shows the reason each pair is on the list. Like its sibling detectors, it operates from a curated phrase list matched literally, with no model and no scoring. The value is in the pairing: end result, free gift and past history all carry their repetition in plain sight once the match is marked.\n\nEach match shows the phrase and where the repetition is, so the fix is obvious without consulting a style guide. Matching runs whole phrases with word boundaries, longer phrases win at the same position, overlapping matches are dropped in favour of the earliest, and the source capitalisation is preserved. The summary counts the redundant phrases found, and the why-a-pair-is-on-the-list panel explains the inclusion rule: the second word adds no meaning the first did not already carry.\n\n- Whole-phrase matching with word boundaries, so the parts of a longer phrase never fire alone.\n- Repetition note per match: which word repeats the sense of which.\n- Longest-match-first ordering and overlap dropping, so each passage is reported once.\n- Source capitalisation preserved, so the phrase reads exactly as written.\n- Match list with phrase and reason columns, exportable with Copy report or Download.\n\nThe engine normalises the text and scans it once against the curated list, recording non-overlapping matches in document order. The list is finite and visible in the module, and the page repeats that plainly: an unflagged phrase is not a claim that it is clean, only that it is not on this list. Matching runs longest first, so the longest listed phrase at a position wins and the shorter fragments underneath are never double-reported. Each match records its offset, which is how the table stays in document order while you edit above it. Idiom complicates the picture, because some pairs are so established that they read as single words to most readers, and the tool leaves that judgement to you.\n\n- The list is finite; redundant phrases outside it are not flagged.\n- Some listed pairs are idiomatic and widely accepted in context.\n- Literal matching only, so a reworded redundancy passes unflagged.\n- No severity ranking: whether the redundancy matters depends on the sentence around it.\n- Quoted and cited material is matched like any other text.\n\nRead each match in its sentence before changing anything. Where the phrase is doing the work of a single word — free gift in casual copy — the replacement is usually the shorter half. Where it is deliberate emphasis in persuasive writing, leaving it may be the right call, and the tool is equally content with that decision. For a whole document rather than a paragraph, run the finder once over the full text: a pair repeated in every section is a habit rather than a one-off choice, and the match count gives you a before figure that a second pass can be measured against.\n\nThe phrase-level family splits the work: the Cliché Detector covers tired expressions, the Wordy Phrase Simplifier replaces wordy expressions with their shorter equivalents, and the Jargon Remover handles imported technical terms. Together they cover repeated meaning, lost force and unnecessary length — the three ways a phrase wastes a reader's time.",
+    "howTo": [
+      "Paste a draft; every phrase whose parts repeat a meaning is flagged as you type.",
+      "Read the Redundancies panel for the number of matches found.",
+      "Work through the matches table — phrase and where the repetition is — and decide on each replacement.",
+      "Use Copy report or Download to keep the list as plain text."
+    ],
+    "whenToUse": "Use the redundancy finder when a draft repeats meanings across word pairs and you want them listed with the reason. The {{wordy-phrase-simplifier|Wordy Phrase Simplifier}} goes after expressions that are long rather than repetitive, the {{cliche-detector|Cliché Detector}} covers phrases that have lost their force, and the {{jargon-remover|Jargon Remover}} handles vocabulary imported from specialist fields. When the repetition happens at the level of whole sentences rather than pairs, the summarization tools in this domain cover that instead.",
+    "faqs": [
+      {
+        "q": "What makes a phrase redundant?",
+        "a": "The second word repeats a meaning the first already carries — end result, free gift, past history. Every entry on the list carries a note explaining which part repeats which."
+      },
+      {
+        "q": "Why are some well-known phrases on the list?",
+        "a": "Established pairs are exactly what the list is for. Some are so idiomatic that they read as single words, which is why the tool reports the match and leaves the rewrite decision to you."
+      },
+      {
+        "q": "Does it catch redundancies I make up?",
+        "a": "No. Matching is literal against a curated list, so a novel redundant construction is not flagged. The page states the list is finite rather than implying full coverage."
+      },
+      {
+        "q": "Should every match be replaced?",
+        "a": "Not necessarily. In casual or persuasive copy, a redundant pair can serve rhythm or emphasis. Read each match in its sentence and keep the ones that are working."
+      },
+      {
+        "q": "Does the finder upload my text?",
+        "a": "No. Matching runs in the browser against the published list, there is no account and no server call, and the text disappears when you close the tab."
+      }
+    ]
+  },
+  {
+    "slug": "wordy-phrase-simplifier",
+    "keywords": [
+      "wordy phrase simplifier",
+      "wordy expressions",
+      "shorter equivalent",
+      "simplified text"
+    ],
+    "intro": "The Wordy Phrase Simplifier replaces documented wordy expressions with their shorter equivalents and lists every change it made with the reason.",
+    "content": "Wordy phrases are not mistakes; they are choices that add length without adding meaning. This wordy phrase simplifier replaces wordy expressions with a shorter equivalent from a curated list and shows every change it made, so the rewrite is a diff you can review rather than a result you have to trust. Nothing is altered outside the listed phrases, and the original stays available beside the simplified text.\n\nThe panel reports how many phrases were replaced, then shows the simplified text in full and a table of every change with three columns: the wordy phrase, the simpler replacement, and why the pair is on the list. Because each replacement carries its reason, you can see that in order to became to because the shorter form means the same thing, not because a rule dislikes the longer one. Copy report and result or Download result take the tightened copy out of the page.\n\n- Curated wordy phrases, each with a suggested shorter equivalent and a reason.\n- Phrases replaced: the count of substitutions applied to this text.\n- Simplified text: the full result with every replacement applied.\n- Every change table: wordy, simpler and why, one row per replacement.\n- Deletions: phrases with an empty replacement are removed and the surrounding spacing is tidied.\n- Copy report and result, or Download result, for the changed text.\n\nThe rewrite is produced by matching whole phrases with word boundaries, longest first, so a longer phrase wins at the same position; matches are then applied left to right over the text. When a replacement is empty the phrase is deleted and the surrounding spacing is tidied so the sentence does not grow a double space. Matching is case-insensitive and the capitalisation of the source is preserved. The same application routine is shared with the jargon remover, so both tools behave identically on deletions and sentence-initial capitalisation. Because every substitution is a lookup rather than a rewrite, the tool never changes a word that was not on the list, and two people running it on the same text get byte-identical results.\n\n- The list is finite; a wordy expression outside it is untouched.\n- A replacement chosen for general use may miss the nuance of a specialist context.\n- The tool swaps phrases only; it never restructures a sentence or splits a long one.\n- Deletion changes tone as well as length, so a removed qualifier can sharpen a claim more than you intended.\n- Matching is literal, so a reworded version of a listed phrase passes unflagged.\n\nThe habit that makes this tool safe is review rather than acceptance: read the every change table before copying the simplified text, and undo any replacement that loses meaning. The reason column is there to be argued with. Phrases that are deliberately formal — in order to in a legal clause, for instance — may be worth keeping, and the table makes it easy to spot which ones you disagree with.\n\nThe phrase family shares the same shape: the redundancy finder catches pairs whose parts repeat a meaning, the cliché detector flags tired expressions, and the jargon remover handles imported technical vocabulary. Together they cover the three ways a phrase wastes a reader's time — length, repetition and lost force — without touching the sentences those phrases sit in. The simplified text itself is plain copy, so whatever is accepted can be pasted into any editor or version-control diff without a round trip back to this page.",
+    "howTo": [
+      "Paste a draft; listed wordy expressions are replaced as you type.",
+      "Read the Simplification panel for the number of phrases replaced.",
+      "Review the every change table — wordy, simpler and why — and keep or reject each substitution.",
+      "Copy report and result, or Download result, to take the tightened text with you."
+    ],
+    "whenToUse": "Use the wordy phrase simplifier when sentences are longer than their meaning requires. The {{redundancy-finder|Redundancy Finder}} goes after pairs whose parts repeat a meaning, the {{cliche-detector|Cliché Detector}} catches phrases that have lost their force, and the {{simplify-text-tool|Simplify Text Tool}} applies published wordy-phrase lists alongside its other rewrites. When the problem is vocabulary rather than length, the {{jargon-remover|Jargon Remover}} replaces imported technical terms instead.",
+    "faqs": [
+      {
+        "q": "Does the tool rewrite my sentences?",
+        "a": "No. It swaps listed phrases for shorter equivalents and leaves sentence structure alone. Anything beyond a phrase substitution is left for you to edit, which keeps the diff easy to review."
+      },
+      {
+        "q": "Why was a phrase I wanted to keep replaced?",
+        "a": "The list applies to every occurrence of a listed phrase. Read the every change table to see each substitution and its reason, then keep the ones that serve your context — the original is still beside the result."
+      },
+      {
+        "q": "What happens when a phrase has no replacement?",
+        "a": "It is deleted and the surrounding spacing is tidied, so removing a filler phrase does not leave a double space. That routine is shared with the jargon remover so both tools behave identically."
+      },
+      {
+        "q": "Are all wordy expressions covered?",
+        "a": "No, the list is finite and published. A wordy expression outside it is left untouched, and the page says so rather than implying full coverage."
+      },
+      {
+        "q": "Does the simplified text leave the browser?",
+        "a": "No. Matching and replacement run in the browser against the published list, and the text disappears when you close the tab."
+      }
+    ]
+  },
+  {
+    "slug": "sentence-variety-checker",
+    "keywords": [
+      "sentence variety checker",
+      "sentence-length variation",
+      "length distribution",
+      "similar-length sentences"
+    ],
+    "intro": "The Sentence Variety Checker measures sentence-length variation, plots the length distribution and finds the longest run of similar-length sentences.",
+    "content": "Monotone rhythm comes from sentences of the same length running together, and this sentence variety checker measures exactly that. Length measures are exact, because they come from the shared tokenizer: there is no model and no score to dispute. What the panel reports is sentence-length variation, the shape of the length distribution, and the longest run of similar-length sentences — the stretch where the rhythm actually stalls.\n\nThe Rhythm panel shows the variation figure, mean and median length, shortest and longest sentence, how many sentences sit under ten words and how many sit at thirty or more, and the longest run of sentences within two words of each other. A notice appears when every sentence is the same length. Below it, the length distribution plots each bucket, so a paragraph clustered in one bucket reads as a flat line before you have counted anything.\n\n- Sentence-length variation: the standard deviation of sentence lengths in words.\n- Mean and median length, with the shortest and longest sentences.\n- Short sentences under ten words and long sentences at thirty words or more.\n- Longest run of similar-length sentences, defined as consecutive sentences within plus or minus two words.\n- Length distribution across fixed buckets, so a clustered paragraph is visible as a shape.\n- Copy summary and Download for the figures as plain text.\n\nEvery length is measured on sentence segments from the Unicode tokenizer, and the variation is the population standard deviation of those lengths. The similar-length run is found by walking the sentences in order and tracking the longest streak whose neighbours stay within two words. The threshold is a fixed convention stated on the panel, not a measured threshold of reader boredom. The whole computation is arithmetic over counts, so the same text always produces the same summary. The buckets are fixed, so a paragraph that moves from one bucket to another as you edit shows the shift directly rather than rescaling around it.\n\n- Variation is a description, not a quality: deliberate monotony can be a rhetorical device.\n- Short texts need several sentences before the figures mean anything, which the page warns about.\n- The two-word window is a convention; a different window would produce a different run length.\n- Lists, dialogue and table fragments read as short sentences and distort the distribution.\n- Length ignores structure entirely; a short sentence can still be hard to read.\n\nUse the distribution first and the headline figure second. A paragraph clustered in one bucket is the visual signal that rhythm needs attention, and the longest run names where it starts. The usual repair is deliberate: insert a short sentence after a long one, or split one member of a run, and re-paste to see the distribution spread out. The variation figure responds to that edit immediately, which makes it a useful feedback loop: change one sentence, paste again, and watch whether the run breaks. Because every measure comes from the same tokenizer, the counts in the panel always agree with the distribution beneath them, so there is no separate bookkeeping to reconcile.\n\nThe neighbours divide the job: the Sentence Complexity Analyzer measures clause load rather than length, the Sentence Count Tool gives the plain totals and averages, and the Clarity Score Tool folds length, variety and vocabulary into one review figure.",
+    "howTo": [
+      "Paste a few paragraphs; several sentences are needed before the figures mean anything.",
+      "Read the Rhythm panel for variation, mean, median, and the short and long sentence counts.",
+      "Check the length distribution plot for clustering, then find the longest run of similar-length sentences.",
+      "Copy summary or Download to keep the figures, edit the run, and paste again to compare."
+    ],
+    "whenToUse": "Use the sentence variety checker when a paragraph reads as a drone and you need to know where the rhythm stalls. The {{sentence-complexity-analyzer|Sentence Complexity Analyzer}} measures clause load rather than length, and the {{sentence-count-tool|Sentence Count Tool}} gives the plain totals and averages. When the rhythm problem should be read alongside vocabulary weight, the {{readability-grade-scorer|Readability Grade Scorer}} applies five published indices, and the {{clarity-score-tool|Clarity Score Tool}} blends variety with length into one figure.",
+    "faqs": [
+      {
+        "q": "What is sentence-length variation?",
+        "a": "The standard deviation of sentence lengths in words. A low figure means sentences are close to one length; a high figure means the rhythm changes as you read."
+      },
+      {
+        "q": "Why are sentences within two words flagged as similar?",
+        "a": "The two-word window is a fixed convention for finding runs where the rhythm does not move. It is stated on the panel; a different window would produce a different run length."
+      },
+      {
+        "q": "Is high variation always better?",
+        "a": "No. Variation describes rhythm rather than quality, and deliberate monotony can be an effect. The tool reports the distribution so you can decide whether the pattern suits the passage."
+      },
+      {
+        "q": "How much text do I need?",
+        "a": "Several sentences at minimum; a few paragraphs is better. On very short samples the variation figure moves with every edit, and the page warns when the sample is thin."
+      },
+      {
+        "q": "Why do my bullet points distort the distribution?",
+        "a": "Lists and table fragments segment into many short sentences, which pulls the short-sentence count up. Paste the prose you want to judge rather than the surrounding list."
+      }
+    ]
+  },
+  {
+    "slug": "tone-analyzer",
+    "keywords": [
+      "tone analyzer",
+      "tone signals",
+      "polarity",
+      "directness"
+    ],
+    "intro": "The Tone Analyzer reports five measured signals — polarity, energy, directness, confidence and register — with the counts behind each.",
+    "content": "Tone is not one quantity, so this tone analyzer reports five measured signals instead of a single adjective. Polarity comes from positive and negative word lists, energy from exclamations, intensifiers and capitalised words, directness from second-person pronouns and questions, confidence from hedges, and register from the formality composite. Each signal carries the counts that produced it, so the reading can be checked rather than accepted.\n\nEvery one of the tone signals updates as you type and is stated as a rate per hundred words, which keeps samples of different lengths comparable. The what-each-signal-measures panel repeats the definition beside every row: polarity shows how many positive and negative lexicon words were found and what the net was, energy shows exclamation and intensifier counts, directness shows second-person and question counts, and confidence shows the hedge count. A summary line compresses the five readings into one sentence. The summary is a convenience rather than a sixth signal, so the five rows remain the reading and each row carries its own counts.\n\n- Polarity: positive minus negative lexicon hits, reported as Neutral, Positive or Negative.\n- Energy: exclamations, intensifiers and capitalised words per hundred words, labelled Low, Moderate or High.\n- Directness: second-person pronouns and questions, labelled Impersonal, Somewhat direct or Direct.\n- Confidence: hedges such as perhaps and might, labelled Assertive, Balanced or Tentative.\n- Register: the formality band from the shared weighted composite.\n- Copy report and Download for the five signals with their counts.\n\nAll five signals read the same counted markers — a finite lexicon of contractions, informal words, pronouns, exclamations, formal connectors, hedges and a small sentiment list — and report rates rather than verdicts. Nothing here is a trained model, and the page says so. Register is borrowed from the formality analysis so the two pages cannot disagree, and any discrepancy elsewhere would trace back to a single count rather than to two models, and each signal's reading note lists its raw counts, which is what makes the output reproducible on the same text.\n\n- The lexicons are finite, so a synonym outside the list is invisible to the signal that needed it.\n- Polarity measures explicit sentiment words only; irony and sarcasm are undetectable by counting.\n- Signals are rates, not judgements: a tentative tone is correct in an academic hedging context.\n- Short samples move sharply, because one exclamation changes the energy rate on a small denominator.\n- Genre expectations differ — a launch page and a legal memo are not aiming at the same readings.\n\nRead the signals as a set rather than one at a time. Direct and Tentative together describe persuasive writing; Neutral polarity with Low energy describes reportage. When a reading surprises you, the counts in the reading note explain why, and the usual fix is either to accept the register or to change the marker that moved it. Comparing two drafts is the natural use: paste the first version, note the five readings, then paste the revision. Signals that did not move tell you the rewrite preserved the voice, and the signal that did move names exactly what changed.\n\nThe neighbours cover single dimensions in more depth: the formality level detector opens the composite behind the register signal, the academic writing tone checker runs a checklist aimed at scholarly prose, and the Clarity Score Tool measures readability rather than tone.",
+    "howTo": [
+      "Paste a draft; the five measured signals update as you type.",
+      "Read the Tone signals panel for polarity, energy, directness, confidence and register.",
+      "Open what each signal measures to see the counts behind every reading.",
+      "Use Copy report or Download to keep the signals and counts as plain text."
+    ],
+    "whenToUse": "Use the tone analyzer when you want five measured readings rather than one impression of a draft's voice. The {{formality-level-detector|Formality Level Detector}} opens the weighted composite behind the register signal, and the {{academic-writing-tone-checker|Academic Writing Tone Checker}} runs a checklist aimed at scholarly prose. When tone is not the question and readability is, the {{clarity-score-tool|Clarity Score Tool}} measures the structural side, and the {{style-guide-adherence-checker|Style Guide Adherence Checker}} checks mechanical conventions instead.",
+    "faqs": [
+      {
+        "q": "Does the tone analyzer use sentiment analysis or AI?",
+        "a": "No. It counts occurrences from finite published word lists and reports rates per hundred words. There is no model and no training, which is why the same text always produces the same signals."
+      },
+      {
+        "q": "Why are there five signals instead of one tone score?",
+        "a": "Tone is not one quantity. Polarity, energy, directness, confidence and register can move independently — direct and tentative is a common persuasive combination — so a single number would hide real information."
+      },
+      {
+        "q": "Can it detect sarcasm?",
+        "a": "No. Counting word occurrences cannot see irony; a sarcastic sentence reads as whatever its words literally list. The panel states that polarity measures explicit sentiment only."
+      },
+      {
+        "q": "What does a tentative confidence reading mean?",
+        "a": "The text contains hedges such as perhaps, seems and might at a noticeable rate. Hedges soften claims and are normal in academic writing, so the reading is descriptive rather than a warning."
+      },
+      {
+        "q": "Why did one exclamation mark change the energy label?",
+        "a": "Energy is a rate per hundred words, so on a short sample a single mark moves it. Paste a longer passage when you want a stable reading."
+      }
+    ]
+  },
+  {
+    "slug": "formality-level-detector",
+    "keywords": [
+      "formality level detector",
+      "formality score",
+      "weighted blend",
+      "formal connectors"
+    ],
+    "intro": "The Formality Level Detector computes a formality score as a weighted blend of six countable markers and shows every weight and rule.",
+    "content": "Formality here is arithmetic you can audit. This formality level detector computes a formality score as a weighted blend of six countable markers, shows the weight and rule behind each component, and maps the result onto five named register bands. Nothing is hidden: every component displays its count, its score and the formula that turned one into the other.\n\nThe panel reports the formality score out of one hundred and the register band it lands in — very formal, formal, neutral, informal or very informal — with the word count beside it. The score components table lists contractions at weight twenty, informal words at twenty-five, first and second person pronouns at twenty, exclamations and questions at ten, formal connectors at fifteen and sentence length at ten. Each row states the measured count and the rule, such as one hundred minus twenty times contractions per hundred words.\n\n- Contractions (weight 20): one hundred minus twenty times contractions per hundred words.\n- Informal words (weight 25): one hundred minus eight times informal words per hundred words.\n- First and second person (weight 20): six points lost per pronoun per hundred words.\n- Exclamations and questions (weight 10): thirty-five points lost per mark per hundred words.\n- Formal connectors (weight 15): twenty points per connector per hundred words, capped at one hundred.\n- Sentence length (weight 10): full marks at fifteen words or more, five lost per word below.\n\nThe markers come from finite published lists — contractions, informal vocabulary, pronouns, connectors, hedges — counted case-insensitively over the shared tokenizer, with rates normalised per hundred words. The weighted composite is then rounded to one decimal and mapped to a band. Because every weight and curve is visible in the code and repeated on the page, a reader can disagree with the score and see precisely why it landed where it did. The weights total one hundred, so each row's contribution can be read straight off the table without arithmetic.\n\n- The lexicons are finite, so an informal synonym outside the list is not counted.\n- Register is situational: contractions are wrong in a contract and right in a support reply.\n- The weights are a documented choice, not a measurement of any style authority.\n- Short samples move the score sharply, because each rate has a small denominator.\n- Sentence length doubles as a register proxy, so a choppy formal passage may score lower than it reads.\n\nUse the score comparatively rather than absolutely: run it on a passage you know is formal, then on your draft, and compare the gap. The components table shows which marker moved the score, and changing that marker — removing a contraction, adding a connector — moves it back. The bands are labels for a register, not grades of quality; very formal is not better than neutral, it is a different audience. The components table doubles as a reading guide: contractions and informal words carry the two heaviest weights, so those are the markers that move the score furthest when a draft drifts toward conversation. A practical workflow is to paste a passage your audience already accepts, note its band and component profile, then paste your own draft and close the gap on the components that differ — usually contractions and informal words.\n\nThe register neighbours divide the work: the tone analyzer reports five signals including this one as its register row, the academic writing tone checker runs a discipline-specific checklist, and the style guide checker covers mechanical conventions that register analysis never looks at.",
+    "howTo": [
+      "Paste a draft; the score and band update as you type.",
+      "Read the Formality panel for the score, the register band and the word count.",
+      "Open the score components table to see each marker's count, weight and rule.",
+      "Adjust the marker that moved the score most, then copy or download the report."
+    ],
+    "whenToUse": "Use the formality level detector when a draft's register is wrong for its audience and you want the reason counted rather than guessed. The {{tone-analyzer|Tone Analyzer}} reports five signals where register is only one of them, the {{academic-writing-tone-checker|Academic Writing Tone Checker}} runs a checklist aimed at scholarly prose, and the {{formality-adjuster|Formality Adjuster}} rewrites paired expressions to shift the register. Mechanical conventions belong to the {{style-guide-adherence-checker|Style Guide Adherence Checker}} instead.",
+    "faqs": [
+      {
+        "q": "How is the formality score calculated?",
+        "a": "Six countable markers are scored individually, multiplied by their weights and averaged: contractions, informal words, first and second person pronouns, exclamations and questions, formal connectors and sentence length. Every weight and rule is shown on the page."
+      },
+      {
+        "q": "What does the score measure, exactly?",
+        "a": "How closely the text matches the marker profile of formal register — few contractions, few pronouns, few informal words, more connectors and longer sentences. It describes register, not quality."
+      },
+      {
+        "q": "Why do formal connectors increase the score?",
+        "a": "Words such as therefore, moreover and thus are characteristic of formal prose, so that component rewards their presence rather than penalising anything. The rule is stated as twenty points per connector per hundred words, capped."
+      },
+      {
+        "q": "Can I trust the band on a short paragraph?",
+        "a": "Not far. Each rate has a small denominator on short samples, so the score moves sharply with one edit. The panel shows the word count so you can judge stability for yourself."
+      },
+      {
+        "q": "Is a more formal score better?",
+        "a": "No. The bands name registers, and the right one depends on the audience: a support reply should not read like a contract. Compare against a passage you know fits your target instead."
+      }
+    ]
+  },
+  {
+    "slug": "clarity-score-tool",
+    "keywords": [
+      "clarity score",
+      "clarity score tool",
+      "weighted composite",
+      "score components"
+    ],
+    "intro": "The Clarity Score Tool blends four measured components into a 0-100 clarity score and shows every weight, curve and input.",
+    "content": "This clarity score tool computes a clarity score as a weighted composite of four measured components and shows every one of them. It is deliberately not presented as a published index — it is a composite whose components, curves and weights are visible on the page, so a reader can disagree with the score and see exactly why it landed where it did. The countable parts are sentence length, complex-word rate, sentence variety and long-sentence share. A composite is only honest when its parts are visible, which is why every row shows both the value and the weight rather than a single opaque number.\n\nThe panel reports the score out of one hundred, the band it maps to — very clear, clear, could be clearer, dense or hard going — and the words and sentences scored. The score components table then breaks the composite into its four rows with their weights: sentence length at thirty, complex-word rate at twenty-five, sentence variety at twenty-five and long-sentence share at twenty. Each row shows the value it was computed from, and the how-the-composite-is-built panel repeats the curve behind each.\n\n- Sentence length (weight 30): one hundred up to a mean of eighteen words, then four points per word to zero at forty; a mean below twelve is penalised for choppiness.\n- Complex-word rate (weight 25): one hundred minus two hundred and fifty times the share of words with three or more syllables.\n- Sentence variety (weight 25): twelve times the standard deviation of sentence lengths, capped at one hundred.\n- Long-sentence share (weight 20): one hundred minus two hundred times the share of sentences over thirty words.\n- Reliability note: samples below the shared one-hundred-word floor are flagged as short.\n- Copy result and Download for the score and components as plain text.\n\nThe inputs come from the shared tokenizer, the syllable heuristic and the sentence-length statistics the other tools in this domain use: no component is invented and none is trained. Because the four curves are plain arithmetic, a score can be traced back to the sentences responsible — the component table names the value, and the panel beside it names the weight. Everything runs locally in the browser.\n\n- It is a composite, not a published index, so quoting it as one misrepresents what it is.\n- The weights are documented choices; a different blend would produce a different number.\n- Short samples are unstable and flagged below the shared one-hundred-word floor.\n- It measures form, not content: a trivial sentence scores as clearly as an important one.\n- Vocabulary complexity rests on the syllable heuristic, so specialist terms carry the usual error.\n\nRead the components before the headline. When the score is lower than expected, the four rows show which curve dragged it: long sentences and low variety are the usual pair, and both are fixable by splitting a sentence or two. Re-paste after the edit to see the component move — the composite is only useful if you treat it as a comparison between drafts rather than an absolute.\n\nThe neighbours cover the parts in depth: the readability grade scorer applies five published indices to the same text, the sentence complexity analyzer estimates clause load, and the sentence variety checker opens the distribution behind the variety component.",
+    "howTo": [
+      "Paste a paragraph or more; the score updates as you type, with a short-sample flag under one hundred words.",
+      "Read the Clarity panel for the score, the band and the word and sentence totals.",
+      "Open the score components table to see each weighted component and the value it was computed from.",
+      "Fix the component that dragged the score, re-paste, and compare — then copy or download the result."
+    ],
+    "whenToUse": "Use the clarity score tool when you want one figure that blends sentence length, vocabulary weight, variety and long sentences. The {{readability-grade-scorer|Readability Grade Scorer}} applies five published indices instead of a composite, and the {{sentence-complexity-analyzer|Sentence Complexity Analyzer}} opens the clause estimate behind heavy sentences. For the variety component in isolation, the {{sentence-variety-checker|Sentence Variety Checker}} plots the whole distribution, and when the fix is wording rather than structure, the {{simplify-text-tool|Simplify Text Tool}} applies published rewrites.",
+    "faqs": [
+      {
+        "q": "Is this a published readability index?",
+        "a": "No. It is a weighted composite of four measured components, and the page says so. Every component, curve and weight is shown, which is what lets you audit or disagree with the number."
+      },
+      {
+        "q": "What are the four components?",
+        "a": "Sentence length, complex-word rate, sentence variety and long-sentence share, weighted thirty, twenty-five, twenty-five and twenty. Each row of the components table shows the value it was computed from."
+      },
+      {
+        "q": "Why did my score drop after adding short sentences?",
+        "a": "The choppiness rule penalises a mean below twelve words per sentence. One very short paragraph can pull the mean down, which is why the components table shows the mean beside the score."
+      },
+      {
+        "q": "How much text should I paste for a stable score?",
+        "a": "At least about one hundred words; below that the page flags the sample as short. The word and sentence totals are displayed so you can judge stability yourself."
+      },
+      {
+        "q": "Can I compare two drafts with this score?",
+        "a": "Yes, that is the intended use. Treat it as a comparison between drafts rather than an absolute, and read the components to see which curve moved."
+      }
+    ]
+  },
+  {
+    "slug": "style-guide-adherence-checker",
+    "keywords": [
+      "style guide checker",
+      "serial comma",
+      "mechanical rules",
+      "quotation marks"
+    ],
+    "intro": "The Style Guide Adherence Checker applies four style-guide presets to a documented subset of mechanical rules and shows the preference in force.",
+    "content": "No tool can enforce a whole style guide, and pretending otherwise is the failure to avoid. This style guide checker encodes a short list of purely mechanical rules — a comma is present or it is not, a quotation mark is single or double — applies the preset you choose, and shows the preference each preset uses so a disagreement can be traced to a rule rather than an opaque style score.\n\nChoose between four presets: AP for news, Chicago for books, Oxford for British style and Microsoft for technical writing. The guide-specific rules are the serial comma, quotation marks, number spell-out thresholds and em-dash spacing. Three universal rules apply to every preset — one space after a full stop, no space before punctuation, and a comma after e.g. or i.e. The findings table lists each rule, what was found, the suggestion and the context, and the rules-checked panel shows every preference in force.\n\n- Presets: AP (news), Chicago (books), Oxford (British) and Microsoft (technical).\n- Serial comma: required by Chicago, Oxford and Microsoft; omitted by AP.\n- Quotation marks: double for AP, Chicago and Microsoft; single for Oxford.\n- Numbers: spell out under ten for AP and Microsoft, under one hundred for Chicago and Oxford.\n- Em-dash spacing: open for AP and Oxford; closed for Chicago and Microsoft.\n- Universal rules: sentence spacing, spacing before punctuation, and comma after e.g. and i.e.\n\nThe checker tokenises the text and applies each rule as a literal test over the tokens: list detection for the serial comma, quote pairing for quotation marks, numeral ranges for the number rule, spacing tests around dash characters. Nothing requires interpretation, which is why every finding can be printed with its context and the preset that produced it. List detection walks the tokens to the conjunction, quote pairing matches opening and closing marks, and numeral ranges are compared against the preset's spell-out threshold, so every row in the table is one literal test with its inputs visible. Headings, title capitalisation, citation formats and anything requiring editorial judgement are explicitly out of scope.\n\n- Only the documented subset is checked; a preset is not a full style guide.\n- Heading and title conventions are out of scope, as are citation formats.\n- Quoted material is checked like any other text, so a quotation's own style produces findings.\n- Numeral judgement is range-based, so idiomatic exceptions such as page numbers are excluded by a published context list.\n- Two presets can disagree about the same text; that is a difference of preference, not an error.\n\nPick the preset your publication or client actually uses before reading any finding, because the preset decides which side of each preference counts as a problem. Then work through the findings table: the context column shows the sentence, the suggestion shows the mechanical fix, and the scope panel reminds you what the tool never looked at.\n\nThe neighbours cover the rest of the mechanical surface: the punctuation checker finds unmatched marks and doubled punctuation, the number format checker finds decimal and grouping inconsistencies across a document, and the manuscript formatter prepares quotes, dashes and scene breaks for submission. Running the checker once per preset is also a quick way to write a style sheet: the differences between the four findings tables are exactly the preferences your publication has to choose between.",
+    "howTo": [
+      "Paste a draft and choose the style guide preset: AP, Chicago, Oxford or Microsoft.",
+      "Read the Findings panel for the count of rules flagged.",
+      "Work through the findings table — rule, found, suggestion and context — applying each mechanical fix.",
+      "Check the rules-checked panel to see the preference in force for every rule, then copy or download the report."
+    ],
+    "whenToUse": "Use the style guide checker when your publication follows a named guide and you want its mechanical preferences applied consistently. The {{punctuation-checker|Punctuation Checker}} finds unmatched and doubled marks directly, the {{number-format-checker|Number Format Checker}} covers decimal and grouping consistency across a document, and the {{manuscript-formatter|Manuscript Formatter}} cleans quotes, dashes and scene breaks for submission. Register rather than mechanics is the question the {{academic-writing-tone-checker|Academic Writing Tone Checker}} answers.",
+    "faqs": [
+      {
+        "q": "Which style guides does the tool support?",
+        "a": "Four presets: AP for news, Chicago for books, Oxford for British style and Microsoft for technical writing. Each preset's preferences for the serial comma, quotation marks, numbers and em dashes are shown on the page."
+      },
+      {
+        "q": "Why does it only check a few rules?",
+        "a": "Only rules that are purely mechanical can be checked honestly: a comma is present or it is not. Headings, title capitalisation, citation formats and editorial judgement are named as out of scope."
+      },
+      {
+        "q": "Why did AP and Chicago disagree about my list?",
+        "a": "They differ on the serial comma by preference, not by error. The rules-checked panel shows which preference each preset applies, so the disagreement is traceable to a stated rule."
+      },
+      {
+        "q": "Does it check quotation marks in quoted passages?",
+        "a": "Yes, quoted material is matched like any other text, so a quotation using its own house style will produce findings. Use the context column to decide whether the quote should be left alone."
+      },
+      {
+        "q": "Can I check a document against two guides at once?",
+        "a": "The checker applies one preset at a time. Run it twice with different presets and compare the findings tables, which is itself the clearest demonstration of where the guides differ."
+      }
+    ]
+  },
+  {
+    "slug": "academic-writing-tone-checker",
+    "keywords": [
+      "academic tone checker",
+      "register checklist",
+      "contractions",
+      "first person singular"
+    ],
+    "intro": "The Academic Writing Tone Checker runs a register checklist over your text and reports a pass or warn status for each convention.",
+    "content": "Scholarly register is a set of conventions, and this academic tone checker treats it as a checklist rather than a mood. Each convention on the register checklist — contractions, second person, informal vocabulary, intensifiers, vague quantifiers, first person singular, exclamation marks and hedging — is counted with a published word list, then reported as pass or warn with the matches that produced it. The panel shows how many conventions were flagged, the word and sentence totals, and the examples behind every warning.\n\nEach check carries a label, a status, a count and a message explaining the convention. The contractions check warns on forms such as do not written as don't, because academic prose normally writes the words out in full. The second-person check flags you, because scholarly writing usually prefers the impersonal or third person. The first person singular check notes that some disciplines prefer an impersonal voice while others now encourage I, and tells you to check your target journal. The examples column shows the actual matches so you can locate them.\n\n- Contractions: written out in full in academic prose.\n- Second person: addressing the reader as you is usually avoided.\n- Informal vocabulary: everyday and intensifier words read as conversational.\n- Intensifiers and vague quantifiers: prefer one precise word and a specific figure.\n- First person singular: discipline-dependent, so check the target journal's policy.\n- Exclamation marks and hedges, reported as counts with their examples.\n\nThe checker counts occurrences of finite published lists — contractions, informal words, pronouns, intensifiers, quantifiers, hedges — over the shared tokenizer, then marks a check warn whenever its count is above zero. Nothing here is a trained model, and the page repeats that. Because each check is a count with examples, the report is reproducible: the same text yields the same statuses, and every warning can be traced to the words that raised it. Because each status is a count against a published list, two readers of the same report can verify it by searching the text for the listed words.\n\n- Discipline conventions differ, so a warn on first person singular may be wrong for your field.\n- Pass means the listed markers are absent, not that the prose is clear or well argued.\n- The word lists are finite, so an informal synonym outside them passes unnoticed.\n- Hedging and qualification are normal in academic writing, so their counts are reported rather than judged.\n- One pasted paragraph is not a paper: consistency across sections is a question for a longer sample.\n\nUse the checklist as a pre-submission sweep: paste the abstract first, then the sections most likely to carry conversational register, and fix each warn in context. The discipline note matters most on the first person singular row — check your journal's policy before rewriting a field that now encourages I. Copy report keeps the statuses and examples for a revision note. The warnings are also a consistency check across a paper: the same informal phrase recurring in every section is a habit worth removing once, rather than section by section.\nThe register neighbours cover the same ground from other angles: the formality level detector opens the weighted composite behind register, the tone analyzer reports five signals including register, and the style guide checker handles the mechanical conventions that register analysis never looks at.",
+    "howTo": [
+      "Paste an abstract, a paragraph or a section; each convention is checked as you type.",
+      "Read the Register checklist panel for the number of conventions flagged.",
+      "Open each check to see its status, message and the examples that produced it.",
+      "Fix warnings in context — checking your journal's policy on first person first — then copy or download the report."
+    ],
+    "whenToUse": "Use the academic writing tone checker before submitting scholarly prose, when the register conventions are known and countable. The {{academic-journal-reference-formatter|Academic Journal Reference Formatter}} handles the citation side of the same submission, the {{formality-level-detector|Formality Level Detector}} opens the weighted composite behind register, and the {{tone-analyzer|Tone Analyzer}} reports five measured signals where register is only one. Mechanical conventions belong to the {{style-guide-adherence-checker|Style Guide Adherence Checker}}.",
+    "faqs": [
+      {
+        "q": "Is this an AI check of my academic writing?",
+        "a": "No. It counts occurrences from finite published word lists and reports pass or warn per convention. Every warning lists the matches that produced it, so the result is reproducible on the same text."
+      },
+      {
+        "q": "Why does it flag first person singular?",
+        "a": "Some disciplines prefer an impersonal voice while others now encourage I. The check reports the count and tells you to check your target journal rather than insisting on a rewrite."
+      },
+      {
+        "q": "Should I remove every hedging word it counts?",
+        "a": "No. Hedges and qualifications are normal in academic writing, which is why their counts are reported rather than judged as pass or warn on their own."
+      },
+      {
+        "q": "What does a pass actually mean?",
+        "a": "That the markers on that particular list are absent from the text. It says nothing about clarity, argument or evidence — the checklist covers register conventions only."
+      },
+      {
+        "q": "Why is my abstract flagged but my methods section clean?",
+        "a": "Conversational register clusters in particular sections, and each check counts matches over the pasted sample. Paste each section separately to find where the conventions drift."
+      }
+    ]
+  }
+]

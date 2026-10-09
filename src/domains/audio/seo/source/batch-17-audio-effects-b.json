@@ -1,0 +1,562 @@
+[
+  {
+    "slug": "surround-sound-simulator",
+    "keywords": ["quad", "rear channels", "17 ms", "fusion"],
+    "intro": "Surround Sound Simulator turns a stereo recording into four channels, keeping the original pair in front and placing a quieter derivative behind. The rear channels carry ambience rather than content, which is what makes the brain hear them as around you.",
+    "content": "Drop a stereo file, set the rear level, and upmix; the output is a four-channel WAV in the order front left, front right, rear left, rear right.\n\nWhat the tool does:\n\n- It keeps the original left and right channels as the front pair, bit for bit, with nothing added to them.\n- It derives the two rear channels from the same material: delayed by seventeen milliseconds (17 ms), cross-fed so each rear is built mainly from the opposite side, and attenuated.\n- A rear level control from eighteen decibels down to nothing, defaulting to six decibels down.\n- The report gives the rear trim and the peak level the rear channels actually reached.\n\nThe design rests on one piece of perception. A delay under roughly twenty to thirty milliseconds is heard not as a separate echo but as part of the same sound, so a delayed copy adds no new event to the signal; what changes is the sense of where the sound is. That is the fusion threshold the rear channels sit below, and it is why seventeen milliseconds was chosen: far enough behind to be placed elsewhere in space, close enough that it never reads as an echo. Cross-feeding each rear channel from the opposite side is the second part. A rear that carried the same channel it sat behind would simply sound like a louder version of the front; building each rear mainly from the other side puts the difference between the channels into the rear pair, which is what gives the impression of a room rather than a duplicated stereo image. Keeping the level low is the third part and the one the panel is explicit about: the rear channels are meant to be felt rather than heard, and the guidance of six to twelve decibels down is what keeps a voice in front of the listener instead of behind them. Because the front pair is untouched, a stereo system ignores the rear channels entirely and plays back exactly the original recording, so the upmix carries no risk for listeners without the extra speakers.\n\nWhere it is limited:\n\n- It is an upmix rather than a true surround mix, so no genuine spatial information is recovered.\n- The output is a four-channel WAV, which not every player or editor accepts.\n- The rear delay is fixed rather than adjustable.\n- No centre channel is produced.\n- On a stereo system the result sounds like the original, since the rears are simply not played.\n- Output is sixteen bit WAV.\n\nUse it to give a stereo mix a sense of space on a quad or four-channel system, to prepare ambience for an installation, or to check how a mix sounds when its rears are separated out. When the goal is to widen an existing stereo image rather than to add channels, the stereo widener does that within two channels, and when the rears should carry a genuine tail rather than a delayed copy, the surround effect is better served by a reverb and the convolution reverb before the upmix.",
+    "howTo": [
+      "Drop a stereo file onto the panel; a mono source is duplicated to a front pair.",
+      "Choose the rear level, keeping it between six and twelve decibels down.",
+      "Upmix to quad and check the reported rear peak.",
+      "Download the four-channel WAV, which plays as ordinary stereo on a two-speaker system."
+    ],
+    "whenToUse": "Surround Sound Simulator is the tool for making four channels from two without altering the front pair. {{stereo-widener|Stereo Widener}} changes the width within a stereo pair instead, and {{8d-audio-converter|8D Audio Converter}} creates a rotating effect for headphones rather than for speakers. When the space should come from a reverb tail rather than from discrete rear channels, {{reverb-simulator|Reverb Simulator}} and {{convolution-reverb|Convolution Reverb}} are the tools for that.",
+    "faqs": [
+      {
+        "q": "Why is the rear delay seventeen milliseconds?",
+        "a": "Because that is below the point at which a delayed copy is heard as a separate echo. Under roughly twenty to thirty milliseconds the copy fuses with the original, so the delay changes where the sound seems to be rather than adding an event to it, which is exactly the cue the rear channels need."
+      },
+      {
+        "q": "Why are the rear channels cross-fed?",
+        "a": "Because a rear channel carrying the same side it sits behind would only sound like a louder version of the front. Building each rear mainly from the opposite side puts the difference between the channels into the rear pair, which is what creates the sense of a room rather than a duplicated image."
+      },
+      {
+        "q": "What happens on a normal stereo system?",
+        "a": "The front pair is untouched, so the recording plays back exactly as it was and the rear channels are simply not used. That is the reason for leaving the fronts bit-identical rather than folding the rears into them, and it means an upmix carries no risk for listeners without four speakers."
+      },
+      {
+        "q": "Is this real surround sound?",
+        "a": "It is an upmix rather than a surround mix. Nothing in a stereo recording contains genuine information about what was behind the performers, so the rear channels are synthesized from what is present. What they add is a plausible sense of space, not recovered detail."
+      },
+      {
+        "q": "Why is the rear level so conservative?",
+        "a": "Because the rears are meant to be felt rather than heard. Pushing them up makes the effect obvious and pulls the listener's attention backward, while six to twelve decibels down keeps a voice or a lead instrument in front where it belongs while still suggesting the room around it."
+      }
+    ]
+  },
+  {
+    "slug": "convolution-reverb",
+    "keywords": ["impulse response", "convolution", "rt60", "tail"],
+    "intro": "Convolution Reverb smears a recording with a room's impulse response rather than approximating one with filters. The rooms are synthesized rather than sampled, so no files have to be loaded.",
+    "content": "Choose a file, pick one of four rooms, set the mix, and apply; the output includes the reverb tail running past the end of the source.\n\nThe controls and the rooms:\n\n- Four room buttons: a small room with a decay around four tenths of a second, a club at about a second, a concert hall at two and a fifth, and a cathedral at four and a half.\n- A mix from nothing to everything, defaulting to thirty five percent, balancing the dry signal against the convolved one.\n- Each room carries its own gain figure, from a third for the small room up to six tenths for the cathedral, which is what keeps the wet signal at a sensible level as the space grows.\n- The report names the room, states that the impulse response is synthetic, gives its decay figure, and repeats the mix.\n\nThe method is true convolution, which means the audio is multiplied and summed against an impulse response sample by sample — effectively the same operation as playing the recording into the room and capturing what comes back. The response here is built rather than recorded: an early-reflection pattern of five taps at twelve, twenty-three, thirty-seven, fifty-three and seventy-one milliseconds supplies the discrete first echoes that the ear reads as room size, and a decaying noise tail supplies the diffuse part that follows. The decay figure is the time for that tail to fall sixty decibels, which is the standard way a room's length is described and is the figure the room table calls rt60. Convolution has one property that matters in practice and that the implementation had to respect: the output is longer than the input by the length of the impulse response, because the tail keeps ringing after the source stops. Truncating the result to the input's length would discard the tail entirely and leave a reverb that appeared to stop dead at the end of the file, which is what the mixing loop here deliberately avoids by carrying the wet signal through to the end of the convolved buffer. The other consequence of convolution is its cost: the arithmetic is proportional to the length of the impulse response, so the cathedral is several times more work than the small room, which is why a long tail takes noticeably longer to render.\n\nWhere it differs from a sampled reverb:\n\n- The impulse responses are synthesized, so no specific real venue can be reproduced.\n- No impulse response file can be loaded.\n- Four rooms only, with no control of decay or of the early-reflection pattern.\n- No pre-delay or tone shaping of the wet signal.\n- Rendering is slower than an algorithmic reverb because the arithmetic scales with the response length.\n- Output is sixteen bit WAV, with the tail included.\n\nUse it when the spatial character matters more than the parameters: placing a dry recording in a large believable space, adding a long cathedral tail to a sustained part, or giving a small room a tight but realistic ambience. When the decay should be dialable rather than chosen from a list, the reverb simulator gives direct control of feedback and damping, and when only the early reflections that establish room size are wanted, the hallway room simulator isolates exactly that cue.",
+    "howTo": [
+      "Drop an audio file onto the panel and let it decode.",
+      "Choose one of the four rooms by its character rather than by its figures.",
+      "Set the mix, using a lower figure for a wet but undistracting result.",
+      "Apply the reverb and download the WAV, which carries the tail past the end of the source."
+    ],
+    "whenToUse": "Convolution Reverb is the tool when a realistic space matters more than adjustable parameters. {{reverb-simulator|Reverb Simulator}} gives direct control of decay and damping instead, and {{hallway-room-simulator|Hallway Room Simulator}} isolates the early reflections that signal room size without adding a tail. When the decay needs to fit a tempo, {{reverb-time-calculator|Reverb Time Calculator}} provides the figures to aim at.",
+    "faqs": [
+      {
+        "q": "Are the rooms recordings of real places?",
+        "a": "No, they are synthesized from an early-reflection pattern plus a decaying noise tail. That keeps the tool inside a browser with no sample library, at the cost of not being able to reproduce a particular venue. The result is a plausible room rather than a specific one."
+      },
+      {
+        "q": "Why is the output longer than the input?",
+        "a": "Because convolution extends the signal by the length of the impulse response: the tail keeps ringing after the source has stopped. Cutting the result back to the input length would throw that tail away and produce a reverb that stopped abruptly at the end of the file."
+      },
+      {
+        "q": "What does the room gain figure do?",
+        "a": "It keeps the wet signal at a sensible level as the space grows. A larger room spreads the same energy over a longer time, so without an adjustment the cathedral would sound quieter than the small room at the same mix setting."
+      },
+      {
+        "q": "Why is the cathedral slower to render?",
+        "a": "Because convolution cost is proportional to the length of the impulse response. A four and a half second response takes several times the arithmetic of a four tenths of a second one, which is the price of the realism rather than a sign of a problem."
+      },
+      {
+        "q": "Can I use my own impulse response?",
+        "a": "Not in this tool, which relies on its synthesized rooms. To work with a real response, a sweep would have to be recorded and processed first, which is a separate job from applying a reverb and is not part of this pipeline."
+      }
+    ]
+  },
+  {
+    "slug": "doppler-effect-simulator",
+    "keywords": ["Doppler", "speed of sound", "closest approach", "asymmetric"],
+    "intro": "Doppler Effect Simulator sends a recording past the listener at a chosen speed and distance, so the pitch rises as it approaches and falls as it recedes. Everything you hear comes from one physical model rather than from a set of effects.",
+    "content": "Drop a file, set the speed and the closest approach, and simulate; the outcome is the Doppler shift, a level swell and a stereo flyby that crosses from left to right. The model is driven by the file's first channel, so a stereo source is reduced to one side before it is sent past the listener.\n\nThe controls:\n\n- A speed from five to eighty metres per second, defaulting to thirty, shown alongside the equivalent in kilometres per hour.\n- A closest approach distance from two to eighty metres, defaulting to twenty, which is how near the source passes.\n- A fixed panning spread of thirty units, which is what carries the source from one side to the other as it passes.\n- A report giving the speed, the distance, and the peak pitch shift in cents in each direction, with the arithmetic shown.\n\nThree things happen at once, and all of them fall out of the same geometry. The pitch shift comes from the change in distance between source and listener over time: while the source is approaching, each successive wavefront has a shorter distance to travel than the one before it, so the waves arrive closer together and the pitch rises; once it is receding the reverse happens and the pitch falls. The shift is asymmetric, and that asymmetry is a property of the physics rather than an adjustment. Approaching, the factor is one over one minus the ratio of speed to the speed of sound; receding, it is one over one plus the same ratio. Those two multipliers are not mirror images of each other, so a source passing at thirty metres per second rises further than it falls — the panel reports both figures separately for that reason. The level swells toward the moment of closest approach and falls away afterwards, following the inverse of distance, and the panning carries the source from one side to the other as it crosses. The speed of sound is taken as three hundred and forty-three metres per second, which is the standard figure at ordinary room temperature. Amounts here are gentle compared with what a real pass-by at speed would produce, since eighty metres per second is already faster than any road vehicle, and the effect is meant to read as movement rather than as a stunt.\n\nWhere the model is simplified:\n\n- The source travels in a straight line at constant speed.\n- No reflection, absorption or environment is modelled.\n- No acceleration, so there is no rise in pitch from a revving engine.\n- The speed of sound is fixed rather than adjusted for temperature.\n- The output is always stereo, whatever the input was.\n- Output is sixteen bit WAV.\n\nUse it to give a passing vehicle, a flyby or a moving sound source the sense of travel, or to hear how a passage sounds when its pitch is pulled through a rise and fall. When the pitch movement should be an oscillation rather than a pass, the vibrato does that with a delay line, and when the movement should be one of position rather than pitch, the 8D audio converter rotates a source around the listener instead of past them.",
+    "howTo": [
+      "Drop an audio file onto the panel; the flyby is built from its first channel.",
+      "Set the speed, remembering that thirty metres per second is already a fast road pass.",
+      "Set the closest approach distance, which controls how dramatic the pass is.",
+      "Simulate the flyby, check the reported pitch shifts, and download the stereo WAV."
+    ],
+    "whenToUse": "Doppler Effect Simulator is the tool when a sound has to travel past the listener, which is what makes it useful for vehicles, flybys and moving effects. {{8d-audio-converter|8D Audio Converter}} rotates a source around the listener instead of past them, and {{stereo-widener|Stereo Widener}} changes the width without any movement. When the pitch movement is a steady oscillation rather than a pass, {{vibrato-effect|Vibrato Effect}} is the closer match.",
+    "faqs": [
+      {
+        "q": "Why is the pitch shift not symmetric?",
+        "a": "Because the two multipliers are not mirror images. Approaching, the arriving waves are compressed by a factor of one over one minus the speed ratio; receding, they are stretched by one over one plus it. The mathematics produces a bigger rise than fall, and the report shows both figures rather than averaging them."
+      },
+      {
+        "q": "What does the closest approach distance change?",
+        "a": "How abrupt the pass feels and how far the source travels across the image. A close approach makes the level swell more dramatic and the crossing faster, while a distant one spreads the whole event out and leaves the pitch change as the main cue."
+      },
+      {
+        "q": "Is this the same as a pitch shifter?",
+        "a": "No. A pitch shifter moves the pitch by a fixed interval; here the pitch is continuously changing because the distance to the source is changing, and the rate of change is derived from the speed. The result is a pass rather than a transposition."
+      },
+      {
+        "q": "Why is thirty metres per second a lot for a road vehicle?",
+        "a": "It is about a hundred and eight kilometres per hour, which is fast for a car. The range goes higher because the model is a physical one and the effect is meant to be usable for aircraft and other fast sources, but most convincing road effects sit at the lower end of the range."
+      },
+      {
+        "q": "Can I make the source pass in the other direction?",
+        "a": "The panning is fixed to run from left to right. To reverse it, swap the two output channels by processing the file again with a channel tool that exchanges them, or convert to mono first and pan the result afterwards."
+      }
+    ]
+  },
+  {
+    "slug": "pitch-correction",
+    "keywords": ["chromatic", "strength", "voiced frames", "vibrato"],
+    "intro": "Pitch Correction pulls sung or played notes toward the nearest semitone without removing their character. It is the gentle end of the same engine whose hard setting is the obvious auto-tune effect.",
+    "content": "Drop a file, set the correction amount, and process; the report states how many voiced frames were touched out of how many were analysed.\n\nThe controls and the readout:\n\n- A correction amount from nothing to everything, defaulting to sixty percent, where nothing is a fully transparent pass.\n- A retune strength from nothing to everything, defaulting to sixty percent.\n- A report giving the correction amount and the count of touched frames against the total voiced frames, which is the honest measure of how much the file changed.\n- Correction to the nearest semitone, with no scale required, which is the mode that suits cleanup because it cannot pull a note to a wrong degree.\n\nThe engine is a whole-file phase vocoder with a smoothed per-frame rate map: the audio is analysed in short frames, each frame's pitch is measured, a rate is computed to move it toward its target, and the rates are smoothed across frames so the correction arrives gradually rather than in steps. Two details are what make the result usable as cleanup rather than as an effect. The first is that unvoiced frames pass through untouched, so breaths, consonants and noise are not processed at all and cannot acquire the glassy quality that pitch shifting gives them. The second is that the amount is a proportion of the distance to the target rather than a switch. At sixty percent a note that is thirty cents sharp moves eighteen cents of the way, which removes the audible error while leaving the rest of the pitch intact, including a singer's vibrato. That is the important difference between this tool and its sibling: at a hundred percent every frame lands exactly on the nearest semitone and any natural pitch movement is flattened, which is heard as a mechanical quality, whereas at forty to seventy percent the file still sounds like a performance and simply sounds better tuned. Chromatic targeting is what makes the tool safe on material in any key, since it aims at the nearest semitone rather than at a scale that would have to be known in advance.\n\nWhat it does not do:\n\n- No scale or key targeting, so it corrects to the nearest semitone rather than to a key.\n- No note-level editing, so a particular phrase cannot be corrected harder than the rest.\n- Unvoiced frames are passed through, which is deliberate.\n- No formant control, so very large corrections can still sound unnatural.\n- Polyphonic material is not analysed as separate voices.\n- Output is sixteen bit WAV.\n\nUse it for the job it is named after: tightening a good take that drifts slightly, preparing a vocal that was recorded in one pass, or correcting an instrument that cannot be retuned. When the hard, obvious effect is what is wanted, the auto-tune effect snaps every frame to a scale with an adjustable key, and when the pitch should move by a fixed musical interval rather than being corrected, the harmonizer shifts a copy of the signal.",
+    "howTo": [
+      "Drop an audio file onto the panel and let it decode.",
+      "Leave the correction amount between forty and seventy percent for a natural result.",
+      "Process the file and read the touched-frame count to see how much was affected.",
+      "Compare against the original and lower the amount if the performance has lost its movement."
+    ],
+    "whenToUse": "Pitch Correction is the tool for making a performance better tuned without making it sound processed. {{auto-tune-effect|Auto-Tune Effect}} is its hard sibling, with key and scale targeting and the obvious snap. {{harmonizer|Harmonizer}} adds a shifted copy rather than correcting the original, and {{pitch-shift-calculator|Pitch Shift Calculator}} works out the arithmetic of a shift before applying it.",
+    "faqs": [
+      {
+        "q": "Why does the tool not ask for a key?",
+        "a": "Because it corrects to the nearest semitone, which is valid in any key. Choosing a scale would mean committing to one, and a note that belongs to a key other than the one chosen would be pulled to the wrong degree — a risk that chromatic correction removes entirely."
+      },
+      {
+        "q": "What are voiced frames?",
+        "a": "The short analysis windows in which the material has a measurable pitch, as opposed to breaths, consonants and noise, which do not. The count reported is how many of those voiced frames the correction actually moved, which is a clearer measure of the change than an impression of whether it sounded different."
+      },
+      {
+        "q": "Why does a high amount sound robotic?",
+        "a": "Because at a hundred percent every frame lands exactly on its target semitone, so natural pitch movement disappears. A singer's vibrato and expressive slides are part of the performance, and removing them entirely makes the result sound like a machine rather than a person."
+      },
+      {
+        "q": "Will it affect breaths and consonants?",
+        "a": "No, unvoiced frames pass through untouched. That is what keeps the result natural, since processing noise-like material through a pitch shifter gives it a glassy, unstable quality that is often more noticeable than the pitch error being corrected."
+      },
+      {
+        "q": "How much correction is too much?",
+        "a": "The guidance in the panel is a good one: keep it between forty and seventy percent for a natural result. If a note is so far out that it needs more, correcting the performance again from the source, or moving on, is usually better than processing the note harder."
+      }
+    ]
+  },
+  {
+    "slug": "harmonizer",
+    "keywords": ["harmony", "interval", "semitones", "blend"],
+    "intro": "Harmonizer adds a second voice by shifting a copy of the recording by a musical interval and blending it under the original. The melody stays where it is and a parallel part appears above or below it.",
+    "content": "Pick an interval, set the harmony level, drop a file, and process; the output is the original with the shifted copy mixed in at the chosen amount.\n\nThe intervals and the control:\n\n- Six choices, each a fixed musical distance: a minor third above, a major third above, a fifth above, an octave above, a fourth below, and an octave below.\n- A harmony level from nothing to everything, defaulting to fifty percent, with the report naming the interval, its frequency multiplier and the blend.\n- A report giving the interval, the frequency multiplier it produces, and the blend setting.\n- The duration is exactly preserved, because the shifted copy is stretched back to the original length after being resampled.\n\nThe chain is the same two-stage construction the pitch shifter uses, and the same reasoning applies. The copy is first resampled by the frequency ratio the interval implies, which moves its pitch by exactly that amount and shortens it by the same factor; it is then stretched back by that factor, which restores its original length without moving the pitch down again. That is what allows a harmony to sit underneath a melody for the whole duration of the file rather than drifting out of sync, which a plain resample would do immediately. The blend is weighted rather than a straight balance: the harmony is added at half the level the control suggests, so a setting of fifty percent contributes a quarter of the mix from the copy, which is why a harmony sits under the original rather than competing with it. That choice is deliberate, since a harmony at equal level with the melody does not read as support but as a second lead. The character of the harmony depends almost entirely on the interval chosen. A third above works with the melody's own key rather than against it only because a third is close enough to fit most diatonic progressions; a fifth is more strident and more obviously an interval; an octave is the safest of all because it adds no new harmony at all, only a higher or lower copy that thickens the line without harmonising it. The minus five semitones option is a fourth below, which sits in the same register as a bass and is often the most useful of the two downward choices.\n\nWhat it does not do:\n\n- Fixed intervals only, with no chord tracking.\n- No scale awareness, so an interval that fits one chord may clash on another.\n- No independent level or tone control for the harmony voice.\n- Polyphonic material is shifted as a whole rather than analysed as separate voices.\n- Large shifts can sound smeared on transient-rich material.\n- Output is sixteen bit WAV.\n\nUse it to thicken a single vocal line, to create a stacked guitar part from one take, or to add an octave doubling under a bass. When the material needs the harmony to follow the chords, that would require polyphonic pitch detection and is not something this tool attempts; the chord progression builder is the place to work out which notes belong together in a key. When the pitch itself should be corrected rather than doubled, the pitch correction does that instead.",
+    "howTo": [
+      "Drop an audio file onto the panel.",
+      "Choose the interval, starting with a third or a fifth above for a melody.",
+      "Set the harmony level, which defaults to a supporting blend.",
+      "Process the file and download the harmonised WAV, which is the same length as the source."
+    ],
+    "whenToUse": "Harmonizer is the tool for adding a parallel part at a fixed interval, which is how a single take becomes a stack. {{pitch-correction|Pitch Correction}} corrects the original rather than adding to it, and {{auto-tune-effect|Auto-Tune Effect}} snaps the existing pitch to a scale. When two different performances rather than two copies should sound at once, {{audio-merger|Audio Merger}} layers separate files.",
+    "faqs": [
+      {
+        "q": "Why do I need a key if the intervals are fixed?",
+        "a": "You do not need one for the tool to run, but you need to know the song's key to choose an interval that fits. A major third above the melody is consonant over some chords and clashes over others, and no fixed interval is right everywhere. That is the honest limitation of a parallel harmoniser."
+      },
+      {
+        "q": "Why is the harmony quieter than the level suggests?",
+        "a": "Because the copy is added at half the weight the control implies, so a setting of fifty percent contributes about a quarter of the mix. That keeps the harmony underneath the melody, which is how a supporting part is supposed to sit rather than competing with the lead."
+      },
+      {
+        "q": "Why does the duration stay the same?",
+        "a": "Because the shifted copy is stretched back to its original length after being resampled. A plain pitch shift would shorten or lengthen the copy with the pitch, and the harmony would drift out of time with the melody within seconds."
+      },
+      {
+        "q": "Which interval is the safest?",
+        "a": "An octave. It adds no new harmony at all, since every note is still a note of the same pitch class, so there is nothing to clash with the progression; what it adds is weight and brightness. A third is the most useful interval that actually harmonises, but it needs the key to be right."
+      },
+      {
+        "q": "Can I harmonise only part of the file?",
+        "a": "The whole file is processed in one pass. To harmonise a section, keep that section with the trimmer, harmonise it, and join it back into place with the joiner, which is the usual way to apply any of these effects to part of a recording."
+      }
+    ]
+  },
+  {
+    "slug": "auto-tune-effect",
+    "keywords": ["phase vocoder", "scale", "retune", "snap"],
+    "intro": "Auto-Tune Effect pulls every voiced frame of a recording onto a chosen scale, as hard as the strength allows. At full strength it is the obvious, mechanical pitch snap rather than a subtle correction.",
+    "content": "Choose a file, pick a key and a scale, set the retune strength, and process; the report gives the scale, the strength, and how many voiced frames were moved and by how much.\n\nThe controls and the readout:\n\n- A key selector covering all twelve pitch classes, defaulting to A.\n- A scale selector with three options: chromatic, major and natural minor.\n- A retune strength from nothing to everything, defaulting to full.\n- A report giving the key and scale, the strength, the number of snapped frames against the voiced total, and the median distance the pitch was moved in cents.\n\nThe engine is a continuous whole-file phase vocoder driven by a smoothed per-frame rate map, and the scale selection is what gives it its character. In chromatic mode every frame is pulled to the nearest semitone, which is a pure correction; in major or natural minor mode the targets are restricted to the notes of that scale in that key, so a note that is close to a semitone outside the scale is moved further to reach a degree that belongs. That is why choosing a scale changes the sound so much: the same performance corrected to a scale can be pulled several semitones on the notes that do not belong, which is heard as the melody being bent rather than merely tuned. The strength control then decides how completely each frame reaches its target. At full strength every frame lands exactly on a scale note and any natural movement is flattened, so a vibrato becomes a staircase and the result reads as machine-made; at sixty to eighty percent each frame moves most of the way, which is the balance that has become familiar from its use on vocals. Two behaviours are worth knowing about. Frames in which no pitch is measurable pass through untouched, so breaths and consonants keep their natural sound and the effect is confined to the pitched parts of the signal. And the median movement figure in the report is the honest summary of how much work was done: on a well-sung performance it will be small, while a setting that produces a large median means the material was being dragged a long way rather than being corrected.\n\nWhat it does not do:\n\n- No chord tracking, so the scale is fixed for the whole file.\n- Three scales only, and no custom note sets.\n- No per-note editing or automation of the strength over time.\n- Polyphonic material is treated as one pitch rather than as separate voices.\n- Unvoiced frames are passed through rather than processed.\n- Output is sixteen bit WAV.\n\nUse it when the effect itself is wanted, which is how it has been used on vocals for years: a hard snap at full strength for a deliberately synthetic sound, or a gentler setting to tighten a performance that already sits close to the scale. When the aim is to improve a recording without leaving a trace, the pitch correction uses the same engine at cleanup settings, and when a copy of the voice should be shifted to a harmony rather than the voice itself moved, the harmonizer is the tool for that.",
+    "howTo": [
+      "Drop an audio file onto the panel and let it decode.",
+      "Choose the key the material is in and the scale it should be corrected to.",
+      "Set the strength, using a lower figure for a less obvious result.",
+      "Process the file and check the median movement figure in the report."
+    ],
+    "whenToUse": "Auto-Tune Effect is the tool when the pitch snap is meant to be heard, which is what separates it from its gentler sibling. {{pitch-correction|Pitch Correction}} uses the same engine at cleanup settings and with chromatic targeting only, and {{harmonizer|Harmonizer}} adds a shifted copy instead of moving the original. When the question is what notes belong in the chosen key, {{scale-generator|Scale Generator}} and {{chord-progression-builder|Chord Progression Builder}} answer it.",
+    "faqs": [
+      {
+        "q": "What does the scale selection actually change?",
+        "a": "Which notes are valid targets. Chromatic mode pulls each frame to the nearest semitone, while major or natural minor restricts the targets to the notes of that scale in that key, so a note near a semitone outside the scale is moved further to reach one that belongs. That is why scale mode sounds so much more dramatic."
+      },
+      {
+        "q": "Why does full strength sound mechanical?",
+        "a": "Because every frame lands exactly on its target, so any natural pitch movement is flattened into steps. A singer's vibrato and expressive slides are part of the performance, and replacing them with a staircase of exact semitones is heard immediately as machine-made."
+      },
+      {
+        "q": "What does the median movement figure tell me?",
+        "a": "How far the pitch was moved in the typical case, measured in cents. A small figure means the material was already close to the target scale and the effect did little; a large one means the notes were being dragged a long way, which usually sounds obvious and is worth reconsidering."
+      },
+      {
+        "q": "Will it affect consonants?",
+        "a": "No, frames without a measurable pitch pass through untouched, so breaths and consonants keep their natural character. The effect is confined to the pitched parts of the signal, which is what keeps a heavily corrected vocal from sounding as though every sound had been processed."
+      },
+      {
+        "q": "What sort of material works best?",
+        "a": "A single voice with a clear melody. The engine tracks one pitch at a time, so a chord or a dense mix has to be treated as a single moving pitch, which produces unpredictable results. For a polyphonic source, correcting individual parts before mixing is the more reliable route."
+      }
+    ]
+  },
+  {
+    "slug": "radio-effect",
+    "keywords": ["highpass", "lowpass", "drive", "voicing"],
+    "intro": "Radio Effect narrows a recording to the frequency range a broadcast receiver passes and adds the saturation that comes with it. Two voicings cover the AM and FM characters, with a tone control over the midrange.",
+    "content": "Drop a file, choose a voicing, set the tone tilt, and process; the chain applies a high pass, a midrange boost, a steep low pass and a drive stage in that fixed order.\n\nThe controls and the chain:\n\n- A voicing choice between an AM patch and an FM patch.\n- A tone control from six decibels down to six up, which tilts the midrange of the peaking stage.\n- The AM patch uses a highpass at two hundred and fifty hertz, a lowpass at three thousand two hundred, a midrange peak at fifteen hundred boosted ten decibels, a drive of three and a half and a make-up of minus six decibels.\n- The FM patch uses a highpass at eighty hertz, a lowpass at eleven thousand, a midrange peak at twenty five hundred boosted three decibels, a drive of one and two tenths and a make-up of minus three.\n\nThe chain is the effect, and the order matters. The high pass removes the low end that a receiver could not reproduce, which is what gives the sound its thin, small-speaker quality and is a larger part of the character than the low pass is. The peaking stage then lifts the midrange, where a small speaker is most efficient, which is the nasal quality that listeners associate with radio. The low pass is the other edge of the band, and it is applied as two cascaded stages rather than one, giving a slope steep enough that the cut sounds like a sharp band edge rather than a gentle roll-off. The measured result is that content an octave above the corner sits about eighteen decibels down, which is what makes the band sound closed rather than merely dark. The drive stage at the end applies a smooth saturation, which adds harmonics of the material that survived the filtering and mimics the way an overdriven transmitter or a small speaker behaves. The two patches differ mostly in bandwidth: the AM setting is narrow enough to sound obviously like an old receiver, while the FM setting keeps more than three times the upper bandwidth, so it reads as a clean broadcast rather than a crackling one. The make-up gains compensate for the energy the filtering removed, so both patches come out at a similar level to the input.\n\nWhere it is limited:\n\n- No static, crackle or interference is added.\n- No mono collapse, which a real AM receiver would impose.\n- The two voicings have fixed corners, with only the tone tilt adjustable.\n- No carrier noise or tuning artefacts.\n- Nothing about the sound before the filtering is preserved.\n- Output is sixteen bit WAV.\n\nUse it to place a voice inside a radio broadcast, to give a part a lo-fi mid-forward colour, or to make a mix sound as though it is coming through a small speaker. When the target is the narrower band of a telephone line rather than a broadcast receiver, the telephone effect covers three to three and a half kilohertz, and when the aim is to degrade resolution rather than bandwidth, the bitcrusher produces that kind of artefact instead.",
+    "howTo": [
+      "Drop an audio file onto the panel.",
+      "Choose the AM voicing for an old receiver or the FM one for a cleaner broadcast.",
+      "Adjust the tone tilt if the midrange wants to be brighter or warmer.",
+      "Process the file and download the radio voiced WAV."
+    ],
+    "whenToUse": "Radio Effect is the tool for the voice of a broadcast receiver, which is narrower and more saturated than most other lo-fi treatments. {{telephone-effect|Telephone Effect}} applies the narrower band of a phone line instead, and {{old-tape-effect|Old Tape Effect}} imitates a recording medium rather than a transmission. When the target is resolution rather than bandwidth, {{bitcrusher-effect|Bitcrusher Effect}} degrades the level quantisation instead.",
+    "faqs": [
+      {
+        "q": "Which part of the chain does most of the work?",
+        "a": "The high pass. Losing the low end is what gives the sound its small-speaker quality, and it is usually more recognisable than the loss of high frequencies. The midrange boost and the steep low pass complete the impression, but the thinness comes first."
+      },
+      {
+        "q": "Why is the low pass applied twice?",
+        "a": "Because a single stage gives a gentle roll-off that sounds like a tone control, whereas two cascaded stages produce a slope steep enough to sound like a band edge. The measured figure is about eighteen decibels down an octave above the corner, which is what makes the band sound closed."
+      },
+      {
+        "q": "What is the drive stage for?",
+        "a": "It adds harmonics of the surviving signal, which is how an overdriven transmitter or a small speaker behaves. Without it the result would be a filtered signal, which reads as equalisation; with it the effect sounds like a device rather than like a setting."
+      },
+      {
+        "q": "Why does the effect not include static?",
+        "a": "Because the target is the voicing of a receiver rather than its faults. Adding crackle and interference would be a different effect, and if a noisy transmission is what is wanted, the vinyl record effect supplies surface noise and crackle of exactly that kind."
+      },
+      {
+        "q": "Do the two voicings sound very different?",
+        "a": "Mostly in bandwidth. The AM setting stops at three thousand two hundred hertz, which is obviously narrow, while the FM setting keeps most of the audible range and reads as a clean broadcast. The midrange boost and drive figures differ too, but the bandwidth is the dominant difference."
+      }
+    ]
+  },
+  {
+    "slug": "telephone-effect",
+    "keywords": ["band-pass", "biquads", "makeup gain", "24 dB/oct"],
+    "intro": "Telephone Effect restricts a recording to the frequencies a phone line carries and lifts the result back to a usable level. Three presets cover the classic landline band and two variations around it.",
+    "content": "Drop a file, choose a line character, and process; everything outside the chosen band is rolled off steeply and a fixed make-up gain restores the level.\n\nThe presets and the chain:\n\n- A classic landline setting covering three hundred to three thousand four hundred hertz with six decibels of make-up, which is the band a traditional switched telephone network passes.\n- A vintage narrow setting from four hundred to two thousand eight hundred with seven decibels of make-up, which is the older and more obviously restricted character.\n- A wide cordless setting from two hundred and fifty to three thousand eight hundred with five decibels of make-up, which is closer to a modern handset.\n- Each corner is built from two cascaded second-order sections, giving a fourth-order response and a slope of about 24 dB/oct.\n\nBuilding each edge from two cascaded biquads rather than one is what produces a band-pass with real band edges. A single second-order section rolls off at twelve decibels per octave, which is shallow enough that content well outside the band still contributes audibly; cascading two gives twenty-four decibels per octave, and the difference is measurable. At the defaults the response runs about a third of full level at two hundred hertz, nearly double at a kilohertz, above unity at three kilohertz and about a sixth at six kilohertz, so the shape is a genuine band with a broad hump in the middle rather than a gentle tilt. The makeup gain exists because the filtering removes a substantial part of the signal's energy — everything above three and a half kilohertz and below three hundred hertz is gone, and on most material that is a large fraction of the total — so without the lift the result would be noticeably quiet and would sound like a fault rather than an effect. The three presets exist because there is no single phone sound: a traditional landline band is narrower than most people expect, an older exchange is narrower again, and a cordless handset passes noticeably more at both ends. Choosing between them is a matter of which era of phone call the material should sound like.\n\nWhat it does not do:\n\n- No distortion, crackle or line noise is added.\n- No band compression or level pumping, which a real codec would impose.\n- No adjustable corners, since the three presets are fixed.\n- Nothing outside the band is preserved.\n- No mono collapse, which a handset would limit anyway.\n- Output is sixteen bit WAV.\n\nUse it for dialogue that should sound as though it is coming down a phone line: a voice on the other end of a call, an announcement over a handset, or a part that needs to sit in the background of a scene. When the target is a broadcast receiver rather than a phone, the radio effect passes a wider band with saturation, and when the intention is a narrower and more obviously band-limited world, the underwater effect removes everything above six hundred hertz in one move.",
+    "howTo": [
+      "Drop an audio file onto the panel.",
+      "Choose the line character that matches the era of call you want.",
+      "Process the file, which applies the band-pass and the make-up gain together.",
+      "Download the WAV and check the level against the original."
+    ],
+    "whenToUse": "Telephone Effect is the tool for the phone-line band, which is narrower and cleaner than a radio voicing. {{radio-effect|Radio Effect}} passes a wider band and adds saturation instead. When the filtering is meant to be extreme rather than narrow, {{underwater-effect|Underwater Effect}} cuts almost everything above the midrange, and {{equalizer|Equalizer}} is the place to shape a band without imitating a device.",
+    "faqs": [
+      {
+        "q": "Why is the band-pass built from two sections per edge?",
+        "a": "Because one second-order section rolls off at twelve decibels per octave, which is shallow enough that content well outside the band still gets through. Cascading two gives twenty-four decibels per octave, which is what makes the result sound like a band rather than a tone control."
+      },
+      {
+        "q": "Why is there a make-up gain at all?",
+        "a": "Because the filter removes a large part of the signal's energy, so without a lift the output would be noticeably quieter and would sound like an error rather than an effect. Each preset carries its own figure, larger for the narrower bands, because they remove more."
+      },
+      {
+        "q": "Why three presets rather than one?",
+        "a": "Because there is no single telephone sound. A traditional landline band is narrower than most people expect, an older exchange is narrower still, and a cordless handset passes more at both ends. The presets let the material sound like the era of call it should belong to."
+      },
+      {
+        "q": "Does it add any line noise?",
+        "a": "No, it is a band-pass with gain and nothing else. That keeps it useful for dialogue, where added noise would draw attention to the effect. If crackle is wanted as well, the vinyl record effect adds exactly that kind of surface noise."
+      },
+      {
+        "q": "Can I use it to make dialogue sit behind a scene?",
+        "a": "That is one of its best uses, since the narrowing makes a voice sound as though it is arriving from elsewhere rather than from the room the listener is in. The make-up gain allows the level to be set where the scene needs it rather than where the filtering leaves it."
+      }
+    ]
+  },
+  {
+    "slug": "underwater-effect",
+    "keywords": ["low-pass", "tremolo", "muffled", "swell"],
+    "intro": "Underwater Effect buries a recording by removing everything above six hundred hertz and adding a slow amplitude swell. Two cascaded filters and one slow tremolo make the whole effect.",
+    "content": "Drop a file, set the swell depth, and apply; the low pass stays at six hundred hertz and the tremolo at 1.2 Hz.\n\nWhat the chain does:\n\n- Two cascaded second-order low-pass stages at six hundred hertz, each with a Q of 0.707, which together roll off at about twenty-four decibels per octave.\n- A tremolo at 1.2 Hz, one swell every eight tenths of a second, slow enough to read as moving water rather than as vibrato.\n- A depth control from nothing to eighty percent that sets how far the level dips between peaks, defaulting to thirty five.\n- The measured result: at four kilohertz the residual is about a ten-thousandth of the original level, while two hundred hertz still comes through at roughly a quarter of its own.\n\nCascading two filters rather than using one is what makes the effect convincing. A single second-order section rolls off at twelve decibels per octave, which leaves a good deal of upper midrange audible, so the result sounds like a tone control turned down rather than like a listener under the surface. Doubling the section doubles the slope, and the difference is measurable: content two octaves above the corner is essentially gone, which is what strips the sibilance and the attack from a voice and leaves only its body behind. The choice of corner matters as much as the slope. Six hundred hertz sits below the range where consonants live but above the fundamental of most speech, so words keep their rhythm and pitch while their intelligibility collapses, which is exactly the impression of hearing someone through water. The tremolo supplies the other half of the cue, and it is deliberately slow: a rate of one and a fifth cycles per second sits in the range of a swell rather than of a vibrato, so the ear reads the level movement as distance instead of as modulation. The depth control governs how far each swell dips below its peak, and at the default the envelope falls to about two thirds of full level, which is audible as movement without making the recording pump.\n\nWhere the model stops:\n\n- The corner frequency is fixed, so the darkness cannot be dialled in.\n- Nothing above the corner is recovered, so the removed detail is gone for good.\n- No resonance, delay or tail, which is what separates it from a reverb.\n- Each channel is filtered on its own, so a stereo file keeps its image and simply sounds distant.\n- The tremolo rate is fixed at 1.2 Hz.\n- Output is sixteen bit WAV.\n\nUse it for a voice heard from beneath water, for a submerged version of a scene, or for any part that should sound muffled and far away without losing its rhythm. When the band should be narrow but clear rather than dark and moving, the telephone effect keeps speech intelligible within a phone line's range, and when the aim is a broadcast receiver's colour rather than the surface of a pool, the radio effect is the closer match. When the distance should come from a room rather than from water, the reverb simulator and the hallway room simulator supply it instead.",
+    "howTo": [
+      "Drop an audio file onto the panel and let it decode.",
+      "Set the tremolo depth, keeping it near the default for a natural swell.",
+      "Apply the effect, which low passes at six hundred hertz and then modulates the level.",
+      "Download the WAV and check that speech is still paced the way it was."
+    ],
+    "whenToUse": "Underwater Effect is the tool when a recording should sound submerged, which means losing its top end while keeping its movement. {{telephone-effect|Telephone Effect}} narrows the band to a phone line but leaves the sound dry and clear, and {{radio-effect|Radio Effect}} adds a broadcast receiver's saturation. When the loss of clarity should come from a space rather than from water, {{reverb-simulator|Reverb Simulator}} and {{hallway-room-simulator|Hallway Room Simulator}} place the sound in a room instead.",
+    "faqs": [
+      {
+        "q": "What does running the filter twice actually buy?",
+        "a": "A steeper slope. One section removes twelve decibels per octave above the corner, which leaves enough upper midrange that the result sounds like a tone control; two sections double it to about twenty-four, which is what makes the top end disappear rather than merely fade."
+      },
+      {
+        "q": "Why six hundred hertz?",
+        "a": "Because that is below the range where consonants carry their identity but above the fundamental of most speech. The result is that a voice keeps its rhythm and its pitch while losing the detail that makes words easy to follow, which is the impression of listening through water rather than of listening through a filter."
+      },
+      {
+        "q": "Can the tremolo be slowed down further?",
+        "a": "The rate is fixed at 1.2 Hz, which is a little over one cycle per second. Faster rates would read as vibrato and turn the effect into a modulation rather than a swell, so the single rate keeps the intent unambiguous."
+      },
+      {
+        "q": "Does it add any reverb or tail?",
+        "a": "No, it is a filter followed by a tremolo and nothing else. That is deliberate: a tail would suggest a room, and the point here is a medium rather than a space. If a sense of distance is wanted as well, adding a reverb afterwards is the usual approach."
+      },
+      {
+        "q": "Will a stereo file lose its stereo image?",
+        "a": "No. Each channel is processed on its own with the same settings, so the two sides stay different and the image is preserved; the whole recording simply sounds as though it has been heard through water, with both sides affected equally."
+      }
+    ]
+  },
+  {
+    "slug": "hallway-room-simulator",
+    "keywords": ["early reflections", "room size", "taps", "stairwell"],
+    "intro": "Hallway Room Simulator adds the first echoes a room makes and nothing after them. Discrete reflections are the cue the ear uses to judge how big a space is, so the sound gains a location without gaining a tail.",
+    "content": "Choose one of four spaces, set the reflection level, drop a file, and place it; the early reflections are convolved into the recording and mixed with the dry signal.\n\nThe four spaces and the control:\n\n- Hallway: taps at nine, thirteen, nineteen and twenty six milliseconds with a short eighty millisecond tail, described as narrow hard walls and dense fast taps.\n- Living room: taps at twelve, twenty one and thirty one milliseconds with a hundred and twenty millisecond tail, soft and sparse because furniture absorbs.\n- Stairwell: taps at eight, fourteen, twenty two, thirty three and forty seven milliseconds with a hundred and eighty millisecond tail, loud and ringing because concrete reflects.\n- Warehouse: taps at twenty five, forty eight, seventy four and a hundred and three milliseconds with a two hundred and fifty millisecond tail, big, bright and sparse.\n- A reflection level from thirty decibels down to nothing, defaulting to nine decibels down, which is the wet gain.\n\nThe taps are laid out by hand for each space, which is why the four sound different rather than like four settings of the same thing. The gaps between the first reflections are what the ear translates into room size: a hallway's nine millisecond first tap says the walls are close, while a warehouse's twenty five millisecond first tap and its hundred and three millisecond last one say the far surface is metres away. The gains fall across the pattern too, since each successive reflection has travelled further and lost more energy. The tail that follows the taps is short by design, between eighty and two hundred and fifty milliseconds, and it exists only to give the reflections something to sit in rather than to be heard as reverberation. That is what makes this tool different from its convolution sibling: a full reverb rings for seconds and smears detail, whereas the reflections here end within a tenth of a second in most cases, so dialogue stays crisp and simply sounds as though it happened somewhere. The mixing is additive, with the wet signal scaled by the reflection level and added to the unchanged dry signal, and the output is deliberately the same length as the input so that the reverb tail cannot run past the end of the file.\n\nWhat it is not:\n\n- No long reverb tail, so it cannot imitate a large space sustaining a sound.\n- The four spaces have fixed reflection patterns, with no control of individual taps.\n- No pre-delay, damping or diffusion controls.\n- The reflection level only scales the whole pattern rather than reshaping it.\n- Nothing models where a source sits inside the space.\n- Output is sixteen bit WAV.\n\nUse it for dialogue and voice-over that should sound placed in a room, which is the job early reflections do best, and for any mix that needs a sense of location without the wetness a reverb adds. When a longer, more obviously reverberant space is wanted, the convolution reverb supplies actual room responses, and the reverb simulator gives dialable decay and damping. When the space should instead come from a stereo pair rather than from reflections, the stereo widener works on the image directly.",
+    "howTo": [
+      "Drop an audio file onto the panel and let it decode.",
+      "Choose one of the four spaces by how large and how hard it should sound.",
+      "Set the reflection level, leaving it well below the dry signal for a natural placement.",
+      "Place the sound in the room and download the WAV, which is the same length as the source."
+    ],
+    "whenToUse": "Hallway Room Simulator is the tool when a recording needs a location rather than a wash of reverb, which is exactly what early reflections provide. {{convolution-reverb|Convolution Reverb}} puts the same recording in a space with a long tail, and {{reverb-simulator|Reverb Simulator}} offers adjustable decay when the tail itself is the point. When the sense of space should come from the stereo image rather than from echoes, {{stereo-widener|Stereo Widener}} is the closer tool.",
+    "faqs": [
+      {
+        "q": "Why do the spaces not have long tails?",
+        "a": "Because the cue that tells a listener how big a room is comes from the first reflections, not from the decay. Keeping the tail under a quarter of a second in every space means dialogue stays intelligible while still sounding as though it happened somewhere, which a full reverb would not allow."
+      },
+      {
+        "q": "How were the reflection patterns chosen?",
+        "a": "They were laid out by hand for each space, with tap times and gains that match the physical description: a hallway has close walls, a living room has soft surfaces that absorb, a stairwell has hard concrete, and a warehouse has far walls with a long distance between them."
+      },
+      {
+        "q": "Why is the output the same length as the input?",
+        "a": "So that the short tail cannot run past the end of the file and leave silence after it. The reflections in these spaces are all under a tenth of a second in most cases, so the truncation removes nothing audible while keeping the file's length predictable."
+      },
+      {
+        "q": "Is the effect mono or stereo?",
+        "a": "Each input channel is convolved with the same impulse response, so a stereo file stays stereo and a mono file stays mono. There is no attempt to build a stereo pair from a mono source, which is why the reflections land in the same place on both sides."
+      },
+      {
+        "q": "How much reflection should I use?",
+        "a": "The default of nine decibels down is a good starting point for dialogue, since the reflections should be felt rather than noticed. Raising the level makes the placement obvious and, on a close-miked voice, can start to sound like a slap rather than like a room."
+      }
+    ]
+  },
+  {
+    "slug": "old-tape-effect",
+    "keywords": ["wow", "flutter", "saturation", "HF roll-off"],
+    "intro": "Old Tape Effect imitates a tape machine in three ways at once: the slow pitch drift called wow, the fast wobble called flutter, and the soft saturation and high-frequency loss of the medium itself.",
+    "content": "Choose one of three tape machines and apply; the copy is given a slow speed drift, a faster one, a drive stage and a high-frequency roll-off, in that order.\n\nThe three machines:\n\n- A ropy cassette: wow at 1.1 Hz with an eight millisecond swing, flutter at twelve hertz with one and two tenths of a millisecond, nine decibels of drive and a roll-off at five and a half kilohertz.\n- A worn cassette, which is the default: wow at seven tenths of a hertz with a four millisecond swing, flutter at ten hertz with seven tenths of a millisecond, six decibels of drive and a roll-off at eight kilohertz.\n- A studio reel in good condition: wow at three tenths of a hertz with one and a half milliseconds, flutter at nine hertz with three tenths, three decibels of drive and a roll-off at eleven kilohertz.\n\nThe three mechanisms fail in different ways, which is why the effect needs all of them. Wow is a slow speed variation, on the order of a cycle per second, caused by an eccentric reel or a warped cassette shell; it is heard as a gentle pitch drift that follows the rotation, and at the deepest setting here it moves a four hundred and forty hertz tone by about a hundred and thirty three hertz either way. Flutter is the same fault at a much faster rate, between nine and twelve cycles per second, caused by the capstan or by the tape's contact with the heads; because it is faster it reads as a rough, watery quality rather than as a drift in pitch. The two together are what make a tape recording sound unsteady, and the ratio between them is what distinguishes the machines: a ropy cassette has both a large slow swing and a strong fast wobble, while a well-kept studio reel has almost neither. Saturation is the third part and comes from the tape itself rather than from the transport. The drive stage applies a level-dependent gain that clips asymmetrically, which produces mostly even harmonics and grows as the signal gets louder, so quiet passages stay clean while loud ones thicken. The HF roll-off stands in for the loss of high frequencies that the medium imposes, and its figures tell the same story as the wobble, from five and a half kilohertz for a tired cassette up to eleven kilohertz for a studio machine.\n\nWhat it leaves out:\n\n- No hiss or noise floor is added.\n- No dropouts, print-through or dropout fades.\n- No azimuth loss or channel crosstalk.\n- The presets are fixed, with no separate control of wow, flutter, drive or tone.\n- The pitch drift is periodic rather than random, since it follows two sine rates.\n- Output is sixteen bit WAV.\n\nUse it when a recording should sound as though it came off a tape rather than out of a file: a lo-fi master, a haunted version of a mix, or a part that needs to sit back with the smoothness tape gives it. When the tape should also be worn and dusty rather than merely unsteady, the vinyl record effect adds crackle and surface noise, and when the medium should be a broadcast transmission rather than a magnetic one, the radio effect applies that band instead.",
+    "howTo": [
+      "Drop an audio file onto the panel and let it decode.",
+      "Choose the tape machine whose condition matches the era you want.",
+      "Apply the effect, which drifts the pitch, saturates the signal and rolls off the top.",
+      "Download the WAV, then compare against the original to hear how much steadiness was lost."
+    ],
+    "whenToUse": "Old Tape Effect is the tool for the combined unsteadiness and softness of a tape machine, which no single modulation does on its own. {{vinyl-record-effect|Vinyl Record Effect}} supplies the crackle and surface noise of a record instead, and {{radio-effect|Radio Effect}} reproduces a broadcast band with its own saturation. When the pitch movement should be a musical modulation rather than a fault, {{vibrato-effect|Vibrato Effect}} and {{chorus-effect|Chorus Effect}} are built for that.",
+    "faqs": [
+      {
+        "q": "What is the difference between wow and flutter?",
+        "a": "Rate. Wow is a slow speed variation around one cycle per second, heard as a drifting pitch, and comes from an eccentric reel or a warped shell. Flutter is the same fault at nine to twelve cycles per second, caused by the capstan, and reads as a rough watery quality rather than as a pitch that drifts."
+      },
+      {
+        "q": "How much does the pitch move?",
+        "a": "At the deepest setting the drift moves a four hundred and forty hertz tone by roughly a hundred and thirty three hertz either way. That is measured on a steady carrier, so on music the effect is spread across the material and heard as a general instability rather than as a single wobbling note."
+      },
+      {
+        "q": "Why does the saturation add even harmonics?",
+        "a": "Because the clipping stage is asymmetric, so the waveform's positive and negative halves are treated differently. Symmetric clipping produces odd harmonics, which sound hard and square; an asymmetric characteristic produces the even ones, which is what gives tape its warmer, rounder character."
+      },
+      {
+        "q": "Does it add tape hiss?",
+        "a": "No. The effect covers the transport and the medium's tone but not its noise, which keeps it usable on quiet material without burying it. If a noise floor is wanted, the vinyl record effect supplies a surface noise that can be set to a specific decibel level."
+      },
+      {
+        "q": "Can I set the wow and flutter separately?",
+        "a": "No, each preset fixes the four figures together, because that is how real machines behave: a transport with heavy wow also tends to have strong flutter. Choosing the machine condition is therefore the control, rather than dialling each fault on its own."
+      }
+    ]
+  },
+  {
+    "slug": "vinyl-record-effect",
+    "keywords": ["crackle", "surface noise", "rumble", "warmth"],
+    "intro": "Vinyl Record Effect adds the two sounds a record makes and the tone that comes with them: dust pops at a chosen rate, a low rumble of surface noise, and a gentle roll-off at the very bottom.",
+    "content": "Set the crackle density and the surface noise floor, drop a file, and vinylize; both are generated deterministically, so the same settings always produce the same result.\n\nThe controls:\n\n- A crackle density from nothing to fifteen pops per second, defaulting to three. Two to five is a well-kept record and ten or more is the estate-sale copy.\n- A surface noise floor from sixty decibels down to thirty, defaulting to forty two, which is the quiet rumble between tracks.\n- A gentle high pass at forty hertz applied to the source before the noise is added, which is the warmth setting.\n- The number of crackles is fixed for the whole file from its duration and the rate, so a longer file gets proportionally more pops rather than a different density.\n\nBoth noises are built rather than sampled, and each is constructed with care. The surface noise is white noise passed through a single-pole low pass, which tilts its spectrum downward so it sounds like the rumble a stylus picks up rather than like hiss, and its level is calibrated so that the noise floor in the output matches the decibel figure you chose rather than an arbitrary internal level. The crackles are impulses placed at random positions and given an exponential decay about twelve samples long, which is short enough that each pop reads as a tick and long enough that it has a body; the number of them follows the rate you set, so the density is what you control rather than the count. Two details make the result repeatable and stable. The random numbers come from a fixed seed, so pressing vinylize twice produces the same file rather than a different one, which matters when a mix is being tweaked and should not change underneath you. And every crackle and its decay is computed into a plain buffer before being mixed, rather than being written back into the schedule, which is what keeps overlapping pops from compounding into runaway levels. The high pass before the noise is the warmth control in disguise: removing the very bottom keeps the low end from becoming muddy once the rumble is added, and it is what makes the result sound like vinyl rather than like a noisy file. A stereo recording keeps its channels, so the two sides are treated apart and the image survives.\n\nWhat it does not do:\n\n- No wow or flutter, which is a tape fault rather than a record's.\n- No end-of-side distortion or inner-groove losses.\n- No fixed-filter tone shaping beyond the forty hertz high pass.\n- The seed is fixed, so the pattern cannot be varied between renders.\n- Nothing reproduces a particular pressing or a particular stylus.\n- Output is sixteen bit WAV.\n\nUse it when a recording should sound like a record rather than a file: a loop that needs a dustier character, a mix that should feel like a physical medium, or a quiet passage that needs the floor a turntable provides. When the medium should also be unsteady in pitch, the old tape effect adds wow, flutter and saturation, and when the aim is a deliberately narrow transmission, the telephone effect filters the band instead of adding noise.",
+    "howTo": [
+      "Drop an audio file onto the panel and let it decode.",
+      "Set the crackle density, judging it by how well the record would have been kept.",
+      "Set the surface noise floor, keeping it low enough that quiet passages still read.",
+      "Vinylize the file and download the WAV, which is the same length as the source."
+    ],
+    "whenToUse": "Vinyl Record Effect is the tool when a recording needs the noise and the warmth of a physical record rather than the instability of tape. {{old-tape-effect|Old Tape Effect}} supplies wow, flutter and saturation instead, and {{radio-effect|Radio Effect}} narrows the band for a transmission. When the intent is to clean noise out rather than put it in, {{noise-reducer|Noise Reducer}} works the other way, and {{equalizer|Equalizer}} is the place to shape the tone without adding anything.",
+    "faqs": [
+      {
+        "q": "Will I get the same file every time?",
+        "a": "Yes. The random numbers come from a fixed seed, so the crackle positions and their amplitudes are identical on every render. That matters when a mix is being adjusted, since the noise should not shift underneath the other changes."
+      },
+      {
+        "q": "Is the noise sampled from a real record?",
+        "a": "No, it is generated. The surface noise is filtered white noise and the crackles are placed impulses with an exponential decay. That keeps the level measurable and the result adjustable, at the cost of not being a specific pressing."
+      },
+      {
+        "q": "Why is a high pass applied before the noise?",
+        "a": "Because the rumble adds energy at the very bottom, and leaving the original low end in place would make the result muddy rather than warm. Removing everything below forty hertz first is what lets the surface noise sit as texture instead of as a lump of bass."
+      },
+      {
+        "q": "Does it add wow and flutter as well?",
+        "a": "No, and that is a deliberate separation. Speed instability belongs to tape, and a record's characteristic faults are the pops and the noise floor. Adding both would produce a sound that belongs to neither medium, so the tape effect is where the drift lives."
+      },
+      {
+        "q": "How dense should the crackle be?",
+        "a": "Two to five pops per second reads as a well-kept record, which is usually what a mix wants. Pushing it toward fifteen makes the noise the subject rather than the texture, and it also becomes hard to hear past on quiet material such as a spoken passage."
+      }
+    ]
+  },
+  {
+    "slug": "equalizer",
+    "keywords": ["shelves", "midrange", "biquad", "subtractive"],
+    "intro": "Equalizer is the classic three-band tone stack: a bass shelf, a midrange peak and a treble shelf, each with twelve decibels of movement in either direction and a fixed corner.",
+    "content": "Drop a file, move the three bands, and apply; the filters are chained in a fixed order and each one can move twelve decibels either way, with the default flat.\n\nThe three bands:\n\n- Bass, a low shelf turning over at two hundred hertz, so everything below that point moves together as a block.\n- Mid, a peaking filter centred on one kilohertz with a Q of seven tenths, which is broad enough to colour a range of frequencies rather than a single note.\n- Treble, a high shelf turning over at four kilohertz, which lifts or drops everything above it.\n- Each band runs from twelve decibels of cut to twelve decibels of boost in single decibel steps, and the report repeats the three figures with their corner frequencies. Each band is one biquad section.\n\nThe choice of filter shapes is what makes the layout behave like a mixing console rather than like a graphic display. Shelves are used at the two ends because that is how the ear hears the extremes: the useful question about the bottom is how much weight the whole low end has, and about the top how much air the recording has, and a shelf answers both with a single control rather than making you draw a shape. The middle band is a peak instead, because the midrange is where specific problems live — a boxy resonance, a nasal honk, a dull patch — and a peak with a moderate Q can lift or drop one region without disturbing the neighbouring bands. The Q of seven tenths is deliberately wide: a narrow peak is a surgical tool for removing a single frequency, while this control is meant to move the character of the middle, so it takes a broad slice of it. Because the three bands are chained in series rather than summed, moving one slightly affects the response where the next one acts, which is exactly how an analogue tone stack behaves and why the corners were chosen to overlap as little as possible. The measurements confirm the filters do what they claim: a full twelve decibel shelf boost lands within half a decibel through the passband, and the bands left at zero are left untouched rather than merely barely changed.\n\nWhere it is limited:\n\n- Three fixed bands, with no sweepable corners or additional bands.\n- No per-band bypass and no dynamic behaviour, so the response is the same at every level.\n- No spectrum display to see what is being changed.\n- No high-pass or low-pass filtering for removing the extremes outright.\n- No presets, so the settings are yours to choose.\n- Output is sixteen bit WAV.\n\nUse it as a general corrective and creative tone control: taking out a muddy middle, adding weight to a thin recording, or taking the edge off something bright. The panel's own advice is worth repeating, that cutting around one kilohertz by a couple of decibels usually sounds cleaner than boosting anything, because a subtractive move leaves the rest of the balance intact. When a single low end needs lifting by a controllable amount, the bass booster is a shelf with a movable corner, and when the problem is an unwanted frequency band rather than a tonal balance, the notch and high-pass shapes in the hum remover and the telephone effect are the right tools.",
+    "howTo": [
+      "Drop an audio file onto the panel and let it decode.",
+      "Start by cutting rather than boosting, usually a couple of decibels around one kilohertz.",
+      "Move the bass and treble shelves to set the overall balance.",
+      "Apply the EQ and compare against the original before exporting the WAV."
+    ],
+    "whenToUse": "Equalizer is the tool for shaping the overall balance of a recording with three broad controls. {{bass-booster|Bass Booster}} generalises the low band with a movable corner and a larger range, and {{hum-remover|Hum Remover}} takes out a specific interfering frequency instead of a region. When the tone change should imitate a device rather than correct a balance, {{radio-effect|Radio Effect}} and {{telephone-effect|Telephone Effect}} impose a band as part of their character. For the band that a hearing aid actually amplifies, {{hearing-aid-frequency-reference|Hearing Aid Frequency Reference}} is the reference to work from.",
+    "faqs": [
+      {
+        "q": "Why are shelves used at the ends and a peak in the middle?",
+        "a": "Because the useful question about the extremes is how much weight or air the recording has overall, which a shelf answers in one control, while the midrange holds specific problems that a broad peak can address without disturbing the bands on either side of it."
+      },
+      {
+        "q": "Why is the middle band so wide?",
+        "a": "A Q of seven tenths is deliberately broad. A narrow peak is a surgical tool for cutting one exact frequency, whereas this control is meant to change the character of the middle rather than to remove a single tone, so it takes a wide slice of the range."
+      },
+      {
+        "q": "Does moving one band affect the others?",
+        "a": "Slightly, because the three filters run in series rather than being summed. That is normal for an analogue-style tone stack rather than a fault, and the corner frequencies were placed far enough apart that each band's main effect stays in its own range."
+      },
+      {
+        "q": "Should I boost or cut?",
+        "a": "Cut where you can. Taking a couple of decibels out around a kilohertz removes muddiness without adding energy elsewhere, while boosting raises the level and can push the output toward clipping. The panel says the same thing: subtraction usually sounds cleaner than addition."
+      },
+      {
+        "q": "Can I remove the very low end entirely?",
+        "a": "Not with this tool, which has no high-pass filter; a twelve decibel cut at the bottom is available, but it is a shelf rather than a removal. The telephone effect, the underwater effect and the vinyl record effect all high pass their input, at different corner frequencies."
+      }
+    ]
+  },
+  {
+    "slug": "bass-booster",
+    "keywords": ["low shelf", "corner", "headroom", "clip"],
+    "intro": "Bass Booster lifts everything below a corner you choose with a single low shelf, then tells you honestly when the result has run out of headroom.",
+    "content": "Set the amount and the corner frequency, drop a file, and boost; the whole region below the corner comes up together and everything above it is left alone.\n\nThe two controls:\n\n- A boost from nothing to fifteen decibels, defaulting to six.\n- A corner from forty hertz to three hundred, defaulting to a hundred and twenty.\n- A measured peak figure for the output, which the report uses to warn when the result has reached full scale.\n\nA shelf rather than a peak is the right shape for this job, and the reason is in how the ear hears low frequencies. A peak at a single frequency would lift one note or one drum and leave its neighbours alone, which is heard as an unevenness rather than as more bass; a shelf lifts the whole band below the corner in one move, so the balance of the low end is preserved while its overall weight rises. The corner is therefore the musically important control. Setting it at forty hertz adds sub-bass that most speakers cannot reproduce and that eats headroom for nothing; setting it at three hundred hertz reaches up far enough to thicken the lower midrange and can make a mix sound bloated. A hundred and twenty hertz, the default, sits where the fundamental of a kick drum and the lower notes of a bass live, which is why it reads as more weight rather than as more mud. The mathematics of the shelf are the same ones used in the equalizer's low band, generalised so the corner can move. The one thing the tool does beyond filtering is measure the output's peak and say so. A low shelf adds energy to the loudest part of most material, since low frequencies usually carry the most power, so a large boost on an already loud file can push the samples past full scale. Rather than hiding that, the report states when the output has been limited to full scale and suggests reducing the boost or reaching for the peak limiter, which is the honest way to handle a gain change that can run out of room.\n\nWhere the model is limited:\n\n- One shelf only, with no cut and no separate frequency ranges.\n- No per-channel control, so a stereo file is boosted on both sides equally.\n- No dynamic behaviour, so the boost is the same at every level.\n- No analysis of the source, so the amount is chosen by ear.\n- The warning reports clipping after the fact rather than preventing it.\n- Output is sixteen bit WAV.\n\nUse it when a recording sounds light at the bottom: a mix from small speakers, a podcast recorded with a thin microphone, or a track that needs more weight for playback on a system with some low end. When the whole balance needs adjusting rather than just the bass, the equalizer provides three bands at once, and when the problem is that a mix is too loud, the peak limiter reduces the level rather than raising one band of it. When the low end is being lifted to be felt rather than heard, checking on headphones is worthwhile.",
+    "howTo": [
+      "Drop an audio file onto the panel and let it decode.",
+      "Set the boost, starting around the default rather than at the top of the range.",
+      "Set the corner, keeping it near a hundred and twenty hertz unless more weight or less mud is wanted.",
+      "Boost the bass, read the report for a clipping warning, and check the result on headphones."
+    ],
+    "whenToUse": "Bass Booster is the tool for adding weight at the bottom with one control and an honest headroom check. {{equalizer|Equalizer}} shapes three bands at once, and {{peak-limiter|Peak Limiter}} is the tool to reach for when the boost has used up the available level. When the low end needs a filter removed rather than lifted, {{hum-remover|Hum Remover}} and {{noise-reducer|Noise Reducer}} work in the other direction.",
+    "faqs": [
+      {
+        "q": "What does the corner frequency change?",
+        "a": "Which region is lifted. Everything below the corner moves together, so a low corner adds sub-bass that many speakers cannot reproduce, while a high one reaches into the lower midrange and can sound muddy. Around a hundred and twenty hertz is where a kick drum and a bass guitar's lower notes sit."
+      },
+      {
+        "q": "Why use a shelf rather than a peak?",
+        "a": "Because the point is to raise the weight of the whole low end rather than to lift a single frequency. A peak would raise one note and leave its neighbours untouched, which the ear hears as unevenness; a shelf preserves the balance within the band while making all of it louder."
+      },
+      {
+        "q": "What does the clipping warning mean?",
+        "a": "That the boosted signal has reached full scale, so some samples are limited rather than increased further. Low frequencies carry most of a recording's power, so a large boost often uses up the available headroom; the report states it plainly and suggests reducing the boost or using the peak limiter."
+      },
+      {
+        "q": "Why check the result on headphones?",
+        "a": "Because the region being lifted is often the one that small speakers cannot reproduce at all. On a laptop the boost may be entirely inaudible while the headroom has been spent, so the result can sound quieter and flatter than the original on the very system it was tuned on."
+      },
+      {
+        "q": "Can it cut the bass instead?",
+        "a": "No, the boost runs from zero upward. To reduce the low end, use the equalizer's bass band with a negative figure, which uses the same shelf mathematics with a cut rather than a lift."
+      }
+    ]
+  },
+  {
+    "slug": "8d-audio-converter",
+    "keywords": ["rotation", "interaural delay", "panning", "headphones"],
+    "intro": "8D Audio Converter spins a recording around the listener's head in circles, using equal-power panning and a tiny delay between the ears. Headphones are required, because the effect lives entirely in the difference between the two channels.",
+    "content": "Set how long one revolution should take and how deep the movement should be, drop a file, and convert; the source is downmixed to mono and spun, and the output is always stereo.\n\nThe two controls:\n\n- A rotation time from two to twenty seconds for a full circle, defaulting to eight.\n- A spatial depth from nothing to a hundred percent, defaulting to eighty.\n- The reported figures: one revolution per chosen time, the depth, and the delay that depth produces between the ears, up to about two thirds of a millisecond at full depth.\n\nTwo cues are generated together, and both are needed. The first is panning: the gain applied to each side follows a cosine and a sine of the rotation angle, which is the equal-power law, so the total energy stays constant as the source moves and the sweep does not appear to dip as it crosses the centre. The second is a delay of up to about two thirds of a millisecond applied to the ear that is further from the source, and it is the more important of the two. That interval is close to the difference in arrival time between a person's ears for a sound coming from directly to one side, so the ear reads it as direction rather than as an echo, and both ears receive the sound within the window in which the brain fuses the two arrivals into a single event. The delay is also asymmetric within each revolution: as a side's gain falls toward zero, its delay lengthens toward the maximum, and as the sound comes back round it shortens again, which is how one continuous signal manages to sound as though it passes in front of the listener and then behind. Because all of that happens across the two channels rather than within either one, the downmix to mono at the start costs nothing, and the output has to be stereo for the effect to exist at all. Headphones are the right way to listen to it and speakers are the wrong way: with two speakers in a room, both ears hear both speakers, the interaural delay is filled in by the room and by the head's own shadow, and the effect collapses into a plain pan. Slower rotations also sound more natural, since a fast spin is heard as an effect rather than as movement.\n\nWhat it does not do:\n\n- No head-related transfer function, so no height information is created.\n- No front or rear distance cues beyond the rotation itself.\n- Genuine stereo sources are reduced to mono before processing.\n- No automatic rotation based on the material's tempo or structure.\n- The effect disappears on speakers.\n- Output is sixteen bit WAV.\n\nUse it for the sound it is named after, which listeners recognise from music uploads: a track that sweeps past the ears once per revolution, or a spoken passage that circles the listener for a moment of interest. When the movement should be a one-off pass rather than a continuing orbit, the doppler effect simulator sends the source past at a chosen speed, and when the space should be wider without any movement at all, the stereo widener works on the image in place.",
+    "howTo": [
+      "Drop an audio file onto the panel and let it decode.",
+      "Choose the rotation time, using a longer one for a subtler sweep.",
+      "Set the depth, which controls the ear delay and therefore how convincing the circle is.",
+      "Convert the file and listen on headphones, since the effect is invisible on speakers."
+    ],
+    "whenToUse": "8D Audio Converter is the tool for the rotating, headphone-only movement that gives the effect its name. {{doppler-effect-simulator|Doppler Effect Simulator}} sends a sound past the listener once at a chosen speed rather than around them. When width rather than movement is what a mix needs, {{stereo-widener|Stereo Widener}} changes the image in place, and {{surround-sound-simulator|Surround Sound Simulator}} builds discrete rear channels for a four-speaker system.",
+    "faqs": [
+      {
+        "q": "Why does it need headphones?",
+        "a": "Because the whole effect is the difference between what each ear receives. With two speakers, each ear hears both of them, the small interaural delay is filled in by the room and by the listener's own head, and the movement collapses into an ordinary pan that any stereo mix has."
+      },
+      {
+        "q": "What does the depth control change?",
+        "a": "The maximum delay applied between the ears, which is about two thirds of a millisecond at full depth. That interval is close to the natural arrival-time difference for a sound at one side of the head, so reducing it weakens the sense of direction until the effect becomes a simple panning sweep."
+      },
+      {
+        "q": "Does a stereo source survive the conversion?",
+        "a": "Its stereo image does not, since the source is averaged to mono before being spun. That is inherent to the effect: the rotation supplies the spatial information, and leaving the original image in place would compete with it rather than add to it."
+      },
+      {
+        "q": "Why is a slower rotation more natural?",
+        "a": "Because a sound circling the head several times a second is heard as an effect rather than as movement, and its direction becomes a blur. A revolution taking eight seconds or more reads as a source travelling around a room, which is what the effect is imitating."
+      },
+      {
+        "q": "Does it create height or front-to-back depth?",
+        "a": "No, it works on one horizontal circle. There is no head-related transfer function, so no elevation is produced and distance is conveyed only by the movement itself rather than by any change in tone or directness."
+      }
+    ]
+  },
+  {
+    "slug": "slowed-reverb-nightcore",
+    "keywords": ["slowdown", "speed up", "tape", "remix"],
+    "intro": "Slowed + Reverb, Nightcore produces the two classic edits in one place: a slowed copy that drops in pitch with a reverb behind it, or a nightcore lift that takes the tempo and pitch up together.",
+    "content": "Choose a style, set the speed, and create the edit. Both are remixes in the tape tradition, a slowdown and a speed up, each of which takes the pitch of the music with it; in the slowed style a reverb is added to the result, and in the nightcore style the sped-up copy is left dry.\n\nThe styles and the controls:\n\n- Slowed, with a speed from sixty to a hundred percent of the original, defaulting to eighty five, and a reverb mix from nothing to sixty percent, defaulting to thirty five.\n- Nightcore, with a speed from a hundred and five to a hundred and fifty percent, and no reverb.\n- A report giving the speed as a percentage, the equivalent pitch movement in cents, either the reverb mix and its tail length or simply that the result is dry, and the output duration.\n\nBoth styles are built on one piece of arithmetic that is worth understanding, because it is the reason these edits sound the way they do. The speed change is a resample, the same operation a tape machine performs when it runs at the wrong speed: playing the sample data faster or slower makes the music move faster or slower and moves its pitch in exactly the same proportion. That is why a slowed copy sounds lower as well as slower and a nightcore copy sounds higher as well as faster, and it is the opposite of the time stretching that a tempo changer does, where pitch and duration are separated. The report states the pitch side directly in cents, which for the default slowed setting of eighty five percent works out at about two hundred and eighty cents down. Two hundred and eighty cents is a little under three semitones, which is why a slowed track so often ends up in a different key from the original. The slowed style then adds a reverb with a fixed character: a small room of a little over a second, a long feedback and damping that removes the top end of the tail, mixed at the level you set, with a two-second tail that rings past the end of the music. That tail is the reason the style is named for the reverb as much as for the speed, since it is what turns a slowed loop into something that sounds like a live recording. The nightcore style skips the reverb because the effect it imitates does too: the point there is brightness and energy rather than space.\n\nWhere it is limited:\n\n- The speed change moves the pitch with it, so the key changes as well as the tempo.\n- One reverb character, with only its level adjustable.\n- Two fixed speed ranges, one below and one above the original.\n- The reverb tail extends the file beyond the music rather than being trimmed to its length.\n- No separate control of pitch and duration.\n- Output is sixteen bit WAV.\n\nUse it when the edit itself is the goal: the slowed, reverb-backed version that has become a genre of its own, or the brighter faster lift of nightcore. When the tempo should change without the pitch moving, the tempo changer separates the two, and when only the pitch should move, the pitch shifter and the pitch shift calculator are the tools for that. When a different reverb character is wanted, the convolution reverb and the reverb simulator offer more control than the fixed tail here.",
+    "howTo": [
+      "Drop an audio file onto the panel and let it decode.",
+      "Choose the slowed style or the nightcore one, which determines the available speed range.",
+      "Set the speed, and in the slowed style the reverb mix as well.",
+      "Create the edit, then check the reported cents figure if the key change matters."
+    ],
+    "whenToUse": "Slowed + Reverb, Nightcore is the tool for the two named edits, pitch and tempo moving together as they do on tape. {{tempo-changer|Tempo Changer}} changes the speed without moving the pitch, and {{audio-pitch-shifter|Audio Pitch Shifter}} moves the pitch without changing the duration. When the reverb should be chosen rather than fixed, {{convolution-reverb|Convolution Reverb}} and {{reverb-simulator|Reverb Simulator}} give the controls this edit deliberately does not.",
+    "faqs": [
+      {
+        "q": "Why does the pitch change with the speed?",
+        "a": "Because the edit is a resample, the same thing that happens when a tape machine runs at the wrong speed. Playing the samples faster makes the music faster and raises its pitch by the same proportion, which is what gives both these edits their character."
+      },
+      {
+        "q": "How far does the pitch move?",
+        "a": "The report states it in cents, and the arithmetic is straightforward: the default slowed setting of eighty five percent works out at about two hundred and eighty cents down, which is a little under three semitones and often puts the track in a different key from the original."
+      },
+      {
+        "q": "Why does nightcore not use the reverb?",
+        "a": "Because the effect it imitates is dry. A nightcore edit is about brightness, tempo and a higher pitch, and adding a wet tail would work against that by blurring the transients that the speed increase has sharpened."
+      },
+      {
+        "q": "Why does the output run past the music?",
+        "a": "Because the reverb tail keeps ringing after the source has finished, and cutting it off at the music's end would produce an abrupt stop. Some listeners trim the tail afterwards, which is fine; leaving it in is the more natural result."
+      },
+      {
+        "q": "Can I slow the track without changing its key?",
+        "a": "Not here, since the edit is defined by the pitch moving with the tempo. Slowing at the same pitch requires time stretching instead, which is what the tempo changer does, and the result will sound smoother but will lose the tape character that makes these styles recognisable."
+      }
+    ]
+  }
+]

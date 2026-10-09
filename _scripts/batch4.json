@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "bankruptcy-means-test-calculator",
+    "description": "Run the Chapter 7 means test: compare income with your state median and derive the disposable-income thresholds."
+  },
+  {
+    "slug": "good-debt-vs-bad-debt-calculator",
+    "description": "Score each debt by after-tax cost, asset yield and spread to separate wealth-building debt from wealth-draining debt."
+  },
+  {
+    "slug": "debt-consolidation-savings-calculator",
+    "description": "Compare current balances with a consolidation loan and see net interest saved after the origination fee."
+  },
+  {
+    "slug": "debt-payoff-timeline-calculator",
+    "description": "Chart a debt payoff timeline with milestone dates, interest paid and the effect of extra monthly payments."
+  },
+  {
+    "slug": "emergency-fund-vs-debt-payoff-calculator",
+    "description": "Decide how much cash buffer to hold before attacking debt by comparing surplus savings with one month of essentials."
+  }
+]

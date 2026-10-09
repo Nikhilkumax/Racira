@@ -5,13 +5,28 @@ import { notFound } from "next/navigation";
 import { SiteShell } from "@/domains/3d/components/SiteShell";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { ToolRenderer } from "@/domains/3d/components/tools/ToolRenderer";
-import { CATEGORIES, TOOLS_BY_SLUG } from "@/domains/3d/registry";
+import { CATEGORIES, ALL_TOOLS, TOOLS_BY_SLUG } from "@/domains/3d/registry";
 import { THREE_D_SITE } from "@/domains/3d/site";
+import { INDEX_SOON_PAGES } from "@/domains/3d/indexing";
 import { toSlug } from "@/lib/utils/slug";
-import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
+import { buildSoonMetadata } from "@/lib/tools/soonMetadata";
+import { pickRelatedTools } from "@/lib/tools/soonRelated";
+import { ComingSoonToolPage } from "@/components/shared/ComingSoonToolPage";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
+
+/** Names repeated among this domain's upcoming tools — used to qualify labels. */
+const SOON_NAME_COUNTS = (() => {
+  const counts = new Map<string, number>();
+  for (const tool of ALL_TOOLS) {
+    if (tool.status === "live") continue;
+    counts.set(tool.name, (counts.get(tool.name) ?? 0) + 1);
+  }
+  return counts;
+})();
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -39,13 +54,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // 2. Check Tool
   const tool = TOOLS_BY_SLUG.get(slug);
   if (tool) {
+    // Upcoming tools keep a self-canonical and real copy; INDEX_SOON_PAGES
+    // controls whether they are also indexable (domains/3d/indexing.ts).
+    if (hasComingSoonPage(tool, "3d")) {
+      const cat = CATEGORIES.find(c => (c.title || c.name) === tool.category);
+      return buildSoonMetadata(
+        {
+          tool,
+          domainKey: "3d",
+          siteName: THREE_D_SITE.copyrightName,
+          categoryName: cat ? (cat.title || cat.name) : tool.category,
+          soonNameCounts: SOON_NAME_COUNTS,
+        },
+        INDEX_SOON_PAGES,
+      );
+    }
     return {
       title: `${tool.name} — ${THREE_D_SITE.copyrightName}`,
       description: tool.description,
       alternates: {
         canonical: `/3d/${tool.slug}`,
       },
-      robots: isComingSoonToolPage(tool, "3d") ? { index: false, follow: false } : undefined,
     };
   }
 
@@ -105,6 +134,7 @@ function CategoryView({ category }: { category: typeof CATEGORIES[0] }) {
                 basePath={`/3d/${tool.slug}`}
                 label="tool"
                 soon={!isLiveTool(tool, "3d")}
+                clickable={hasComingSoonPage(tool, "3d")}
               />
             );
           })}
@@ -156,6 +186,32 @@ export default async function PolymorphicPage({ params }: PageProps) {
     return <ToolView tool={tool} category={parentCategory!} />;
   }
 
-  // 3. Not found
+  // 3. Upcoming tools render a Coming Soon page instead of 404ing.
+  if (tool && hasComingSoonPage(tool, "3d")) {
+    const parentCategory = CATEGORIES.find(c => (c.title || c.name) === tool.category);
+    const catName = parentCategory ? (parentCategory.title || parentCategory.name) : (tool.category ?? "3D & Print");
+    const related = pickRelatedTools(ALL_TOOLS, {
+      currentSlug: slug,
+      basePath: "/3d",
+      isLive: (t) => isLiveTool(t, "3d"),
+      sameGroup: (t) => t.category === tool.category,
+    });
+    return (
+      <ComingSoonToolPage
+        toolName={tool.name}
+        toolDescription={tool.description}
+        icon={tool.icon}
+        siteName={THREE_D_SITE.copyrightName}
+        domainLabel="3D & Print"
+        domainHref="/3d"
+        categoryName={catName}
+        categoryHref={`/3d/${toSlug(catName)}`}
+        relatedLive={related.live}
+        relatedSoon={related.soon}
+      />
+    );
+  }
+
+  // 4. Not found
   notFound();
 }

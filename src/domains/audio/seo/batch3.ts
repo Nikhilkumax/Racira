@@ -1,0 +1,272 @@
+/**
+ * AUTO-GENERATED — do not edit by hand.
+ *
+ * Source: src/domains/audio/seo/source/batch-03-metadata-technical.json
+ * Regenerate: node scripts/audio-json-to-seo.mjs src/domains/audio/seo/source/batch-03-metadata-technical.json <this file> audioSeoBatch3
+ * Validate first: node scripts/validate-audio-seo-json.mjs src/domains/audio/seo/source/batch-03-metadata-technical.json
+ */
+import type { ToolSeo } from "@/components/shared/seo-types";
+
+export const audioSeoBatch3: Record<string, ToolSeo> = {
+  "silence-statistics-calculator": {
+    keywords: [
+      "silence detection",
+      "dBFS",
+      "silence percentage",
+      "minimum run",
+    ],
+    intro:
+      "Silence Statistics Calculator loads an audio file and reports how much of it is silence, how many separate silent stretches there are and how long each one runs. The scan is level based: you set a dBFS threshold and a minimum length, and every qualifying gap is listed with the timestamps you would need to cut it.",
+    content:
+      "Drop an audio file onto the panel and the tool decodes it once, scans the whole thing in fixed length blocks and fills in a results footer instead of processing the audio. The download button still works and returns your original file under a silence-stats suffix, but not one sample is changed: this tool reports on silence, it never cuts it out. Silence detection here is driven by two sliders and the numbers refresh as soon as either one moves.\n\nThe controls and the readout:\n\n- A silence threshold in dBFS, adjustable from −80 to −20 and defaulting to −60.\n- A minimum run in milliseconds, adjustable from 100 to 2000 in 50 millisecond steps and defaulting to 500.\n- A summary strip showing silent time, the silence percentage, the number of runs and the longest single run.\n- A scrollable table listing every qualifying run as a numbered row with start, end and length columns in seconds.\n- A pass-through download of the same audio, named with a silence-stats suffix.\n\nBecause the analysis re-runs on every slider move, the loop is quick: nudge the threshold, watch the run count change and stop when the table matches what you can hear. Two figures are worth understanding before you start. Silent time counts qualifying runs only, so it is always a little lower than the raw amount of quiet in the file, and the silence percentage divides that total by the full decoded duration, leader and tail included.\n\nUnder the hood the scan divides the signal into 20 millisecond frames. For each frame it sums the squared samples across every channel, takes the square root to get an RMS level in the linear domain and converts that to dBFS with the 20 log10 relation. A frame counts as silent when its RMS sits below the threshold. Consecutive silent frames are grouped into a run, and a run is only kept when its duration reaches the minimum run length; anything shorter is discarded before any total is computed. The surviving runs are summed for the silent time, averaged for the mean run and compared for the longest, so every figure on screen comes from the same list of qualifying gaps.\n\nWhat the measurement genuinely cannot tell you:\n\n- Gaps shorter than the minimum run are dropped entirely, so the silence percentage never counts brief breaths, clicks or micro-pauses.\n- The threshold tests frame RMS rather than sample peak, so a low level passage can read as silence even when room tone is clearly audible.\n- A steady hum sitting above the threshold hides real silence and can make a very quiet recording report almost no silent time.\n- The scan cannot separate speech from music, so an intentionally quiet instrumental section is measured exactly like dead air.\n- Run boundaries land on the 20 millisecond frame grid, so start and end times are accurate to that resolution rather than to the sample.\n- It only reports; there is no automatic removal and no way to export the silent regions on their own.\n\nA threshold that suits one file will not suit the next, so slide it once before you trust the numbers. Podcast episodes that have already been loudness normalized usually read sensibly between −50 and −60 dBFS, while a noisy room recording needs a less negative figure so its noise floor is not mistaken for programme material. The table is the part to use: those start and end times are exactly the values a silence remover expects, so measure here first, note the runs worth cutting and only then edit.",
+    howTo: [
+      { step: "Drop an audio file onto the panel or click to browse; the file is decoded once and the statistics footer appears." },
+      { step: "Slide the silence threshold until quiet passages are being counted the way you would count them by ear." },
+      { step: "Set the minimum run length so short breaths and clicks are excluded and only meaningful gaps remain." },
+      { step: "Read the summary and the run table, then copy the start and end times of the runs you intend to remove." },
+    ],
+    whenToUse:
+      "Silence Statistics Calculator answers a question before anything is edited, so reach for it when you need to size a recording up rather than change it. {{silence-remover|Silence Remover}} is the tool that acts on what you find here, dropping the gaps outright with the same level based logic, while {{audio-gate|Audio Gate}} suppresses quiet passages in place instead of deleting time and suits continuous material such as a noisy interview. When a long gap also needs a tidy cut, {{audio-trimmer|Audio Trimmer}} does the trimming, and {{waveform-visualizer|Waveform Visualizer}} gives you the picture to check boundaries against before committing.",
+    faqs: [
+      {
+        q: "How is the silence percentage worked out?",
+        a: "Every qualifying run is summed into a total silent duration, and that total is divided by the full decoded length of the file and shown to one decimal place. Because only runs that meet the minimum run length are counted, the figure is always a little lower than the raw amount of quiet in the recording, which is usually what you want when deciding how much can be cut.",
+      },
+      {
+        q: "What threshold should I start with?",
+        a: "The default of −60 dBFS is a reasonable first pass. Material that has been loudness normalized, such as a finished podcast, usually behaves sensibly between −50 and −60 dBFS, while a noisy room recording needs a less negative threshold so the noise floor does not register as programme material.",
+      },
+      {
+        q: "Why does a gap I can clearly hear not appear in the table?",
+        a: "Two settings can hide it. The gap may be shorter than the minimum run length, in which case it is discarded before any total is computed, or its frame RMS may sit above the threshold you chose. Lower the threshold and shorten the minimum run to see how the run count responds.",
+      },
+      {
+        q: "Does the tool remove the silence it finds?",
+        a: "No. The processing step is a pass-through: the analysis runs, the statistics footer fills in and the audio comes back untouched under a silence-stats suffix. Removing the gaps is a separate editing job, and the run table exists to give you the timestamps that job needs.",
+      },
+      {
+        q: "What does the minimum run setting change?",
+        a: "It sets the shortest gap that is counted at all. Runs under that length are ignored, so raising it filters out breaths and clicks while lowering it catches very short pauses. It is measured in milliseconds from 100 to 2000 in steps of 50, and it affects the run count, the silent time and the silence percentage together.",
+      },
+    ],
+  },
+
+  "audio-bitrate-reference": {
+    keywords: [
+      "bitrate",
+      "kbps",
+      "lossy",
+      "lossless",
+      "psychoacoustic",
+    ],
+    intro:
+      "Audio Bitrate Reference is a lookup table of the bitrates you actually meet in practice, each with an honest quality band and a realistic use case beside it. Nothing is decoded or uploaded, because the point is to pick a number before you convert rather than guess afterwards.",
+    content:
+      "The table lists eleven rates, each with the formats it belongs to, a plain quality description and a use case written to be useful rather than flattering. Four filter buttons narrow the view, and none of them loads or analyses a file.\n\nWhat the filters show:\n\n- All lists every row, from 32 kbps up to the uncompressed lossless entries.\n- Speech keeps anything at 96 kbps or below plus rows whose written use case mentions speech.\n- Music keeps 128 kbps and above, which is where most listening happens.\n- Lossless keeps only the rows above 1000 kbps.\n\nThe rates themselves fall into recognisable bands:\n\n- 32 and 64 kbps for voice podcasts and audiobooks, the region where highs are audibly gone.\n- 96 kbps for spoken word with music beds, and 128 kbps for casual music listening where critical ears first notice loss.\n- 160 and 192 kbps, where AAC and MP3 respectively become hard to tell from the source for most listeners.\n- 256 kbps as the music platform standard and 320 kbps as the MP3 ceiling, past which extra bits buy almost nothing.\n- The lossless rows: 1411 kbps for CD audio at 16-bit and 44.1 kHz, 2304 kbps for 24-bit at 48 kHz and 4608 kbps for 24-bit at 96 kHz.\n\nBitrate is how many bits per second a stream consumes. Lossy codecs such as MP3, AAC and Opus use psychoacoustic models to discard content you are unlikely to notice, which is why their rates are measured in hundreds of kilobits, while lossless formats keep the waveform intact and jump straight into megabit territory. The lossless figures are arithmetic rather than opinion: sample rate multiplied by bit depth multiplied by channel count, so 16 times 44100 times 2 gives 1411 kbps and the 24-bit rows scale from there. It also helps to read the numbers as two families. Everything from 32 to 320 kbps is a lossy setting that trades fidelity for size, and the returns flatten noticeably after 256 kbps. The uncompressed rows are fixed by their format rather than chosen for quality.\n\nWhat the table deliberately does not claim:\n\n- It lists conventional rates rather than measuring your file, so it cannot report the bitrate of a recording you load.\n- The quality column is a subjective band, not a specification, and where those thresholds sit moves with the listener and the equipment.\n- Nothing distinguishes constant from variable rate encoding, which can carry the same headline number with very different results.\n- The Speech filter is text matching plus a level cutoff, not analysis, so it also keeps any row at 96 kbps or below whatever its content.\n- Compressed lossless formats such as FLAC and ALAC are not in the table, and their real rates sit well below the uncompressed rows above.\n- Bitrate is one axis only: sample rate, bit depth, channel count and the encoder all shape perceived quality at the same number.\n\nWork backwards from the delivery. For a spoken podcast, 64 to 96 kbps mono is plenty and the low rows say so directly. For music headed to a streaming service, 256 kbps is where most platforms encode and 320 kbps is the safe lossy maximum. For an archive, choose a lossless row and stop worrying about the number, because there the bits are not waste, they are the point.",
+    howTo: [
+      { step: "Pick the filter that matches your job: Speech, Music or Lossless, or leave it on All to see the whole range." },
+      { step: "Find the rate whose honest use case matches what you are actually delivering, not the highest number in the table." },
+      { step: "Check the format column so the rate you chose belongs to the codec you intend to encode with." },
+      { step: "Take that figure into a converter or a size estimate; nothing on this page changes a file." },
+    ],
+    whenToUse:
+      "Audio Bitrate Reference is a planning tool, so open it while the number is still undecided: before a conversion, before an upload, or when a file has come back too large or too small. {{bitrate-quality-converter|Bitrate/Quality Converter}} is where the chosen rate is actually applied to a file, and {{audio-file-size-calculator|Audio File Size Calculator}} turns the same figure into a predicted download size before you encode anything. If the question is really about bandwidth rather than storage, {{streaming-bitrate-calculator|Streaming Bitrate Calculator}} works out what a stream needs, and {{mp3-converter|MP3 Converter}} is the quickest route to a file at one of the rates in the table.",
+    faqs: [
+      {
+        q: "Is 320 kbps always better than 256 kbps?",
+        a: "Not meaningfully. 320 kbps is the top of the MP3 lossy range, and the returns flatten well before it: 256 kbps is already the standard most music platforms encode at, and beyond that the difference is marginal for essentially all listeners and equipment. Choose it when compatibility demands MP3 and you want the format's ceiling, not because it will sound better.",
+      },
+      {
+        q: "Where do the lossless numbers come from?",
+        a: "They are arithmetic, not measurements: sample rate multiplied by bit depth multiplied by channel count. Sixteen bits at 44100 samples per second across two channels gives 1411 kbps, and the 24-bit entries scale from the same sum at 48 and 96 kHz. That is also why they are fixed rather than chosen.",
+      },
+      {
+        q: "Can the tool tell me the bitrate of my own file?",
+        a: "No. Nothing is decoded or inspected, so the page has no way to read a loaded recording. It is a reference for choosing a setting, and to find what a file actually contains you would look at its properties or run it through a converter that reports the settings it used.",
+      },
+      {
+        q: "What does the Speech filter actually do?",
+        a: "It keeps rows at 96 kbps or below, plus any row whose written use case mentions speech. That is a rule over the table's own text rather than an analysis, which is why it can also keep a low rate row that is not really about dialogue.",
+      },
+      {
+        q: "Do variable bitrate files match these numbers?",
+        a: "Not exactly. The table lists constant headline rates, while variable bitrate encoding moves the number up and down with the passage and usually lands on a smaller average file at the same perceived quality. Nothing here distinguishes the two, so treat the figures as targets rather than guarantees.",
+      },
+    ],
+  },
+
+  "sample-rate-reference": {
+    keywords: [
+      "sample rate",
+      "nyquist",
+      "khz",
+      "anti-aliasing",
+      "resampling",
+    ],
+    intro:
+      "Sample Rate Reference explains what the common sample rates buy you, from 8 kHz telephony up to 192 kHz archive work, with the frequency range each one can represent written beside it. It is a static reference: no audio is loaded, measured or converted.",
+    content:
+      "Nine rates are listed, each with its capture limit and the place it is normally used. A row of filter buttons switches the view, and nothing on the page reads or alters a file.\n\nWhat the filters show:\n\n- All shows every rate in the table.\n- Speech keeps rates of 32 kHz and below.\n- Music keeps 44.1 kHz, 48 kHz and the high-resolution entries.\n- Video keeps 48 kHz and 96 kHz.\n- Hi-res keeps everything from 88.2 kHz upward.\n\nThe rows themselves read as a history of audio delivery:\n\n- 8 kHz and 16 kHz, the telephony and voice-over-IP rates that carry speech and nothing above 4 kHz or 8 kHz.\n- 22.05 kHz and 32 kHz, legacy low bitrate audio and broadcast contribution links.\n- 44.1 kHz, the CD rate and the default for music delivery, capturing up to 22.05 kHz.\n- 48 kHz, the video and film production standard, capturing up to 24 kHz.\n- 88.2 kHz and 96 kHz, high-resolution production rates that relax converter filtering.\n- 192 kHz, a specialist measurement and mastering rate with no audible benefit on delivery.\n\nTwo rows are worth committing to memory. 44.1 kHz is the number behind the CD and most streaming music, and 48 kHz is the number behind television, film and most professional recording interfaces; choosing the wrong one of the two is the usual reason a file gets resampled for no benefit at all. The second column of the table is simply each rate halved, and that halving is the whole theory: the Nyquist theorem says a frequency can only be represented when it is sampled more than twice per cycle, so the highest frequency a rate can carry is half the rate itself. That is why 44.1 kHz is quoted as covering the roughly twenty hertz to twenty kilohertz span of human hearing. In practice a converter places a lowpass anti-aliasing filter just below that limit so content above it cannot fold back down into the audible band, and higher rates exist largely to give that filter more room rather than to add content anyone can hear. Resampling between two rates is a separate operation with its own interpolation and filtering, and none of it happens here.\n\nWhere the reference stops being useful:\n\n- The capture limit shown is the theoretical Nyquist frequency, and a real converter's anti-aliasing filter always sits a little below it.\n- Higher rates do not add audible content, so 96 kHz of a poor recording is still a poor recording.\n- The five filter buttons are fixed categories over the table's own rows rather than an analysis of anything.\n- Nothing is loaded, so the page cannot read the sample rate of a file you have in front of you.\n- Changing a file's rate is a conversion job with its own interpolation step, which is not what this page does.\n- The list is a conventional set; rates such as 176.4 kHz and pull-down values like 47.952 kHz are deliberately absent.\n\nFor almost every job only two numbers matter. Use 44.1 kHz when the deliverable is music and 48 kHz when it is video or a production session, because matching the project rate avoids a resample entirely. Reach for the low rows when the material is speech and the file has to stay small, and treat the high-resolution rows as a session decision rather than a delivery one: they exist to keep processing and filtering comfortable, not to make the finished file sound better on a phone.",
+    howTo: [
+      { step: "Pick the filter that matches the job at hand: Speech, Music, Video or Hi-res, or leave it on All." },
+      { step: "Read the capture column to see the highest frequency the rate can represent before the converter filters anything." },
+      { step: "Match the rate to the destination project, using 44.1 kHz for music and 48 kHz for video work." },
+      { step: "Note the rate you settled on and take it into a converter, since no file is changed on this page." },
+    ],
+    whenToUse:
+      "Sample Rate Reference settles the rate before a session starts, which is when the decision is cheapest to make. {{sample-rate-calculator|Sample Rate Calculator}} works the other way round, deriving requirements from a frequency range or a duration, while {{audio-format-converter|Audio Format Converter}} and {{wav-converter|WAV Converter}} are where a file actually gets resampled into the setting you chose. When the question is really about how many bits each sample carries rather than how often samples are taken, {{bit-depth-calculator|Bit Depth Calculator}} covers that axis on its own.",
+    faqs: [
+      {
+        q: "Why does 44.1 kHz capture up to 22.05 kHz?",
+        a: "Because the limit is exactly half the rate. The Nyquist theorem requires more than two samples per cycle to represent a frequency, so the top frequency a rate can carry is half of it, and 44.1 kHz therefore reaches 22.05 kHz. That covers the roughly twenty hertz to twenty kilohertz span of human hearing.",
+      },
+      {
+        q: "Is 96 kHz better than 48 kHz?",
+        a: "Not in any way you can hear in a finished file. Higher rates give a converter more room to place its anti-aliasing filter, which matters during processing and recording, but they do not add audible content beyond human hearing. Delivering at 96 kHz mostly means larger files for the same result.",
+      },
+      {
+        q: "Does this tool resample my audio?",
+        a: "No. It is a static table and nothing is loaded. Changing a file's rate is a conversion job with its own interpolation and filtering step, and the reference exists only to help you choose the destination rate before you run one.",
+      },
+      {
+        q: "What does the captures-up-to column really mean?",
+        a: "It is the theoretical Nyquist frequency, which is simply each rate halved. A real converter places a lowpass anti-aliasing filter a little below that number so content above it cannot fold back down into the audible band, so genuine content never extends right up to the quoted limit.",
+      },
+      {
+        q: "Which rate should I choose for a podcast?",
+        a: "Either 44.1 kHz or 48 kHz is more than enough, because speech carries very little energy above about ten kilohertz. Matching the rate of whatever you record and edit at is the useful rule; a lower rate would only save space and would cost you nothing audible, but it also buys you almost nothing in a compressed container.",
+      },
+    ],
+  },
+
+  "codec-compatibility-reference": {
+    keywords: [
+      "codec",
+      "aac",
+      "flac",
+      "opus",
+      "mp3",
+    ],
+    intro:
+      "Codec Compatibility Reference is a matrix of eight codecs and where each one plays natively, with a separate column for the Apple ecosystem. It answers the delivery question before anything is encoded, which is far cheaper than discovering a problem after a file fails to open.",
+    content:
+      "The rows cover MP3, AAC in an m4a container, Opus, Ogg Vorbis, FLAC, ALAC in m4a, WAV and WMA. Each row states whether the codec is lossy or lossless, whether it plays in browsers, whether Apple platforms support it natively and a note on when it is the right choice. There are no controls to configure; the table is the whole tool.\n\nWhat each codec is for:\n\n- MP3, the universal fallback that plays everywhere but costs size for its quality and has been patent free since 2017.\n- AAC in m4a, the better quality per bit successor that Apple, YouTube and most browsers treat as the default.\n- Opus, the strongest quality per bit for speech, native in Chromium browsers and only in Apple software from Safari 17 onward.\n- Ogg Vorbis, still found inside game engines but best avoided for new web delivery.\n- FLAC and ALAC, the two compressed lossless options, the first broadly supported and the second an Apple ecosystem choice.\n- WAV, raw samples with no compression, universally playable, excellent for production and enormous for delivery.\n- WMA, the legacy Windows format that neither browsers nor Apple platforms play reliably today.\n\nThe distinction that drives the whole table is lossy against lossless. MP3, AAC, Opus, Ogg Vorbis and WMA shrink a file by discarding content a psychoacoustic model predicts you will not miss, so their quality depends on the bitrate chosen at encode time. FLAC, ALAC and WAV keep the waveform intact: the first two compress without losing samples and WAV does not compress at all. Container matters as much as codec, because a player inspects the container before it tries the contents, which is why the AAC and ALAC rows both name m4a rather than the codec alone. It is worth knowing which column applies to your audience too: the browser column decides whether a file plays inline on the web, while the Apple column decides whether it opens in iTunes, on iOS or in macOS without a converter, and a row that satisfies both is the safest thing to publish.\n\nWhat the matrix does not do:\n\n- It is a snapshot of native support rather than a live capability check, so it cannot tell you what the device in front of you will accept.\n- Everywhere means current browsers and operating systems, not every legacy or embedded player.\n- The Apple column lists native support only, so a codec such as Opus still needs a fallback for older Apple software.\n- Container support is folded into the rows, and a player that accepts m4a may still reject one of the two codecs inside it.\n- Nothing here speaks to quality at a given bitrate; the table answers whether a file plays, not how it sounds.\n- There is no detection step, so the tool cannot identify the codec of a file you drag in.\n\nRead the table as a delivery decision. AAC gives the widest reach at good quality, so it is the sensible default for web audio. Keep MP3 in reserve for genuinely ancient hardware, and choose Opus when the audience is on Chromium browsers and speech quality matters most. Take FLAC for archives and audiophile downloads, and convert WMA on sight, because it is the one row here with no reliable native playback anywhere.",
+    howTo: [
+      { step: "Find the codec you were planning to deliver and read its row across the matrix." },
+      { step: "Check the browser and Apple columns together, since a file usually needs to open in both worlds." },
+      { step: "Choose the closest supported alternative when a row shows no native playback on the platforms you care about." },
+      { step: "Take that decision into a converter; the matrix itself inspects nothing." },
+    ],
+    whenToUse:
+      "Codec Compatibility Reference is the check to run before publishing or archiving, when the requirement is that a file opens rather than that it sounds a particular way. {{audio-format-converter|Audio Format Converter}} performs the actual re-encode once the codec is chosen, and the two lossless rows have dedicated homes: {{flac-converter|FLAC Converter}} for the broadly supported compressed lossless option and {{alac-m4a-lossless-converter|ALAC/M4A Lossless Converter}} for the Apple equivalent. When the file you have is in the one format with no reliable playback, {{wma-m4b-caf-decoder|WMA/M4B/CAF Decoder}} gets it into something modern.",
+    faqs: [
+      {
+        q: "Which codec should I use for a website?",
+        a: "AAC is the safest default: it plays natively in browsers and across the Apple ecosystem and is better quality per bit than MP3. Choose MP3 only when something genuinely ancient has to open the file, Opus when the audience is on Chromium browsers and speech quality matters most, and FLAC when the file is downloadable lossless rather than streaming.",
+      },
+      {
+        q: "Why do AAC and ALAC both appear under an m4a container?",
+        a: "Because a container and a codec are different things. The m4a container can hold either the lossy AAC codec or the lossless ALAC codec, and players inspect the container before they try its contents. That is why a device that accepts an m4a file can still fail to play one of the two codecs inside it.",
+      },
+      {
+        q: "Does the matrix check what my device can play?",
+        a: "No. It is a static snapshot of native support across current browsers and the Apple ecosystem, with no capability detection and no file inspection. Treat it as a planning guide and test on the devices that really matter to your audience.",
+      },
+      {
+        q: "Is Opus really unsupported on Apple devices?",
+        a: "It is supported from Safari 17 onward, which arrived in 2023, but the matrix lists native support only and lists it as Safari 17+ for that reason. Older Apple software needs a fallback, so if your audience spans a wide range of Apple devices, pair an Opus upload with an AAC or MP3 alternative.",
+      },
+      {
+        q: "Should I still produce MP3 files in 2026?",
+        a: "Only when something old has to play them. AAC wins on quality per bit and is supported essentially everywhere modern, while MP3 remains the universal fallback and is free of patents as of 2017. For a normal web delivery the AAC row is the better choice, with MP3 kept in reserve for hardware you cannot control.",
+      },
+    ],
+  },
+
+  "loudness-standards-reference": {
+    keywords: [
+      "lufs",
+      "true peak",
+      "loudness range",
+      "ebu r128",
+      "mastering",
+    ],
+    intro:
+      "Loudness Standards Reference collects the delivery targets that actually govern finished audio, from streaming services to European and American broadcast law. It also explains the two units behind every number in the table: LUFS for loudness and dBTP for true peak.",
+    content:
+      "Seven standards are listed with their loudness target, their maximum true peak and a note on what the figure means in practice. The rows cover Spotify and YouTube at −14 LUFS, Apple Music at −16 LUFS, Amazon Music at −14 to −16 LUFS with a stricter −2 dBTP ceiling, general podcast delivery at about −16 LUFS, EBU R128 at −23 LUFS for European broadcast and ATSC A/85 at −24 LKFS for the United States.\n\nWhat the columns mean:\n\n- LUFS, or loudness units full scale, an integrated measurement of perceived loudness over time rather than an instantaneous level.\n- dBTP, true peak, the highest peak a converter will reconstruct between the samples, which is why ceilings sit at −1 or −2 dBTP even when no sample reaches zero.\n- LRA, loudness range, quoted as 4 to 18 LU for EBU R128 and describing how much loudness moves across a programme.\n- LKFS, the broadcast spelling of the same loudness unit, equivalent to LUFS for practical purposes.\n- A target, the figure to aim at, and a ceiling, the figure never to cross.\n\nThe measurements these targets assume come from ITU-R BS.1770, the standard behind the K-weighted loudness meter used across this domain. BS.1770 filters the signal with a two stage K-weighting chain, a high shelf followed by a high pass, then averages power over 400 millisecond momentary blocks and 3 second short term blocks before deriving the integrated value with two gates: an absolute gate at −70 LUFS and a relative gate 10 LU below the ungated average, so near-silence and quiet passages cannot drag a reading down. True peak is a different calculation entirely, estimated by oversampling the signal several times over with a band-limited interpolation kernel, because a waveform that never exceeds full scale at its sample points can still overshoot by roughly 3 dB once a converter reconstructs it. This domain's own meter implements both and can report the delta between a measured file and any target in the table.\n\nWhere the reference has limits:\n\n- These are published targets, and platforms revise them, so the table is a snapshot rather than a live feed.\n- A target says where a platform lands a loud master, not how it will measure yours, and two services can read the same file differently.\n- Integrated LUFS says nothing about musical dynamics; a heavily limited master and a dynamic one can share a number.\n- The gated integrated value deliberately ignores very quiet material, so it describes the loud parts of a programme rather than the whole file.\n- Nothing is decoded or analysed on this page; the reference pairs with a meter rather than replacing one.\n- Broadcast targets are legal obligations in their regions, while streaming targets are conventions a service can change without notice.\n\nThe practical rule is to aim at the target, keep the true peak under the ceiling and stop there. Pushing a master louder than −14 LUFS wins nothing when both Spotify and YouTube simply turn it back down, and it costs dynamics that cannot be recovered afterwards. Master to the platform you are actually publishing to, leave about a decibel of mastering headroom below the ceiling so a lossy encoder has somewhere to put its overshoot, and let the meter confirm the number rather than your ears.",
+    howTo: [
+      { step: "Identify the platform or standard your file is destined for and read its target and ceiling from the table." },
+      { step: "Measure the file with a loudness meter so you know the integrated value and the true peak you are starting from." },
+      { step: "Apply the difference with a normalizer or gain stage, aiming at the target rather than above it." },
+      { step: "Re-measure to confirm the integrated value and keep the true peak below the ceiling before delivering." },
+    ],
+    whenToUse:
+      "Loudness Standards Reference is the target-setting step, so use it to decide what a master should read before you touch a gain stage. {{loudness-meter-lufs|Loudness Meter (LUFS)}} measures a file against the same gated integrated method these targets assume, and {{loudness-normalizer|Loudness Normalizer}} applies the difference in one pass. Where the concern is not the average level but what happens between the samples, {{true-peak-meter|True Peak Meter}} reports the oversampled peak that decides whether a ceiling is really respected, and {{loudness-range-lra-meter|Loudness Range (LRA) Meter}} checks the loudness range that broadcasts such as EBU R128 call out explicitly.",
+    faqs: [
+      {
+        q: "What is the difference between LUFS and dBFS?",
+        a: "dBFS is the level of the samples themselves, measured against digital full scale, so a file that never clips can still sit very close to zero. LUFS is an integrated, K-weighted measurement of how loud the programme sounds to a listener over time. That is why a track can be perfectly clean in dBFS terms and still be far too loud by every platform's target.",
+      },
+      {
+        q: "Why are true-peak ceilings set at minus one or two dBTP instead of zero?",
+        a: "Because the peak a converter reconstructs can be higher than the largest sample in the file. A band-limited reconstruction of near-Nyquist content can overshoot the sample peak by around 3 dB, and a lossy encoder can add overshoot of its own. Leaving a decibel or two below full scale keeps that overshoot from clipping after the file leaves your hands.",
+      },
+      {
+        q: "What is the absolute gate for in a loudness measurement?",
+        a: "It keeps very quiet material out of the average. BS.1770 applies an absolute gate at −70 LUFS and a relative gate 10 LU below the ungated average, so silence, fades and quiet passages cannot pull an integrated reading down and make a file look quieter than it sounds.",
+      },
+      {
+        q: "Is LKFS the same as LUFS?",
+        a: "For practical purposes, yes. LKFS is the broadcast spelling of the same unit and the two agree once the reference anchoring is aligned, which is why ATSC A/85 quotes −24 LKFS while European broadcast quotes −23 LUFS. The difference between those two figures is a standards choice, not a unit conversion.",
+      },
+      {
+        q: "Should I master louder than my platform's target?",
+        a: "No. Every mainstream platform turns a louder master down, so the extra level is not heard, while the compression and limiting used to get there stay in the file. You keep the same apparent loudness and lose the dynamics. Aim at the target, respect the ceiling and spend the effort on the mix instead.",
+      },
+    ],
+  },
+
+  "streaming-platform-loudness-guide": {
+    keywords: [
+      "loudness normalization",
+      "replay gain",
+      "streaming platforms",
+      "headroom",
+    ],
+    intro:
+      "Streaming Platform Loudness Guide describes what each major platform does to a file after upload: which loudness figure it normalizes to, and whether a quiet master gets raised to meet it. The behavior matters as much as the number, because two services with the same target can treat a quiet file in opposite ways.",
+    content:
+      "Eight rows cover the streaming platforms and broadcast standards a release usually meets, and club play is listed separately because it normalizes nothing at all. Each row gives the target and a note on what actually happens on upload.\n\nWhat each platform does:\n\n- Spotify, −14 LUFS, turning louder uploads down but leaving quieter ones alone by default, measured over a window that combines a one minute span with the integrated value.\n- YouTube, −14 LUFS, with its own gating and the possibility of extra limiting when peaks push past roughly −1 dBTP.\n- Apple Music, −16 LUFS, applying Sound Check replay gain track by track and encoding to AAC, so true-peak headroom is worth keeping.\n- Amazon Music, −14 LUFS, applying gain in both directions rather than only downward.\n- Tidal at −14 LUFS and Deezer at −15 LUFS, both down only, with Deezer normalizing per release on some tiers.\n- Podcast directories, where Apple recommends −16 LUFS in stereo and −19 LUFS in mono with a true peak no higher than −1 dBTP.\n- Broadcast, where Europe follows EBU R128 and the United States follows ATSC A/85.\n- Club and DJ playback, where nothing is normalized and loudness is the point.\n\nLoudness normalization only changes gain, and gain cannot repair dynamics. A master pushed to −9 LUFS and turned down to −14 by Spotify arrives at the same level as one mastered at −14, but the compression and limiting are still baked into it, so the quieter presentation of the loud master has no advantage to show for the trade. Platforms measure an integrated value with their own gating rather than a peak, then either attenuate or, on some pipelines, apply gain in both directions. Apple stores a replay gain figure per track, which is why a per-track rather than per-album approach can shift the balance between songs on a release. Apple and YouTube also re-encode to AAC, so a ceiling of −1 dBTP exists to keep a lossy encoder's overshoot from clipping after the fact. Headroom is therefore the practical currency: master to the target you will publish to, keep the true peak below the ceiling and let the platform's own gain stage do the rest.\n\nWhat the guide cannot tell you:\n\n- It is written from published figures, so it cannot read your file or confirm what a platform did to it after upload.\n- Behavior is described in outline; the actual measuring gate, encoder and gain stage inside each service are not modeled here.\n- Down-only services leave quiet masters quiet, which makes their target a level to land on rather than a floor to be raised to.\n- Podcast figures are recommendations rather than enforced processing, and hosts normalize inconsistently on ingest.\n- Club and DJ playback applies no normalization, so a master squeezed to a streaming target can sound small on a large system.\n- Nothing is measured, normalized or uploaded here; the page is a companion to a meter and a normalizer, not a replacement for either.\n\nTreat the table as a delivery checklist rather than a promise. If one master has to serve several services, target the quietest common figure, which in practice means about −16 LUFS with a true peak at −1 dBTP, and let the louder platforms turn it down if they want to. If a release is destined for one service only, use that service's row directly. And if the same material is going to a club system, keep a separate louder master aside, because the one place no normalization happens is the place where loudness is the point.",
+    howTo: [
+      { step: "Find the platform or platforms you are publishing to and read the target and behavior from the table." },
+      { step: "Decide whether one master has to serve several services, and if so pick the quietest common target." },
+      { step: "Measure the finished mix, then apply the difference so the integrated value lands on that target with true-peak headroom below the ceiling." },
+      { step: "Re-check the true peak after any lossy encode, since the encoder can overshoot what the source file did." },
+    ],
+    whenToUse:
+      "Streaming Platform Loudness Guide is for the delivery decision, so read it once the mix is finished and the open question is what to hand the platform. {{loudness-normalizer|Loudness Normalizer}} applies a chosen target to a file in one pass, {{loudness-meter-lufs|Loudness Meter (LUFS)}} confirms what a master actually reads, and {{audio-limiter|Audio Limiter}} is how excess peaks are brought under a true-peak ceiling without a full remix. When the release is a spoken-word show rather than music, {{multi-guest-leveler|Multi-Guest Leveler}} evens out the voices before any platform gets a chance to normalize them.",
+    faqs: [
+      {
+        q: "Does Spotify turn quiet tracks up?",
+        a: "Not by default. Its normalization is down only, so a master quieter than −14 LUFS plays as it was delivered while anything louder is attenuated to the target. That is the single biggest reason not to chase loudness: a quiet master keeps its dynamics and a loud one is turned down anyway, usually with an audibly denser character.",
+      },
+      {
+        q: "Why does Apple Music use a different target from Spotify?",
+        a: "Because its normalization runs through Sound Check, which stores a replay gain figure per track and applies it at playback, and Apple has settled on about −16 LUFS for that purpose. Spotify works to about −14 LUFS. The figures are service conventions rather than any shared standard, which is why a single master cannot be optimal for both.",
+      },
+      {
+        q: "What is Sound Check replay gain?",
+        a: "It is a per-track gain figure Apple calculates and stores, then applies at playback so tracks from different releases sit at a similar perceived level. Because it is stored per track rather than per album, an intentionally quiet track between loud ones will still be lifted in isolation unless album-level normalization is used.",
+      },
+      {
+        q: "Should I keep a louder master for clubs?",
+        a: "Yes, keep a separate one. Club systems and DJ software apply no normalization at all, so a master squeezed to a streaming target can arrive sounding small next to everything else in the set. The trade is headroom: keep the loud version, but watch the true peak and make sure it does not clip on a large system.",
+      },
+      {
+        q: "Do podcast platforms normalize episodes for me?",
+        a: "Some hosts do on ingest and some do not, and the published figures are recommendations rather than enforced processing. Apple recommends about −16 LUFS in stereo and −19 LUFS in mono with a true peak no higher than −1 dBTP, so mastering to that specification is the reliable approach regardless of what your host does with it.",
+      },
+    ],
+  },
+};

@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "debt-snowflake-calculator",
+    "description": "See how small monthly snowflake payments and one-time windfalls shorten a payoff and cut interest."
+  },
+  {
+    "slug": "net-debt-calculator",
+    "description": "Compute net debt, net worth, debt-to-assets and leverage band from your full household balance sheet."
+  },
+  {
+    "slug": "debt-free-date-calculator",
+    "description": "Project the calendar date you become debt-free and the milestones along the way with optional extra payments."
+  },
+  {
+    "slug": "debt-to-equity-personal-calculator",
+    "description": "Measure personal leverage by comparing total debt with net worth, with liabilities-to-assets and non-mortgage detail."
+  },
+  {
+    "slug": "rule-of-78-early-payoff-calculator",
+    "description": "Compare Rule of 78 and pro-rata rebates on a precomputed loan payoff and see the implied APR."
+  }
+]

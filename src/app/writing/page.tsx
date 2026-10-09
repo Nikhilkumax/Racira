@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import { Search, PenLine } from "lucide-react";
 import { categories, totalToolCount } from "@/domains/writing/registry";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
 import { WRITING_TOOL_COMPONENTS } from "@/domains/writing/components/tools/registry";
 
 /**
@@ -15,6 +16,10 @@ import { WRITING_TOOL_COMPONENTS } from "@/domains/writing/components/tools/regi
  */
 const isWiredLiveTool = (tool: (typeof categories)[number]["tools"][number]) =>
   isLiveTool(tool, "writing") && Boolean(WRITING_TOOL_COMPONENTS[tool.slug]);
+
+/** Upcoming tools with a Coming Soon page still link through — never a 404. */
+const hasSoonPage = (tool: (typeof categories)[number]["tools"][number]) =>
+  hasComingSoonPage(tool, "writing");
 
 const LIVE_WRITING_COUNT = categories.flatMap((c) => c.tools).filter(isWiredLiveTool).length;
 
@@ -89,8 +94,10 @@ export default function Index() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {cat.tools.map((t) => {
                   // A live card requires both a live flag and a wired component,
-                  // so it always links to a page that renders the real tool.
+                  // so it always links to a page that renders the real tool;
+                  // upcoming tools link to their Coming Soon page.
                   const isLive = isWiredLiveTool(t);
+                  const clickable = isLive || hasSoonPage(t);
                   const cardBody = (
                     <>
                       {!isLive && (
@@ -109,7 +116,7 @@ export default function Index() {
                       </p>
                     </>
                   );
-                  return isLive ? (
+                  return clickable ? (
                     <Link
                       key={t.slug}
                       href={`/writing/${t.slug}`}

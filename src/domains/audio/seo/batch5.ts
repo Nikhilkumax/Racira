@@ -1,0 +1,440 @@
+/**
+ * AUTO-GENERATED — do not edit by hand.
+ *
+ * Source: src/domains/audio/seo/source/batch-05-channel-utility.json
+ * Regenerate: node scripts/audio-json-to-seo.mjs src/domains/audio/seo/source/batch-05-channel-utility.json <this file> audioSeoBatch5
+ * Validate first: node scripts/validate-audio-seo-json.mjs src/domains/audio/seo/source/batch-05-channel-utility.json
+ */
+import type { ToolSeo } from "@/components/shared/seo-types";
+
+export const audioSeoBatch5: Record<string, ToolSeo> = {
+  "channel-mixer": {
+    keywords: [
+      "channel matrix",
+      "mono downmix",
+      "presets",
+      "stereo",
+    ],
+    intro:
+      "Channel Mixer applies an arbitrary two by two matrix to a stereo file, so any left and right combination you can describe in four numbers becomes the output. Six presets cover the everyday cases and the coefficient boxes take you past them.",
+    content:
+      "Drop a stereo file, choose a preset or type your own four coefficients, and the whole file is mixed and returned as a WAV. The footer spells out the arithmetic before it runs, so there is no guessing about which coefficient feeds which output.\n\nWhat the presets do:\n\n- Identity, which passes left to left and right to right with no change at all.\n- Swap L/R, which exchanges the two channels exactly.\n- Mono averaging, which sums the two channels with a half coefficient into a mono downmix written to both outputs.\n- Left to stereo and right to stereo, which duplicate one side across the pair.\n- Difference, which writes left minus right into both outputs.\n\nThe four coefficient boxes are labelled a for left to left, b for right to left, c for left to right and d for right to right, and each accepts a number between minus two and two in steps of one tenth. Output left is a times left plus b times right, and output right is c times left plus d times right, which is the standard two by two channel matrix and covers everything from a plain swap to a difference signal. Verified behaviour is that the identity matrix passes the signal through untouched, that the swap is exact, and that the mono preset averages the channels rather than summing them, so a mono downmix of two loud channels does not clip the way a plain sum would.\n\nWhere the matrix runs out:\n\n- It works on two channels only, so a mono input has nothing to combine with on the other side.\n- Coefficients are clamped between minus two and two, ruling out very large gain or near total attenuation in a single step.\n- There is no metering, so positive coefficients can push the output past full scale with nothing to warn you.\n- The difference preset cancels anything panned dead centre, which removes a centred vocal but takes a centred kick, bass and snare with it.\n- The matrix is static for the whole file, with no automation and no way to change coefficients part way through.\n- Nothing analyses the recording, so the tool cannot suggest which preset suits the material you loaded.\n- The output is always a stereo WAV, even when both outputs end up carrying identical content.\n\nThe matrix is the right frame for problems about how the two channels relate rather than about what each one contains. A compatibility check before publishing is best done with the averaging preset rather than by ear on one speaker, and a side only listen is simply the difference preset played back. Because the footer shows the arithmetic before the pass runs, you can reason about the result instead of guessing at it, which is more than most one click stereo fixes allow. Reach for it when you know the relationship you want between the two channels rather than merely wanting to correct one side; if the problem is simply that one side is louder than the other, the balance tool beside it does less and is much harder to get wrong.",
+    howTo: [
+      { step: "Drop a stereo audio file onto the panel; mono files have nothing for the matrix to combine." },
+      { step: "Press one of the six presets to load its matrix, watching the footer show the resulting arithmetic." },
+      { step: "Type your own a, b, c and d coefficients between minus two and two if none of the presets fits." },
+      { step: "Download the mixed WAV, which is named after the source with a mixed suffix." },
+    ],
+    whenToUse:
+      "Channel Mixer is the general tool for redefining how left and right relate, so it covers every case between exchange and combination. {{left-right-channel-swapper|Left/Right Channel Swapper}} is the one job version when a capture is simply flipped, and {{channel-isolator|Channel Isolator}} discards a side entirely rather than mixing it. When the aim is to control how much centre and how much difference the file contains, {{mid-side-processor|Mid/Side Processor}} expresses the same arithmetic in friendlier terms, and {{panning-tool|Panning Tool}} is the choice when the image needs to move rather than be rebuilt.",
+    faqs: [
+      {
+        q: "What do the four coefficients mean?",
+        a: "They are the standard two by two mixing matrix. The first is the left channel's contribution to output left, the second is the right channel's contribution to output left, the third is the left channel's contribution to output right and the fourth is the right channel's contribution to output right. Reading them that way, both the formulas in the footer and every preset follow directly.",
+      },
+      {
+        q: "Why does the mono preset average instead of summing?",
+        a: "Because a plain sum of two loud channels clips easily. Summing with a half coefficient on each gives the average of the two, which keeps the mono version at a sensible level. This is verified behaviour: the preset averages the channels, and it is why a downmix of loud material does not come back distorted.",
+      },
+      {
+        q: "What is the difference preset used for?",
+        a: "It writes the left channel minus the right channel into both outputs, which cancels everything panned dead centre. That is the classic way to remove a centred vocal or to hear only the ambient and side content of a mix. It also removes centred drums and bass, so treat the result as an analysis rather than a finished master.",
+      },
+      {
+        q: "Can I boost a quiet side with the matrix?",
+        a: "Yes, up to a point. A coefficient above one raises that contribution, and the clamp allows values up to two. The limit is headroom rather than the matrix, since the tool has no metering and a boosted sum can exceed full scale silently. If you only need to bring a quiet side up, the balance tool is a much safer way to do it.",
+      },
+      {
+        q: "Does a mono file work with this tool?",
+        a: "It loads and processes, but there is no second channel for the matrix to mix with, so the right hand coefficients have nothing to act on. For anything that is genuinely mono, the mono to stereo converter is the appropriate tool instead, since it creates a second channel rather than combining two.",
+      },
+    ],
+  },
+
+  "left-right-channel-swapper": {
+    keywords: [
+      "channel swap",
+      "stereo",
+      "mislabeled",
+      "headphones",
+    ],
+    intro:
+      "Left/Right Channel Swapper exchanges the two channels of a stereo file and changes nothing else. It is the one job tool for flipped captures and headphones that seem inside out on a recording you trust.",
+    content:
+      "Drop a stereo file and download the swapped version. Every sample in the left channel moves to the right and every sample in the right channel moves to the left, with no gain change, no filtering and no processing beyond the exchange itself.\n\nWhen an exchange is the right repair:\n\n- A recording captured with the two inputs of an interface plugged in the wrong way round.\n- A mislabeled capture from a camera or phone whose sides play mirrored against reference material you know is correct.\n- A stereo split from a film or broadcast source that arrived with the sides transposed.\n- A monitoring check where you want to confirm by ear that a swap is what fixes the perceived image.\n\nThe swap is one application of the two by two channel matrix used elsewhere in this domain, with coefficients chosen so that output left is right and output right is left. Because the matrix only moves existing samples between channels, the operation is exactly reversible: running the tool twice on the same file returns the original samples. Verified behaviour is that the exchange is exact, with no rounding, no level shift and no change to length or sample rate. The file must have at least two channels, and a mono input is refused rather than having a second channel invented for it to swap with.\n\nWhat a swap cannot do:\n\n- It needs a stereo file and does nothing useful with mono, which has no second channel to exchange.\n- It cannot repair a recording where one channel was lost, clipped or damaged; it only relocates what is there.\n- It is not a balance control, so it cannot shift the image part of the way across.\n- Swapping does not tell you which orientation was correct in the first place, so the judgement is still yours.\n- Multichannel layouts beyond two channels are out of scope, so surround files are not handled.\n- The result is written as a new WAV rather than replacing the file you loaded.\n\nA channel swap is worth confirming before you use it, because a mirrored file is rarer than it feels. If a recording sounds wrong on headphones but correct on speakers, the cause is far more likely to be a monitoring difference than a flipped capture, since a genuine swap is audible on any playback system. The reliable test is a comparison against reference material you trust rather than your impression of the file on its own. Keep the original until the swapped version has been checked. If the need is to combine or rebuild the two channels rather than exchange them, the channel mixer gives you the full matrix; if the problem is polarity rather than position, the channel inverter and the phase inverter are the right pair. If you are unsure which side is correct, the safest habit is to keep a copy of the file that the swap did not touch and compare the two by ear on the system where the problem first showed up, because a mirrored capture is a claim about the source rather than about the listener.",
+    howTo: [
+      { step: "Drop a stereo audio file onto the panel; a mono file will be rejected because there is nothing to exchange." },
+      { step: "Run the swap, which exchanges every sample of the left and right channels in a single pass." },
+      { step: "Download the swapped WAV and compare it with the original on the system where the flip was noticed." },
+      { step: "Run the tool a second time on its own output if you want to confirm the exchange is exactly reversible." },
+    ],
+    whenToUse:
+      "Left/Right Channel Swapper is the single purpose answer when a capture is mirrored and nothing else needs changing. {{channel-inverter|Channel Inverter}} is the neighbouring repair for polarity rather than position, and {{channel-isolator|Channel Isolator}} discards one side instead of exchanging them. When the relationship between the channels needs to be rebuilt rather than reversed, {{channel-mixer|Channel Mixer}} has the full matrix, and {{phase-inverter|Phase Inverter}} flips everything at once when the whole file is out of polarity with a reference.",
+    faqs: [
+      {
+        q: "How is this different from the channel mixer?",
+        a: "It is the same exchange, with the matrix already chosen and no controls to get wrong. The mixer exposes all four coefficients so you can build combinations, sums and difference signals, while this tool performs the one operation that people most often want and nothing else.",
+      },
+      {
+        q: "Is the swap lossless?",
+        a: "Yes. Samples are moved between channels rather than altered, so there is no gain change, no rounding and no resampling. The operation is exactly reversible, which is verified behaviour: run it twice on the same file and you get the original samples back.",
+      },
+      {
+        q: "Can it fix a mono recording that should have been stereo?",
+        a: "No. With one channel there is nothing to exchange, and the tool refuses the file rather than inventing content. Correcting a genuinely mono capture means either re-recording or creating a synthetic second channel, which is what the mono to stereo converter is for.",
+      },
+      {
+        q: "How do I know a recording is actually flipped?",
+        a: "Compare it with something you trust, such as a reference track or your own voice recorded on a known correct setup. A mirrored capture usually reveals itself when an instrument or a positional cue appears on the wrong side. The tool always performs the swap, so the decision is yours to make first.",
+      },
+      {
+        q: "Does swapping affect the stereo image in any other way?",
+        a: "No. It is a pure position change, so width, balance and levels are untouched. Nothing about the file is rerendered, and the only audible difference is that content which was on the left is now on the right, and the reverse.",
+      },
+    ],
+  },
+
+  "channel-inverter": {
+    keywords: [
+      "polarity",
+      "invert",
+      "cancellation",
+      "mono",
+    ],
+    intro:
+      "Channel Inverter flips the polarity of the left channel, the right channel or both, by multiplying the selected side by minus one. It is the polarity half of stereo repair, kept separate from anything that moves or mixes channels.",
+    content:
+      "Load a file, tick the channels you want flipped and the result is written out. The footer explains the test that matters: if a summed mono version of the file gets quieter than the original, the two channels are out of polarity with each other, and inverting one of them restores the level.\n\nWhat the panel offers:\n\n- A checkbox for the left channel and a checkbox for the right, both ticked by default so the file inverts as it loads.\n- Exact negation, which multiplies every selected sample by minus one with no scaling and no smoothing.\n- A written mono sum test rather than a measurement, because the tool has no metering of its own.\n- An output WAV named after the source with an inverted suffix.\n\nPolarity inversion is not time alignment, and it is not a phase shift in the delay sense. Multiplying a waveform by minus one mirrors it about the horizontal axis, so where two copies of the same signal meet with opposite polarity they cancel and the summed result collapses towards silence. That is why the practical use is a pair of sources that ought to reinforce each other but do not: a two microphone capture with one cable wired backwards, a split feed through a wrongly pinned adapter, or a doubling track that has passed through a polarity flipping stage. The operation is verified as exact negation, so nothing is added, removed or resampled along the way, and inverting the same channel twice returns the original samples. The most common real case is a two microphone pair on one source, where one microphone ended up inverted relative to the other and the combined result sounds thin and hollow; flipping the offending channel restores the reinforcement, and the low end comes back long before any measurement is made. The second use is deliberate, because inverting a copy and summing it with the original at matched level leaves whatever the two versions do not share.\n\nWhat it will not do:\n\n- It flips polarity only; a timing offset needs a delay rather than an inversion.\n- Cancellation is not repair, so a genuinely damaged channel stays damaged.\n- Choosing the wrong channels can deliberately cancel content, which is useful for a null test and destructive when you wanted the file intact.\n- Nothing here measures or reports cancellation, so the mono sum test has to be run in another tool.\n- It is not a phase rotation, so it cannot shift frequency relationships the way an all pass filter can.\n- An incomplete cancellation usually means timing, level or filtering is involved as well, not polarity alone.\n\nUse it when a mono fold down loses level and you have traced the cause to polarity, and use it in reverse when a null test should reveal what two takes do not share. If the channels sit in the wrong places rather than the wrong polarity, the swapper is the tool you want, and if the whole file needs flipping at once rather than a chosen side, the phase inverter does that in one step.",
+    howTo: [
+      { step: "Load a stereo file and note which channels are currently ticked; both are selected by default." },
+      { step: "Untick the side that should keep its polarity so that only one side of the pair is inverted." },
+      { step: "Run the pass, which negates every sample of the selected channels exactly." },
+      { step: "Download the inverted WAV and check the mono sum elsewhere to confirm the cancellation is gone." },
+    ],
+    whenToUse:
+      "Channel Inverter is the right tool when one side of a stereo pair needs flipping to restore reinforcement. {{phase-inverter|Phase Inverter}} is the same negation applied to every channel at once, which suits a whole file that is out of polarity with a reference. When the channels are misplaced rather than mis-polarised, {{left-right-channel-swapper|Left/Right Channel Swapper}} exchanges them, and when the relationship itself needs rebuilding, {{channel-mixer|Channel Mixer}} reaches parts of the problem that an inversion cannot.",
+    faqs: [
+      {
+        q: "Is inverting polarity the same as shifting phase?",
+        a: "No, and the distinction matters. A phase shift delays the waveform, usually by an amount that varies with frequency, while inverting polarity simply mirrors it about the horizontal axis by multiplying every sample by minus one. That is why an inversion can cancel a duplicate exactly but cannot align a source that is arriving late.",
+      },
+      {
+        q: "How do I tell whether my channels are out of polarity?",
+        a: "Fold the file to mono and compare the level with the stereo version. If the mono sum is noticeably quieter, the two channels are cancelling, which is the signature of opposite polarity. The tool has no meter of its own, so that test is described in its guidance rather than measured for you.",
+      },
+      {
+        q: "Why are both checkboxes ticked by default?",
+        a: "Because inverting everything is the common case when the file needs to be compared with a reference or fed into a null test. The moment you want to fix a pair that is cancelling each other, untick one side so only one channel flips, which is the operation that restores the reinforcement.",
+      },
+      {
+        q: "Can inverting a channel damage my mix?",
+        a: "It can cancel content if you invert the wrong thing. Where a mix has a strong centred component, flipping one channel of the pair removes that centre outright. Nothing is destroyed on disk, so the safe approach is to keep the original and audition the inverted version before using it anywhere.",
+      },
+      {
+        q: "Does it work on mono files?",
+        a: "It will invert a mono file if you ask, since only one channel is present to negate. The interesting behaviour needs two channels, though, and for a mono file the operation is equivalent to flipping the whole signal, which is what the phase inverter is named for.",
+      },
+    ],
+  },
+
+  "channel-isolator": {
+    keywords: [
+      "isolate channel",
+      "mono",
+      "left channel",
+      "stereo",
+    ],
+    intro:
+      "Channel Isolator keeps only the channel you choose and writes it to both outputs, so the result plays as mono on any system. It is the quick way to hear one side of a stereo file on its own.",
+    content:
+      "Choose left, right or both and a new WAV is produced. Keeping one channel duplicates that channel into both outputs, so a file whose bass sits on one side and whose voice sits on the other can be heard one half at a time without any routing changes.\n\nThe three buttons and what they produce:\n\n- Keep left, which copies the left channel into both outputs so it can be heard on a single speaker or a headphone.\n- Keep right, which does the same for the right channel.\n- Keep both, which is a passthrough useful for A/B comparison against the isolated versions.\n- Output naming that follows the choice, so the download carries a left, right or isolated suffix.\n\nEach option is an application of the same two by two channel matrix used across this domain. Keeping left sets coefficients so that output left is left and output right is left, with the right channel contributing nothing; keeping right mirrors that, and the passthrough option is the identity matrix. Because the surviving channel is written into both outputs rather than one, the result is centred when played on speakers or headphones instead of appearing on a single side. Verified behaviour is that only the selected channel's samples survive and that no gain, filtering or sample rate change is applied on the way through.\n\nWhere isolation stops being useful:\n\n- It needs a stereo source; a mono file has no second side to discard.\n- The result is a copy of one channel, so anything panned to the discarded side is gone rather than attenuated.\n- Because the surviving channel is duplicated, the mono result is centred instead of remaining where that channel sat in the image.\n- It cannot remove centre content, since anything panned dead centre exists in both channels and therefore survives either isolation.\n- Extracting one side of a processed or mid and side signal changes its tone, because side content is by definition built from the difference between the channels.\n- There is no metering and no level compensation, so an isolated channel can come back quieter than the file you started with.\n\nThere are only a handful of reasons to reach for this tool. You might want to check what a stereo capture actually holds on each side, salvage a usable recording when the other side was damaged by a bad cable or a broken preamp, or turn a one sided capture into a file that plays correctly on a single speaker. To isolate channel content for any other purpose the mid and side processor is usually the better fit, because it reshapes the relationship between the channels rather than discarding half of it. When you want to change the balance between the two sides rather than throw one away, the balance tool is the gentler option. The isolated file is also a useful reference point, because if something you expected to hear on one side turns out to be present on both, the recording is more centred than it sounded and no isolation will separate it at all, which is worth knowing before you spend time hunting for a stereo trick that cannot exist.",
+    howTo: [
+      { step: "Drop a stereo file onto the panel; a mono source has only one channel and nothing to isolate." },
+      { step: "Choose whether to keep the left, the right, or both as a passthrough for comparison." },
+      { step: "Run the pass, which copies the chosen channel into both outputs without any gain change." },
+      { step: "Download the isolated WAV, whose name tells you which side was kept." },
+    ],
+    whenToUse:
+      "Channel Isolator suits the case where one side has to be heard or kept on its own, whether for diagnosis or salvage. {{mid-side-processor|Mid/Side Processor}} works on the centre and difference components instead of discarding a side, which is what you want when the goal is width rather than access. {{channel-mixer|Channel Mixer}} can duplicate one side with a matrix of its own, and {{left-right-channel-swapper|Left/Right Channel Swapper}} is the answer when both sides are needed in swapped positions.",
+    faqs: [
+      {
+        q: "Why does the isolated channel end up in both outputs?",
+        a: "So the result is listenable everywhere. If only the left output carried it, the file would be silent on the right speaker and on one side of a headphone. Duplicating the surviving channel into both outputs makes the isolated audio mono, centred, and audible on any system.",
+      },
+      {
+        q: "Can it remove a centred vocal?",
+        a: "No, and the reason is structural. A vocal panned dead centre is present in both channels with the same polarity, so it exists in whichever channel you keep. Isolating a side does remove anything that lives on the discarded side, which is the opposite of what centre removal requires.",
+      },
+      {
+        q: "What is the passthrough option for?",
+        a: "It is there for comparison. Because it applies the identity matrix, it leaves the image alone, which gives you a clean reference to A/B against the left and right versions. Handy when you are deciding whether an odd sounding element is on one side or in both.",
+      },
+      {
+        q: "Will the isolated channel be quieter than the original?",
+        a: "It can be. With one channel discarded, any content that was spread across the pair loses whatever the other side was contributing, and the tool applies no compensation for that. There is no metering either, so judge the level by ear and normalise afterwards if you need to.",
+      },
+      {
+        q: "Does isolating a channel change the tone?",
+        a: "If the file has been through mid and side processing or a stereo widener, yes. Those processes build side content out of the difference between the two channels, so keeping one channel leaves you with a partial version of that content rather than the intended balance. For an unprocessed stereo capture, isolating a channel is transparent.",
+      },
+    ],
+  },
+
+  "mid-side-processor": {
+    keywords: [
+      "mid side",
+      "stereo width",
+      "side gain",
+      "mono",
+    ],
+    intro:
+      "Mid/Side Processor gives independent level control to the centre and the stereo components of a file, so width and centre weight can be changed without touching anything else. Both controls run from nothing to double.",
+    content:
+      "Drop a stereo file and move the two sliders. The mid control scales the component both channels share, and the side control scales the component they differ by. The footer reports the two multipliers and reminds you where vocals and bass usually sit.\n\nWhat the panel gives you:\n\n- A mid control covering 0 to 200 percent in whole steps, defaulting to 100.\n- A side control covering 0 to 200 percent on the same scale, also defaulting to 100.\n- A live footer showing both multipliers as decimals, with a note that mid carries vocals and bass while side carries width.\n- An output WAV named after the source with a mid and side suffix.\n- A two channel requirement, so the tool asks for stereo before it will run.\n\nThe processor encodes the stereo pair into a mid side representation, scales each part and decodes back. The mid signal is built from left plus right and the side signal from left minus right, which is the same transform as the two by two matrix elsewhere in this domain expressed in its own terms. Scaling the side gain changes stereo width, because the difference signal is precisely what makes the two channels differ, and scaling the mid gain changes the level of everything the channels have in common. At a mid setting of zero you hear side only, which is the familiar cancellation effect of a removed centre; at a side setting of zero the two channels become identical and the file collapses to mono. Verified behaviour is that both paths round trip to the original signal when the controls sit at unity.\n\nWhat it cannot do:\n\n- The centre is not a vocal stem, so anything else panned centre is scaled along with the voice.\n- Cancelling the mid is a crude removal rather than separation, and the result usually sounds hollow because low frequencies live almost entirely in the mid component.\n- Pushing the side gain above 100 percent raises the difference signal and can take the output past full scale with no metering to warn you.\n- The transform assumes a real stereo source; on a dual mono file the side component is empty and that slider does nothing.\n- Mono compatibility is not checked, so widening can produce a file that partially cancels when it is folded down.\n- Both controls are static for the whole file, with no automation and no frequency dependent behaviour.\n\nIn practical terms this answers two questions a normal balance control cannot: how much of the mix is centre, and how much of it is width. It is also a useful diagnostic, since pulling the mid down to zero and listening tells you what the side content is really contributing, which is often less than expected. Use the side control when a mix feels narrow, and use the mid control when the centre needs to come forward or step back. For a karaoke style edit, pull the mid down and accept that what remains is the side content rather than something reconstructed, then check the fold down before shipping anything.",
+    howTo: [
+      { step: "Drop a stereo file onto the panel; the tool requires two channels and will not run on mono." },
+      { step: "Move the mid slider to change the level of the centre, from fully removed at zero to doubled at 200 percent." },
+      { step: "Move the side slider to change stereo width, keeping both controls near the middle for subtle adjustments." },
+      { step: "Check the footer multipliers, then download the mid and side processed WAV." },
+    ],
+    whenToUse:
+      "Mid/Side Processor is the tool when the question is how much centre and how much difference the file should contain. {{mid-side-encoder|Mid-Side Encoder}} and {{mid-side-decoder|Mid-Side Decoder}} expose the two components as separate outputs rather than reshaping them in place, and {{stereo-widener|Stereo Widener}} chases width directly without the centre control. When the whole image needs to move rather than be reweighted, {{panning-tool|Panning Tool}} is the simpler choice.",
+    faqs: [
+      {
+        q: "What do the mid and side signals actually contain?",
+        a: "Mid is what the two channels have in common, computed as left plus right, so centre panned material such as vocals, kick and bass dominates it. Side is what they differ by, computed as left minus right, and that difference is what creates the sense of width. Scaling either one changes one aspect of the image without an equaliser.",
+      },
+      {
+        q: "Can I use it to remove a vocal for karaoke?",
+        a: "You can reduce the mid to zero, which leaves only the side content and cancels anything panned dead centre. That usually removes the vocal, but it also removes centred drums and bass and leaves a hollow result, because the low end of a mix lives almost entirely in the mid component. Treat it as a rough effect rather than a separation.",
+      },
+      {
+        q: "How far can I widen before something breaks?",
+        a: "There is no hard limit in the tool, but there are two practical ones. The difference signal grows as you push the side control, so the output can exceed full scale with no warning, and a widened file can partially cancel when it is folded to mono. Check both before you commit to a wide setting.",
+      },
+      {
+        q: "Why does the side control do nothing on some files?",
+        a: "Because those files have no difference between the channels. A dual mono recording, where the same signal sits in both channels, has an empty side component, so scaling it has no effect. The same is true of a mono file, which is why the tool requires two channels before it will run.",
+      },
+      {
+        q: "Does this change the overall level?",
+        a: "It can. With both controls at 100 percent the round trip is verified to be transparent, but any change to the two gains alters the balance between centre and width and therefore the level of the result. There is no metering, so adjust by ear and normalise afterwards if the file needs to hit a specific level.",
+      },
+    ],
+  },
+
+  "panning-tool": {
+    keywords: [
+      "equal power",
+      "stereo field",
+      "pan law",
+      "hard left",
+    ],
+    intro:
+      "Panning Tool moves a stereo source across the stereo field with an equal power law, so the total energy stays constant as the image moves. Centre sits at minus three decibels per channel and a hard pan puts everything on one side.",
+    content:
+      "Drag the position slider anywhere from full left to full right and the file is re-panned, with the footer naming the position and the law being applied. Because the law is equal power rather than a straight line fade, perceived loudness holds steady while the image travels.\n\nWhat you control and what you see:\n\n- A position slider covering a hundred percent left to a hundred percent right in single percent steps, centred by default.\n- Readable position labels, from hard left and hard right through percentage left and percentage right to centre.\n- An equal power gain law, matching the behaviour of the standard stereo panner in the browser's own audio graph.\n- A footer that states both the position and the law, so the setting is recorded in the interface rather than remembered.\n- An output WAV named after the source with a panned suffix.\n\nThe pan law is equal power, which is the same curve a stereo panner node applies in the Web Audio graph. At centre each channel is attenuated by about three decibels, which is not an error but the consequence of keeping total energy constant: the listener hears the same loudness as the source moves, because as one side falls the other rises, and the two gains are computed as sine and cosine of the pan angle rather than as a straight line. At the extremes the pan becomes exact, with a hard left leaving all the signal on the left channel and nothing on the right. Verified behaviour is that the centre position produces minus three decibels per channel and that a hard pan isolates the chosen channel precisely.\n\nWhat panning does not preserve:\n\n- Panning folds a stereo source onto an arc, so width that existed in the original is compressed into the pan position rather than kept.\n- Monophonic content panned hard to one side plays on that side only, which is what you asked for and often not what you wanted.\n- There is no automation, so the position is fixed for the whole file.\n- The law is fixed at equal power, with no option for a linear or a compensated pan law.\n- There is no metering, so any level change from combining panned content elsewhere in a project will not be visible here.\n- It positions the whole file rather than an element inside it, so it cannot pan one instrument within a mix.\n\nUse it when a whole file needs to sit somewhere specific in the stereo field: a one sided effect, a stem that has to occupy a slot in a layout, or a test signal you want to identify on one monitor. Remember that panning is a placement decision rather than a mix fix, so a file that sounds off centre because one side is simply louder will not be improved here; correcting that is the balance tool's job. If you are adjusting how wide the image feels rather than where it sits, the mid and side processor is the right tool instead.",
+    howTo: [
+      { step: "Drop a stereo file onto the panel and note where the slider currently sits, which is the centre by default." },
+      { step: "Drag the slider left or right, or fine tune toward the extremes for a hard pan." },
+      { step: "Read the footer label to confirm the position being applied before committing to the download." },
+      { step: "Download the panned WAV and check the result on headphones, where a one sided file is most obvious." },
+    ],
+    whenToUse:
+      "Panning Tool is for placing a whole file in the stereo field rather than mixing elements inside it. {{balance-adjuster|Balance Adjuster}} is the opposite kind of correction, attenuating one side to fix a leaning mix without moving anything, and {{stereo-widener|Stereo Widener}} adjusts how wide the image feels instead of where it sits. When the goal is to rotate content around the listener rather than to one position, {{8d-audio-converter|8D Audio Converter}} is the effect designed for that.",
+    faqs: [
+      {
+        q: "Why is the centre not simply full level on both channels?",
+        a: "Because the law is equal power. With a straight line pan, moving the image to the middle would make the sum of the two channels louder than either extreme, so the level would change as the image moved. Equal power attenuates each channel by about three decibels at centre, which keeps total energy constant and the perceived loudness steady.",
+      },
+      {
+        q: "What happens at a hard left or hard right setting?",
+        a: "The pan becomes exact. A hard left leaves the entire signal in the left channel and nothing in the right, and a hard right does the reverse. This is verified behaviour, and it is also the reason a hard panned file sounds silent on one side when it is played back on a single speaker.",
+      },
+      {
+        q: "Does panning destroy the stereo information?",
+        a: "It folds it. The tool re-pans the source as a whole, so any width that existed in the original is compressed into the position you choose rather than preserved alongside it. If you need to keep the width and only change where it sits, that is a different job from what a single pan control can do.",
+      },
+      {
+        q: "How is this different from the balance tool?",
+        a: "Balance attenuates one channel and never touches the other, so the centre of the image does not move. Panning applies a gain law that shifts the whole image, raising one side as it lowers the other. Use balance to correct, and pan to place.",
+      },
+      {
+        q: "Can I pan only part of the file?",
+        a: "Not here. The position is set once and applied to the whole file, so any change part way through means splitting the file and running the tool on the sections separately. That is a deliberate simplification, since the common job is placing a complete stem or clip.",
+      },
+    ],
+  },
+
+  "balance-adjuster": {
+    keywords: [
+      "leaning mix",
+      "balance",
+      "attenuate",
+      "unity",
+    ],
+    intro:
+      "Balance Adjuster attenuates one channel of a stereo file without touching the other, which is the cure for a mix that leans to one side. It is deliberately not a pan control: nothing moves, one side is simply turned down.",
+    content:
+      "Drag the balance slider and one channel is scaled while the other is left exactly as it was. The footer names which side was attenuated and by how much, and states that the untouched channel is bit identical to the source.\n\nWhat the control does:\n\n- A slider from full left to full right, centred and at unity by default.\n- Attenuation in one direction at a time: moving toward the left turns the right channel down, and moving toward the right turns the left channel down.\n- A readable label naming the attenuated side and the percentage applied to it.\n- A footer guarantee that the untouched channel is bit identical to the input.\n- A two channel requirement and an output WAV named after the source with a balanced suffix.\n\nThe adjustment is a gain applied to a single channel of the pair. At the centre both channels pass at unity, and as the slider moves to one side the opposite channel is scaled down while the near channel stays at full level, which is why nothing about the image moves and the effect is a pure level correction. Verified behaviour is that the untouched channel is reproduced sample for sample, with no filtering, no crosstalk and no gain change of any kind. That makes it the right tool for a genuinely leaning mix, where one microphone or one side of a stereo capture came back quieter and the fix is to bring the two sides level rather than to reposition anything.\n\nWhat it cannot fix:\n\n- It only attenuates, so a weak side cannot be boosted; the alternative is to turn the loud side down and accept a quieter file.\n- It cannot tell you how far off the balance is, because there is no metering and no level readout.\n- It will not correct a timing or polarity problem, either of which can make one side sound wrong without being a level matter at all.\n- The correction is static, so a file whose balance drifts over its length needs more than one pass or a different approach entirely.\n- Scaling one channel changes the summed mono level, so a fold down after balancing will differ from the original.\n- It applies to the whole file, so it cannot rebalance individual elements inside a mix.\n\nIt helps to be clear about which of the two stereo corrections you are making. If the material sounds as though everything has shifted sideways while keeping its shape, the balance is what needs fixing, and attenuating the loud side is exactly right. If a single element is in the wrong place while the rest of the mix is fine, that is a mixing decision the file cannot help with, since this tool acts on the two channels as a pair rather than on anything inside them. Use it when the mix already sounds correct but sits off centre, and because the correction is attenuation, the louder channel sets the level after the pass, so decide whether a slightly quieter file is acceptable before committing.",
+    howTo: [
+      { step: "Drop a stereo file onto the panel; the tool needs two channels to balance one against the other." },
+      { step: "Move the slider toward the side that is too loud, which attenuates the opposite channel." },
+      { step: "Read the footer label to confirm which side is being attenuated and by what percentage." },
+      { step: "Download the balanced WAV, knowing the untouched channel is bit identical to the source." },
+    ],
+    whenToUse:
+      "Balance Adjuster is the corrective tool for a leaning mix, so it is the right first step when one side is simply louder. {{panning-tool|Panning Tool}} is the creative relative, moving the whole image rather than levelling it, and {{channel-mixer|Channel Mixer}} is for cases where the two channels need rebuilding instead of adjusting. When the imbalance turns out to be a polarity problem rather than a level one, {{left-right-channel-swapper|Left/Right Channel Swapper}} and the inverter tools address the cause rather than the symptom.",
+    faqs: [
+      {
+        q: "How is balance different from panning?",
+        a: "Panning applies a gain law that moves the image, raising one side as it lowers the other, which is what you want when placing a source. Balance only attenuates, leaving the other channel untouched, so the centre of the image stays where it is. Use balance to correct a leaning recording and pan to position one.",
+      },
+      {
+        q: "Why can it only reduce level?",
+        a: "Because attenuation cannot clip. Boosting a weak channel risks pushing the output past full scale with no metering to warn you, while turning the loud side down is always safe. The consequence is that the corrected file is quieter overall, which is the trade the tool asks you to accept.",
+      },
+      {
+        q: "What if one side is actually broken rather than quiet?",
+        a: "Then balance will not help. A channel that is distorted, delayed or missing content sounds wrong for reasons other than level, and turning the other side down simply makes the problem quieter without fixing it. Polarity and timing problems in particular need their own tools.",
+      },
+      {
+        q: "Does the untouched channel really stay identical?",
+        a: "Yes, and it is verified behaviour. The tool applies a gain to one channel only, so the other passes through with no filtering, no crosstalk and no gain change, and it is reproduced sample for sample. The footer states this explicitly so you can trust the half of the file you did not ask it to touch.",
+      },
+      {
+        q: "Will balancing affect mono compatibility?",
+        a: "It changes the mono sum, since one channel now contributes less than before. That is usually exactly what you want, because a leaning stereo mix folds down to a mono signal that also leans. Check the fold down after the pass if mono playback matters for the material.",
+      },
+    ],
+  },
+
+  "dc-offset-remover": {
+    keywords: [
+      "dc offset",
+      "headroom",
+      "waveform",
+      "mean value",
+    ],
+    intro:
+      "DC Offset Remover measures how far each channel's waveform sits off centre and subtracts exactly that amount. It is a small repair that pays off in headroom, metering and clean edit points.",
+    content:
+      "Drop a file and the offset is measured across the whole recording and removed. The footer reports what was found and what is left, in per mille of full scale, with the residual usually reading as effectively zero.\n\nWhat the panel shows and does:\n\n- Each channel's mean value before the pass, reported to one decimal place in per mille.\n- The same measurement afterwards, given to two decimal places so the residual is visible.\n- Subtraction of each channel's own measured mean, applied independently per channel.\n- An output WAV named after the source with a dc clean suffix.\n- A note naming the usual culprits: cheap USB interfaces, phone microphones and over driven inputs.\n\nDC offset is a constant added to a waveform, so the trace sits above or below the centre line instead of oscillating about zero. The tool measures the mean value of each channel, which is the arithmetic average of every sample, and subtracts exactly that figure from every sample in that channel. Because the correction is derived from the signal itself it is exact rather than a guess, and the after reading in the footer shows the residual falling to a fraction of a per mille. Removing the offset buys back the peak headroom the shift was consuming, makes level meters read symmetrically up and down instead of favouring one direction, and removes the small click that appears at an edit point when one side of the join is offset and the other is not.\n\nWhere it does not apply:\n\n- It removes a constant offset only; a baseline that drifts slowly needs a high pass filter rather than a subtraction.\n- A very large offset can indicate that the recording was clipped asymmetrically, and correcting the offset will not restore the flattened peaks.\n- The measurement covers the whole file, so a recording whose offset changes part way through is averaged rather than corrected in pieces.\n- The subtraction shifts every sample by the same amount, which does not guarantee that the result is free of peaks.\n- It has no effect on noise, distortion or level problems, so it is applied for correctness rather than as an audible fix on most material.\n- There is no preview, so the correction has to be judged from the before and after figures once the pass has run.\n\nIt is worth running on anything that will later be edited or joined, because the click produced by a join between an offset waveform and a centred one is not something a listener can ignore. The measurement is useful information in its own right too: an unusually large figure on a delivered file points at the capture chain rather than the material, and it can explain a peak count that never seems to match what you hear. Run it before level and dynamics decisions, because a centred waveform makes every later choice easier to judge. If the offset is large enough to have caused clipping, treat the file as damaged and reach for the clipping repair tool instead of relying on this one.",
+    howTo: [
+      { step: "Drop an audio file onto the panel to have each channel's mean value measured across the recording." },
+      { step: "Run the pass, which subtracts the measured mean from every sample of the corresponding channel." },
+      { step: "Read the before and after figures in the footer to see how far the offset has fallen." },
+      { step: "Download the corrected WAV, named after the source with a dc clean suffix." },
+    ],
+    whenToUse:
+      "DC Offset Remover belongs at the start of an editing chain, before level and dynamics decisions are made. {{clipping-distortion-remover|Clipping Distortion Remover}} is the tool for the case where a large offset has already flattened peaks, and {{phase-inverter|Phase Inverter}} handles the polarity problems that offset is sometimes mistaken for. When the unwanted low frequency content is a slow drift rather than a constant, a filter is the answer, which is why {{wind-noise-remover|Wind Noise Remover}} sits nearby as the high pass option.",
+    faqs: [
+      {
+        q: "What exactly is DC offset?",
+        a: "It is a constant amount added to every sample, so the whole waveform is shifted above or below the centre line rather than oscillating evenly about zero. It usually comes from the analogue stage of an interface or a phone microphone. It wastes headroom, skews meters and clicks at edit points.",
+      },
+      {
+        q: "How is the correction calculated?",
+        a: "From the signal itself. The tool computes the arithmetic mean of each channel, which for an offset waveform is the offset, and subtracts that figure from every sample. Because it is measured rather than estimated, the correction is exact, and the footer shows the residual falling to a small fraction of a per mille.",
+      },
+      {
+        q: "Is a DC offset actually audible?",
+        a: "On its own, usually not, which is why this is a correctness repair rather than an audible one. The consequences show up indirectly: less headroom before peaks clip, meters that read asymmetrically, and a small thump at edit points where an offset waveform is cut. Fixing it early prevents all three.",
+      },
+      {
+        q: "What if the offset changes during the recording?",
+        a: "Then a single subtraction only averages the problem. The tool measures the file as a whole, so a baseline that drifts up and down over time is not fully corrected. That kind of slow drift is a job for a high pass filter, which removes it continuously rather than in one fixed step.",
+      },
+      {
+        q: "Can it undo clipping caused by a big offset?",
+        a: "No. If the offset pushed peaks into the ceiling, those flattened tops are permanent damage, and centring the waveform afterwards does not bring them back. A declipper can help with mild cases, but the correct order is to repair the clipping first and then remove the offset if any remains.",
+      },
+    ],
+  },
+
+  "phase-inverter": {
+    keywords: [
+      "polarity",
+      "null test",
+      "180",
+      "cancellation",
+    ],
+    intro:
+      "Phase Inverter multiplies the entire signal by minus one, which is what mixers and plugin interfaces mean by the polarity button. Every sample's sign flips, on every channel at once.",
+    content:
+      "Drop a file and download the inverted copy. The footer spells out the two uses directly: fixing polarity cancelling overlaps in multi microphone recordings, and null testing two takes to hear only what they do not share.\n\nWhat the operation is:\n\n- An exact negation of every sample across every channel, with no scaling and no smoothing.\n- One operation rather than per channel choices, so the internal relationships in the file are preserved.\n- A null test described in the panel: sum the original and the inverted copy at matched level, and whatever survives is the difference.\n- An output WAV named after the source with a phase flip suffix.\n\nInverting polarity is multiplication by minus one, applied to the waveform sample by sample. It is not a delay, and it is not the frequency dependent phase rotation a filter introduces; it is a mirror image about the horizontal axis, which means two copies of the same signal that meet with opposite polarity cancel almost completely when summed. That property is what makes the operation useful in two opposite directions. Used on one of a pair of misaligned sources, it restores reinforcement where a reversed cable, a wrongly pinned splitter or a reversed DI had been causing cancellation during tracking. Used on a copy of the same take, it turns the pair into a difference signal, so a null test of 180 degrees reveals reverb tails, noise and every element the two takes do not share. Verified behaviour is that the negation is exact, so applying it twice returns the original samples.\n\nWhat it cannot do:\n\n- It flips polarity rather than aligning time, so a source that is late by even a fraction of a millisecond needs a delay instead.\n- A null test only cancels the parts that are identical, so residual level is expected rather than a sign that something failed.\n- Inverting a single channel of a mix can cancel centre content, which is destructive when that was not the intent.\n- The tool offers no per channel choice, so a polarity problem in one channel only has to be handled with the channel inverter.\n- It cannot detect or report cancellation, so the mono sum test still has to be performed elsewhere.\n- A partial null often points to level, timing or filtering differences that no polarity flip will resolve.\n\nReach for it when a mono fold down loses level and you have established that polarity is the cause, and use it again in reverse when two supposedly identical takes need to be compared. Treat it as a comparison tool as much as a repair: a null test is one of the few ways to hear what a processing chain actually did to a signal, because anything the chain added or changed survives the cancellation while the original content disappears. If only one channel is misbehaving, the channel inverter gives you the same exact negation with a per side choice, and the swapper is the tool for channels that sit in the wrong places rather than the wrong polarity.",
+    howTo: [
+      { step: "Drop an audio file onto the panel; the whole signal will be inverted regardless of how many channels it has." },
+      { step: "Run the pass, which negates every sample of every channel exactly." },
+      { step: "Download the inverted WAV, named after the source with a phase flip suffix." },
+      { step: "Sum it against the original at matched level elsewhere if you want a null test to reveal the difference." },
+    ],
+    whenToUse:
+      "Phase Inverter is the whole file polarity flip, so it suits repairing a reversed source and setting up a null test between two takes. {{channel-inverter|Channel Inverter}} does the same negation with a per side choice, which is what you need when only one channel of a pair is out of polarity. When the underlying issue is the position of the channels rather than their sign, {{left-right-channel-swapper|Left/Right Channel Swapper}} exchanges them, and {{dc-offset-remover|DC Offset Remover}} fixes the related problem of a waveform that sits off centre.",
+    faqs: [
+      {
+        q: "Is this the same as inverting the phase by 180 degrees?",
+        a: "In the way the phrase is used by mixing consoles and plugin interfaces, yes: the polarity button and the 180 degree label describe the same operation. Technically it is polarity inversion rather than a true phase shift, since every frequency is mirrored in sign rather than delayed by a fixed time.",
+      },
+      {
+        q: "What is a null test and why would I run one?",
+        a: "It is a comparison. Invert one copy of a signal, sum it with the other at matched level, and everything the two have in common cancels. Whatever is left is their difference, which is how you hear a reverb tail, a noise floor or any processing that two takes do not share. The panel suggests summing the original with the inverted copy for exactly this.",
+      },
+      {
+        q: "When should I invert a whole file rather than one channel?",
+        a: "When the entire source is out of polarity with something else. A reversed DI, a wrongly wired split or an interface that flips polarity can all invert everything at once, and in that case a whole file flip restores the relationship. If only one side of a stereo pair is wrong, inverting both would make the problem worse.",
+      },
+      {
+        q: "My null test is not perfectly silent. Did something go wrong?",
+        a: "Not necessarily. A null only cancels the parts that are identical, so any difference in level, timing, filtering or processing leaves residue, and that residue is the answer you were looking for. A slightly incomplete null is normal; a wildly incomplete one usually means the two files are not the same take.",
+      },
+      {
+        q: "Does inverting polarity change the sound?",
+        a: "In isolation, no. Listen to a single track flipped in polarity and it sounds exactly the same, because the ear does not detect absolute polarity reliably. The audible effect only appears in relation to other signals, which is why the operation matters during mixing and cancelling rather than on its own.",
+      },
+    ],
+  },
+
+  "batch-file-renamer": {
+    keywords: [
+      "batch rename",
+      "prefix",
+      "suffix",
+      "zero padded",
+    ],
+    intro:
+      "Batch File Renamer plans and applies new names for a group of audio files dropped onto it, using prefix, suffix, find and replace, letter case and numbering. Audio content is never touched: each saved file is a byte identical copy under a new name.",
+    content:
+      "Drop one file or fifty and the panel builds a plan, showing every original name beside the name it will become. Each row carries its own save control, so files come back one at a time under their new names, straight from an object URL of the original file.\n\nWhat the panel offers:\n\n- A prefix and a suffix, placed around the existing base name and before the extension.\n- Find and replace applied to the base name only, leaving the extension alone.\n- Letter case normalisation to lowercase or uppercase, or left exactly as it was.\n- Numbering with a start value from 0 to 9999 and a zero padded width from 1 to 6 digits, defaulting to three.\n- An option to append the total, producing names such as a sequence numbered of fifty.\n- Invalid character replacement, defaulting to a hyphen, for the characters that file systems will not accept.\n\nThe plan is computed in the browser from the file names alone, with no reading of file contents. Each name is split into a base and an extension against a fixed list of audio extensions, the find and replace step runs on the base, case normalisation is applied, and then the prefix, suffix and number are assembled around it. The extension is preserved from the original name rather than taken from the rebuilt base, so a file cannot lose its format along the way. Anything a file system would reject is replaced with the chosen character, and the result is trimmed before the extension is appended. Verified behaviour is that the saved file is byte for byte the file you dropped, because what is downloaded is an object URL of the original file rather than a re-encoded copy.\n\nWhat the renamer does not do:\n\n- It cannot read audio content, so numbering is positional rather than derived from duration, tempo or any other property.\n- Files are numbered in the order they were dropped, which may not match alphabetical or chronological order.\n- Saving is per file rather than as an archive, so a large batch means a large number of downloads.\n- Replacing a character that already appears elsewhere in a name can produce collisions, which the plan shows but does not resolve.\n- A find and replace that matches nothing is silent, so a mistyped search term leaves the plan unchanged.\n- Names are changed in the browser only; the files on your disk keep their original names until each one is saved.\n\nUse it for a batch rename at the start of a delivery, so a set of files sorts sensibly, and keep the zero padded width consistent so a sequence does not jump between two and three digits part way through. Because nothing is re-encoded, it is also the safe way to relabel an archive: the audio, its tags and its bit rate all survive exactly as they arrived. Because the plan is shown before anything is saved, the moment to catch a mistake is before you click rather than after, so read two or three rows of the plan instead of trusting the fields you typed.",
+    howTo: [
+      { step: "Drop one or more audio files onto the panel; the plan updates for every file at once." },
+      { step: "Fill in the prefix, suffix, find and replace fields, and choose a letter case if you want one." },
+      { step: "Set numbering, picking a start value and a zero padded width so the sequence sorts correctly." },
+      { step: "Check the plan rows, then save each file from its own control under the new name." },
+    ],
+    whenToUse:
+      "Batch File Renamer is a naming step, so it sits at the start or the end of a delivery rather than inside an edit. {{id3-tag-editor|ID3 Tag Editor}} changes the metadata inside a file while the name stays as it was, which is a different job on the same finished episode, and {{podcast-chapter-marker-tool|Podcast Chapter Marker Tool}} writes chapter markers into an MP3. When the files differ in format and need converting before delivery, {{audio-format-converter|Audio Format Converter}} handles that, and {{show-notes-timestamp-generator|Show Notes Timestamp Generator}} covers the text side of the same release.",
+    faqs: [
+      {
+        q: "Does renaming change the audio inside the file?",
+        a: "No. The file you save is byte for byte the file you dropped, because the download is an object URL of the original rather than a copy the tool produced. That means the encoding, the tags and the bit rate all survive intact, and renaming cannot introduce a generation loss the way a re-encode would.",
+      },
+      {
+        q: "How does the numbering work?",
+        a: "Each file takes the next number in the order it was dropped, starting from your start value and padded to the width you choose. A width of three turns one into a three character string with two leading zeros, which matters for sorting: without padding, a list will order the tenth file ahead of the second.",
+      },
+      {
+        q: "What happens to characters the file system rejects?",
+        a: "They are replaced with a character you choose, which defaults to a hyphen. That covers the punctuation and reserved symbols that cannot appear in a file name on common systems, so a plan that is valid in the browser produces a name that is also valid when saved. The result is trimmed before the extension is appended.",
+      },
+      {
+        q: "Why do the files download one at a time?",
+        a: "Because each row has its own save control and the tool hands over the original file object rather than bundling an archive. That keeps the operation simple and guarantees the bytes are untouched, at the cost of a separate download for every file in a long batch.",
+      },
+      {
+        q: "Can I reorder the files before numbering?",
+        a: "Not directly, since numbering follows the order in which the files were dropped. To control the sequence, drop them in the order you want, or add a step to your own workflow first. Sorting a batch after the fact would break the link between the plan shown and the files saved.",
+      },
+    ],
+  },
+};

@@ -1,0 +1,492 @@
+[
+  {
+    "slug": "story-idea-generator",
+    "keywords": ["story idea generator", "premise", "protagonist", "what if"],
+    "intro": "The Story Idea Generator assembles a premise from a protagonist, a want, an obstacle and a setting, then spins the same parts into what-if variants.",
+    "content": "A premise is four facts in one sentence, and this story idea generator is built to test whether yours holds. Supply the genre, the protagonist, what they want, what stands in the way and where it happens; the tool assembles them into a premise in the voice of those parts and then spins the same parts into what-if variants. The engine combines what you supply — it invents no premise of its own, which is why the output always reads like your idea rather than a stranger's.\n\nThe parts panel holds the five inputs, each with an example placeholder so the shape of a good answer is visible before you type. The output reports words, parts filled and variants produced, and the what-if panel lists the variants: what if the want is achieved early and the story becomes its cost, what if the obstacle is right, and the rest built from whichever parts you filled. A checks panel names what is missing rather than filling it in.\n\n- Genre: the container the premise sits in, offered as a free field with an example.\n- Protagonist: who the sentence is about, in a phrase rather than a biography.\n- Want: what they pursue, phrased so the premise can continue it — wants to buy back her father's shop.\n- Obstacle: what pushes back, phrased to attach with a but — but the buyer is her brother.\n- Setting: where it happens, one image rather than a map.\n- What-if variants: the parts rearranged into questions that test the premise.\n\nThe assembly is string work, not generation: the parts are joined in fixed patterns, each variant is a template that lowers its first letter to fit, and every variant is conditional on the parts it needs — a want variant only exists if you supplied a want. That is the honest version of this tool category: the checklists are published, the templates are visible, and the output is reproducible. The counts come from the shared tokenizer, so the word figure agrees with every other counter in this domain.\n\n- The premise it builds is only as good as the parts: vague in, vague out.\n- The variants are templates, not plot — they interrogate the premise rather than extend it.\n- No knowledge of genre conventions is applied; the genre field is a label you carry.\n- There is no store: leave the page and the parts are gone unless you copy the result.\n- The checks name empty or thin fields and never judge the idea itself.\n\nThe test the variants exist for is falsifiability: run the premise past three of them and see whether it survives. A premise that collapses when the obstacle turns out to be right was leaning on surprise rather than force, and the tool has shown you that before you have written a scene. Fill every part before reading the variants — a half-filled premise produces variants about the half you left out.\n\nWhen the premise survives, the neighbouring tools take the next step: the plot structure planner maps its four facts onto a structure's beats, the character profile builder turns the protagonist into a sheet. A premise that has survived the variants and a protagonist sheet that answers the flaw and the backstory together are the two artifacts an outline can be written against, and the first line generator composes an opener from the same character and setting.",
+    "howTo": [
+      "Fill the parts: genre, protagonist, want, obstacle and setting.",
+      "Read the assembled premise and the counts panel for parts filled and variants produced.",
+      "Work through the what-if variants and note which ones the premise survives.",
+      "Check the checks panel for empty fields, then copy the result when the premise holds."
+    ],
+    "whenToUse": "Use the story idea generator when four facts exist and a sentence has to hold them together. The {{plot-structure-planner|Plot Structure Planner}} maps the same four facts onto a structure's beats, and the {{first-line-generator|First Line Generator}} composes an opener from the character and place. When the need is sparks rather than assembly, the {{writing-prompt-generator|Writing Prompt Generator}} serves a fixed bank of prompts, and the character profile builder in this domain turns the protagonist into a full sheet.",
+    "faqs": [
+      {
+        "q": "Does the tool write the story idea for me?",
+        "a": "No. It assembles the parts you supply in fixed patterns and spins them into what-if variants; nothing is invented. The output reads like your idea rearranged because that is literally what it is."
+      },
+      {
+        "q": "What are the what-if variants for?",
+        "a": "Testing the premise. Each one inverts or accelerates a part — what if the want is achieved early, what if the obstacle is right — and a premise that survives several of them is one worth drafting."
+      },
+      {
+        "q": "Why is a variant missing?",
+        "a": "Variants are conditional on the parts they need. Fill the want and the obstacle, and their variants appear; leave a field empty and only the variants that do not depend on it are built."
+      },
+      {
+        "q": "How long should the parts be?",
+        "a": "A phrase each. The premise is a sentence, so a protagonist in a clause and a want in a few words produce the readable result; long inputs are not rewritten, only placed."
+      },
+      {
+        "q": "Is my premise saved anywhere?",
+        "a": "No. The parts live in the page until you copy the result. There is no store and no account, so copy anything worth keeping before you leave."
+      }
+    ]
+  },
+  {
+    "slug": "character-profile-builder",
+    "keywords": ["character profile builder", "completeness", "flaw", "character sheet"],
+    "intro": "The Character Profile Builder prompts a character's want, need, flaw and arc, scores completeness and flags the common thin spots.",
+    "content": "A character profile is a set of answers that have to agree, and this character profile builder prompts them field by field. Ten prompts cover the parts a draft leans on — role, age, a telling appearance detail, want, need, flaw, strength, the backstory event behind the flaw, voice and arc — and the completeness panel scores how many are answered and which are still open. The point is gaps: an empty field is a question the story will have to answer anyway.\n\nThe prompts to think about panel carries the mechanical checks, and they are prompts rather than verdicts: a want that is really the need, a strength with no matching flaw, a character with no arc. The tool never says a character is wrong, only that a field is empty or that two fields say the same thing. Copy sheet exports the profile as a markdown character sheet, which is the format the rest of this domain's reports also use, so a character sheet can sit beside a beat plan and a conflict plan without conversion, and Download takes the same text as a file.\n\n- Ten prompts: role, age, appearance, want, need, flaw, strength, backstory, voice and arc.\n- Completeness: prompts answered, with the open ones named.\n- Shape checks: want versus need, strength versus flaw, presence or absence of an arc.\n- Markdown export: the profile as a character sheet, copyable and downloadable.\n- Word count from the shared tokenizer, so the sheet's size is exact.\n\nEach prompt is fixed text that names what a useful answer looks like — one telling detail, not a full inventory; one verbal tic is enough — and the answers are stored as plain fields. Completeness is arithmetic over the fields, and the checks are comparisons between them: the want and need compared for sameness, the strength and flaw for balance, the arc for being non-empty. Nothing is generated and nothing is scored on quality; the engine asks the questions a memorable character answers.\n\n- The checks read structure, not prose: a thin answer passes every one of them.\n- Field matching is literal, so want and need phrased identically flag, but near-synonyms pass.\n- No archive: the profile lives in the page until you copy the sheet.\n- The prompts assume a tradition of character work; a genre with different conventions still has to fit these ten.\n- Completeness of ten out of ten says the fields are filled, not that the character works.\n\nThe habit that makes the tool earn its place is answering the flaw and the backstory together: one names a habit, the other names the event that installed it, and a profile where those two connect reads as a person rather than a list. Read the checks after that pair, because they are where the contradictions surface — want equal to need, or a strength the story never has to use.\n\nThe neighbouring builders cover the other characters and the shape around them: the villain motivation builder asks the antagonist-specific questions, the story idea generator assembles the premise the character wants inside, and the conflict planner names who opposes whom over what. A profile that passes them is not finished, but it is coherent, and coherence is what the next builder needs.",
+    "howTo": [
+      "Fill the prompts — name, role, age, appearance, want, need, flaw, strength, backstory, voice and arc.",
+      "Read the completeness panel for prompts answered and the ones still open.",
+      "Work through the prompts to think about, checking want against need and strength against flaw.",
+      "Copy sheet or Download to export the profile as a markdown character sheet."
+    ],
+    "whenToUse": "Use the character profile builder when a character exists in notes and needs a shape. The {{villain-motivation-builder|Villain Motivation Builder}} asks the antagonist-specific questions — wound, method, the line they will not cross — and the {{story-idea-generator|Story Idea Generator}} assembles the premise this character wants inside. Who opposes them belongs to the {{conflict-and-resolution-planner|Conflict and Resolution Planner}}, and the world they stand in is the world building template's territory.",
+    "faqs": [
+      {
+        "q": "Which prompts does it ask?",
+        "a": "Ten: role, age, appearance, want, need, flaw, strength, backstory, voice and arc. Each prompt names what a useful answer looks like, so the field itself teaches what to put in it."
+      },
+      {
+        "q": "What do the checks actually flag?",
+        "a": "Empty fields and contradictions: a want that says the same thing as the need, a strength with no matching flaw, an arc left blank. They are prompts to think, never verdicts on quality."
+      },
+      {
+        "q": "How is completeness calculated?",
+        "a": "How many prompts are answered out of ten, with the open ones named. It measures coverage of the profile, not the quality of the answers inside it."
+      },
+      {
+        "q": "Can I export the profile?",
+        "a": "Yes. Copy sheet produces the profile as a markdown character sheet and Download saves the same text as a file, so the character can live beside the draft."
+      },
+      {
+        "q": "Does it judge my character?",
+        "a": "No. The engine asks the questions a memorable character answers and reports which are empty or duplicated. Whether the answers make a person is the part it leaves to you."
+      }
+    ]
+  },
+  {
+    "slug": "world-building-template",
+    "keywords": ["world building template", "world bible", "geography", "areas filled"],
+    "intro": "The World Building Template asks seven questions of your setting, assembles a world bible and shows which areas are still empty.",
+    "content": "Every story asks its setting the same seven questions, and this world building template asks them in one place: geography, culture, politics, economy, the rules of magic or technology, history and the conflicts that cannot both win. Answer them and the tool assembles a world bible — a single document with the premise at the top and each area beneath it — plus a panel counting words, areas filled and problems found. The engine supplies the questions and formats the answers; it invents no world.\n\nEach area is a labelled field with an example answer that shows the register: a geography placeholder that says what the land does to the people rather than where the mountains are. The checks panel flags the areas left empty and the answers that are too thin to carry a scene, phrased as prompts. Copy and Download produce the bible as text, which is how the template becomes a document your draft can be checked against.\n\n- Seven areas: geography, culture, politics, economy, rules, history and conflicts.\n- A one-line premise above them, so every answer answers the same story.\n- Areas filled: the count of answered areas out of the seven.\n- Problems: the checks for empty or thin answers, shown as prompts.\n- Word count from the shared tokenizer for the assembled bible.\n- Copy and Download for the document as plain text.\n\nThe bible is assembled by fixed section order — premise first, then the seven areas in the order a reader meets them — and every section that has an answer gets its heading, so the gaps are visible as missing headings rather than silence. Checks are mechanical: an empty area is flagged, and a one-clause answer is flagged as too thin to build a scene against. Nothing is generated, and the page says so: the questions are the product, the answers are yours.\n\n- An area count of seven of seven says the fields are filled, not that the world holds together.\n- The seven questions assume a certain kind of story; a slice-of-life setting may find politics and economy genuinely empty.\n- Answers are read literally, so a thin answer that sounds atmospheric still counts as thin.\n- No map, no timeline and no cross-referencing: the bible is a document, not a database.\n- Nothing is stored, so copy the bible before leaving the page.\n\nThe workflow that makes the template useful is to answer the conflicts field last and the rules field first: what is possible constrains everything else, and what cannot both win is what the story is actually about. Then read the checks panel — an empty conflicts field on an otherwise full bible is the most common gap, and it is the one the plot will need first. The bible is also the reference a later argument is settled by: when a scene contradicts the rules field six chapters on, the document wins, and the check that named a thin answer was usually the first sign the contradiction was coming.\n\nThe neighbours cover the parts of the same world: the scene description builder turns one location into sensory notes, the character profile builder fills the people who live in it, and the genre blender collides two genre conventions into the premise this world hosts.",
+    "howTo": [
+      "Write a one-line premise, then answer the seven area prompts — geography through conflicts.",
+      "Read the panel for words, areas filled and the problems the checks found.",
+      "Copy or download the assembled world bible as a document.",
+      "Return to the empty or thin areas the checks name and answer them before drafting."
+    ],
+    "whenToUse": "Use the world building template when a setting exists as fragments and needs one document. The {{scene-description-builder|Scene Description Builder}} turns a single location into sensory notes with a filter-word check, and the {{character-profile-builder|Character Profile Builder}} profiles the people who live there. For the premise the world hosts, the {{story-idea-generator|Story Idea Generator}} assembles it from four parts, and the genre blender in this domain decides which genre conventions the world has to honour.",
+    "faqs": [
+      {
+        "q": "Which areas does the template ask about?",
+        "a": "Seven: geography, culture, politics, economy, the rules of magic or technology, history and conflicts. Each is a field with an example answer showing the register it wants."
+      },
+      {
+        "q": "Does it generate any of the world?",
+        "a": "No. The engine supplies the questions and formats the answers; it invents no world. The questions and their order are the product, and the answers are entirely yours."
+      },
+      {
+        "q": "What do the checks flag?",
+        "a": "Areas left empty and answers too thin to build a scene against. They are phrased as prompts, because a small setting may have a genuine reason for an empty area."
+      },
+      {
+        "q": "Why is the premise at the top?",
+        "a": "So every answer answers the same story. A world bible without a premise collects facts the draft will never use; with one, each area can be read against the line it serves."
+      },
+      {
+        "q": "How do I keep the world bible?",
+        "a": "Copy or Download it as text. Nothing is stored in the page, so the document has to leave with you to survive the session."
+      }
+    ]
+  },
+  {
+    "slug": "plot-structure-planner",
+    "keywords": ["plot structure planner", "logline", "beats", "stakes"],
+    "intro": "The Plot Structure Planner maps four premise facts onto a named structure's beats and reports which facts are anchored and which are missing.",
+    "content": "A premise has four load-bearing facts and a structure has a sequence of beats, and this plot structure planner anchors one to the other. Write the logline, the protagonist, the goal, the conflict and the stakes, choose a structure, and the plan panel maps them where a reader expects them: the protagonist at the opening, the goal at the inciting incident, the conflict at the midpoint, the stakes at the second turning point. The beats between keep their own prompts from the structure, so the output is a full beat sheet with your facts already placed.\n\nThe stats panel reports beats in the chosen structure, facts anchored, facts placed and the premise word count, and the beat-by-beat list shows every beat with its prompt or your fact where an anchor applies. Checks name what is missing in the structure's own terms: a logline under eight words says too little to plan against, a conflict under four words names a difficulty rather than an opposing force, and a missing fact is named as missing rather than left quietly to the draft.\n\n- Four premise facts: protagonist, goal, conflict and stakes, each anchored to a named beat.\n- Logline: the one-line version, checked for being long enough to plan against.\n- Structure choice: the same four structures the other story tools use.\n- Beat-by-beat list: every beat with its prompt and your anchored fact.\n- Stats: beats, facts anchored, facts placed and premise words.\n- Copy plan and Download for the finished sheet.\n\nAnchoring is a fixed table: each of the four facts declares the beat position where a reader expects it, and the plan merges that table with the chosen structure's beats. The checks are the premise's own arithmetic — word counts on the logline and conflict, presence of each fact — so a thin premise shows up as short numbers rather than vague advice. The structures come from the same shared reference module as the mapper and the beat builder, so the beats on this page cannot disagree with theirs.\n\n- Anchors assume the four facts land at conventional positions; a deliberate inversion will be placed conventionally.\n- A complete plan says the facts are present, not that the beats between them are populated.\n- The structure prompts are generic to the beat, not to your genre.\n- No draft text is stored: the plan is a document you copy.\n- The checks are word-count and presence rules; they cannot tell a dull goal from a sharp one.\n\nThe workflow is to write the logline last rather than first: the four facts are easier to state plainly once the sentence they roll up into is visible. Then read the beats where nothing is anchored — those are the turns your premise has not earned yet, and the anchored facts beside them are the four sentences any outline of this story will repeat, and the prompts on them are the questions the outline will have to answer.\n\nThe neighbouring tools cover the same material from other angles: the story idea generator assembles the four facts in the first place, the conflict planner shapes the conflict field in depth, and the ending generator drafts verdicts against the want and obstacle once the stakes are fixed.",
+    "howTo": [
+      "Write the logline and the four facts: protagonist, goal, conflict and stakes.",
+      "Choose a structure; the facts anchor to the beats where a reader expects them.",
+      "Read the beat-by-beat list, then the checks panel for short or missing facts.",
+      "Copy plan or Download the sheet as the outline's starting document."
+    ],
+    "whenToUse": "Use the plot structure planner when a premise exists and the outline has to start somewhere. The {{story-idea-generator|Story Idea Generator}} assembles the four facts in the first place, the {{conflict-and-resolution-planner|Conflict and Resolution Planner}} shapes the conflict field with escalating turns, and the {{ending-generator|Ending Generator}} drafts six verdicts against the want and obstacle. For the indented shape an outline takes before facts are anchored, the {{outline-builder|Outline Builder}} renders one three ways.",
+    "faqs": [
+      {
+        "q": "Which facts does it anchor to the beats?",
+        "a": "Four: the protagonist at the opening, the goal at the inciting incident, the conflict at the midpoint and the stakes at the second turning point — the positions where a reader expects them."
+      },
+      {
+        "q": "Why does it complain about my logline length?",
+        "a": "A logline under eight words says too little to plan against. The check is a word count, stated in those terms, because the plan's anchors need something specific to place."
+      },
+      {
+        "q": "Which structures are available?",
+        "a": "The same four used by the other story tools — three-act, four-act, Save the Cat and the hero's journey — held in one shared reference so beats never disagree between pages."
+      },
+      {
+        "q": "What does facts placed mean versus facts anchored?",
+        "a": "Anchored is where each fact belongs by convention; placed is where you actually supplied one. The gap between the two counts is the premise parts the plan is still missing."
+      },
+      {
+        "q": "Does it write any of the draft?",
+        "a": "No. It maps what you give it onto beats and reports what is absent. The beat prompts between the anchors are questions for the draft, not text to paste into it."
+      }
+    ]
+  },
+  {
+    "slug": "dialogue-practice-tool",
+    "keywords": ["dialogue practice tool", "speeches", "attribution verbs", "said-bookisms"],
+    "intro": "The Dialogue Practice Tool analyses an exchange for who talks how long, how speeches are attributed and where the adverb tags pile up.",
+    "content": "Dialogue is revised by hand more than any other prose, and this dialogue practice tool reports the things a writer would otherwise count manually. Paste an exchange — as a script with names and quoted lines, or as prose with quoted speech — and the analysis attributes speeches to speakers where it can, then reports speeches, average speech length, questions, exclamations, adverb tags, plain tags and narration lines. The who-speaks panel shows the share each speaker holds, which is usually the first surprise.\n\nThe attribution verbs panel lists the verbs used to carry the speech, separating the plain ones — said, asked, replied, answered — from the rest. Verbs other than the plain ones are said-bookisms, and the analysis names them rather than banning them, because a muttered line in the right place is doing work. The input note shows the accepted script form so a pasted exchange parses cleanly, and Copy report or Download takes the whole analysis out.\n\n- Script or prose input: names with quoted speech, or quoted speech with attribution.\n- Speech statistics: count, average length, questions and exclamations.\n- Tag statistics: plain tags versus adverb tags, and narration lines.\n- Who speaks: each speaker's share of the exchange.\n- Attribution verbs: the verbs found, with the plain set separated out.\n- Copy report and Download for the analysis as plain text.\n\nParsing walks the text for quoted spans and speaker patterns: a name before a known attribution verb starts a speaker, and prose without names falls back to quoting order. Tag detection uses a published verb list with a plain subset, and adverb tags are recognised by the ly-suffixed word after the verb. The counts are exact over what the parser matched, which is why the panel states the accepted input format rather than implying a reading of your prose that it cannot perform.\n\n- Attribution is pattern-based: a speaker line without a recognised pattern may be counted as narration.\n- Unusual verbs and dialect tags are invisible to a fixed verb list.\n- Average speech length mixes comic beats and speeches; the distribution is yours to read.\n- The tool reports said-bookisms as facts, not faults — sometimes a whispered line is correct.\n- Foreign-language dialogue runs through the same English patterns.\n\nThe reading order that works: who speaks first, because an imbalance changes the scene's power; then average speech, because long speeches in an argument read as monologues; then the tag panel, because a page where every line is adverb-tagged is telling you the dialogue is not carrying the emotion. Fix the imbalance, the monologue-length speech or the pile of adverb tags — one at a time — and re-paste — the report recomputes from scratch each time, so the counts after an edit are directly comparable with the counts before it rather than being an impression of improvement.\n\nThe neighbours cover the scene around the exchange: the scene description builder checks the setting prose for filter words, the character profile builder fixes the voices those speakers are supposed to have, and the word count tool gives the paragraph totals the exchange sits inside. A second pass over the same passage is usually where the report earns its keep: fix the balance, cut one adverb tag, paste again, and compare the counts rather than your memory of them.",
+    "howTo": [
+      "Paste the exchange as script lines or prose with quoted speech.",
+      "Read the statistics panel for speeches, average speech, questions, exclamations and tag counts.",
+      "Check who speaks for the balance, then the attribution verbs for the plain and not-so-plain set.",
+      "Copy report or Download, revise one thing, and paste again to see the counts move."
+    ],
+    "whenToUse": "Use the dialogue practice tool when an exchange reads flat and the numbers behind it are unknown. The {{scene-description-builder|Scene Description Builder}} checks the description around the dialogue for filter words, the {{character-profile-builder|Character Profile Builder}} fixes the voices these speakers are supposed to have, and the {{story-idea-generator|Story Idea Generator}} assembles the premise the conversation is carrying. Who they are arguing for belongs to the {{villain-motivation-builder|Villain Motivation Builder}} when one of them opposes the plot.",
+    "faqs": [
+      {
+        "q": "What input formats does it accept?",
+        "a": "Either a script — name, colon, quoted speech — or prose with quoted lines and attribution verbs. The accepted script form is shown on the page so a pasted exchange parses cleanly."
+      },
+      {
+        "q": "What is a said-bookism?",
+        "a": "An attribution verb other than the plain set — said, asked, replied, answered. The tool names them rather than banning them, because a muttered line in the right place is doing real work."
+      },
+      {
+        "q": "Why is a speaker missing from who speaks?",
+        "a": "Attribution is pattern-based: a line is assigned when a name sits next to a recognised verb or the script format is followed. Unrecognised speakers fall back to narration counts."
+      },
+      {
+        "q": "What is a healthy average speech length?",
+        "a": "There is no target. The figure exists for comparison across the exchange: an argument whose speeches run long reads as a pair of monologues, and the average is where that shows first."
+      },
+      {
+        "q": "Does it judge my dialogue?",
+        "a": "No. It counts speeches, tags and shares from patterns it states. Whether the adverb tags are wrong or the balance is deliberate is the editorial judgement the page leaves to you."
+      }
+    ]
+  },
+  {
+    "slug": "writing-prompt-generator",
+    "keywords": ["writing prompt generator", "prompt bank", "categories", "three at a time"],
+    "intro": "The Writing Prompt Generator cycles a fixed, authored prompt bank across five categories, serving three prompts at a time in a stable order.",
+    "content": "Nothing here is random, and that is the point of this writing prompt generator. A fixed, authored prompt bank is organised into five categories — character, setting, conflict, dialogue and opening — and served three at a time in a stable order: the next action advances through the bank deterministically, so every writer sees the same prompts in the same order and can return to one. The panel shows how many prompts are in this bank for the chosen category, and the scope panel states plainly that the bank is finite.\n\nThe category picker chooses which bank you are drawing from, and the page of three prompts updates as you cycle. Because the order is stable, a prompt you skip comes back around rather than disappearing — which is what separates a bank from a slot machine. There is no model behind the prompts and no composition step: each one is a sentence someone wrote to be answered, and the count of prompts in the bank is printed so the finitude is visible rather than implied.\n\n- Five categories: character, setting, conflict, dialogue and opening.\n- Three prompts served per page, the same three for everyone at the same position.\n- A stable cycle: the next action wraps at the end, so the list never runs out.\n- Prompts in this bank: the size of the current category's list.\n- Scope and limits: the statement that the bank is authored and finite.\n\nThe engine is a set of arrays and an offset. promptPage reads three entries starting at the current offset and wraps at the end; nextPromptOffset advances the offset. That is the whole mechanism, and the page says so, because a generator that pretends to compose prompts it does not contain is the failure mode this tool is built to avoid. Word counts on the prompts come from the shared tokenizer like everything else in the domain.\n\n- The bank is finite: a category you cycle often will start repeating, by design.\n- Prompts are generic to their category and carry no knowledge of your story.\n- No difficulty rating, no suitability filter and no way to add your own prompts.\n- The cycle position is page state, not storage: a reload starts the category again.\n- Nothing is generated, so two writers on the same page see the same three prompts.\n\nThe habit that makes a fixed bank useful is answering on paper before judging: read three, write the one that produces a sentence fastest, and only then cycle. The temptation to keep cycling is the slot-machine pull the deterministic order exists to remove — the next three are ordinary prompts too, and the one in front of you is the test. Cycle only when three answers exist on paper, and keep a note of which category produced the sentence fastest — that is data about your habits, not about the bank.\n\nThe neighbours take the prompts further: the story idea generator assembles a premise from four parts, the first line generator composes an opener from a character and a place, and the flash fiction timer gives the prompt a clock to be written against.",
+    "howTo": [
+      "Choose a category: character, setting, conflict, dialogue or opening.",
+      "Read the three prompts on the page — the same three everyone sees at this position.",
+      "Answer the one that produces a sentence fastest rather than cycling first.",
+      "Cycle when the three are spent; the order wraps so no prompt is lost."
+    ],
+    "whenToUse": "Use the writing prompt generator when the need is a starting point rather than an assembly. The {{story-idea-generator|Story Idea Generator}} builds a premise from four named parts once a prompt gives you something to want, and the {{first-line-generator|First Line Generator}} composes an opener from a character, a place and a tone. For writing against a clock, the {{flash-fiction-timer|Flash Fiction Timer}} adds a word and time limit, and the genre blender in this domain collides two conventions into a premise instead.",
+    "faqs": [
+      {
+        "q": "Are the prompts generated randomly?",
+        "a": "No. The bank is authored and finite, and pages are served from a stable offset, so everyone sees the same prompts in the same order. A prompt you skip comes back around rather than vanishing."
+      },
+      {
+        "q": "How many prompts are there?",
+        "a": "The panel shows how many prompts are in this bank for the chosen category. Five categories share the same serving rule of three at a time."
+      },
+      {
+        "q": "Can I add my own prompts?",
+        "a": "No. The bank is fixed and published, which is what makes the cycle stable across writers. The scope panel states the limit rather than implying otherwise."
+      },
+      {
+        "q": "Why does the order repeat when I cycle enough?",
+        "a": "Because the bank is finite and the offset wraps at the end. Repetition is the honest consequence of a fixed list, and it is also what lets you return to a prompt you passed."
+      },
+      {
+        "q": "Does it know anything about my story?",
+        "a": "No. Prompts are generic to their category and carry no context. The story-specific work belongs to the generators that assemble from your parts once a prompt has started something."
+      }
+    ]
+  },
+  {
+    "slug": "poetry-form-guide",
+    "keywords": ["poetry form guide", "rhyme scheme", "syllables", "free verse"],
+    "intro": "The Poetry Form Guide references the common fixed forms and measures a draft's lines, approximate syllables and rhyme against the form it claims.",
+    "content": "A fixed form is a set of numbers, and this poetry form guide carries them: line counts, syllable patterns and rhyme schemes for the common forms — haiku, tanka, limerick, cinquain, both sonnets, the villanelle, the sestina and free verse — plus a checker that measures your draft against the form it claims. The form's rules panel shows the reference: lines, syllable pattern, rhyme scheme and a note on what the form is for, all copyable as a reference entry.\n\nPaste the draft one line per line and the measured panel reports lines, syllables and rhyme reads: the line count against the form's, the syllable pattern line by line, and the rhyme scheme derived from the final sounds of each line as letter labels. Where the draft parts company with the form is reported directly rather than scored. Free verse appears in the guide with no fixed line count or rhyme, because a reference that pretends free verse has rules is not a reference.\n\n- Nine forms: haiku, tanka, limerick, cinquain, Shakespearean and Petrarchan sonnets, villanelle, sestina and free verse.\n- Form rules: line count, syllable pattern, rhyme scheme and a description.\n- Line check: your line count against the form's.\n- Syllable check: approximate syllables per line against the pattern.\n- Rhyme reads: a scheme derived from line-ending sounds as letter labels.\n- Copy reference and Download report for the form and the check.\n\nThe checker counts lines from the shared tokenizer's sentence segments laid out per line, counts approximate syllables through the shared syllable counter, and derives a rhyme key from each line's final vowel sound and everything after it, labelling matches with letters. Approximate syllables are labelled as such on the page: a stress-aware metre check is a different and much larger problem, and this tool does not claim it. The form data itself is the conventional description of each form, held as reference values.\n\n- Syllable counts are approximate by the shared heuristic, so near-misses on a pattern are expected.\n- Rhyme is read from final sounds, so slant rhyme and eye rhyme are reported as misses.\n- Metre and stress are not checked; the form reference names them, the checker does not verify them.\n- The end-word rotation of a sestina is reference text, not something the checker can verify.\n- A free-verse draft passes by definition, which is what free verse means.\n\nThe workflow is to pick the form first and read its rules panel before drafting, because the useful moment for a form guide is line one rather than line fourteen. Once a draft exists, paste it and read the rhyme reads before the syllables, because the scheme is the part of a fixed form a reader hears first: a scheme that is wrong at the pattern level will not be rescued by syllable counts, while syllable drift on a rhyme that works is a line edit.\n\nThe neighbours cover the surrounding craft: the flash fiction timer gives prose a clock, the word count tool reports the plain totals, and the sentence count tool applies the same counting to prose rhythm rather than poetic lines.",
+    "howTo": [
+      "Choose a fixed form and read its rules: lines, syllable pattern, rhyme scheme and note.",
+      "Paste your draft one line per line.",
+      "Read the measured panel for line count, syllables per line and the derived rhyme reads.",
+      "Copy the reference or download the report for the form and the check, then keep both beside the draft, then fix whichever of lines, syllables or rhyme is furthest from the form."
+    ],
+    "whenToUse": "Use the poetry form guide when a poem claims a form and the numbers have to agree. The {{flash-fiction-timer|Flash Fiction Timer}} puts a clock on prose instead, the {{word-count-tool|Word Count Tool}} reports plain totals for any text, and the {{sentence-count-tool|Sentence Count Tool}} applies the same counting to prose rhythm. For prompts when the page is blank, the {{writing-prompt-generator|Writing Prompt Generator}} cycles an authored bank across five categories.",
+    "faqs": [
+      {
+        "q": "How does it check rhyme?",
+        "a": "Each line's ending sound becomes a key — the final vowel and everything after it — and matching keys get the same letter, producing a scheme like A, A, B, B. Slant rhyme and eye rhyme read as misses by design."
+      },
+      {
+        "q": "Are the syllable counts exact?",
+        "a": "No, they are approximations from the shared syllable heuristic and are labelled as such. A stress-aware metre check is a much larger problem, and the tool does not claim to perform one."
+      },
+      {
+        "q": "Which forms are included?",
+        "a": "Haiku, tanka, limerick, cinquain, the Shakespearean and Petrarchan sonnets, the villanelle, the sestina and free verse — each with line count, syllable pattern, rhyme scheme and a note on what it is for."
+      },
+      {
+        "q": "Why is free verse in a form guide?",
+        "a": "Because it is a form with no fixed line count or rhyme, and a reference that pretended otherwise would be wrong. The checker reports its lines and syllables without measuring them against a pattern."
+      },
+      {
+        "q": "Does it check metre?",
+        "a": "No. The form reference names the conventional metre, but the checker measures lines, approximate syllables and rhyme only. Stress patterns are outside what it claims to do."
+      }
+    ]
+  },
+  {
+    "slug": "flash-fiction-timer",
+    "keywords": ["flash fiction timer", "word limit", "time limit", "words remaining"],
+    "intro": "The Flash Fiction Timer pairs a word limit with a time limit, counts the words remaining and holds your draft for the one sitting it took.",
+    "content": "Flash fiction is a constraint with a clock, and this flash fiction timer is both halves of it. Set a word limit and a time limit in minutes, start, and the live status reports words written, words remaining against the word limit, and how far over the limit you are once you pass it. The draft box below is the writing surface: one sitting, no edits, no looking back, with the count running as you type.\n\nThe challenge panel holds the two limits, and the live status panel carries the four figures — words written, words remaining, the word limit itself and over the limit — so the number that matters is always on screen. Copy status produces a plain-text line for the session, and Download draft takes the text with you when the timer stops. The count comes from the shared Unicode tokenizer, so words written here agrees with every other counter in this domain.\n\n- Word limit: the target the remaining figure is measured against.\n- Time limit in minutes: the clock counting down against the draft.\n- Words written: counted from the draft box with the shared tokenizer.\n- Words remaining: the limit minus the count, reported while it is still positive.\n- Over the limit: the excess once the count passes the target.\n- Copy status and Download draft for the session's record.\n\nThere is no trick behind the clock: elapsed time against the limit you set, and a word count that is a plain tokenization of the text in the box. Because the count is exact rather than estimated, the remaining figure can be trusted while you write, which is the only reason a word limit is useful mid-draft. The same is true of the time limit: an exact elapsed count against a number you chose is a different experience from a vague sense of running late. Everything runs in the page; the draft is text you can download at any point in the session.\n\n- The limit is a target, not a gate: the tool reports the excess rather than stopping you.\n- The clock measures elapsed time, so a pause inside the session counts against it.\n- No storage beyond the page: a reload loses the draft, so download anything worth keeping.\n- Word counts follow the Unicode rules, so hyphenated compounds count once.\n- No prompts and no structure: the timer constrains, it does not suggest.\n\nThe discipline flash fiction needs is subtraction, and the two numbers enforce it from opposite sides: words remaining tells you how little room is left, and the clock tells you how little time. The useful moment is the last third of the limit — cut the sentence that explains, keep the one that shows, and let the over-the-limit row be zero when the timer stops. Practically, that means deciding before the clock starts which sentences are load-bearing, because the last minutes are for cutting rather than adding.\n\nThe neighbouring tools cover the sessions around it: the writing sprint timer runs an open-length sprint with a pace figure, the writing goal tracker measures a day's total, and the writing prompt generator supplies the starting point when the page asks for one.\n",
+    "howTo": [
+      "Set a word limit and a time limit in minutes.",
+      "Start the clock and write in the draft box; words are counted as you go.",
+      "Watch the live status for words written, words remaining and any excess over the limit.",
+      "Copy the status line and download the draft when the timer stops."
+    ],
+    "whenToUse": "Use the flash fiction timer when the constraint is both words and minutes. The {{writing-sprint-timer|Writing Sprint Timer}} runs an open-length sprint with a pace figure instead, and the {{writing-goal-tracker|Writing Goal Tracker}} measures a day's total rather than one sitting. When the number you need afterwards is the document total, the {{word-count-tool|Word Count Tool}} reports words with a frequency table, and the {{writing-prompt-generator|Writing Prompt Generator}} supplies a starting point before the clock starts.",
+    "faqs": [
+      {
+        "q": "What happens when I pass the word limit?",
+        "a": "The over-the-limit row reports the excess. Nothing stops you writing — the limit is a target with a visible overshoot, which is how flash writers usually want it."
+      },
+      {
+        "q": "Does the clock pause?",
+        "a": "No. Elapsed time counts against the limit continuously once started, so a pause inside the session spends the same minutes a sentence does."
+      },
+      {
+        "q": "Is my draft saved?",
+        "a": "The draft is text in the page for the session. Download draft before reloading, because nothing is stored beyond the box you are writing in."
+      },
+      {
+        "q": "How are words counted?",
+        "a": "With the shared Unicode tokenizer used across this domain, so hyphenated compounds count once and numbers count as words. The remaining figure is therefore exact rather than estimated."
+      },
+      {
+        "q": "Does it suggest prompts or structures?",
+        "a": "No. The timer constrains and counts; it does not suggest. For a starting point, the writing prompt generator cycles an authored bank across five categories."
+      }
+    ]
+  },
+  {
+    "slug": "scene-description-builder",
+    "keywords": ["scene description builder", "filter words", "note sheet", "sensory prompts"],
+    "intro": "The Scene Description Builder turns sensory prompts into a consistent note sheet and checks a passage for the filter words that push the reader away.",
+    "content": "Description goes wrong when the paragraph is written before the room exists, and this scene description builder inverts the order. Sensory prompts ask what is here — the details worth noticing before prose starts — and the tool assembles the answers into a note sheet, reporting how many fields are filled. The builder does not write prose; it lists what you noticed, field by field, so the details are decided before the paragraph is. A note sheet with five fields filled gives a paragraph five things to do, which is the difference between describing a place and naming it.\n\nThe filter-word check is the second half: paste the passage you wrote from the notes and the tool checks the passage for filter words — the perception verbs that narrate seeing instead of showing — saw, heard, felt, noticed. Those verbs put the reader a step away from the scene, and they are one of the most common revision notes description attracts. The report combines the sheet and the check, so one copy gives both the plan and the first edit.\n\n- Sensory prompts: the fields that ask what is here before the prose does.\n- Note sheet: the answers assembled in order, with fields filled counted.\n- Filter-word check: a mechanical list of perception verbs in a pasted passage.\n- Hit list: the verbs found, in document order, with their context.\n- Copy notes for the sheet, and Download for the whole report.\n- Scope panel: the statement that the builder lists rather than writes.\n\nThe prompts are fixed text and the sheet is assembled from whichever fields are filled; the filter check is a literal list of perception verbs matched case-insensitively over the passage. Both are published mechanisms with no model behind them, which is why the page can promise that the check finds exactly the listed verbs and nothing else. The counts come from the shared tokenizer, so the words figure agrees with the rest of the domain.\n\n- The filter list is finite: a perception verb outside it passes unflagged.\n- Some perception verbs earn their place — a story about watching is allowed to watch.\n- The prompts assume a place with texture; an interior scene may fill fewer fields honestly.\n- The note sheet is a list, not a paragraph: the prose is still yours to write.\n- Nothing is stored, so copy the notes before leaving the page.\n\nThe workflow is prompts first, prose second, check third: fill the sheet, write the paragraph from it, then paste the paragraph into the filter check and see how many of your sentences begin by reporting perception. Replacing saw with the thing seen is the whole lesson the check exists to teach. The sheet beside it is the preventive half of the same lesson: details chosen first leave fewer perception verbs to report later, and re-running it after the edit confirms the count dropped.\n\nThe neighbouring tools cover the scene's other halves: the dialogue practice tool analyses the exchange happening inside it, the world building template holds the larger setting the scene belongs to, and the character profile builder fixes the people walking through it.\n",
+    "howTo": [
+      "Answer the sensory prompts — what is here — before writing any prose.",
+      "Read the note sheet and the fields-filled count to see where the scene is thin.",
+      "Write the passage from the notes, then paste it into the filter-word check.",
+      "Replace the flagged perception verbs where the scene can show instead, and copy the notes for reference."
+    ],
+    "whenToUse": "Use the scene description builder when a place needs to exist before the paragraph does. The {{dialogue-practice-tool|Dialogue Practice Tool}} analyses the exchange happening inside the scene, and the {{world-building-template|World Building Template}} holds the larger setting this scene belongs to. The people walking through it are the {{character-profile-builder|Character Profile Builder}}'s subject, and the conflict they are caught in belongs to the {{conflict-and-resolution-planner|Conflict and Resolution Planner}}.",
+    "faqs": [
+      {
+        "q": "What does the builder actually produce?",
+        "a": "A note sheet: the answers to the sensory prompts, assembled in order with a fields-filled count. It lists what you noticed rather than writing prose, which is what keeps the details yours."
+      },
+      {
+        "q": "What are filter words?",
+        "a": "Verbs that narrate perception instead of the thing perceived — saw, heard, felt, noticed. They place the reader a step away from the scene, and the check counts them in a pasted passage."
+      },
+      {
+        "q": "Are all perception verbs wrong?",
+        "a": "No. The check is a revision prompt, not a rule; a story about watching is allowed to watch. The list is finite, and the page says so rather than implying full coverage."
+      },
+      {
+        "q": "Can it write the description for me?",
+        "a": "No. The engine assembles your answers into a sheet and counts listed verbs in your passage. The prose between those two steps is deliberately left to you."
+      },
+      {
+        "q": "Are the notes saved?",
+        "a": "No, the sheet lives in the page. Copy notes or Download the report before leaving, since nothing is stored after the session."
+      }
+    ]
+  },
+  {
+    "slug": "conflict-and-resolution-planner",
+    "keywords": ["conflict and resolution planner", "escalating turns", "resolution", "person vs person"],
+    "intro": "The Conflict and Resolution Planner shapes one conflict — who opposes whom, over what, at what cost — and tracks the escalating turns toward the resolution.",
+    "content": "A conflict is a shape before it is a plot, and this conflict and resolution planner makes the shape explicit. Name the conflict, choose its type from person vs person through person vs technology, state who opposes whom and what is at stake, then write the resolution and what it costs. The turns field holds the escalations in order, and the shape panel reports parts decided, turns recorded and open parts — the three numbers that say whether the conflict can carry a story yet.\n\nThe shape notes carry the engine's checks as prompts rather than verdicts: a conflict needs at least three escalating turns, every turn has to change the situation rather than repeat it, and a resolution without a cost is usually a collapse rather than an ending. Copy plan or Download produces the plan as markdown, which is how the shape becomes a document the outline can be written against. A plan that has a name, a type, a cost and three turns is also the document you hand a collaborator, because every field states the same thing in the same words.\n\n- Working name: the conflict called something the draft can refer to.\n- Type: person vs person, self, society, nature, fate or technology.\n- The facts: who opposes whom, what is at stake, the resolution and what it costs.\n- Escalating turns: the ordered list of changes that raise the conflict, minimum three.\n- Shape panel: parts decided, turns and open parts.\n- Shape notes: the mechanical checks, phrased as prompts.\n\nThe engine checks the shape rather than judging the idea: completeness is arithmetic over the fields and the turn list, and the escalation checks are comparisons — turn count against the minimum of three, presence of a cost beside the resolution, turns against each other for actually changing the situation. Every rule is stated in those terms on the page, so a flagged plan can be read against the rule that flagged it. Nothing is generated; the questions and the checks are the product.\n\n- A plan with three turns and a cost is complete by the tool's rules, not guaranteed to work.\n- Escalation quality — whether a turn raises rather than rearranges — stays a judgement the tool cannot make.\n- The type list is a classic taxonomy; a story can straddle two types without either being wrong.\n- No storage: the plan lives in the page until you copy it.\n- Word counts are exact but only describe the plan, never the draft it will become.\n\nThe pass that matters is the cost field: write the resolution first, then name what it costs, because a resolution with no price is the most common structural hole and the check will name it either way. Then read the turns in order and ask whether each one changes who is winning — if two turns could swap places without anyone noticing, the escalation is decoration rather than movement.\n\nThe neighbouring tools cover the structure around the conflict: the plot structure planner anchors the premise onto a structure's beats, the villain motivation builder profiles whoever embodies the opposition, and the ending generator drafts the six verdicts an ending can deliver once the cost is fixed.\n",
+    "howTo": [
+      "Name the conflict and choose its type from the six classic categories.",
+      "Fill the facts: who opposes whom, what is at stake, the resolution and what it costs.",
+      "Write the escalating turns in order — at least three, each changing the situation.",
+      "Read the shape panel and notes, then copy or download the plan as markdown."
+    ],
+    "whenToUse": "Use the conflict and resolution planner when a story needs its central opposition shaped before drafting. The {{plot-structure-planner|Plot Structure Planner}} anchors the premise onto a structure's beats, the {{villain-motivation-builder|Villain Motivation Builder}} profiles whoever embodies the opposition, and the {{ending-generator|Ending Generator}} drafts verdicts against the want and obstacle once the cost is fixed. Assembling the premise itself belongs to the {{story-idea-generator|Story Idea Generator}}.",
+    "faqs": [
+      {
+        "q": "How many escalating turns does it require?",
+        "a": "Three, as a stated minimum. The engine counts the turns you enter and flags the plan when the count is short, because two turns cannot escalate — they alternate."
+      },
+      {
+        "q": "Why does it care that the resolution has a cost?",
+        "a": "A resolution without a cost is usually a collapse rather than an ending. The check reports a missing cost as a prompt, in exactly those terms, rather than judging the idea itself."
+      },
+      {
+        "q": "Which conflict types are offered?",
+        "a": "Six classic categories: person vs person, self, society, nature, fate and technology. A story can straddle two of them without either being wrong — the type is a label, not a cage."
+      },
+      {
+        "q": "Does it judge whether a turn really escalates?",
+        "a": "No. It checks that turns exist, are at least three and are entered in order; whether each turn raises rather than rearranges is the judgement the shape notes ask you to make."
+      },
+      {
+        "q": "Can I export the plan?",
+        "a": "Yes, Copy plan produces it as markdown and Download saves the same text. Nothing is stored in the page, so export before leaving."
+      }
+    ]
+  },
+  {
+    "slug": "villain-motivation-builder",
+    "keywords": ["villain motivation builder", "wound", "method", "line they will not cross"],
+    "intro": "The Villain Motivation Builder assembles the parts that make an antagonist a person — want, wound, method and the line they will not cross — and checks the parts drafts skip.",
+    "content": "An antagonist is a person with a plan, and this villain motivation builder asks the questions a memorable one answers: what they want, the wound behind the want, how they justify themselves in their own eyes, their method, the line they will not cross and the story they tell about themselves. The engine writes no villain. It collects the parts that make one legible, then reports which are filled and which checks the profile raises.\n\nThe panel holds the six inputs, each with an example that shows the register — a method described as what they actually do, a self-image stated in their own voice rather than yours. Stats report words, parts filled and problems, and the checks panel names the parts most drafts skip: a want with no wound behind it, a method with no line, a self-image that only repeats the justification. Copy and Download produce the profile as text.\n\n- What they want: the concrete object of the plan, in a phrase.\n- The wound: the past event that made the want necessary.\n- Justification: how the plan looks right from inside their own eyes.\n- Method: what they actually do, the behaviour rather than the capability.\n- The line they will not cross: the limit that makes them a person rather than a force.\n- Self-image: the story they tell about themselves, in their voice.\n\nThe checks are comparisons between the fields, not a model of evil: the wound is checked for being present behind the want, the line for existing beside the method, and the self-image for differing from the justification. Each is phrased as a prompt on the page, because a villain who is simply cruel is a valid choice in some stories. The word count and parts-filled figures are there for proportion — a method detailed in eighty words beside a wound in five is telling you where the profile is lopsided. Everything is assembled from what you typed, and the word counts come from the shared tokenizer like the rest of the domain.\n\n- The checks read presence and difference, never quality: a filled profile can still be flat.\n- Six fields assume a character-driven antagonist; a force of nature has no wound to name.\n- Field comparison is literal, so a self-image restating the justification only trips when the wording matches.\n- Nothing is stored, so the profile has to be copied out to survive the page.\n- No knowledge of genre conventions is applied to the answers.\n\nThe pair that does the most work is wound and line: the wound explains why the want exists, and the line explains why the villain has not already won. Read the checks after writing those two, because a profile where the method is detailed and the line is missing usually describes a problem for the plot rather than a character who can be reasoned with.\n\nThe neighbouring builders cover the rest of the cast: the character profile builder prompts the protagonist's want, need, flaw and arc, the conflict planner shapes who opposes whom over what, and the story idea generator assembles the premise the villain is standing inside. Read the six fields as a set rather than individually: the want explains the method, the wound explains the want, and the line explains why the story is not already over.\n",
+    "howTo": [
+      "Fill the six inputs: want, wound, justification, method, the line and self-image.",
+      "Read the stats for words, parts filled and problems.",
+      "Work through the checks, especially want against wound and method against line.",
+      "Copy or download the profile when the parts agree."
+    ],
+    "whenToUse": "Use the villain motivation builder when the antagonist needs a plan that reads as a person's. The {{character-profile-builder|Character Profile Builder}} prompts the protagonist's want, need, flaw and arc, the {{conflict-and-resolution-planner|Conflict and Resolution Planner}} shapes who opposes whom over what, and the {{story-idea-generator|Story Idea Generator}} assembles the premise this antagonist stands inside. Their voice in the scene belongs to the {{dialogue-practice-tool|Dialogue Practice Tool}}.",
+    "faqs": [
+      {
+        "q": "Which parts does it ask for?",
+        "a": "Six: what they want, the wound behind it, how they justify themselves, their method, the line they will not cross and how they see themselves. Each field shows an example in the register it wants."
+      },
+      {
+        "q": "Why does a villain need a wound?",
+        "a": "The wound is the past event that made the want necessary. The checks prompt for it because a want with no history behind it reads as appetite rather than motivation."
+      },
+      {
+        "q": "What does the line they will not cross do?",
+        "a": "It explains why the villain has not already won. A profile with a method and no line describes a problem for the plot rather than a person who can be bargained with."
+      },
+      {
+        "q": "Does it rate how convincing the villain is?",
+        "a": "No. The checks report presence and difference between fields — never quality. A fully filled profile can still be flat, which is the judgement the tool leaves to you."
+      },
+      {
+        "q": "Is the profile stored?",
+        "a": "No. The inputs live in the page, so Copy or Download the profile before leaving; nothing is saved after the session."
+      }
+    ]
+  },
+  {
+    "slug": "genre-blender-idea-tool",
+    "keywords": ["genre blender", "premise scaffolds", "conventions", "required element"],
+    "intro": "The Genre Blender Idea Tool collides two genres' stock elements into premise scaffolds that keep a convention from each side.",
+    "content": "A genre blend works when both genres stay recognisable, and this genre blender is built around that rule. Pick two of ten — fantasy, science fiction, mystery, romance, horror, thriller, western, historical, comedy and noir — optionally name a required element, and the tool pairs one element from each side through five fixed templates to produce premise scaffolds. The result is not a random mash-up: every scaffold keeps at least one convention from each genre, and both convention lists are shown so you can see what a reader will expect to survive the merge.\n\nThe two-genres panel holds the picks and the optional required element; what each genre promises shows the elements and conventions of both sides before any scaffold is read. The scaffolds panel lists the five templates' outputs, and the checks panel names the blend's own risks: the same genre twice is not a blend, a missing element leaves the collision generic, and a blend whose conventions cannot coexist is named rather than hidden. Copy ideas and Download take the scaffolds out as text.\n\n- Two genres chosen from ten, each contributing elements and reader expectations.\n- Required element: an optional phrase one scaffold must include.\n- Elements and conventions panels: what each genre promises before the merge.\n- Five fixed templates pairing one element from each side.\n- Checks: same genre twice, missing element, conventions that cannot coexist.\n- Copy ideas and Download for the scaffolds as plain text.\n\nThe engine pairs one element from each genre inside five published templates, and each scaffold is assembled from those parts rather than written. The convention lists are data held for all ten genres, which is what lets the checks say whether the two sides can coexist at all: a blend whose promises contradict each other is flagged instead of quietly producing a premise that breaks one of them. Everything is assembled from what you chose, and nothing is invented on your behalf.\n\n- The same genre chosen twice is flagged as not a blend rather than producing scaffolds.\n- A missing required element leaves the collision generic, which the checks name.\n- The ten genres and their stock elements are a finite reference set.\n- Scaffolds are structures for a premise, not plots; the story is still unwritten.\n- Nothing is stored, so copy the ideas before leaving the page.\n\nThe useful discipline is reading the promise panels before the scaffolds: a reader of noir expects a certain kind of ending, and a reader of romance expects another, and the premise has to honour whichever survives the merge. When a scaffold makes both lists look wrong, the fault is usually the pair rather than the template — swap one genre and the same five templates produce premises that make sense. Keep the required element short and concrete, because a long phrase forces one template to swallow the rest of the scaffold and the blend stops balancing; a single object or role is enough to tilt the collision without breaking it.\n\nThe neighbours cover the one-genre versions of the same work: the story idea generator assembles a premise from four parts, the first line generator composes an opener from a character, place and tone, and the writing prompt generator cycles an authored bank when the genre is not the constraint.\n",
+    "howTo": [
+      "Choose two different genres from the ten on offer.",
+      "Optionally name a required element one scaffold must include.",
+      "Read what each genre promises — elements and conventions — before reading the scaffolds.",
+      "Work through the five scaffolds and the checks, then copy the ideas worth developing."
+    ],
+    "whenToUse": "Use the genre blender when two genres have to become one premise. The {{story-idea-generator|Story Idea Generator}} assembles a premise from four named parts once a scaffold suggests them, and the {{first-line-generator|First Line Generator}} composes an opener from a character, a place and a tone. When the blend needs a starting spark instead, the {{writing-prompt-generator|Writing Prompt Generator}} cycles an authored bank, and the world building template in this domain answers what the merged world has to hold.\n",
+    "faqs": [
+      {
+        "q": "How many genres can I blend?",
+        "a": "Two at a time, chosen from ten: fantasy, science fiction, mystery, romance, horror, thriller, western, historical, comedy and noir. Each contributes its stock elements and reader expectations."
+      },
+      {
+        "q": "Why must both genres keep a convention?",
+        "a": "Because a blend works when both sides stay recognisable. Every scaffold pairs one element from each side, and the checks flag a result where the two conventions cannot coexist."
+      },
+      {
+        "q": "What does the required element field do?",
+        "a": "It names a phrase one scaffold must include — a ledger written in two hands, say. The field is optional, and the checks report a missing element as making the collision generic."
+      },
+      {
+        "q": "Is the output written by a model?",
+        "a": "No. Five fixed templates pair elements from published lists; every scaffold is assembled from parts you can see in the elements and conventions panels. Nothing is invented."
+      },
+      {
+        "q": "What happens if I pick the same genre twice?",
+        "a": "The checks name it as not a blend rather than producing scaffolds. The point of the tool is collision between two different sets of promises."
+      }
+    ]
+  },
+  {
+    "slug": "first-line-generator",
+    "keywords": ["first line generator", "opening line", "tone", "candidates"],
+    "intro": "The First Line Generator composes four candidate opening lines from a character, a place and a tone, and checks your own opener for borrowed moves.",
+    "content": "An opening line has one job — make the next line necessary — and this first line generator gives you four attempts at it. Supply a character, a place and a tone from quiet, strange, dangerous or warm, and four candidate opening lines come back built from those three fields. The patterns are fixed and visible; the engine combines your parts and never supplies a story of its own, so the candidates read like openings to your book rather than openings to somebody else's.\n\nThe opening panel holds the three inputs and a separate field for your own line. The candidates panel lists the four, each copyable, and Copy first takes the one you pick. The checks panel covers your own line: the checker names the four moves that make a first line sound borrowed — the stock dark-and-stormy construction among them — so an opener you wrote yourself can be read against the patterns the generator uses.\n\n- Character: who the line is about, in a name or a phrase.\n- Place: where it starts, one image rather than a map.\n- Tone: quiet, strange, dangerous or warm — the register of the sentence.\n- Four candidates: one pattern per template, all built from your three fields.\n- Your own line: checked for the four borrowed moves.\n- Copy first and Copy for taking candidates out.\n\nThe candidates are assembled by fixed string patterns — each places the character, the place and the tone into a shape someone has used before, which is exactly why the checker can name borrowed moves in reverse. Both sides live in the same module: the generator composes from three fields, the checker decomposes an opening into flags. Counts and checks run in the page, and nothing is invented beyond the patterns that are published on it.\n\n- Four candidates share the same three inputs, so they vary by pattern rather than idea.\n- A thin input — a generic character, a generic place — produces a generic line.\n- The checker's four moves are a finite list; an opening can sound borrowed in ways it does not name.\n- Tone changes the wording, not the structure of the pattern it fills.\n- Nothing is stored, so copy the line before leaving the page.\n\nThe workflow is to write your own line first and generate second: the checker on your opener tells you which of the four borrowed moves it already contains, and the candidates then show how the same three fields sound under different patterns. Reading them side by side is the fastest way to see which move your opening is actually making — and deleting a stock construction is easier once it has a name. Keep the three fields concrete, because a line built from a vague place and a generic character collapses into the same sentence every time; a named street or a borrowed coat gives the pattern something to carry.\n\nThe neighbours cover the rest of the opening problem: the ending generator drafts the six verdicts the last line has to pay off, the story idea generator assembles the premise the line promises, and the writing prompt generator cycles an authored bank when the page is blank before line one.\n",
+    "howTo": [
+      "Fill the three inputs: character, place and tone.",
+      "Read the four candidates and copy the one that earns a second line.",
+      "Paste your own opening line into the checker field to see the borrowed moves it contains.",
+      "Revise against what the check names, then copy the final line into the draft."
+    ],
+    "whenToUse": "Use the first line generator when the opening exists in notes but not yet in sentences. The {{story-idea-generator|Story Idea Generator}} assembles the premise the line has to promise, and the {{ending-generator|Ending Generator}} drafts the six verdicts that last line has to pay off. When the need is sparks rather than assembly, the {{writing-prompt-generator|Writing Prompt Generator}} cycles an authored bank of prompts, and the dialogue practice tool in this domain takes over once characters start speaking.",
+    "faqs": [
+      {
+        "q": "How are the candidates produced?",
+        "a": "Four fixed patterns place your character, place and tone into shapes that have been used before. The patterns are published on the page, and nothing beyond them is invented."
+      },
+      {
+        "q": "What tones can I choose?",
+        "a": "Four: quiet, strange, dangerous and warm. The tone changes the wording of each candidate rather than the structure of the pattern filling it."
+      },
+      {
+        "q": "What does the checker look for in my own line?",
+        "a": "The four moves that make an opening sound borrowed — the stock dark-and-stormy construction among them — named one by one so a revision has something specific to delete."
+      },
+      {
+        "q": "Can it write a whole opening paragraph?",
+        "a": "No. It composes first lines from three fields and checks ones you bring. The second line, and everything after it, remains the part you write."
+      },
+      {
+        "q": "Why do all four candidates feel similar?",
+        "a": "They share the same three inputs and differ only by pattern, so a generic character and place produce generic lines. Fill the fields with specifics and the candidates separate."
+      }
+    ]
+  },
+  {
+    "slug": "ending-generator",
+    "keywords": ["ending generator", "ending shapes", "want", "obstacle"],
+    "intro": "The Ending Generator drafts six ending shapes against your story's own want and obstacle, and names what each shape asks of the story.",
+    "content": "An ending is a verdict on the force that pushed back all story, and this ending generator drafts the six verdicts an ending can deliver. Give it the protagonist, what they want, what pushes back and what changes by the end, and each shape is drafted against those facts: the want won at a price, the want revealed as the problem, the want abandoned at the threshold, the method that defeats the protagonist, the world survived rather than fixed, and the opening returned to changed. Each draft names what the shape asks of the story, because an ending that arrives without setup reads as an accident.\n\nThe panel holds the four inputs, and the output reports how many shapes were drafted, then lists them with the cost each one extracts. The checks panel guards the premise: ideas are generated only once a want and an obstacle exist, and the checks name what is missing rather than dressing it up — a one-word want is a mood, and a story with no named change has nowhere for the last scene to land. Copy endings and Download take the set out as text.\n\n- Protagonist: who the verdict lands on.\n- What they want: the concrete goal the ending answers.\n- What pushes back: the obstacle that has been resisting all story.\n- What changes by the end: the named change the last scene lands on.\n- Six shapes, each drafted against your four facts with its cost stated.\n- Checks: the want's specificity and the presence of a named change.\n\nThe six shapes are data — each carries the verdict it delivers and what it requires of the premise — and the drafts are assembled by placing your want and obstacle into each shape's pattern. Without both fields there is nothing for an ending to answer, so the engine declines rather than inventing. The checks are arithmetic on the inputs: a want under two words and a missing change are named as such, in those terms, on the page.\n\n- Six shapes are a finite set of verdicts, not a taxonomy of every ending ever written.\n- A drafted shape is a sketch with its cost, not prose for the last page.\n- The checks read length and presence; they cannot tell a sharp want from a dull one.\n- No knowledge of your draft is applied — the inputs are all the tool knows.\n- Nothing is stored, so copy the shapes before leaving the page.\n\nThe reading order that works is what changes first, then the six ending shapes: a story with a named change can be read against every verdict, and the shape that makes the change inevitable is usually the right one. The cost column is the test — a shape whose cost the story has been paying all along reads as earned, while one whose cost appears nowhere is a twist the draft has not prepared.\n\nThe neighbouring tools cover the material the ending answers: the plot structure planner anchors the stakes at the second turning point, the conflict planner names what it costs to resolve, and the story idea generator assembles the want and obstacle these verdicts are drafted against.\n",
+    "howTo": [
+      "Fill the four inputs: protagonist, what they want, what pushes back and what changes by the end.",
+      "Read the six drafted shapes and the cost each one extracts.",
+      "Work the checks for a want too thin to end on or a missing named change.",
+      "Copy or download the set, then pick the shape whose cost the story has already been paying."
+    ],
+    "whenToUse": "Use the ending generator when the want and obstacle exist and the last scene needs a shape. The {{plot-structure-planner|Plot Structure Planner}} anchors the stakes at the second turning point, and the {{conflict-and-resolution-planner|Conflict and Resolution Planner}} names what the resolution costs. Assembling the want and obstacle in the first place belongs to the {{story-idea-generator|Story Idea Generator}}, and the {{first-line-generator|First Line Generator}} composes the opener that one of these endings will answer.",
+    "faqs": [
+      {
+        "q": "What are the six ending shapes?",
+        "a": "The want won at a price, the want revealed as the problem, the want abandoned at the threshold, the method that defeats the protagonist, the world survived rather than fixed, and the opening returned to changed."
+      },
+      {
+        "q": "Why does it need both a want and an obstacle?",
+        "a": "An ending is a verdict on the force that pushed back, so with neither field there is nothing to answer. The engine declines rather than inventing a premise for you."
+      },
+      {
+        "q": "What does each shape's cost mean?",
+        "a": "What the verdict extracts from the story. The cost column is the test: a shape whose cost the story has already been paying reads as earned, while a new cost at the last page reads as a twist."
+      },
+      {
+        "q": "Does it write the ending's prose?",
+        "a": "No. Each shape is a sketch drafted against your four facts, with what it asks of the story named. The last scene itself remains the part you write."
+      },
+      {
+        "q": "Why did it flag my want as a mood?",
+        "a": "A want under two words names a feeling rather than a goal, so there is no specific thing for an ending to grant or deny. The check reports the word count in exactly those terms."
+      }
+    ]
+  }
+]

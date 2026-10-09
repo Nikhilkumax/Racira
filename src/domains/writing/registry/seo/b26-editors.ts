@@ -13,249 +13,216 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B26_EDITORS_SEO: Record<string, ToolSeo> = {
   "plot-structure-planner": {
-    keywords: ["plot structure", "beat sheet", "three-act structure", "hero's journey", "stakes"],
-    intro:
-      "The plot structure planner maps the four facts a premise needs — protagonist, goal, conflict and stakes — onto the beats of a chosen structure, so the whole beat sheet reads in order before a draft exists.",
-    content: `The plot structure planner starts from the four facts a premise cannot do without: who the story is about, what they want, what pushes back, and what it costs if they fail. You write those facts once, choose a structure, and the planner places each one on the beat where a reader expects to meet it. The result is not a form full of prompts; it is a beat sheet with your own premise already sitting at the load-bearing points, and the structure's remaining beats around it.
-
-The anchor points are deliberate. The protagonist arrives at the opening, because a structure is a shape for someone's story. The goal lands at the inciting incident, because that is the beat where a want becomes a journey. The conflict reaches the midpoint, where the opposing force shows its full strength and the story stops being the one the reader thought they were reading. The stakes take the second turning point, where the cost of failing has to become concrete enough to carry the final act. A plot structure is a set of promises; the anchors are where those promises come due.
-
-Between the anchors, each beat keeps its own prompt from the structure you chose: the midpoint asks for the reversal, the second plot point asks for the cost, the resolution asks for the new normal. That is what makes the output a full beat sheet rather than four labelled slots. The three-act structure runs seven beats, the four-act five, the hero's journey twelve and Save the Cat fifteen; the planner matches each of your four facts to the nearest beat that is still free, so no two facts ever land on the same one.
-
-Switching structure is a one-click experiment. Change from a three-act structure to the hero's journey and the same four anchors re-map to that structure's beats while the new beats appear with their own prompts. Writers use this to test whether a premise is a journey or a three-act story without rewriting anything; if the facts feel wrong on a structure's beats, that is information about the premise, not a formatting problem.
-
-The checks are the planner's own. A logline under eight words states a topic rather than a story, so it is flagged with its word count. A conflict under four words names a difficulty rather than an opposing force. A missing fact is reported as missing, with a sentence about which beat it was supposed to carry. None of the checks touch your prose; they count and they name gaps.
-
-What the planner cannot do is invent. It will not produce subplots, characters or scenes, and the beats between your anchors remain prompts until you fill them. Stakes that never appear in the draft, a goal that changes at the midpoint, a conflict that turns out to be weather rather than a force — the planner cannot see any of that, and a plan is not a draft. Treat the output as an argument to have with the story before you write it: if the four facts cannot carry the beats they are anchored to, no amount of structure will.`,
-    howTo: [
-      { step: "Write the logline as one sentence you could say out loud." },
-      { step: "Name the protagonist, the goal, the conflict and the stakes, one per field." },
-      { step: "Choose the structure; switch it later to test whether the premise holds a different shape." },
-      { step: "Read the beat sheet and fix any fact the check marks as missing or too thin." },
-      { step: "Draft from the anchors first, then fill the beats between them." },
+    keywords: [
+      "plot structure planner",
+      "logline",
+      "beats",
+      "stakes",
     ],
-    whenToUse: `Use the plot structure planner when a premise is firm enough to have a want and an obstacle but not yet a plan: before outlining, before a first draft, and before committing to a structure that will shape months of work.
-The plan hands off in two directions. Take it to the {{story-beat-builder|Story Beat Builder}} to track which beats are drafted, or to the {{plot-point-mapper|Plot Point Mapper}} when you would rather start from the events you already have and see which structure they imply. If the premise itself is still thin, start with the {{story-idea-generator|Story Idea Generator}} instead.`,
+    intro:
+      "The Plot Structure Planner maps four premise facts onto a named structure's beats and reports which facts are anchored and which are missing.",
+    content:
+      "A premise has four load-bearing facts and a structure has a sequence of beats, and this plot structure planner anchors one to the other. Write the logline, the protagonist, the goal, the conflict and the stakes, choose a structure, and the plan panel maps them where a reader expects them: the protagonist at the opening, the goal at the inciting incident, the conflict at the midpoint, the stakes at the second turning point. The beats between keep their own prompts from the structure, so the output is a full beat sheet with your facts already placed.\n\nThe stats panel reports beats in the chosen structure, facts anchored, facts placed and the premise word count, and the beat-by-beat list shows every beat with its prompt or your fact where an anchor applies. Checks name what is missing in the structure's own terms: a logline under eight words says too little to plan against, a conflict under four words names a difficulty rather than an opposing force, and a missing fact is named as missing rather than left quietly to the draft.\n\n- Four premise facts: protagonist, goal, conflict and stakes, each anchored to a named beat.\n- Logline: the one-line version, checked for being long enough to plan against.\n- Structure choice: the same four structures the other story tools use.\n- Beat-by-beat list: every beat with its prompt and your anchored fact.\n- Stats: beats, facts anchored, facts placed and premise words.\n- Copy plan and Download for the finished sheet.\n\nAnchoring is a fixed table: each of the four facts declares the beat position where a reader expects it, and the plan merges that table with the chosen structure's beats. The checks are the premise's own arithmetic — word counts on the logline and conflict, presence of each fact — so a thin premise shows up as short numbers rather than vague advice. The structures come from the same shared reference module as the mapper and the beat builder, so the beats on this page cannot disagree with theirs.\n\n- Anchors assume the four facts land at conventional positions; a deliberate inversion will be placed conventionally.\n- A complete plan says the facts are present, not that the beats between them are populated.\n- The structure prompts are generic to the beat, not to your genre.\n- No draft text is stored: the plan is a document you copy.\n- The checks are word-count and presence rules; they cannot tell a dull goal from a sharp one.\n\nThe workflow is to write the logline last rather than first: the four facts are easier to state plainly once the sentence they roll up into is visible. Then read the beats where nothing is anchored — those are the turns your premise has not earned yet, and the anchored facts beside them are the four sentences any outline of this story will repeat, and the prompts on them are the questions the outline will have to answer.\n\nThe neighbouring tools cover the same material from other angles: the story idea generator assembles the four facts in the first place, the conflict planner shapes the conflict field in depth, and the ending generator drafts verdicts against the want and obstacle once the stakes are fixed.",
+    howTo: [
+      { step: "Write the logline and the four facts: protagonist, goal, conflict and stakes." },
+      { step: "Choose a structure; the facts anchor to the beats where a reader expects them." },
+      { step: "Read the beat-by-beat list, then the checks panel for short or missing facts." },
+      { step: "Copy plan or Download the sheet as the outline's starting document." },
+    ],
+    whenToUse:
+      "Use the plot structure planner when a premise exists and the outline has to start somewhere. The {{story-idea-generator|Story Idea Generator}} assembles the four facts in the first place, the {{conflict-and-resolution-planner|Conflict and Resolution Planner}} shapes the conflict field with escalating turns, and the {{ending-generator|Ending Generator}} drafts six verdicts against the want and obstacle. For the indented shape an outline takes before facts are anchored, the {{outline-builder|Outline Builder}} renders one three ways.",
     faqs: [
       {
-        q: "What are the four facts a premise needs?",
-        a: "A protagonist, a goal, a conflict and stakes: who the story is about, what they want, what pushes back, and what failing costs. The planner anchors each to the beat where a reader expects it and treats anything missing as a gap rather than a detail.",
+        q: "Which facts does it anchor to the beats?",
+        a: "Four: the protagonist at the opening, the goal at the inciting incident, the conflict at the midpoint and the stakes at the second turning point — the positions where a reader expects them.",
       },
       {
-        q: "Why does the planner anchor the conflict to the midpoint?",
-        a: "Because the midpoint is where the opposing force shows its full strength; before it, the story is still promising the conflict, and after it, the ending has to answer for it. Anchoring the conflict there is what stops a premise from staying vague about who or what pushes back.",
+        q: "Why does it complain about my logline length?",
+        a: "A logline under eight words says too little to plan against. The check is a word count, stated in those terms, because the plan's anchors need something specific to place.",
       },
       {
-        q: "How does the planner choose beats when I change structure?",
-        a: "Each fact is matched to the nearest beat that is still free in the new structure, so the four anchors stay distinct. The remaining beats come from the structure's own beat list, which is why a hero's journey plan has twelve lines and a three-act plan has seven.",
+        q: "Which structures are available?",
+        a: "The same four used by the other story tools — three-act, four-act, Save the Cat and the hero's journey — held in one shared reference so beats never disagree between pages.",
       },
       {
-        q: "What does the logline check catch?",
-        a: "A logline under eight words. At that length it is usually a topic or an image rather than a story with someone in it, and every beat below will have less to answer to. The check reports the word count rather than rewriting the sentence.",
+        q: "What does facts placed mean versus facts anchored?",
+        a: "Anchored is where each fact belongs by convention; placed is where you actually supplied one. The gap between the two counts is the premise parts the plan is still missing.",
       },
       {
-        q: "Can the planner outline a whole novel?",
-        a: "It can shape one, not fill it. The anchors and prompts are as much as a premise supports; subplots, character arcs and scene-level turns come from you. Use the plan as an argument to test the premise before drafting, not as a substitute for the draft.",
+        q: "Does it write any of the draft?",
+        a: "No. It maps what you give it onto beats and reports what is absent. The beat prompts between the anchors are questions for the draft, not text to paste into it.",
       },
     ],
   },
 
   "genre-blender-idea-tool": {
-    keywords: ["genre blender", "mash-up", "elements", "conventions", "premise"],
-    intro:
-      "The genre blender idea tool collides two genres' stock elements and reader conventions into five premise scaffolds, keeping one thing from each side that a reader of either shelf would still recognise.",
-    content: `The genre blender takes two genres and shows what each one brings to a mash-up. Every genre carries elements — the objects, pressures and situations its readers expect to encounter — and conventions, the kinds of scene the genre is built from. A blend only works when both sets stay recognisable, so the tool puts the two lists side by side before it generates anything, and the writer can see what a reader of each shelf will expect to survive the merge.
-
-The five scaffolds are fixed templates, not random combinations: collision, deadline, inversion, cost and frame. Fixing them matters because they are different kinds of story rather than different flavours of the same one. A collision asks what happens when the two genres' opening objects turn out to be the same thing. A deadline imports the pressure of one genre into the timeline of the other. An inversion makes one genre's convention the force that breaks the other's. A cost makes the solution satisfy one set of expectations at the expense of the other. A frame tells one genre's story inside the other's, with the required element as the thing the frame was built to hide.
-
-The required element is the tool's one optional input and its most useful. Left empty, each scaffold falls back to a phrase about the element that refuses to fit. Name something concrete — a ledger, a shared recording, a door that opens inward — and the element appears in all five scaffolds, including the cost scaffold where it becomes the compromise that satisfies no one. That single input is usually the difference between a premise and a prompt.
-
-Two habits make the blend easier to test. First, write the two opening images the collision paragraph describes — one from each genre's element list — and read them back to back; if they cannot plausibly be the same object or the same room, the collision needs a different pair of elements. Second, name the blend after what it does rather than after the two shelves: a mystery with a western's obligations is a different promise from a western with a mystery's alibi, and the name is the first thing a reader uses to decide whether the friction is for them.
-
-The checks name the three ways a blend fails before it starts. The same genre twice is not a blend, because there is no second set of expectations to collide. A missing required element leaves the collision generic. And when the two genres share their first convention, the tool says so, because the blend then needs a different point of friction than the obvious one.
-
-What the tool cannot do is promise a market. A mash-up is read by people who already like at least one of the two genres, and the blend has to decide which convention it will break; a story that honours neither set reads as neither genre, and one that honours both without friction reads as a shelf label rather than a premise. The two conventions lists are there so that decision can be made deliberately, in the same pass as the idea.
-
-Names, plots and characters are yours. The genre blender provides the collision and keeps the two expectation sets visible while you work on the premise; the scaffolds are starting positions for an outline, not outlines. Take the one that makes you argue with it — often the cost or the frame where the two genres genuinely disagree.`,
-    howTo: [
-      { step: "Pick two different genres from the list." },
-      { step: "Name one required element — an object, a line or a place — that must survive the merge." },
-      { step: "Read the two elements and conventions lists and note where they disagree." },
-      { step: "Choose the scaffold that makes the disagreement do work, and draft the premise from it." },
-      { step: "Clear the checks by naming the element and confirming the two genres differ." },
+    keywords: [
+      "genre blender",
+      "premise scaffolds",
+      "conventions",
+      "required element",
     ],
-    whenToUse: `Use the genre blender idea tool when a story needs a fresh engine rather than a fresh coat of paint: a premise that feels familiar, a shelf that has been read out, or a project that has stalled because its genre expectations are too comfortably met.
-Once a scaffold is chosen, the {{plot-structure-planner|Plot Structure Planner}} maps the premise's want, conflict and stakes onto beats, and the {{ending-generator|Ending Generator}} tests which verdicts that collision can pay off. If the genre pair is the real problem, start from the {{story-idea-generator|Story Idea Generator}} and blend once a single-genre premise exists.`,
+    intro:
+      "The Genre Blender Idea Tool collides two genres' stock elements into premise scaffolds that keep a convention from each side.",
+    content:
+      "A genre blend works when both genres stay recognisable, and this genre blender is built around that rule. Pick two of ten — fantasy, science fiction, mystery, romance, horror, thriller, western, historical, comedy and noir — optionally name a required element, and the tool pairs one element from each side through five fixed templates to produce premise scaffolds. The result is not a random mash-up: every scaffold keeps at least one convention from each genre, and both convention lists are shown so you can see what a reader will expect to survive the merge.\n\nThe two-genres panel holds the picks and the optional required element; what each genre promises shows the elements and conventions of both sides before any scaffold is read. The scaffolds panel lists the five templates' outputs, and the checks panel names the blend's own risks: the same genre twice is not a blend, a missing element leaves the collision generic, and a blend whose conventions cannot coexist is named rather than hidden. Copy ideas and Download take the scaffolds out as text.\n\n- Two genres chosen from ten, each contributing elements and reader expectations.\n- Required element: an optional phrase one scaffold must include.\n- Elements and conventions panels: what each genre promises before the merge.\n- Five fixed templates pairing one element from each side.\n- Checks: same genre twice, missing element, conventions that cannot coexist.\n- Copy ideas and Download for the scaffolds as plain text.\n\nThe engine pairs one element from each genre inside five published templates, and each scaffold is assembled from those parts rather than written. The convention lists are data held for all ten genres, which is what lets the checks say whether the two sides can coexist at all: a blend whose promises contradict each other is flagged instead of quietly producing a premise that breaks one of them. Everything is assembled from what you chose, and nothing is invented on your behalf.\n\n- The same genre chosen twice is flagged as not a blend rather than producing scaffolds.\n- A missing required element leaves the collision generic, which the checks name.\n- The ten genres and their stock elements are a finite reference set.\n- Scaffolds are structures for a premise, not plots; the story is still unwritten.\n- Nothing is stored, so copy the ideas before leaving the page.\n\nThe useful discipline is reading the promise panels before the scaffolds: a reader of noir expects a certain kind of ending, and a reader of romance expects another, and the premise has to honour whichever survives the merge. When a scaffold makes both lists look wrong, the fault is usually the pair rather than the template — swap one genre and the same five templates produce premises that make sense. Keep the required element short and concrete, because a long phrase forces one template to swallow the rest of the scaffold and the blend stops balancing; a single object or role is enough to tilt the collision without breaking it.\n\nThe neighbours cover the one-genre versions of the same work: the story idea generator assembles a premise from four parts, the first line generator composes an opener from a character, place and tone, and the writing prompt generator cycles an authored bank when the genre is not the constraint.\n",
+    howTo: [
+      { step: "Choose two different genres from the ten on offer." },
+      { step: "Optionally name a required element one scaffold must include." },
+      { step: "Read what each genre promises — elements and conventions — before reading the scaffolds." },
+      { step: "Work through the five scaffolds and the checks, then copy the ideas worth developing." },
+    ],
+    whenToUse:
+      "Use the genre blender when two genres have to become one premise. The {{story-idea-generator|Story Idea Generator}} assembles a premise from four named parts once a scaffold suggests them, and the {{first-line-generator|First Line Generator}} composes an opener from a character, a place and a tone. When the blend needs a starting spark instead, the {{writing-prompt-generator|Writing Prompt Generator}} cycles an authored bank, and the world building template in this domain answers what the merged world has to hold.\n",
     faqs: [
       {
-        q: "What counts as a genre element?",
-        a: "A thing or pressure the genre's readers expect to encounter: an object with a history, an obligation, a place with rules. Elements are concrete on purpose, because a collision between two concrete things produces a scene, while a collision between two moods produces a mood board.",
+        q: "How many genres can I blend?",
+        a: "Two at a time, chosen from ten: fantasy, science fiction, mystery, romance, horror, thriller, western, historical, comedy and noir. Each contributes its stock elements and reader expectations.",
       },
       {
-        q: "Why are there exactly five scaffolds?",
-        a: "Because they are the five structurally different ways two expectation sets can meet: collision, deadline, inversion, cost and frame. More templates would repeat those shapes with different wording, and fewer would leave one of the ways untried.",
+        q: "Why must both genres keep a convention?",
+        a: "Because a blend works when both sides stay recognisable. Every scaffold pairs one element from each side, and the checks flag a result where the two conventions cannot coexist.",
       },
       {
-        q: "Why is the same genre twice not a blend?",
-        a: "A blend works by friction between two sets of reader expectations. With one genre there is no second set, so the collision has nothing to collide with; the tool generates nothing and says so rather than dressing one genre up as two.",
+        q: "What does the required element field do?",
+        a: "It names a phrase one scaffold must include — a ledger written in two hands, say. The field is optional, and the checks report a missing element as making the collision generic.",
       },
       {
-        q: "How should I use the required element?",
-        a: "Name something the story cannot remove: an object, a place, a line someone says. It appears in all five scaffolds, and in the cost scaffold it becomes the compromise. Writers use it to pin the blend to a specific image instead of a general vibe.",
+        q: "Is the output written by a model?",
+        a: "No. Five fixed templates pair elements from published lists; every scaffold is assembled from parts you can see in the elements and conventions panels. Nothing is invented.",
       },
       {
-        q: "Will a mash-up appeal to readers of both genres?",
-        a: "Not automatically, and the tool will not claim otherwise. Readers arrive with one set of conventions in mind; the blend has to decide which convention it will break and earn the break. The two lists are there to make that choice visible before the outline hardens.",
+        q: "What happens if I pick the same genre twice?",
+        a: "The checks name it as not a blend rather than producing scaffolds. The point of the tool is collision between two different sets of promises.",
       },
     ],
   },
 
   "ending-generator": {
-    keywords: ["ending", "want", "obstacle", "verdict", "threshold"],
-    intro:
-      "The ending generator drafts the six shapes an ending can take against your story's own want and obstacle, so each verdict can be compared for what it promises and what it asks of the setup.",
-    content: `The ending generator treats an ending as a verdict on the force that pushed back all story. Give it a want and an obstacle and it drafts six shapes: the want won at a price, the want revealed as the obstacle, the want abandoned at the threshold, the protagonist's own method finishing what the obstacle began, the obstacle survived rather than defeated, and the opening image returned to, changed. Each draft is written against your own words, so the comparison is between verdicts on the same story rather than between generic templates.
-
-The want and the obstacle are the two inputs that make generation possible, and they are required for a reason. An ending that resolves nothing specific is a mood; an ending that answers no force is a coincidence. A one-word want is flagged with its word count, because endings land on concrete wants — keep the farm solvent through the winter, not hope. A missing obstacle is reported, because without the force that pushed back the closing scene has nothing to answer and the reader can feel the absence even if they cannot name it.
-
-The turn is the third input and the one writers most often skip: what changes about the protagonist by the end. The full circle and quiet return shapes write it into the draft, and its absence is flagged separately, because a story whose protagonist ends as they began will replay its opening no matter how eventful the closing scene is. The turn is not a lesson or a moral; it is the difference the reader should be able to name in the last paragraph.
-
-Each shape also carries what it requires of the story. The hard-won victory needs a cost the reader saw the protagonist refuse earlier, or the price reads as an accident. The inversion needs the want and the obstacle to share a root the reader can now see. The threshold needs a genuinely balanced choice, because an ambiguity that the story never set up is not ambiguity but a missing ending. The reason the drafts say this out loud is that a shape chosen without its setup is the most common way a strong ending turns into a cheat.
-
-Read the six drafts in the order they are given before judging any of them. Full circle, hard-won victory, inversion, tragic fall, ambiguous threshold, quiet return — the order runs from the most satisfied verdict to the least, and a writer who reads only the first two is usually choosing the ending they already had in mind. The quiet return in particular is the most under-used shape in the list: it is the one for stories where the obstacle was never going to be defeated, and the change in the protagonist is the whole resolution.
-
-The checks are deliberately narrow: a missing want, a missing obstacle, a want too short to land on, a missing turn, and a protagonist left unnamed. They do not grade your ending, and they cannot tell whether the story earned the verdict you choose. That judgement stays with you and with readers.
-
-What the generator cannot do is write the scene. These are drafts to argue with: read all six, notice which one makes the existing story feel different, and check the setup it requires is already on the page. Where a shape needs a cost the reader has seen, that cost is a rewrite near the middle, not a line in the last chapter. Choosing between the six is the work; averaging two of them is not an ending.`,
-    howTo: [
-      { step: "Name the protagonist, the want and the obstacle in your own words." },
-      { step: "Name the turn: what changes about the protagonist by the end." },
-      { step: "Read all six drafts and mark the two that make the existing story feel different." },
-      { step: "Check the setup each shape requires; if it is not on the page, plan the earlier scene that earns it." },
-      { step: "Draft the chosen ending, then re-read the opening against it." },
+    keywords: [
+      "ending generator",
+      "ending shapes",
+      "want",
+      "obstacle",
     ],
-    whenToUse: `Use the ending generator when a draft is approaching its final act, when an ending written already feels borrowed, or when a project has stalled precisely because the writer cannot decide what the story is a verdict on.
-The want and the obstacle it works from are the same facts the {{plot-structure-planner|Plot Structure Planner}} anchors to beats, so the two tools can be used in either order. To check that the chosen ending is earned, take it to the {{story-beat-builder|Story Beat Builder}}; if the premise itself is still open, the {{genre-blender-idea-tool|Genre Blender Idea Tool}} can supply a collision worth ending.`,
+    intro:
+      "The Ending Generator drafts six ending shapes against your story's own want and obstacle, and names what each shape asks of the story.",
+    content:
+      "An ending is a verdict on the force that pushed back all story, and this ending generator drafts the six verdicts an ending can deliver. Give it the protagonist, what they want, what pushes back and what changes by the end, and each shape is drafted against those facts: the want won at a price, the want revealed as the problem, the want abandoned at the threshold, the method that defeats the protagonist, the world survived rather than fixed, and the opening returned to changed. Each draft names what the shape asks of the story, because an ending that arrives without setup reads as an accident.\n\nThe panel holds the four inputs, and the output reports how many shapes were drafted, then lists them with the cost each one extracts. The checks panel guards the premise: ideas are generated only once a want and an obstacle exist, and the checks name what is missing rather than dressing it up — a one-word want is a mood, and a story with no named change has nowhere for the last scene to land. Copy endings and Download take the set out as text.\n\n- Protagonist: who the verdict lands on.\n- What they want: the concrete goal the ending answers.\n- What pushes back: the obstacle that has been resisting all story.\n- What changes by the end: the named change the last scene lands on.\n- Six shapes, each drafted against your four facts with its cost stated.\n- Checks: the want's specificity and the presence of a named change.\n\nThe six shapes are data — each carries the verdict it delivers and what it requires of the premise — and the drafts are assembled by placing your want and obstacle into each shape's pattern. Without both fields there is nothing for an ending to answer, so the engine declines rather than inventing. The checks are arithmetic on the inputs: a want under two words and a missing change are named as such, in those terms, on the page.\n\n- Six shapes are a finite set of verdicts, not a taxonomy of every ending ever written.\n- A drafted shape is a sketch with its cost, not prose for the last page.\n- The checks read length and presence; they cannot tell a sharp want from a dull one.\n- No knowledge of your draft is applied — the inputs are all the tool knows.\n- Nothing is stored, so copy the shapes before leaving the page.\n\nThe reading order that works is what changes first, then the six ending shapes: a story with a named change can be read against every verdict, and the shape that makes the change inevitable is usually the right one. The cost column is the test — a shape whose cost the story has been paying all along reads as earned, while one whose cost appears nowhere is a twist the draft has not prepared.\n\nThe neighbouring tools cover the material the ending answers: the plot structure planner anchors the stakes at the second turning point, the conflict planner names what it costs to resolve, and the story idea generator assembles the want and obstacle these verdicts are drafted against.\n",
+    howTo: [
+      { step: "Fill the four inputs: protagonist, what they want, what pushes back and what changes by the end." },
+      { step: "Read the six drafted shapes and the cost each one extracts." },
+      { step: "Work the checks for a want too thin to end on or a missing named change." },
+      { step: "Copy or download the set, then pick the shape whose cost the story has already been paying." },
+    ],
+    whenToUse:
+      "Use the ending generator when the want and obstacle exist and the last scene needs a shape. The {{plot-structure-planner|Plot Structure Planner}} anchors the stakes at the second turning point, and the {{conflict-and-resolution-planner|Conflict and Resolution Planner}} names what the resolution costs. Assembling the want and obstacle in the first place belongs to the {{story-idea-generator|Story Idea Generator}}, and the {{first-line-generator|First Line Generator}} composes the opener that one of these endings will answer.",
     faqs: [
       {
-        q: "Why does the generator need both a want and an obstacle?",
-        a: "Because an ending is a verdict on something specific pushing back. Without a want there is nothing to resolve, and without an obstacle the resolution answers nothing. Both are required before any shape is drafted, and the checks say which one is missing.",
+        q: "What are the six ending shapes?",
+        a: "The want won at a price, the want revealed as the problem, the want abandoned at the threshold, the method that defeats the protagonist, the world survived rather than fixed, and the opening returned to changed.",
       },
       {
-        q: "What is the difference between the inversion and the tragic ending?",
-        a: "The inversion reveals that the want was doing the obstacle's work, and the protagonist gives it up knowingly; the tragic ending has the protagonist win using the obstacle's own method, and the method finishes what the obstacle began. One is a choice made clear-eyed, the other a victory that is also a defeat.",
+        q: "Why does it need both a want and an obstacle?",
+        a: "An ending is a verdict on the force that pushed back, so with neither field there is nothing to answer. The engine declines rather than inventing a premise for you.",
       },
       {
-        q: "Is an ambiguous ending allowed?",
-        a: "Yes, when it is a choice rather than a missing answer. The threshold shape stops after an irreversible decision that the story has genuinely balanced, so the reader sees the choice and not the result. Ambiguity that the setup never earned is flagged as a missing turn, not celebrated.",
+        q: "What does each shape's cost mean?",
+        a: "What the verdict extracts from the story. The cost column is the test: a shape whose cost the story has already been paying reads as earned, while a new cost at the last page reads as a twist.",
       },
       {
-        q: "Why does each idea name what it requires?",
-        a: "Because a shape without its setup reads as a cheat. A hard-won victory needs a cost the reader saw refused earlier, and an inversion needs the want and obstacle to share a root the reader can see. Naming the requirement turns the choice into a rewrite plan.",
+        q: "Does it write the ending's prose?",
+        a: "No. Each shape is a sketch drafted against your four facts, with what it asks of the story named. The last scene itself remains the part you write.",
       },
       {
-        q: "Can I combine two of these endings?",
-        a: "You can, but the result is usually a diluted version of both. The six shapes are distinct verdicts, and a story can only deliver one: read them, choose, and spend the ambiguity budget once, rather than hedging at the last paragraph.",
+        q: "Why did it flag my want as a mood?",
+        a: "A want under two words names a feeling rather than a goal, so there is no specific thing for an ending to grant or deny. The check reports the word count in exactly those terms.",
       },
     ],
   },
 
   "rich-text-editor": {
-    keywords: ["rich text", "bold", "italic", "HTML preview", "selection"],
-    intro:
-      "The rich text editor formats a plain-text document with bold, italic, underline, strike and code plus line-level headings, quotes and bullets, and renders an escaped HTML preview that updates as you type.",
-    content: `The rich text editor keeps plain text as the source of truth and stores formatting as offsets over it. Applying bold to a selection records a range, not a pair of tags, which means editing the text can never leave a half-open tag behind: ranges are clamped to the document, split at line breaks and merged whenever the model is normalised. Bold, italic, underline, strike and code all work the same way, and they nest cleanly when they overlap.
-
-The toolbar acts on the selection. Select a word and press the bold control, or use the keyboard shortcuts the buttons name — Ctrl+B, Ctrl+I, Ctrl+U, Ctrl+Shift+X and Ctrl+E. A selection that crosses a line break is applied per line, so a mark never spans two blocks; a single cursor with no selection applies nothing, because there is no text to format. The HTML preview renders from the same model the toolbar edits, so what you see in the document is what the export contains.
-
-Block kinds live on lines rather than marks: paragraph, heading, subheading, quote and bullet, chosen for the line the caret is on. Headings render as h2 and h3 rather than h1, because the page's own title owns the top level and a document should not introduce a second one. Bullets on consecutive lines group into a single list, and quotes render as blockquotes.
-
-Keeping the block kinds on lines rather than on ranges is what allows the document to be edited freely. A heading is a property of the line, so merging two lines or splitting one re-reads the kinds from the text instead of trying to move a range; the mark ranges do the same work for emphasis, clamped at every edit. This is also why the stats panel can report lines, marks and formatted words without parsing anything: the model already holds them as data.
-
-Every character in the document is escaped before it reaches the HTML preview, and the only tags that can appear are the ones in the editor's fixed tables. That is why the tool shows a live preview without a sanitiser: nothing typed is ever interpreted as markup, so a pasted tag or a stray angle bracket appears as text. It is also why the export can be pasted into a page safely, though it is a starting point rather than a styled document.
-
-The stats panel counts words from the text and formatted words, where a word counts as formatted when a mark covers its first character. Marks are counted as ranges, so a word that is both bold and italic contributes one range to each mark. The counts are meant for a quick read of how much of the document carries emphasis, not as a writing goal.
-
-What the editor does not have is a table, an image, a link tool, a font picker or a colour palette. The block kinds stop at paragraphs, two heading levels, quotes and bullets. The HTML export reflects exactly those elements, so nothing appears in the HTML that is not visible in the document, and nothing in the document is dropped from the export. Nothing is saved between visits either; copy the HTML or download the file to keep the work.`,
-    howTo: [
-      { step: "Type or paste the document text into the editor." },
-      { step: "Select the words to format and press a mark control, or use its keyboard shortcut." },
-      { step: "Put the caret on a line and choose its block kind: paragraph, heading, subheading, quote or bullet." },
-      { step: "Watch the HTML preview and the stats as the document changes." },
-      { step: "Copy the HTML or download the file to keep the result." },
+    keywords: [
+      "rich text editor",
+      "inline marks",
+      "block kinds",
+      "html export",
     ],
-    whenToUse: `Use the rich text editor when a short document needs a handful of formatting decisions and a clean HTML export: a notice, a newsletter body, a product blurb, a post that will be pasted into another system.
-If the source should stay readable as plain text, the {{markdown-editor|Markdown Editor}} is the better fit and renders an outline alongside. For long documents built from named sections, the {{block-based-editor|Block-Based Editor}} keeps structure in the model, and the {{manuscript-formatter|Manuscript Formatter}} handles the punctuation and dash cleanup before submission.`,
+    intro:
+      "The Rich Text Editor keeps plain text as the source of truth and layers inline marks and block kinds over it, with a live preview and HTML export.",
+    content:
+      "This rich text editor treats text as the only source of truth. Bold, italic, underline, strikethrough and code are stored as offset ranges into that plain text, and each line carries a block kind — paragraph, heading, subheading, quote or bullet. Keeping the marks off the characters means editing the text can never leave half-open tags behind: ranges are clamped and split back to the line they belong to whenever the document is normalised.\n\nThe document panel reports words, lines, formatted words and marks, so you can see how much of the text carries formatting rather than guessing. The preview renders after mount and shows the document as it would export. Copy HTML and Download .html take the result out; the export escapes every character of the text and emits only tags from two fixed tables, so nothing you type is ever interpreted as markup.\n\n- Inline marks: bold, italic, underline, strikethrough and code, stored as offset ranges.\n- Block kinds: paragraph, heading, subheading, quote and bullet, one kind per line.\n- Document stats: words, lines, formatted words and total marks.\n- Live preview that renders after mount from the same model the export uses.\n- Copy HTML and Download .html for the escaped export.\n- Headings export as h2 and h3 because the page's own h1 belongs to the page, not the document.\n\nBecause marks are ranges rather than wrappers, normalisation is what keeps the document honest: a mark that would span a line break is split, out-of-range marks are clamped and overlapping marks merge. The HTML export walks the text once, escapes it and interleaves tags from the fixed tables, which is why the editor can show a preview without a sanitiser of its own — the source never becomes markup. Every operation is a pure function over the document model. The model is small enough to reason about: text, a list of marks and a kind per line, which is why the stats panel can say how much of the document carries formatting without walking the rendered output.\n\n- There is no undo history beyond what your browser provides for the underlying text.\n- Marks cannot span blocks: a bold run that crosses a line break is split into two.\n- Nested formatting beyond the five marks is not representable; there is no bold-inside-link.\n- The preview renders after mount, so the first paint shows the text before the styled version appears.\n- No collaboration and no comments; the document is a single local model.\n\nUse it when the deliverable is formatted text rather than Markdown: a letter, a section with mixed quotes and headings, or a draft you want to hand to someone as HTML. The block-based editor is the sibling for typed blocks and to-dos, and the markdown editor is the sibling when the output must be source. The important property shared by all three is that the underlying text is always recoverable.\n\nThe HTML export is deliberately boring: escaped text plus a fixed tag set, which means it pastes cleanly into an email client or a CMS without carrying attributes you never chose. When the document needs to survive a submission process instead, the manuscript formatter applies the mechanical substitutions that format asks for. Between the two sits this editor, whose job is to keep the text honest while the marks change around it, and whose export is deliberately free of attributes you never chose.",
+    howTo: [
+      { step: "Type or paste the document text; each line takes a block kind from the picker." },
+      { step: "Apply inline marks — bold, italic, underline, strikethrough, code — to ranges of the text." },
+      { step: "Watch the preview for the rendered result and the document panel for words, lines, marks and formatted words." },
+      { step: "Copy HTML or Download .html to export the document as escaped, standards-clean markup." },
+    ],
+    whenToUse:
+      "Use the rich text editor when you want formatting without syntax and need the output as HTML. The {{markdown-editor|Markdown Editor}} produces the same document as source instead, and the {{block-based-editor|Block-Based Editor}} builds structure from typed blocks with to-dos. When the document is going into a submission format rather than a web page, the {{manuscript-formatter|Manuscript Formatter}} applies the typographic clean-up that publishers ask for, and the distraction-free editor in this domain removes formatting entirely.",
     faqs: [
       {
-        q: "Where are the formatting marks stored?",
-        a: "As offset ranges over the plain text rather than tags inside it. That is what makes the document safe to edit: ranges are clamped, split at line breaks and merged, so deleting a paragraph can never leave an unclosed tag in the export.",
+        q: "How are bold and italics stored?",
+        a: "As offset ranges into the plain text, not as wrappers around characters. That is why editing the text cannot leave half-open tags: ranges are clamped and split to their line whenever the document is normalised.",
       },
       {
-        q: "Why do headings render as h2 and h3?",
-        a: "Because the page's own title owns the h1. A document rendered inside a page that already has a top-level heading should not introduce a second one, so the editor's two heading levels map to the levels below the page title.",
+        q: "What block kinds are available?",
+        a: "Paragraph, heading, subheading, quote and bullet — one kind per line. Headings export as h2 and h3 because the page's own h1 belongs to the page rather than your document.",
       },
       {
-        q: "Can I paste HTML into the editor?",
-        a: "You can paste it, but it will appear as text rather than markup. Every character is escaped before rendering and only the editor's own tags are emitted, so there is no sanitiser to run and no way for a pasted tag to become part of the document.",
+        q: "Is the HTML export safe to paste elsewhere?",
+        a: "Yes. The export escapes every character of your text and emits only tags from two fixed tables, so nothing you typed is interpreted as markup. It pastes cleanly into a CMS or mail client.",
       },
       {
-        q: "What happens to marks when I delete text?",
-        a: "Ranges are clamped to the new text and merged, so a mark that covered deleted characters shrinks or disappears rather than trailing empty space. Marks never cross a line break, so removing a break merges two blocks without joining their formatting.",
+        q: "Can a mark cross a line break?",
+        a: "No. Marks cannot span blocks; a bold run that would cross a line break is split into two marks, one per line, when the document is normalised.",
       },
       {
-        q: "Is the document saved between visits?",
-        a: "No. The editor keeps everything in memory for the session, which keeps it predictable in shared and private browsers. Copy the HTML or download the file before leaving the page if you want to keep the work.",
+        q: "Why does the preview appear after a moment?",
+        a: "The preview renders after mount so the editor can paint the text first. It is a rendering choice rather than a limitation; the model is already complete when the preview appears.",
       },
     ],
   },
 
   "block-based-editor": {
-    keywords: ["block-based editor", "blocks", "to-do", "Markdown", "outline"],
-    intro:
-      "The block-based editor builds a page from typed blocks — headings, lists, to-dos, quotes, callouts and dividers — with reordering, a paste-to-structure step and a Markdown export that always matches the page.",
-    content: `The block-based editor treats a page as an ordered list of typed blocks, the way a Notion page is built. Ten types are available: paragraph, heading, subheading, minor heading, bulleted list, numbered list, to-do, quote, callout and divider. Each block carries its own text and identity, and every edit — retyping, changing a block's type, ticking a to-do, moving it or removing it — goes through the same model, so the page on screen and the export are never two different documents.
-
-Pasting plain text is the fastest way in. The editor reads each line's marker and turns it into the matching block: # for a heading, ## and ### for the levels below, a leading dash for bullets, a number for ordered steps, brackets for to-dos, an angle bracket for quotes, an exclamation mark for callouts and three dashes for a divider. Anything unmarked becomes a paragraph. Text written in another app — meeting notes, a README, a chat log — usually arrives already structured, and the replace step keeps the page title while rebuilding the body.
-
-To-dos are the blocks with state: each one carries a checked flag, the page counts how many are done, and the Markdown export writes them back as task list items. Blocks reorder with the up and down controls, insert below any block, and remove cleanly; identifiers are assigned by scanning the page, so a block keeps its identity across an edit and React never has to guess.
-
-Three exports come off the same model. The Markdown export writes the title as the page's single h1, then one line per block: headings from h2 down, bullets, sequentially numbered steps, task list items, quotes, a note-style callout and a horizontal rule for dividers. The outline lists only the headings, indented by level, for navigation. The stats panel counts blocks, words, headings, empty blocks and to-do progress, with a per-type breakdown.
-
-The outline export earns its place in longer pages. Read on its own it shows whether the headings form a sequence a reader could navigate — a page whose h2 blocks all sit under one h3, or whose headings repeat a phrase, is usually a page with a missing section rather than a wording problem. Because the outline is generated from the same blocks, editing a heading changes it immediately, and a section that has outgrown its heading shows up as a missing rung rather than a gut feeling.
-
-Two rules keep the page whole. A page always keeps at least one block: removing the last one replaces it with an empty paragraph rather than leaving a document with nowhere to type. And a divider carries no text, so switching a block to a divider clears its content deliberately instead of hiding it behind an invisible type.
-
-What the block-based editor leaves out is nesting. There are no sub-pages, columns, drag handles, images, tables or inline formatting inside a block, and nothing is saved between visits. That flatness is what makes the Markdown export exact and the model easy to reason about, and it is also the honest limit: a page that needs structure deeper than headings and lists needs a different tool.`,
-    howTo: [
-      { step: "Type a page directly, or paste plain text and press the replace control to structure it." },
-      { step: "Set each block's type, or write its marker at the start of a pasted line." },
-      { step: "Tick to-dos, reorder blocks and add blocks below the one you are editing." },
-      { step: "Read the Markdown export and the outline, then copy or download them." },
-      { step: "Use the stats panel to catch empty blocks and unfinished to-dos." },
+    keywords: [
+      "block-based editor",
+      "typed blocks",
+      "to-dos",
+      "markdown export",
     ],
-    whenToUse: `Use the block-based editor when a document is really a page of parts that will be reused: launch checklists, meeting notes that become task lists, a section of a README, a project page whose headings will become its outline.
-The {{rich-text-editor|Rich Text Editor}} is the alternative when the important thing is emphasis inside sentences rather than structure between them. For documents that are already a hierarchy of indented lines, the {{outline-builder|Outline Builder}} numbers and renders the outline directly, and the {{scene-and-chapter-organizer|Scene & Chapter Organizer}} boards the same idea for fiction.`,
+    intro:
+      "The Block-Based Editor builds a page from typed blocks with to-dos, reports page stats and exports the whole thing back to Markdown.",
+    content:
+      "A block-based page is an ordered list of typed units, and this block-based editor builds one the way a Notion page is built: paragraphs, headings, subheadings, quotes, bullets, numbered items, to-dos, dividers and code. Blocks parse from plain text by their markers, which means anything typed in a plain textarea can be pasted in and become a structured page — and the same markers take it back out as Markdown, so the page survives a round trip. The page is built from typed blocks — each with its own kind and text — so structure is explicit rather than implied by formatting.\n\nThe page panel carries a title, which becomes the document's h1, and every block beneath it is editable, reorderable and changeable in kind. Page stats report blocks, words, to-dos done and empty blocks, which is how a page announces both its size and its loose ends. Copy Markdown and Download .md export the document; Copy outline extracts the heading structure for a review. The last block cannot be removed — deleting it replaces it with an empty paragraph, so the document always has somewhere to type.\n\n- Block kinds: paragraph, heading, subheading, quote, bullet, numbered item, to-do, divider and code.\n- Marker parsing: #, ##, -, 1., bracket, greater-than, exclamation and horizontal rules.\n- Page title: the document's own h1, separate from the blocks.\n- Page stats: blocks, words, to-dos done and empty blocks.\n- Reordering: move a block up or down without touching its text.\n- Copy Markdown, Download .md and Copy outline for the exports.\n\nEvery edit is a pure function over the whole document, and block ids are assigned by scanning the highest existing number, so ids stay stable across re-renders without a counter living outside the model. Toggling a to-do, changing a kind or moving a block returns a new document rather than mutating one, which is what keeps the exports consistent with what is on screen. Headings export from h2 down because the page title already holds the h1 slot.\n\n- No collaboration and no comments; the document is one local model.\n- No undo history beyond what the browser provides for the underlying input.\n- Dividers and empty blocks count in the block total, so stats can read higher than visible content.\n- Markdown export covers the fixed kind set; bespoke formatting is not representable.\n- A pasted document parses by its markers, so text without markers arrives as plain paragraphs.\n\nThe workflow is to build the page as blocks while the structure is still moving: a heading per section, to-dos under the ones that remain, quotes where the argument needs a voice. Reading page stats at the end tells you what the page is — how many blocks, how many to-dos still open — which is a different and more useful summary than a word count alone. Empty blocks count too, and they are counted on purpose: an empty block is a section started and not yet written, which is exactly what a page should surface.\n\nThe siblings split the same job by output: the markdown editor writes the same structure as source, the rich text editor marks ranges over plain text instead of types, and the outline builder starts from indented text before any of it exists.",
+    howTo: [
+      { step: "Set the page title, then add blocks and give each one a kind." },
+      { step: "Parse existing text into blocks by pasting it — markers are recognised as they arrive." },
+      { step: "Read page stats for blocks, words, to-dos done and empty blocks." },
+      { step: "Copy Markdown, Download .md or Copy outline to take the page with you." },
+    ],
+    whenToUse:
+      "Use the block-based editor when the document is a structure of typed parts rather than a stream of prose. The {{markdown-editor|Markdown Editor}} writes the same structure as source with a preview and stats, and the {{rich-text-editor|Rich Text Editor}} marks ranges over plain text instead of typing kinds. For structure before blocks exist, the {{outline-builder|Outline Builder}} renders indented text three ways, and the distraction-free editor in this domain strips the page back to prose.",
     faqs: [
       {
-        q: "What block types does the editor support?",
-        a: "Ten: paragraph, heading, subheading, minor heading, bulleted list, numbered list, to-do, quote, callout and divider. Each has a marker that turns a pasted line into that type, and a dropdown for changing it afterwards.",
+        q: "Which block types can I create?",
+        a: "Paragraph, heading, subheading, quote, bullet, numbered item, to-do, divider and code. Each has a marker for parsing, so plain text pasted with those markers becomes structured blocks automatically.",
       },
       {
-        q: "How do I turn pasted text into blocks?",
-        a: "Paste it into the source panel and press the replace control. Each line is read for its marker — a heading hash, a list dash or number, to-do brackets, a quote angle bracket — and becomes the matching block, with the page title left alone.",
+        q: "Can I reorder blocks?",
+        a: "Yes, move a block up or down without touching its text. Every edit returns a new document rather than mutating one, so the exports always match what is on screen.",
       },
       {
-        q: "Why does the page keep one block when I remove the last one?",
-        a: "Because a page with no blocks has nowhere to type. Removing the final block replaces it with an empty paragraph, so the document always has a cursor position and the model never represents a state the editor cannot render.",
+        q: "Why can't I delete the last block?",
+        a: "A page needs somewhere to type, so removing the last block replaces it with an empty paragraph. The document is never left with nowhere to go.",
       },
       {
-        q: "What does the Markdown export look like?",
-        a: "The page title as a single h1, then one line per block: headings from h2 down, dashes for bullets, sequential numbers for ordered steps, task list brackets for to-dos, quotes, a note-style callout and a horizontal rule for dividers.",
+        q: "How does Markdown export handle headings?",
+        a: "Headings export from h2 down, because the page title already holds the h1 slot. Copy outline gives the same structure as a plain heading list for a review.",
       },
       {
-        q: "Can blocks be nested?",
-        a: "No. Blocks are flat, which is what keeps the export exact and the model simple. Headings and lists carry all the structure the editor offers; a page needing sub-pages or columns needs a different tool.",
+        q: "Where is my page stored?",
+        a: "The document is a local model in the page — no collaboration, no comments and no server. Copy Markdown or Download .md when the page needs to outlast the session.",
       },
     ],
   },

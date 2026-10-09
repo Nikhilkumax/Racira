@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "discounted-cash-flow-dcf-calculator",
+    "description": "Value a business with a DCF: forecast cash flows, terminal value, discounting and a per-share estimate."
+  },
+  {
+    "slug": "retirement-withdrawal-rate-calculator",
+    "description": "Test a retirement withdrawal rate against inflation and your horizon, and find the largest sustainable draw."
+  },
+  {
+    "slug": "4-rule-retirement-portfolio-calculator",
+    "file": "FourRuleRetirementPortfolioCalculator",
+    "description": "Apply the 4% rule and compare 3% to 5% withdrawal scenarios for income, longevity and ending balance."
+  },
+  {
+    "slug": "retirement-savings-target-calculator",
+    "description": "Find the retirement corpus your income goal requires and the extra monthly saving needed to close the gap."
+  },
+  {
+    "slug": "price-to-cash-flow-ratio-calculator",
+    "description": "Compare price to cash flow with P/E, peer multiples and cash flow yield to judge relative valuation."
+  }
+]

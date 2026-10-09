@@ -5,10 +5,17 @@ const stubSlugs = new Set<string>(CALCULATOR_STUB_SLUGS);
 
 /**
  * Domains whose registry "live" flags do NOT correspond to rendered tools.
- * Verified by DOM audit: the [slug] pages in these domains require a `component`
- * on the tool to render anything, and the registries never attach one — so every
- * tool page renders "Coming soon" regardless of `status: "live"`.
- * (photo, design, seo, productivity: no component in registry;
+ * Every [slug] page in a domain listed here requires a wired component to
+ * render anything, so a `live` flag without one is a lie and the tools must
+ * stay out of sitemaps and grids.
+ *
+ * (productivity: its only live-tagged slug (deep-work-session-planner) had no
+ *  component anywhere in the repo, so the flag was corrected to "soon" and the
+ *  domain stays gated until a component lands;
+ *  photo / design / seo: un-gated 2026-10 — app/photo|design|seo/[slug]/page.tsx
+ *  now resolve live slugs through wired components (photo's TOOL_COMPONENTS map
+ *  via a client ToolRenderer, design's GridSystemBuilder, seo's
+ *  KeywordDensityChecker), so their live flags are real;
  *  cad: un-gated 2026-09 — 2d-cad-sketch-tool now has a wired component in
  *  app/cad/[slug]/page.tsx via the TOOL_COMPONENTS map; its live flag is real;
  *  writing: un-gated 2026-09 (batch B1) — app/writing/[slug]/page.tsx now
@@ -18,9 +25,6 @@ const stubSlugs = new Set<string>(CALCULATOR_STUB_SLUGS);
  *  (_scripts/writing-reconcile.mjs) enforces that pairing.)
  */
 const COMPONENT_GATED_DOMAINS = new Set([
-  "photo",
-  "design",
-  "seo",
   "productivity",
 ]);
 
@@ -74,9 +78,11 @@ export function isComponentGatedDomain(domain?: string): boolean {
 
 /**
  * Whether the tool's [slug] page renders a "coming soon" template instead of a
- * real tool. Pages that do must emit `robots: noindex` — they are browsable
- * (soon cards link to them) but must stay out of the index. `domain` is the URL
- * route segment (e.g. "photo", "3d", "calculator").
+ * real tool. Kept for the domains that still gate their metadata on it (colors,
+ * voice); every domain with Coming Soon pages derives its soon metadata from
+ * `hasComingSoonPage` + `buildSoonMetadata` instead, so the visitable-page
+ * decision and the card-linking decision stay in sync.
+ * `domain` is the URL route segment (e.g. "photo", "3d", "calculator").
  */
 export function isComingSoonToolPage(
   tool: { status?: string; component?: unknown } | undefined | null,

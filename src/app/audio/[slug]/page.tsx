@@ -5,18 +5,39 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { categories, TOOLS_BY_SLUG } from "@/domains/audio/registry";
 import { AUDIO_SITE } from "@/domains/audio/site";
+import { INDEX_SOON_PAGES } from "@/domains/audio/indexing";
 import { toSlug } from "@/lib/utils/slug";
-import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
+import { buildSoonMetadata } from "@/lib/tools/soonMetadata";
+import { pickRelatedTools } from "@/lib/tools/soonRelated";
+import { ComingSoonToolPage } from "@/components/shared/ComingSoonToolPage";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
 import { ToolRenderer } from "@/domains/audio/components/tools/ToolRenderer";
 import { hasAudioToolImplementation } from "@/domains/audio/components/tools/implemented";
+import { RelatedTools } from "@/domains/audio/components/related-tools";
+import SeoContent from "@/components/shared/SeoContent";
+import { getToolSeo } from "@/domains/audio/registry/tool-seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+/** Flat view of the registry used for related-tool picks and label qualifiers. */
+const ALL_AUDIO_TOOLS = categories.flatMap((cat) => cat.tools);
+
+/** Names repeated among this domain's upcoming tools — used to qualify labels. */
+const SOON_NAME_COUNTS = (() => {
+  const counts = new Map<string, number>();
+  for (const tool of ALL_AUDIO_TOOLS) {
+    if (tool.status === "live") continue;
+    counts.set(tool.name, (counts.get(tool.name) ?? 0) + 1);
+  }
+  return counts;
+})();
 
 // ==========================================
 // METADATA
@@ -39,16 +60,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // 2. Check Tool
   const tool = TOOLS_BY_SLUG.get(slug);
   if (tool) {
+    // Upcoming tools keep a self-canonical and real copy; INDEX_SOON_PAGES
+    // controls whether they are also indexable (domains/audio/indexing.ts).
+    if (hasComingSoonPage(tool, "audio")) {
+      return buildSoonMetadata(
+        { tool, domainKey: "audio", siteName: AUDIO_SITE.copyrightName, categoryName: tool.category, soonNameCounts: SOON_NAME_COUNTS },
+        INDEX_SOON_PAGES,
+      );
+    }
     return {
       title: `${tool.name} — ${AUDIO_SITE.copyrightName}`,
       description: tool.description,
       alternates: {
         canonical: `/audio/${tool.slug}`,
       },
-      robots:
-        isComingSoonToolPage(tool, "audio") || !hasAudioToolImplementation(tool.slug)
-          ? { index: false, follow: false }
-          : undefined,
+      robots: hasAudioToolImplementation(tool.slug) ? undefined : { index: false, follow: false },
     };
   }
 
@@ -112,6 +138,7 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
                   basePath={`/audio/${tool.slug}`}
                   label="tool"
                   soon={!(tool.status === "live" && hasAudioToolImplementation(tool.slug))}
+                  clickable={hasComingSoonPage(tool, "audio")}
                 />
               );
             })}
@@ -129,6 +156,7 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
 
 function ToolView({ tool, category }: { tool: any, category: typeof categories[0] }) {
   const categorySlug = toSlug(category.name);
+  const seo = getToolSeo(tool.slug);
 
   // Mirrors the visual breadcrumb below, four levels deep, on flat URLs.
   const breadcrumbSchema = {
@@ -153,8 +181,11 @@ function ToolView({ tool, category }: { tool: any, category: typeof categories[0
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   };
 
-  // Only emitted for tools that actually declare FAQ entries in the registry.
-  const faqSchema = tool.faq?.length
+  // Emitted only for tools that declare FAQ entries in the registry AND have no
+  // authored SEO block. SeoContent already emits its own FAQPage JSON-LD from
+  // the authored `faqs`, so without this guard a migrated tool would publish two
+  // FAQPage graphs with different answers.
+  const faqSchema = !seo && tool.faq?.length
     ? {
         "@context": "https://schema.org",
         "@type": "FAQPage",
@@ -200,7 +231,13 @@ function ToolView({ tool, category }: { tool: any, category: typeof categories[0
 
           <ToolRenderer slug={tool.slug} />
 
-          {Boolean(tool.howTo?.length || tool.faq?.length) && (
+          {/* Related tools — a separate full-width row, not part of the SEO block. */}
+          <RelatedTools currentSlug={tool.slug} category={category.name} />
+
+          {/* Registry-level howTo/faq is a fallback for tools with no authored
+              SEO block yet; authored tools render the locked structure below.
+              Without this guard a converter would show two FAQ sections. */}
+          {!seo && Boolean(tool.howTo?.length || tool.faq?.length) && (
             <section className="mt-12 space-y-6">
               {tool.howTo?.length ? (
                 <div>
@@ -232,6 +269,11 @@ function ToolView({ tool, category }: { tool: any, category: typeof categories[0
               ) : null}
             </section>
           )}
+
+          {/* Editorial SEO block — full container width, unboxed, rendered by the
+              shared component so the locked structure stays identical across
+              domains. Link targets resolve against /audio. */}
+          {seo && <SeoContent seo={seo} toolName={tool.name} basePath="/audio" />}
         </div>
       </main>
       <footer className="border-t border-border py-8 mt-auto">
@@ -262,6 +304,31 @@ export default async function PolymorphicPage({ params }: PageProps) {
     return <ToolView tool={tool} category={parentCategory!} />;
   }
 
-  // 3. Not found
+  // 3. Upcoming tools render a Coming Soon page instead of 404ing.
+  if (tool && hasComingSoonPage(tool, "audio")) {
+    const catName = tool.category ?? "Audio";
+    const related = pickRelatedTools(ALL_AUDIO_TOOLS, {
+      currentSlug: slug,
+      basePath: "/audio",
+      isLive: (t) => isLiveTool(t, "audio"),
+      sameGroup: (t) => t.category === tool.category,
+    });
+    return (
+      <ComingSoonToolPage
+        toolName={tool.name}
+        toolDescription={tool.description}
+        icon={tool.icon}
+        siteName={AUDIO_SITE.copyrightName}
+        domainLabel="Audio"
+        domainHref="/audio"
+        categoryName={catName}
+        categoryHref={`/audio/${toSlug(catName)}`}
+        relatedLive={related.live}
+        relatedSoon={related.soon}
+      />
+    );
+  }
+
+  // 4. Not found
   notFound();
 }

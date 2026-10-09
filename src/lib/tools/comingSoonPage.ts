@@ -2,17 +2,36 @@
  * Single source of truth: does this tool have a real Coming Soon page
  * that users should be able to navigate to?
  *
- * The calculator and pdf domains have Coming Soon destination pages.
- * Other domains' non-live tools must remain non-clickable — their routes
- * call notFound() for non-live slugs.
+ * A domain belongs in this set only when its [slug] route renders a real
+ * Coming Soon page for non-live slugs (with its own INDEX_SOON_PAGES switch in
+ * src/domains/<domain>/indexing.ts). Any domain NOT listed keeps non-live tools
+ * non-clickable, because its route calls notFound() for them.
  *
  * This helper is used by both the routing branch in [slug]/page.tsx and
  * the ToolCard click-through decision, keeping them in sync.
  *
- * When a new domain gets Coming Soon pages, add its key to the allowed
- * set below — both routing and card-linking stay in sync automatically.
+ * "games" is deliberately absent: game slugs outside GAME_LIVE_SLUGS have no
+ * Coming Soon page and must stay 404. Add a domain here only after its route
+ * renders the shared Coming Soon template — never before, or a card would link
+ * straight into a 404.
  */
-const DOMAINS_WITH_COMING_SOON = new Set(["calculator", "pdf", "developers"]);
+const DOMAINS_WITH_COMING_SOON = new Set([
+  "calculator",
+  "pdf",
+  "developers",
+  "3d",
+  "animator",
+  "audio",
+  "cad",
+  "design",
+  "image",
+  "photo",
+  "productivity",
+  "seo",
+  "typography",
+  "video",
+  "writing",
+]);
 
 export function hasComingSoonPage(
   tool: { status?: string } | undefined | null,

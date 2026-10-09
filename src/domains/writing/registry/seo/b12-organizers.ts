@@ -12,238 +12,216 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B12_ORGANIZERS_SEO: Record<string, ToolSeo> = {
   "scene-and-chapter-organizer": {
-    keywords: ["scene organizer", "point of view", "word count", "scene board", "chapters"],
-    intro:
-      "The scene and chapter organizer is a scene board you type as plain lines, with point of view, setting and word count, and the statistics a novel needs to see how the words distribute.",
-    content: `A scene organizer earns its place when a draft has outgrown a single document and the writer needs to see the shape of it. This one is deliberately plain: each scene is a line, written as Title, point of view, setting and word count, separated by pipes. From those lines the tool builds a board, counts the words, groups them by point of view and names the longest and shortest scenes. There is no diagram to drag and no canvas to learn — the board is text, and text is what survives a copy, a paste and a diff.
-
-That choice matters because a scene board is a working document, not an artefact. You keep it beside the draft and edit it as the story changes, and a text list is quick to edit and easy to back up. Chapters are handled the same way: a chapter is whatever grouping you choose to show in the order of the lines, and the tool reports the totals you need — total words, the average scene and the median, which is the number that tells you whether one enormous scene is skewing the book.
-
-The point of view tally is the feature writers ask for most often, because a dual point of view novel goes wrong quietly: one narrator quietly takes over the second half and nobody notices until a reader does. Grouping the words by point of view makes that imbalance arithmetic rather than opinion. The settings count and the longest and shortest scene labels do something similar for pacing, where a stack of tiny scenes in the same location is usually a sign that a sequence wants to be one scene.
-
-Because the board is just text, it is also the easiest way to keep chapters straight while the manuscript is in pieces. A chapter is a run of scenes, and seeing the run beside the totals tells you whether a chapter is carrying its weight or quietly holding the book back. The board exports as JSON and as a markdown document with a heading per scene, so it can live in the same folder as the draft, move between machines by copy and paste, and be read by any tool that understands text. When the draft is finished the board becomes a map of the book: a list of every scene, its narrator, its place and its length.
-
-The board is stored in this browser and exports as JSON, so it moves between machines without a server, and it also renders as a markdown document with a heading per scene for pasting into notes. Scenes with no word count contribute zero, so the totals are only as good as the numbers you enter, and the page says as much rather than guessing. Nothing is uploaded, nothing is looked up, and no part of a manuscript is read to build the board.
-
-What the scene organizer does not do is as clear as what it does. It does not import a Scrivener project or a Word outline, does not read your draft to count scenes, and cannot detect continuity problems between them. It is a planning board and a set of honest totals, and it is honest about being exactly that.`,
-    howTo: [
-      { step: "Write one scene per line as Title | Point of view | Setting | Words." },
-      { step: "Leave the later fields blank when you do not know them yet; blanks count as zero." },
-      { step: "Read the shape panel: total words, the average and median scene, and the settings count." },
-      { step: "Check the point of view tally to see whether one narrator has taken over." },
-      { step: "Copy the board as markdown or export the JSON to keep it." },
+    keywords: [
+      "scene organizer",
+      "point of view",
+      "scene board",
+      "word count",
     ],
-    whenToUse: `Use the scene organizer when a draft needs its shape checked rather than its prose read. When the totals you care about are the whole manuscript's rather than the board's, the {{word-count-tool|Word Count Tool}} counts a single text, and when the question is what changed between two versions of a scene, the {{document-diff-viewer|Document Diff Viewer}} compares them.
-
-If the board is really a record of the draft's progress over time, the {{draft-versioning-tool|Draft Versioning Tool}} tracks the word count from version to version instead.`,
+    intro:
+      "The Scene and Chapter Organizer reads a scene board with point of view, setting and word count, and reports how the words distribute across scenes and points of view.",
+    content:
+      "A scene organizer for a novel is a list with opinions: one line per scene, carrying its title, point of view, setting and word count. This scene board reads that list, tallies the statistics a novelist actually uses — how the words distribute across scenes and across points of view, and which scenes are the outliers — and round-trips the whole board as JSON so it survives a refresh without a server. The trailing fields are optional, so a title-only list works and gains detail as you add it.\n\nThe shape-of-the-story panel reports scenes, total words, average scene, median scene, distinct settings, the longest scene and the shortest, plus a point-of-view tally. When a scene has no explicit word count, the summary words of its line stand in, so the numbers are never zero by accident. Each scene can be copied as markdown — one heading per scene — and the board exports as JSON and imports back with every entry validated.\n\n- Scene lines: Title, POV, Setting, Words — trailing fields optional.\n- Scene statistics: count, total words, average and median scene length.\n- Outliers: longest and shortest scenes named on the board.\n- Point-of-view tally: how many scenes and words each perspective carries.\n- Copy board as markdown, one heading per scene.\n- Export the board as JSON and import it back, validating every entry.\n\nParsing splits each line on the pipe separator and coerces the trailing word count when present; statistics are arithmetic over that list. The JSON round trip exists because a board is data: serializeScenes writes the list out and the importer validates each entry on the way back, so a corrupted paste fails with an error instead of silently corrupting the board. Nothing is uploaded — the board lives in the text box and the exported file.\n\n- The board is text, not a drag-and-drop editor: reordering means editing lines.\n- Word counts you enter are used as given; summary words are a fallback, not a correction.\n- A pipe inside a title is not supported, because the separator is literal.\n- POV analysis depends on how consistently the POV field is spelled; case is normalised, nicknames are not.\n- The median on very small boards can sit between two scenes, which is a property of medians rather than a bug. On a small board the longest and shortest rows matter for the same reason: one outlier moves the average while the median stays where the typical scene is.\n\nWork the board from the outliers: read the longest and shortest scenes first, then the point-of-view tally, because an imbalance in either is a structural note before it is a prose problem. A first draft usually reveals a scene that runs twice the median and a POV carrying eighty percent of the words — both are visible on this panel without any counting by hand. A board that starts as three lines and grows to thirty keeps the same panel, so the statistics are there from the first scene rather than only after the draft is finished.\n\nThe story neighbours share the same reference structures: the plot point mapper lays events over a named beat sheet, the story beat builder tracks drafting progress across those beats, and the outline builder shapes the structure before scenes exist.",
+    howTo: [
+      { step: "Enter one scene per line as Title, POV, Setting, Words — trailing fields optional." },
+      { step: "Read the Shape of the story panel for scene count, total words, average, median, outliers and settings." },
+      { step: "Check the point-of-view tally for balance across perspectives." },
+      { step: "Copy the board as markdown, or export and re-import the JSON board to move it between sessions." },
+    ],
+    whenToUse:
+      "Use the scene and chapter organizer when a draft has enough scenes to need a board. The {{plot-point-mapper|Plot Point Mapper}} lays those scenes over a named structure, and the {{story-beat-builder|Story Beat Builder}} tracks which beats are drafted as progress. For structure before scenes exist, the {{outline-builder|Outline Builder}} renders an indented outline three ways, and the writing goal tracker in this domain counts the daily words those scenes accumulate.",
     faqs: [
       {
-        q: "How is a scene entered?",
-        a: "One scene per line, with fields separated by pipes: title, then point of view, setting and word count. Only the title is required; a blank field is simply left out of the board and the count.",
+        q: "What format are the scene lines in?",
+        a: "Title, POV, Setting, Words separated by pipes, with the trailing fields optional. A line with only a title still counts as a scene, and its summary words stand in for a word count you have not entered.",
       },
       {
-        q: "Why does a scene with no word count show as zero?",
-        a: "Because the tool counts what you give it and refuses to invent a number. Leave the fourth field blank and the scene contributes nothing to the totals, which keeps the word count a fact rather than an estimate.",
+        q: "What does the point-of-view tally show?",
+        a: "How many scenes and how many words each perspective carries. The field is matched case-insensitively, so Alex and alex tally together, but nicknames for the same character do not merge.",
       },
       {
-        q: "Does it read my manuscript?",
-        a: "No. There is no file upload and no draft is parsed. You type the board, or import a board you exported earlier as JSON, and the tool reports the numbers from that.",
+        q: "How do I move a board to another session?",
+        a: "Export it as JSON and import it back later. The importer validates every entry, so a truncated or corrupted file fails with an error rather than silently replacing your board.",
       },
       {
-        q: "Can I see which narrator has more words?",
-        a: "Yes. Scenes are grouped by the point of view name you type, and each group shows its scene count and word total, so an imbalance between narrators is visible as a number rather than a feeling. Spell the names consistently for the grouping to work.",
+        q: "Why is the median different from the average?",
+        a: "One long scene pulls the average up while the median stays near the typical scene. Both are shown because the gap between them is the quickest signal that the distribution is lopsided.",
       },
       {
-        q: "Is the board saved anywhere?",
-        a: "It is kept in this browser only, and it exports to JSON so you can move it yourself. There is no account and no upload; clearing your browser data clears the board.",
+        q: "Is there a drag-and-drop board view?",
+        a: "No. The board is text — one line per scene — which is what makes it exportable, diffable and pastable. Reordering means editing the lines, and the statistics update as you type.",
       },
     ],
   },
 
   "draft-versioning-tool": {
-    keywords: ["draft versioning tool", "draft", "version", "word count", "timeline"],
-    intro:
-      "The draft versioning tool saves labelled snapshots of a draft in your browser and shows the word count moving from version to version, with a word-level comparison of the last two.",
-    content: `A draft versioning tool answers a small but constant question: how did this draft get here? You save a snapshot under a label — "after the rewrite", "Draft 3 — cut the subplot" — and the tool keeps the text, counts its words and lines the versions up in a timeline that shows what each one gained or lost against the one before. It is the cheapest form of revision history, and the one a writer will actually maintain.
-
-The timeline is the point. Watching the word count move is how cutting and padding become visible: a version that gained two thousand words without a plan usually marks the scene that ran away, and a version that lost five hundred is either a good cut or a hole. The tool does not judge either way; it shows the arithmetic and lets you draw the conclusion. It also keeps every snapshot's text, so a version can be loaded back into the editor when an earlier passage turns out to be better.
-
-Because the versions are labelled, the history reads like a set of milestones rather than a stream of timestamps. You can see at a glance when the draft doubled, when the subplot came out and when the ending was rewritten, without opening any of the versions. That is the record a writer actually consults months later, and it costs one click per milestone to keep. Loading an old version back into the editor is part of the same idea: a cut scene can be restored, a changed paragraph compared, and the question of which version is better answered with both in front of you rather than from memory.
-
-Comparing the last two versions uses the same word-level diff as the document diff viewer, so the newest change is reported as added and removed words and a percentage of unchanged text. That is enough to see whether a pass was a light polish or a substantial rewrite, and it keeps one comparison calculation in one place across the domain.
-
-A version is a label and the text saved under it, held in this browser only. There is no server, no cloud history and no automatic snapshot on a timer, which is a deliberate limit as much as a limitation: a writer who saves a version when a draft reaches a milestone keeps a clean, intentional history, rather than a stream of saves produced by a background process. Clear your browser data and the versions go with it, so anything worth keeping should be exported as text.
-
-The tool stores text, not files. It does not open a .docx, does not track changes inside a word processor and cannot merge two versions. It is a set of labelled snapshots with a word-count history and a comparison of the newest pair, and it says so plainly. For a working draft that is usually all the version control a writer wants. A snapshot costs nothing, and one saved before a bold edit is the cheapest insurance a revision has.`,
-    howTo: [
-      { step: "Paste or type the draft into the text area and give the version a label." },
-      { step: "Save the version; it is kept in this browser with its word count." },
-      { step: "Read the timeline to see how the count moved from draft to draft." },
-      { step: "Check the latest change panel for the added and removed words." },
-      { step: "Load an earlier version back when a passage worked better before." },
+    keywords: [
+      "draft versioning",
+      "version label",
+      "word delta",
+      "timeline",
     ],
-    whenToUse: `Use the draft versioning tool when a draft is moving through revisions and you want a simple record of how its length changed. When you need to read what actually differs between two saved drafts, the {{document-diff-viewer|Document Diff Viewer}} shows the change line by line, and for a single word total the {{word-count-tool|Word Count Tool}} is quicker.
-
-If the versions being tracked are scenes rather than a whole draft, the {{scene-and-chapter-organizer|Scene and Chapter Organizer}} keeps the word counts on a board instead.`,
+    intro:
+      "The Draft Versioning Tool saves labelled snapshots of a draft in the browser and shows the word delta between each version and the next.",
+    content:
+      "Draft versioning here is deliberately small: a version is a label and the text you saved under it, kept in this browser with no server behind it. Paste or type a draft, give it a version label, save, and the timeline grows. What makes the tool worth using is not the storage — a folder of files does that — but the word delta: every row shows how the count moved from the version before it, which is the number writers actually argue about.\n\nThe timeline lists each saved version with its word count and the change against the previous one, so a rewrite that cut forty words reads as minus forty at a glance. The latest change panel names what happened between the last two snapshots: unchanged, words added, words removed. The report copy carries the whole running total across every adjacent pair, which is how a week of revision sessions becomes one paragraph of numbers rather than a folder of guesses. The latest change row is the quick read and the timeline is the argument; between them, a week of saving turns into a shape — cuts, additions, and a session that changed nothing — that no single document shows on its own.\n\n- Version label: the name you save each snapshot under, shown on the timeline.\n- Draft text: the content of the snapshot, kept as typed.\n- Timeline rows: word count per version plus the change against the previous version.\n- Latest change: the delta between the most recent two snapshots.\n- Comparison: the same word-level diff the document diff viewer uses, applied to two saved versions.\n- Copy report for the running total across every adjacent pair.\n\nSnapshots are saved through the shared browser-storage hook, so they live in this browser and nowhere else. Comparison reuses the document diff engine, which means what changed between draft two and draft three is literally the same calculation the diff viewer performs — one word diff implementation behind both pages. The word counts come from the shared tokenizer, so the deltas agree with every other counter in this domain.\n\n- No history beyond this browser: another device or a cleared cache will not see the versions.\n- A version stores the text as it was saved, so later edits to the box do not rewrite it.\n- There is no diff view in this tool itself; opening two snapshots side by side belongs to the diff viewer.\n- Labels are free text and never validated, so duplicate labels are allowed and distinguished by position.\n- Very long drafts save fine, but each snapshot stores the full text rather than a patch.\n\nThe habit that makes versioning work is saving before the risky change rather than after the good result: a labelled snapshot before a structural rewrite is what lets you quantify what the rewrite cost. Save at natural boundaries — before an outline passes, after feedback, at the end of a session — and the timeline becomes a record of decisions rather than a backup.\n\nFor the substance of a change rather than its size, the document diff viewer opens two texts and shows line, word and patch views; the writing goal tracker records daily totals instead of named snapshots; and the word count tool gives the figure the delta is computed from. For a draft that already has a home elsewhere, the box is still the session's record: paste at the start, save at the end, and the timeline carries the week's shape without anyone maintaining a folder.",
+    howTo: [
+      { step: "Paste or type a draft, then give it a version label that names the moment — after feedback, before the rewrite." },
+      { step: "Save the version; it joins the timeline with its word count." },
+      { step: "Read the timeline for the word delta against the previous version and the latest change panel for what happened." },
+      { step: "Copy the report for the running total across every adjacent pair of versions." },
+    ],
+    whenToUse:
+      "Use draft versioning when you want named snapshots and the numbers between them. The {{document-diff-viewer|Document Diff Viewer}} shows what changed inside a single pair of texts, line by line and word by word, while the {{writing-goal-tracker|Writing Goal Tracker}} records daily totals instead of named versions. For a surface that stays out of the way while you produce the drafts, the {{distraction-free-writing-editor|Distraction-Free Writing Editor}} is the writing half of the same workflow.",
     faqs: [
       {
-        q: "Is there an automatic save on a timer?",
-        a: "No. A version is saved only when you click to save it, because an intentional milestone is more useful than a stream of background snapshots. You choose the label and the moment.",
+        q: "Where are my versions stored?",
+        a: "In this browser, through the same local-storage hook the other writing surfaces use. There is no server and no history beyond this tab's storage, so download anything that matters.",
       },
       {
-        q: "Where are the versions kept?",
-        a: "In this browser only. There is no server and no account, so clearing your browser data removes them. Export or copy the text of any version you want to keep outside the tool.",
+        q: "How is the word delta calculated?",
+        a: "Word counts come from the shared Unicode tokenizer, and each row shows the count minus the previous version's count. Comparison between two snapshots reuses the document diff engine's word diff.",
       },
       {
-        q: "How does it compare two versions?",
-        a: "The latest-change panel compares the last two saved versions word by word, reporting added and removed words and a percentage of unchanged text — the same calculation the document diff viewer uses.",
+        q: "Can I see the actual changes between versions?",
+        a: "This tool shows size and direction, not content. Open the two texts in the document diff viewer for the line-by-line and word-level view; the comparison function behind both pages is the same.",
       },
       {
-        q: "Can it track changes in a Word document?",
-        a: "No. It stores plain text, not files, so it does not read a .docx or follow a word processor's tracked changes. Paste the text of each version you want to snapshot and the tool stores that.",
+        q: "What happens if I edit a draft after saving it?",
+        a: "Nothing changes in the saved version — a snapshot stores the text as it was at save time. Your edits accumulate in the box until you save the next labelled version.",
+      },
+      {
+        q: "Can two versions share a label?",
+        a: "Yes. Labels are free text and never validated; versions are distinguished by their position on the timeline, so a repeated name is a duplicate rather than an error.",
       },
     ],
   },
 
   "plot-point-mapper": {
-    keywords: ["plot point mapper", "plot points", "three-act structure", "hero's journey", "beat sheet"],
-    intro:
-      "The plot point mapper lays a named structure — three-act, four-act, Save the Cat or the hero's journey — over your story's own events and reports which beats are still open.",
-    content: `A plot point mapper is useful when a structure is the thing in doubt. Choose a beat sheet — the three-act structure, the four-act structure, Save the Cat's fifteen beats or the hero's journey's twelve stages — and the tool lists that structure's plot points with the share of the story where each typically lands. You then attach your own event to each beat, one line per beat, and the map reports how much of the structure you have covered and which beat comes next.
-
-That last number is the one that keeps a draft moving. If everything is mapped except the midpoint, the map has told you what the next writing session is for, and it does so without reading a word of the manuscript. A writer working through a beat sheet can fill the map in as a planning exercise and then watch the coverage climb as the draft takes shape, which is a more useful signal than a blank page and a feeling.
-
-The percentages are conventions, and the tool is careful to say so. The placements come from the traditions the structures are named for — the three-act shape, Blake Snyder's fifteen beats, Campbell's stages — and none of them is a rule a story must obey. A literary novel may have no inciting incident at twenty per cent, and a short story may hit its midpoint on page two. The map reports where a beat conventionally sits, and the writer decides whether to move the scene or ignore the placement.
-
-Working beat by beat also changes how a plan gets written. Instead of an empty document and a blank page, the mapper offers a short list of named slots, each with a description of what belongs there, and the writing becomes a matter of answering one slot at a time. The same structure is as useful for a critique as for a first draft: mapping someone else's story onto a sheet shows where one beat is doing the work of two, or where a placement is so far from the convention that the story is deliberately bending the shape.
-
-Nothing is generated in the sense of prose. The tool does not invent plot points and does not suggest what your midpoint should be; you supply the events and it arranges them against the sheet, marking each beat mapped or open. The map exports as a markdown outline with a heading per beat, so it can sit beside the draft in the same folder as the scene board.
-
-The mapper reads notes, not pages. It does not analyse a manuscript, cannot tell whether a plotted beat survived into the draft, and keeps nothing beyond the current session's text in the page. The structure is a lens, the events are yours, and the coverage figure is a count of how many of the sheet's beats you have written down — useful, and honestly limited. It is a planning aid for a story that is still taking shape, and it is happy to stay one.`,
-    howTo: [
-      { step: "Choose a beat sheet: three-act, four-act, Save the Cat or the hero's journey." },
-      { step: "Read the sheet: every beat, its conventional percentage and its description." },
-      { step: "Write one line per beat as Beat name: what happens in your story." },
-      { step: "Watch the coverage figure and the next open beat as you fill the map." },
-      { step: "Copy or download the map as a markdown outline." },
+    keywords: [
+      "plot point mapper",
+      "beat sheet",
+      "beats mapped",
+      "three-act",
     ],
-    whenToUse: `Use the plot point mapper when a named structure is the frame you want and each beat needs an event attached. When the question is how far through a beat sheet the drafting has actually reached, the {{story-beat-builder|Story Beat Builder}} is a progress board over the same structures.
-
-For a non-fiction or essay plan rather than a story, the {{outline-builder|Outline Builder}} numbers headings instead of beats, and when the mapped events are scenes that need their own tracking, the {{scene-and-chapter-organizer|Scene and Chapter Organizer}} boards them with word counts.`,
+    intro:
+      "The Plot Point Mapper maps your story's own events onto a named beat sheet and reports which beats are covered and which are still blank.",
+    content:
+      "A beat sheet is a reference, and mapping is where a story meets one. This plot point mapper takes a named structure — three-act, four-act, Save the Cat or the hero's journey — and lays your events over its beats: one line each, in your own words, matched to a beat of the sheet. The map then reports how much of the structure is covered and which beats are still blank, which is the question a writer with a half-finished outline actually has.\n\nThe structure picker selects the sheet; the events box takes one event per line as beat name, then what happens. The coverage panel counts beats mapped out of the total, and the sheet panel lists every beat with its placement percentage and your note beside it. Copy and Download produce the map as a markdown document, one beat per line with its placement, which is how the map becomes a document rather than a session.\n\n- Structures: three-act, four-act, Save the Cat and the hero's journey.\n- Event lines: beat name, a colon, then what happens — one event per line.\n- Coverage: beats mapped out of the total the sheet defines.\n- The sheet: every beat with its conventional placement and your note.\n- Blank beats: the uncovered parts of the structure, visible on the list.\n- Copy and Download for the map as markdown.\n\nThe structures live in one reference module shared with the story beat builder, so the two tools can never disagree about where a beat lands. Each structure is a list of beats carrying the share of the story where that beat conventionally sits, and the map is an ordinary lookup: your notes are parsed into a table and matched against the beats the chosen sheet defines. Nothing here is generated — these are reference outlines, and the pages say the placements are guidance rather than rules.\n\n- Placement percentages are the conventional readings of each structure, not measurements of your story.\n- A note only appears against a beat the chosen sheet defines, so a free-form event name without a matching beat is not shown.\n- Switching structures discards the visual match, because the beats differ between sheets.\n- The mapper records intent rather than drafts; writing the scene is still your work.\n- The four sheets are a finite reference set; a structure of your own is not representable.\n\nThe useful pass is the blank-beat read: choose the structure you are actually writing in, map what you have, and look at what remains empty. Two blanks in a row usually means a missing turn rather than a missing scene, and one blank at the end usually means the resolution is unwritten. When a beat is covered but the note is thin, that is the sheet telling you where the story still needs an event. Mapping is also the cheapest way to test a structure before committing to it: if the beats cannot be named from what you have, the sheet is probably wrong for this story rather than the story being wrong.\n\nThe neighbouring tools share the same structures from the other side: the story beat builder tracks drafting progress instead of notes, the scene board adds point of view and word counts, and the outline builder shapes structure before a beat sheet is chosen. The map is a starting position, not a constraint — plenty of drafts keep it open until the second act, and the coverage panel is equally useful at ten percent as at ninety.",
+    howTo: [
+      { step: "Pick a structure: three-act, four-act, Save the Cat or the hero's journey." },
+      { step: "Enter your events one per line as beat name, a colon, then what happens." },
+      { step: "Read the coverage panel for beats mapped, then scan the sheet for the beats still blank." },
+      { step: "Copy or download the map as markdown when the structure needs to become a document." },
+    ],
+    whenToUse:
+      "Use the plot point mapper when a story has events and needs a structure to test them against. The {{story-beat-builder|Story Beat Builder}} tracks which beats are drafted rather than what happens in them, and the {{scene-and-chapter-organizer|Scene and Chapter Organizer}} adds point of view and word counts to the same draft. Before a beat sheet is chosen, the {{outline-builder|Outline Builder}} shapes an indented outline three ways, and the distraction-free editor in this domain is where the events get written.",
     faqs: [
       {
-        q: "Which structures are included?",
-        a: "Four: the three-act structure, a four-act structure, Save the Cat's fifteen-beat sheet and the hero's journey's twelve stages. Each is listed with its beat count so you can pick the one that fits the story.",
+        q: "Which structures does the mapper support?",
+        a: "Four: three-act, four-act, Save the Cat and the hero's journey. They are reference outlines held as data and shared with the story beat builder, so both tools show the same placements.",
       },
       {
-        q: "Are the percentages rules?",
-        a: "No. They are the conventional placements from the traditions the structures are named for. The tool reports them as guidance; your story can move a scene or ignore a placement entirely, and the map still works.",
+        q: "How do I enter my events?",
+        a: "One per line as beat name, a colon, then what happens. The beat name is matched against the chosen sheet, and notes for beats the sheet does not define are not displayed.",
       },
       {
-        q: "Does it invent plot points for me?",
-        a: "No. It does not generate prose or suggest events. You write one line per beat describing what happens in your story, and the tool arranges those lines against the sheet and counts the coverage.",
+        q: "Are the placement percentages rules?",
+        a: "No. They are the conventional readings of each structure, reported as guidance. The pages say so explicitly, because plenty of good stories put a turn somewhere else.",
       },
       {
-        q: "Can it read my manuscript?",
-        a: "No. There is no upload and no file is parsed. The map works from the notes you type, so it reports which beats you have filled in, not which ones survived into the draft.",
+        q: "Why did my notes disappear when I changed structure?",
+        a: "Different sheets define different beats, so notes are matched against the new sheet rather than carried over positionally. Map against the structure you are actually writing in.",
       },
       {
-        q: "What if a beat name does not match?",
-        a: "A line whose name is not one of the sheet's beats is ignored, so the coverage figure stays honest. Keep the beat names as the sheet lists them and the note attaches to the right place.",
+        q: "Can I export the map?",
+        a: "Yes, Copy and Download produce the map as markdown — every beat with its placement and your note — so it can sit beside the draft in any editor.",
       },
     ],
   },
 
   "story-beat-builder": {
-    keywords: ["story beat builder", "beat sheet", "Save the Cat", "beats", "drafting"],
-    intro:
-      "The story beat builder is a progress board over a beat sheet: tick the beats you have drafted and see how far through the structure the draft has reached, and which beat is next.",
-    content: `The story beat builder is the companion to planning a story: where a mapper attaches an event to every beat, this tool tracks which beats are actually drafted. Pick a beat sheet — three-act, four-act, Save the Cat or the hero's journey — and the tool lays out its beats with their conventional placements and a checkbox each. Tick a beat once its scene or chapter exists, and the board reports the count, a percentage and the next beat in placement order.
-
-That next-beat pointer is the whole point. A long draft can stall not because the writing is hard but because the next move is unclear, and naming the next beat with its percentage and description removes a decision from the start of a session. It is a small thing that changes how a writing day begins: instead of reopening the manuscript to find your place, you look at the board and see which beat is open.
-
-That pointer is also a record of drafting progress rather than of planning. Ticking a beat says a scene exists, so the percentage counts work done rather than work intended, and the gap between a mapped structure and a drafted one becomes visible as the two numbers diverge. When a draft is stalled, the clearest question is often simply which beat is open, and the board answers it without opening the manuscript. The ticks are yours alone: the tool never guesses that a beat is written, so the progress figure stays a statement about the draft rather than a friendly estimate.
-
-The beat sheets themselves are the conventional ones. Save the Cat's fifteen beats are the most granular and the most familiar to genre writers; the hero's journey's twelve stages suit mythic and epic stories; the three-act and four-act structures are the broadest. Each beat carries a short description of what it does, so the board doubles as a reference: you can read what "dark night of the soul" means without leaving the page, and the same reference underlies the plot point mapper.
-
-Ticking a beat records your own judgement that it is drafted. The tool never infers progress from a manuscript, because it never reads one — there is no upload and no parsing, and the ticks live only in this browser. Switching beat sheets clears the ticks, since the beats change with the structure, and the whole sheet with its ticks exports as plain text for a notes app or a project file.
-
-What it does not do is as clear as what it does. It does not generate beats or write scenes, does not score how well a draft follows a structure, and keeps no history of when a beat was ticked. It is a checklist with placements and descriptions attached — a small tool for the specific problem of knowing what to write next, and honest about being nothing more than that. Kept beside the draft, it turns a large, vague task into a short, named next step. It is deliberately small, and it does that one job well.`,
-    howTo: [
-      { step: "Choose a beat sheet: three-act, four-act, Save the Cat or the hero's journey." },
-      { step: "Read the beats with their placements and descriptions." },
-      { step: "Tick each beat once its scene or chapter is drafted." },
-      { step: "Watch the progress bar and the next-beat pointer." },
-      { step: "Copy or download the sheet with its ticks for your notes." },
+    keywords: [
+      "story beat builder",
+      "beat sheet",
+      "beats drafted",
+      "progress board",
     ],
-    whenToUse: `Use the story beat builder when a beat sheet is your working plan and you want to track how much of it is drafted. When every beat needs an event attached rather than a tick, the {{plot-point-mapper|Plot Point Mapper}} maps your story onto the same structures.
-
-For planning that is headings rather than story beats, the {{outline-builder|Outline Builder}} numbers a nested outline, and when the draft's overall length is the thing being tracked, the {{draft-versioning-tool|Draft Versioning Tool}} keeps a version timeline.`,
+    intro:
+      "The Story Beat Builder is a progress board over a named beat sheet: mark beats done and see how far through the structure the draft has reached.",
+    content:
+      "The story beat builder answers one question: how far through the structure has the draft got? Choose a beat sheet — three-act, four-act, Save the Cat or the hero's journey — mark the beats you have drafted, and the progress panel reports how many beats are drafted and which beat comes next in placement order. It is a progress board rather than a planning tool: the notes belong to the mapper, and this page is about what exists.\n\nThe sheet panel lists every beat of the chosen structure in the structure's own order, each with a done control and its placement percentage. The progress panel counts beats drafted, draws the progress against the sheet and names the next beat by placement, which is the only ordering that matters when a draft is written out of sequence. Copy and Download produce a progress sheet as text, so the board can be checked against a revision plan.\n\n- Structures: three-act, four-act, Save the Cat and the hero's journey, shared with the mapper.\n- Beat rows: every beat in the structure's own order, with a done control.\n- Progress: beats drafted as a count and a bar against the sheet.\n- Next beat: the first undrafted beat in placement order, not list order.\n- Copy and Download for the progress sheet as plain text.\n\nThe beats come from the same reference module the plot point mapper uses, so the placements on both pages are literally the same data. Progress is arithmetic over the done flags: drafted count, share of the sheet, and the next undrafted beat found by walking the rows in placement order. Because the board is state in the browser rather than a document, it is a view of your progress rather than a record of it — the copy control exists so the record can be taken elsewhere. Because the beats come from shared reference data, a copied sheet is readable by anyone else working with the same structure, which makes it a usable thing to attach to a revision plan.\n\n- Done flags are state, not a document: clearing the browser clears the board.\n- Beats are the structure's, so a beat you cannot map to the sheet cannot be marked.\n- Placement order can differ from drafting order; next beat means next by placement.\n- The four sheets are a finite reference set; a custom structure is not representable.\n- Progress measures coverage of the sheet, never quality of the scenes behind it.\n\nThe board works as a weekly check rather than a writing surface: mark what exists, read the next beat, and let the placement order decide what to draft rather than what you feel like drafting. When the count stalls at the same beat across two weeks, the beat is usually the one the story is missing, and the sheet has said so before the feedback did. Read weekly, the board turns structure from an idea into a count — drafted or not — which is much harder to avoid than an intention.\n\nThe neighbouring tools cover the other views of the same structures: the plot point mapper records what happens at each beat, the scene board carries point of view and word counts, and the outline builder shapes structure before any named sheet is chosen.",
+    howTo: [
+      { step: "Choose a structure: three-act, four-act, Save the Cat or the hero's journey." },
+      { step: "Mark each beat you have drafted on the sheet panel, in whatever order you drafted them." },
+      { step: "Read the progress panel for beats drafted and the next beat in placement order." },
+      { step: "Copy or download the progress sheet when the board needs to leave the browser." },
+    ],
+    whenToUse:
+      "Use the story beat builder when the structure exists and the question is coverage rather than content. The {{plot-point-mapper|Plot Point Mapper}} records what happens at each beat instead of whether it is drafted, and the {{scene-and-chapter-organizer|Scene and Chapter Organizer}} carries the same scenes with point of view and word counts. Structure before any named sheet belongs to the {{outline-builder|Outline Builder}}, and the daily words behind the beats are what the writing goal tracker in this domain measures.",
     faqs: [
       {
-        q: "What is the difference from the plot point mapper?",
-        a: "The mapper attaches your story's event to every beat and reports coverage; this builder tracks which beats are drafted with a tick and points at the next one. They share the same four structures.",
+        q: "How is the next beat decided?",
+        a: "By placement order: the first undrafted beat whose position in the story comes earliest. A draft written out of sequence still gets the right next beat, because list order never overrides placement.",
       },
       {
-        q: "Why do the ticks reset when I change structure?",
-        a: "Because the beats belong to the structure: Save the Cat's fifteen beats and the three-act structure's seven are different lists, so a tick against one does not mean anything in the other.",
+        q: "How is this different from the plot point mapper?",
+        a: "The mapper attaches a note to every beat — what happens. This page tracks whether each beat is drafted, so it is a progress board over the same shared structures.",
       },
       {
-        q: "Which beat sheets are included?",
-        a: "The three-act and four-act structures, Blake Snyder's Save the Cat sheet of fifteen beats, and the hero's journey's twelve stages, each with placements and a short description of what the beat does.",
+        q: "Are my done flags saved?",
+        a: "They live in this browser as page state rather than a document, so clearing site data clears the board. Copy the progress sheet when a record needs to outlast the session.",
       },
       {
-        q: "Does it score how well my story follows a structure?",
-        a: "No. It records the beats you say are drafted and counts them. It does not read a manuscript, does not judge structural fit, and keeps no record of when each beat was ticked.",
+        q: "Can I use a structure of my own?",
+        a: "No. The four sheets are the reference set held in code and shared with the mapper. For a custom shape, the outline builder will happily track it as indented text.",
+      },
+      {
+        q: "Does a drafted beat mean the scene is finished?",
+        a: "It means you consider the beat drafted — the board records coverage of the sheet and makes no claim about quality. That judgement stays with you and your readers.",
       },
     ],
   },
 
   "manuscript-formatter": {
-    keywords: ["manuscript formatter", "manuscript", "title page", "scene breaks", "word count"],
-    intro:
-      "The manuscript formatter applies the mechanical typographic clean-up a submission expects — curly quotes, em dashes, centred scene breaks, an optional title page — and counts the words, chapters and scene breaks.",
-    content: `A manuscript formatter handles the substitutions a submission expects and nothing more. Paste your text and it converts straight quotes to typographic ones, turns a spaced double hyphen into an em dash, replaces three dots with an ellipsis, and normalises a line of asterisks or hashes into a centred scene break. It can also prepend a title page with your name and contact details. The wording is never rewritten: every change is a substitution the tool names on the page, so you can see exactly what it did.
-
-The list of what it changes is short on purpose. Straight to curly quotes and apostrophes, a double hyphen to an em dash, three dots to an ellipsis, and scene breaks to a centred three-asterisk "* * *" on its own line. Those are the marks that betray a manuscript typed in a plain editor, and fixing them by hand across ninety thousand words is the kind of work that puts off the submission for another week. The tool does not touch spacing between sentences, does not reflow paragraphs and does not "improve" a single word.
-
-Alongside the text it reports the counts an agent or a submission form asks for: the word count, the number of chapters, the number of scene breaks, paragraphs and sentences. The word count here is the whole manuscript's, so it can be given as the rounded figure a query letter uses. The chapter count is read from lines that begin with "chapter", and the scene-break count from the normalised lines, which means the numbers follow the conventions the tool just applied.
-
-Keeping the counts beside the text is deliberate, because a submission form asks for the word count and a synopsis asks for the chapter count, and both are easy to lose track of while a manuscript is being tidied. Because the formatter is deterministic, running it twice on the same text produces the same output and the same counts, so the numbers do not drift between one pass and the next. That matters when a manuscript goes to two markets with slightly different requirements: format the text, note the counts, then adjust only the parts a specific market asks for.
-
-What the manuscript formatter deliberately does not do is the rest of submission formatting. It does not produce a .docx, and it does not set a twelve-point serif font, double line spacing, one-inch margins, a running header or page numbers. Those belong in a word processor template, where they are set once and applied to every submission. The tool's job is the text and the counts; the checklist on the page names the rest of the standard format so nothing is forgotten before you send a manuscript out.
-
-Everything happens in the browser — nothing is uploaded and no draft is stored beyond the tab. The output is plain text you can copy or download, and because the substitutions are deterministic, the same manuscript always produces the same formatted text and the same counts, which is what makes the result checkable rather than merely tidy.`,
-    howTo: [
-      { step: "Paste the manuscript text into the editor." },
-      { step: "Turn on the title page and add your title, name and contact details if you want one." },
-      { step: "Read the formatted text; each substitution is listed under what changed." },
-      { step: "Check the counts: words, chapters and scene breaks." },
-      { step: "Copy or download the text, then set fonts and spacing in your word processor." },
+    keywords: [
+      "manuscript formatter",
+      "standard manuscript format",
+      "scene breaks",
+      "em dash",
     ],
-    whenToUse: `Use the manuscript formatter when a draft is finished enough to submit and the typographic details need cleaning up. When the question is how two drafts differ rather than how one is typed, the {{document-diff-viewer|Document Diff Viewer}} compares them, and for a plain word total the {{word-count-tool|Word Count Tool}} is quicker than formatting the whole file.
-
-If you are keeping several versions of the manuscript as you tidy it, the {{draft-versioning-tool|Draft Versioning Tool}} records the word count of each so the changes are visible.`,
+    intro:
+      "The Manuscript Formatter applies the mechanical typographic clean-up a submission expects — curly quotes, em dashes, scene breaks — and counts what an agent asks for.",
+    content:
+      "Submission formats ask for the same handful of mechanical substitutions every time, and this manuscript formatter applies them in one pass: straight quotes to curly ones, a spaced double hyphen to an em dash, three dots to an ellipsis, and scene breaks normalised to a centred marker. An optional title page can be prepended with your title, name and contact details. Every change is named on the page, because text in, text out with a list of what happened is the only honest way to format someone else's prose.\n\nThe counts panel reports the numbers a submission asks for: words, chapters, scene breaks, paragraphs, sentences and characters. The what-changed panel lists each class of substitution with its count, so a pass that curly-quoted four hundred quotation marks is visible as arithmetic rather than mystery. The standard manuscript format checklist states what the format actually asks for, which is the part most rejections over formatting are really about.\n\n- Straight quotes converted to curly quotation marks.\n- Spaced double hyphen converted to an em dash.\n- Three dots converted to an ellipsis.\n- Scene breaks normalised to a centred marker.\n- Optional title page: title, author and contact.\n- Counts: words, chapters, scene breaks, paragraphs, sentences and characters.\n- Copy and Download for the formatted text, plus the what-changed report.\n\nThe substitutions are literal and ordered: each rule scans the text once, records how many replacements it made and keeps the source text's line structure intact. Counts come from the shared tokenizer and sentence segmenter, so words and sentences agree with every other counter in this domain. Crucially, the formatter never reflows your words — no rewrapping, no reparagraphing, no changes beyond the named substitutions — which is what makes the output reviewable against the input.\n\n- It does not produce a .docx file, set fonts or margins, or manage page numbers.\n- It never reflows prose: line and paragraph structure survive exactly as typed.\n- Smartening quotes is typographic, not grammatical: an apostrophe used as an omission mark is still converted by position.\n- Chapters are detected from headings, so an unconventional chapter layout may be undercounted.\n- Quoted material is formatted like the rest of the text; a quotation's own punctuation is not preserved separately.\n\nThe workflow is to format last: write and revise first, then run one pass, read the what-changed panel, and copy the result into your submission document. Running it earlier just means doing it again after the next edit. A formatted pass is also worth keeping beside the original: the what-changed panel makes the pair auditable, and the diff viewer can show the substitution-by-substitution difference if a question comes back later. The checklist is worth reading once before submitting anywhere, because most formatting rejections come from the few items it lists rather than from the prose. The counts panel covers the other half of the query — words, chapters, scene breaks, paragraphs, sentences and characters — which is the figure agents ask for alongside the sample itself.\n\nThe mechanical neighbours cover the rest: the style guide checker applies a named guide's preferences, the document diff viewer shows what a formatting pass changed between two versions, and the markdown editor takes the other direction — from clean text back into structured source. Both directions share the same property: the text you started with is still recoverable, because formatting here is substitution rather than interpretation.",
+    howTo: [
+      { step: "Paste your manuscript text into the input panel." },
+      { step: "Toggle the title page if the submission asks for one, and fill in title, author and contact." },
+      { step: "Read the what-changed panel for every substitution made, and the counts panel for the submission figures." },
+      { step: "Copy or download the formatted text for your submission document." },
+    ],
+    whenToUse:
+      "Use the manuscript formatter when a draft is finished and the submission format is the remaining obstacle. The {{style-guide-adherence-checker|Style Guide Adherence Checker}} applies a named guide's mechanical preferences instead of typographic clean-up, and the {{document-diff-viewer|Document Diff Viewer}} shows exactly what a formatting pass changed between two versions. When the document has to leave as source rather than a submission, the {{markdown-editor|Markdown Editor}} renders and counts it instead, and the rich text editor in this domain exports formatted HTML.",
     faqs: [
       {
-        q: "Does it produce a .docx file?",
-        a: "No. It formats plain text and can be copied or downloaded as text, but it does not write a Word document. Fonts, margins and line spacing are set in your word processor's own template.",
+        q: "What substitutions does the formatter make?",
+        a: "Straight quotes become curly, a spaced double hyphen becomes an em dash, three dots become an ellipsis, and scene breaks are normalised to a centred marker. Each class of change is listed with its count.",
       },
       {
-        q: "What does it change in my text?",
-        a: "Straight quotes and apostrophes become typographic ones, a spaced double hyphen becomes an em dash, three dots become an ellipsis, and a line of asterisks or hashes becomes a centred scene break. Your wording is untouched.",
+        q: "Does it reflow or renumber my text?",
+        a: "No. The formatter never reflows prose — no rewrapping and no reparagraphing — so line and paragraph structure survive exactly as typed, and every change beyond that is named on the page.",
       },
       {
-        q: "How is the word count calculated?",
-        a: "It counts the words in the formatted manuscript as a whole, using the same Unicode-aware tokenizer as the domain's other counters, so it is the figure you can quote in a query letter.",
+        q: "Will it create a Word document?",
+        a: "No. This is text in, text out: it does not produce a .docx file or set fonts, margins and page numbers. Copy the result into your submission document after reading what changed.",
       },
       {
-        q: "Why is a scene break changed to * * *?",
-        a: "Because a blank line between scenes can vanish in a conversion or an email, and a centred three-asterisk break is the convention that survives. Lines containing asterisks or hashes alone are normalised to it.",
+        q: "How does it count chapters?",
+        a: "From headings in the text, alongside the shared tokenizer's counts for words, sentences and paragraphs. An unconventional chapter layout may be undercounted, which is why the counts panel shows each figure separately.",
       },
       {
-        q: "Does it set the standard manuscript format?",
-        a: "Only the text side of it. The checklist names the rest — title page, chapter openings, scene breaks, curly quotes and the word count — but fonts, spacing and margins are set in the word processor you submit from.",
+        q: "Should I format before or after revising?",
+        a: "After. Formatting is a final pass: run it once the prose is settled, read the what-changed panel, and copy the result out. Every later edit would simply require running it again.",
       },
     ],
   },

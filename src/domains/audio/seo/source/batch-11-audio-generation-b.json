@@ -1,0 +1,352 @@
+[
+  {
+    "slug": "warble-tone-generator",
+    "keywords": ["warble", "modulation rate", "deviation", "speaker check"],
+    "intro": "Warble Tone Generator sweeps a carrier up and down in a slow, regular wobble, the signal used for decades to check loudspeakers and public address systems. Every control on the page is a plain number, so a repeatable test tone is a few keystrokes away.",
+    "content": "The tone moves above and below a centre frequency at a settable rate, producing the characteristic warble that makes a fault easy to hear when a system is playing it. Set the centre, the deviation, the modulation rate, the duration and the amplitude, then generate a file.\n\nThe controls in full:\n\n- A centre frequency from twenty hertz to twenty thousand, defaulting to one thousand, which is the middle of the speech and music band.\n- A deviation from zero to five thousand hertz, defaulting to four hundred, which is how far the tone travels above and below the centre.\n- A modulation rate from a tenth of a hertz to fifty, defaulting to two, which sets how fast the wobble repeats.\n- Duration from a tenth of a second to sixty seconds, defaulting to three.\n- An amplitude slider from one to one hundred percent, defaulting to eighty.\n\nThe synthesis is frequency modulation with a sinusoidal modulator, which means the instantaneous frequency of the carrier follows the centre plus the deviation times the sine of the modulation phase. That instantaneous frequency is integrated into a running phase so the waveform itself stays continuous, and the continuity is what keeps the sound clean: building the signal from the frequency directly would make the phase jump at every change and splatter energy across the spectrum as clicks. A warble is therefore a chirp with a slower, more deliberate purpose, and the two tools in this suite share the same underlying arithmetic for exactly that reason. The practice it comes from is worth explaining. A steady tone through a loudspeaker tells you little about how it behaves across the band, but a tone that keeps moving does: any resonance, rattle, buzz or dropout in the system is excited as the warble passes through it, and the fault becomes audible as a change in the sound at the moment the frequency reaches it. That is why the deviation is usually set wide relative to the centre, and why the modulation rate is usually slow enough to be heard as a sweep rather than as a rough buzz. Its second career is as a speaker check that other people can also hear: a wobbling tone is far easier to pick out of a noisy room than a steady one, so an installer can walk the space while it plays and catch a fault by ear without ever reaching for a meter.\n\nWhere the signal stops being useful:\n\n- The modulation is a sine only, so there is no triangle or random wobble to choose from.\n- The level stays constant as the pitch moves, so a system with a level-dependent fault will not reveal it here.\n- The carrier is a pure sine, so the warble contains no harmonics of its own to excite the upper range directly.\n- Amplitude is a linear percentage rather than a level in decibels.\n- The file is mono, and capped at sixty seconds, so long soak tests need it looped.\n- There is no built-in sweep of the centre frequency, which would take the wobble across a wider range.\n\nUse it when a system needs to be exercised across a band of frequencies quickly: checking a speaker for rattles, confirming a public address installation before an event, hunting a resonance in a room or a cabinet, or giving a rehearsal a reference pitch that is easy to hear over other sound. When the movement should be a single pass from one frequency to another instead of a continuous wobble, the sweep tool is the right one, and when it should be faster and more repetitive, the chirp generator is the closest relative.",
+    "howTo": [
+      "Set the centre frequency to the middle of the band you want to exercise.",
+      "Set the deviation so the wobble reaches the edges of that band, then choose a modulation rate you can hear clearly.",
+      "Set the duration and amplitude, then press generate.",
+      "Play the file through the system and listen for rattles, buzzes or dropouts as the tone passes through each frequency."
+    ],
+    "whenToUse": "Warble Tone Generator is built for exercising a system across a band of frequencies while the tone keeps moving, which makes it the practical choice for speaker and installation checks. {{chirp-generator|Chirp Generator}} performs the same kind of movement at a faster rate over a wider deviation, and {{sweep-tone-generator|Sweep Tone Generator}} covers the single one-way glide. For a steady reference signal rather than a moving one, {{sine-wave-generator|Sine Wave Generator}} and {{test-tone-generator|Test Tone Generator}} are the tools to reach for.",
+    "faqs": [
+      {
+        "q": "Why does a warble find faults that a steady tone does not?",
+        "a": "Because it visits every frequency between the centre minus the deviation and the centre plus the deviation, over and over. A resonance, a loose panel or a driver fault only misbehaves when the tone reaches it, so a moving signal gives the fault a chance to announce itself while a fixed tone either lands on it or misses it entirely."
+      },
+      {
+        "q": "What modulation rate should I choose?",
+        "a": "Two hertz is the traditional starting point: fast enough that the sweep is clearly moving and slow enough to follow by ear. Raise it toward ten or above and the sound turns ragged, which is useful for spotting a rattle but makes the pitch hard to track. Slower than one hertz and the movement becomes a long glide."
+      },
+      {
+        "q": "How wide should the deviation be?",
+        "a": "Wide enough to cover the band of interest, and no wider than the system can comfortably reproduce. With a centre of a thousand hertz, a deviation of four hundred exercises eight hundred to fourteen hundred, while the maximum of five thousand sends the tone almost to zero at the bottom and past the audible top at the top."
+      },
+      {
+        "q": "Does the level change as the pitch moves?",
+        "a": "No, the amplitude is constant across the whole file. That keeps the warble a fair test of the system rather than of the signal, but it means a fault that only appears at high levels will not show itself. Run the check again with the amplitude raised if that is a possibility."
+      },
+      {
+        "q": "Can I use it for hearing checks rather than equipment?",
+        "a": "It works as an audible reference, and some clinical testing uses warble tones precisely because a moving pitch is easier to distinguish from a steady one. Treat any result as informal: a proper hearing check belongs with calibrated equipment and a professional, not with a file generated in a browser."
+      }
+    ]
+  },
+  {
+    "slug": "binaural-beat-generator",
+    "keywords": ["carrier", "beat frequency", "headphones", "stereo"],
+    "intro": "Binaural Beat Generator writes a slightly different tone into each ear, and the beat you hear exists only in the perception rather than in the file. Headphones are required, because the effect depends on the two channels never mixing in the air.",
+    "content": "The output is a stereo file where the left channel runs at the carrier minus half the beat frequency and the right channel at the carrier plus half of it. Enter the carrier, the beat, the duration and the level, and generate.\n\nWhat the controls do:\n\n- A carrier from twenty to one thousand hertz, defaulting to two hundred, which is the pitch both ears hear.\n- A beat frequency from half a hertz to forty, defaulting to ten, with a half-hertz step, which is the difference between the two channels.\n- A duration from one second to ten minutes, defaulting to sixty, long enough for a listening session.\n- An amplitude slider from one to one hundred percent, defaulting to seventy.\n- A readout confirming the exact frequency written to each channel and reminding you that headphones are needed.\n\nTwo sines are computed separately, one per channel, at frequencies that differ by exactly the beat value, and the difference is split evenly either side of the carrier so neither ear is favoured. The beat is a perceptual phenomenon rather than a signal: the file contains no ten hertz tone, only two steady tones close enough together that the auditory system reports a slow pulse at their difference. That has an important practical consequence. On speakers the two channels reach each ear at slightly different times and mix acoustically before they arrive, and the effect collapses into an ordinary beat you would hear from any two nearby tones, which is why headphones are not a suggestion here but a requirement. The paired channel frequencies are also the reason the file is genuinely stereo rather than duplicated. Typical practice associates slower beats with relaxed states and faster ones with alertness, and the panel lists the conventional bands as a guide, but the file itself is simply two tones and nothing more. Volume matters more than any of the settings: at a comfortable level the beat is easy to follow, while at a high level the two tones become tiring long before the session ends, which is the practical argument for keeping the amplitude modest and the duration realistic.\n\nWhat the tool cannot do:\n\n- The effect disappears on speakers, or whenever the two channels are mixed to mono.\n- There is no carrier modulation, so the tones never move in pitch.\n- No fade at the start or end is applied by this tool, so a long file can click at its boundaries when looped.\n- The carrier range stops at one thousand hertz, above which the two tones become easier to hear as separate pitches rather than as one.\n- The beat is fixed for the whole file and cannot ramp or change part way through.\n- Output is stereo at sixteen bit depth, capped at ten minutes.\n\nUse it for the purpose it exists for: a low-level background signal for relaxation, focus or sleep, played at a comfortable volume through headphones for as long as the session lasts. When the same kind of rhythmic pulse is needed on speakers, the isochronic tone generator achieves it with amplitude modulation instead, and when the pitch itself is the point rather than the beat, the sine wave and tone generators cover steady references.",
+    "howTo": [
+      "Set the carrier frequency you find comfortable to listen to.",
+      "Choose a beat frequency, using the labelled bands as a rough guide rather than a rule.",
+      "Set the duration and amplitude for the session you intend.",
+      "Generate the file and listen with headphones; the pulse appears in the file only as a difference between channels."
+    ],
+    "whenToUse": "Binaural Beat Generator produces the headphone-only effect, so it is the right tool when a beat has to be perceived rather than played through speakers. {{isochronic-tone-generator|Isochronic Tone Generator}} achieves a similar rhythmic pulse with amplitude modulation that works on any system. For single steady tones at a chosen frequency, {{sine-wave-generator|Sine Wave Generator}} and {{solfeggio-frequency-generator|Solfeggio Frequency Generator}} are the directly comparable tools.",
+    "faqs": [
+      {
+        "q": "Why do I need headphones?",
+        "a": "Because the beat does not exist in the file. It appears only when each ear receives a different tone and the brain reports the difference as a pulse. On speakers both tones reach both ears after mixing in the air, so what you hear is the ordinary acoustic beating of two nearby frequencies, which is a completely different experience."
+      },
+      {
+        "q": "What does the carrier setting control?",
+        "a": "The pitch you actually hear. The two channels are placed either side of it, so a carrier of two hundred hertz with a ten hertz beat writes one hundred and ninety five to the left and two hundred and five to the right. Keep the carrier in the lower part of the range, where the two tones are still heard as one."
+      },
+      {
+        "q": "Is the effect scientifically established?",
+        "a": "The perception of a beat from two tones delivered separately is well documented and easy to demonstrate. Claims about particular mental states following from particular beat frequencies are far less settled, so treat the labelled bands as conventions rather than as results, and treat the file as a low-level background signal."
+      },
+      {
+        "q": "Can I listen on a phone speaker?",
+        "a": "It will play, but the binaural effect will not be there. If speakers are the only option, use the isochronic tone generator instead, which produces an audible pulse in a single signal and therefore survives playback on anything including a single speaker."
+      },
+      {
+        "q": "Why does the file sound like a single steady tone?",
+        "a": "Because that is close to what it is: two steady sines a few hertz apart, with no pulse written into either channel. The wobble you perceive is the difference between them, and it becomes obvious with headphones and almost invisible without."
+      }
+    ]
+  },
+  {
+    "slug": "isochronic-tone-generator",
+    "keywords": ["pulse train", "raised cosine", "carrier", "speakers"],
+    "intro": "Isochronic Tone Generator gates a steady tone on and off in a repeating pulse, producing an audible rhythm that survives any playback system. The pulse train is shaped so each burst fades in and out rather than switching abruptly.",
+    "content": "A carrier tone is multiplied by a repeating envelope, so you hear the tone pulsing at the rate you choose. Set the carrier, the pulse rate, the duration and the level, and generate a file that works on speakers or headphones alike.\n\nThe panel offers:\n\n- A carrier from twenty to one thousand hertz, defaulting to two hundred.\n- A pulse rate from half a hertz to forty, defaulting to ten, with a half-hertz step.\n- A duration from one second to ten minutes, defaulting to sixty.\n- An amplitude slider from one to one hundred percent, defaulting to seventy.\n- A note on the page explaining that headphones are not required, because the pulse is amplitude modulation applied identically to both ears.\n\nThe gate is a raised cosine rather than a hard switch: the envelope follows half of a cosine wave across each pulse so it begins at silence, reaches full level in the middle of the burst and returns to silence at the end. That shaping is the reason the tool sounds clean. A gate that switched on and off abruptly would stamp a click onto every pulse edge, and because those edges arrive at the pulse rate, the clicks would add a broad spray of high-frequency content to the output rather than a single tidy tone. Softening the edges removes that entirely and leaves a signal whose spectrum contains the carrier and its modulation sidebands around the pulse rate. The practical advantage over a binaural beat is portability: the rhythm is genuinely present in the signal, so it comes through a phone speaker, a laptop, a car stereo or a single earbud, and it does not depend on the two channels being kept apart. The pulse train is generated from the same carrier throughout, so the tone you hear is always the frequency you set and only its level moves; nothing about the pitch changes as the pulses come and go.\n\nLimits worth knowing:\n\n- The pulse is applied to the whole file with a constant level, so there is no independent control of burst length separate from the rate.\n- The carrier range tops out at one thousand hertz, above which the pulses smear into a rough buzz rather than distinct beats.\n- The output is mono, since there is nothing to separate between the ears.\n- The pulse rate is fixed for the whole file and cannot change part way through.\n- There is no fade at the file's own boundaries, only on each pulse, so looping a short file can still click.\n- The modulation depth is fixed rather than adjustable, so the pulses always reach silence.\n\nUse it when a rhythmic tone is wanted on whatever equipment is available: a background pulse for focus or relaxation on a speaker, a steady rhythmic reference to practise against, or an audible tempo cue for a group. When the effect has to be heard as a single tone with a perceived beat rather than a pulsing one, the binaural generator provides that in stereo, and when the rhythm should have accents and bars rather than regular pulses, the metronome and click track tools are the right shape of signal.",
+    "howTo": [
+      "Set the carrier frequency you want to listen to.",
+      "Choose the pulse rate, using half-hertz steps to land on the exact rhythm you need.",
+      "Set the duration and amplitude.",
+      "Generate the file and play it on any system; no headphones are needed."
+    ],
+    "whenToUse": "Isochronic Tone Generator is the tool for a rhythmic pulse that has to work on speakers or headphones without ceremony. {{binaural-beat-generator|Binaural Beat Generator}} produces a similar rhythm as a perception that requires headphones instead. When the rhythm needs accents, downbeats and a defined tempo rather than plain pulses, {{metronome|Metronome}} and {{click-track-generator|Click Track Generator}} are the natural tools.",
+    "faqs": [
+      {
+        "q": "How is this different from a binaural beat?",
+        "a": "The rhythm is actually written into the file. A binaural beat is produced by the listener's brain from two slightly different tones, so it needs headphones, whereas this tool literally gates one tone on and off. That makes it audible on any speaker, at the cost of sounding like a pulsing tone rather than a single steady pitch."
+      },
+      {
+        "q": "What does the raised cosine gate do?",
+        "a": "It shapes each pulse so the level rises from silence to full and back rather than switching instantly. Hard edges would add a click on every pulse and spread unwanted high-frequency energy across the spectrum, which is why the smooth curve is used instead of a square gate."
+      },
+      {
+        "q": "Can I change how long each pulse lasts?",
+        "a": "Not independently of the rate. The envelope completes one cycle per pulse period, so a ten hertz setting gives ten pulses a second with each burst lasting a tenth of a second. For bursts with gaps and accents of different lengths, a click track or the test tone generator's burst mode is more flexible."
+      },
+      {
+        "q": "Why does a high pulse rate sound harsh?",
+        "a": "Because the pulses start arriving faster than they can be heard as separate events, so the sound becomes a rough modulated buzz rather than a rhythm. Staying in the lower part of the range keeps each pulse distinct, which is where the effect works as intended."
+      },
+      {
+        "q": "Can I use it as a practice tempo?",
+        "a": "It gives a steady pulse, but without an accent on the first beat of a bar it is harder to keep your place. The metronome adds a wood-block accent on the bar and a choice of beats per bar, and the click track generator does the same with a lighter, shorter sound better suited to playing along with."
+      }
+    ]
+  },
+  {
+    "slug": "solfeggio-frequency-generator",
+    "keywords": ["solfeggio", "boundary fade", "pure sine", "nine frequencies"],
+    "intro": "Solfeggio Frequency Generator produces a pure sine at one of nine named frequencies from the solfeggio set, from 174 hertz up to 963. Each file carries a short fade at both ends so a tone never clicks when it starts or loops.",
+    "content": "Pick a frequency from the list, choose a duration and a level, and generate the file. Every option is a pure sine at the chosen value, with nothing else added to the signal.\n\nThe nine frequencies and their labels:\n\n- 174 hertz, labelled safety, and 285 hertz, labelled restoration, the two that are usually described as the extended set.\n- 396 hertz for liberation and 417 hertz for change.\n- 528 hertz for transformation, the frequency the separate 528 hertz tool is built around and the default here.\n- 639 hertz for connection, 741 for expression, 852 for intuition and 963 for unity.\n- Duration from one second to ten minutes, defaulting to sixty, and an amplitude slider from one to one hundred percent, defaulting to seventy.\n\nThe tone itself is a single trigonometric sine, so the output contains exactly one frequency and no harmonic content beyond it. That is the whole of the synthesis, and it is also why the tool can be trusted as a reference: a solfeggio frequency here means exactly the number on the list and nothing else, which is what makes the file usable for tuning an instrument or for measuring a playback path. That is deliberate and worth being clear about. A pure sine is the cleanest possible carrier for a listening session, and it is also what makes the file honest: any harmonic that appears when the tone is played back came from the playback system, not from the generator. The boundary fade is applied across fifty milliseconds at each end of the file, which is a small and easily overlooked detail that matters in practice. A sine that starts at an arbitrary point in its cycle begins with a step, and a step is a click; fading the first and last few tens of milliseconds to zero removes it entirely, so a file can be looped or played after another track without an audible join. The fade length is also short enough not to change the character of the tone for any practical duration.\n\nWhat the tool does not do:\n\n- The names attached to the frequencies are cultural labels rather than measured properties, and the tool makes no claim about them.\n- Only the listed nine values are offered, with no free entry of an arbitrary frequency.\n- The tone is constant in pitch and level, with no modulation, sweep or fading beyond the boundaries.\n- There is no stereo width, since a single sine in one channel is identical to the same tone in both.\n- A long file is a long steady tone, so a ten minute generation is ten minutes of the same sound.\n- Amplitude is a linear percentage rather than a value in decibels.\n\nUse it when a specific frequency from this set is what you want, whether for a listening session, a meditation practice, an instrument tuning reference at a specific pitch, or simply a comfortable tone to leave running. For an arbitrary frequency there is the sine wave generator, which accepts any value from a hundredth of a hertz upward, and for the two most requested frequencies in isolation there are dedicated tools.",
+    "howTo": [
+      "Choose one of the nine frequencies from the list.",
+      "Set the duration for the session you have in mind.",
+      "Set the amplitude, then press generate to synthesise and encode the file.",
+      "Play the preview and download the WAV; the fifty millisecond fades at each end make it safe to loop."
+    ],
+    "whenToUse": "Solfeggio Frequency Generator is the quickest route to one of the named frequencies in the set, with a fade applied so the file behaves well when looped. {{528-hz-generator|528 Hz Generator}} and {{432-hz-generator|432 Hz Generator}} cover the two frequencies that are asked for most often, and {{sine-wave-generator|Sine Wave Generator}} accepts any frequency at all if the value you need is not in the list. For a tone where the frequency moves rather than holds, {{chirp-generator|Chirp Generator}} is the moving equivalent.",
+    "faqs": [
+      {
+        "q": "Where do these nine frequencies come from?",
+        "a": "They come from a set popularised in late twentieth century writing rather than from any measurement of the signal. The generator produces exactly the frequency named, with a pure sine and nothing added, and the labels beside each value are the conventional ones rather than a claim about what the tone does."
+      },
+      {
+        "q": "Why is there a fade at the start and end?",
+        "a": "Because a sine that begins mid-cycle starts with a step, and a step is audible as a click. Fifty milliseconds of fade up to full level and back down to silence removes that entirely, which matters most when a short file is looped for a long session."
+      },
+      {
+        "q": "Can I choose a frequency that is not in the list?",
+        "a": "Not in this tool, which is deliberately limited to the nine named values so that each page answers its own question. The sine wave generator accepts any frequency from a hundredth of a hertz up to twenty thousand, so an arbitrary value takes one more step."
+      },
+      {
+        "q": "Is 528 hertz the same here as on the dedicated page?",
+        "a": "Yes. Both generate the identical pure sine, and both apply a boundary fade. The difference is presentation: this page puts the frequency in the context of the surrounding set, while the dedicated page opens on that one value with nothing else to choose."
+      },
+      {
+        "q": "How long can a generated file be?",
+        "a": "Ten minutes at the longest, which is one continuous generation. Longer sessions are best served by looping the file in a player, and the fades at each end are what make that loop join inaudible rather than clicking once per pass."
+      }
+    ]
+  },
+  {
+    "slug": "432-hz-generator",
+    "keywords": ["Verdi tuning", "cents", "440 Hz", "reference pitch"],
+    "intro": "432 Hz Generator produces a pure sine at the alternative concert pitch known as Verdi tuning, and reports exactly how far it sits from the modern standard of 440 hertz. Duration and level are the only settings.",
+    "content": "The output is a single sine at 432 hertz with no other content, and the panel notes the distance from the modern reference in cents so the difference is quantified rather than described.\n\nWhat the page offers:\n\n- A fixed frequency of 432 hertz, described on screen as A4 in Verdi tuning, with no frequency field to adjust.\n- A duration from one second to ten minutes, defaulting to sixty.\n- An amplitude slider from one to one hundred percent, defaulting to seventy.\n- A readout stating the deviation from 440 Hz in cents, which works out at roughly thirty two cents below the modern standard.\n\nThe arithmetic behind that readout is the standard cents formula, twelve hundred times the base two logarithm of the ratio between the two frequencies, which is the accepted way of expressing small pitch differences as a proportion rather than as a raw frequency gap. Thirty two cents is roughly a third of a semitone, which is a clearly audible difference when the two are compared one after another and easy to miss when they are heard apart. That is the honest framing: a tone at 432 hertz is not a different note from a tone at 440, it is the same note tuned lower, and the practical uses follow from that. As a reference pitch for tuning an instrument, it sets the whole instrument a third of a semitone flat relative to standard pitch, which matters enormously if the instrument will play with others and hardly at all if it plays alone. As a listening tone it is simply a slightly lower version of the same sine, with no additional content and no claim attached. And because the generator writes a pure sine, the file is equally useful as a clean reference signal in either tuning. The cents figure is also the honest way to describe the difference: a gap of eight hertz means almost nothing on its own, while thirty two cents says that the pitch sits a third of a semitone below the standard, which is the fact a player actually needs.\n\nPoints the page deliberately leaves out:\n\n- The frequency is fixed, so no other value in Verdi tuning, such as the other notes of a scale, can be generated.\n- No instrument tuning reference beyond the single tone is provided, so tuning a whole instrument means working note by note against it.\n- The tone is constant, with no modulation, sweep or envelope beyond the file's own start and end.\n- There is no comparison mode that plays 432 and 440 one after the other; the two have to be generated separately.\n- The file is mono, and amplitude is a linear percentage rather than a decibel value.\n- There is no fade applied at either end, so a very short file may click when looped.\n\nUse it when the reference pitch itself is the point: tuning an instrument to Verdi pitch, checking a pitch reference against a tuner to confirm the cents difference, or producing a comfortable listening tone at that frequency. The 528 hertz tool covers the other frequently requested fixed pitch, the solfeggio generator provides the whole set in one place, and the sine wave generator accepts any frequency when the value you need is not one of these.",
+    "howTo": [
+      "Set the duration for the tone you need.",
+      "Set the amplitude, then press generate to write the file.",
+      "Read the cents figure in the panel if you need to know the exact distance from 440 hertz.",
+      "Download the WAV and use it as a reference pitch or as a listening tone."
+    ],
+    "whenToUse": "432 Hz Generator is the tool for the Verdi tuning reference specifically, including the cents figure that quantifies how far it sits from standard pitch. {{528-hz-generator|528 Hz Generator}} covers the other commonly requested fixed frequency, and {{solfeggio-frequency-generator|Solfeggio Frequency Generator}} presents a whole set with names attached. When the frequency needs to be something other than these fixed values, {{sine-wave-generator|Sine Wave Generator}} takes any number you type.",
+    "faqs": [
+      {
+        "q": "What is Verdi tuning?",
+        "a": "A concert pitch reference in which A above middle C is tuned to 432 hertz instead of the modern 440. The name comes from its association with the composer, and it remains a popular alternative reference pitch for listeners and for players who tune to it by choice."
+      },
+      {
+        "q": "How far is 432 hertz from 440?",
+        "a": "About thirty two cents, which is close to a third of a semitone. That is plainly audible when the two are played back to back and subtle when they are heard separately, which is exactly the difference a cents figure is designed to express."
+      },
+      {
+        "q": "Does it contain anything other than the 432 hertz tone?",
+        "a": "No. The file is a pure sine at that frequency, so a spectrum display of it shows one line and nothing else. Any harmonic content heard on playback came from the system reproducing it, which is a useful property when the file is being used to check equipment."
+      },
+      {
+        "q": "Can I generate other notes in Verdi tuning?",
+        "a": "Not from this page, which is fixed to the single reference frequency. Every other note of a Verdi tuned scale is a ratio away from this one, so the practical route is to generate the reference here and use a tuning or pitch tool to produce the rest, or to use the sine generator with the frequency you need."
+      },
+      {
+        "q": "Why is there no fade at the ends of the file?",
+        "a": "This generator writes the tone across the full duration without shaping the boundaries, so a file that ends at a non-zero point can click when looped and a short file can click at its start. Trim the ends with a fade, or choose a duration that lands close to a whole number of cycles at 432 hertz."
+      }
+    ]
+  },
+  {
+    "slug": "528-hz-generator",
+    "keywords": ["528 Hz", "solfeggio", "pure sine", "duration"],
+    "intro": "528 Hz Generator produces a single pure sine at the frequency commonly called the love frequency, one of the best known values in the solfeggio set. Duration and level are the only two things to set.",
+    "content": "The page opens on 528 hertz with nothing to configure but the length and the level, which keeps a frequently requested tone one click away. Generate and you get a mono WAV with a player and a download control.\n\nWhat the panel contains:\n\n- A fixed 528 Hz tone, labelled on screen as the solfeggio value for transformation, with no frequency field to adjust.\n- A duration from one second to ten minutes, defaulting to sixty.\n- An amplitude slider from one to one hundred percent, defaulting to seventy.\n- A readout naming the frequency and the amplitude so the file's parameters are recorded on the page rather than only in its name.\n\nThe signal is a single trigonometric sine, so its spectrum contains one frequency and no harmonics, and the file is sixteen bit mono. Both properties are worth stating because they define what the tool is for. A pure sine at a fixed pitch is the cleanest possible reference: it can be used to tune an instrument, to check that a playback path is not adding content of its own, or simply as a tone to leave playing. A harmonic-free generator is also what makes such a check meaningful, since anything extra you hear on playback must have been introduced by the system. The other consideration is duration. Because the tone never changes, the length is the one parameter that shapes the listening experience: a few seconds is a tuning reference, a minute is a test or a short cue, and several minutes becomes something to run in the background, which is why the range extends to ten minutes. Generating a longer file than the session needs costs nothing but disk space, and a shorter one is easy to repeat. Level is the other setting worth choosing deliberately: the tone is steady for its whole length, so whatever amplitude you pick is what the session will sound like from start to finish, and it is far easier to raise the level later than to endure it for ten minutes at a setting that is too loud.\n\nWhat to expect and what not to:\n\n- The frequency is fixed at 528 hertz, so no other value can be produced here.\n- There is no fade at the beginning or the end, so looping may click at the join.\n- Nothing is modulated, so the tone is perfectly steady for the whole file.\n- Mono output only, with no stereo option and no panning.\n- Amplitude is a linear percentage rather than a level in decibels, so a precise level requires conversion elsewhere.\n- The generator writes sixteen bit audio, which sets the noise floor of the file.\n\nUse it as a fixed reference or a steady listening tone: tuning against it, checking a playback chain for added distortion, setting a comfortable level for a session, or producing a file to hand to someone who asked for this specific frequency. The 432 hertz tool covers the other popular alternative pitch, and the solfeggio generator presents this value along with the eight others in the set.",
+    "howTo": [
+      "Set the duration, choosing a short file for a reference tone and a long one for background listening.",
+      "Set the amplitude to a comfortable level.",
+      "Press generate to synthesise and encode the file.",
+      "Preview the tone and download the WAV."
+    ],
+    "whenToUse": "528 Hz Generator is the shortest path to a fixed tone at this commonly requested frequency. {{solfeggio-frequency-generator|Solfeggio Frequency Generator}} places the same value alongside the eight others in the set, with a boundary fade built in, and {{432-hz-generator|432 Hz Generator}} covers the other popular alternative pitch. When you need any other frequency at all, {{sine-wave-generator|Sine Wave Generator}} accepts the value directly.",
+    "faqs": [
+      {
+        "q": "Why is this a separate page rather than part of the solfeggio tool?",
+        "a": "Because it is asked for by name far more often than the rest of the set. Splitting it out means the value is one click away with nothing else to configure, while the solfeggio generator remains the place to compare it against the neighbouring frequencies."
+      },
+      {
+        "q": "Is the tone really just 528 hertz with nothing else?",
+        "a": "Yes. The synthesis is a single sine evaluated directly, so the spectrum contains exactly one line. That makes the file suitable as a reference signal, because any additional content heard during playback was introduced by the equipment rather than by the file."
+      },
+      {
+        "q": "Why does a looped file click at the join?",
+        "a": "Because the tone is written across the full duration without any shaping at the boundaries, and 528 hertz rarely lands on a whole number of cycles within a round number of seconds. Trim a few milliseconds with a fade if the file needs to loop smoothly."
+      },
+      {
+        "q": "How long should I make the file?",
+        "a": "As long as the session, up to the ten minute limit. Because the tone is unchanging, a longer file simply avoids a visible loop point, and a shorter one can be repeated in a player. There is no quality difference between the two."
+      },
+      {
+        "q": "Can I use it for tuning an instrument?",
+        "a": "It can serve as a fixed pitch reference, and the frequency is exact. Whether 528 hertz corresponds to a note you need depends entirely on the tuning system you are working in, so check against a tuner before relying on it for an instrument that has to play with others."
+      }
+    ]
+  },
+  {
+    "slug": "test-tone-generator",
+    "keywords": ["dBFS", "burst", "spectral splatter", "reference tone"],
+    "intro": "Test Tone Generator produces professional reference tones with the level set directly in dBFS and an optional burst pattern that switches the tone on and off at a fixed rate. It is built for measurement rather than for listening.",
+    "content": "Choose a shape, a frequency, a level in decibels, a duration and a burst pattern, then generate. The result is a mono WAV with a player and a download control, ready to use as a reference signal.\n\nThe controls in detail:\n\n- A wave shape selector offering sine, square, sawtooth, triangle and pulse.\n- A frequency from one to twenty thousand hertz, defaulting to one thousand, the traditional reference.\n- A level from minus sixty to zero dBFS, defaulting to minus twenty, converted to a linear amplitude internally as ten to the power of the level divided by twenty.\n- A duration from a tenth of a second to sixty seconds, defaulting to five.\n- Burst on and burst off times in seconds, so the tone can repeat rather than run continuously; setting the off time to zero produces a continuous tone.\n\nThe burst mode is the feature that distinguishes this tool from the plain tone generator, and its implementation shows why. A tone that is switched on and off would produce a hard edge at every transition, and because those edges repeat at the burst rate they add a wide spread of high-frequency energy, a phenomenon known as spectral splatter. Ten millisecond fades are applied at the beginning and end of each burst to prevent that, so the repetition is clean and the measurement means what it appears to mean. The decibel level control is the other professional touch. Because amplitude is computed from the level rather than set as a percentage, minus twenty dBFS really is a tenth of full scale in voltage terms, which makes the file usable as a calibrated reference for setting meters, checking gain structure, or establishing a known level on a recording chain. A reference tone also makes it obvious whether a device is behaving: play minus twenty dBFS into a meter that should read minus twenty and any difference is a gain error somewhere in the chain rather than a matter of opinion.\n\nWhat the tool does not offer:\n\n- Only one tone at a time, with no swept or modulated options.\n- The level is a peak value rather than a loudness figure, so it does not describe perceived level.\n- Burst timing is in whole seconds with a tenth-second step, which is too coarse for rhythmic use.\n- No fade is applied to the file's own boundaries, only to the bursts, so a continuous tone can still click at its very start and end.\n- Mono output only, with no per-channel or stereo reference patterns.\n- The maximum duration is one minute per generated file.\n\nUse it when a known level and a known frequency matter: setting a mixer's gain structure, checking that a meter reads what it should, testing whether a device distorts at a stated level, or producing a repeating tone so a system can be measured without anyone holding a button down. When a listening tone rather than a measurement reference is wanted, the tone and sine generators present the same synthesis with a simpler amplitude control, and the sweeps cover the case where the frequency needs to move.",
+    "howTo": [
+      "Choose a wave shape and the frequency you need.",
+      "Enter the level in dBFS, using minus twenty as a safe starting point for most equipment.",
+      "Set the duration, then set the burst on and off times, or leave the off time at zero for a continuous tone.",
+      "Press generate, then download the file and use it as a reference signal."
+    ],
+    "whenToUse": "Test Tone Generator is the measurement tool of this family, since the level is stated in dBFS and the tone can burst. {{tone-generator|Tone Generator}} and {{sine-wave-generator|Sine Wave Generator}} produce similar signals with a simpler amplitude control, better suited to listening than to calibration. When the frequency has to move rather than hold, {{frequency-sweep-generator|Frequency Sweep Generator}} and {{sweep-tone-generator|Sweep Tone Generator}} cover the sweep case.",
+    "faqs": [
+      {
+        "q": "What is the difference between this and the ordinary tone generator?",
+        "a": "Two things. The level here is entered in dBFS and converted to the corresponding linear amplitude, so the file is a calibrated reference rather than a proportion of full scale; and the tone can burst on and off repeatedly with shaped edges, which is what makes it useful for sustained measurement of a system."
+      },
+      {
+        "q": "What is spectral splatter and why does it matter?",
+        "a": "It is the spread of energy across many frequencies that a sudden switching edge produces. A repeating burst with hard edges would add clicks at the burst rate and fill the spectrum with content that was never intended, which would make any measurement meaningless. The ten millisecond fades at each burst edge prevent it."
+      },
+      {
+        "q": "What does the level setting mean exactly?",
+        "a": "It is the peak amplitude of the tone relative to digital full scale. Minus twenty dBFS means the waveform's peak sits a tenth of full scale, minus six is about half, and zero is the maximum. It is a peak figure, so it does not describe how loud the tone will sound."
+      },
+      {
+        "q": "Can I make a rhythmic burst pattern?",
+        "a": "Only coarsely, because the on and off times are set in seconds with a tenth-second step. That is deliberate: the burst mode exists to give a system something to measure over a period rather than to produce a musical rhythm. For a tempo with accents, the click track and metronome generators are the right tools."
+      },
+      {
+        "q": "Why does a continuous tone click at the start?",
+        "a": "Because the file begins at full amplitude at a point that is almost never a zero crossing of the waveform. That starting step is audible as a click. Setting a burst time and treating the silent intervals as boundaries avoids it, or the file can be faded at each end afterwards."
+      }
+    ]
+  },
+  {
+    "slug": "frequency-sweep-generator",
+    "keywords": ["preset", "log sweep", "reverse", "room mode"],
+    "intro": "Frequency Sweep Generator wraps the arithmetic of a sweep in a workflow, with presets for the common ranges, a reverse direction and a duration long enough for a slow pass. It is the sweep tool for the job rather than for the theory.",
+    "content": "Choose a preset or set the endpoints yourself, pick a curve, optionally reverse the direction, and generate. The result is a single pass from one frequency to the other across the time you specify.\n\nWhat is on the page:\n\n- Four presets covering the full band from twenty hertz to twenty kilohertz over twenty seconds, a subwoofer range from ten to one hundred and twenty hertz over fifteen seconds, a speech band from one hundred hertz to four kilohertz over ten seconds, and a room mode finder from twenty to three hundred hertz over thirty seconds.\n- Free entry of a start and end frequency from one to twenty thousand hertz.\n- A curve selector for log, described as equal octave spacing, or linear, described as equal hertz spacing.\n- A reverse checkbox that swaps the endpoints so the pass runs downward instead of upward.\n- A duration from half a second to two minutes, defaulting to twenty, which is long enough for the tone to linger at each frequency.\n- An amplitude slider from one to one hundred percent, defaulting to seventy.\n\nThe presets exist because the ranges people actually need are a small set: a full band check, a subwoofer test, a speech-band check and a room mode hunt. The room mode preset is the interesting one, since it runs from twenty to three hundred hertz over thirty seconds and therefore spends a full second on roughly ten hertz of range, which is slow enough for a standing wave in a room to build to its full level as the sweep passes through it. That is the reason a log sweep is the default: the same duration stretched over twenty to twenty thousand hertz linearly would rush through the low frequencies where room modes live and crawl through the top octave where almost nothing happens. Reverse is provided because a rattle or a resonance sometimes announces itself more clearly on the way down than on the way up.\n\nWhat the tool leaves out:\n\n- No repeating or looping sweep, since the whole page is built around a single pass.\n- No stepped or held tones, so a specific frequency cannot be sustained at its ends.\n- The amplitude is constant across the sweep, with no compensation for how the system responds.\n- Curve choice is limited to linear and exponential, with no custom profile.\n- A stereo version is not available; the output is one channel.\n- Nothing is measured or recorded during the sweep, so the analysis is done separately with a meter or an analyser.\n\nUse it for the jobs a sweep is suited to: finding a resonance by ear as the tone passes through it, checking a room or a speaker across the band, confirming a subwoofer reaches as low as its specification claims, or producing a rising or falling effect for a mix. When the tone has to rise and fall repeatedly rather than pass once, the chirp generator does that, and when the sweep is called for with no presets and nothing to set up, the plain sweep tone generator gets there in fewer clicks.",
+    "howTo": [
+      "Pick a preset if one of the four ranges matches your job, or type the start and end frequencies yourself.",
+      "Choose the log curve for anything that will be heard, or linear when even hertz spacing is what the analysis needs.",
+      "Set the duration and amplitude, and tick reverse if the pass should run downward.",
+      "Generate the file, then play it and listen or measure with a separate analyser."
+    ],
+    "whenToUse": "Frequency Sweep Generator is the practical sweep tool, with presets and a reverse option that save time on the common tasks. {{sweep-tone-generator|Sweep Tone Generator}} performs the same single pass with fewer controls, and {{chirp-generator|Chirp Generator}} is the right choice when the tone should rise and fall repeatedly instead of once. To see the sweep's shape or measure what a room does with it, {{spectrogram-viewer|Spectrogram Viewer}} and {{frequency-analyzer|Frequency Analyzer}} read the result.",
+    "faqs": [
+      {
+        "q": "Which preset should I start with?",
+        "a": "Full-band for a general check of a system, subwoofer when the question is how low a speaker reaches, speech band for voice equipment or a telephone path, and the room mode finder when hunting a resonance in a space, since its slow pass through the low end gives standing waves time to build."
+      },
+      {
+        "q": "Why is a log sweep the default?",
+        "a": "Because hearing and rooms both work by ratio rather than by absolute frequency. A log sweep spends the same time in each octave, so every part of the range gets a fair hearing. A linear sweep spends most of its time in the top octaves, where a fraction of a semitone covers thousands of hertz and almost nothing happens."
+      },
+      {
+        "q": "What is the reverse option for?",
+        "a": "Some faults declare themselves more clearly on a downward pass than an upward one, since a resonance that has just been excited is still ringing when the sweep comes back through it. It also lets the same file be produced in either direction without retyping the endpoints."
+      },
+      {
+        "q": "Can I hold a specific frequency during the sweep?",
+        "a": "No, the tone moves continuously from one endpoint to the other. To hear a single frequency for as long as you like, set the start and end to the same value in the sweep tone generator, or use a steady tone tool where the frequency is fixed by design."
+      },
+      {
+        "q": "How do I know what the sweep found?",
+        "a": "The generator only produces the signal, so the finding comes from listening for a buzz or a boom as the tone passes each frequency, or from measuring at the same time with a meter or analyser. A spectrogram of the sweep shows where any resonance sat, which is a good way to record the result."
+      }
+    ]
+  },
+  {
+    "slug": "click-track-generator",
+    "keywords": ["click track", "accent", "BPM", "bar"],
+    "intro": "Click Track Generator writes a click on every beat at a tempo you set, with a higher pitched accent on the first beat of each bar. The result is a WAV that any recorder or editing tool can play alongside a performance.",
+    "content": "Each beat is a short sine that decays quickly, so the click is crisp and easy to follow without masking what is being played over it. Set the tempo, the number of beats, the two pitches, the click length and the level, and generate the file.\n\nThe controls in full:\n\n- A tempo from twenty to three hundred BPM, defaulting to one hundred and twenty.\n- A beat count from four to five hundred and twelve, defaulting to sixty four, which is sixteen bars at four beats per bar.\n- An accent pitch from two hundred to four thousand hertz, defaulting to one thousand six hundred, and a beat pitch over the same range, defaulting to one thousand.\n- A click length from ten to two hundred milliseconds, defaulting to forty.\n- An amplitude slider from one to one hundred percent, defaulting to eighty five.\n- A readout reporting the tempo, the beat count, how many bars that makes and the total duration.\n\nEach click is a sine at the chosen pitch under an exponential decay whose time constant is thirty milliseconds, which is what makes it read as a tick rather than a tone. Placement is exact: beat number n begins at the sample nearest to n times the sample rate times sixty divided by the tempo, so the timing never drifts and a file at one hundred and twenty BPM lines up with a bar grid to the sample. Because a click track is a guide rather than music, nothing is added to soften it: the point is to be unmistakable, and a sound that is slightly too sharp is far easier to play along with than one that blends into the performance. The accent falls on every fourth beat, which fixes the metre at four beats per bar, and the two pitches default to a full interval apart so the downbeat is unmistakable even at low listening levels or through a small speaker. That fixed four is the one limitation worth knowing before relying on the tool: a waltz or a six eight feel cannot be expressed here, and the metronome beside it is the tool that takes a time signature as a parameter rather than assuming one.\n\nWhere the tool is deliberately simple:\n\n- The accent pattern is fixed at four beats per bar with no time signature control.\n- Tempo is constant across the file, with no accelerando or tempo map.\n- The click is a decaying sine, so no wood block, cowbell or other voice is available.\n- Mono output, which is fine for practising but leaves no room for a stereo guide with a click on one side.\n- No count-in feature beyond starting the file where it starts, so a performer has to begin with the click.\n- The maximum file is five hundred and twelve beats, which at a slow tempo is a long generation but still finite.\n\nUse it when a performance needs a steady reference to play along to: recording to a click, practising a passage at a metronome mark, building a track in a tool that cannot generate its own click, or giving a group a common tempo. When the time signature matters more than the click, the metronome offers two, three, four, five, six, seven and twelve beats per bar; when the pulse should be a tone rather than a click, the isochronic generator produces a rhythmic carrier instead.",
+    "howTo": [
+      "Set the tempo in BPM and the number of beats you need, checking the readout for the total duration and the bar count.",
+      "Adjust the accent and beat pitches if you want a different sound, and set the click length for a shorter or longer tick.",
+      "Set the amplitude, then press generate.",
+      "Download the WAV and import it into your recorder or editing tool, aligning the first click with the first beat of the performance."
+    ],
+    "whenToUse": "Click Track Generator is the tool when a performance needs a steady click to play along to and a four beat bar is the right metre. {{metronome|Metronome}} does the same job with a choice of beats per bar and a wood-block character, which suits odd metres and practice. When a rhythmic tone rather than a click is wanted, {{isochronic-tone-generator|Isochronic Tone Generator}} supplies a pulsed carrier, and for recording the performance itself {{song-recorder|Song Recorder}} and {{loop-recorder|Loop Recorder}} are the tools that capture it.",
+    "faqs": [
+      {
+        "q": "Why does the first beat of each bar sound different?",
+        "a": "Because it is accented. The downbeat is rendered at a higher frequency than the other beats, which is the standard way of marking where a bar begins so a performer does not lose their place. The two pitches are set far enough apart that the difference is obvious even through a small speaker."
+      },
+      {
+        "q": "Is the timing accurate over a long file?",
+        "a": "Yes. Each click is placed at the sample nearest to the exact time its beat should occur, computed from the tempo and the sample rate rather than accumulated from the previous click, so there is no drift across even the longest file this tool can generate."
+      },
+      {
+        "q": "Can I make a three four or six eight click?",
+        "a": "Not here, because the accent pattern is fixed at every fourth beat. The metronome generator takes beats per bar as a setting and covers two, three, four, five, six, seven and twelve, so it is the tool for any metre other than common time."
+      },
+      {
+        "q": "Why do the clicks sound so short?",
+        "a": "Because each one decays with a thirty millisecond time constant, so it dies away almost immediately at the default length. That keeps the click from covering the performance, and the click length control extends it if a longer, more audible tick is preferred."
+      },
+      {
+        "q": "Should the click be in the final mix?",
+        "a": "Normally not. A click track is a guide for performance, so it should be monitored rather than recorded into the mix, unless a deliberate rhythmic element is wanted. If the click is bleeding into microphones, lower the monitoring level rather than the file's own amplitude."
+      }
+    ]
+  },
+  {
+    "slug": "metronome",
+    "keywords": ["wood block", "beats per bar", "tempo", "accent"],
+    "intro": "Metronome writes a wood-block style tick on every beat and a higher accented tap at the start of each bar, with a choice of seven time signatures. It is the practice and rehearsal tool of the generator set.",
+    "content": "The accent pattern is the feature that separates this from a plain click: the first beat of each bar is pitched higher and decays slightly longer, so the metre is audible rather than implied. Set the tempo, the beat count, the beats per bar and the accent pitch, then generate the file.\n\nWhat the panel controls:\n\n- A tempo from twenty to three hundred BPM, defaulting to one hundred and twenty.\n- A beat count from four to five hundred and twelve, defaulting to thirty two.\n- A beats per bar setting offering two, three, four, five, six, seven and twelve, which covers common time, waltz, and the odd and compound metres practice tends to need.\n- An accent pitch from five hundred to four thousand hertz, defaulting to two thousand.\n- An amplitude slider from one to one hundred percent, defaulting to eighty five, and a readout giving the tempo, the metre, the bar count and the total duration.\n\nTwo details make the sound behave like a wood block rather than a beep. Each tick lasts fifty milliseconds and decays exponentially, with a slightly faster decay on the accented beat and a slower one on the others, so the accent reads as a harder strike rather than merely a louder one. The unaccented beats sit at two thirds of the accent frequency, which is close to a perfect fifth below, giving the pattern a musical relationship between the two sounds instead of an arbitrary jump. Placement is sample-accurate: each beat begins at the sample nearest to its exact time, computed from the tempo and sample rate, so the grid holds over a long file with no drift. The compound metres are worth noting as a limitation in disguise. This tool treats every beat alike within the bar regardless of metre, so selecting six or twelve gives six or twelve evenly spaced accents rather than the grouped feel a musician would expect from compound time.\n\nWhat it does not attempt:\n\n- Compound metres are accented on a plain grid rather than grouped in threes, so six eight and twelve eight do not convey their subdivision.\n- The tempo is fixed for the whole file, with no tempo changes or accelerando.\n- One voice is used throughout, so no separate sound distinguishes subdivisions such as eighth notes.\n- Output is mono, with no option for a click on one side only.\n- There is no count-in or lead-in before the first accented beat.\n- The amplitude is the same on every beat apart from the pitch and decay difference, so a quiet subdivision cannot be added.\n\nUse it for practice and rehearsal where the metre matters: keeping time through an odd bar, giving an ensemble a shared tempo, practising a passage at a fixed metronome mark, or providing a reference to record against. The click track generator offers a lighter, shorter click in common time, which is often easier to record along with, and the isochronic generator provides a rhythmic carrier when a tone rather than a tick is what you want.",
+    "howTo": [
+      "Set the tempo and the number of beats you need.",
+      "Choose the beats per bar for your metre, checking the bar count in the readout.",
+      "Adjust the accent pitch and the amplitude to taste.",
+      "Generate the file and download it, or play the preview to practise against directly."
+    ],
+    "whenToUse": "Metronome is the practice tool, particularly when the metre is anything other than four beats in a bar. {{click-track-generator|Click Track Generator}} produces a lighter click in common time that is easier to record alongside, and {{isochronic-tone-generator|Isochronic Tone Generator}} creates a pulsing tone rather than a tick. For capturing a performance against either signal, {{song-recorder|Song Recorder}} and {{loop-recorder|Loop Recorder}} are the recording tools in the same category.",
+    "faqs": [
+      {
+        "q": "How does the accent work?",
+        "a": "The first beat of each bar is rendered at a higher frequency and with a slightly slower decay than the other beats, so it sounds like a harder strike on the block. That marks the bar without needing to count, which is what makes an odd metre playable."
+      },
+      {
+        "q": "Which time signatures are supported?",
+        "a": "Two, three, four, five, six, seven and twelve beats per bar. The simple metres behave as expected, while six and twelve are accented on every beat rather than grouped in threes, so the compound feel has to come from your own playing rather than from the file."
+      },
+      {
+        "q": "Why does the metronome sound different from the click track?",
+        "a": "The two tools use different voices. Here each tick lasts fifty milliseconds with an exponential decay and the beats sit a fifth apart in pitch, which produces a wood-block character. The click track uses a shorter decaying sine and puts its two pitches an interval apart in a lighter, crisper sound."
+      },
+      {
+        "q": "Can I change tempo part way through?",
+        "a": "No, the tempo is fixed for the whole file. Where a piece changes tempo, generate a file for each section at the tempo it needs and play them in sequence, or use a tool that supports a tempo map."
+      },
+      {
+        "q": "Does the timing stay accurate at slow tempos?",
+        "a": "Yes. Each beat is placed at the sample nearest its exact time from the file's own start, so the grid is computed rather than accumulated. Even at twenty beats per minute across five hundred and twelve beats there is no drift from the first beat to the last."
+      }
+    ]
+  }
+]

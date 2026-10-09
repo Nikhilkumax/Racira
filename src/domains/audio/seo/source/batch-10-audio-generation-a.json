@@ -1,0 +1,387 @@
+[
+  {
+    "slug": "tone-generator",
+    "keywords": ["wave shape", "duty cycle", "phase", "aliasing"],
+    "intro": "Tone Generator synthesises a steady tone in any of five wave shapes, with frequency, level, duration, phase and duty cycle under your control. It is the general-purpose oscillator that the single-shape generators specialise from.",
+    "content": "Set the parameters, press generate, and a sixteen bit WAV appears with a player and a download link. Nothing is recorded and nothing is uploaded: the samples are computed from the numbers you entered, so the same settings always produce the same file.\n\nThe controls and what they do:\n\n- A wave shape selector offering sine, square, sawtooth, triangle and pulse, with the last one exposing an extra duty cycle control from five to ninety five percent.\n- Frequency from one hertz to twenty thousand, defaulting to the concert A at 440 hertz.\n- Duration from a tenth of a second to sixty seconds, defaulting to three.\n- An amplitude slider from one to one hundred percent of full scale.\n- A phase dial from zero to three hundred and fifty nine degrees, which shifts where the waveform starts.\n- A sample rate selector for 44.1 or 48 kilohertz, applied to every generated file.\n\nThe synthesis is a direct per-sample evaluation of the shape function on a phase accumulator, which is why the results are sample-exact at exact fractions of a period. The sine is a true trigonometric sine, the square and pulse switch between fixed levels according to the fractional part of the phase, the sawtooth ramps linearly and wraps, and the triangle rises and falls linearly with zero crossings at the quarter and three quarter points. One property is worth stating plainly: these are naive oscillators with no band-limiting, so a square, pulse or sawtooth at a high frequency contains harmonics above the Nyquist limit that fold back as aliasing. For measurement and referencing that is harmless, because the harmonic content is far below the listening band edge at normal frequencies; for anything musical, an anti-aliased oscillator in a synthesiser is the right tool instead. Two more details are worth knowing before a tone is trusted. First, the phase is computed as a product of frequency and time rather than by repeated addition, which keeps the frequency exact across the whole file and lets an awkward value such as 440.5 hertz stay accurate over a long duration. Second, the file is written at sixteen bit depth, so the noise floor belongs to the format rather than to the synthesis itself.\n\nWhere the tool stops short:\n\n- There is no band-limiting, so high-frequency shapes alias as described.\n- The output is mono for every shape, so no stereo width or per-channel offset is offered.\n- Amplitude is a linear percentage of full scale rather than a decibel value, so level references have to be converted by hand.\n- There is no envelope beyond the fixed start of the waveform, so tones begin and end abruptly unless the length happens to land on a zero crossing.\n- No frequency modulation, vibrato or glide is available; those live in the chirp, sweep and warble tools.\n- The maximum duration is one minute per generated file.\n\nUse it when you need a defined tone at a defined level: checking a signal path, confirming a speaker or headphone works across the range, testing a recording chain, or producing a reference file to import elsewhere. When the shape is the only variable that matters, the single-shape generators present the same synthesis with fewer controls, and the test tone tool adds a decibel-referenced level and a burst envelope for measurement work.",
+    "howTo": [
+      "Choose the wave shape, and set the duty cycle if you picked pulse.",
+      "Enter the frequency, duration and amplitude, and set the phase if the starting point of the waveform matters.",
+      "Pick the sample rate, then press generate to synthesise and encode the file.",
+      "Play the preview to check the tone, then download the WAV."
+    ],
+    "whenToUse": "Tone Generator is the general oscillator, so it is the right choice when the shape is an open question or when phase and duty need adjusting. {{test-tone-generator|Test Tone Generator}} adds a level expressed in dBFS and a repeating burst envelope for measurement, and {{sine-wave-generator|Sine Wave Generator}} strips the choice back to one shape. When the frequency has to move rather than hold steady, {{sweep-tone-generator|Sweep Tone Generator}} and {{chirp-generator|Chirp Generator}} cover the moving cases.",
+    "faqs": [
+      {
+        "q": "What is the difference between the square and pulse shapes?",
+        "a": "Both switch between two fixed levels, but the square spends exactly half of each cycle high and the pulse spends a settable fraction. A pulse is therefore a square with a duty cycle you control, and the closer that duty gets to the extremes the thinner and brighter the tone becomes."
+      },
+      {
+        "q": "What does the phase control actually change?",
+        "a": "Where in its cycle the waveform begins. At zero degrees a sine starts at zero and rises, while at ninety degrees it starts at its peak. The frequency content is identical either way, but the starting point matters when two generated tones will be mixed or compared."
+      },
+      {
+        "q": "Why does a high-frequency square sound harsh or odd?",
+        "a": "Because these oscillators are not band-limited. A square contains odd harmonics at three, five, seven times the fundamental and beyond, and once those pass the Nyquist limit they fold back into the audible range as tones that were never part of the intended signal. That is aliasing, and it grows worse as the fundamental rises."
+      },
+      {
+        "q": "Can I generate a stereo tone?",
+        "a": "No, every shape is written as a single channel. If two tones are needed in different ears, the binaural beat generator produces a stereo file with one frequency per channel, and a mono tone can be panned afterwards with the panning tool."
+      },
+      {
+        "q": "Is the amplitude setting a level in decibels?",
+        "a": "It is a linear percentage of full scale, not a level. Fifty percent is about minus six decibels relative to full scale, and ten percent is about minus twenty. For work that needs a level stated in decibels, the test tone generator takes the value directly."
+      }
+    ]
+  },
+  {
+    "slug": "white-noise-generator",
+    "keywords": ["white noise", "seed", "flat spectrum", "amplitude"],
+    "intro": "White Noise Generator produces noise with equal energy at every frequency, the reference signal for testing and masking. A seed control makes each file reproducible, so the same settings always yield the same samples.",
+    "content": "The options are deliberately few: an amplitude percentage, a duration, and a seed. Press generate and the samples are computed immediately, with a player and a download link for the resulting WAV.\n\nWhat the panel controls and reports:\n\n- An amplitude slider from one to one hundred percent, defaulting to thirty.\n- A duration from a tenth of a second to sixty seconds, defaulting to five.\n- A seed field, defaulting to 12345, which fixes the random sequence so a file can be regenerated identically later.\n- A readout giving the seed, the sample count and the duration in seconds alongside the amplitude.\n\nEach sample is drawn from a uniform random source and scaled by the amplitude, which gives a flat spectrum: equal energy in every frequency band, with no tilt toward the low end or the high end. Uniform noise of this kind has a root-mean-square level of roughly the amplitude divided by the square root of three, and a peak that sits close to the amplitude for short files and rises slowly as files get longer, since more draws give more chances of a large excursion. The generator is a small linear congruential sequence seeded from the number you enter, which is what makes the output reproducible. That determinism matters more than it might seem: a repeatable noise file lets you compare two identical test runs, or extend a file later without changing its character, which is impossible with a source that reshuffles every time. One practical consequence is worth noting: because the sequence is fixed by the seed and the sample positions are fixed by the sample rate, a file generated at 44.1 kilohertz and one generated at 48 kilohertz from the same seed will not contain the same samples, only the same character. Matching files across rates therefore means regenerating at the rate the file is meant to be delivered at. The amplitude scaling is applied after each draw, so the distribution of values is unaffected by the level you choose.\n\nWhat white noise is not:\n\n- It is not calibrated in decibels, so the amplitude value is a scaling factor rather than a level reference.\n- The randomness is a simple linear sequence, which is entirely adequate for audio but not suitable for any cryptographic use.\n- There is no filtering, so the flat spectrum cannot be tilted, shaped or band-limited here.\n- The file is mono, with no option for independent noise per channel.\n- Nothing is trimmed or faded at the boundaries, so a very short file may begin and end on a non-zero sample and click when looped.\n- The maximum duration is sixty seconds per file.\n\nUse it for the jobs noise does best: masking a conversation in an adjacent room, checking whether a speaker or headphone reproduces the full range evenly, exercising a noise gate or denoiser during development, or giving a reverb something broadband to work on. For a sound that is easier on the ear, pink and brown noise tilt the spectrum downward, and the room tone generator builds the hum and air of an actual space out of filtered noise.",
+    "howTo": [
+      "Set the amplitude and the duration you need.",
+      "Leave the seed alone for a reproducible file, or change it to get a different random sequence at the same settings.",
+      "Press generate to synthesise the noise and encode the WAV.",
+      "Preview it and download, using the recorded seed if the same file has to be made again later."
+    ],
+    "whenToUse": "White Noise Generator is the reference for broadband testing and straightforward masking, where equal energy across the band is what you want. {{pink-noise-generator|Pink Noise Generator}} and {{brown-noise-generator|Brown Noise Generator}} tilt the same idea toward the low end for a gentler sound, and {{room-tone-generator|Room Tone Generator}} turns filtered noise into the ambience of a specific space. To check what the noise actually contains, {{spectrum-analyzer|Spectrum Analyzer}} shows the spectrum directly.",
+    "faqs": [
+      {
+        "q": "Why does the same seed always give the same file?",
+        "a": "It selects the starting point of the random sequence. The same seed with the same amplitude and duration always produces an identical file, while a different seed produces different samples at the same statistical character. Keep the seed if a file may need to be regenerated exactly."
+      },
+      {
+        "q": "Why is the output not the same loudness as another generator's?",
+        "a": "Because amplitude is a scaling factor rather than a level. Noise has no single amplitude the way a tone does: its samples are spread across a range, and the perceived loudness depends on the distribution as much as on the peak. Use the meter tools if a precise level is required."
+      },
+      {
+        "q": "What makes white noise white?",
+        "a": "Equal energy per hertz across the whole band, the audio equivalent of white light containing all visible frequencies. Every octave therefore contains twice as much total energy as the octave below it, which is why white noise sounds bright and hissy rather than balanced."
+      },
+      {
+        "q": "Can I make it quieter and easier to listen to?",
+        "a": "Lower the amplitude, or use pink noise instead. Pink noise falls by three decibels per octave, giving equal energy per octave, which matches how hearing works and sounds far more natural. Brown noise falls faster still and is closer to a rumble."
+      },
+      {
+        "q": "Does the noise repeat if I loop the file?",
+        "a": "It loops as a file of finite length rather than as a continuous stream, so a loop point can be audible as a small click because the last sample rarely matches the first. Longer durations push that repeat further apart, and a gentle fade at each end removes the click."
+      }
+    ]
+  },
+  {
+    "slug": "pink-noise-generator",
+    "keywords": ["pink noise", "per octave", "cascade", "seed"],
+    "intro": "Pink Noise Generator produces noise that falls by three decibels per octave, giving equal energy in every octave rather than every hertz. It is the noise most people find comfortable to listen to and the standard source for room and speaker checks.",
+    "content": "The panel offers amplitude, duration and a seed, exactly as the white noise tool does. The difference is entirely in the filter applied to the random source before the samples are written.\n\nWhat is behind the sound:\n\n- A filter cascade of six one-pole sections plus a direct path, each with its own coefficient, whose sum approximates a minus three decibel per octave slope across the audible band.\n- A random source drawn from a seeded sequence, so the same seed reproduces the same file exactly.\n- An amplitude slider from one to one hundred percent, defaulting to thirty, and a duration from a tenth of a second to sixty seconds.\n- A readout confirming the minus three decibels per octave character, the amplitude, the duration and the seed.\n\nThe recipe used here is the standard cheap approximation, a cascade of six first-order filters in parallel with a small amount of the unfiltered signal, chosen because it delivers a slope that is close enough to exact pink across the audible range at a fraction of the cost of a proper fractional integrator. The consequence to understand is that the output is quieter than the input by design: the summing constants scale the result down heavily, so the amplitude slider is a scaling factor rather than a calibrated peak. That is a real difference from the brown noise tool next door, which normalises the finished file to the requested peak. Relative to a flat source the filtered result is quieter in the upper range and stronger in the lower one, which is the point of pink noise: equal energy in every octave means the sound reads as balanced, while a spectrum display shows a straight downward line rather than a horizontal one, which is the signature to look for when checking a generator or a room. Neither approach is wrong, but the two generators will not match each other's loudness at the same setting, and the honest reading is that the amplitude control sets relative level, not absolute.\n\nWhat it does not pretend to be:\n\n- The slope is an approximation across the audible band, not an exact fraction-of-an-octave response at every frequency.\n- The amplitude setting is not peak-calibrated, so the same value does not give the same peak as the white or brown generators.\n- There is no filtering control, so the spectrum cannot be tilted further or band-limited.\n- The output is mono, with no independent noise per channel.\n- The random sequence is a simple seeded generator, which is fine for audio and unsuitable for anything security related.\n- The file is capped at sixty seconds.\n\nUse it for the purposes it was popularised for: checking whether a room or a speaker reproduces the whole range evenly, because a pink source excites every octave with equal energy and a room resonance then stands out clearly, and masking a space with something less fatiguing than white noise. Its measured character is best confirmed with the spectrum analyser, which will show the downward slope directly rather than taking the label on trust.",
+    "howTo": [
+      "Set the amplitude and duration, and leave the seed if the file may need to be regenerated later.",
+      "Press generate to filter the noise and encode the result as a WAV.",
+      "Listen to the preview: it should sound even and balanced rather than bright like white noise.",
+      "Download the file, and note the seed if a repeatable version is needed."
+    ],
+    "whenToUse": "Pink Noise Generator is the reference source for room and system checks, because equal energy per octave matches how hearing and speakers behave. {{white-noise-generator|White Noise Generator}} is the flat-spectrum counterpart and {{brown-noise-generator|Brown Noise Generator}} tilts even further toward the low end for masking. To see the slope rather than infer it, {{spectrum-analyzer|Spectrum Analyzer}} measures the spectrum of the file you generated.",
+    "faqs": [
+      {
+        "q": "Why does pink noise sound different from white noise?",
+        "a": "Because the energy is distributed differently. White noise puts equal energy in every hertz, so the top octave carries as much energy as all the lower ones combined and the result sounds bright and hissy. Pink noise puts equal energy in every octave, which matches human hearing far more closely and sounds balanced."
+      },
+      {
+        "q": "Why is this quieter than the white noise generator at the same setting?",
+        "a": "Because the filter cascade scales the signal down and this tool does not renormalise the result, whereas the brown noise generator normalises its output to the requested peak. The amplitude control sets relative level rather than a calibrated peak, so compare generators by ear or by meter rather than by the number shown."
+      },
+      {
+        "q": "What is the filter cascade doing?",
+        "a": "Six first-order low-pass sections with different time constants are summed with a little of the raw signal. Each section contributes its own gentle slope, and their combination approximates the three decibels per octave fall that defines pink noise across the audible band at low computational cost."
+      },
+      {
+        "q": "Is it good for testing a room?",
+        "a": "Yes, that is one of its classic uses. Because every octave is excited with equal energy, a room mode or a speaker deficiency shows up as a distinct deviation from the expected slope rather than being hidden under an already tilted spectrum. Measure the result with a spectrum tool to see it."
+      },
+      {
+        "q": "Can I change the slope?",
+        "a": "No, the character is fixed at approximately minus three decibels per octave. If a steeper slope is wanted, the brown noise generator falls at about minus six decibels per octave, and anything between or beyond that would require filtering the generated file afterwards."
+      }
+    ]
+  },
+  {
+    "slug": "brown-noise-generator",
+    "keywords": ["brown noise", "integrated white", "DC leak", "seed"],
+    "intro": "Brown Noise Generator produces the deepest of the common noise colours, falling by about six decibels per octave for a soft rumble rather than a hiss. The file is peak-normalised, so the amplitude setting means what it says.",
+    "content": "Amplitude, duration and seed are the only options, and the result arrives as a sixteen bit WAV with a player and a download link. What comes out is markedly darker than pink noise at the same settings.\n\nWhat the generator does:\n\n- Integrates a seeded white noise source, which is what creates the falling spectrum: each sample adds a small fraction of the new random value to a running total, so low frequencies accumulate and high frequencies average away.\n- Leaks a small amount of the accumulated value on every sample, a simple high-pass effect that stops the running total from drifting off into a constant offset.\n- Normalises the finished file to the requested peak, so the amplitude slider behaves as a true peak control rather than as a scaling factor.\n- Reports the minus six decibels per octave character, the amplitude, the duration and the seed in the panel readout.\n\nThe important detail is the leak. A pure integrator of random samples wanders without bound, and once it reaches a constant value the output becomes a DC offset rather than noise, which is inaudible and useless. Dividing the accumulator by a factor slightly above one on every sample pulls it back toward zero with a time constant of a few hundred milliseconds, so the result is rumble rather than drift. That leak is why the component output is verified as having under one percent offset. As with the other noise tools, the random source is a seeded sequence, so a file can be regenerated identically. Because the output is integrated, its energy concentrates strongly in the lowest octaves, which is exactly the property that makes it useful for masking and exactly the property that makes it sound like distant thunder rather than a hiss. In construction it is integrated white noise with a DC leak, and that combination is what separates brown noise from the other colours: the integration produces the falling spectral slope, and the DC leak keeps the offset bounded. A listener comparing the generators in this set will hear brown noise as the darkest and most substantial, pink as the most balanced, and white as the brightest.\n\nWhere the colour limits it:\n\n- Almost all the energy sits at the bottom of the range, so it is poor for testing high-frequency reproduction.\n- It can excite room modes and rumble from a speaker that cannot reproduce it cleanly, which is vigorous rather than merely audible.\n- The leak makes the very lowest frequencies roll off, so it is not a true unbounded red spectrum.\n- There is no filter control, so the balance cannot be adjusted.\n- The output is mono, single-channel noise only.\n- Files are capped at sixty seconds each.\n\n\nUse it when the aim is a low, unobtrusive bed: masking traffic or an office hum, helping a baby or an adult settle where a broadband hiss would be too bright, or adding weight under a mix. For checking a system across the range, pink noise is the better choice because its energy is spread evenly by octave.",
+    "howTo": [
+      "Set the amplitude and the duration.",
+      "Keep the seed for reproducibility, or change it for a different random sequence.",
+      "Press generate and listen to the preview, which should rumble rather than hiss.",
+      "Download the WAV, checking the readout for the sample count and duration."
+    ],
+    "whenToUse": "Brown Noise Generator is the choice when the sound has to sit low and out of the way rather than fill the whole range. {{white-noise-generator|White Noise Generator}} and {{pink-noise-generator|Pink Noise Generator}} cover the flatter and middle colours, and {{room-tone-generator|Room Tone Generator}} builds a more realistic ambience with hum and air rather than pure noise. To confirm the balance you actually got, {{spectrum-analyzer|Spectrum Analyzer}} measures it.",
+    "faqs": [
+      {
+        "q": "Why is brown noise so much darker than pink?",
+        "a": "Because its energy falls about twice as fast as you climb the range, at roughly six decibels per octave against pink's three. That concentrates nearly all of the energy in the lowest octaves, which is why it sounds like a rumble rather than a hiss and why it is nearly useless for testing top-end reproduction."
+      },
+      {
+        "q": "What is the DC leak for?",
+        "a": "Integration alone would let the running total drift away and settle at a constant value, which is an inaudible offset rather than noise. A slight leak on every sample pulls the accumulator back toward zero with a time constant of a few hundred milliseconds, which keeps the output centred while preserving the deep rumble."
+      },
+      {
+        "q": "Is the amplitude setting a real peak level here?",
+        "a": "Yes. Unlike the pink generator, this one measures the finished signal and scales it to the requested peak, so the amplitude value corresponds to the loudest sample in the file. It still is not a loudness figure, but it is a genuine peak."
+      },
+      {
+        "q": "Can brown noise damage a speaker?",
+        "a": "It can push a small or poorly ported speaker hard, because almost all of its energy lies where a driver has the most excursion. Play it at a moderate level, and remember that a system which reproduces it cleanly at low volume may struggle when the amplitude is raised."
+      },
+      {
+        "q": "Which colour should I choose for masking?",
+        "a": "Brown and pink both work well and are far less fatiguing than white for long listening, with brown being the most comfortable for most people and the most effective at covering low-frequency disturbance. White remains the reference when the goal is to excite the entire spectrum evenly."
+      }
+    ]
+  },
+  {
+    "slug": "sine-wave-generator",
+    "keywords": ["pure tone", "phase", "sample-exact", "fundamental"],
+    "intro": "Sine Wave Generator produces a single pure tone with no harmonic content beyond the fundamental, which makes it the cleanest reference signal the suite can make. Frequency, amplitude, duration and phase are all adjustable.",
+    "content": "The panel has four controls and no wave selector, because the shape is fixed. Set the frequency, length, level and starting phase, press generate, and a mono WAV appears ready to play or download.\n\nThe controls in detail:\n\n- Frequency from one hundredth of a hertz to twenty thousand, with a fine step of one hundredth of a hertz and a default of 440.\n- Duration from a tenth of a second to sixty seconds, defaulting to three.\n- An amplitude slider from one to one hundred percent of full scale, defaulting to eighty.\n- A phase dial from zero to three hundred and fifty nine degrees, which sets where in the cycle the waveform begins.\n\nEach sample is the trigonometric sine of the accumulated phase, evaluated directly rather than approximated by a table, so the output is sample-exact at the quarter points of the cycle: zero at the start of a period, full positive at one quarter, zero again at the halfway point and full negative at three quarters. That precision is what makes a sine the right tool for measurement rather than for sound. A pure sine contains energy at exactly one frequency, so a spectrum display of a generated file shows a single line with no harmonics above it, and any deviation from that when the file is played back through a system tells you the system added something rather than the file. Setting the phase is occasionally essential: two identical tones that must cancel have to be offset by exactly half a cycle, and a tone that will be mixed into a longer recording can be started at its peak to avoid an onset click. As a reference signal a pure tone also makes distortion easy to spot, because an added harmonic appears on a spectrum display as a line that should not be there, standing out against an otherwise empty plot. The fundamental is the only frequency present, so measuring the file itself returns exactly the value you typed and nothing else, which is what allows a playback system to be judged rather than the source.\n\nWhat a sine cannot do:\n\n- It offers no harmonics, which is a strength for measurement and a limitation for anything musical or for testing a tweeter's behaviour above its passband.\n- The amplitude is linear rather than in decibels, so level references need converting.\n- There is no envelope, so a tone that does not end on a zero crossing will click at its close.\n- Only one channel is written, so there is no stereo or per-side control.\n- Frequency is constant, with no glide or vibrato.\n- The output is capped at sixty seconds and at sixteen bit depth.\n\nUse it as the reference signal for anything where a single known frequency matters: calibrating a level, checking for distortion by looking for harmonics that should not be there, finding a resonant frequency by sweeping manually, or producing a tuning note. When the shape is the point rather than the purity, the general tone generator adds square, sawtooth, triangle and pulse, and when a level in decibels is needed the test tone generator takes the value directly.",
+    "howTo": [
+      "Enter the frequency you need, using the fine step for tuning work.",
+      "Set the duration, then set the level with the amplitude slider.",
+      "Adjust the phase if the tone has to start at a specific point in its cycle.",
+      "Press generate, check the preview, and download the resulting WAV."
+    ],
+    "whenToUse": "Sine Wave Generator is the tool for a single known frequency, which makes it the natural reference for tuning and distortion checks. {{tone-generator|Tone Generator}} adds the other four shapes plus a duty cycle control, and {{test-tone-generator|Test Tone Generator}} provides a decibel-referenced level with an optional burst pattern. When the frequency needs to move, {{sweep-tone-generator|Sweep Tone Generator}} glides from one value to another and {{chirp-generator|Chirp Generator}} modulates it continuously.",
+    "faqs": [
+      {
+        "q": "Why would I choose this over the general tone generator?",
+        "a": "Because there is less to configure and the purity is the whole point. Nothing here can introduce harmonic content, so a file from this tool is a clean reference for measuring a system. The general generator is better when you intend to use a different shape."
+      },
+      {
+        "q": "What is the phase control useful for?",
+        "a": "Two cases mostly. A tone that must cancel another has to start half a cycle out of step, and a tone that will be mixed into existing audio can be started at its peak so the join does not click. For a standalone reference tone, leaving it at zero is fine."
+      },
+      {
+        "q": "Why does my generated tone click at the end?",
+        "a": "Because the file stops wherever the waveform happened to be, which is rarely at zero. Set a duration that lands on a whole number of periods if you can, or trim the file's end with a fade, and the click disappears."
+      },
+      {
+        "q": "How pure is the tone, really?",
+        "a": "The samples are computed from the exact trigonometric function rather than from a lookup table or a cheaper approximation, and the output is sixteen bit, so the noise floor is that of the file format rather than of the synthesis. Any harmonic you see on a spectrum display came from the playback system, not from the generator."
+      },
+      {
+        "q": "Can I generate two different frequencies at once?",
+        "a": "Not in a single file from this tool. Generate each tone separately and mix them with a joining or mixing tool, or use the binaural beat generator, which writes two slightly different frequencies into the two channels of one stereo file."
+      }
+    ]
+  },
+  {
+    "slug": "square-wave-generator",
+    "keywords": ["square wave", "duty", "odd harmonics", "band-limiting"],
+    "intro": "Square Wave Generator produces the classic two-level waveform with a fixed fifty percent duty cycle, the shape behind the hollow, buzzy tone of early digital and analogue electronics. Frequency, duration and amplitude are adjustable.",
+    "content": "Three controls, one fixed shape: enter a frequency, a duration and an amplitude, and the file is synthesised with the waveform switching between its two levels exactly halfway through each cycle.\n\nWhat the panel offers:\n\n- Frequency from one hundredth of a hertz to twenty thousand, with a fine step and a default of 220 hertz.\n- Duration from a tenth of a second to sixty seconds, defaulting to three.\n- An amplitude slider from one to one hundred percent, defaulting to fifty.\n- A sample rate choice of 44.1 or 48 kilohertz for the generated file.\n\nThe waveform alternates between full positive and full negative, switching as the fractional part of the phase crosses one half, and it always begins at the positive level. That two-level construction is what gives a square its harmonic signature: only odd multiples of the fundamental are present, at three, five, seven times and so on, each falling in level as one over its order. The result is a tone with a strong fundamental and a moderately bright edge, less bright than a sawtooth, which contains both odd and even harmonics, and considerably brighter than a triangle. Two limitations follow from the synthesis. First, the transitions are instantaneous, which means the ideal square contains energy extending infinitely upward; in a discrete signal that content above the Nyquist limit folds back as aliasing. Second, these oscillators do no band-limiting, so the aliasing is real at high frequencies. At a low fundamental it is inaudible, but a square wave at several kilohertz will not be a clean square after sampling, and nothing in this tool can prevent that. For measurement work the shape is also a convenient way to see how a system handles a step: an ideal square changes level instantly twice per cycle, so ringing, slew limiting or overshoot introduced anywhere in the chain changes the shape when the output is viewed on an analyser or a scope. Nothing among the settings alters the duty, so the harmonic balance is fixed by the shape itself rather than by anything you can adjust.\n\nWhere the waveform behaves differently from the ideal:\n\n- There is no band-limiting, so harmonics above Nyquist alias rather than being removed.\n- The duty cycle is fixed at fifty percent, with the pulse wave generator covering everything else.\n- The tone starts abruptly at full positive level, which is a step rather than a smooth onset and can click in a mix.\n- Amplitude is linear, not a decibel value.\n- The file is mono only, and capped at sixty seconds.\n- Only the fundamental and its odd harmonics are present, so no even-order content can be produced by any setting.\n\nUse it for the things a square is good at: waking up a circuit under test, checking whether a system adds ringing to a fast edge, producing an unmistakable test signal that is easy to recognise by ear, or generating an eighties-style hollow tone to layer under a mix. When the brightness needs to be able to shift, the pulse wave generator adds a duty cycle control that moves the harmonic balance without changing the fundamental.",
+    "howTo": [
+      "Enter the frequency, noting that lower fundamentals alias less at the shape's edges.",
+      "Set the duration and amplitude.",
+      "Choose a sample rate and press generate.",
+      "Preview the tone and download the WAV if it is what you need."
+    ],
+    "whenToUse": "Square Wave Generator is the tool when the two-level shape itself is the point, whether for testing or for its distinctive tone. {{pulse-wave-generator|Pulse Wave Generator}} offers the same shape with an adjustable duty cycle, and {{sawtooth-wave-generator|Sawtooth Wave Generator}} and {{triangle-wave-generator|Triangle Wave Generator}} cover the other classic shapes. When a cleaner reference is needed rather than a bright one, {{sine-wave-generator|Sine Wave Generator}} has no harmonics at all.",
+    "faqs": [
+      {
+        "q": "Why does a square wave sound brighter than a sine at the same pitch?",
+        "a": "Because it contains harmonics. The ideal square is built from odd multiples of the fundamental at decreasing levels, so it carries energy at three, five and seven times the frequency even though the pitch you hear is the fundamental. A sine has no harmonics, which is why it sounds pure and dull by comparison."
+      },
+      {
+        "q": "What does aliasing do to this waveform?",
+        "a": "It folds harmonics that would sit above half the sample rate back down into the audible range as frequencies that were never intended. A square at a few kilohertz is seriously affected, a square at a few hundred hertz hardly at all, and there is no setting here that removes the effect other than choosing a lower fundamental."
+      },
+      {
+        "q": "Why does the duty cycle matter if it is fixed?",
+        "a": "It is fixed in this tool because a true square is defined as fifty percent, and the harmonic balance that comes with it is part of the shape's character. The pulse wave generator exposes the control, where moving away from fifty percent suppresses some harmonics and strengthens others."
+      },
+      {
+        "q": "Can I use this for testing a speaker?",
+        "a": "It is better suited to testing electronics than transducers. A square's fast edges stress an amplifier in a useful way, but a loudspeaker cannot reproduce those edges faithfully and the harmonic content will simply be spread unevenly across it. Use a sine sweep for speaker tests."
+      },
+      {
+        "q": "Does the waveform start at the top or the bottom?",
+        "a": "It always starts at the positive level, which means the file begins with a step rather than a smooth onset. That is usually harmless for a test signal but can click when the tone is mixed with other audio, so fade the start in that case."
+      }
+    ]
+  },
+  {
+    "slug": "sawtooth-wave-generator",
+    "keywords": ["ramp", "harmonics", "sawtooth", "aliasing"],
+    "intro": "Sawtooth Wave Generator produces the rising ramp shape, the brightest of the classic waveforms and the one closest to the harmonic series of a bowed string. Frequency, duration and level are adjustable.",
+    "content": "The waveform climbs linearly from its lowest value to its highest and then wraps instantly back to the bottom, repeating every cycle. Three controls set the frequency, the length and the amplitude, and the file is written on generate.\n\nWhat the panel gives you:\n\n- Frequency from one hundredth of a hertz to twenty thousand with a fine step, defaulting to 110 hertz.\n- Duration from a tenth of a second to sixty seconds, defaulting to three.\n- An amplitude slider from one to one hundred percent, defaulting to fifty.\n- A sample rate selector covering 44.1 and 48 kilohertz.\n\nThe linear ramp is computed straight from the fractional part of the phase, so the rise is perfectly even and the wrap is instantaneous, and the waveform begins at its lowest value with a step up to the top of the ramp on the first wrap. Those two features explain the sound. A sawtooth contains every harmonic, odd and even, each falling in level in inverse proportion to its number, which is the same series a bowed or plucked string produces when the excitation is one-directional. That is why the shape sounds rich and slightly rough at the same time, and why it is the traditional starting point for subtractive synthesis: a filter placed after a saw has the entire series to work with. The wrap is the other half of the story: an ideal sawtooth changes value instantaneously once per cycle, which implies unbounded high-frequency content, and a sampled signal cannot represent that. Content above half the sample rate folds back, so a high fundamental produces aliasing. As with the other shapes in this family, no band-limiting is applied. The harmonic series is also why the shape responds so well to filtering: reducing the upper partials with a low-pass filter thins the tone smoothly, and removing the fundamental altogether leaves the higher ones intact, which is how the classic thin string-like tone is made. When the same pitch is wanted with a softer edge, the triangle removes most of that upper content and the sine removes all of it.\n\nWhat to expect and what not to:\n\n- Harmonics above Nyquist alias instead of being filtered away.\n- The instantaneous wrap means the file begins with a step and ends wherever the ramp happens to be when the duration runs out.\n- Only a rising ramp is produced, with no falling variant.\n- There is no filter, so the harmonic balance cannot be shaped after generation.\n- Amplitude is linear rather than in decibels.\n- The output is mono and capped at sixty seconds.\n\nUse it when a bright, harmonically dense waveform is what you need: a starting tone for testing a filter, a rough-edged tone to layer for a lead or a bass, or a signal to check how a system handles a sudden transition once per cycle. The square wave generator produces a similar level of brightness from odd harmonics alone, the triangle wave generator produces a much gentler ramp with far fewer upper harmonics, and the sine generator provides the same pitch with none at all.",
+    "howTo": [
+      "Set the frequency, and pick a lower value if the aliasing artefacts are noticeable.",
+      "Choose the duration and amplitude for the file.",
+      "Select a sample rate and press generate to synthesise it.",
+      "Check the preview, then download the WAV if the character suits the job."
+    ],
+    "whenToUse": "Sawtooth Wave Generator is the right choice when a harmonically rich waveform is wanted, whether for synthesis or for testing how a system copes with a fast transition. {{square-wave-generator|Square Wave Generator}} offers a simpler odd-harmonic spectrum and {{triangle-wave-generator|Triangle Wave Generator}} a much softer one, while {{tone-generator|Tone Generator}} puts all five shapes behind a single interface when the choice is still open.",
+    "faqs": [
+      {
+        "q": "Why is a sawtooth the standard synthesiser waveform?",
+        "a": "Because its harmonic series contains every multiple of the fundamental at a level that falls evenly with the harmonic number, which gives a filter the widest possible range to work with. Subtracting harmonics from a saw is how much of classical analogue synthesis produced its range of tones."
+      },
+      {
+        "q": "What does the instantaneous wrap do to the sound?",
+        "a": "It is what makes the shape bright. An ideal sawtooth drops from its top to its bottom with no time in between, and reproducing that demands unbounded high frequencies. In practice the sampled file runs out of range, so part of that content folds back as aliasing rather than disappearing."
+      },
+      {
+        "q": "Can I get a falling ramp instead?",
+        "a": "No, only the rising form is generated, which begins at the lowest value and climbs. A falling ramp is the same shape inverted, so the channel inverter can produce it from the file this tool writes."
+      },
+      {
+        "q": "Which shapes have the most harmonics?",
+        "a": "The sawtooth, followed closely by the square and the pulse, then the triangle, and finally the sine, which has none. For a rough sense of the ordering, the saw holds every harmonic, the square only the odd ones, and the triangle the odd ones falling away far more quickly."
+      },
+      {
+        "q": "Why does the tone begin with a thump?",
+        "a": "Because the waveform starts at its lowest value and jumps immediately to the top of the ramp, which is a step. That step is audible as a click at the start of the file and is a natural consequence of the shape rather than a defect, so fade the beginning if it needs to sit inside other audio."
+      }
+    ]
+  },
+  {
+    "slug": "triangle-wave-generator",
+    "keywords": ["triangle wave", "quarter cycle", "harmonic", "amplitude"],
+    "intro": "Triangle Wave Generator produces a linear rise followed by a linear fall, the gentlest of the classic geometric waveforms. It carries a fraction of the upper harmonics of a square or sawtooth at the same pitch.",
+    "content": "The waveform climbs evenly to its peak, descends evenly to its trough and repeats, with no flat sections and no instantaneous jumps. Frequency, duration and amplitude are the three controls, and the file is written when you press generate.\n\nWhat the panel gives you:\n\n- Frequency from one hundredth of a hertz to twenty thousand, defaulting to 440 hertz, with a fine hundredth-hertz step for tuning work.\n- Duration from a tenth of a second to sixty seconds, defaulting to three.\n- An amplitude slider from one to one hundred percent, defaulting to fifty.\n- A sample rate selector offering 44.1 and 48 kilohertz.\n\nThe shape is built by scaling the fractional part of the phase, doubling it and reflecting it at the halfway point, which produces a perfectly straight rise and fall. Sample-exact checks land where they should: the output sits at its lowest value at the start of the cycle, crosses zero at the quarter and three quarter points, and reaches its peak at the halfway point. That geometry is what makes the spectrum behave. A triangle contains only odd harmonics, like a square, but each falls in level as one over the square of its order, so the third harmonic sits nearly ten decibels below where it would in a square and the higher partials vanish quickly. The practical upshot is a tone with a clear pitch and a soft, almost flute-like edge that emphasises the fundamental and lowers its upper content. Because the straight segments still change direction abruptly at the peaks and troughs, the spectrum is not empty above the harmonics, and no band-limiting is applied, although the energy up there is far lower than in a sawtooth. A triangle wave is also the easiest shape to verify by eye, because a quarter cycle lands exactly on a zero crossing and the halfway point lands exactly at the peak, so the generated values can be checked against the shape they should describe. The tone that results sits between the purity of a sine and the bite of a square, which makes it the shape to reach for when a little harmonic colour is wanted without the brightness.\n\nWhere it differs from its neighbours:\n\n- Only odd harmonics are present, and they fall away quickly, so the shape sounds soft rather than rich.\n- The direction changes at the peaks and troughs are abrupt, so a small amount of high-frequency content remains beyond the listed harmonics.\n- There is no filter and no band-limiting to shape what is there.\n- Only one polarity is generated, with no inverted option.\n- Amplitude is a linear percentage rather than a level in decibels.\n- The file is mono and limited to sixty seconds.\n\nUse it when a defined pitch with a mild harmonic edge is what you want: a less fatiguing test tone than a square, a soft upper layer in a mix, or a signal for checking how a system treats a smooth slope rather than a step. The sine wave generator removes the harmonics entirely if purity matters, while the square and sawtooth generators move in the opposite direction with much brighter spectra at the same pitch.",
+    "howTo": [
+      "Set the frequency, using the fine step if you are aiming at an exact pitch.",
+      "Choose the duration and the amplitude.",
+      "Pick the sample rate and press generate.",
+      "Listen to the preview, then download the file if the tone is right."
+    ],
+    "whenToUse": "Triangle Wave Generator is the choice when a pitch needs a little harmonic character rather than a bright edge or total purity. {{square-wave-generator|Square Wave Generator}} provides a similarly simple spectrum but a much brighter result, and {{sawtooth-wave-generator|Sawtooth Wave Generator}} is brighter still. {{sine-wave-generator|Sine Wave Generator}} sits at the other extreme with no harmonics at all, and {{tone-generator|Tone Generator}} puts every shape behind one set of controls.",
+    "faqs": [
+      {
+        "q": "Why does a triangle sound softer than a square at the same pitch?",
+        "a": "Because its harmonics fall away far more quickly. Both shapes contain only odd multiples of the fundamental, but a square's partials decline in inverse proportion to their number while a triangle's decline with the square of it, so the upper harmonics are dramatically weaker and the tone is dominated by the fundamental."
+      },
+      {
+        "q": "How does the triangle's harmonic content compare?",
+        "a": "It holds only the odd multiples of the fundamental, and they fall away with the square of their order, so the third harmonic sits roughly ten decibels below where it would in a square and the higher ones are weaker still. That is why the tone is dominated by the fundamental and reads as soft rather than bright."
+      },
+      {
+        "q": "Where can I read the values on this waveform?",
+        "a": "The generated signal sits at its lowest point at the start of each cycle, passes through zero at one quarter and three quarters of the way through, and reaches its peak at the halfway point. Those landmarks are exact, which makes the shape convenient for checking whether a system distorts a slope."
+      },
+      {
+        "q": "Does it have any high-frequency content above its harmonics?",
+        "a": "A little. The ideal triangle is made of straight segments meeting at sharp corners, and those corners add a small amount of energy spread across the spectrum. It is far less than a sawtooth's and normally inaudible, but it is not zero."
+      },
+      {
+        "q": "Can I use it for tuning?",
+        "a": "It works, and the frequency is exact to a hundredth of a hertz. A sine is usually preferred for tuning because its pitch is unambiguous, whereas a triangle's harmonics can occasionally confuse a tuner that locks onto the wrong partial."
+      }
+    ]
+  },
+  {
+    "slug": "pulse-wave-generator",
+    "keywords": ["pulse wave", "duty cycle", "rectangular", "harmonics"],
+    "intro": "Pulse Wave Generator produces a rectangular waveform whose high portion can occupy anywhere from five to ninety five percent of each cycle. Changing that duty cycle changes the tone without changing the pitch.",
+    "content": "Set the frequency, the duty cycle, the duration and the level, and press generate. The shape switches between two fixed levels, with the high portion lasting for the fraction of the cycle you chose and the low portion taking the rest.\n\nThe controls and what they do:\n\n- Frequency from one hundredth of a hertz to twenty thousand, defaulting to 100 hertz.\n- A duty cycle slider from five to ninety five percent, defaulting to twenty five, which sets how much of each cycle is spent at the high level.\n- Duration from a tenth of a second to sixty seconds, defaulting to three.\n- An amplitude slider from one to one hundred percent, defaulting to fifty.\n- A sample rate selector covering 44.1 and 48 kilohertz.\n\nThe duty cycle is the feature that distinguishes this tool from the square wave generator, and its effect on the spectrum is worth understanding rather than guessing at. At exactly fifty percent the shape is a square and only odd harmonics are present. Moving the duty away from fifty percent introduces even harmonics and rebalances the whole series: some partials grow, others shrink, and the fundamental's own level shifts. This is the same mechanism that gave early analogue and digital instruments their range of hollow, nasal and thin tones from a single oscillator, since the duty could be swept to move the harmonic balance while the pitch stayed put. Two consequences follow from the rectangular shape. The transitions are instantaneous, so the ideal form contains unbounded high-frequency content and, with no band-limiting applied, high fundamentals alias. And at very small or very large duties the waveform spends almost all its time at one level, which raises the energy in the transient edges relative to the steady state and produces the thin, buzzy quality that extremes are known for. A pulse wave is also the shape behind a great many classic synthesiser tones, since moving the duty while a note is held adds movement to a sustained sound without retuning it, and that is precisely the control this tool exposes. The rectangular form keeps its two levels fixed, so the pitch never wavers as the duty changes around it.\n\nWhat to keep in mind:\n\n- There is no band-limiting, so high fundamentals alias as described.\n- Duty is limited to the five to ninety five percent range, and the tool does not offer to sweep it automatically over the file.\n- The waveform starts at the high level every time, so the file begins with a step.\n- No filter is available to shape the harmonic balance afterwards.\n- Amplitude is linear, not in decibels, so a precise level needs converting.\n- Output is mono and capped at sixty seconds.\n\nUse it when the tone's character needs to be adjustable without touching the pitch: dialling in a hollow lead or bass tone, producing a distinctive test signal, or checking how a system handles a narrow pulse. When exactly fifty percent is all that is required, the square wave generator presents the same shape with fewer controls.",
+    "howTo": [
+      "Set the frequency for the pitch you want.",
+      "Move the duty cycle slider to adjust the harmonic balance, listening as it changes.",
+      "Choose the duration and amplitude, then pick a sample rate.",
+      "Press generate and download the file once the tone sounds right."
+    ],
+    "whenToUse": "Pulse Wave Generator is the tool when the harmonic character of a rectangular wave needs to be adjustable while the pitch stays fixed. {{square-wave-generator|Square Wave Generator}} is the simpler fixed-duty case, and {{tone-generator|Tone Generator}} includes a pulse shape alongside the other four waveforms. When a brighter, non-adjustable spectrum is wanted, {{sawtooth-wave-generator|Sawtooth Wave Generator}} is the natural alternative.",
+    "faqs": [
+      {
+        "q": "How does the duty cycle change the sound?",
+        "a": "It changes which harmonics are present and how strong each one is. At fifty percent only odd multiples of the fundamental exist; as the duty moves away from that, even harmonics appear and the balance of the whole series shifts, which is heard as a change from hollow and square-like to thin and nasal."
+      },
+      {
+        "q": "Why is the default twenty five percent rather than fifty?",
+        "a": "Because the pulse shape exists to offer something a square cannot. A twenty five percent duty is the classic narrow pulse, noticeably thinner and more nasal than a square, and it makes the character of the control immediately obvious before you start adjusting it."
+      },
+      {
+        "q": "What happens at the extremes of the duty range?",
+        "a": "The waveform spends nearly all its time at one level and the transitions dominate what is heard, so the tone becomes thin and buzzy and its energy concentrates in the edges. The range is capped at five and ninety five percent to keep the shape recognisable."
+      },
+      {
+        "q": "Does the fundamental stay at the frequency I set?",
+        "a": "Yes, the repetition rate is exactly the frequency you entered. What changes with the duty is the relative level of the fundamental compared with its harmonics, so the perceived pitch holds steady while the brightness moves around it."
+      },
+      {
+        "q": "Can the duty cycle be swept during the file?",
+        "a": "No, the value is fixed for the whole generation. To hear a sweep of character you would need to generate several files at different duties and join them, or use the chirp or sweep tools if it is the pitch rather than the timbre that should move."
+      }
+    ]
+  },
+  {
+    "slug": "chirp-generator",
+    "keywords": ["deviation", "sweep rate", "modulation", "instantaneous frequency"],
+    "intro": "Chirp Generator sweeps a tone's frequency up and down in a smooth sine-shaped cycle, so it rises and falls repeatedly rather than gliding once. Centre frequency, deviation and rate are all adjustable.",
+    "content": "The sound rises above a centre frequency, falls below it and returns, repeating at the rate you set. Enter a centre, a deviation and a rate along with the level and duration, and generate the file.\n\nWhat the controls mean:\n\n- A centre frequency from one to twenty thousand hertz, defaulting to one thousand.\n- A deviation up to ten thousand hertz, defaulting to four hundred, which sets how far above and below the centre the tone travels.\n- A sweep rate from one hundredth of a hertz to one hundred, defaulting to two, which is how many complete up-and-down cycles happen per second.\n- Duration from a tenth of a second to sixty seconds, defaulting to four.\n- An amplitude slider from one to one hundred percent, defaulting to eighty.\n\nThe synthesis determines the instantaneous frequency of every sample from a sine function of time and then integrates that value into a running phase, which is the only correct way to build a frequency-modulated signal. Computing the waveform directly from the frequency would produce a signal whose phase jumped discontinuously and would therefore splatter energy across the spectrum. Integration keeps the phase continuous, so the result is a clean tone whose pitch moves exactly as described, and the sweep never leaves the band between the centre minus the deviation and the centre plus the deviation. That bounded range is worth noting, because at high deviations the lower edge approaches zero and the readout clamps the displayed lower limit at one hertz rather than printing a negative number. The modulation is entirely periodic, so the file is a repeating cycle of rises and falls rather than a one-way glide, which is the practical difference between a chirp and a sweep. Listening to it is instructive: at a high rate the pitch reads as an unstable flutter around the centre, while at a low rate it reads as a long and obvious rise and fall that repeats for as long as the file runs. The level never changes as the pitch travels, so the tone stays equally loud from one end of its excursion to the other.\n\nWhat the tool does not offer:\n\n- The modulation shape is a sine only, with no triangle, ramp or random option.\n- The sweep is bounded by the deviation setting, so it cannot rise indefinitely or hold a steady final frequency.\n- There is no band-limiting concern like the geometric shapes, but extreme settings can push the upper edge above the audible range.\n- Frequency is swept but the amplitude stays constant, so there is no matching level envelope.\n- Amplitude is a linear percentage, and the file is mono and capped at sixty seconds.\n- No phase offset is available for the modulation cycle.\n\nUse it when a tone needs to move continuously and periodically: masking a narrow band by moving through it, producing an attention-getting but not harsh notification, testing how a system tracks a changing pitch, or generating material that will be analysed on a spectrogram, where the shape of the sweep is plainly visible. For a single one-way glide across a wide range, the sweep tone generator and the frequency sweep generator are the tools built for that job.",
+    "howTo": [
+      "Set the centre frequency you want the tone to hover around.",
+      "Choose a deviation to set how far it travels above and below that centre.",
+      "Set the sweep rate and the duration, then adjust the amplitude.",
+      "Press generate and download the file, checking the readout for the swept range."
+    ],
+    "whenToUse": "Chirp Generator is the tool for a tone that moves up and down repeatedly, which suits masking, notification and pitch-tracking tests. {{sweep-tone-generator|Sweep Tone Generator}} makes a single glide from one frequency to another, and {{frequency-sweep-generator|Frequency Sweep Generator}} adds presets and a reverse option for the same one-way job. Where the movement is slow vibrato-like rather than a full sweep, {{warble-tone-generator|Warble Tone Generator}} is the equivalent tool for system checks.",
+    "faqs": [
+      {
+        "q": "What is the difference between a chirp and a sweep?",
+        "a": "Direction and repetition. A chirp modulates the frequency continuously in a cycle, so it rises and falls again and again for the whole duration. A sweep travels once from a start frequency to an end frequency and stops there, which is why the sweep tools have no rate control."
+      },
+      {
+        "q": "Why is the frequency integrated rather than set directly?",
+        "a": "Because phase has to stay continuous. If each sample simply took the current frequency value, the waveform's phase would jump at every change and the discontinuities would spread energy across the spectrum as clicks and splatter. Integrating the frequency into a running phase keeps the signal smooth and the tone clean."
+      },
+      {
+        "q": "What happens if the deviation is larger than the centre frequency?",
+        "a": "The lower edge of the sweep would compute to a negative value, which has no meaning for a frequency. The displayed range clamps its lower end at one hertz so the readout stays sensible, and the useful answer is to reduce the deviation or raise the centre until they make physical sense."
+      },
+      {
+        "q": "Can I make it sweep upward only?",
+        "a": "Not from this tool, because the modulation is a symmetrical sine. Set the rate very low relative to the duration and you will hear one long excursion that behaves much like a single sweep, or use one of the two sweep generators where a one-way glide is the whole point."
+      },
+      {
+        "q": "How fast can the modulation be?",
+        "a": "Up to one hundred cycles per second, at which point the sweeping is fast enough to be heard as a rough buzz around the centre frequency rather than as a moving pitch. At the slow end, a rate of a few cycles per second reads as an obvious rise and fall."
+      }
+    ]
+  },
+  {
+    "slug": "sweep-tone-generator",
+    "keywords": ["exponential", "linear", "glide", "instantaneous frequency"],
+    "intro": "Sweep Tone Generator glides a tone from one frequency to another across a chosen duration, with a choice between equal-hertz and equal-octave spacing. It is the straightforward single-pass sweep.",
+    "content": "Set a start frequency, an end frequency, a curve and a duration, and the tone slides once from one end of the range to the other. Nothing repeats, and the file ends at the frequency you asked for.\n\nThe controls and the choice they express:\n\n- Start frequency from one to twenty thousand hertz, defaulting to twenty.\n- End frequency over the same range, defaulting to twenty thousand.\n- A curve selector offering exponential, described on screen as equal octave spacing, or linear, described as equal hertz spacing, with exponential the default.\n- Duration from a tenth of a second to sixty seconds, defaulting to ten.\n- An amplitude slider from one to one hundred percent, defaulting to seventy.\n\nThe curve is the decision worth thinking about. An exponential glide multiplies the frequency by a constant factor over each interval, so it covers each octave in the same amount of time; a linear glide adds a constant number of hertz per second, so it spends most of its time in the upper reaches where hertz come thickly. For an audible sweep the exponential is almost always the right choice, because hearing judges pitch by ratio rather than by absolute frequency, and a linear twenty to twenty thousand sweep sounds as though it rushes through the low end and lingers forever at the top. Whichever curve is chosen, the implementation determines the instantaneous frequency for each sample and integrates it into the running phase, which is what guarantees a smooth, click-free glide: a linear sweep consequently accumulates phase quadratically and an exponential one geometrically, exactly as the textbook chirp definitions require. The clamp on the low end is a practical detail at extreme settings, since frequencies are held above a very small positive floor rather than being allowed to reach zero, which would stall the glide. One behaviour follows from the exponential curve in particular: an equal-octave sweep moves through the low frequencies slowly in hertz terms, so a resonance near the bottom of the range gets noticeably more time to announce itself than the same resonance placed high up would receive.\n\nWhat it does not provide:\n\n- Only a single pass is generated, with no repeat or loop option.\n- The curve is limited to linear and exponential, with no custom shape.\n- Amplitude stays constant while the frequency moves, so there is no associated level envelope or tilt compensation.\n- The sweep cannot be reversed here, and there is no preset library; the frequency sweep generator has both.\n- Setting the start equal to the end produces a steady tone rather than an error, which may be surprising.\n- The output is mono and capped at sixty seconds.\n\nUse it for the classic purposes of a sweep: finding a resonance by ear, characterising a room or a speaker across the range, testing a compressor or a gate with a signal that crosses every frequency, or producing a rising effect for a mix. When the sweep has to be repeated rather than performed once, the chirp generator is the tool that cycles; when presets and a reverse direction would save time, the frequency sweep generator wraps the same synthesis in a workflow.",
+    "howTo": [
+      "Set the start and end frequencies for the range you want to cover.",
+      "Choose exponential for a musical-sounding sweep or linear for even hertz spacing.",
+      "Set the duration and the amplitude, then press generate.",
+      "Download the WAV, or view the result on a spectrogram to confirm the sweep shape."
+    ],
+    "whenToUse": "Sweep Tone Generator covers the single one-way glide from one frequency to another. {{frequency-sweep-generator|Frequency Sweep Generator}} adds presets, a longer maximum duration and a reverse option for the same job, and {{chirp-generator|Chirp Generator}} is the tool when the movement should repeat in a cycle. When the point of the signal is its harmonic content rather than its movement, {{sine-wave-generator|Sine Wave Generator}} and {{tone-generator|Tone Generator}} are the steady references.",
+    "faqs": [
+      {
+        "q": "Which curve should I choose?",
+        "a": "Exponential for anything that will be heard. It spends equal time in each octave, which mirrors how pitch is perceived, so a sweep sounds even from bottom to top. Linear is useful when the analysis cares about absolute frequency spacing rather than musical intervals."
+      },
+      {
+        "q": "Why does a linear sweep sound rushed at first?",
+        "a": "Because it moves at a constant number of hertz per second while perception works by ratio. From twenty to two hundred hertz is more than three octaves and it happens in the same slice of time as the climb from two thousand to two thousand one hundred, which is a fraction of a semitone."
+      },
+      {
+        "q": "What happens if the start and end frequencies match?",
+        "a": "The glide becomes a steady tone, since there is nothing to move between. That is not reported as an error, so if the result sounds like a constant note the frequencies are the first thing to check."
+      },
+      {
+        "q": "Can I sweep repeatedly?",
+        "a": "Not from this tool, which generates a single pass. The chirp generator produces a repeating up-and-down cycle, and a one-way sweep can be looped in a player by leaving repeat enabled, though the join at the loop point will be abrupt."
+      },
+      {
+        "q": "Why sweep the whole audible range rather than spot frequencies?",
+        "a": "Because one continuous signal crosses every frequency in the range, so a resonance, a dropout or a distortion artefact shows up as a change in the sound at the moment the sweep reaches it. Spot tones require knowing where to look, which a sweep does not."
+      }
+    ]
+  }
+]

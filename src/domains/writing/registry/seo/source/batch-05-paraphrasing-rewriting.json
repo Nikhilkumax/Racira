@@ -1,0 +1,352 @@
+[
+  {
+    "slug": "sentence-rewriter",
+    "keywords": ["sentence rewriter", "rule-based rewrites", "subordinate clause", "intensifiers"],
+    "intro": "The Sentence Rewriter applies four documented sentence-level moves — lead with the cause, lead with the action, split into two sentences, cut the intensifiers — and shows the result of each so you can pick.",
+    "content": "This sentence rewriter is deliberately not a paraphrasing model. It applies four documented rule-based rewrites at the sentence level, one sentence at a time, and shows what each move produces; the writer chooses, and nothing changes unless it is chosen. Every rewrite is a rearrangement or a deletion from a published list, so each result can be checked against the original.\n\n- Lead with the cause: a trailing subordinate clause is moved to the front of the sentence.\n- Lead with the action: a leading subordinate clause is moved to the end.\n- Split into two sentences: the break happens at a comma followed by and, but, so, yet or or, or at a semicolon, and each half gets its own full stop.\n- Cut the intensifiers: a published list of filler adverbs is dropped.\n- Each sentence is rewritten on its own, so a paragraph produces one row per sentence with its own set of offered rewrites.\n- Summary figures: sentences seen, sentences with at least one rewrite, and total rewrites offered.\n- Scope and limits are printed on the page beside the results.\n- A sentence with no applicable move is returned unchanged and counted, so the summary distinguishes the work the tool could do from the work it could not.\n\nThe engine never changes a word it was not told to change. Clause movement is driven by a published list of subordinating conjunctions — because, although, when and their relatives — matched at the start or the end of a clause, and the split rule only fires at the documented seams rather than at any comma, because a comma before a conjunction is where a sentence can be broken without inventing grammar. Word counts come from the shared Intl.Segmenter counter, so a count reported here is the same number the rest of the domain reports for the same sentence. When no documented move applies, the sentence is returned unchanged and counted among the sentences without a rewrite, which is the honest result rather than a padded list. The four moves are also independent of each other, so a sentence can offer a clause move and a split at the same time, and choosing one does not commit you to the other. Because the rewrites are produced from the original sentence rather than from each other, no rewrite inherits a change made by another.\n\n- It is not a paraphrasing engine: it moves clauses and deletes listed fillers, and it never substitutes synonyms.\n- A rewrite is offered per move, so a sentence can receive several alternatives that conflict; pick one.\n- A sentence with no subordinate clause and no documented filler gets no rewrite, and the count says so.\n- A clause move preserves every word, so the rewrite differs from the original only in order and punctuation.\n- Splitting changes rhythm, which suits some prose and not others; the tool proposes rather than applies.\n- Meaning is preserved by construction, not by understanding: a clause moved to the front keeps its words.\n\nUse it when a paragraph reads monotonously and you want to vary sentence openings without changing the content. Read the offered rewrites in order, copy the one that fits, and leave the sentences where the moves do not apply — a rewrite that changes nothing is not an improvement.",
+    "howTo": [
+      "Paste a paragraph; every sentence is rewritten on its own and appears as a row.",
+      "Read the rewrites offered for each sentence, labelled with the move that produced them.",
+      "Copy the rewrite you want, or take the original.",
+      "Check the summary figures to see how many sentences the documented moves did not touch."
+    ],
+    "whenToUse": "Use the rewriter when the problem is sentence structure and the words should stay. When the problem is wordiness rather than shape, the {{simplify-text-tool|Simplify Text Tool}} replaces published phrases and splits sentences past its length threshold, and when the whole paragraph is padded, the {{paragraph-compressor|Paragraph Compressor}} makes four documented cuts at once.\n\nWhen the passive voice is the issue rather than the clause order, the {{active-voice-converter|Active Voice Converter}} recasts the clauses it can prove.",
+    "faqs": [
+      {
+        "q": "Is this an AI paraphrasing tool?",
+        "a": "No. It applies four documented moves — two clause movements, one split at a published seam, and one deletion from a list of filler adverbs. It never substitutes a synonym, so a rewrite can always be compared with the original word by word."
+      },
+      {
+        "q": "Where does the split happen?",
+        "a": "At a comma followed by and, but, so, yet or or, or at a semicolon. Those are the seams where a sentence can be broken without inventing grammar, so the rule never splits at a comma that is doing something else."
+      },
+      {
+        "q": "Why did some sentences get no rewrite?",
+        "a": "Because no documented move applied. A sentence with no subordinate clause, no split seam and no listed filler is returned unchanged and counted among the sentences without a rewrite rather than padded with a cosmetic alternative."
+      },
+      {
+        "q": "Do the rewrites change the meaning?",
+        "a": "They preserve it by construction rather than by understanding: a clause moved to the front keeps its words, a split keeps both halves, and a deleted intensifier was adding emphasis rather than information."
+      },
+      {
+        "q": "Which word count does the tool use?",
+        "a": "The shared Intl.Segmenter counter the whole domain uses, so a sentence's count here matches the count the readability and statistics tools report for the same text."
+      }
+    ]
+  },
+  {
+    "slug": "simplify-text-tool",
+    "keywords": ["simplify text tool", "wordy phrases", "long sentences", "average sentence length"],
+    "intro": "The Simplify Text Tool replaces published wordy phrases with plainer equivalents and splits sentences past 25 words at documented seams, with before-and-after metrics from the shared readability engine.",
+    "content": "Simplifying prose is two different jobs, and this simplify text tool keeps them apart. Substitution is safe and mechanical: the shared wordiness table supplies a plainer equivalent for each matched phrase. Splitting changes the rhythm of a paragraph, so it is only proposed for sentences longer than 25 words, and only at a documented seam. One is applied; the other is offered, and the page says which is which. The phrase table is shared with the paragraph compressor and the jargon remover, so the same wordy phrase is replaced the same way in every tool that touches it, and a draft processed by two tools does not come out with two different plain versions.\n\n- Phrase replacement from the shared wordiness table, matched as whole phrases, longest first, so a longer match is never partly replaced by a shorter one.\n- Sentence splitting for sentences longer than 25 words, at a comma with and, but, so, yet or or, or at a semicolon.\n- Metrics before and after: phrases replaced, sentences split, average sentence length and the count of long words, all computed by the shared readability engine.\n- A sentence-by-sentence view of what changed, so each substitution can be checked against the original.\n- Scope and limits printed beside the results.\n\nMatching goes through the shared phrase engine, which works on whole phrases, prefers the longest match, drops overlapping matches and preserves the source spelling. That is why a phrase inside a longer phrase is not replaced twice, and why the sentence-by-sentence table can be read as a complete account of every change. The metrics are not re-implemented for this tool: average sentence length and the long-word count come from the same readability engine the Readability Grade Scorer uses, so a figure here and a figure there describe the same text the same way. Sentences past the threshold that contain no documented seam are reported as long rather than silently left alone.\n\n- Substitution is limited to the published table; a wordy phrase outside it is untouched.\n- Splitting changes rhythm and can flatten a deliberate long sentence, so the split is a proposal rather than an edit.\n- A long sentence with no documented seam is flagged but not split.\n- The tool does not judge whether a plainer phrase fits the register of the document.\n- Splits are proposed with their seam named, so a split you dislike can be rejected without re-reading the whole paragraph.\n- A paragraph with no wordy phrases and no long sentences produces an unchanged result, which is a useful confirmation when reviewing rather than writing.\n- Metrics describe the text you pasted, so a partial paste gives partial figures.\n\nUse it when a draft reads heavier than its subject deserves. Work through the replacements first — they are mechanical and reversible — and then decide about the splits one at a time, because rhythm is the part a rule engine cannot hear. A paragraph that has been through the tool twice behaves predictably: the second pass finds fewer wordy phrases because the first pass removed them, and any sentence still past the threshold was left alone for a reason worth reading.",
+    "howTo": [
+      "Paste a paragraph; wordy phrases are replaced and long sentences are flagged as you type.",
+      "Read the before-and-after metrics, including average sentence length and the long-word count.",
+      "Open the sentence-by-sentence view and check each replacement against the original wording.",
+      "Accept or discard the proposed splits, then copy the simplified text."
+    ],
+    "whenToUse": "Use the tool when the prose is wordy rather than badly structured. When the structure is the problem, the {{sentence-rewriter|Sentence Rewriter}} moves clauses instead of words, and when the paragraph is padded with hedges and repetition, the {{paragraph-compressor|Paragraph Compressor}} makes four cuts and lists each one.\n\nWhen the target is a documented jargon list rather than general wordiness, the {{jargon-remover|Jargon Remover}} substitutes from a curated table with a note on when each replacement fits.",
+    "faqs": [
+      {
+        "q": "Why is splitting treated differently from replacement?",
+        "a": "Because the two moves differ in kind. Substitution is mechanical and reversible; splitting changes the rhythm of a paragraph. So replacement is applied, while splitting is only proposed, and only for sentences past 25 words at a documented seam."
+      },
+      {
+        "q": "What stops a phrase from being replaced twice?",
+        "a": "The shared phrase engine matches whole phrases, prefers the longest match and drops overlaps. A phrase that sits inside a longer matched phrase is never partly substituted, which keeps the sentence-by-sentence table a complete account."
+      },
+      {
+        "q": "Why did a long sentence not get split?",
+        "a": "Because it contains no documented seam — no comma with and, but, so, yet or or, and no semicolon. The tool reports it as long rather than breaking it at a guess."
+      },
+      {
+        "q": "Are the metrics the same as the readability tools report?",
+        "a": "Yes. Average sentence length and the long-word count come from the shared readability engine, so the same text produces the same figures in this tool and in the Readability Grade Scorer."
+      },
+      {
+        "q": "Can it simplify text that uses jargon?",
+        "a": "Only if the wordy phrase is in the shared table. For documented jargon — corporate, technical, academic or marketing — the Jargon Remover has the curated list and the note that explains when the plain alternative fits."
+      }
+    ]
+  },
+  {
+    "slug": "formality-adjuster",
+    "keywords": ["formality adjuster", "register", "paired expressions", "casual markers"],
+    "intro": "The Formality Adjuster shifts prose toward a more formal or a more casual register with one published table of 49 paired expressions, and reports the register as a band over the marker counts.",
+    "content": "Register is not a synonym problem, and this formality adjuster treats it as a mapping problem: one published table of 49 paired expressions, where each entry is a casual phrasing and its formal counterpart. The same table serves both directions, so the two directions can never disagree about what formal means.\n\n- Direction: More formal or More casual, both driven by the same paired table.\n- Replacement goes through the shared phrase engine: whole phrases, longest first, overlaps dropped, source spelling preserved, so get in touch is never partly matched by get.\n- Formality score: casual markers and formal markers are each counted in the text, and the reported register is a band over the difference.\n- Every change is listed with the paired expression it came from, so the substitution can be judged rather than trusted.\n- Scope and limits are printed on the page.\n\nThe score is a count, not a judgement: casual markers and formal markers are detected independently, and the band between them is what the tool reports. That design has a consequence worth knowing: a text can contain both kinds of marker and still land in the middle, which is exactly what a document written in mixed register looks like. Because the table is paired, replacing in one direction and then the other returns the text to its starting point, so the move is reversible and the writer can try a register and change their mind. Nothing about whether formal or casual is right for the document is claimed; the tool reports which the text currently looks like. The band exists because register is a spectrum rather than a switch: a message that is mostly formal with one casual phrase should not be reported as casual, and the two independent counts are what make that distinction possible.\n\n- The table is finite and published: an expression outside it is untouched in both directions.\n- A marker count is not a quality measure, and the band is deliberately wide.\n- The same table serves both directions, so the two moves can never disagree about what formal means.\n- The change list names the paired expression behind every substitution, so a shift can be reviewed one entry at a time.\n- Register and tone are different questions; this tool reports formality only.\n- Replacing a phrase can shift the sentence's rhythm even when the meaning is preserved.\n- The score is computed from the text, so it changes as you edit and can be used to check your own rewrite after the fact.\n- A text with no paired expression in it produces an empty change list, which is itself the answer to the question the tool was opened with.\n- One substitution per matched phrase: the engine never chains replacements.\n\nUse it when a message has to move up or down a register without being rewritten. Make the shift, read the change list, then read the result aloud — the table fixes the words, and only you can tell whether the voice still sounds like you. If a substitution reads oddly in context, run the other direction to restore it: the paired table makes the adjustment a try-on rather than an edit.",
+    "howTo": [
+      "Paste the text and choose More formal or More casual.",
+      "Watch the formality band and the casual and formal marker counts.",
+      "Read Every change to see each paired expression that was substituted.",
+      "Copy the adjusted text, or reverse the direction to return to the original."
+    ],
+    "whenToUse": "Use the adjuster when the register is the problem and the content is not. When the register should match an academic expectation specifically, the {{academic-writing-tone-checker|Academic Writing Tone Checker}} reads the text against that register, and the {{tone-analyzer|Tone Analyzer}} reports tone rather than formality.\n\nWhen the text needs its jargon replaced rather than its register shifted, the {{jargon-remover|Jargon Remover}} works from the curated term list.",
+    "faqs": [
+      {
+        "q": "How many paired expressions are in the table?",
+        "a": "49. Each entry is one casual phrasing and its formal counterpart, so a single table serves both directions and the two directions cannot disagree about what counts as formal."
+      },
+      {
+        "q": "What does the formality score actually measure?",
+        "a": "Two independent marker counts — casual markers and formal markers — with the reported register as a band over the difference. It is a count rather than a judgement, so a text with both kinds of marker lands in the middle."
+      },
+      {
+        "q": "Can I undo the adjustment?",
+        "a": "Yes, by running the other direction: the table is paired, so substituting in the opposite direction restores the original expressions. That reversibility is deliberate — trying a register should not be a one-way edit."
+      },
+      {
+        "q": "Why was a casual phrase left alone?",
+        "a": "Because it is not in the published table. The engine substitutes only what it can map, and a phrase outside the list is reported as untouched rather than approximated."
+      },
+      {
+        "q": "Does it also change the tone?",
+        "a": "No. Register and tone are separate questions. This tool moves formality; for tone the Tone Analyzer reports a different measure, and for academic register the Academic Writing Tone Checker is the specific tool."
+      }
+    ]
+  },
+  {
+    "slug": "technical-to-plain-language-converter",
+    "keywords": ["technical to plain language converter", "acronyms", "jargon table", "leftover long words"],
+    "intro": "The Technical to Plain Language Converter expands acronyms from a local table, replaces shared jargon terms, and names the long words it did not touch rather than leaving them hidden.",
+    "content": "A converter that silently leaves half the jargon behind is worse than one that names the leftovers, and this technical to plain language converter is built around that principle. It uses two published tables and adds one piece of analysis the jargon remover does not do: every finding is reported with the sentence it sits in and that sentence's length, because a technical term inside a 35-word sentence is a much harder read than the same term in a 12-word one.\n\n- The shared jargon table supplies a plainer phrase for each matched term.\n- A local abbreviation table expands acronyms such as API, CPU, RAM, SSD, CDN and DNS, with a note on when each expansion is worth making.\n- Every finding carries the sentence it appears in and that sentence's length, so a term in a long sentence is visible as the harder read it is.\n- Left untouched: the leftover long words still present in the plain version that are in neither table, listed so nothing is hidden.\n- Figures: terms rewritten, acronyms expanded, sentences seen and the count of leftovers.\n- Scope and limits printed beside the results.\n\nMatching follows the shared phrase engine, so whole phrases are matched longest first with overlaps dropped and the source spelling preserved. The abbreviation table is deliberately opinionated in a way the page explains: some acronyms should be expanded on first use and left as acronyms afterwards, and others — CPU for processor, RAM for memory — read better in plain prose as the everyday word. The leftovers panel is the tool's honesty mechanism. If a plain version still contains long, unlisted words, they are named rather than quietly passed through, so a reader can see exactly how much of the technical vocabulary the tables were able to reach.\n\n- Both tables are finite: a technical term outside them is left in place and, if long, appears among the leftovers.\n- The expansion advice is general; a domain where the acronym is the standard term should keep it.\n- Sentence lengths come from the shared tokeniser, so an abbreviation it misreads can shift one figure.\n- The leftovers list is a reading aid rather than a fault list: a long word can be exactly the right word, and naming it is not the same as condemning it.\n- Replacing a term can change a sentence's grammar in rare cases, which is why every change is listed for review.\n- Acronym expansions are offered per occurrence rather than only on first use, so a reader can decide where the boundary is.\n- The figures count expansions and replacements separately, so a paragraph heavy in acronyms is distinguishable from one heavy in jargon.\n- The tool does not judge whether the plain alternative preserves the technical meaning; the note on each entry is a guide, not a guarantee.\n\nUse it on documentation, release notes or a policy summary that has to be read by people outside the team. Work through the term list first, then read the leftovers panel, because that panel is where the remaining work is. The acronym list is worth reading twice: expanding API on first use is right, but expanding it in every later sentence makes the text longer without making it clearer, and the notes say so.",
+    "howTo": [
+      "Paste a technical paragraph; the plain version builds as you type.",
+      "Read the figures for terms rewritten, acronyms expanded and leftovers.",
+      "Open the term-by-term list and check each substitution and its sentence length.",
+      "Read Long words still untouched and decide what to rewrite by hand, then copy the result."
+    ],
+    "whenToUse": "Use the converter when technical vocabulary has to reach a non-technical reader and you want to see what was missed. When the text is wordy rather than technical, the {{simplify-text-tool|Simplify Text Tool}} replaces published wordy phrases, and when the vocabulary is workplace jargon rather than technical terms, the {{jargon-remover|Jargon Remover}} works from the same shared table with its own curated emphasis.\n\nWhen the goal is a plainer register overall rather than term-level substitution, the {{formality-adjuster|Formality Adjuster}} shifts the paired expressions.",
+    "faqs": [
+      {
+        "q": "What are the leftovers?",
+        "a": "Long words still present in the plain version that appear in neither table. They are listed deliberately: a converter that leaves jargon behind without naming it gives a false sense of a finished job."
+      },
+      {
+        "q": "Why is the sentence length shown with each finding?",
+        "a": "Because a technical term inside a 35-word sentence is a harder read than the same term in a 12-word sentence. Showing the length makes the difference visible and points at the sentences worth rewriting."
+      },
+      {
+        "q": "Should every acronym be expanded?",
+        "a": "Not necessarily, and the table says so per entry. Some acronyms should be spelled out on first use and then used as acronyms; others, such as CPU and RAM, read better in plain prose as the everyday word."
+      },
+      {
+        "q": "How are terms matched?",
+        "a": "Through the shared phrase engine: whole phrases, longest match first, overlaps dropped, case-insensitive with the source spelling preserved. That is why a longer term is never partly replaced by a shorter one."
+      },
+      {
+        "q": "Does it guarantee the plain version keeps the technical meaning?",
+        "a": "No. Each entry carries a note on when the plain alternative fits, and the change list exists so a specialist can review every substitution. The tool proposes; a person who knows the domain decides."
+      }
+    ]
+  },
+  {
+    "slug": "active-voice-converter",
+    "keywords": ["active voice converter", "passive constructions", "named actor", "agentless passives"],
+    "intro": "The Active Voice Converter recasts passive constructions only when the actor is named, and reports the agentless passives and unconverted clauses it cannot prove rather than guessing.",
+    "content": "A passive sentence becomes an active one only when the actor is named — otherwise there is nothing to put in the subject position. This active voice converter is built on that constraint: it finds passive constructions, recasts the ones it can recast correctly, and says plainly which ones it could not.\n\n- Finds be plus past participle where the participle ends in -ed or appears in the published irregular table.\n- Takes the actor from a following by phrase, unless that phrase is an idiom or a time — by hand, by Friday — rather than a person.\n- Rebuilds the sentence in the tense it can prove: simple past from was or were, perfect from has, have or had been.\n- Reports everything else — agentless passives, present tense, adjectival participles — as findings with no rewrite, and counts them separately.\n- Figures: clauses converted, no named actor, left as written, and the output word count.\n- A clause-by-clause list so every conversion and every refusal can be inspected.\n\nThe design is a statement about what a rule engine can honestly do. Detecting be plus participle is a pattern; deciding whether a participle is a verb or an adjective is not, so the tool reports those cases rather than converting them. The by phrase has the same problem: by hand and by Friday look exactly like by Sam until the phrase is checked against an idiom and time list, which is why that list exists. Tenses are rebuilt only where the auxiliary proves the tense, and everything else is returned as written. The result is a converter that converts less than a model would and is right about everything it does convert — the honest trade, stated on the page.\n\n- Agentless passives cannot be converted, because there is no actor to name; they are reported instead.\n- Adjectival participles such as the door was closed are reported rather than recast, because they may not be passives at all.\n- Present-tense passives are reported without a rewrite; the tense rebuild covers simple past and perfect.\n- A by phrase that is an idiom or a time is excluded, so by hand is never turned into an actor.\n- A sentence the rules do not cover is returned unchanged and counted among the unconverted, so nothing is rewritten by accident.\n- A converted clause can be longer or shorter than the original, because a by phrase moves into the subject position and is deleted from the end.\n- Because everything the engine declines is counted, the report can be read as a map of where the prose would need a writer rather than a rule.\n- A sentence with two passive clauses is reported once per clause, so a conversion in the first half of a sentence is never hidden by a refusal in the second.\n\nUse it when passive-heavy prose is the specific problem — a policy document, a procedure, a report where nobody does anything. Read the converted clauses first, then the two counts of what was left; the refusals are the part of the report that tells you where a person is needed. If the converted count is low, the document's problem is not passive voice; it is that nobody is named as the actor anywhere, and that is an editorial decision rather than a rewrite.",
+    "howTo": [
+      "Paste a paragraph; passive clauses with a named actor are recast as you type.",
+      "Read the converted clauses in the clause-by-clause list.",
+      "Check the no-named-actor and left-as-written counts to see what the engine refused.",
+      "Copy the converted text, or use the list to rewrite the refusals by hand."
+    ],
+    "whenToUse": "Use the converter when passive voice is the specific fault and correctness matters more than coverage. When the problem is sentence shape rather than voice, the {{sentence-rewriter|Sentence Rewriter}} moves clauses, and when the prose is padded rather than passive, the {{paragraph-compressor|Paragraph Compressor}} cuts hedges and repetition.\n\nWhen the register of the document is the question — a passive-heavy report that reads formally — the {{formality-adjuster|Formality Adjuster}} reports the register as a count rather than a rewrite.",
+    "faqs": [
+      {
+        "q": "Why are some passive sentences not converted?",
+        "a": "Because there is no actor to name. An agentless passive such as the report was written has nothing to put in the subject position, so it is reported as a finding rather than rewritten into a sentence the tool invented."
+      },
+      {
+        "q": "What about a sentence like the door was closed?",
+        "a": "It is reported rather than recast. That construction may be a passive or an adjectival description of a state, and the engine cannot tell them apart, so it declines instead of guessing."
+      },
+      {
+        "q": "How does it avoid turning by hand into an actor?",
+        "a": "The by phrase is checked against an idiom and time list before it is treated as a person. By hand, by Friday and their relatives are excluded, so the actor slot is only filled when the phrase really names someone."
+      },
+      {
+        "q": "Which tenses can it rebuild?",
+        "a": "The ones the auxiliary proves: simple past from was or were, and perfect from has, have or had been. A present-tense passive is reported without a rewrite because the tense rebuild does not cover it."
+      },
+      {
+        "q": "Does it ever add a word of its own?",
+        "a": "No. Every converted clause is rebuilt from the words already in the sentence, moved into a different order. Nothing is inserted, and nothing is converted unless the rules cover it."
+      }
+    ]
+  },
+  {
+    "slug": "headline-rewriter",
+    "keywords": ["headline rewriter", "headline angles", "clickbait check", "shouted words"],
+    "intro": "The Headline Rewriter composes five published headline angles from your subject and action, and runs a clickbait check on a headline you already have, alongside length, shouted words and repetition.",
+    "content": "A headline rewriter that invents a claim is worse than no tool at all, so this one composes from the writer's own words using five fixed angles, and never adds a fact the article does not have. The second half of the tool is a check list for a headline you already wrote, which is often the more useful half.\n\n- Five published angles, offered in order: How to, Numbered list, Guide, Mistakes and Question.\n- Two fields keep the grammar sound: Action is a verb phrase for the how-to and list angles, Subject is a noun phrase for the guide, mistakes and question angles.\n- Audience is woven into the patterns where the angle calls for it, and Number sets how many variations to compose.\n- A clickbait check on your own headline, alongside length in characters and words, a trailing period, shouted words and a repeated word.\n- Each flag explains the cost rather than merely naming the habit.\n- Scope and limits printed on the page.\n\nThe angle patterns are fixed, which is what makes the output honest: the tool arranges your subject, action and audience into five shapes rather than generating a claim. The checks use published constants — 60 characters and 12 words as the length thresholds, a clickbait phrase list, and a test for words written in capitals — and each flag carries its reason, because a headline that is 64 characters long fails for a specific reason that the writer can weigh. The distinction between subject and action is the one grammar constraint the user has to respect, and it exists so the how-to pattern receives a verb phrase while the guide pattern receives a noun phrase; the page states that rather than letting the patterns produce a sentence that does not parse.\n\n- The five angles are patterns, not ideas: the tool will not find an angle your subject does not support.\n- Compose quality depends on the subject and action being the right kind of phrase, and the fields say which is which.\n- The checks flag habits, not effectiveness; a headline that passes every check can still be dull.\n- Clickbait detection is a published phrase list, so a headline that ends in a question mark and a colon has nowhere to put the article's own claim.\n- A novel bait phrase passes the check, and a legitimate question headline is not a bait headline: the list targets promises rather than shapes.\n- Length thresholds are conventions, and a venue's own limit overrides them.\n\nUse the composer when you know what the piece is about and want the shapes it could take, and use the checks on anything you are about to publish. The five angles are also a diagnostic: if none of them fits the piece, the article may not have a clear subject or action yet, which is worth knowing before the headline is chosen. Read each flag's reason before changing the headline, because the fix for a shouted word is not the fix for a clickbait phrase. The check list also works on a headline the composer produced: compose five angles, paste the one you like into the check field, and see which flags it carries. Two fields also keep the field labelled Subject and the check for a repeated word catch the case where the same noun would appear twice. A headline that scores well on length can still fail the repetition check, and both flags are worth reading before the piece is published. The composer's five headline angles are also the fastest way to see whether the piece has an action worth naming at all; if you cannot state one, the article may not have one.",
+    "howTo": [
+      "Enter the Subject as a noun phrase and the Action as a verb phrase.",
+      "Add the Audience and set how many variations you want.",
+      "Read the five angles and pick the one that fits the piece.",
+      "Paste a headline you already have into the check field and work through each flag's reason."
+    ],
+    "whenToUse": "Use the rewriter when a piece needs a headline and you want the shapes it can take. When the headline exists and needs scoring rather than composing, the {{headline-analyzer|Headline Analyzer}} measures length, detail, power words and faults on the same text.\n\nWhen the copy beneath the headline needs building rather than naming, the {{landing-page-copy-builder|Landing Page Copy Builder}} scaffolds the page, and for email subjects the {{email-subject-line-tester|Email Subject Line Tester}} applies the checks that matter in an inbox.",
+    "faqs": [
+      {
+        "q": "Why do I need both a subject and an action?",
+        "a": "Because the five angles have different grammatical shapes. The how-to and list patterns need a verb phrase, while the guide, mistakes and question patterns need a noun phrase. Supplying both keeps every pattern grammatical."
+      },
+      {
+        "q": "Does the tool invent claims about my article?",
+        "a": "No. The angles are fixed patterns that arrange your own subject, action and audience. Nothing is added that the piece does not contain, which is why the composer cannot produce a headline your article fails to support."
+      },
+      {
+        "q": "What does the check list flag?",
+        "a": "Length in characters and words against published thresholds, a trailing period, a clickbait phrase, words written in capitals and a repeated word. Each flag explains the cost rather than just naming the habit."
+      },
+      {
+        "q": "How are clickbait phrases detected?",
+        "a": "From a published phrase list. A novel bait phrase that is not on the list will pass, which is a limit of any fixed list and is stated on the page rather than glossed over."
+      },
+      {
+        "q": "Are the length limits absolute?",
+        "a": "No. They are conventions — 60 characters and 12 words — and a venue's own limit overrides them. The checks exist so a headline that ignores them does so deliberately."
+      }
+    ]
+  },
+  {
+    "slug": "paragraph-compressor",
+    "keywords": ["paragraph compressor", "hedge phrases", "redundant pairs", "Jaccard overlap"],
+    "intro": "The Paragraph Compressor applies four documented cuts — hedges, wordy phrases, redundant pairs and a repeated sentence — and reports the before and after counts with every change listed.",
+    "content": "Padded paragraphs are usually padded in the same four ways, and this paragraph compressor makes exactly those four cuts in a published order: hedge phrases removed, wordy phrases replaced with their plainer equivalent, redundant pairs trimmed, and a sentence that repeats an earlier one dropped.\n\n- Hedge phrases removed: openers such as it is worth noting that and as a matter of fact, which postpone the point without adding information.\n- Wordy phrases replaced from the shared table, so the substitution is the same one the Simplify Text Tool makes.\n- Redundant pairs trimmed: advance planning becomes planning, and the second half of a pair that says the same thing twice is dropped.\n- A repeated sentence is dropped only when a later sentence measures as a duplicate of an earlier one.\n- Figures: words before, words after, cuts made and words removed.\n- Every cut is listed with the text it removed and the reason, so nothing is deleted invisibly.\n\nThe fourth rule is the only one that removes a whole sentence, and it is the one the page explains most carefully. Repetition is measured by the Jaccard overlap of the two sentences' content words rather than by a guess, so the report can name both the sentence that was dropped and the one it duplicated. Nothing else is deleted, and the compressor never rewrites a sentence's structure: the first three rules remove or substitute phrases inside sentences, and the fourth removes a sentence whole. That division matters because it keeps the output checkable — every change in the list maps to one of the four documented rules, and a cut that does not appear in the list did not happen.\n\n- The hedge and wordiness lists are finite; a phrase outside them is untouched.\n- Because every cut maps to a rule, a change that is not in the list did not happen, and the report can be read as a complete account of the compression.\n- The duplicate rule fires on content-word overlap rather than on identical strings, so two sentences can be judged duplicates even when their wording differs.\n- A sentence that partly repeats an earlier one survives, because the fourth rule only fires on a measured duplicate.\n- Compression changes emphasis as well as length: a trimmed hedge was doing rhetorical work.\n- The tool does not judge whether the shorter paragraph is better, only what the four rules removed.\n- Metrics come from the shared word counter, so counts match the rest of the domain. The before and after figures are the summary a reviewer reads first: a paragraph that loses a handful of words was not padded, and one that loses a third of its length almost certainly was.\n- A paragraph with nothing to cut returns an unchanged result and a zero cut count, which is a useful confirmation when reviewing rather than writing.\n- The four rules run in a fixed order, so the same paragraph always produces the same cuts.\n\nUse it when a paragraph has grown through revision and needs to lose its padding. Read the change list before the result, because a dropped sentence is the one cut that removes content rather than words, and the paired sentences are listed so the decision can be reversed.",
+    "howTo": [
+      "Paste the padded paragraph; the four documented cuts are applied as you type.",
+      "Read the before and after word counts and the number of cuts made.",
+      "Open What was cut and check every removal against its reason.",
+      "Pay particular attention to any dropped sentence, which is listed with the sentence it duplicated."
+    ],
+    "whenToUse": "Use the compressor when the paragraph is padded rather than badly written. When the problem is individual long sentences, the {{simplify-text-tool|Simplify Text Tool}} splits at documented seams, and when the paragraph needs its clauses rearranged, the {{sentence-rewriter|Sentence Rewriter}} moves them.\n\nWhen the padding is jargon rather than hedging, the {{jargon-remover|Jargon Remover}} substitutes from the curated term list.",
+    "faqs": [
+      {
+        "q": "What are the four cuts?",
+        "a": "Hedge phrases removed, wordy phrases replaced with a plainer equivalent, redundant pairs trimmed, and a sentence that repeats an earlier one dropped. Every change in the list maps to one of the four."
+      },
+      {
+        "q": "How does it decide two sentences are duplicates?",
+        "a": "By the Jaccard overlap of their content words, not by a guess. The dropped sentence is reported together with the sentence it duplicated, so the decision can be checked and reversed."
+      },
+      {
+        "q": "Does it ever rewrite a sentence's structure?",
+        "a": "No. The first three rules remove or substitute phrases inside sentences, and the fourth removes a sentence whole. Structure is never rebuilt, which is what keeps the output comparable to the input."
+      },
+      {
+        "q": "Which redundant pairs does it trim?",
+        "a": "Published pairs where both halves say the same thing, such as advance planning. The list is finite, and a redundant pair outside it survives the compression."
+      },
+      {
+        "q": "Can compression change my emphasis?",
+        "a": "Yes. A hedge that reads as padding also softens a claim, so removing it can make the paragraph blunter. That is why every cut is listed: the list is the record of what the rules removed, not a verdict on the result. The before and after counts are the summary: a paragraph that loses two words was not padded, and one that loses forty usually was. Because the rules run in a published order, the same paragraph always produces the same cuts, and a second pass on the output finds nothing left to do unless the first pass reported a cut it could not make. If a hedge or a redundant pair survives, it is because the phrase was not on the list; the tool never reports a change it did not make, and every entry in the cut list names the rule that produced it. That mapping is what makes the compressed paragraph checkable against the original: the difference between the two is exactly the union of the cuts in the list, so any change that does not appear in the list did not happen, and any change that does appear can be traced to a documented rule. Read the list beside the four rule names and every change is either accepted or reversed by hand. The compressor is a rule engine with four published cuts, not an editor with an opinion, which is the whole reason its output can be checked in a minute."
+      }
+    ]
+  },
+  {
+    "slug": "email-to-formal-letter-converter",
+    "keywords": ["email to formal letter converter", "greeting", "sign-off", "contractions"],
+    "intro": "The Email to Formal Letter Converter reformats a casual message as a letter — greeting, sign-off and signature — expands contractions and replaces casual phrases, listing every substitution.",
+    "content": "An email and a letter carry the same facts in different clothes, and this email to formal letter converter changes only the clothes: the greeting is rewritten, the sign-off block is replaced with a formal valediction and a signature, contractions are expanded from a published table, and casual phrases are substituted. Every move is mechanical and every move is listed.\n\n- The greeting is rewritten, so Hi Sam, becomes Dear Sam,; if there is no greeting, one is added and flagged.\n- The sign-off block is found anywhere in the last few lines and replaced with a formal valediction plus a signature taken from the email or the sender field.\n- Contractions are expanded from a published table of 27 pairs.\n- Casual phrases are replaced from a table of 17 entries — asap becomes as soon as possible, for example.\n- First-person openers include their pronoun in the replacement, so I just wanted to cannot turn into I I am writing to.\n- Emoji and runs of exclamation marks are removed, and counted.\n- Every substitution is listed, and the notes section reports what the letter checks could not resolve.\n\nThe body is never restructured, and the page says so: a letter that needs a different argument needs a writer. The substitution tables are paired and published, which makes the conversion auditable — each change in the list names the expression it replaced. The pronoun guard on first-person openers is a small detail with a visible effect: because the replacement carries its own pronoun, a phrase such as I just wanted to ask becomes I am writing to ask rather than a doubled subject. Emoji removal is counted rather than silent, so a writer can see how much of the message was carrying tone rather than content.\n\n- The body is reformatted, not rewritten: arguments, order and claims stay exactly as they were.\n- Contraction expansion is listed per occurrence, so a contraction left untouched is one that was not in the published table.\n- The sign-off block is found anywhere in the last few lines, so a stray Thanks line in the middle of the body is not mistaken for the end of the message.\n- Tables are finite and published; a casual phrase outside them survives into the letter.\n- A missing greeting or sign-off is added and flagged rather than left out silently.\n- Removing emoji and exclamation runs strips tone markers that may have been doing real work.\n- The signature comes from the email or the sender field, and a placeholder remains if neither supplies one.\n- The letter keeps the email's paragraph breaks, so the shape of the argument survives the reformatting.\n\nUse it when a message written for a colleague has to go to a client, a committee or a records file. Read the substitution list first, then the notes, and fix by hand anything the tables could not reach — the letter is a draft with the mechanical work done, not a finished document. If the substitution list is long, that is a signal about the original rather than a failure of the conversion: a message full of contractions and casual phrases may need more than a new greeting before it goes to a committee.",
+    "howTo": [
+      "Paste the casual email; the letter is assembled as you type.",
+      "Add your name for the signature if the email does not contain one.",
+      "Read Every substitution, which lists each greeting, sign-off, contraction and casual phrase that changed.",
+      "Check the notes for anything the tables could not resolve, then copy the letter."
+    ],
+    "whenToUse": "Use the converter when the message's content is right and its register is wrong. When the register needs shifting in general rather than letter formatting specifically, the {{formality-adjuster|Formality Adjuster}} maps paired expressions in either direction.\n\nWhen the words themselves are jargon rather than casual, the {{jargon-remover|Jargon Remover}} substitutes from the curated list, and when the letter is a proposal rather than a reply, the {{proposal-template|Proposal Template}} scaffolds the sections a reader expects.",
+    "faqs": [
+      {
+        "q": "Does it rewrite the body of my message?",
+        "a": "No. The body is reformatted, not rewritten: the greeting, sign-off and signature change, contractions are expanded and listed casual phrases are replaced. The argument, its order and its claims stay exactly as written."
+      },
+      {
+        "q": "Why does I just wanted to become I am writing to rather than I I am writing to?",
+        "a": "Because the first-person openers in the table include their pronoun in the replacement. That guard exists so a casual opener with a subject cannot produce a doubled subject in the formal version."
+      },
+      {
+        "q": "What happens if my email has no greeting or sign-off?",
+        "a": "One is added and flagged in the notes. The letter needs both, and the flag means you can see that the tool supplied something you did not write rather than discovering it later."
+      },
+      {
+        "q": "How many substitutions are in the tables?",
+        "a": "27 contraction pairs and 17 casual phrases, plus the greeting, sign-off and punctuation rules. Every one is listed in the change panel with the expression it replaced."
+      },
+      {
+        "q": "Are emoji really removed?",
+        "a": "Yes, along with runs of exclamation marks, and the count is reported. Removing them strips tone markers, which is the point of a formal letter and also the reason the count is shown."
+      }
+    ]
+  },
+  {
+    "slug": "jargon-remover",
+    "keywords": ["jargon remover", "curated term list", "plain equivalent", "when it fits"],
+    "intro": "The Jargon Remover substitutes terms from a curated list of 145 workplace, technical, academic and marketing entries, each with a note on when the plain alternative fits.",
+    "content": "Some jargon is just padding and some is the correct technical term in the right context — a statistical model really is robust, an API really can be deprecated. This jargon remover works from a curated term list of 145 fixed, published entries, each with a plain equivalent, and every note says when the plain alternative fits and when the original is the right word.\n\n- 145 curated entries across workplace and corporate, technical, academic and marketing vocabulary, with a note on when it fits on every one.\n- Each entry carries a plain alternative and a note explaining when the plain word fits.\n- Matching follows the shared phrase engine: whole phrases only, longest first, overlaps dropped, case-insensitive, with the source spelling preserved.\n- The plain-language draft is shown beside the original, with a term-by-term list of every change and its reason.\n- A no-listed-terms state when nothing matched, rather than an empty table.\n- Copy report and result, or download the result.\n\nThere is no model, no meaning analysis and no network call here, which is exactly why the tool can be trusted on a document that should not leave the browser. A term that is not on the list is never touched, so the output's difference from the input is always explainable by the table. That property is worth more than coverage: a reviewer can point at any changed word and name the entry that changed it, and a word that did not change is a word the list does not contain. The note per entry is the part that respects the writer's judgement: because the same list has to serve a support article and a research abstract, every substitution carries its own caveat, and the change list puts the caveat next to the change. The remover proposes; the writer decides.\n\n- A term outside the 145 entries is left exactly as written.\n- Some listed terms are correct in their domain, which is what the notes are for.\n- Substituting a term can change a sentence's precision, so the change list is the place to review it.\n- The list mixes domains; a marketing term is unlikely to appear in a research paper, and vice versa.\n- The tool replaces terms, not arguments: a jargon-heavy paragraph stays structurally heavy.\n- Because the list is fixed, two people using the tool on the same draft get the same substitutions, which makes a review comment about jargon reproducible.\n- The reason column is the audit trail: a substitution can be justified to an editor without opening the tool again.\n- Every substitution is reversible by hand, because the change list names the term it replaced.\n- The list spans four domains, so a term common in one document type may simply never appear in another.\n\nUse it when a document has to be read outside the team that wrote it. Read the change list with its notes rather than the draft alone, keep the substitutions whose note says they fit, and leave the ones where the technical term was doing real work, because the note says when the original is the right word. The report and the result are copied together so the changes can be justified to an editor: a substitution with its reason attached is a suggestion; without one it is just a different word.",
+    "howTo": [
+      "Paste a draft; terms on the documented list are replaced with the plain equivalent as you type.",
+      "Read the count of listed terms replaced.",
+      "Work through Every change, with the reason, and check each note against the context.",
+      "Copy the report and result, or download the plain-language draft."
+    ],
+    "whenToUse": "Use the remover when the vocabulary is the barrier and you want each substitution justified. When the text is technical documentation with acronyms to expand as well, the {{technical-to-plain-language-converter|Technical to Plain Language Converter}} adds an abbreviation table and a leftovers panel.\n\nWhen the problem is general wordiness rather than jargon, the {{simplify-text-tool|Simplify Text Tool}} replaces published wordy phrases, and when the register itself is wrong, the {{formality-adjuster|Formality Adjuster}} shifts the paired expressions.",
+    "faqs": [
+      {
+        "q": "How many terms are on the list?",
+        "a": "145, covering workplace and corporate vocabulary, technical terms, academic phrasing and marketing language. Each entry pairs a term with a plain alternative and a note on when that alternative fits."
+      },
+      {
+        "q": "Why would I keep a jargon word?",
+        "a": "Because some of them are precise. A statistical model can genuinely be robust and an API can genuinely be deprecated; the note on each entry says when the plain word fits and when the original is the right one."
+      },
+      {
+        "q": "Is anything analysed or uploaded?",
+        "a": "No. The list is fixed and published, there is no model and no network call, and the matching runs in the page. A draft that cannot leave the browser can be pasted safely."
+      },
+      {
+        "q": "What if my text has no listed terms?",
+        "a": "The page says so rather than showing an empty table. A clean result means none of the 145 listed terms appeared, not that the text is jargon-free by some other standard."
+      },
+      {
+        "q": "How are longer phrases handled?",
+        "a": "The shared phrase engine matches whole phrases and prefers the longest match, dropping overlaps and preserving the source spelling. A phrase inside a longer matched phrase is never partly replaced."
+      }
+    ]
+  },
+  {
+    "slug": "bullet-to-prose-converter",
+    "keywords": ["bullet to prose converter", "connector sequence", "single sentence", "bullets that will not travel"],
+    "intro": "The Bullet to Prose Converter joins a bullet list into a paragraph or a single sentence, and flags the bullets that prose will not carry — too long, really a heading, or duplicated.",
+    "content": "A list is not a paragraph with dashes removed, and this bullet to prose converter treats the difference as the whole problem. It offers two published shapes, joins the bullets with a fixed connector sequence when you ask for one, and flags the bullets that will not travel in prose rather than quietly mangling them.\n\n- One sentence per bullet: every bullet becomes its own sentence in the paragraph.\n- A single sentence: short bullets are joined with commas and and, which reads as a list inside a sentence.\n- An optional connector sequence — First, Next, Then, After that, Finally — opens the sentences, with the last connector used for every bullet after it.\n- Flags for what will not travel: a bullet past 25 words, a bullet that is really a heading, and duplicates.\n- Figures: bullets in the list, sentences produced and the shape used.\n- Scope and limits printed on the page.\n\nThe engine never invents a transition with meaning. The connectors are a fixed sequence rather than generated prose, which is why the output's joins are predictable and why the connector option can be switched off entirely. The single-sentence shape is only offered for bullets short enough to survive it, because a forty-word item inside a comma list is unreadable. The flags exist because a bullet list often contains material that is not a sentence at all: a heading, a fragment or a duplicate of the item above it. Naming those bullets is more useful than converting them, and the tool does not silently drop them either.\n\n- The connector sequence is fixed and unvaried, so long lists repeat Finally after the fifth item.\n- The flags are computed from the bullets, so fixing one in the source list removes it from the report on the next keystroke.\n- A duplicate bullet is flagged but never deleted from the list: the report names it and the converter still carries it into the paragraph.\n- The single-sentence shape is unsuitable for long bullets, which is why the tool flags them rather than joining them.\n- A heading-style bullet is reported, not converted, because prose cannot carry a label as a sentence.\n- Joining changes emphasis: a list gives every item equal weight, and a paragraph does not.\n- Nothing is reordered; the output follows the order of the list.\n- The shape choice is a suggestion with a rationale rather than a constraint, and switching shapes re-renders the same bullets without touching the source list.\n- The converter reads the list itself, so a bullet already written as a sentence needs no special treatment.\n- Because the connector sequence is fixed, the output's joins are predictable rather than a matter of taste.\n\nUse it when a document needs prose and the material arrived as a list. Try both shapes on the same list — the single sentence suits short parallel items and the paragraph suits anything with a clause in it — and fix the flagged bullets at source, because the tool is right that they will not travel. A list that converts cleanly usually had sentences in it already; a list that flags heavily is telling you the material was notes rather than prose, which is worth knowing before the paragraph is published.",
+    "howTo": [
+      "Paste the list, one item per line.",
+      "Choose the shape: One sentence per bullet or A single sentence.",
+      "Switch the connector sequence on if the sentences should be opened with First, Next and so on.",
+      "Read What will not travel, then copy the prose and fix the flagged bullets at source."
+    ],
+    "whenToUse": "Use the converter when a list has to become prose. When the job runs the other way and prose has to become a list, the {{bullet-point-extractor|Bullet Point Extractor}} turns one sentence into one bullet with an optional connector removal.\n\nWhen the prose that follows needs tightening, the {{paragraph-compressor|Paragraph Compressor}} applies four documented cuts, and when the sentences need their clauses rearranged, the {{sentence-rewriter|Sentence Rewriter}} moves them.",
+    "faqs": [
+      {
+        "q": "What is the difference between the two shapes?",
+        "a": "One sentence per bullet keeps every item as its own sentence in a paragraph. A single sentence joins short bullets with commas and and, which reads as a list inside one sentence and is only suitable for short parallel items."
+      },
+      {
+        "q": "Where do the connectors come from?",
+        "a": "A fixed published sequence: First, Next, Then, After that, Finally. The last connector is used for every bullet after the fifth, so a long list repeats it rather than inventing new transitions."
+      },
+      {
+        "q": "What does the flag list mean?",
+        "a": "It names the bullets prose will not carry: one past 25 words, one that is really a heading, and duplicates. Those bullets are reported rather than converted or dropped, because the fix belongs in the source list."
+      },
+      {
+        "q": "Is a heading-style bullet converted?",
+        "a": "It is flagged, not converted. A label such as Benefits: cannot become a sentence without inventing one, so the tool reports it and leaves the decision to you."
+      },
+      {
+        "q": "Can I turn the connectors off?",
+        "a": "Yes. The connector sequence is optional; with it off, the bullets become plain sentences and the paragraph reads without the First, Next pattern."
+      }
+    ]
+  }
+]

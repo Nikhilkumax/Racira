@@ -13,236 +13,216 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B11_EDITORS_SEO: Record<string, ToolSeo> = {
   "markdown-editor": {
-    keywords: ["markdown editor", "Markdown", "preview", "outline", "CommonMark"],
-    intro:
-      "The Markdown editor writes in plain text on one side and shows the rendered preview, the heading outline and a document summary on the other — all in your browser, with no upload.",
-    content: `A Markdown editor is worth having because Markdown is legible before it is rendered. You type plain text with a few marks, and the editor shows what those marks will become while you can still read and diff the source. This markdown editor puts the source on the left and the rendered preview on the right, and adds a heading outline and a document summary below so you can see the shape of the draft as you build it.
-
-The renderer implements CommonMark plus the extensions writers reach for: tables, strikethrough, autolinks and task lists. Raw HTML in the source is escaped rather than executed, so a pasted tag is shown as text — which means the preview needs no separate sanitising pass, because there is nothing unsafe to strip. Links are checked by the renderer's own rules, so a javascript: URL in a link destination is not turned into a live link.
-
-The outline is the part that is easy to underrate. Headings are pulled out as a nested list with anchors, so a long document shows its own table of contents without you maintaining one by hand. The summary counts words, lines, headings, links, code blocks and list items, which is enough to tell at a glance whether a section has grown past its budget. Copy the outline or the source with one click.
-
-Because the source is plain text, Markdown travels well. The same file that renders here can become a README, a documentation page, a note in a code review or the body of a static site, and the marks that give it structure stay readable in any plain editor. That portability is the reason to draft in Markdown at all, and the reason the editor keeps the source, the preview and the outline on one screen: you edit the text rather than a formatted document, and you can see the result without leaving the page. Reading the preview also makes a long draft's inconsistencies obvious — a heading used where emphasis was meant, a list that should have been a table — before a renderer turns them into structure.
-
-Nothing on the page is uploaded and nothing is stored beyond the tab: the draft lives in the text area and in whatever you copy or download. There is no account and no network call, so the editor works the same offline as online. The .md file downloads as plain text and renders anywhere Markdown is understood, from a README to a static site.
-
-What the editor does not do is as clear as what it does. It does not syntax-highlight code blocks, render diagrams or typeset mathematics; those are separate concerns with their own tools. It does not export to Word or PDF, and it does not publish anywhere. It is a writing and preview surface for Markdown, and the page says so rather than implying a full desktop editor's feature set. Because the source is plain text, any other Markdown tool can pick it up unchanged, which is the point of choosing this format in the first place.`,
-    howTo: [
-      { step: "Write or paste Markdown into the source pane; the preview updates as you type." },
-      { step: "Use headings to build the outline; levels one to three are shown in outline form." },
-      { step: "Read the summary to check words, lines, headings and links." },
-      { step: "Copy the source or download the .md file; render it wherever you publish." },
+    keywords: [
+      "markdown editor",
+      "markdown-it",
+      "heading outline",
+      "code blocks",
     ],
-    whenToUse: `Use the Markdown editor when the draft is Markdown and you want the rendered preview and structure beside the source. When you need to see what changed between two versions of a Markdown file, the {{document-diff-viewer|Document Diff Viewer}} compares them line by line, and for a plain word and character tally the {{word-count-tool|Word Count Tool}} is the lighter option.
-
-For prose that wants no chrome at all, the {{distraction-free-writing-editor|Distraction-Free Writing Editor}} drops the preview and the panels so only the text is on screen.`,
+    intro:
+      "The Markdown Editor renders your source with markdown-it, escapes any raw HTML by default, and reports document stats plus a copyable heading outline.",
+    content:
+      "This markdown editor renders your source, counts what is in it and hands you the outline as text. The preview is produced by the markdown-it library with raw HTML disabled, so anything that looks like a tag in the source is escaped before it reaches the renderer; the component also runs a sanitiser over the result as a belt-and-braces measure. The result is a page that can render Markdown without trusting the text you paste.\n\nThe document panel reports words, lines, headings, links, code blocks and list items — counts of the source, not of the rendered HTML, which is what makes them reproducible. The outline panel lists every heading in order with its level, indented so the shape of the document is visible at a glance, and Copy outline takes it as plain text. The source itself can be copied or downloaded as a .md file, so the round trip from editor to repository is a single action.\n\n- Rendered preview: markdown-it output with raw HTML escaped at render time.\n- Document stats: words, lines, headings, links, code blocks and list items.\n- Heading outline: every heading with its level, indented, copyable as plain text.\n- Anchor slugs: GitHub-style slugs computed per heading for the outline links.\n- Copy source and Download .md for the Markdown itself.\n- Copyable outline for pasting into an issue, a README or another document.\n\nThe renderer is the project's existing markdown-it dependency configured with HTML disabled at the parser level, which means escaped output rather than sanitised output — the text never becomes markup in the first place. Counts come from the source string itself: headings from the line markers, links from the inline syntax, code blocks from fenced spans. The module is pure and synchronous, so the same source always produces the same preview, outline and stats, and nothing touches the network.\n\n- Raw HTML in the source is shown as escaped text, not rendered, by design.\n- The outline covers headings only; bold text and list items do not appear in it.\n- Stats count the source, so a link inside a code span still counts as a link in the syntax scan.\n- No collaborative editing and no version history; the source is the version.\n- Very large documents render fine but the preview re-renders on every keystroke, so huge files feel heavier.\n\nA useful rhythm is to write in source, check the outline for structure and only read the preview for flow. When the outline shows a level jump or a missing heading, the structure problem is visible before the prose review starts. Copy the outline into a review comment and the reviewer sees the document's shape without reading the whole thing — which is the part of Markdown that engineers and technical writers actually reach for. The same outline control also works as a review artefact on its own: paste a document, copy the heading list, and the reviewer sees the shape of the argument before reading a sentence of it.\n\nWhen the document needs to become formatted text rather than source, the rich text editor offers marks and block kinds without syntax, and the block-based editor builds the same structure from typed blocks. Developers working in this domain may recognise the comparison and inspection tools under other names; here they live as document-facing tools rather than command-line ones.",
+    howTo: [
+      { step: "Write or paste Markdown into the source panel; the preview renders as you type." },
+      { step: "Read the Document panel for words, lines, headings, links, code blocks and list items." },
+      { step: "Check the outline panel for the heading structure, and copy it when a review needs the shape." },
+      { step: "Copy source or Download .md to move the Markdown into a repository or another editor." },
+    ],
+    whenToUse:
+      "Use the markdown editor when the document has to exist as source — a README, an issue, a documentation page. The {{rich-text-editor|Rich Text Editor}} offers the same writing without syntax, marking text with clicks instead, and the {{block-based-editor|Block-Based Editor}} types structure directly into blocks. When the outline is the deliverable rather than the document, the {{outline-builder|Outline Builder}} renders indented text three ways, and the distraction-free editor in this domain strips even the preview away.",
     faqs: [
       {
-        q: "Is raw HTML in my Markdown executed?",
-        a: "No. The renderer runs with raw HTML disabled, so a tag you type is escaped and shown as text rather than becoming markup. That is why the preview needs no separate sanitiser: there is nothing to sanitise.",
+        q: "Can I paste HTML into the editor?",
+        a: "Yes, but it will be escaped and shown as text. Raw HTML is disabled in the renderer on purpose, so nothing you paste can become markup on the page.",
       },
       {
-        q: "Which Markdown features are supported?",
-        a: "CommonMark plus tables, strikethrough, autolinks and task lists. Code blocks render as plain monospace text without syntax highlighting, and diagrams, math and footnotes-as-popovers are not part of this renderer.",
+        q: "How is the heading outline built?",
+        a: "Every heading line in the source becomes an entry with its level and a GitHub-style anchor slug, indented by depth. Copy outline produces the same list as plain text for a review or an issue.",
       },
       {
-        q: "Does my draft leave this browser?",
-        a: "No. The draft lives only in the tab where you are editing, and in whatever you copy or download. There is no account, no autosave to a server and no upload, so closing the tab discards it unless you have downloaded the file.",
+        q: "Do the stats count the source or the preview?",
+        a: "The source. Words, lines, headings, links, code blocks and list items are counted from the Markdown you typed, which makes the figures reproducible without rendering anything.",
       },
       {
-        q: "Can I export to Word or PDF?",
-        a: "Not directly. You can download the .md source and open it in any tool that converts Markdown, or copy the source into a document. The editor is a writing and preview surface, not a publishing pipeline.",
+        q: "Is the rendered preview sanitised?",
+        a: "The parser escapes raw HTML before rendering, and the component additionally runs a sanitiser over the output as a second layer. Two independent defences, both stated on the page.",
       },
       {
-        q: "How is the outline built?",
-        a: "Every heading becomes an entry in a nested list with an anchor, and headings at levels one to three are shown in the outline panel. It is derived from the source headings, so it stays in step as the document changes.",
+        q: "Can I download the file?",
+        a: "Yes, Download .md saves the source as a Markdown file, and Copy source puts it on the clipboard. The outline has its own copy control.",
       },
     ],
   },
 
   "outline-builder": {
-    keywords: ["outline builder", "outline", "numbered outline", "indentation", "word processor"],
-    intro:
-      "The outline builder reads an indented outline into a tree and renders it back as indented markdown, a numbered outline (1. / 1.1 or I. / A. / 1.) and plain indented text for a word processor.",
-    content: `The outline builder does the small, fiddly job of turning a loose list of headings into a clean, numbered structure. You type the outline as indented lines — a section on one line, its subsections indented beneath it — and the tool reads the indentation into a tree, reports the shape, and writes it back out three ways: as indented markdown, as a numbered outline, and as plain indented text you can paste into a word processor.
-
-Indentation is the whole interface, and the tool is forgiving about it. Leading dashes or numbers are optional, a tab counts as one level, and the parser normalises spacing so a pasted block with inconsistent indents still resolves. Crucially, an outline can only descend one level at a time: a line indented twice as deep as the line above it becomes a grandchild, not a line that skips a level and leaves the tree full of holes. That single rule is what keeps a hurried outline usable after the fact.
-
-Numbering comes in two schemes. Decimal numbers give the familiar 1., 1.1, 1.1.1 pattern that reads well in technical documents and specs. The classic scheme gives I., A., 1., a., i., the traditional outline form for essays and reports. In both, the numbers are computed from the tree rather than stored, so reordering or re-indenting a line renumbers everything below it with no cleanup. Level counts sit beside the numbering, so you can see how deep the deepest branch runs.
-
-The shape summary is deliberately plain: how many items the outline holds in total, how deep it goes, and how many items sit at each level. Those three numbers catch the two common mistakes — a section that has quietly become a buried sub-sub-subsection, and a branch that has one lonely child. Copy or download the rendering you need; the plain indented form drops the bullets and numbers so your word processor can apply its own heading styles.
-
-The reverse direction matters too. Because the tool reads indentation, you can paste a rough outline from a notes app or a chat thread and get back a clean tree with sensible numbering, rather than retyping it indent by indent. It is equally useful at the end of an outline's life: the plain indented rendering, stripped of bullets and numbers, is the form a word processor wants when you apply heading styles, and the numbered rendering is the form a spec or a report wants when readers will refer to sections by number. Either way the structure you settled in the editor is carried through unchanged.
-
-Everything runs in the browser, with no account, no upload and no storage beyond the tab. The builder is a structural helper, not a document generator: it does not decide what your sections should be, cannot infer an outline from a paragraph of prose, and does not export to DOCX or OPML. It reads indentation, counts the tree and formats the result, and it says so on the page. Because the three renderings are pure functions of the tree, moving a line changes every number below it consistently, which is exactly the discipline a hand-numbered outline punishes you for missing.`,
-    howTo: [
-      { step: "Type or paste the outline with one section per line, indented by two spaces per level." },
-      { step: "Pick the numbering scheme: decimal 1. / 1.1, or classic I. / A. / 1. / a." },
-      { step: "Read the shape summary to check the depth and the items at each level." },
-      { step: "Copy the numbered outline, the markdown, or the plain indented text." },
-      { step: "Download the report and paste the outline into your word processor." },
+    keywords: [
+      "outline builder",
+      "indented outline",
+      "numbered outline",
+      "plain indented text",
     ],
-    whenToUse: `Use the outline builder when a document's structure is the thing you are deciding and you want it numbered without hand-editing. When you need to see how the outline has moved since the last draft, the {{document-diff-viewer|Document Diff Viewer}} compares the two versions, and for a plain item tally the {{word-count-tool|Word Count Tool}} is the lighter check.
-
-Once the outline is settled and you are drafting, the {{markdown-editor|Markdown Editor}} shows the same headings rendered with an outline of its own.`,
+    intro:
+      "The Outline Builder reads an indented outline into a tree, reports its shape and renders it as markdown, a numbered outline or plain indented text.",
+    content:
+      "An outline is indented lines, and this outline builder reads that text into a tree, reports its shape and writes it back out three ways. Type or paste two spaces per level, with or without leading markdown bullets, and the parser normalises the indentation so a stray space or a pasted tab does not break the tree. Blank lines are skipped, and levels never skip: the shape it reports is the shape you authored.\n\nThe shape panel counts items, finds the deepest level and shows the population of each level, which is how a lopsided outline announces itself before anyone reads it. Rendering offers three outputs: indented markdown bullets at two spaces per level, a numbered outline in either hierarchical decimals or the classic I. A. 1. a. i. scheme, and plain indented text for a word processor. Every rendering has its own copy control, and the report combines them all.\n\n- Parsing: indented lines, optional leading bullets, tabs counted as four spaces.\n- Shape report: item count, deepest level and the population of each level.\n- Indented markdown: two spaces per level, ready to paste into a README.\n- Numbered outline: hierarchical decimals or the classic scheme, switchable.\n- Plain indented text: no bullets, the shape a word processor expects.\n- Copy and Download for each rendering, plus one combined report.\n\nThe parser walks the lines, measures each indent against the current level and pushes nodes onto a stack, which is why levels cannot skip: an indent that jumps two levels is read as the next available level rather than silently creating a gap. Renders are pure functions over the tree, so the three outputs always agree with each other and with the shape report. Everything runs in the page; the outline never leaves the browser.\n\n- The parser is indentation-based, so a genuinely skipped level is interpreted as a level rather than an error.\n- Prose attached to a line becomes a single node; there is no separate body text.\n- No reordering, dragging or collapsing — the tree comes from the text you wrote.\n- Bullets are optional and ignored in the shape, so mixing styles does not change the tree.\n- Very deep outlines render fine, but the classic scheme repeats markers past depth five. Mixed bullet styles in one document are tolerated as well, because the tree comes from indentation alone and the bullets are decoration.\n\nThe workflow is to dump the structure first and render second: write the shape quickly with rough indentation, read the population of each level to see where the outline is thin, then choose the rendering the destination wants. A numbered outline suits a review document, indented markdown suits a repository, and plain indented text suits a word processor — the same tree answers all three.\n\nThe neighbours handle the neighbouring shapes: the markdown editor extracts a heading outline from a finished document, the plot point mapper lays events over a named structure, and the scene board organises scenes with word counts. This tool is the one that starts from nothing and turns an indented outline typed in a box into a structure you can export. A population count reading ten at the first level and one at the third tells you the outline is a list with headings, and that is visible before anyone reads a node.",
+    howTo: [
+      { step: "Type or paste the outline, indented two spaces per level, with or without leading bullets." },
+      { step: "Read the Shape panel for the item count, deepest level and population of each level." },
+      { step: "Choose a rendering: indented markdown, a numbered outline in decimal or classic style, or plain indented text." },
+      { step: "Copy or download the rendering you need; the combined report carries every view at once." },
+    ],
+    whenToUse:
+      "Use the outline builder when the structure is the deliverable and it starts as indented text. The {{markdown-editor|Markdown Editor}} extracts an outline from a document that already has headings, while the {{plot-point-mapper|Plot Point Mapper}} lays story events over a named beat sheet instead of free indentation. The {{scene-and-chapter-organizer|Scene and Chapter Organizer}} adds word counts to a chapter list, and the block-based editor in this domain types structure directly as blocks.",
     faqs: [
       {
-        q: "How does it decide what is nested under what?",
-        a: "By indentation. A line indented one unit deeper than the line above it becomes that line's child, and a line at the same or a shallower indent closes the levels above it. Leading dashes or numbers are ignored when the depth is read.",
+        q: "How does it decide the outline's levels?",
+        a: "By indentation: two spaces per level, with tabs counted as four. Blank lines are skipped and levels never skip, so an indent that jumps two levels is read as the next available level rather than a gap.",
       },
       {
-        q: "Can a line skip a level?",
-        a: "No. An outline may only descend one level at a time, so a line indented far deeper than its parent becomes a grandchild rather than a level-three item with no level two. That keeps the tree valid no matter how the source was pasted.",
+        q: "Do I need markdown bullets?",
+        a: "No. Leading dashes are accepted and ignored for the tree, so you can paste either bullets or plain indented text. Mixing the two does not change the shape.",
       },
       {
-        q: "Does it export to Word or OPML?",
-        a: "Not to those formats. It produces indented markdown, a numbered outline and plain indented text, any of which you can copy or download and paste into a word processor to apply your own styles.",
+        q: "What is the classic numbering scheme?",
+        a: "The I. A. 1. a. i. markers by depth, alongside hierarchical decimals. Both renderings come from the same tree, so switching between them changes only the markers.",
       },
       {
-        q: "Do the numbers stay correct when I reorder items?",
-        a: "Yes. Numbering is computed from the tree each time the outline changes, never stored, so moving or re-indenting a line renumbers everything below it consistently.",
+        q: "Can I reorder items in the tool?",
+        a: "No. The outline is edited as text and the tree follows it; there is no dragging or collapsing. Adjust the indentation and the shape report updates immediately.",
+      },
+      {
+        q: "What does the shape report actually tell me?",
+        a: "Item count, the deepest level and how many items sit at each level. A branch with ten items at level one and one at level three is a structure problem visible before you read a word.",
       },
     ],
   },
 
   "document-diff-viewer": {
-    keywords: ["document diff viewer", "diff", "unified patch", "line by line", "word by word"],
-    intro:
-      "The document diff viewer compares two drafts line by line or word by word, shows a stats summary of what changed, and writes a unified patch — all locally, with nothing uploaded.",
-    content: `A document diff viewer answers one question quickly: what changed between these two versions? Two text areas take the original and the revised draft, and the comparison runs immediately, in the browser, with no upload and no history kept. The result comes in three layers — a visual diff you can read, a stats summary that quantifies the change, and a unified patch you can copy.
-
-The line view aligns the two drafts and marks each row as unchanged, added or removed, carrying the old and new line numbers so you can move between the versions. The word view zooms in on the same change and highlights the runs of words that differ inside lines that are otherwise identical, which is what you want when a sentence has been edited rather than replaced. Switching between the two views is a single control and neither costs a round trip.
-
-That pairing is what makes the tool useful for revision. Comparing two drafts line by line catches a paragraph that was moved, split or deleted; comparing them word by word catches the smaller edit — a reworded clause, a changed number, a softened claim — that a line view would show only as a changed line. Reading the same change both ways is often how you decide whether an edit is cosmetic or substantive. Paste the two versions, read the summary, then switch the view to confirm the specific change you care about. The two panes accept text from anywhere — a notes app, an email draft, a code editor — because the comparison runs on characters, not on a file format. Nothing is transmitted at any point, so even a sensitive draft can be compared here.
-
-The summary is deliberately blunt. It reports how many lines were added and removed, how many words were added and removed, and a percentage of unchanged text, so a large-looking edit that only touched punctuation reads differently from a genuine rewrite. Those four numbers and the similarity figure are usually enough to decide whether a revision needs a careful read or a glance.
-
-The unified patch is the familiar machine-readable form, with context lines and hunk headers, copyable or downloadable for a commit message, a code review or a note to a collaborator. It is generated from the same comparison, so the patch and the visual diff can never disagree. Because the whole thing is client-side, you can paste text you would not upload to a service — a private draft, a contract, a set of notes — and nothing leaves the tab.
-
-What it does not do is as important. It compares text, not documents: there is no file upload, no DOCX or PDF parsing, no three-way merge and no stored version history, so you paste the plain text of each version. It reports what differs, never which version is better, and it cannot tell a deliberate edit from a typo. For a working draft that is exactly the right scope: the tool tells you precisely where the two texts part company and leaves the judgement to you.`,
-    howTo: [
-      { step: "Paste the original text into the first pane and the revised text into the second." },
-      { step: "Choose line by line for wholesale changes or word by word for fine edits." },
-      { step: "Read the summary: lines and words added and removed, and how much is unchanged." },
-      { step: "Scan the marked rows, then copy or download the unified patch." },
+    keywords: [
+      "document diff viewer",
+      "word diff",
+      "unified patch",
+      "lines added",
     ],
-    whenToUse: `Use the document diff viewer whenever two versions of the same text exist and you need to see the difference rather than read both. When the drafts are Markdown, the {{markdown-editor|Markdown Editor}} renders one of them so you can read the change in context, and for a quick count of how much longer the new version is, the {{word-count-tool|Word Count Tool}} gives the totals.
-
-When the change you are checking is a rewrite rather than a comparison — words you lean on too often, or passages that read heavily — the {{overused-word-finder|Overused Word Finder}} looks at a single text instead of a pair.`,
+    intro:
+      "The Document Diff Viewer compares two versions of a text with line, word and patch views and reports lines added, lines removed and words moved.",
+    content:
+      "Two drafts, one question: what changed? This document diff viewer takes an original and a revised text and answers in three views — a line-by-line diff, a word-level diff for the fine-grained read, and a unified patch in the familiar plus-and-minus form. The summary panel counts what the change actually cost: lines added, lines removed, words added and words removed, with the unchanged block named beside them. Developers will recognise the vocabulary; here it is applied to prose rather than code.\n\nThe two versions go in side-by-side panels and the compare control runs the calculation locally. Each diff row carries its own line numbers from both versions, so a change is traceable to a position rather than guessed at. The word diff shows changed runs inside otherwise identical text, which is how a single swapped adjective becomes visible instead of hiding inside a rewritten line. Copy patch and Download take the result out as text.\n\n- Two inputs: original and revised, compared on demand.\n- Line diff: every row with its old and new line numbers.\n- Word diff: changed runs inside otherwise matching lines.\n- Unified patch: context lines around each hunk, three lines by default.\n- Summary counts: lines added and removed, words added and removed, unchanged.\n- Copy patch and Download for the result as plain text.\n\nThe engine is the project's existing diff library — jsdiff — used for both the line and the word views, so the row tracking and the hunk formatting are the library's, not a home-grown approximation. Everything is computed synchronously in the page: nothing is uploaded, nothing is queued and the same pair of texts always produces the same patch. That reproducibility is the property that makes a diff trustworthy as a record of what a revision did.\n\n- Very large documents are diffed in one pass, so a whole-book comparison takes a moment on first run.\n- Line views depend on line breaks: a rewrapped paragraph reads as many changed lines even when the words barely moved.\n- Whitespace-only changes are shown rather than hidden; there is no ignore-whitespace mode.\n- The patch format is for reading and copying, not for applying to anything.\n- Encoding assumptions are the browser's: the comparison operates on JavaScript strings, not bytes.\n\nThe reading order that works is summary first, word diff second, line diff third: the summary says how big the change was, the word diff says what it did, and the line diff gives the positions. When a paragraph was rewrapped rather than rewritten, the word diff is the view that tells you so — which is the difference between a real edit and a formatting pass. Running the same comparison after every revision builds a habit as well: a diff taken before a rewrite and after it settles arguments about whether the edit actually helped.\n\nThe neighbours cover the workflow around comparison: draft versioning keeps the labelled snapshots you compare, and the manuscript formatter is the kind of pass whose output is worth diffing. For the counts behind either side of the comparison, the word count tool reports words with the frequency table included. Comparison is the only one of these views that shows change rather than state, which is why it is the one worth keeping a record of.",
+    howTo: [
+      { step: "Paste the original text into one panel and the revised text into the other." },
+      { step: "Press Compare; the summary reports lines and words added, removed and unchanged." },
+      { step: "Read the word diff for what changed inside lines, then the line diff for positions." },
+      { step: "Copy patch or Download to keep the comparison as plain text." },
+    ],
+    whenToUse:
+      "Use the document diff viewer whenever two versions of a text exist and the difference has to be shown rather than described. The {{draft-versioning-tool|Draft Versioning Tool}} keeps the labelled snapshots whose deltas feed this comparison, the {{manuscript-formatter|Manuscript Formatter}} produces the kind of formatting pass worth diffing, and the {{markdown-editor|Markdown Editor}} handles the case where one side is source. For the totals behind either side, the word count tool in this domain counts the same way the summary does.",
     faqs: [
       {
-        q: "Does it upload my documents?",
-        a: "No. The comparison runs entirely in your browser against text held in the two panes. Nothing is sent anywhere, no history is kept, and closing the tab discards the text — which is what makes it safe for private drafts.",
+        q: "How does the word diff differ from the line diff?",
+        a: "The line diff compares whole lines and numbers them from both versions; the word diff shows the changed runs inside lines that otherwise match. Use the word view when a line changed only slightly.",
       },
       {
-        q: "What is the difference between the line and word views?",
-        a: "The line view shows whole lines added or removed, with old and new line numbers, which suits structural edits. The word view highlights the changed runs of words inside otherwise identical lines, which suits sentence-level edits.",
+        q: "What is in the unified patch?",
+        a: "The same change in the conventional plus-and-minus form, with three context lines around each hunk by default. It is a readable record of the comparison, not a patch intended for application.",
       },
       {
-        q: "Can I compare Word or PDF files?",
-        a: "Not directly. It compares plain text, so copy the text out of the files and paste it in. There is no DOCX or PDF parsing and no file upload, and the two panes are text areas rather than drop zones.",
+        q: "Why does one rewrapped paragraph show as many changes?",
+        a: "The line view depends on line breaks, so rewrapping replaces lines wholesale. The word diff is the view that shows the words barely moved — the difference between an edit and a formatting pass.",
       },
       {
-        q: "What is the unified patch for?",
-        a: "It is the standard +/- format with context lines and hunk headers, useful in a commit message, a code review or a message to a collaborator. It is generated from the same comparison as the on-screen diff, so the two always match.",
+        q: "Is my text uploaded for comparison?",
+        a: "No. The diff library runs synchronously in the page; nothing is queued or sent. The same pair of texts always produces the same patch, which is what makes the result trustworthy as a record.",
       },
       {
-        q: "Does it keep a history of versions?",
-        a: "No. There is no versioning here: you supply two texts and it compares them. To track a draft over time, export each version and compare the pair you care about.",
+        q: "Can I compare a whole book?",
+        a: "Yes, in one pass, though a very large pair takes a moment on first run. Everything is computed in the browser, so the delay is processing rather than transfer.",
       },
     ],
   },
 
   "legal-citation-formatter": {
-    keywords: ["legal citation formatter", "Bluebook", "signal", "short form", "table of authorities"],
-    intro:
-      "The legal citation formatter writes a case or a statute in Bluebook 21 form, adds the introductory signal and the Id. and supra short forms, and groups the citations you add into a simplified table of authorities.",
-    content: `Legal citation has its own book, and this legal citation formatter implements the part of it that a single entry needs. Enter a case — case name, volume, reporter, first page, court and year — or a statute — code title, section and year — and the formatter writes the Bluebook 21 citation. Around the citation it offers the two things a brief needs next: the introductory signal that tells the reader how the authority is being used, and the short forms for a later reference.
-
-Signals carry meaning in Bluebook style, and the tool lists the common ones — See, See also, Cf., But see, Contra, Accord, E.g., See generally — so you choose rather than guess. The chosen signal is prefixed to the citation, and the page prints the signal on its own so you can see what it thinks you picked. Short forms matter just as much: Id. is for a source cited in the immediately preceding note, and a supra form names the earlier note, so the tool builds "Id. at 460." or "Smith, supra note 4 at 460." from a note number and an optional pinpoint page.
-
-The table of authorities is the feature that turns a pile of citations into a section a reader can use. Citations you add are grouped with cases first and statutes after, alphabetised inside each group, and the whole table can be copied as plain text. It is a simplified table: real tables of authorities break out constitutional provisions, regulations and secondary authorities, and page numbers depend on the finished document, which this tool cannot know. The page states that plainly.
-
-Keeping the authorities in one place also makes the citations consistent: change the reporter abbreviation once and the group reflects it, and the same case cannot appear two ways in one table. When a citation is long or an entry is awkward, the short-form panel builds the second-reference form so a brief does not repeat the whole string each time. Signals and short forms are the two places legal writing is most often inconsistent, and printing them beside the citation is what lets a reader — and you — check them at a glance before the document goes out.
-
-Everything is computed from the fields you type. There is no lookup, no reporter-abbreviation table and no network call, which is exactly why the output is checkable against the current edition rather than merely plausible. The tool formats the case and statute patterns the citation engine implements; it does not cover signals in depth, jurisdiction-specific rules or the full Bluebook apparatus.
-
-This is not legal advice and not a citation checker, and the page says so twice. Bluebook rules are detailed and change between editions, reporter abbreviations vary by jurisdiction, and a citation that looks correct can still fail a court's own requirements. Use the formatter to get the mechanical shape right and to keep a consistent table of authorities, then verify every entry against the current edition before you file. Where the rule is subtle, the answer is in the book, and the tool points you there rather than inventing a rule.`,
-    howTo: [
-      { step: "Choose court case or statute and fill the fields: case name or code title, reporter or section, volume, page, court and year." },
-      { step: "Pick the introductory signal that matches how you are using the authority." },
-      { step: "Read the formatted citation, its in-text form and the short form." },
-      { step: "Add the citation to the table of authorities; cases and statutes group automatically." },
-      { step: "Copy the citation or the table, and check every entry against the current edition." },
+    keywords: [
+      "legal citation formatter",
+      "Bluebook 21",
+      "introductory signal",
+      "table of authorities",
     ],
-    whenToUse: `Use the legal citation formatter when the source is a case or a statute and you need the Bluebook shape, a signal and a short form. For the academic styles the {{citation-formatter|Citation Formatter}} covers APA 7, MLA 9 and Chicago 17 side by side, and when the legal citations sit in a document whose references also include articles and books, the {{bibliography-builder|Bibliography Builder}} keeps the non-legal sources in one list.
-
-When a case or statute is already in your notes and you only need the second-reference form, the short-form panel here builds Id. and supra directly; the {{footnote-formatter|Footnote Formatter}} handles the note layout if the citations are footnotes.`,
+    intro:
+      "The Legal Citation Formatter formats one case or statute in Bluebook 21 with an introductory signal, the short forms a second reference needs, and a simplified table of authorities.",
+    content:
+      "Legal citations carry more than the source: a signal, a short form, and a place in the table of authorities. This legal citation formatter adds all three around the citation engine's Bluebook 21 output, one authority at a time, so a brief's citations can be assembled consistently. Cases and statutes take different fields, and the form changes with the type rather than showing fields the authority cannot use.\n\n- Type: court case or statute.\n- Introductory signals: 12 forms in Bluebook order, from (none) and See through See also, See e.g., Cf., Compare, But see, But cf., Contra, Accord, E.g., and See generally.\n- Short form: the second-reference form for the same authority, with a note number for a supra reference.\n- In-text: the engine's own short in-text form shown beside the full citation.\n- Table of authorities: add authorities to a grouped list, cases before statutes, and copy the table.\n- Copy citation and Download legal-citation.txt.\n- Warnings appear when the fields a signal or short form depends on are missing, so the notice arrives before the brief does.\n\nThe citation itself comes from the same Bluebook layer as the general formatter, so the case and statute patterns are identical between the two tools. What this tool adds is brief mechanics: the signal is affixed in the order the rules expect, the short forms are generated from the same fields, and the table of authorities is assembled from the authorities you have added, grouped cases-then-statutes. Signals are affixed in the order the rules expect, which is the part of Bluebook mechanics a pattern engine can get exactly right. The scope is stated on the page: Bluebook 21 here covers the case and statute patterns implemented, not signals-in-depth, jurisdictional variations or the reporter-abbreviation tables, and nothing printed is legal advice. The table of authorities is assembled from the same rows, so a citation and its entry cannot drift apart while the brief is being written.\n\n- Bluebook support covers the implemented case and statute patterns, not the whole rule set.\n- Signals-in-depth, jurisdictional variations and reporter abbreviations are out of scope.\n- Nothing here is legal advice, and no citation is verified against a reporter.\n- The table of authorities is simplified: cases grouped before statutes, without page numbers.\n- Short forms depend on the fields typed; a missing note number leaves a supra reference incomplete.\n- The same authority can be formatted again without adding it twice; the table is yours to curate.\n- Cases and statutes keep separate field sets, so a statute is never asked for a court or a reporter.\n\nUse it while assembling a brief: format each authority once, choose its signal, add it to the table, and copy both halves. Check every citation against the reporter before filing, because no lookup happens here by design. If two authorities share a signal, that is normal: the signal belongs to the sentence rather than to the source, and it is chosen per citation. The tool's value is consistency, with every citation in the brief passing through the same engine. The table and the citation are rendered from the same fields, which is how a brief's table stays correct while its citations are edited.",
+    howTo: [
+      { step: "Choose whether the authority is a court case or a statute." },
+      { step: "Pick an introductory signal, or leave it at (none)." },
+      { step: "Fill the citation fields; the full citation, in-text form and short forms update as you type." },
+      { step: "Add the authority to the table of authorities, then Copy citation or Download." },
+    ],
+    whenToUse:
+      "Use this tool for briefs, where signals and short forms matter. When the job is a bibliography or a reference list in the academic styles, the {{citation-formatter|Citation Formatter}} covers all eight source types, and its Bluebook style prints the same base citation without the brief mechanics.\n\nWhen the legal source is quoted inside a sentence and you want the in-text shape beside the full form, the {{in-text-citation-builder|In-Text Citation Builder}} shows the forms for case and statute sources, and the {{endnote-manager|Endnote Manager}} can number Bluebook notes in the order you arrange them.",
     faqs: [
       {
-        q: "Which Bluebook edition is implemented?",
-        a: "The 21st edition, for the case and statute patterns the citation engine covers: case name, volume, reporter, first page, court and year; code title, section and year. Signals and the Id. and supra short forms are built around those.",
+        q: "Which signals are offered?",
+        a: "Twelve, in Bluebook order: (none), See, See also, See e.g., Cf., Compare, But see, But cf., Contra, Accord, E.g., and See generally. The chosen signal is prefixed to the citation exactly as selected.",
       },
       {
-        q: "Is the table of authorities complete?",
-        a: "No, and the page says so. It groups cases first and statutes after, alphabetised within each group. Real tables also break out constitutional provisions, regulations and secondary authorities, and their page numbers depend on the finished document.",
+        q: "What short forms are generated?",
+        a: "The second-reference forms for the authority, including a supra reference that uses the note number you enter when one is required. They are built from the same fields as the full citation.",
       },
       {
-        q: "When do I use Id. instead of supra?",
-        a: "Id. refers to the source cited in the immediately preceding note, so it needs no name. A supra form names the earlier note's number and works for any source cited before the last one. The tool builds both; the choice depends on where the note falls.",
+        q: "How is the table of authorities built?",
+        a: "From the authorities you add to the list, grouped with cases before statutes. It is deliberately simplified — a working table rather than a page-numbered filing-ready one.",
       },
       {
-        q: "Does it shorten reporter names automatically?",
-        a: "No. There is no reporter-abbreviation table and no lookup, so you type the reporter abbreviation exactly as the rules require. That keeps the output a function of your input, which is what makes it checkable.",
+        q: "Does Bluebook 21 mean every rule is implemented?",
+        a: "No, and the page says so. The engine implements case and statute patterns. Signals-in-depth, jurisdictional variations and the reporter-abbreviation tables are outside its scope, so citations should be checked against the reporter.",
       },
       {
         q: "Is this legal advice?",
-        a: "No. It is a formatting tool. Bluebook rules are detailed and vary by jurisdiction, and a mechanically correct citation can still fail a court's requirements, so verify every entry against the current edition before filing.",
+        a: "No. It is a formatting tool: every output is a function of the fields typed, with no lookup and no network call, and no citation is verified against any source.",
       },
     ],
   },
 
   "newspaper-article-citation-maker": {
-    keywords: ["newspaper article citation maker", "newspaper article", "byline", "APA 7", "URL"],
-    intro:
-      "The newspaper article citation maker quotes one article in APA 7, MLA 9 and Chicago 17 at once, with a per-style field checklist and warnings for the details a newspaper entry turns on.",
-    content: `A newspaper article is a citation type with its own traps: the byline may be missing, the date matters to the day, the paper's name has to be right, and it may have been read in print or online. This newspaper article citation maker fixes the source type and turns those details into a correct entry, in APA 7, MLA 9 and Chicago 17, with all three shown together so you can see how the same article reads in each style.
-
-You enter the byline, the headline, the newspaper's name, the publication date as you would read it (for example 5 May 2026), the year, and either the print page or the article's URL. The date handling is the part that most tools get wrong: APA keeps its own year slot and takes the day and month in parentheses, while MLA and Chicago print the whole publication date, so the formatter appends the year to a day-month date for those two styles only. That means the same "May 5" and "2021" you typed produce (2021, May 5) in APA and "May 5, 2021" in MLA and Chicago, with no manual fix-up.
-
-The per-style field checklist names what each edition expects — how the byline is inverted, whether the headline is cased and quoted, how the paper's name is styled, where the date sits, and how the location is given for print versus online. It is there so you can compare the tool's assumptions against the style manual or the target publication's own guidance, and so a missing field is visible rather than implied. Warnings appear for the fields a newspaper entry needs and the entry lacks: no newspaper name, no date to the day, no page or URL.
-
-The at-a-glance panel is the other half of the value: writing a footnote in one style while a bibliography needs another is a common source of mismatch, so the three entries sit side by side from the same fields. Change the byline and all three update; add the URL and each style places it where its edition puts it. That keeps a paper's citations internally consistent when the same article is quoted in two documents — a news story cited in an essay and again in a report — without retyping the details for each. None of it is looked up, so what you see is exactly the data you entered, arranged three ways.
-
-Everything is computed locally. There is no lookup: the tool does not fetch the headline, resolve the URL or confirm the paper's name, and it cannot tell whether an article you read online also appeared in print. It formats the values you supply, in three editions, and it says so rather than implying a service behind the form.
-
-Because the three entries are pure functions of the fields, the same article always produces the same citations and the same warnings, which is what makes the output checkable. Copy the entry you need for the style you are writing in, or download all three side by side, and treat the checklist as the answer to the editor's question of whether you gave them what they asked for.`,
-    howTo: [
-      { step: "Enter the byline, headline and the newspaper's name." },
-      { step: "Add the date as you read it, the year, and either the print page or the article's URL." },
-      { step: "Choose APA 7, MLA 9 or Chicago 17 and read the entry, the in-text form and any warnings." },
-      { step: "Compare the three entries in the at-a-glance panel and the field checklist below." },
-      { step: "Copy the entry you need, or download all three styles." },
+    keywords: [
+      "newspaper article",
+      "APA 7, MLA 9 and Chicago 17",
+      "publication date",
+      "all three styles",
     ],
-    whenToUse: `Use the newspaper article citation maker when the source is an article in a paper and the byline, date or print-versus-online detail is the thing to get right. When the article is on a website rather than in a paper, the {{citation-formatter|Citation Formatter}} handles the web page type, and when several articles join a longer reference list the {{reference-list-generator|Reference List Generator}} keeps the list and its markers together.
-
-If the article is an academic one, the {{academic-journal-reference-formatter|Academic Journal Reference Formatter}} covers volume, issue, page range and DOI, which a newspaper entry does not need.`,
+    intro:
+      "The Newspaper Article Citation Maker formats one article in APA 7, MLA 9 and Chicago 17 at once and shows the fields each style expects of a newspaper entry.",
+    content:
+      "A newspaper entry turns on the things a book entry does not: the byline, the publication date with its day and month, the paper's own name, and whether the article was read in print or online. This newspaper article citation maker pins the source type, so the field set is always the newspaper field set and the three styles can be compared from one source. The comparison is the point: the same article reads differently in each style, and seeing the three entries together is the fastest way to choose one.\n\n- All three styles at once: APA 7, MLA 9 and Chicago 17.\n- Publication date (month and day): MLA and Chicago append the entry's year to the date, while APA keeps the year in its own field, exactly as those manuals order it.\n- Every style at a glance: the short entry, the full entry and the in-text form for each style.\n- A field table shows what each style expects of a newspaper entry, so gaps are visible before copying.\n- Copy entry and Download newspaper-citation.txt.\n- The download is deliberately multi-style, so the choice of style can be deferred until the reading list is assembled.\n- The byline is entered one author per line and parsed with the same Family, Given rule as the rest of the family.\n\nThe formatting runs through the same typed-metadata engine as the rest of the family, with the source type fixed to a newspaper article. The date is printed exactly as entered: no parsing, no locale formatting and no guessed order, because date order differs by style and the engine refuses to decide for you. Where MLA and Chicago need a year and the date field holds only the month and day, the year is appended; APA keeps its own year slot. Warnings report the fields the chosen style expects but the entry lacks, with the year and URL notes handled per style rather than as generic noise. The in-text form is generated beside the entry so the pair travels together, and the download contains every style rather than one at a time.\n\n- The date is printed as entered; no parsing or normalisation is applied.\n- It formats one article at a time.\n- Nothing is inferred from the URL: online publication details are printed from the fields you supply, not from the address.\n- Bluebook is not offered for newspaper articles here.\n- No lookup: the article is not fetched and no byline or quotation is verified.\n- Warnings name gaps; they cannot confirm a page number or a headline.\n\nUse it when an article is going into a paper or a reading list and the venue wants a specific style. Fill the byline, the date and the paper first, then the online details, and read the field table once before copying. If the article exists both in print and online, decide which copy you actually read before filling the URL: a citation describes the source you used. Headlines are printed as entered, capitalisation included, and the date is the field most often wrong, so read it once more than the others. The field table also doubles as a checklist for a reading list assembled over several days.",
+    howTo: [
+      { step: "Fill the newspaper article fields, including the publication date's month and day." },
+      { step: "Choose APA 7, MLA 9 or Chicago 17." },
+      { step: "Read the entry, the in-text form and the field table for that style." },
+      { step: "Copy entry or Download newspaper-citation.txt for all three styles." },
+    ],
+    whenToUse:
+      "Use the maker when the source is a newspaper article and you want the three styles compared before choosing one. When the source is a journal article, the {{academic-journal-reference-formatter|Academic Journal Reference Formatter}} carries the right field checklist, and when it is a book or a website the {{citation-formatter|Citation Formatter}} handles every source type in one place.\n\nWhen the article will sit inside a sentence rather than a list, the {{in-text-citation-builder|In-Text Citation Builder}} shows the parenthetical and narrative shapes side by side.",
     faqs: [
       {
-        q: "Why does the date appear differently in each style?",
-        a: "APA keeps a separate year slot and puts the day and month in parentheses, while MLA and Chicago print the whole publication date. The tool appends the year to a day-month date for MLA and Chicago only, so the same input reads correctly in all three.",
+        q: "Why is the year appended to my date in MLA and Chicago?",
+        a: "Because those styles print the whole publication date in one place, so a month-and-day date gets the entry's year appended. APA keeps the year in its own slot and the date as entered, so its layout differs on purpose.",
       },
       {
-        q: "What if the article has no byline?",
-        a: "Enter the headline and leave the byline empty. The entry will start with the headline where the style allows it, and the warnings panel will note that no author was given so the missing name is visible rather than silently dropped.",
+        q: "My date looks exactly as I typed it — is that correct?",
+        a: "Yes, and it is deliberate. The engine does not parse or reorder dates, because date order differs by style and locale, and a wrong guess would be worse than the text you entered.",
       },
       {
-        q: "How do I cite a print article versus an online one?",
-        a: "For print, give the newspaper's page; for online, give the article's URL. The field checklist shows where each style puts the location, and the warnings note when neither a page nor a URL is present.",
+        q: "Can I format a magazine or a blog post here?",
+        a: "The source type is pinned to a newspaper article, so the field set and rules assume a newspaper: paper name, byline and a print-or-online reading. For other source types, the citation formatter is the right tool.",
       },
       {
-        q: "Does it fetch the article or check the newspaper's name?",
-        a: "No. There is no lookup and no network call. The tool formats the headline, newspaper name and URL you type; it cannot confirm that a paper exists under that name or that a URL resolves.",
+        q: "What does the field table show?",
+        a: "It lists what each of APA 7, MLA 9 and Chicago 17 expects of a newspaper entry, one column per style, so the fields you have not supplied are visible before you copy anything.",
+      },
+      {
+        q: "Is the article verified?",
+        a: "No. Nothing is fetched and no byline, headline or page number is checked. The tool formats what you type, with no network call anywhere.",
       },
     ],
   },

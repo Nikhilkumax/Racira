@@ -1,0 +1,642 @@
+[
+  {
+    "slug": "thesis-statement-builder",
+    "keywords": [
+      "thesis statement builder",
+      "thesis statement",
+      "research question",
+      "three reasons"
+    ],
+    "intro": "The Thesis Statement Builder assembles a debatable thesis from a topic, a position and up to three reasons, then checks the habits that make a thesis gradeable.",
+    "content": "A thesis statement is a position someone could reasonably dispute, and this thesis statement builder assembles yours from three parts. Name the topic, state the position the paper defends, and list up to three reasons; the tool joins them into one sentence — topic, position, because, reasons — and checks the habits that separate a thesis from a topic sentence.\n\nThe thesis panel takes the three parts. The statement panel shows the assembled sentence with its word count, and the checks panel names the habits that weaken a thesis: hedging verbs like I think or in my opinion, vague nouns like things, stuff or society, a thesis with no reasons behind it, and a statement so agreed nobody needs to read the paper. Scope and limits says the tool assembles and checks; it cannot judge whether the position is true or whether the evidence will hold.\n\n- Topic: the subject the paper is about, named once and plainly.\n- Position: what the paper claims, phrased so a reasonable reader could disagree.\n- Reasons: up to three, joined with and or commas depending on the count.\n- Output: one sentence — topic, position, because, reasons — with a word count beside it.\n- Checks: hedging, vagueness, missing reasons, and the obviousness test.\n\nThe assembly is sentence composition: the topic and position are joined and capitalised, the reasons are joined with commas or and by count, and the whole is ended with a single period. The checks are pattern lookups over a fixed hedge list and a fixed vagueness list, so the same wording always produces the same notes. Nothing about the argument is inferred; the reasons are exactly as strong as you wrote them. Read the notes as editing instructions rather than verdicts, because each one points at a habit you can fix in a single pass.\n\n- The builder does not supply a position; a thesis without a real claim is a summary.\n- The vagueness list is fixed; a vague word outside it passes the check.\n- Three reasons is the structural maximum, not a quality guarantee.\n- The word count is information, not a limit; disciplines differ on length.\n- The sentence is not saved anywhere, so copy it before closing the page.\n\nWrite the reasons before the position and the sentence nearly writes itself: what the paper can actually prove decides what it should claim. Then read the thesis against the research question the paper answers — if the question asks why, the thesis must carry reasons, and if it asks whether, the position must be falsifiable. Test the statement by arguing its opposite: if no reasonable person would argue the other side, the position is a fact wearing a thesis statement's clothes, and the paper has nothing to defend. Keep the strongest reason last, because the because clause is the part a sceptical reader reads first, and trim hedges until the sentence would survive being said out loud in a seminar.\n\nThe neighbours carry the argument forward: the argument mapping tool structures the reasons into claim, evidence and warrant, the counterargument generator drafts the objections a reader will raise, and the outline builder turns the finished statement into sections. When the wording drifts academic, the academic writing tone checker pulls the register back.",
+    "howTo": [
+      "Fill the topic, the position and up to three reasons.",
+      "Read the assembled statement and its word count.",
+      "Work through the checks — hedging, vagueness, missing reasons.",
+      "Copy the thesis and argue its opposite once before drafting."
+    ],
+    "whenToUse": "Use the thesis statement builder when the research question is settled and the one-sentence answer is not. The {{argument-mapping-tool|Argument Mapping Tool}} structures the reasons the thesis lists, and the {{counterargument-generator|Counterargument Generator}} drafts the objections the paper must answer. When the statement needs to become a paper, the {{outline-builder|Outline Builder}} turns it into sections, and the academic writing tone checker in this domain keeps the register honest.",
+    "faqs": [
+      {
+        "q": "Why does the thesis need reasons in it?",
+        "a": "Because a thesis with reasons is a promise the paper can keep: each reason becomes a section, and the reader knows where the argument is going. The because clause is what separates a position from an announcement of a topic."
+      },
+      {
+        "q": "What counts as a vague word?",
+        "a": "A fixed list — things, stuff, society, people, interesting, important, good, bad — matched as whole words. The list catches the nouns that most often hide an unargued claim, though a vague phrase outside it will pass."
+      },
+      {
+        "q": "Can the tool tell me if my thesis is good?",
+        "a": "No. It checks mechanical habits — hedging, vagueness, structure — and says nothing about whether the position is true, original or defensible. Those are judgements for you and your reader."
+      },
+      {
+        "q": "How long should the statement be?",
+        "a": "Long enough to carry the reasons and short enough to hold in one breath, which for three reasons usually lands between twenty-five and forty words. The panel prints the count; no discipline-wide limit is enforced."
+      },
+      {
+        "q": "Is my thesis sent anywhere?",
+        "a": "No. The assembly and checks run in the page from the fields you typed, and the sentence disappears when the tab closes unless you copied it first."
+      }
+    ]
+  },
+  {
+    "slug": "argument-mapping-tool",
+    "keywords": [
+      "argument mapping tool",
+      "evidence",
+      "warrant",
+      "reasons"
+    ],
+    "intro": "The Argument Mapping Tool structures a conclusion and its reasons into claim, evidence and warrant, then reports which links are missing.",
+    "content": "An argument is only as strong as its weakest hidden link, and this argument mapping tool makes the links explicit. Give it a conclusion, at least two reasons, and for each reason the evidence that supports it and the warrant that connects the evidence to the claim; the tool renders the map as markdown, numbers the links, and reports which parts of the structure are missing.\n\nThe map panel holds the conclusion and the reason rows. Each reason carries its own evidence and warrant fields, so a reason with no evidence behind it is visible immediately. The output panel shows the assembled map — conclusion first, then each reason with its supports and the warrant that licenses the step — and the completeness panel reports the counts: reasons supplied, evidence supplied, warrants supplied. Scope and limits says the tool checks structure, not truth.\n\n- Conclusion: the claim the whole map exists to support.\n- Reasons: at least two, because one reason is an assertion rather than an argument.\n- Evidence: what the reason rests on — a figure, a source, an observation.\n- Warrant: the principle that makes the evidence count for the reason.\n- Output: markdown you can paste into notes, slides or a paper draft.\n- Completeness: a count of every link, so gaps cannot hide.\n\nThe rendering is markdown composition: the conclusion is written as a heading, each reason becomes a numbered block, and the evidence and warrant sit under their reason with labels. The completeness check is arithmetic — counts of filled and empty fields — and the checks panel names the specific gaps rather than scoring the whole. The map never evaluates whether the evidence is real or whether the warrant is sound; it shows you the shape so you can judge. Map the argument early and again after the objections land; a structure that survives its own counterarguments is the draft that gets to keep its conclusion.\n\n- A filled map is not a sound argument; evidence can be weak and warrants wrong.\n- Two reasons is the structural minimum, not an ideal count.\n- The tool does not rank reasons or order them by strength.\n- Warrants are the part writers skip; the panel flags a missing one by name.\n- The map is not stored, so copy the markdown before leaving the page.\n\nFill the warrants last and the map will teach you something: the warrant is where weak arguments hide, because a reason that feels obvious is usually resting on a principle nobody has stated out loud. Write each warrant as a sentence a sceptic could accept — when evidence of this kind holds, the conclusion follows — and the map stops being a diagram and becomes a test. Then read the reasons against each other: two reasons that both rest on the same warrant are one reason wearing two coats, and the completeness panel cannot catch that, only you can. When a reason resists a warrant, split it or cut it, because an argument with three honest links beats one with five decorative ones.\n\nThe neighbours test the map from outside: the logical fallacy detector scans the finished wording for named fallacy patterns, the counterargument generator drafts the objections the map has not answered, and the thesis statement builder compresses the conclusion into one sentence. The clarity score tool in this domain flags the sentences a reader will stumble over.",
+    "howTo": [
+      "Write the conclusion and at least two reasons.",
+      "Add the evidence and the warrant for each reason.",
+      "Read the completeness panel and fill the named gaps.",
+      "Copy the markdown map into your draft or notes."
+    ],
+    "whenToUse": "Use the argument mapping tool when a position feels right but the structure behind it is fog. The {{logical-fallacy-detector|Logical Fallacy Detector}} scans the wording for named fallacies, and the {{counterargument-generator|Counterargument Generator}} drafts what an opponent would say to the map. When the conclusion needs one sentence, the {{thesis-statement-builder|Thesis Statement Builder}} compresses it, and the clarity score tool in this domain cleans up the prose.",
+    "faqs": [
+      {
+        "q": "What is a warrant, exactly?",
+        "a": "The principle that makes the evidence count for the reason: if the evidence is this survey of two hundred users, the warrant is that two hundred users are enough to represent the group. Warrants are the links writers leave implicit, which is where bad arguments hide."
+      },
+      {
+        "q": "Why is one reason not enough?",
+        "a": "A single reason makes the conclusion rest entirely on one link, so the map cannot show whether the argument has breadth. Two reasons is the minimum for a structure worth reading; the tool enforces the floor without pretending it is a virtue."
+      },
+      {
+        "q": "Does the tool check my evidence?",
+        "a": "No. It records what you supply and reports whether the fields are filled. Whether the evidence is real, current or relevant is outside the tool's reach, and the scope panel says so."
+      },
+      {
+        "q": "What format is the output?",
+        "a": "Markdown: the conclusion as a heading, each reason as a numbered block with labelled evidence and warrant lines. Paste it into notes, a paper draft or a slide's speaker notes and the structure survives."
+      },
+      {
+        "q": "Is my argument kept anywhere?",
+        "a": "No. The map is assembled in the page from what you typed, and nothing is stored or transmitted; the markdown is gone when the tab closes unless you copied it."
+      }
+    ]
+  },
+  {
+    "slug": "counterargument-generator",
+    "keywords": [
+      "counterargument generator",
+      "counterargument",
+      "claim shapes",
+      "concession"
+    ],
+    "intro": "The Counterargument Generator reads a claim through six published frames, drafts the objections each frame produces, and flags the absolute wording that invites them.",
+    "content": "A claim survives contact with readers only if you met the objections first, and this counterargument generator drafts them for you. Paste the claim, pick its shape — policy, universal, predictive, causal, comparative or descriptive — and the tool applies the frames that fit that shape: where the claim stops being true, the counterexample that breaks it, the cost of acting on it, the definition it leans on. Each frame returns an objection prompt and a plan slot, and the wording check flags the absolutes that make objections easy.\n\nThe claim panel takes the claim and its shape. The objections panel lists one drafted counterargument per applicable frame, each with a prompt you can answer in a sentence, and the checklist panel carries the concession moves — name the objection, grant what is true in it, answer with the reason the claim still holds. The wording check names the absolutes in the claim: all, every, always, never, only, impossible. Scope and limits says the tool drafts objections from fixed frames; it cannot know your subject's literature.\n\n- Claim shapes: policy, universal, predictive, causal, comparative and descriptive.\n- Frames: boundary, counterexample, cost, definition and the rest, applied by shape.\n- Objection plan: each objection carries a prompt to answer and a slot for the answer.\n- Concession checklist: name it, grant it, answer it — the three moves readers trust.\n- Wording check: absolutes and vagueness flagged by word.\n- Output: a plan you can paste under the claim in your draft.\n\nThe drafting is template composition: each frame holds a published prompt pattern, the applicable frames are chosen by the claim's shape, and the absolutes come from a fixed word list matched as whole words. The same claim always produces the same objections, which is the point — the frames are the objections experienced readers reach for, written down. No literature is searched and no subject knowledge is applied. Keep the strongest objection for the paragraph before the conclusion, because answering it there reads as confidence, while burying it in the middle reads as fear.\n\n- The frames are general; a specialist objection your field knows may be missing.\n- A vague claim produces weak objections, because there is nothing to push against.\n- The concession checklist is advice, not output — the answers are yours.\n- Absolutes are flagged by presence, not by whether they are earned.\n- Nothing is stored, so copy the plan before leaving the page.\n\nAnswer the objections in the slots the tool provides and the counterargument section writes itself: one objection per paragraph, the concession doing the diplomacy, the answer doing the work. Then reread the claim with the absolutes removed — most claims become more defensible when every becomes most and never becomes rarely, and the wording check shows you exactly where the exposure is. The strongest use of the tool is before drafting, not after: a claim that survives six frames in the planning stage survives review, and one that cannot produce a single honest answer to the boundary frame is a claim to restate rather than defend.\n\nThe neighbours finish the defence: the argument mapping tool structures the reasons behind the claim, the logical fallacy detector checks the finished wording for named fallacies, and the debate script formatter turns the whole exchange into timed speeches. The thesis statement builder in this domain compresses the surviving claim.",
+    "howTo": [
+      "Paste the claim and pick its shape.",
+      "Read the objections the applicable frames produce.",
+      "Answer each objection prompt in its slot.",
+      "Work through the wording check and copy the plan."
+    ],
+    "whenToUse": "Use the counterargument generator when a claim is drafted and the objections have not been met yet. The {{argument-mapping-tool|Argument Mapping Tool}} structures the reasons the claim rests on, and the {{debate-script-formatter|Debate Script Formatter}} turns claim and objections into timed speeches. When the claim is the paper's thesis, the {{thesis-statement-builder|Thesis Statement Builder}} holds the one-sentence version, and the logical fallacy detector in this domain audits the wording.",
+    "faqs": [
+      {
+        "q": "Why does the claim's shape matter?",
+        "a": "Because different claims are attacked differently: a policy claim invites cost objections, a universal claim invites counterexamples, a predictive claim invites boundary cases. The shape chooses which frames apply, so the objections you get are the ones that fit."
+      },
+      {
+        "q": "What are the six shapes?",
+        "a": "Policy — something should be done; universal — true of all cases or none; predictive — what will happen; causal — one thing causes another; comparative — more or less than something else; descriptive — how things are with no marked shape. The tool picks the shape by what you tell it."
+      },
+      {
+        "q": "Why are absolutes flagged?",
+        "a": "Words like all, every, always, never, only and impossible make a claim easy to break with a single example, so they mark the claim's exposure. The check names them; whether the absolute is earned is your call."
+      },
+      {
+        "q": "Does the tool write my rebuttals?",
+        "a": "No. It drafts the objections and gives each a slot with a prompt; the answers are yours to write. That is deliberate — a rebuttal the tool invented would be worthless in review."
+      },
+      {
+        "q": "Is the plan saved between visits?",
+        "a": "No. The objections and slots are generated in the page from your claim, and the plan disappears when the tab closes unless you copied it."
+      }
+    ]
+  },
+  {
+    "slug": "logical-fallacy-detector",
+    "keywords": [
+      "logical fallacy detector",
+      "fallacy",
+      "ad hominem",
+      "false dilemma"
+    ],
+    "intro": "The Logical Fallacy Detector scans a passage sentence by sentence against nine published fallacy patterns and quotes the exact words that triggered each finding.",
+    "content": "A fallacy is easier to commit than to notice, and this logical fallacy detector reads your text the way a hostile reader would. Paste the passage and it splits it into sentences, matches each one against nine published patterns — appeal to popularity, false dilemma, hasty generalisation, slippery slope, ad hominem, straw man, appeal to authority, circular reasoning and appeal to emotion — and reports every hit with the sentence quoted and the rule named, so you can judge each finding instead of trusting a score.\n\nThe input panel takes the passage. The findings panel lists one card per hit: the rule's name, the sentence that matched, and the note that explains what the pattern is. The report panel assembles the findings into a readable summary you can paste into a margin or a review note. Scope and limits states the honest boundary: pattern matching catches the wording habits fallacies travel in, not the logic underneath, and a clean pass is not a licence.\n\n- Nine rules: popularity, false dilemma, hasty generalisation, slippery slope, ad hominem, straw man, authority, circular reasoning, emotion.\n- Sentence split: each sentence is checked on its own, so findings point somewhere.\n- Quoted evidence: every finding carries the exact sentence that triggered it.\n- Report: the findings assembled into plain text you can paste.\n- Scope note: pattern matching names suspects; judgement decides guilt.\n\nThe detection is lexicon and pattern work: each rule holds a set of published phrase patterns, the passage is split into sentences with the shared tokenizer, and every match records its rule and its evidence. The same text always produces the same findings, which makes the tool usable in a workshop — two readers arguing about a finding can see the same quoted words. No logic engine runs underneath and no claim is evaluated. Run the detector on your own drafts before anyone else's, because the habits it catches are cheapest to fix in the paragraph you have not fallen in love with yet.\n\n- A finding is a suspect, not a verdict; context can make the wording innocent.\n- The nine patterns are fixed; a fallacy with different wording passes unseen.\n- Sentence splitting is mechanical; long semicolon chains read as one sentence.\n- The report ranks nothing — the order is the passage's order.\n- The passage is not stored, so copy the report before closing the page.\n\nRead each finding against its sentence rather than the count: an appeal to authority in a literature review is how the genre works, and a slippery slope in a satire may be the joke. The tool's value is that it makes you look — every finding is a place a sceptical reader will slow down, and the quoted sentence tells you whether the slowness is your problem. Then run the passage again after edits: the detector is deterministic, so the before-and-after findings are comparable, and a passage that sheds its findings without losing its force is the goal. Keep the strongest sentences and cut the ones that survive only on volume.\n\nThe neighbours finish the audit: the counterargument generator drafts the objections the passage has not met, the argument mapping tool structures the reasons underneath it, and the clarity score tool flags the sentences that stumble before they persuade. The tone analyzer in this domain catches the emotional register the appeal-to-emotion rule points at.",
+    "howTo": [
+      "Paste the passage into the input panel.",
+      "Read the findings with their quoted sentences.",
+      "Judge each finding against its context.",
+      "Copy the report, edit, and run the passage again."
+    ],
+    "whenToUse": "Use the logical fallacy detector when a passage must survive hostile readers — a review, a debate, an op-ed. The {{counterargument-generator|Counterargument Generator}} drafts the objections the wording invites, and the {{argument-mapping-tool|Argument Mapping Tool}} rebuilds the structure the findings point at. When the problem is register rather than logic, the tone analyzer in this domain names the drift, and the clarity score tool cleans the sentences.",
+    "faqs": [
+      {
+        "q": "Which fallacies does the detector know?",
+        "a": "Nine published patterns: appeal to popularity, false dilemma, hasty generalisation, slippery slope, ad hominem, straw man, appeal to authority, circular reasoning and appeal to emotion. Each rule is a set of phrase patterns, and the list is fixed."
+      },
+      {
+        "q": "It flagged my sentence — is it a fallacy?",
+        "a": "It is a suspect. The rule matched the wording a fallacy usually travels in, but context decides: citing an authority is normal in a literature review, and always can be literal. Read the quoted sentence and judge."
+      },
+      {
+        "q": "Why quote the whole sentence?",
+        "a": "So the finding points somewhere. A score without evidence teaches nothing; the quoted sentence lets you see exactly which words tripped the rule and whether they are a problem in context."
+      },
+      {
+        "q": "Does a clean pass mean the argument is sound?",
+        "a": "No. The detector matches wording patterns; an unsound argument in careful wording passes clean. The tool narrows where to look, and the scope panel states that limit plainly."
+      },
+      {
+        "q": "Is my passage uploaded anywhere?",
+        "a": "No. The split, the matching and the report all run in the page from the text you pasted, and the passage is gone when the tab closes unless you copied the report."
+      }
+    ]
+  },
+  {
+    "slug": "debate-script-formatter",
+    "keywords": [
+      "debate script formatter",
+      "motion",
+      "rebuttal",
+      "British Parliamentary"
+    ],
+    "intro": "The Debate Script Formatter turns a motion and a format into the full slate of timed speeches, with each slot's job, order and speaking time on one card.",
+    "content": "A debate is won in preparation, and this debate script formatter lays the preparation out. Give it the motion and pick a format — British Parliamentary, Asian Parliamentary, public forum or Lincoln-Douglas — and the tool produces the script skeleton: every speech in order, with its speaker, its side, its minutes and the one job the speech exists to do, from defining the motion to delivering the rebuttal and the close.\n\nThe motion panel takes the motion text and the format switch. The script panel lists the speeches as cards in speaking order, each with its time and its brief, and the notes panel explains the format's rules — the eight speeches of seven minutes in British Parliamentary, with the closing half required to extend the opening half's case rather than repeat it. Scope and limits says the formatter arranges the debate; it does not write the arguments.\n\n- Four formats: British Parliamentary, Asian Parliamentary, public forum, Lincoln-Douglas.\n- Every card: speaker, side, minutes, and the single job of that speech.\n- Order: the speaking order is the format's published one.\n- Motion: carried at the top of the script so every speech answers it.\n- Notes: the format's rules summarised beside the script.\n- Output: copyable as a whole, one card per speech.\n\nThe assembly is slot composition: each format is data — slots with id, label, side, minutes, brief and flags — and the script is the slots rendered in order with the motion attached. The briefs are the format's published expectations, so a British Parliamentary whip speech carries a different job from a Lincoln-Douglas constructive. Nothing is argued, timed or scored; the skeleton is the product. Print one card per speaker and let them time themselves against it, because a speech that has never been spoken aloud is a draft wearing a suit.\n\n- The briefs tell you what each speech must do, not what to say in it.\n- Speaking times are the format's conventions; your tournament may vary them.\n- The formatter does not judge which side the motion favours.\n- Extensions, points of information and prep time are format rules, noted but not modelled.\n- The script is not stored, so copy it into your prep doc.\n\nWork the cards as a team plan: assign the speeches, then write the rebuttal bank before the constructive material, because the rebuttal is the speech debaters under-prepare and the one judges remember. Each card's brief is a testable promise — if the closing half cannot state what it extends from the opening half, the case split is wrong, and the British Parliamentary note says so in one line. Then time one speech aloud against the card's minutes: a brief that takes nine minutes to deliver is a brief to cut, and the card's number is the honest clock. The motion at the top of the script is the anchor — every speech should be readable as an answer to it, and any card that is not is material for a different debate.\n\nThe neighbours stock the speeches: the counterargument generator drafts the objections each rebuttal needs, the logical fallacy detector checks the wording for the patterns judges penalise, and the argument mapping tool structures the case the constructive speeches deliver. The thesis statement builder in this domain writes the one-sentence version of each side's case.",
+    "howTo": [
+      "Enter the motion and pick the format.",
+      "Read the speech cards and each one's job.",
+      "Assign speeches and draft the rebuttal bank first.",
+      "Copy the script and time one speech against its card."
+    ],
+    "whenToUse": "Use the debate script formatter when the motion is set and the prep needs a shape. The {{counterargument-generator|Counterargument Generator}} fills the rebuttal cards, and the {{logical-fallacy-detector|Logical Fallacy Detector}} audits the wording before a judge hears it. When a case needs structure, the {{argument-mapping-tool|Argument Mapping Tool}} lays the reasons out, and the thesis statement builder in this domain compresses each side's claim.",
+    "faqs": [
+      {
+        "q": "Which debate formats are supported?",
+        "a": "Four: British Parliamentary, Asian Parliamentary, public forum and Lincoln-Douglas. Each is a published set of slots — speaker, side, minutes and job — and the script renders the chosen format's slots in speaking order."
+      },
+      {
+        "q": "What does each card tell me?",
+        "a": "The speaker, the side, the speaking time and the single job the speech exists to do, such as defining the motion, rebuilding the case or delivering the close. The briefs are the format's expectations, not scripts to read aloud."
+      },
+      {
+        "q": "Does the tool write arguments for my side?",
+        "a": "No. It produces the skeleton — order, times and jobs — and leaves the argument to you and your evidence. The scope note says the formatter arranges, it does not debate."
+      },
+      {
+        "q": "Are the speaking times exact?",
+        "a": "They are the formats' standard conventions, printed on each card. Tournaments vary times and prep allowances, so treat the card as the default and adjust to your circuit."
+      },
+      {
+        "q": "Is my motion stored?",
+        "a": "No. The script is assembled in the page from the motion you typed, and nothing is stored or sent; copy the script before the tab closes."
+      }
+    ]
+  },
+  {
+    "slug": "scientific-abstract-builder",
+    "keywords": [
+      "scientific abstract builder",
+      "word budget",
+      "key results",
+      "hedges"
+    ],
+    "intro": "The Scientific Abstract Builder assembles the five roles of a research abstract under a word budget, and checks which roles the draft actually covers.",
+    "content": "An abstract is five jobs in a few hundred words — what is known, what is missing, what you did, what you found, what it means — and this scientific abstract builder assembles them in order. Fill the five roles: the context, the gap, the approach with its design and sample, the key results with their figures, and the implication; the tool joins them into one paragraph, counts the words against the published 200-to-300 band, and checks each role for the markers that show the job was done.\n\nThe roles panel takes one field per role. The draft panel shows the assembled paragraph with its word count against the budget band, and the checks panel names the weak roles: a gap with no gap marker — remains unclear, little is known, no study — an approach with no method words, results with no figures, a hedge like might or possibly doing the work of a finding. Scope and limits says the builder assembles and checks shape; it cannot judge whether the science is sound.\n\n- Context: what is established, in one or two sentences.\n- Gap: what is not known, phrased with an explicit gap marker.\n- Approach: the design, the sample and what was measured.\n- Key results: the findings with their figures, not their adjectives.\n- Implication: what the results suggest and for whom.\n- Budget: 200 to 300 words, counted and shown against the band.\n\nThe assembly is role composition: each field is trimmed and joined in the published order, the word count runs against the fixed band, and the role checks are marker regexes — a gap phrase for the gap, method words for the approach, digits for the results, a hedge list for the findings. The same draft always produces the same notes, and every note quotes the habit rather than scoring the science. Write the abstract last and the paper thanks you, because the five roles are only honest once the results have stopped moving and the implications have settled.\n\n- The band is the usual range for a scientific abstract, not a journal's rule.\n- The gap, method and hedge checks are marker lists; elegant wording can evade them.\n- Figures in the results are checked by presence, not correctness.\n- The builder writes no sentences; every claim is yours.\n- The draft is not stored, so copy it before closing the page.\n\nFill the results first and the abstract tightens: the figures decide which gap was worth stating, and a gap written before the results usually promises more than the study delivered. Then read the implication against the results — an implication the figures cannot carry is the sentence reviewers underline — and cut the hedges the check names, because an abstract that hedges its own findings invites the reader to hedge their interest. The word budget is a discipline, not a nuisance: at 300 words there is room for exactly one story, and the role checks show you which sentences are not part of it. When the draft is past the band, cut context before results and results before implication, in that order.\n\nThe neighbours compress and clean the rest: the text summarizer shortens a long background section, the key points extractor pulls the findings out of a results draft, and the academic writing tone checker holds the register impersonal. The word count tool in this domain does the counting the panel repeats.",
+    "howTo": [
+      "Fill the five roles: context, gap, approach, results, implication.",
+      "Read the assembled paragraph against the word budget.",
+      "Work through the role checks — gap markers, method words, figures, hedges.",
+      "Copy the abstract and trim to the journal's limit."
+    ],
+    "whenToUse": "Use the scientific abstract builder when a study is finished and the 250-word door is not yet built. The {{text-summarizer|Text Summarizer}} compresses a background that runs long, and the {{key-points-extractor|Key Points Extractor}} pulls candidate results from a findings draft. When the register drifts, the {{academic-writing-tone-checker|Academic Writing Tone Checker}} pulls it back, and the word count tool in this domain verifies the final count.",
+    "faqs": [
+      {
+        "q": "What are the five roles?",
+        "a": "Context — what is established; gap — what is not known; approach — the design, sample and measures; key results — the findings with their figures; implication — what the results suggest. The builder assembles them in that order because readers expect it."
+      },
+      {
+        "q": "Why 200 to 300 words?",
+        "a": "It is the band most journals ask for and most abstracts miss on the long side. The builder counts against that published band and shows the number; your target journal's limit overrides it."
+      },
+      {
+        "q": "What is a gap marker?",
+        "a": "A phrase that states the hole explicitly — remains unclear, little is known, has not been tested, no study has. The check looks for one because a gap the reader cannot point to reads as background noise."
+      },
+      {
+        "q": "Why are hedges flagged in the results?",
+        "a": "Because might and possibly in the findings sentence soften a result the data already earned. Hedges belong in the implication, where uncertainty is honest; in the results they read as doubt about your own measurements."
+      },
+      {
+        "q": "Does the builder check my figures?",
+        "a": "Only that the results carry digits. Whether a figure is right, significant or honest is outside the tool, and the scope note says so — the builder checks shape, not science."
+      }
+    ]
+  },
+  {
+    "slug": "irb-consent-form-template",
+    "keywords": [
+      "IRB consent form template",
+      "informed consent",
+      "withdrawal",
+      "contacts"
+    ],
+    "intro": "The IRB Consent Form Template assembles the nine required sections of an informed consent form in reading-level-checked plain language, and flags the promises a consent form must never make.",
+    "content": "A consent form is a promise of honesty, and this IRB consent form template assembles yours section by section. Fill the study title, the purpose, what participation involves, the time required, the risks, the benefits, the confidentiality limits, the withdrawal terms and the contacts; the tool stacks them into the standard form, checks the reading level of the whole, and flags the three promises a consent form must never make — guaranteed outcomes, claims of no risk, and payment terms that pressure participation.\n\nThe study panel takes the nine sections. The form panel shows the assembled document with section headings in the required order, and the checks panel names the faults: contact details missing or unreadable — an email pattern and a phone pattern are tested — a promise word like guarantee or will cure, a no-risk phrase like minimal risk without qualification, and payment wording that ties compensation to completion. Scope and limits says the template assembles and flags; it is not a substitute for your IRB's review.\n\n- Nine sections: title, purpose, procedures, duration, risks, benefits, confidentiality, voluntary participation and withdrawal, contacts.\n- Contacts: an email and a phone number, both pattern-checked.\n- Promise scan: guarantee, will cure, assured, definitely, promise.\n- Risk scan: no, minimal or zero risk without a qualifier.\n- Payment scan: wording that pays only on completion or per visit.\n- Reading level: the whole form scored for sentence length and word weight.\n\nThe assembly is section composition: each section carries its heading and its text in the published order, and the checks are pattern tests — contact patterns, a promise list, a no-risk phrase, and payment terms that pressure. The reading check counts long sentences and heavy words so the form can be read by the person signing it, which is the point of informed consent. Nothing is legal advice and no section is invented.\n\n- The nine sections are the common skeleton; your board's template wins where they differ.\n- The scans are pattern lists; a promise in other words passes them.\n- The reading check measures sentence mechanics, not comprehension.\n- Consent is a process; the form is one document inside it.\n- Nothing is stored, so copy the form before leaving the page.\n\nWrite the withdrawal section first and the rest of the form levels up: the right to leave at any time without penalty is the sentence that makes every other section believable, and the payment scan exists because compensation is where that promise usually quietly dies. Then read the risks section aloud to someone outside the field — if a sentence needs a second reading, the risk is being described in the study's language rather than the participant's, and the reading check points at the long sentences first. Keep the contacts human: a named person with an email and a phone number answers more ethical questions than a paragraph of assurance, and the pattern check is there so the section cannot be left with a placeholder in it.\n\nThe neighbours test the other documents of a study: the survey question builder cleans the instrument the participants answer, the readability grade scorer shows how plain the form reads, and the peer review checklist frames the ethics review the form feeds. The tone analyzer in this domain catches the register that drifts institutional.",
+    "howTo": [
+      "Fill the nine sections with your study's facts.",
+      "Read the assembled form top to bottom.",
+      "Work through the checks — contacts, promises, risk phrases, payment terms.",
+      "Copy the form and take it to your board's process."
+    ],
+    "whenToUse": "Use the IRB consent form template when a study is designed and the consent paperwork is next. The {{survey-question-builder|Survey Question Builder}} cleans the instrument the form describes, and the {{readability-grade-scorer|Readability Grade Scorer}} shows how plain the finished document reads. When the study heads to review, the {{peer-review-checklist|Peer Review Checklist}} frames the ethics questions the form must answer, and the tone analyzer in this domain removes the institutional register.",
+    "faqs": [
+      {
+        "q": "What are the nine required sections?",
+        "a": "Title and investigator, purpose, what participation involves, time required, risks, benefits, confidentiality, voluntary participation and withdrawal, and contacts. The template assembles them in that order because that is the order a reader needs."
+      },
+      {
+        "q": "Why are payment terms flagged?",
+        "a": "Because compensation tied to completion — paid only if you finish, per-session rates — pressures participation and undermines the voluntary section. The scan names the patterns; your board decides what is acceptable."
+      },
+      {
+        "q": "What does the reading check measure?",
+        "a": "Sentence length and word weight across the whole form, the mechanical habits that make a document hard to read aloud. It is a proxy for accessibility, not a comprehension test, and the panel says so."
+      },
+      {
+        "q": "Does the template replace my IRB's review?",
+        "a": "No. It assembles the standard skeleton and flags promise, risk and payment patterns; the board's own template, process and approvals govern. The scope note states this in the tool."
+      },
+      {
+        "q": "Is the form sent anywhere?",
+        "a": "No. The assembly and the checks run in the page from what you typed, and nothing is stored or transmitted; copy the form before closing the tab."
+      }
+    ]
+  },
+  {
+    "slug": "survey-question-builder",
+    "keywords": [
+      "survey question builder",
+      "leading question",
+      "double-barrelled",
+      "respondent"
+    ],
+    "intro": "The Survey Question Builder checks each question against the four faults that ruin response data — leading, double-barrelled, absolute and loaded wording — and reports them per question.",
+    "content": "A survey is only as honest as its worst question, and this survey question builder reads every line the way a respondent's bias would. Paste the questions — one per line — and the tool checks each against the four published faults: leading wording that suggests the answer, double-barrelled questions that ask two things at once, absolutes that force a position, and loaded words that carry an evaluation; each question also gets a word count, because a question that cannot be read in one breath cannot be answered honestly.\n\nThe questions panel takes the lines. The report panel lists every question with its issues — the rule name, the note, and the word count — so a question with two faults shows both, and the summary counts the clean questions against the rest. The answer-type guide beside the panel pairs each question with the scale it suits: frequency, agreement, or the respondent's own words. Scope and limits says the builder detects wording patterns; it cannot know your respondents.\n\n- Four rules: leading, double-barrelled, absolute, loaded.\n- Leading: don't you agree, isn't it, obviously, clearly, surely.\n- Double-barrelled: any and or or that joins two asks in one question.\n- Absolute: always, never, every, everyone, all, none, only.\n- Loaded: radical, reckless, bureaucratic, dangerous, obvious, backward.\n- Per-question word count, with long questions named.\n\nThe analysis is rule matching: each line is checked against the four pattern sets, matched as whole words, and the word count runs from the shared tokenizer. The same survey always produces the same report, which makes the tool usable in a methods seminar — students can compare their rewrites against the same faults. Sort the report by fault rather than by line, because fixing every double-barrelled question in one pass teaches the habit faster than fixing one question at a time. No sampling knowledge is applied and no question is rewritten for you. Run the set through the report after every rewrite round; the clean count rising is the instrument getting ready for the field.\n\n- The rules catch wording habits; a leading question in careful words passes.\n- The and test is strict: two genuinely single ideas joined by and are flagged anyway.\n- The word-count line is guidance, not a limit.\n- Answer types are advice beside the panel, not enforced structure.\n- Nothing is stored, so copy the report before revising.\n\nFix the double-barrelled questions first — split every and into two lines — because they corrupt the data silently: a respondent who agrees with half the question has nowhere to put the disagreement, and no statistical cleaning recovers it. Then blunt the leading questions by deleting the adverb, not rephrasing the ask: obviously and clearly are the words that do the leading, and the sentence behind them is usually fine. Absolutes come next, because always and never force respondents who mean sometimes to choose a lie. Read the finished survey as the respondent — one breath per question, one idea per line, no adjective the data cannot cash.\n\nThe neighbours clean the surrounding documents: the readability grade scorer shows how plain the instrument reads, the IRB consent form template carries the study's ethics wrapper, and the meeting summary formatter structures the findings session afterwards. The tone analyzer in this domain catches the register that drifts formal.",
+    "howTo": [
+      "Paste the questions, one per line.",
+      "Read each question's issues and word count.",
+      "Split double-barrelled lines and delete leading adverbs.",
+      "Re-paste the revised set until the report is clean."
+    ],
+    "whenToUse": "Use the survey question builder when an instrument exists and the fielding date is close. The {{readability-grade-scorer|Readability Grade Scorer}} shows how plain the questions read, and the {{irb-consent-form-template|IRB Consent Form Template}} builds the consent wrapper the survey ships with. When the results come back, the {{meeting-summary-formatter|Meeting Summary Formatter}} structures the readout, and the tone analyzer in this domain keeps the follow-up neutral.",
+    "faqs": [
+      {
+        "q": "What are the four faults?",
+        "a": "Leading — wording that suggests the answer; double-barrelled — two asks joined by and or or; absolute — always, never, every and friends that force a false position; loaded — words like radical or dangerous that carry the evaluation inside the question. Each rule is a fixed word list."
+      },
+      {
+        "q": "Why is every and flagged?",
+        "a": "Because the test cannot tell a true compound ask from two ideas stapled together, and the safe fix is the same either way: split the line into two questions. The rule is strict on purpose, and the note tells you which word triggered it."
+      },
+      {
+        "q": "How long should a question be?",
+        "a": "Short enough to read in one breath — the report names questions past the comfortable band. Length is guidance rather than a rule, because a technical question sometimes needs its clause."
+      },
+      {
+        "q": "Does the builder rewrite my questions?",
+        "a": "No. It names the fault, quotes the note and moves on; the rewrite is the researcher's job, which is where the judgement lives. The scope note states the boundary."
+      },
+      {
+        "q": "Is my survey stored?",
+        "a": "No. The analysis runs in the page from the lines you pasted, and nothing is stored or sent; the report is gone when the tab closes unless you copied it."
+      }
+    ]
+  },
+  {
+    "slug": "literature-review-organizer",
+    "keywords": [
+      "literature review organizer",
+      "stance",
+      "synthesis",
+      "clusters"
+    ],
+    "intro": "The Literature Review Organizer tags every source with a stance — supports, challenges or extends — groups them into clusters, and hands you a synthesis prompt for each group.",
+    "content": "A literature review is an argument about a field, not a list of its papers, and this literature review organizer builds the argument's skeleton. Paste your sources — one per line, each with its author, year and the one-line finding — and the tool tags each source with a stance: supports the thesis, challenges it, or extends it; groups the tagged sources into clusters by topic; marks the lines it could not classify as unstanced; and hands each cluster a synthesis prompt, because a group of sources is not a paragraph until someone says what they add up to.\n\nThe sources panel takes the lines. The plan panel shows the clusters with their stances and counts, the unstanced lines listed by name so nothing vanishes, and the synthesis prompts beside each cluster — the question the paragraph has to answer about that group. Scope and limits says the organizer structures your reading; it does not read the papers for you.\n\n- Stances: supports, challenges, extends — plus unstanced for the lines that resist.\n- Clustering: sources grouped by topic so each cluster becomes a paragraph.\n- Counts: every cluster carries its source count, so thin groups are visible.\n- Synthesis prompts: one question per cluster, written to force a claim.\n- Unstanced list: the lines to re-tag before drafting.\n- Output: a plan you can paste above the draft.\n\nThe organization is parsing and grouping: each line is split into its parts, the stance is read from your tag, the clusters form around the topic you gave, and the synthesis prompts come from a published set attached to the stance patterns. The same source list always produces the same plan, which makes the tool usable across drafts — the plan changes only when the sources do. Treat the counts as a progress meter for the reading, because a review half-tagged is a draft half-argued.\n\n- Stances are only as honest as your tagging; the tool trusts your read.\n- A cluster with two sources is a cluster; whether it earns a paragraph is your call.\n- Unstanced lines are not errors — they are the sources you have not decided about.\n- The prompts are questions, not topic sentences; the claim is yours.\n- Nothing is stored, so copy the plan before closing the page.\n\nWrite the challenges cluster first: the sources against your thesis are the review's credibility, and a paragraph that grants them their strongest form buys the space for everything else. Then answer each cluster's synthesis prompt in one sentence before writing the paragraph — the sentence is the topic sentence, and a cluster whose prompt you cannot answer is a cluster that belongs to someone else's review. Sweep the unstanced list last: every line you leave untagged is a source the draft will silently ignore, and reviewers notice omissions faster than errors. Keep the clusters few — five strong paragraphs beat twelve thin ones, and the counts panel shows you which is which.\n\nThe neighbours compress and carry: the key points extractor pulls the one-line finding from each paper's abstract, the text summarizer shortens a background that runs long, and the thesis statement builder restates the claim the stances serve. The academic writing tone checker in this domain holds the register.",
+    "howTo": [
+      "Paste the sources, one per line, with your stance tags.",
+      "Read the clusters, their counts and the unstanced list.",
+      "Answer each cluster's synthesis prompt in one sentence.",
+      "Copy the plan and draft the challenges cluster first."
+    ],
+    "whenToUse": "Use the literature review organizer when the sources are collected and the review refuses to become an argument. The {{key-points-extractor|Key Points Extractor}} distils each paper to its finding, and the {{text-summarizer|Text Summarizer}} compresses the background that resists shortening. When the review's claim needs one sentence, the {{thesis-statement-builder|Thesis Statement Builder}} writes it, and the academic writing tone checker in this domain keeps the register scholarly.",
+    "faqs": [
+      {
+        "q": "What do the three stances mean?",
+        "a": "Supports — the source's findings back your thesis; challenges — they cut against it; extends — they push the thesis into new territory. The three-way split is coarse on purpose: it forces a decision per source, which is the review's real work."
+      },
+      {
+        "q": "What is an unstanced source?",
+        "a": "A line the tool could not classify because no tag was given. It appears in the unstanced list rather than a cluster, so it cannot vanish silently — re-tag it or decide it does not belong in the review."
+      },
+      {
+        "q": "What is a synthesis prompt?",
+        "a": "The question your paragraph has to answer about a cluster — what the group adds up to, not what each paper said. Answering it in one sentence gives you the topic sentence; skipping it is how reviews become annotated bibliographies."
+      },
+      {
+        "q": "How many clusters should a review have?",
+        "a": "As many as have something to say — usually three to six. The counts panel makes thin clusters visible, and two sources with no synthesis is a sign the group needs merging or cutting."
+      },
+      {
+        "q": "Does the organizer read the papers?",
+        "a": "No. It structures the lines you paste, trusting your stance tags and your one-line findings. The scope note says the tool organises reading; it does not do the reading."
+      }
+    ]
+  },
+  {
+    "slug": "academic-paper-section-planner",
+    "keywords": [
+      "academic paper section planner",
+      "word budget",
+      "IMRaD",
+      "sections"
+    ],
+    "intro": "The Academic Paper Section Planner splits a target word count across the paper's sections in the IMRaD order, and shows which section carries the argument's weight.",
+    "content": "A paper is a word budget before it is a document, and this academic paper section planner spends it. Give the target — the default is six thousand words — and the tool allocates the budget across the sections in the IMRaD order: introduction, methods, results, discussion, conclusion, each with its share, its job and the prose shape that job implies; the plan is the outline you argue with before you write, when changing your mind is still free.\n\nThe input panel takes the total and any section you want to weight by hand. The plan panel lists every section with its allocated words, its share of the total and its purpose line, and the arithmetic is visible: the shares sum to the budget, and a section you weight by hand takes the difference from the others. Scope and limits says the planner allocates; it cannot know your journal's structure or your committee's taste.\n\n- Sections: introduction, methods, results, discussion, conclusion — the IMRaD spine.\n- Budget: the total split by published proportions, shown as words and percent.\n- Purpose lines: each section's job stated in one sentence.\n- Hand weighting: pin a section and the rest of the budget adjusts.\n- Output: a plan to paste above the draft and argue with.\n\nThe planning is proportional allocation: each section carries a published share of the total, the words are rounded, and the plan is recomputed whenever the total or a hand weight changes. The same budget always produces the same plan, which makes the tool useful in a writing group — two authors can argue about shares rather than vibes. Print the plan beside the outline and let the two disagree in public, because a budget nobody wrote down is a budget nobody keeps.\n\n- The shares are conventions; a results-heavy paper may need its own weights.\n- The planner does not write, outline or schedule; it splits a number.\n- Journal templates override the section list, not the discipline of budgeting.\n- A plan is a hypothesis; the draft will renegotiate it. Revisit the plan after the first full draft, because the sections that overran are telling you where the paper's real centre is, and the budget should learn from the draft.\n- Nothing is stored, so copy the plan before leaving the page.\n\nBudget the discussion first and the paper gets easier to write: it is the section reviewers read most closely and the one authors under-fund, so give it its share before the methods eats the surplus. Then check the results share against your evidence — a paper with six figures does not fit the same split as one with none, and the hand-weighting exists for exactly that argument. Read the plan top to bottom once and ask where the argument actually lives: if the discussion's share is smaller than the methods', the paper is a methods report wearing a paper's clothes, and the budget shows it. Keep the plan beside the draft and re-read it at half the word count; budgets are most useful exactly when the draft starts ignoring them.\n\nThe neighbours track the spending: the word count tool measures each section as drafted, the reading time estimator shows how long the paper holds a reader, and the outline builder turns the plan into headings. The paragraph compressor in this domain pays back words when a section runs over.",
+    "howTo": [
+      "Enter the target word count.",
+      "Read the section shares and their purpose lines.",
+      "Hand-weight any section the paper's shape demands.",
+      "Copy the plan and check the draft against it."
+    ],
+    "whenToUse": "Use the academic paper section planner before drafting, when the budget is still spendable. The {{word-count-tool|Word Count Tool}} measures each section as it grows, and the {{reading-time-estimator|Reading Time Estimator}} shows the paper's cost to a reader. When the plan needs headings, the {{outline-builder|Outline Builder}} builds them, and the paragraph compressor in this domain claws back a section that ran over.",
+    "faqs": [
+      {
+        "q": "What is IMRaD?",
+        "a": "Introduction, Methods, Results and Discussion — the spine most empirical papers hang on, with the conclusion as the close. The planner uses the five-section form because it is the common denominator of journal structures."
+      },
+      {
+        "q": "Where do the default shares come from?",
+        "a": "Published conventions for empirical papers: a compact introduction, a methods section that carries reproducibility, results proportional to the evidence, and a discussion that gets room to argue. They are starting proportions, not rules."
+      },
+      {
+        "q": "Can I weight a section by hand?",
+        "a": "Yes. Pin the section's share and the planner redistributes the remainder across the others, keeping the sum at your target. The arithmetic stays visible in the plan."
+      },
+      {
+        "q": "Does the planner write the outline?",
+        "a": "No. It allocates words and states each section's job; the headings and the prose are yours. The outline builder in this domain is the tool that turns a plan into headings."
+      },
+      {
+        "q": "Is my target saved?",
+        "a": "No. The plan is computed in the page from the number you typed, and nothing is stored; copy the plan before closing the tab."
+      }
+    ]
+  },
+  {
+    "slug": "peer-review-checklist",
+    "keywords": [
+      "peer review checklist",
+      "reproducible",
+      "limitations",
+      "reviewer"
+    ],
+    "intro": "The Peer Review Checklist walks a manuscript through twelve published review questions in six sections, tracks progress, and assembles the reviewer's report from your notes.",
+    "content": "A review is a service, and this peer review checklist keeps it thorough instead of loud. The tool carries twelve questions across six sections — summary, introduction, methods, results, discussion and presentation — from whether the abstract states what was actually done to whether the references are complete and the figures legible. Tick the questions as you verify them, attach a note to any question you answered no, and the tool assembles the review report: section by section, the verified strengths, the named problems and your notes in the reviewers' usual order.\n\nThe checklist panel shows the twelve questions grouped by section, each with its tick box and its note field. The progress panel counts the answered questions by section, so the sections you have quietly skipped are visible, and the report panel assembles the finished review — the checklist's structure becomes the report's headings. Scope and limits says the checklist organises your judgement; it does not replace it.\n\n- Twelve questions: the published concerns a reviewer owes every manuscript.\n- Six sections: summary, introduction, methods, results, discussion, presentation.\n- Notes per question: the reason behind every no, captured where it was found.\n- Progress: answered counts per section, so gaps cannot hide.\n- Report: the ticks and notes assembled into a pasteable review.\n\nThe mechanics are checklist state: each question holds its tick and its note, the progress counts run per section, and the report is the state rendered in order. The questions are fixed and published — whether the methods are reproducible, whether the statistics are reported in judgeable detail, whether the limitations are named honestly, whether the conclusion follows from the evidence — so two reviewers using the tool are reviewing the same manuscript against the same floor.\n\n- The checklist is the floor of a review, not the ceiling; expertise adds the rest.\n- A ticked box records a check, not a virtue.\n- The report is plain text; your venue's form may want its own shape.\n- Anonymous or signed, the report reads the same — the tool takes no side.\n- Nothing is stored, so copy the report before closing the tab.\n\nAnswer the methods section first and the review gets fairer: reproducibility is where most manuscripts fail, and a reviewer who has verified the methods section reads the results with calibrated trust rather than inherited optimism. Write the note while the no is fresh — a note written from memory a week later defends the author's feelings instead of the manuscript — and keep every note about the work, never the author, because the checklist's flat tone is the review's best etiquette. Read the progress panel before submitting: the section with zero answers is the section your report will be asked about, and it is better asked now. Then read the assembled report once as the author would — every no with its reason, every strength named — and cut any sentence you would not sign.\n\nThe neighbours check the surface the review walks on: the readability grade scorer shows how hard the prose runs, the clarity score tool names the sentences that stumble, and the scientific abstract builder tightens the summary section the first question tests. The academic writing tone checker in this domain keeps the report's register even.",
+    "howTo": [
+      "Read the manuscript with the twelve questions open.",
+      "Tick each question you can verify and note every no.",
+      "Watch the progress panel for the sections you skipped.",
+      "Copy the assembled report and read it once as the author."
+    ],
+    "whenToUse": "Use the peer review checklist when a manuscript is open in one window and your duty to it in the other. The {{readability-grade-scorer|Readability Grade Scorer}} measures the prose the presentation questions ask about, and the {{clarity-score-tool|Clarity Score Tool}} names the sentences to quote in the report. When the summary question fails, the {{scientific-abstract-builder|Scientific Abstract Builder}} shows what the abstract owed, and the academic writing tone checker in this domain levels the report's tone.",
+    "faqs": [
+      {
+        "q": "What are the twelve questions?",
+        "a": "Two on the summary, two on the introduction, three on methods including reproducibility and ethics, two on results including the statistics, two on discussion including honest limitations, and one on presentation. Each is a published concern, phrased as a checkable question."
+      },
+      {
+        "q": "Why does section order matter in the report?",
+        "a": "Because it is the order editors and authors read in: summary first, presentation last. The assembled report keeps that order so the reader's first impression is the work's own structure, not the reviewer's mood."
+      },
+      {
+        "q": "Should every no carry a note?",
+        "a": "Yes. A ticked no without a reason is an assertion the author cannot act on, and the note field sits beside the question precisely so the reason is captured where it was found."
+      },
+      {
+        "q": "Does the checklist write the review for me?",
+        "a": "No. It structures the questions, tracks the progress and assembles your ticks and notes into report form. The judgement — and the fairness — remain entirely yours."
+      },
+      {
+        "q": "Is the review saved between sessions?",
+        "a": "No. The checklist state lives in the page, so finish the session or copy the report before closing the tab; nothing is stored or transmitted."
+      }
+    ]
+  },
+  {
+    "slug": "grant-proposal-outline",
+    "keywords": [
+      "grant proposal outline",
+      "measurable",
+      "timeline",
+      "sections"
+    ],
+    "intro": "The Grant Proposal Outline assembles the Significance, Innovation and Approach sections against a word limit, and checks every aim for the measurability and timeline reviewers score.",
+    "content": "A grant proposal is scored section by section, and this grant proposal outline builds it that way. Pick the framework — the full Significance, Innovation, Approach structure or its three short-form variants — and fill the sections against the word limit, which defaults to twenty-five hundred; for each research aim, the tool checks the two things reviewers actually score: whether the aim is measurable, and whether it carries a timeline. The output is the outline with every section's word share and every aim's flags, ready to argue with before the deadline argues for you.\n\nThe framework panel takes the sections and the aims. The plan panel shows each section with its allocated share of the limit, and the checks panel names the weak aims: an aim with no measurable verb — increase, reduce, establish, test, measure, compare — and no figure, or an aim with no timeline words — month, quarter, a year, a named quarter. Scope and limits says the outline structures and flags; it cannot know your funder's priorities.\n\n- Frameworks: Significance, Innovation, Approach, plus the short-form variants.\n- Word limit: twenty-five hundred by default, split across the sections.\n- Measurability: every aim needs a measurable verb or a number.\n- Timeline: every aim needs month, quarter, year or a named date.\n- Section shares: the limit spent visibly, so no section starves.\n- Output: the outline with flags, ready for the rewrite pass.\n\nThe assembly is section composition with aim checks: the sections are rendered in the framework's order with their word shares, and each aim is tested against a measurable verb list and a timeline pattern. The checks are deterministic — the same aims always earn the same flags — which makes the tool usable in a writing group where someone else has to believe your aims.\n\n- A measurable verb does not make an aim achievable; it makes it scoreable.\n- The word limit is a default; your call's limit overrides it.\n- The framework list is fixed; agency-specific forms need their own mapping.\n- Budget and staffing sections are out of scope; this outline is the science.\n- Nothing is stored, so copy the outline before leaving the page.\n\nWrite the aims first and the sections fill with purpose: a proposal with three measurable, time-boxed aims is a plan, and the Significance section writes itself around why the plan matters. Then read each aim's flags honestly — the measurable check is not bureaucracy, it is the reviewer's first test of whether you will be able to tell in year three that the project worked. Spend the word budget on Approach: reviewers fund the how, and a proposal that gives its limit to Significance rhetoric while the approach starves is the outline shape the shares panel makes visible. Finish by reading the aims in sequence — each should be possible if the previous one lands, and an aim that secretly depends on aim three failing is the kind of thing the flags cannot catch and reviewers love to.\n\nThe neighbours assemble the rest of the submission: the executive summary builder compresses the pitch for the cover letter, the meeting summary formatter structures the team's planning sessions, and the key points extractor distils the preliminary data into aim-supporting bullets. The word count tool in this domain tracks the limit as sections grow.",
+    "howTo": [
+      "Pick the framework and enter the sections.",
+      "Write the aims and read their measurable and timeline flags.",
+      "Check the section shares against the word limit.",
+      "Copy the outline and fix the flagged aims."
+    ],
+    "whenToUse": "Use the grant proposal outline when the science is ready and the scoring structure is not. The {{executive-summary-builder|Executive Summary Builder}} writes the cover-letter pitch, and the {{key-points-extractor|Key Points Extractor}} distils the preliminary data into bullets. When the team plans, the {{meeting-summary-formatter|Meeting Summary Formatter}} structures the session, and the word count tool in this domain watches the limit.",
+    "faqs": [
+      {
+        "q": "What frameworks does the outline support?",
+        "a": "The Significance, Innovation, Approach structure used by major federal funders, plus three short-form variants built from the same sections. Each framework is a fixed list of sections with their order and shares."
+      },
+      {
+        "q": "What makes an aim measurable?",
+        "a": "A verb from the published list — increase, reduce, establish, develop, test, measure, compare, deliver, train, publish, recruit, complete — or a number in the aim. The check wants a result you could observe, not admire."
+      },
+      {
+        "q": "Why does every aim need a timeline?",
+        "a": "Because reviewers read an aim without dates as a wish. The timeline pattern accepts months, quarters, years and named dates; the flag just asks when, and the answer is yours."
+      },
+      {
+        "q": "Does the tool write the budget or staffing sections?",
+        "a": "No. The outline covers the scientific sections and their aims; administrative sections belong to your institution's process, and the scope note says so."
+      },
+      {
+        "q": "Is the outline saved between edits?",
+        "a": "No. The plan and flags are computed in the page from your text, and nothing is stored; copy the outline before the tab closes."
+      }
+    ]
+  },
+  {
+    "slug": "technical-report-template",
+    "keywords": [
+      "technical report template",
+      "recommendations",
+      "findings",
+      "scope"
+    ],
+    "intro": "The Technical Report Template assembles a report from seven fixed sections, checks each for evidence and next-step discipline, and flags the thin sections that are headings in disguise.",
+    "content": "A technical report is read by people who were not in the room, and this technical report template assembles yours for them. Fill the seven sections — summary, scope and audience, background, findings, risks and limitations, recommendations, appendix — and the tool builds the document in that order, checks each section for the discipline its job demands: findings need evidence words or a figure, recommendations need an owner and a date, and any section under ten words is flagged as a heading wearing a paragraph's clothes.\n\nThe input panel takes the seven sections. The draft panel shows the assembled report with section headings in the fixed order and a word count per section, and the checks panel names the faults: a finding with no evidence behind it — no number, no observed, no measured, no data — a recommendation with no owner-and-date pattern, a required section left empty, and the thin-section flags. Scope and limits says the template assembles and checks; it cannot verify your findings.\n\n- Seven sections: summary, scope, background, findings, risks, recommendations, appendix.\n- Required: summary, scope, findings, risks and recommendations; background and appendix optional.\n- Evidence scan: findings checked for numbers and observed facts.\n- Owner-and-date: every recommendation needs who and when.\n- Thin-section flag: under ten words is a heading, not a section.\n- Per-section word counts beside the assembled draft.\n\nThe assembly is section composition: each section is rendered under its heading in the published order, and the checks are pattern tests — an evidence list for findings, an owner-and-date pattern for recommendations, presence for the required sections, and the ten-word floor. The same input always produces the same draft, which makes the template safe to standardise on across a team. Read the assembled report once as the person who has to act on it, because the reader's first question is never what did you do but what should I do now.\n\n- The order is fixed; an organisation with its own template wins where they differ.\n- The evidence check is pattern matching; a wrong figure with a digit passes.\n- The appendix is not checked; it exists to hold what the body should not.\n- Owner and date are pattern checks; whether the plan is real is not checkable.\n- Nothing is stored, so copy the draft before leaving the page.\n\nWrite the recommendations before the findings and the report gets honest: the actions decide which findings matter, and a finding that supports no recommendation is context the appendix can hold. Then fill the risks section with the same care — what the work could not establish is the paragraph that buys the report its credibility, because a report with no named limits invites the reader to imagine them. Read the summary last and keep it to three sentences: the finding and the recommendation, in that order, since the summary is the only section everyone will read. Then sweep the thin-section flags — each one is a promise the report has not kept, and ten words is a generous floor.\n\nThe neighbours tighten the body: the executive summary builder tests the summary section against a stricter brief, the jargon remover strips the vocabulary the scope-and-audience section warns about, and the word count tool tracks each section as it grows. The paragraph compressor in this domain pays back the words a section borrowed.",
+    "howTo": [
+      "Fill the seven sections, required ones first.",
+      "Read the assembled draft with its per-section counts.",
+      "Work through the checks — evidence, owner-and-date, thin sections.",
+      "Copy the draft and write the summary last."
+    ],
+    "whenToUse": "Use the technical report template when the work is done and the write-up owes an audience that was not there. The {{executive-summary-builder|Executive Summary Builder}} stress-tests the summary section, and the {{jargon-remover|Jargon Remover}} strips the terms the scope section has not defined. When the report runs long, the {{word-count-tool|Word Count Tool}} shows where, and the paragraph compressor in this domain trims it back.",
+    "faqs": [
+      {
+        "q": "Which sections are required?",
+        "a": "Summary, scope and audience, findings, risks and limitations, and recommendations. Background and appendix are optional because not every report needs them — but if they are present they are placed, not policed."
+      },
+      {
+        "q": "Why do findings need evidence words?",
+        "a": "Because a finding without its evidence reads as an opinion with authority. The check looks for numbers and observed-fact words — measured, tested, compared, data — and flags the findings that assert without showing."
+      },
+      {
+        "q": "What counts as owner-and-date on a recommendation?",
+        "a": "A pattern that names who and when: a month, a quarter, a year, a by-date, or an explicit owner marker. A recommendation with neither is a wish, and the report's readers know it."
+      },
+      {
+        "q": "Why flag sections under ten words?",
+        "a": "Because ten words is the floor at which a section says something; under it, the section is a heading that drifted. The flag tells you which promises the draft has not kept yet."
+      },
+      {
+        "q": "Is the report stored anywhere?",
+        "a": "No. The assembly and checks run in the page from your sections, and nothing is stored or sent; copy the draft before closing the tab."
+      }
+    ]
+  },
+  {
+    "slug": "style-consistency-enforcer",
+    "keywords": [
+      "style consistency enforcer",
+      "serial comma",
+      "dash style",
+      "variants"
+    ],
+    "intro": "The Style Consistency Enforcer reads a document for the mechanical style choices — quote marks, dashes, ellipses, the serial comma, numbers, heading case — and reports every variant it finds.",
+    "content": "A document with two styles of dash has two authors, and this style consistency enforcer finds them. Paste the text and the tool scans the mechanical choices a style sheet governs: quote marks, dash style, ellipsis style, the serial comma, list punctuation, number style, heading case and date order; each dimension is reported with the variants it found, where they occur, and a consistency verdict per dimension, so the edit list is specific instead of a mood.\n\nThe input panel takes the text. The report panel lists the dimensions with their variant counts — every dimension that appears in more than one style is named, with the count of each variant — and the summary line states the overall verdict: consistent, or the number of dimensions at war. Scope and limits says the enforcer detects variants; it does not know which style your style sheet picked.\n\n- Eight dimensions: quote marks, dashes, ellipses, serial comma, list punctuation, numbers, heading case, date order.\n- Variant counts per dimension, so the majority style is visible.\n- Locations for each variant, so the fixes point somewhere.\n- Verdict per dimension and one for the whole document.\n- Output: a report you can paste beside the edit pass.\n\nThe detection is pattern work per dimension: dash patterns distinguish the em dash, en dash and hyphen habits, the serial comma test looks at lists that end with a conjunction, the number test separates digits from spelled-out forms, and the date test reads the order of day, month and year. The same text always produces the same report, which makes the tool usable as a pre-flight before submission. Paste one chapter at a time if the document is long, because the verdict is only as meaningful as the sample it judged.\n\n- The enforcer reports variants; choosing the house style is your call.\n- Rare dimensions — one dash in a document — cannot show a majority.\n- Heading case is read from the literal headings, not your template.\n- The scan is mechanical; a style sheet's exceptions pass as variants.\n- Nothing is stored, so copy the report before closing the page.\n\nKeep the finished report beside the style sheet and mark the dimensions the sheet does not name, because those are the rules your house style has been following by accident. Fix the dimensions with a clear majority first — keep the majority style, change the outliers — because those edits are mechanical and safe. Then judge the split dimensions by hand: a document that genuinely uses both number styles may be obeying a rule the scanner cannot see, such as digits for measurements and words for counts. Run the enforcer after the edit pass as well: the verdict-per-dimension report is the receipt, and a document that passes all eight dimensions is one a copy-editor will start reading with trust instead of a red pen. Keep the report beside the style sheet — the dimensions the sheet does not mention are the ones to add, and the scanner has just written their case.\n\nThe neighbours finish the surface: the style guide adherence checker tests the deeper rules a style sheet names, the manuscript formatter shapes the document for submission, and the punctuation checker cleans the marks the scanner treats as data. The redundancy finder in this domain cuts the words no style sheet defends.",
+    "howTo": [
+      "Paste the document into the input panel.",
+      "Read the dimensions with their variant counts and locations.",
+      "Fix the majority-style outliers first.",
+      "Re-run the scan until every dimension passes."
+    ],
+    "whenToUse": "Use the style consistency enforcer before submission, when the document has had several hands on it. The {{style-guide-adherence-checker|Style Guide Adherence Checker}} tests the rules a written style sheet names, and the {{manuscript-formatter|Manuscript Formatter}} shapes the file for the venue. When the marks themselves need cleaning, the punctuation checker in this domain handles it, and the redundancy finder cuts the slack.",
+    "faqs": [
+      {
+        "q": "What are the eight dimensions?",
+        "a": "Quote marks, dash style, ellipsis style, the serial comma, list punctuation, number style, heading case and date order. They are the mechanical choices a style sheet governs and multi-author documents disagree about."
+      },
+      {
+        "q": "Why does the tool not pick the correct style?",
+        "a": "Because which style is correct is your style sheet's decision, not the scanner's. It reports the variants and their counts so the majority is visible and the choice is one decision instead of a hunt."
+      },
+      {
+        "q": "What does a split dimension mean?",
+        "a": "That the document genuinely uses two styles for one choice — or that it obeys an exception rule the scanner cannot see, like digits for measurements and words for counts. The locations tell you which case you are in."
+      },
+      {
+        "q": "Can it scan a whole book?",
+        "a": "It scans what you paste, and the patterns are cheap to run; paste per chapter if the document is large. The report is per paste, so chapter-level consistency is what it certifies."
+      },
+      {
+        "q": "Is my document uploaded?",
+        "a": "No. The scan runs in the page from the text you pasted, and nothing is stored or transmitted; the report is gone when the tab closes unless you copied it."
+      }
+    ]
+  },
+  {
+    "slug": "plagiarism-self-check-prep-tool",
+    "keywords": [
+      "plagiarism self-check prep tool",
+      "quote share",
+      "citation",
+      "block quote"
+    ],
+    "intro": "The Plagiarism Self-Check Prep Tool audits a draft's quotes, citations and paraphrase balance before the similarity checker does, and hands you the prep checklist.",
+    "content": "A similarity report is written after submission, but its causes are visible before it, and this plagiarism self-check prep tool reads them early. Paste the draft and the tool audits the quoting: every quoted passage is found, measured and attributed or flagged; the quote share — the proportion of the draft that is quotation — is computed against the published fifteen-percent line; quotes past forty words are marked as block quotes; and citation-shaped references are counted so the draft that cites nothing cannot surprise you. The prep checklist beside the panel carries the habits that keep a similarity report boring.\n\nThe input panel takes the draft. The quotes panel lists every quoted passage with its length and its citation status — attributed, or flagged for the missing citation — and the summary panel reports the counts that matter: total quotes, attributed, unattributed, block quotes, and the quote share against the fifteen-percent limit. Scope and limits says the tool prepares; it does not compare your text against any database.\n\n- Quote detection: straight and curly quoted passages, measured in words.\n- Citation scan: author-year, bracketed numbers, footnotes and see-references counted.\n- Quote share: the draft's proportion of quotation against the fifteen-percent line.\n- Block quotes: any quote past forty words is marked for display as a block.\n- Prep checklist: the published habits — cite while writing, paraphrase with the source closed.\n- Output: a prep report to paste beside the revision pass.\n\nThe audit is parsing and counting: quoted passages are found with a quote pattern, each is measured with the shared tokenizer, citation-shaped references are matched by pattern, and the quote share is the quoted words over the total. The same draft always produces the same report, so the before-and-after of a revision is comparable — the tool is a ruler, not a judge.\n\n- Finding no quotes does not mean the draft is original; it means it quotes no one.\n- The citation scan counts shapes; a wrong citation in the right shape passes.\n- The fifteen-percent line is a convention, not your venue's rule.\n- Paraphrase quality is not measured; close paraphrase is a judgement call.\n- Nothing is stored, so copy the report before closing the page.\n\nChase the unattributed quotes first — every one is a sentence the similarity checker will find and the reviewer will remember — and mark the block quotes next, because a quote past forty words belongs on its own line with the citation beside it, not lost inside a paragraph. Then read the quote share against the fifteen-percent line with honesty: a draft that is one-third quotation is a compilation, and the fix is paraphrase with the source closed, not tighter quoting. Run the audit once more after revisions; the counts fall as the paraphrase improves, and a quote share under the line with zero unattributed quotes is the shape a similarity report rewards. Keep the prep checklist honest to the end: the habits it lists are how the numbers got good.\n\nThe neighbours fix the citations the audit counts: the citation formatter corrects the reference shapes, the bibliography builder assembles the list, and the reference list generator produces the full set. The tone analyzer in this domain catches the register that drifts when borrowed prose is patched in.",
+    "howTo": [
+      "Paste the draft into the input panel.",
+      "Read the quotes panel — attributed, unattributed, block quotes.",
+      "Check the quote share against the fifteen-percent line.",
+      "Work the prep checklist and re-run after revisions."
+    ],
+    "whenToUse": "Use the plagiarism self-check prep tool before submission, while the fixes are still yours to make. The {{citation-formatter|Citation Formatter}} repairs the shapes the audit counted, and the {{bibliography-builder|Bibliography Builder}} assembles the list the citations imply. When the reference set needs generating, the {{reference-list-generator|Reference List Generator}} builds it, and the tone analyzer in this domain smooths the patched paragraphs.",
+    "faqs": [
+      {
+        "q": "Does this tool compare my text to a database?",
+        "a": "No. It audits quoting mechanics inside your draft — quotes, citations, quote share — and never uploads or compares text. The similarity score from a service like Turnitin is a different measurement, and the scope note says so."
+      },
+      {
+        "q": "What is the quote share limit?",
+        "a": "Fifteen percent is the published convention this tool measures against: the proportion of the draft made of quoted words. Your venue's rules override it; the number exists so the draft has a line to stand on."
+      },
+      {
+        "q": "What counts as a block quote?",
+        "a": "Any quoted passage past forty words, by the published threshold. The tool marks it so you can set it as a displayed block with its citation, rather than hiding a long quote inside a paragraph."
+      },
+      {
+        "q": "Which citation shapes does the scan recognise?",
+        "a": "Author-year parentheses, bracketed numbers, the words footnote and ibid, and see-references. It counts shapes rather than verifying them — a wrong citation in the right shape still passes, which is the scan's honest limit."
+      },
+      {
+        "q": "Why prepare if the checker runs anyway?",
+        "a": "Because the similarity report only tells you what matched, after the grade is at stake. The prep audit shows the same causes earlier — unattributed quotes and heavy quote share — while fixing them costs nothing but a revision."
+      }
+    ]
+  },
+  {
+    "slug": "writing-portfolio-builder",
+    "keywords": [
+      "writing portfolio builder",
+      "clips",
+      "genres",
+      "reading"
+    ],
+    "intro": "The Writing Portfolio Builder turns a list of published pieces into a curated reading portfolio — grouped by genre, selected for range and recency, with a scaffold you can paste.",
+    "content": "A portfolio is a curation, not an archive, and this writing portfolio builder does the curating. Paste your pieces — one per line, each with its title, genre, outlet, year and word count — and the tool groups them by genre, counts the dated and placed pieces, flags the pieces from the last three years, and selects the reading portfolio: up to ten pieces, with a floor of six, chosen to show range across genres rather than depth in one. The scaffold beside the selection is the page's skeleton, ready to fill.\n\nThe pieces panel takes the lines. The plan panel shows the groups with their counts, the selection with the reason each piece earned its place, and the counts that matter: total pieces, genres represented, how many are dated, how many carry an outlet, and the age of the most recent. Scope and limits says the builder curates what you paste; it cannot read the pieces or judge their quality.\n\n- Pieces: title, genre, outlet, year and word count, one per line.\n- Groups: pieces clustered by genre, counts beside each.\n- Selection: up to ten pieces, minimum six, chosen for range.\n- Recency: pieces from the last three years flagged as recent.\n- Scaffold: the portfolio page's skeleton, generated from the selection.\n- Counts: total, genres, dated, placed, selected, most recent.\n\nThe curation is parsing and selection: each line is parsed into its parts, the groups form by genre, and the selection balances the genres while preferring recent, placed pieces — a published rule, not a vibe. The scaffold is the selection rendered as a page skeleton with slots for links and one-line pitches. The same list always produces the same portfolio, which makes re-runs after new publications a diff rather than a redo.\n\n- The selection favours range; a specialist portfolio may want to override it.\n- Quality is assumed; the tool counts, it does not read.\n- Pieces without a year still count, but they weaken the recency story.\n- The scaffold is a skeleton; the links and pitches are yours.\n- Nothing is stored, so copy the plan before closing the page.\n\nChoose the genre to lead with before you look at the pieces — the portfolio opens with the work you want more of, and the selection rule's range bias is a starting point, not a verdict. Then fill the recency gap the counts expose: a portfolio whose newest piece is four years old tells an editor the pipeline stopped, and one recent clip repairs more than three old ones. Write the one-line pitch per selected piece last, and make each pitch a claim about the writing rather than a summary of the piece — an editor reads ten pitches in a minute, and the pitches are where the portfolio sounds like you. Keep the total at the target of ten: a portfolio that exhausts its reader has failed as a reading experience, and the floor of six exists so a thin list does not pad itself.\n\nThe neighbours shape the page around the clips: the manuscript formatter gets a selected piece submission-ready, the word count tool verifies the pitch lengths, and the reading time estimator shows the portfolio's minutes. The text summarizer in this domain compresses an overlong piece description to its pitch.",
+    "howTo": [
+      "Paste the pieces, one per line, with title, genre, outlet, year and words.",
+      "Read the groups, the selection and the counts.",
+      "Check the recency story and the genre spread.",
+      "Copy the scaffold and write the one-line pitches."
+    ],
+    "whenToUse": "Use the writing portfolio builder when the clips exist and the curation is overdue. The {{manuscript-formatter|Manuscript Formatter}} prepares a selected piece for submission, and the {{reading-time-estimator|Reading Time Estimator}} shows the portfolio's cost in minutes. When a piece description runs long, the {{text-summarizer|Text Summarizer}} cuts it to pitch length, and the word count tool in this domain keeps the page honest.",
+    "faqs": [
+      {
+        "q": "What format does each piece need?",
+        "a": "One line per piece with the title, genre, outlet, year and word count. The year may be left blank, but a portfolio without dates weakens its own recency story, and the counts panel shows the cost."
+      },
+      {
+        "q": "Why a floor of six and a target of ten?",
+        "a": "Six is the minimum a reading portfolio needs to show range; ten is where a reader's attention reliably ends. The selection respects both, and a list that cannot reach six is a signal to write, not to pad."
+      },
+      {
+        "q": "How are the selected pieces chosen?",
+        "a": "By a published rule: spread across genres, preferring pieces from the last three years and ones that carry an outlet. The reason each piece earned its place is shown in the plan, so the curation is visible."
+      },
+      {
+        "q": "Does the builder judge my writing?",
+        "a": "No. It curates the metadata you paste — genres, dates, outlets — and reads none of the pieces. Quality is your editorial problem; range and recency are the tool's."
+      },
+      {
+        "q": "Is my list saved?",
+        "a": "No. The groups, selection and scaffold are computed in the page from your lines, and nothing is stored; copy the plan before the tab closes."
+      }
+    ]
+  }
+]

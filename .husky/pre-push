@@ -26,6 +26,58 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Writing registry reconciliation (static: live/soon split vs the per-tool
+# component map, plus SEO coverage and duplicate-component detection).
+node _scripts/writing-reconcile.mjs
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Writing registry reconciliation failed — push blocked."
+  echo "   A live flag is only truthful if the slug has a wired component."
+  echo ""
+  exit 1
+fi
+
+# Writing authored SEO contract (word band, verbatim keywords, unique FAQs,
+# sibling links, similarity ceiling) — same shape as the audio/typography gates.
+node scripts/validate-writing-seo.mjs
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Writing SEO validation failed — push blocked."
+  echo "   Fix the authored content in src/domains/writing/registry/seo/."
+  echo ""
+  exit 1
+fi
+
+# Writing JSON-source pipeline: schema/structure of each authored JSON batch,
+# the generated-vs-integrated drift gate, and the rendered-DOM contract (FAQ
+# collapsed, related row picks, no emphasis, verbatim privacy block).
+node scripts/validate-writing-seo-json.mjs
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Writing SEO JSON schema failed — push blocked."
+  echo "   Fix the JSON source under src/domains/writing/registry/seo/source/."
+  echo ""
+  exit 1
+fi
+
+node scripts/writing-seo-drift-check.mjs
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Writing SEO drift check failed — push blocked."
+  echo "   Re-run scripts/apply-writing-seo-batch.mjs --write for the listed source(s)."
+  echo ""
+  exit 1
+fi
+
+node scripts/validate-writing-seo-render.mjs
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Writing SEO render contract failed — push blocked."
+  echo "   Fix the JSON source and regenerate; never patch the generated module."
+  echo ""
+  exit 1
+fi
+
 # CSS Grid min-width:auto trap guard — cheap static scan for multi-column
 # grids holding unwrapped table/pre content without min-w-0 protection.
 # (The full multi-viewport visual sweep below is intentionally NOT in
@@ -48,6 +100,20 @@ if [ $? -ne 0 ]; then
   echo ""
   echo "❌ AdSense verification artifact broken — push blocked."
   echo "   /public/ads.txt must exist and hold the exact expected record."
+  echo ""
+  exit 1
+fi
+
+# Audio SEO rendered-DOM contract — the FAQ accordion must load collapsed, the
+# related row must carry four live non-self picks, body copy must be plain
+# (no bold/emphasis), the privacy block must be the verbatim shared text, and
+# content must sit in the 500-1000 word band. Renders the real components, so it
+# covers every authored tool automatically.
+node scripts/validate-audio-seo-render.mjs
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Audio SEO render contract failed — push blocked."
+  echo "   Fix the JSON source and regenerate; never patch the generated module."
   echo ""
   exit 1
 fi

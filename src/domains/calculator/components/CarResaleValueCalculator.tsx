@@ -1,336 +1,360 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, ChevronDown, Printer, Car, Gauge, Wrench } from "lucide-react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip as RTooltip,
-  ResponsiveContainer,
-  Cell,
-} from "recharts";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-type Segment = "economy" | "midsize" | "luxury" | "truck" | "suv" | "sports" | "ev";
+type VClass = "sedan" | "suv" | "truck" | "luxury" | "electric";
 type Condition = "excellent" | "good" | "fair" | "poor";
-type SaleChannel = "private" | "dealer-trade" | "instant-offer";
 
-interface SegmentSpec {
-  key: Segment;
-  label: string;
-  firstYearDrop: number;
-  annualDrop: number;
-  floorPercent: number;
-}
-
-interface CarInputs {
-  purchasePrice: number;
+interface ResaleInputs {
+  originalPrice: number;
   ageYears: number;
-  currentMileage: number;
-  segment: Segment;
+  vehicleClass: VClass;
+  actualMiles: number;
   condition: Condition;
-  annualMileageDriven: number;
-  accidentHistory: boolean;
-  ownerCount: number;
-  serviceRecords: boolean;
-  saleChannel: SaleChannel;
-  proMode: boolean;
-  holdYears: number;
-  annualInsurance: number;
-  annualMaintenance: number;
+  decimals: number;
 }
 
-interface ChartPoint {
-  year: string;
-  value: number;
-  isNow: boolean;
-}
+const DEFAULTS: ResaleInputs = {
+  originalPrice: 38000,
+  ageYears: 4,
+  vehicleClass: "suv",
+  actualMiles: 54000,
+  condition: "good",
+  decimals: 0,
+};
 
-interface TableRow {
-  label: string;
-  value: string;
-  key?: boolean;
-}
+const fmt = (v: number, d = 0) =>
+  Number.isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+const money = (v: number, d = 0) => (Number.isFinite(v) ? "$" + fmt(v, d) : "—");
 
-interface CarResult {
-  resaleValue: number;
-  baselineValue: number;
-  totalDepreciation: number;
-  depreciationPercent: number;
-  retentionPercent: number;
-  annualDepreciation: number;
-  mileageAdjustment: number;
-  conditionAdjustment: number;
-  historyAdjustment: number;
-  channelAdjustment: number;
-  expectedMileage: number;
-  mileageDelta: number;
-  chartData: ChartPoint[];
-  rows: TableRow[];
-  // Professional mode
-  futureValue: number;
-  futureDepreciation: number;
-  costPerMile: number;
-  totalCostOfOwnership: number;
-  monthlyDepreciationCost: number;
-}
-
-// Segment-level depreciation curves reflect published industry retention studies:
-// steep first-year drop, then a flatter geometric decline toward a residual floor.
-const SEGMENTS: SegmentSpec[] = [
-  { key: "economy", label: "Economy / Compact", firstYearDrop: 0.19, annualDrop: 0.13, floorPercent: 0.1 },
-  { key: "midsize", label: "Midsize Sedan", firstYearDrop: 0.21, annualDrop: 0.145, floorPercent: 0.09 },
-  { key: "suv", label: "SUV / Crossover", firstYearDrop: 0.18, annualDrop: 0.125, floorPercent: 0.12 },
-  { key: "truck", label: "Pickup Truck", firstYearDrop: 0.15, annualDrop: 0.11, floorPercent: 0.15 },
-  { key: "luxury", label: "Luxury Sedan", firstYearDrop: 0.27, annualDrop: 0.175, floorPercent: 0.07 },
-  { key: "sports", label: "Sports / Performance", firstYearDrop: 0.2, annualDrop: 0.12, floorPercent: 0.14 },
-  { key: "ev", label: "Electric Vehicle", firstYearDrop: 0.26, annualDrop: 0.16, floorPercent: 0.08 },
+const CLASS_OPTIONS = [
+  { value: "sedan", label: "Sedan / hatchback" },
+  { value: "suv", label: "SUV / crossover" },
+  { value: "truck", label: "Pickup truck" },
+  { value: "luxury", label: "Luxury / performance" },
+  { value: "electric", label: "Electric vehicle" },
 ];
 
-const CONDITION_FACTORS: Record<Condition, number> = {
+const CONDITION_OPTIONS = [
+  { value: "excellent", label: "Excellent — like new" },
+  { value: "good", label: "Good — normal wear" },
+  { value: "fair", label: "Fair — visible wear" },
+  { value: "poor", label: "Poor — needs work" },
+];
+
+const DECIMAL_OPTIONS = [
+  { value: "0", label: "Whole dollars" },
+  { value: "2", label: "2 decimals" },
+];
+
+/** Share of original price remaining by age (years 0–10), per vehicle class. */
+const CURVES: Record<VClass, number[]> = {
+  sedan: [100, 78, 66, 57, 49, 43, 38, 34, 30, 27, 25],
+  suv: [100, 80, 69, 60, 53, 47, 42, 38, 35, 32, 29],
+  truck: [100, 82, 72, 64, 58, 52, 47, 43, 39, 36, 33],
+  luxury: [100, 72, 60, 50, 43, 38, 34, 30, 27, 25, 23],
+  electric: [100, 74, 62, 52, 45, 40, 36, 32, 29, 26, 24],
+};
+
+const CONDITION_MULT: Record<Condition, number> = {
   excellent: 1.06,
   good: 1.0,
   fair: 0.88,
   poor: 0.72,
 };
 
-const CONDITION_LABELS: Record<Condition, string> = {
-  excellent: "Excellent",
-  good: "Good",
-  fair: "Fair",
-  poor: "Poor",
-};
+const EXPECTED_ANNUAL_MILES = 13500;
 
-const CHANNEL_FACTORS: Record<SaleChannel, number> = {
-  private: 1.0,
-  "dealer-trade": 0.85,
-  "instant-offer": 0.9,
-};
-
-const CHANNEL_LABELS: Record<SaleChannel, string> = {
-  private: "Private party sale",
-  "dealer-trade": "Dealer trade-in",
-  "instant-offer": "Instant cash offer",
-};
-
-// Industry convention treats 12,000 miles per year as baseline usage.
-const BASELINE_ANNUAL_MILES = 12000;
-// Excess or shortfall mileage is valued at roughly $0.06 per mile against the curve value.
-const MILEAGE_VALUE_PER_MILE = 0.06;
-
-const DEFAULTS: CarInputs = {
-  purchasePrice: 35000,
-  ageYears: 4,
-  currentMileage: 52000,
-  segment: "suv",
-  condition: "good",
-  annualMileageDriven: 12000,
-  accidentHistory: false,
-  ownerCount: 1,
-  serviceRecords: true,
-  saleChannel: "private",
-  proMode: false,
-  holdYears: 3,
-  annualInsurance: 1600,
-  annualMaintenance: 900,
-};
-
-function segmentSpec(key: Segment): SegmentSpec {
-  return SEGMENTS.find((s) => s.key === key) ?? SEGMENTS[0];
+function remainingPct(cls: VClass, age: number): number {
+  const c = CURVES[cls];
+  if (age <= 0) return c[0];
+  if (age >= 10) return c[10];
+  const lo = Math.floor(age);
+  const hi = Math.ceil(age);
+  const t = age - lo;
+  return c[lo] + t * (c[hi] - c[lo]);
 }
 
-// Geometric depreciation: first year carries the steepest drop, later years decline
-// at the segment rate, bounded below by the segment residual floor.
-function curveValue(price: number, spec: SegmentSpec, years: number): number {
-  if (years <= 0) return price;
-  let value = price * (1 - spec.firstYearDrop);
-  for (let y = 1; y < years; y += 1) {
-    value *= 1 - spec.annualDrop;
-  }
-  const partial = years % 1;
-  if (partial > 0) {
-    value *= 1 - spec.annualDrop * partial;
-  }
-  return Math.max(value, price * spec.floorPercent);
+interface ResaleResult {
+  valid: boolean;
+  errorMsg: string;
+  remaining: number;
+  mileageAdjPct: number;
+  conditionMult: number;
+  resaleValue: number;
+  depreciation: number;
+  depreciationPct: number;
+  avgAnnualDep: number;
+  expectedMiles: number;
+  proj1: number;
+  proj2: number;
+  proj3: number;
+  verdict: string;
+  breakdown: { label: string; value: string; highlight?: boolean }[];
 }
 
-export function calculateCarResale(i: CarInputs): CarResult {
-  const price = Math.max(0, i.purchasePrice);
-  const spec = segmentSpec(i.segment);
-  const age = Math.max(0, i.ageYears);
+function calculateResale(i: ResaleInputs): ResaleResult {
+  const blank = (errorMsg: string): ResaleResult => ({
+    valid: false,
+    errorMsg,
+    remaining: 0,
+    mileageAdjPct: 0,
+    conditionMult: 1,
+    resaleValue: 0,
+    depreciation: 0,
+    depreciationPct: 0,
+    avgAnnualDep: 0,
+    expectedMiles: 0,
+    proj1: 0,
+    proj2: 0,
+    proj3: 0,
+    verdict: "",
+    breakdown: [],
+  });
 
-  const baselineValue = curveValue(price, spec, age);
+  const nums = [i.originalPrice, i.ageYears, i.actualMiles, i.decimals];
+  if (!nums.every((v) => Number.isFinite(v))) return blank("Enter a number in every field.");
+  if (i.originalPrice < 3000 || i.originalPrice > 1000000) return blank("Original price should be between $3,000 and $1,000,000.");
+  if (i.ageYears < 0 || i.ageYears > 25) return blank("Vehicle age should be between 0 and 25 years.");
+  if (i.actualMiles < 0 || i.actualMiles > 1000000) return blank("Odometer should be between 0 and 1,000,000 miles.");
 
-  const expectedMileage = age * BASELINE_ANNUAL_MILES;
-  const mileageDelta = Math.max(0, i.currentMileage) - expectedMileage;
-  // Above-average mileage subtracts value; below-average adds it.
-  const rawMileageAdjustment = -mileageDelta * MILEAGE_VALUE_PER_MILE;
-  const mileageAdjustment = Math.max(Math.min(rawMileageAdjustment, baselineValue * 0.15), -baselineValue * 0.3);
+  const expectedMiles = Math.max(1, i.ageYears * EXPECTED_ANNUAL_MILES);
+  const mileageDelta = expectedMiles - i.actualMiles; // positive = fewer miles than average
+  const mileageAdjPct = Math.max(-20, Math.min(20, (mileageDelta / 1000) * 1.5));
 
-  const afterMileage = Math.max(0, baselineValue + mileageAdjustment);
+  const remaining = remainingPct(i.vehicleClass, i.ageYears);
+  const conditionMult = CONDITION_MULT[i.condition];
+  const raw = i.originalPrice * (remaining / 100) * (1 + mileageAdjPct / 100) * conditionMult;
+  const resaleValue = Math.max(i.originalPrice * 0.03, raw);
 
-  const conditionFactor = CONDITION_FACTORS[i.condition];
-  const conditionAdjustment = afterMileage * (conditionFactor - 1);
-  const afterCondition = afterMileage + conditionAdjustment;
+  const depreciation = i.originalPrice - resaleValue;
+  const depreciationPct = (depreciation / i.originalPrice) * 100;
+  const avgAnnualDep = i.ageYears > 0 ? depreciation / i.ageYears : 0;
 
-  // Reported accident history costs roughly 12% of value; each owner past the first
-  // costs about 2%; complete service records recover about 3%.
-  let historyFactor = 1;
-  if (i.accidentHistory) historyFactor -= 0.12;
-  historyFactor -= Math.max(0, Math.min(i.ownerCount, 6) - 1) * 0.02;
-  if (i.serviceRecords) historyFactor += 0.03;
-  historyFactor = Math.max(0.5, historyFactor);
-  const historyAdjustment = afterCondition * (historyFactor - 1);
-  const afterHistory = afterCondition + historyAdjustment;
+  const proj1 = Math.max(i.originalPrice * 0.03, i.originalPrice * (remainingPct(i.vehicleClass, i.ageYears + 1) / 100));
+  const proj2 = Math.max(i.originalPrice * 0.03, i.originalPrice * (remainingPct(i.vehicleClass, i.ageYears + 2) / 100));
+  const proj3 = Math.max(i.originalPrice * 0.03, i.originalPrice * (remainingPct(i.vehicleClass, i.ageYears + 3) / 100));
 
-  const channelFactor = CHANNEL_FACTORS[i.saleChannel];
-  const channelAdjustment = afterHistory * (channelFactor - 1);
-  const resaleValue = Math.max(0, afterHistory + channelAdjustment);
+  const verdict =
+    mileageAdjPct <= -10
+      ? `At ${fmt(i.actualMiles, 0)} miles the odometer runs well past the ${fmt(expectedMiles, 0)}-mile average for its age, costing roughly ${fmt(Math.abs(mileageAdjPct), 0)}% of value`
+      : mileageAdjPct >= 10
+        ? `At ${fmt(i.actualMiles, 0)} miles the car has been driven far less than the ${fmt(expectedMiles, 0)}-mile average for its age, adding roughly ${fmt(mileageAdjPct, 0)}% to value`
+        : `At ${fmt(i.actualMiles, 0)} miles the odometer sits close to the ${fmt(expectedMiles, 0)}-mile average for its age, so mileage barely moves the number`;
 
-  const totalDepreciation = Math.max(0, price - resaleValue);
-  const depreciationPercent = price > 0 ? (totalDepreciation / price) * 100 : 0;
-  const retentionPercent = price > 0 ? (resaleValue / price) * 100 : 0;
-  const annualDepreciation = age > 0 ? totalDepreciation / age : totalDepreciation;
-
-  const adjustmentRatio = baselineValue > 0 ? resaleValue / baselineValue : 1;
-  const chartYears = Math.max(Math.ceil(age) + 3, 6);
-  const chartData: ChartPoint[] = [];
-  for (let y = 0; y <= chartYears; y += 1) {
-    chartData.push({
-      year: y === 0 ? "New" : `Yr ${y}`,
-      value: Math.round(curveValue(price, spec, y) * adjustmentRatio),
-      isNow: y === Math.round(age),
-    });
-  }
-
-  const whole = (v: number) => `$${Math.round(v).toLocaleString("en-US")}`;
-  const signed = (v: number) => `${v < 0 ? "-" : "+"}$${Math.round(Math.abs(v)).toLocaleString("en-US")}`;
-
-  const rows: TableRow[] = [
-    { label: "Original Purchase Price", value: whole(price) },
-    { label: `Curve Value at ${age} yr (${spec.label})`, value: whole(baselineValue) },
-    { label: `Mileage Adjustment (${mileageDelta >= 0 ? "+" : ""}${Math.round(mileageDelta).toLocaleString("en-US")} mi)`, value: signed(mileageAdjustment) },
-    { label: `Condition Adjustment (${CONDITION_LABELS[i.condition]})`, value: signed(conditionAdjustment) },
-    { label: "Vehicle History Adjustment", value: signed(historyAdjustment) },
-    { label: `Sale Channel (${CHANNEL_LABELS[i.saleChannel]})`, value: signed(channelAdjustment) },
-    { label: "Estimated Resale Value", value: whole(resaleValue), key: true },
-    { label: "Total Depreciation to Date", value: whole(totalDepreciation) },
-    { label: "Average Depreciation per Year", value: whole(annualDepreciation) },
-    { label: "Value Retained", value: `${retentionPercent.toFixed(1)}%` },
+  const d = Math.max(0, Math.min(2, i.decimals));
+  const breakdown = [
+    { label: "Original price", value: money(i.originalPrice, d) },
+    { label: `Age: ${fmt(i.ageYears, 0)} year${i.ageYears === 1 ? "" : "s"} · ${i.vehicleClass === "suv" ? "SUV" : i.vehicleClass}`, value: `${fmt(remaining, 1)}% of value remaining` },
+    { label: `Odometer ${fmt(i.actualMiles, 0)} mi vs ${fmt(expectedMiles, 0)} expected`, value: `${mileageAdjPct >= 0 ? "+" : ""}${fmt(mileageAdjPct, 1)}% mileage adjustment`, highlight: true },
+    { label: `Condition: ${i.condition}`, value: `× ${fmt(conditionMult, 2)}` },
+    { label: "Estimated resale value", value: money(resaleValue, d), highlight: true },
+    { label: "Total depreciation so far", value: `−${money(depreciation, d)} (${fmt(depreciationPct, 1)}%)` },
+    { label: "Average depreciation per year owned", value: money(avgAnnualDep, d) },
+    { label: "Value in 1 year (curve only)", value: money(proj1, d) },
+    { label: "Value in 2 years (curve only)", value: money(proj2, d) },
+    { label: "Value in 3 years (curve only)", value: money(proj3, d) },
+    { label: "First-year loss if sold new tomorrow", value: `−${money(i.originalPrice * (1 - CURVES[i.vehicleClass][1] / 100), d)}` },
   ];
 
-  // Professional mode
-  const hold = Math.max(0, i.holdYears);
-  const futureValue = Math.max(0, curveValue(price, spec, age + hold) * adjustmentRatio);
-  const futureDepreciation = Math.max(0, resaleValue - futureValue);
-  const futureMiles = Math.max(1, hold * Math.max(0, i.annualMileageDriven));
-  const carryingCosts = hold * (Math.max(0, i.annualInsurance) + Math.max(0, i.annualMaintenance));
-  const totalCostOfOwnership = futureDepreciation + carryingCosts;
-  const costPerMile = totalCostOfOwnership / futureMiles;
-  const monthlyDepreciationCost = hold > 0 ? futureDepreciation / (hold * 12) : 0;
-
   return {
+    valid: true,
+    errorMsg: "",
+    remaining,
+    mileageAdjPct,
+    conditionMult,
     resaleValue,
-    baselineValue,
-    totalDepreciation,
-    depreciationPercent,
-    retentionPercent,
-    annualDepreciation,
-    mileageAdjustment,
-    conditionAdjustment,
-    historyAdjustment,
-    channelAdjustment,
-    expectedMileage,
-    mileageDelta,
-    chartData,
-    rows,
-    futureValue,
-    futureDepreciation,
-    costPerMile,
-    totalCostOfOwnership,
-    monthlyDepreciationCost,
+    depreciation,
+    depreciationPct,
+    avgAnnualDep,
+    expectedMiles,
+    proj1,
+    proj2,
+    proj3,
+    verdict,
+    breakdown,
   };
 }
 
-const inp =
-  "w-full h-10 px-3 text-base rounded-md border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-primary/20";
-const lbl = "text-sm font-medium text-foreground mb-1 block";
-const groupLabel = "text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold flex items-center gap-1.5";
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  error?: string;
+  type?: string;
+  min?: string;
+  max?: string;
+  step?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  onEnter,
+  hint,
+  error,
+  type = "number",
+  min,
+  max,
+  step,
+  suffix,
+  tooltip,
+}: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div
+      className={`relative w-full flex items-center rounded-md border bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${
+        error ? "border-destructive" : "border-input"
+      }`}
+    >
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        max={max}
+        step={step}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && !error && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+    {error && <p className="text-[11px] text-destructive mt-1">{error}</p>}
+  </div>
+);
+
+const CompactSelect = ({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  tooltip,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  tooltip?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-background outline-none focus:outline-none border-none text-foreground"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
 
 export default function CarResaleValueCalculator() {
-  const [inputs, setInputs] = useState<CarInputs>(DEFAULTS);
-  const [result, setResult] = useState<CarResult>(calculateCarResale(DEFAULTS));
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [originalPrice, setOriginalPrice] = useState(String(DEFAULTS.originalPrice));
+  const [ageYears, setAgeYears] = useState(String(DEFAULTS.ageYears));
+  const [vehicleClass, setVehicleClass] = useState(String(DEFAULTS.vehicleClass));
+  const [actualMiles, setActualMiles] = useState(String(DEFAULTS.actualMiles));
+  const [condition, setCondition] = useState(String(DEFAULTS.condition));
+  const [decimals, setDecimals] = useState(String(DEFAULTS.decimals));
+  const [showAdv, setShowAdv] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-    setResult(calculateCarResale(inputs));
-  }, []);
+  const getInputs = (): ResaleInputs => ({
+    originalPrice: parseFloat(originalPrice) || 0,
+    ageYears: parseFloat(ageYears) || 0,
+    vehicleClass: (vehicleClass as VClass) || "suv",
+    actualMiles: parseFloat(actualMiles) || 0,
+    condition: (condition as Condition) || "good",
+    decimals: parseFloat(decimals),
+  });
 
-  const calculate = () => setResult(calculateCarResale(inputs));
+  const [calcInputs, setCalcInputs] = useState<ResaleInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<ResaleResult>(() => calculateResale(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(calculateResale(inputs));
+  };
+
   const reset = () => {
-    setInputs(DEFAULTS);
-    setResult(calculateCarResale(DEFAULTS));
-    setShowAdvanced(false);
+    setOriginalPrice(String(DEFAULTS.originalPrice));
+    setAgeYears(String(DEFAULTS.ageYears));
+    setVehicleClass(String(DEFAULTS.vehicleClass));
+    setActualMiles(String(DEFAULTS.actualMiles));
+    setCondition(String(DEFAULTS.condition));
+    setDecimals(String(DEFAULTS.decimals));
+    setCalcInputs(DEFAULTS);
+    setResults(calculateResale(DEFAULTS));
   };
 
-  const setNum = (key: keyof CarInputs, raw: string) => {
-    const parsed = parseFloat(raw);
-    setInputs((prev) => ({ ...prev, [key]: isNaN(parsed) ? 0 : parsed }));
+  const priceNum = parseFloat(originalPrice);
+  const ageNum = parseFloat(ageYears);
+
+  const errors = {
+    originalPrice: !Number.isFinite(priceNum) || priceNum < 3000 ? "Enter $3,000 or more" : "",
+    ageYears: !Number.isFinite(ageNum) || ageNum < 0 || ageNum > 25 ? "Enter 0–25 years" : "",
   };
+  const hasErrors = Object.values(errors).some(Boolean);
 
-  const whole = (v: number) => `$${Math.round(v).toLocaleString("en-US")}`;
-
-  const retentionColor =
-    result.retentionPercent >= 55 ? "text-emerald-600" : result.retentionPercent >= 35 ? "text-amber-600" : "text-red-600";
+  const d = Math.max(0, Math.min(2, calcInputs.decimals || 0));
 
   const faqs = [
     {
-      question: "How much value does a new car lose in the first year?",
+      question: "Which vehicles hold their value best?",
       answer:
-        "Most vehicles lose between 15% and 27% of their value in the first twelve months, with the exact figure depending heavily on segment. Pickup trucks hold value best, shedding roughly 15%, while luxury sedans and electric vehicles are the steepest at 26% to 27%. This first-year cliff is why buying a one-year-old vehicle is often the single highest-leverage decision in car ownership economics.",
+        "Pickup trucks hold value better than any other mainstream class — a five-year-old truck routinely keeps half its original price, driven by sustained demand and long service lives. Luxury and performance cars sit at the other end: steep first-year drops of 25 to 30% are normal because the buyers who want them new are the only ones willing to pay the new premium. SUVs and crossovers hold slightly better than sedans, and electric vehicles currently depreciate faster than comparable gasoline models as battery technology and range improve year over year.",
     },
     {
-      question: "How does mileage affect resale value?",
+      question: "How much does mileage change resale value?",
       answer:
-        "Appraisers compare your odometer against an expected 12,000 miles per year and adjust from there. Roughly six cents per mile of deviation is typical, so a four-year-old car with 70,000 miles instead of the expected 48,000 loses about $1,300 relative to the curve. The adjustment is capped in both directions because a garage-kept low-mileage car still suffers age-related wear to seals, belts, and tires.",
+        "The market anchors on about 13,500 miles per year of age. A car driven meaningfully less commands a premium and one driven meaningfully less well — a discount — with the adjustment working out to roughly 1.5% of value per 1,000 miles of deviation, capped around 20% either way because extreme figures usually signal something else worth investigating. The key word is average: a 4-year-old car with 90,000 miles is not worn out, it is simply above the curve, and the discount reflects the miles already consumed rather than any single defect.",
     },
     {
-      question: "Why is a dealer trade-in worth less than a private sale?",
+      question: "Why does the biggest drop happen in year one?",
       answer:
-        "A dealer has to recondition the vehicle, floor-plan it on their lot for weeks or months, and still clear a margin when it sells. That spread typically runs about 15% below private-party value. An instant online cash offer usually lands in between, around 10% below private party, because those buyers operate at higher volume and lower reconditioning standards. The trade-off is speed and certainty against price.",
+        "The moment a car is titled to a second owner it stops being 'new', and the market will not pay the new-car premium for a used car regardless of condition. Registration fees, destination charges and dealer markups evaporate too. That 20 to 28% first-year cliff is why buying a one- or two-year-old vehicle is chronically the best value play in motoring — someone else absorbed the steepest depreciation while the car itself has barely aged mechanically.",
     },
     {
-      question: "How much does an accident on the vehicle history report cost?",
+      question: "How accurate is a depreciation-curve estimate against real listings?",
       answer:
-        "A reported accident typically costs about 12% of the vehicle's value even after a flawless repair, because the branding follows the VIN permanently and buyers discount it regardless of workmanship. Severity matters at the margins, but the existence of the report is what drives most of the loss. Frame damage or airbag deployment can push the discount well past 20%.",
-    },
-    {
-      question: "Do electric vehicles depreciate faster than gas cars?",
-      answer:
-        "Historically yes. EVs have carried some of the steepest depreciation curves in the market, driven by rapid improvements in battery range, shifting tax credit availability, and uncertainty about long-term battery health. A 26% first-year drop and 16% annually afterward is a reasonable planning assumption, though this varies more by model than in any other segment.",
-    },
-    {
-      question: "Does the number of previous owners matter?",
-      answer:
-        "Each owner beyond the first costs roughly 2% of value. The logic is that multiple short ownership periods correlate with unresolved problems and with gaps in maintenance continuity. A three-owner car is not necessarily worse mechanically than a one-owner car, but buyers cannot verify that, so they price in the risk.",
-    },
-    {
-      question: "Are complete service records worth keeping?",
-      answer:
-        "Yes, and they are close to free. A documented maintenance history recovers about 3% of value at sale because it converts an unverifiable claim into evidence. This is one of very few resale levers you control entirely, and it matters most on higher-mileage vehicles where buyers are specifically worried about deferred maintenance.",
-    },
-    {
-      question: "What is the cheapest point in a car's life to own it?",
-      answer:
-        "Depreciation per year falls sharply after roughly year five, while maintenance costs rise gradually. The combined cost of ownership usually bottoms out somewhere between years four and eight for most mainstream vehicles. Turn on Professional Mode above to model your own crossover point using your actual insurance and maintenance figures.",
+        "Curve-based estimates land in the right neighbourhood but no model sees the specifics that move individual cars: colour, trim, options, service history, local market, and whether the model is in season. Use the estimate as a baseline before shopping listings for the exact model, and expect the final number to be negotiated within a band around it. Private-party sales typically run 10 to 15% above trade-in, because the dealer must recondition and resell the car at a profit.",
     },
   ];
 
@@ -340,7 +364,7 @@ export default function CarResaleValueCalculator() {
         items={[
           { label: "Home", href: "/" },
           { label: "Calculators", href: "/calculator" },
-          { label: "Transportation", href: "/calculator/transportation" },
+          { label: "Transportation", href: "/calculator#transportation" },
           { label: "Car Resale Value Calculator" },
         ]}
       />
@@ -348,309 +372,290 @@ export default function CarResaleValueCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Car Resale Value Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          {/* LEFT */}
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card rounded-xl">
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label htmlFor="purchasePrice" className={lbl}>Purchase Price</label>
-                <input id="purchasePrice" type="number" min="0" step="500" className={inp} value={inputs.purchasePrice}
-                  onChange={(e) => setNum("purchasePrice", e.target.value)} />
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Vehicle & Age">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="price"
+                  label="Original Price"
+                  value={originalPrice}
+                  onChange={setOriginalPrice}
+                  onEnter={runCalculate}
+                  min="3000"
+                  max="1000000"
+                  step="500"
+                  error={errors.originalPrice}
+                  hint="MSRP or price paid new."
+                  tooltip="The vehicle's original sticker or purchase price."
+                />
+                <CompactInput
+                  id="age"
+                  label="Vehicle Age"
+                  value={ageYears}
+                  onChange={setAgeYears}
+                  onEnter={runCalculate}
+                  min="0"
+                  max="25"
+                  step="1"
+                  suffix="yrs"
+                  error={errors.ageYears}
+                  tooltip="Years since first sale — partial years are interpolated."
+                />
               </div>
-              <div>
-                <label htmlFor="ageYears" className={lbl}>Vehicle Age (yrs)</label>
-                <input id="ageYears" type="number" min="0" step="0.5" className={inp} value={inputs.ageYears}
-                  onChange={(e) => setNum("ageYears", e.target.value)} />
-              </div>
-              <div>
-                <label htmlFor="currentMileage" className={lbl}>Current Mileage</label>
-                <input id="currentMileage" type="number" min="0" step="1000" className={inp} value={inputs.currentMileage}
-                  onChange={(e) => setNum("currentMileage", e.target.value)} />
-              </div>
-              <div>
-                <label htmlFor="segment" className={lbl}>Vehicle Segment</label>
-                <select id="segment" className={inp} value={inputs.segment}
-                  onChange={(e) => setInputs((p) => ({ ...p, segment: e.target.value as Segment }))}>
-                  {SEGMENTS.map((s) => (
-                    <option key={s.key} value={s.key}>{s.label}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
+            </SubSection>
 
+            <SubSection title="Class & Use">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactSelect
+                  id="class"
+                  label="Vehicle Class"
+                  value={vehicleClass}
+                  onChange={setVehicleClass}
+                  options={CLASS_OPTIONS}
+                  tooltip="Class sets the depreciation curve — trucks hold value best, luxury worst."
+                />
+                <CompactInput
+                  id="miles"
+                  label="Odometer"
+                  value={actualMiles}
+                  onChange={setActualMiles}
+                  onEnter={runCalculate}
+                  min="0"
+                  max="1000000"
+                  step="1000"
+                  suffix="mi"
+                  tooltip="Current odometer reading; compared against 13,500 miles per year of age."
+                />
+              </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
             <div>
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)}
-                className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline mt-1 focus:outline-none">
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
                 Advanced Options
-                <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
               </button>
 
-              {showAdvanced && (
-                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
-                  <div>
-                    <div className={groupLabel}>
-                      <Gauge className="h-3.5 w-3.5" /> Condition &amp; Usage
-                    </div>
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Condition & Display">
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label htmlFor="condition" className={lbl}>Condition Grade</label>
-                        <select id="condition" className={inp} value={inputs.condition}
-                          onChange={(e) => setInputs((p) => ({ ...p, condition: e.target.value as Condition }))}>
-                          <option value="excellent">Excellent</option>
-                          <option value="good">Good</option>
-                          <option value="fair">Fair</option>
-                          <option value="poor">Poor</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label htmlFor="annualMileageDriven" className={lbl}>Miles Driven / yr</label>
-                        <input id="annualMileageDriven" type="number" min="0" step="1000" className={inp}
-                          value={inputs.annualMileageDriven} onChange={(e) => setNum("annualMileageDriven", e.target.value)} />
-                      </div>
+                      <CompactSelect
+                        id="condition"
+                        label="Condition"
+                        value={condition}
+                        onChange={setCondition}
+                        options={CONDITION_OPTIONS}
+                        tooltip="Excellent ×1.06, good ×1.00, fair ×0.88, poor ×0.72."
+                      />
+                      <CompactSelect
+                        id="decimals"
+                        label="Decimals"
+                        value={decimals}
+                        onChange={setDecimals}
+                        options={DECIMAL_OPTIONS}
+                        tooltip="Decimal places shown on money figures."
+                      />
                     </div>
-                  </div>
-
-                  <div>
-                    <div className={groupLabel}>
-                      <Car className="h-3.5 w-3.5" /> History &amp; Sale Channel
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label htmlFor="ownerCount" className={lbl}>Number of Owners</label>
-                        <input id="ownerCount" type="number" min="1" max="6" step="1" className={inp}
-                          value={inputs.ownerCount} onChange={(e) => setNum("ownerCount", e.target.value)} />
-                      </div>
-                      <div>
-                        <label htmlFor="saleChannel" className={lbl}>Sale Channel</label>
-                        <select id="saleChannel" className={inp} value={inputs.saleChannel}
-                          onChange={(e) => setInputs((p) => ({ ...p, saleChannel: e.target.value as SaleChannel }))}>
-                          <option value="private">Private party</option>
-                          <option value="instant-offer">Instant cash offer</option>
-                          <option value="dealer-trade">Dealer trade-in</option>
-                        </select>
-                      </div>
-                      <label htmlFor="accidentHistory" className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
-                        <input id="accidentHistory" type="checkbox" className="h-4 w-4 accent-primary" checked={inputs.accidentHistory}
-                          onChange={(e) => setInputs((p) => ({ ...p, accidentHistory: e.target.checked }))} />
-                        Reported accident
-                      </label>
-                      <label htmlFor="serviceRecords" className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
-                        <input id="serviceRecords" type="checkbox" className="h-4 w-4 accent-primary" checked={inputs.serviceRecords}
-                          onChange={(e) => setInputs((p) => ({ ...p, serviceRecords: e.target.checked }))} />
-                        Full service records
-                      </label>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className={groupLabel}>
-                      <Wrench className="h-3.5 w-3.5" /> Professional Mode
-                    </div>
-                    <label htmlFor="proMode" className="flex items-center gap-2 text-sm font-medium text-foreground mb-3 cursor-pointer">
-                      <input id="proMode" type="checkbox" className="h-4 w-4 accent-primary" checked={inputs.proMode}
-                        onChange={(e) => setInputs((p) => ({ ...p, proMode: e.target.checked }))} />
-                      Unlock hold-period forecast and cost per mile
-                    </label>
-                    {inputs.proMode ? (
-                      <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <label htmlFor="holdYears" className={lbl}>Additional Hold (yrs)</label>
-                          <input id="holdYears" type="number" min="0" step="1" className={inp} value={inputs.holdYears}
-                            onChange={(e) => setNum("holdYears", e.target.value)} />
-                        </div>
-                        <div>
-                          <label htmlFor="annualInsurance" className={lbl}>Insurance / yr</label>
-                          <input id="annualInsurance" type="number" min="0" step="100" className={inp}
-                            value={inputs.annualInsurance} onChange={(e) => setNum("annualInsurance", e.target.value)} />
-                        </div>
-                        <div className="col-span-2">
-                          <label htmlFor="annualMaintenance" className={lbl}>Maintenance &amp; Repairs / yr</label>
-                          <input id="annualMaintenance" type="number" min="0" step="100" className={inp}
-                            value={inputs.annualMaintenance} onChange={(e) => setNum("annualMaintenance", e.target.value)} />
-                        </div>
-                      </div>
-                    ) : null}
-                  </div>
+                  </SubSection>
                 </div>
               )}
             </div>
 
-            <div className="flex gap-2.5 mt-2.5">
-              <button type="button" onClick={calculate}
-                className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm">
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                disabled={hasErrors}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Calculate
               </button>
-              <button type="button" onClick={reset} aria-label="Reset"
-                className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none">
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="flex flex-col gap-4">
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
-              <div className="flex justify-end absolute top-3 right-3">
-                <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
-                  <Printer className="h-3.5 w-3.5" /> Print
-                </button>
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
-              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Estimated Resale Value</div>
-              <div className="text-4xl font-bold text-primary my-1">{whole(result.resaleValue)}</div>
-              <div className="text-sm text-muted-foreground">
-                {result.retentionPercent.toFixed(1)}% of original price retained after {inputs.ageYears} years
+            )}
+
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Estimated Resale Value</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? money(results.resaleValue, d) : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${fmt(results.remaining, 0)}% of original value at ${fmt(calcInputs.ageYears, 0)} years · ${results.verdict.split(",")[0]}`
+                  : "Enter the price, age and mileage to estimate value"}
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-              <div className="p-4 text-center">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Value Retained</div>
-                <div className={`text-lg font-bold ${retentionColor}`}>{result.retentionPercent.toFixed(1)}%</div>
+            {/* 2. 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Depreciation</span>
+                <span className="font-extrabold text-foreground">{results.valid ? `${fmt(results.depreciationPct, 0)}%` : "—"}</span>
               </div>
-              <div className="p-4 text-center border-l border-border">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Total Lost</div>
-                <div className="text-lg font-bold text-red-600">{whole(result.totalDepreciation)}</div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Per Year Owned</span>
+                <span className="font-extrabold text-foreground">{results.valid ? money(results.avgAnnualDep, 0) : "—"}</span>
               </div>
-              <div className="p-4 text-center border-l border-border">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Per Year</div>
-                <div className="text-lg font-bold text-amber-600">{whole(result.annualDepreciation)}</div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Value in 2 Years</span>
+                <span className="font-extrabold text-foreground">{results.valid ? money(results.proj2, 0) : "—"}</span>
               </div>
             </div>
 
+            {/* 3. BREAKDOWN TABLE */}
             <div className="overflow-x-auto rounded-lg border border-border bg-card">
               <table className="w-full text-left border-collapse text-sm">
                 <thead>
-                  <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
-                    <th className="p-2.5 pl-3">Valuation Component</th>
-                    <th className="p-2.5 pr-3 text-right">Amount</th>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Valuation Item</th>
+                    <th className="p-2.5 pr-3 text-right w-[240px]">Value</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
-                  {result.rows.map((row) => (
-                    <tr key={row.label} className={row.key ? "bg-primary/5" : ""}>
-                      <td className={`text-base py-2.5 px-3 ${row.key ? "font-semibold text-foreground" : "text-muted-foreground"}`}>{row.label}</td>
-                      <td className={`text-base py-2.5 px-3 text-right font-medium ${row.key ? "text-primary font-bold" : "text-foreground"}`}>{row.value}</td>
+                  {results.valid ? (
+                    results.breakdown.map((row) => (
+                      <tr key={row.label} className={row.highlight ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                        <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                        <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td className="p-2.5 pl-3 text-muted-foreground" colSpan={2}>
+                        Enter the vehicle details to build the valuation.
+                      </td>
                     </tr>
-                  ))}
-                  <tr className="font-bold border-t-2 border-border">
-                    <td className="text-base py-2.5 px-3 text-foreground">Depreciation to Date</td>
-                    <td className="text-base py-2.5 px-3 text-right text-primary">{result.depreciationPercent.toFixed(1)}%</td>
-                  </tr>
+                  )}
+                  {results.valid && (
+                    <tr className="font-bold bg-secondary/30 border-t-2 border-border">
+                      <td className="p-2.5 pl-3 text-foreground">Expected value retention</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">
+                        {`${fmt(100 - results.depreciationPct, 1)}% kept · ${fmt(results.expectedMiles, 0)} mi expected`}
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
 
-            {mounted ? (
-              <div className="rounded-xl border border-border bg-card p-4">
-                <h3 className="text-sm font-bold text-foreground mb-3">Depreciation Curve</h3>
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                    <XAxis dataKey="year" tick={{ fontSize: 11 }} interval={0} />
-                    <YAxis tick={{ fontSize: 11 }} tickFormatter={(v: number) => `$${Math.round(v / 1000)}k`} />
-                    <RTooltip formatter={(value: number) => whole(value)} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} />
-                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                      {result.chartData.map((point) => (
-                        <Cell key={point.year} fill={point.isNow ? "#2563EB" : "#94A3B8"} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-                <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-2">
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-                    <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: "#2563EB" }} /> Current age
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-                    <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: "#94A3B8" }} /> Projected value
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
-            {inputs.proMode ? (
-              <div className="rounded-xl border border-border bg-card p-5">
-                <h3 className="text-sm font-bold text-foreground mb-3">Hold-Period Cost Forecast</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Value in {inputs.holdYears} Years</div>
-                    <div className="text-base font-bold text-foreground">{whole(result.futureValue)}</div>
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Further Depreciation</div>
-                    <div className="text-base font-bold text-red-600">{whole(result.futureDepreciation)}</div>
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Depreciation / Month</div>
-                    <div className="text-base font-bold text-amber-600">{whole(result.monthlyDepreciationCost)}</div>
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">All-In Cost per Mile</div>
-                    <div className="text-base font-bold text-primary">${result.costPerMile.toFixed(2)}</div>
-                  </div>
-                  <div className="col-span-2">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Total Cost of Ownership over Hold</div>
-                    <div className="text-base font-bold text-foreground">{whole(result.totalCostOfOwnership)}</div>
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
+            {/* 4. SUMMARY STATISTICS */}
             <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
               <div className="grid grid-cols-2 gap-4">
-                {result.rows.map((row) => (
-                  <div key={row.label} className="flex flex-col">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">{row.label}</span>
-                    <span className={`text-base font-bold ${row.key ? "text-primary" : "text-foreground"}`}>{row.value}</span>
-                  </div>
-                ))}
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Resale value</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? money(results.resaleValue, d) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Value retained</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? `${fmt(100 - results.depreciationPct, 1)}%` : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Total depreciation</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? money(results.depreciation, d) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Average per year</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? money(results.avgAnnualDep, d) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Mileage adjustment</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${results.mileageAdjPct >= 0 ? "+" : ""}${fmt(results.mileageAdjPct, 1)}%` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Condition multiplier</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? `× ${fmt(results.conditionMult, 2)}` : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Projected, +1 year</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? money(results.proj1, d) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Projected, +3 years</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? money(results.proj3, d) : "—"}</span>
+                </div>
               </div>
+              {results.valid && <p className="text-[11px] mt-3 font-semibold text-muted-foreground">{results.verdict}.</p>}
             </div>
           </div>
         </div>
 
-        {/* SEO */}
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">How Car Depreciation Actually Works</h2>
-            <p className="mb-4">
-              Depreciation is not linear, and treating it as though it were is the most common mistake in vehicle
-              budgeting. A car sheds the largest share of its value in the first twelve months, typically 15% to 27%
-              depending on segment, then declines geometrically at a slower rate each year afterward. Because the decline
-              compounds against a shrinking base, the dollar loss per year falls steadily even though the percentage rate
-              stays roughly constant. Eventually the curve flattens against a residual floor, the point below which a
-              running vehicle retains value simply because it is transportation.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">Why Segment Matters More Than Brand</h2>
-            <p className="mb-4">
-              Pickup trucks are the strongest value holders in the market, losing about 15% in year one and 11% annually
-              thereafter, because demand for used work vehicles is deep and relatively insensitive to model year. SUVs and
-              crossovers follow. Luxury sedans and electric vehicles sit at the opposite end, both around a 26% first-year
-              drop, though for different reasons. Luxury sedans depreciate because their new-car price includes substantial
-              brand premium that evaporates on resale, and because maintenance costs frighten second owners. Electric
-              vehicles depreciate because the technology improves quickly enough that a four-year-old battery and range
-              figure look dated against current models.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">The Adjustments That Follow the Curve</h2>
-            <p className="mb-4">
-              Once the curve produces a baseline, appraisers layer adjustments on top. Mileage is measured against an
-              expected 12,000 miles per year and valued at roughly six cents per mile of deviation. Condition grade moves
-              the number by up to six percent upward for excellent examples and nearly thirty percent downward for poor
-              ones. A reported accident costs about 12% regardless of repair quality, each additional owner costs about 2%,
-              and complete service records recover about 3%. Finally, the sale channel applies: a dealer trade-in lands
-              roughly 15% below private-party value, and an instant cash offer about 10% below, in exchange for speed.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">Using Depreciation to Time a Sale</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is a Car Resale Value Calculator?</h2>
             <p>
-              Because annual depreciation falls while maintenance costs rise, total cost of ownership per year usually
-              bottoms out somewhere between years four and eight for mainstream vehicles. Selling before that point means
-              paying for the steepest part of the curve without collecting the cheap years that follow. Holding well past
-              it means absorbing rising repair bills for a vehicle that has little value left to lose. Professional Mode
-              lets you project a hold period forward and see the all-in cost per mile, combining further depreciation with
-              your actual insurance and maintenance figures, which is the number that should drive the decision rather
-              than the sticker value alone.
+              A car resale value calculator estimates what a vehicle is worth today from four things the used market actually prices:
+              what it cost new, how old it is, what class it belongs to, and how it has been used and kept. Depreciation is the single
+              largest cost of owning a car — typically exceeding fuel, insurance and maintenance combined over the first five years —
+              yet it is the one cost that never appears on a receipt, which is why estimating it before purchase or sale pays.
+            </p>
+            <p>
+              The calculator applies class-specific depreciation curves, adjusts for the odometer against the 13,500-miles-per-year
+              market expectation, and applies a condition multiplier. The output is a realistic private-party baseline rather than a
+              guarantee: individual trims, options and local markets move around it, but rarely by enormous margins.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              Each vehicle class carries a curve of the share of original price remaining at each age, built from observed market
+              behaviour: pickups retain value best (a five-year-old truck commonly keeps half its price), SUVs and sedans follow the
+              middle path, luxury cars fall fastest because the buyers who want them new will not pay the premium used, and electric
+              vehicles currently shed value slightly quicker as each model year brings more range. Age is interpolated between the
+              anchor points, so partial years work.
+            </p>
+            <p>
+              Mileage enters as a deviation from the age-based expectation of about 13,500 miles a year: each 1,000 miles below average
+              adds roughly 1.5% to value, each 1,000 above subtracts it, with the adjustment capped at ±20% because extreme odometers
+              usually signal something the curve cannot see. Condition then multiplies through — excellent ×1.06, good ×1.00, fair
+              ×0.88, poor ×0.72 — and a floor at 3% of the original price keeps very old vehicles from resolving to zero. The table
+              also projects one to three years forward on the curve alone, which is the honest way to answer "should I sell now or
+              keep driving it".
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card is the estimated resale value, with the retention percentage and mileage verdict beneath. The three-stat
+              bar carries total depreciation, the average annual cost of depreciation, and the projected value in two years. Read the
+              projections against ownership intent: if the +1-year figure minus its running costs is smaller than the payment on a
+              replacement, keeping the car is usually the better financial deal, because the steepest depreciation years are already
+              behind it.
+            </p>
+            <p>
+              Remember the two prices every used car really has. The private-party figure this calculator estimates is what you can
+              expect selling to another driver, typically 10 to 15% above what a dealer will offer on trade-in, because the dealer must
+              recondition and resell at a profit. And no curve sees the car itself: a documented service history, a sought-after colour
+              or a rare trim can beat the estimate, while a rebuilt title or neglected maintenance can halve it. Use the number as the
+              centre of the negotiating band, not the final word — and check live listings for the exact model before setting an asking
+              price.
             </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-resale-value-calculator" />

@@ -736,3 +736,22 @@
   text-align: left;
   -moz-appearance: auto; /* preserve spinners in Firefox */
 }
+
+/* ── Scroll-lock layout shift fix ────────────────────────────────────────────
+   <html> carries `overflow-x: hidden`, so the root scrollbar — the one <html>
+   owns — is never removed while an overlay locks the page: a body's overflow
+   only propagates to the viewport when the root contributes `visible` overflow.
+   react-remove-scroll (used by every Radix overlay) still measures that
+   scrollbar and writes `margin-right: 17px !important` onto <body> through
+   `body[data-scroll-locked]`, which narrows the page and shifts every in-flow
+   element sideways (centred content ~8px, right-anchored content a full bar).
+   Zero it. The `html` prefix is required for specificity: the library injects
+   its stylesheet into <head> at lock time, i.e. after this file, so an
+   equal-specificity rule loses the tie and the shift remains. Keep this rule
+   OUTSIDE @layer so it stays unlayered and can compete with that stylesheet.
+   Do NOT swap it for `html { scrollbar-gutter: stable }` — measured, the 17px
+   margin-right is applied regardless, so the shift is unchanged. */
+html body[data-scroll-locked] {
+  margin-right: 0 !important;
+}
+

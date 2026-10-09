@@ -130,14 +130,12 @@ for (const c of categories) {
   }
 }
 
-// Soon tools must render as non-clickable cards (ToolCard + hasComingSoonPage
-// gate): verify the index page passes the domain through so cards can't link
-// to 404s, and comingSoonPage does not list cad as having soon pages.
+// Soon tools render via ComingSoonToolPage: verify comingSoonPage lists cad as having soon pages.
 const comingSoonSrc = readFileSync(resolve(ROOT, "src/lib/tools/comingSoonPage.ts"), "utf-8");
 const hasCadSoon = /DOMAINS_WITH_COMING_SOON[\s\S]*?["']cad["']/.test(comingSoonSrc);
-console.log(`  cad in DOMAINS_WITH_COMING_SOON (would give soon tools pages): ${hasCadSoon}`);
-if (hasCadSoon) {
-  console.log("  WARNING: soon tools would be clickable but have no page (notFound).");
+console.log(`  cad in DOMAINS_WITH_COMING_SOON: ${hasCadSoon ? "YES ✔" : "NO ✘"}`);
+if (!hasCadSoon) {
+  console.log("  WARNING: cad missing from DOMAINS_WITH_COMING_SOON.");
   process.exitCode = 1;
 }
 

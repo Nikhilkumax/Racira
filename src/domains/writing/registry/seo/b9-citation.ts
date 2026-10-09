@@ -8,48 +8,44 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B9_CITATION_SEO: Record<string, ToolSeo> = {
   "citation-formatter": {
-    keywords: ["citation formatter", "APA 7", "MLA 9", "Chicago", "Bluebook"],
-    intro:
-      "The citation formatter turns typed metadata into one formatted entry in APA 7th edition, MLA 9th edition, Chicago 17th edition notes-bibliography or Bluebook 21st edition for cases and statutes — with the in-text and note forms beside it.",
-    content: `A citation formatter has one job that can be done honestly without a network: put the fields you typed into the order and punctuation a style manual specifies. This citation formatter does exactly that for four editions, named on the page so there is no doubt which rules are in force: APA 7th edition (2020), MLA 9th edition (2021), Chicago 17th edition notes-bibliography (2017) and Bluebook 21st edition (2020) for case and statute patterns. It does not search for a DOI, resolve an ISBN, or guess missing data. The bibliography entry, the in-text form and, where the style uses notes, the footnote form are each printed and can be copied separately.
-
-Eight source types are covered: book, chapter in an edited book, journal article, newspaper article, web page, report, court case and statute. Choosing a type narrows the style list — Bluebook is the only style offered for legal material, and it is withheld for everything else, where its rules do not apply, with the reason printed in place of an entry. Authors are entered one per line as Family, Given; an organisation written without a comma is kept as written, which is how a corporate author is handled in all four styles. The author-count rules implemented are documented: APA lists the authors with an ampersand, MLA uses et al. from three authors, Chicago lists up to three and uses et al. beyond, and Bluebook case citations carry no authors at all.
-
-The engine prints titles exactly as entered. That is deliberate. APA wants sentence case for titles, MLA and Chicago want headline style, and the correct result depends on the language, on proper nouns and on the writer's knowledge of the work — a rule that lowercased the first letter of every word would mangle names of people and places. The page tells you to supply the title in the casing your style requires, and the italic elements are left plain unless you switch on underscore markers, so the output stays copyable text.
-
-Page ranges use each style's own dash: an en dash for APA and Chicago, a hyphen for MLA. Journal entries carry volume, issue and page ranges in the style's punctuation, with a DOI rendered as a full https://doi.org/ link or a URL if no DOI was given. Web and newspaper entries accept a full date and an accessed date, both printed as entered, because date order conventions differ by style and by locale.
-
-Missing fields produce warnings rather than invented text: no year prints n.d. where the style has a slot for it, no publisher is flagged for the source types that require one, and a web entry without a URL is called out. Nothing is silently fabricated. Bluebook support is scoped to the case and statute forms implemented here and nothing on the page is legal advice; the full rule set has provisions for signals, short forms and tables of authorities that a single-entry formatter cannot cover.
-
-Everything happens in the browser. There is no account, no upload, no DOI resolver, no ISBN lookup and no storage: your fields exist on screen and in whatever you copy or download, and the tab closing takes them with it. The formatted entry is a function of the fields alone, so the same input always produces the same output, which is what makes it possible to check an entry against the manual's own worked example.`,
-    howTo: [
-      { step: "Choose the source type and the style; the field set and the style list change with the type." },
-      { step: "Enter authors one per line as Family, Given; write an organisation without a comma to keep it as-is." },
-      { step: "Fill the fields you have, including edition, volume, issue, pages, DOI, URL and pinpoint page." },
-      { step: "Read the bibliography entry, the in-text or note form and any warnings about missing fields." },
-      { step: "Copy the entry and check it against the manual; the tool formats, it does not verify." },
+    keywords: [
+      "citation formatter",
+      "APA 7",
+      "MLA 9",
+      "Bluebook 21",
     ],
-    whenToUse: `Use this formatter when you have the source details in front of you and need the entry in one specific style. When the citations are footnotes in a longer document, the {{footnote-formatter|Footnote Formatter}} handles the note numbering and layout around them, and when the surrounding prose needs to sound academic, the {{academic-writing-tone-checker|Academic Writing Tone Checker}} measures that register.\\n\\nWhen the same source has to appear in several styles, format it here once per style and keep the outputs side by side; there is no cross-style converter, and the page states that rather than implying one.`,
+    intro:
+      "The citation formatter turns typed source metadata into APA 7, MLA 9, Chicago 17 or Bluebook 21 entries, with legal sources Bluebook-only and every simplification printed rather than hidden.",
+    content:
+      "This citation formatter is a typed-metadata engine: you enter the fields a source actually has — authors, year, title, container, volume, issue, pages, publisher, place, edition, DOI, URL, accessed — and it prints the entry in the style you chose. Nothing is scraped, resolved or guessed: there is no DOI lookup and no network call, so every output is a function of what you typed. The fields each style uses are the fields you fill; the ones a style ignores are ignored silently by design.\n\n- Eight source types: book, chapter in an edited book, journal article, newspaper article, web page, report, court case and statute.\n- Four styles: APA 7th edition (2020), MLA 9th edition (2021), Chicago 17th edition notes-bibliography (2017) and Bluebook 21st edition (2020).\n- Legal material is Bluebook only: the page says so rather than offering styles that would produce an empty entry, and case and statute citations carry no authors.\n- Authors are entered one per line as Family, Given; an organisational author can be marked literal so its name is printed as written with no inversion.\n- Page ranges use the style's own dash: an en dash for APA and Chicago, a hyphen for MLA.\n- An italics option wraps italicised elements in underscores for plain-text workflows; plain output is the default.\n- Fill a worked example fills every field for the selected source type, which is the fastest way to see the engine's shape before using your own material.\n- An author can be a person or an organisation: the literal flag prints a corporate name as written, which is how organisational authors avoid inversion.\n\nThe style rules are published rather than hidden. APA lists up to 20 authors; MLA switches to et al. from three; Chicago lists up to three and uses et al. beyond that; Bluebook case citations carry no authors at all. Titles are printed exactly as entered, because correct title capitalisation depends on the style, the language and proper nouns, and a machine that rewrites them would be guessing. Warnings name the fields a chosen style expects but the entry does not have, which is the honest form of help: the engine cannot know whether a source is real, but it can know which parts are missing. The same warning list is what makes the tool usable without a lookup: a missing container title is reported, while a plausible but wrong year cannot be.\n\n- No lookup: a DOI or ISBN is never resolved, so a mistyped year or page range is printed exactly as typed.\n- Title capitalisation is not adjusted in any style.\n- Bluebook support covers the case and statute patterns implemented here, not the whole rule set.\n- Warnings identify missing fields; they cannot tell a correct citation from an incorrect one.\n- Italics are markers, not rich text: the output stays plain so it can be pasted anywhere.\n\nUse the formatter when you have the source in front of you and one entry to produce. Fill the fields in the order they appear, read the warnings before copying, and check the entry against the manual's own worked example for the style you are using — that last step is what a lookup-free tool is for. If the entry and the example disagree on punctuation, trust the example: the engine's simplifications are the same ones printed on the page, and a manual is the only authority both of you answer to.",
+    howTo: [
+      { step: "Choose a source type; the field set changes with it, and legal types switch the style list to Bluebook." },
+      { step: "Choose a citation style, or use Fill a worked example to see one first." },
+      { step: "Enter authors one per line as Family, Given, then fill the remaining fields." },
+      { step: "Read the warnings, then copy or download the entry." },
+    ],
+    whenToUse:
+      "Use the formatter for one entry at a time and for legal material, where it is the only tool here that offers Bluebook 21. When the job is a whole source list in a chosen order, the {{bibliography-builder|Bibliography Builder}} renders the same engine as a sorted or numbered bibliography.\n\nWhen the question is how a source appears inside a sentence rather than in a list, the {{in-text-citation-builder|In-Text Citation Builder}} shows all four styles side by side, and for briefs the {{legal-citation-formatter|Legal Citation Formatter}} adds signals and short forms around the Bluebook output.",
     faqs: [
       {
-        q: "Which editions does the formatter implement?",
-        a: "APA 7th edition (2020), MLA 9th edition (2021), Chicago 17th edition notes-bibliography (2017) and Bluebook 21st edition (2020). Cases and statutes offer Bluebook only: the other styles' legal rules are not implemented here, so they are withheld rather than printing an empty entry.",
+        q: "Does the formatter look anything up?",
+        a: "No. There is no DOI resolver, no ISBN lookup and no network call anywhere in the engine. Every character of the output comes from the fields you typed, which is why the page can promise that nothing leaves the browser.",
       },
       {
-        q: "Does it look up a DOI or an ISBN?",
-        a: "No. There is no resolver and no network call anywhere in the tool. DOI and URL are fields you paste in; the formatter styles them. That means an entry is exactly the data you supplied, which is what makes the output checkable rather than merely plausible.",
+        q: "Which styles are available for a court case?",
+        a: "Bluebook 21 only. The other styles' legal-citation rules are not implemented here, and offering them would produce an empty entry, so the style list narrows to Bluebook when you choose a case or statute.",
       },
       {
-        q: "Why does the title come out with the capitalisation I typed?",
-        a: "Because the correct casing depends on the style, the language and proper nouns. APA wants sentence case, MLA and Chicago want headline style, and a mechanical rule would corrupt names. Enter the title in the casing your style requires; the formatter handles order, punctuation and italics.",
+        q: "Why are my title's capital letters unchanged?",
+        a: "Because correct title capitalisation depends on the style, the language and which words are proper nouns. The engine prints titles as entered rather than applying a guessed rule; the page states this rather than hiding it.",
       },
       {
-        q: "Can I put the italics into a document?",
-        a: "The default output is plain text. An underscore option wraps exactly the elements your style italicises — book and journal titles, case names — so you can either apply italics by hand in your word processor or keep the distinction in plain text.",
+        q: "How many authors does each style list?",
+        a: "APA lists up to 20 before shortening, MLA uses et al. from three authors, Chicago lists up to three and uses et al. beyond that, and Bluebook case citations carry no authors. The limits are part of the published rules.",
       },
       {
-        q: "Is the Bluebook output enough for a legal brief?",
-        a: "No, and the page says so. It covers the case and statute patterns implemented here, not signals, short-form rules, tables of authorities or jurisdiction variations, and nothing it produces is legal advice. Check each citation against the current edition before filing.",
+        q: "What do the warnings mean?",
+        a: "They name fields the chosen style expects but the entry does not have — a missing container title, for example. They are prompts to check, not verdicts: the engine cannot know whether a citation is substantively right.",
       },
     ],
   },

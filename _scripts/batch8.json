@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "price-to-book-growth-pbg-calculator",
+    "description": "Normalise price-to-book by growth with a PBG ratio, dividend-adjusted version and benchmark fair value."
+  },
+  {
+    "slug": "stock-split-adjusted-price-calculator",
+    "description": "Convert pre-split prices and holdings into today's share basis, with cost basis and return after the split."
+  },
+  {
+    "slug": "treasury-bond-price-calculator",
+    "description": "Price a Treasury bond from its yield with duration, current yield and sensitivity to a one point rate move."
+  },
+  {
+    "slug": "espp-discount-calculator",
+    "description": "Work out ESPP shares, lookback benefit and the after-tax gain from a purchase at the plan discount."
+  },
+  {
+    "slug": "margin-of-safety-calculator",
+    "description": "Measure the margin of safety between price and intrinsic value, plus a target buy price and stress test."
+  }
+]

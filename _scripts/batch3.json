@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "total-debt-service-ratio-calculator",
+    "description": "Check GDS and TDS ratios against lender limits and see how much housing and debt your income supports."
+  },
+  {
+    "slug": "debt-stress-ratio-calculator",
+    "description": "Measure how much income debt and essentials consume, and stress-test it against income and payment shocks."
+  },
+  {
+    "slug": "debt-ratio-calculator",
+    "description": "Compare total debt with total assets to see your debt ratio, net equity and leverage band."
+  },
+  {
+    "slug": "balance-transfer-break-even-calculator",
+    "description": "Model a promotional balance transfer with its fee and find the month it breaks even."
+  },
+  {
+    "slug": "charge-off-rate-calculator",
+    "description": "Compute gross and net charge-off rates, recovery rates and comparisons against prior-year and peer benchmarks."
+  }
+]

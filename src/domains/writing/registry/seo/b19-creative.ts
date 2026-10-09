@@ -11,218 +11,216 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B19_CREATIVE_SEO: Record<string, ToolSeo> = {
   "story-idea-generator": {
-    keywords: ["story idea generator", "premise", "protagonist", "want", "obstacle"],
-    intro:
-      "The story idea generator assembles a premise from a protagonist, a want, an obstacle and a setting, then spins the same parts into what-if variants that test whether the idea has somewhere to go.",
-    content: `The story idea generator assembles a premise from four parts: a protagonist, what they want, the obstacle in the way, and a setting with a genre. The assembled sentence follows the oldest shape a story takes — someone wants something, something stands in the way — because that shape is the one a reader can enter in a single line. Working from parts rather than from a page of notes also makes the missing piece obvious: a want with no obstacle is a wish, and an obstacle with no want is scenery.
-
-The what-if variants are the second half and the more useful one. Four fixed questions are asked of the parts you supplied: what if the want arrives in the first act and the story is its cost; what if the obstacle is right; what if the protagonist is the obstacle; what if the setting itself is the antagonist. Each question is a way of testing whether the premise has a second act inside it, and the one that troubles you is usually the one that becomes the draft.
-
-The generator's completeness counter is deliberately plain: four core parts — genre, protagonist, want, obstacle — with a setting as the fifth. It does not grade the idea, because no tool can. What it can do is name the parts that are missing and flag a want or an obstacle that has grown past a clause. A premise that needs a paragraph to state is usually two premises, and the checks say so gently.
-
-Because the premise is a pure function of the fields, trying a different want or a different obstacle is a single edit, and the variants update with it. That makes the tool a good place to spend twenty minutes before a draft: cycle the same protagonist through three wants and see which one the obstacle actually resists. The friction between want and obstacle is the story, and the tool makes the friction visible.
-
-Nothing is uploaded and nothing is stored beyond the tab, so an unpublished idea stays private. The generator invents no premise, no character and no world; every word of the idea is yours, and the tool's whole contribution is the shape and the four questions that test it.
-
-One more use for the generator: reverse it. Take a draft you already have and write down its protagonist, want, obstacle and setting as four lines; if the four lines do not tell you what the book is about, the draft may not know either. The same exercise works for a stalled project where the want has quietly changed halfway through — the premise sentence shows the shift, and the variants help decide which version the ending belongs to. A premise is a working tool rather than a label, and revisiting it at the midpoint of a draft is one of the most reliable ways to find out why a scene feels wrong.\n\nOne more habit helps: keep the premise sentence after the draft starts. When a scene begins to drift, checking it against the want and the obstacle in one line usually shows which one the scene has forgotten — a useful compass for a first draft, and a useful test for a revision.`,
-    howTo: [
-      { step: "Name the protagonist and the genre." },
-      { step: "State the want in a clause — what the character reaches for." },
-      { step: "State the obstacle — what stands in the way." },
-      { step: "Add the setting and read the assembled premise." },
-      { step: "Work through the what-if variants and keep the question that troubles you." },
+    keywords: [
+      "story idea generator",
+      "premise",
+      "protagonist",
+      "what if",
     ],
-    whenToUse: `Use the story idea generator at the very start of a project, when the idea is a feeling rather than a shape. When the protagonist needs to become a person rather than a want, the {{character-profile-builder|Character Profile Builder}} asks the questions that fill them in.\n\nOnce the premise holds, the {{plot-point-mapper|Plot Point Mapper}} fits its events onto a structure, and when it is time to actually start writing, the {{first-line-generator|First Line Generator}} composes the opening the premise deserves.`,
+    intro:
+      "The Story Idea Generator assembles a premise from a protagonist, a want, an obstacle and a setting, then spins the same parts into what-if variants.",
+    content:
+      "A premise is four facts in one sentence, and this story idea generator is built to test whether yours holds. Supply the genre, the protagonist, what they want, what stands in the way and where it happens; the tool assembles them into a premise in the voice of those parts and then spins the same parts into what-if variants. The engine combines what you supply — it invents no premise of its own, which is why the output always reads like your idea rather than a stranger's.\n\nThe parts panel holds the five inputs, each with an example placeholder so the shape of a good answer is visible before you type. The output reports words, parts filled and variants produced, and the what-if panel lists the variants: what if the want is achieved early and the story becomes its cost, what if the obstacle is right, and the rest built from whichever parts you filled. A checks panel names what is missing rather than filling it in.\n\n- Genre: the container the premise sits in, offered as a free field with an example.\n- Protagonist: who the sentence is about, in a phrase rather than a biography.\n- Want: what they pursue, phrased so the premise can continue it — wants to buy back her father's shop.\n- Obstacle: what pushes back, phrased to attach with a but — but the buyer is her brother.\n- Setting: where it happens, one image rather than a map.\n- What-if variants: the parts rearranged into questions that test the premise.\n\nThe assembly is string work, not generation: the parts are joined in fixed patterns, each variant is a template that lowers its first letter to fit, and every variant is conditional on the parts it needs — a want variant only exists if you supplied a want. That is the honest version of this tool category: the checklists are published, the templates are visible, and the output is reproducible. The counts come from the shared tokenizer, so the word figure agrees with every other counter in this domain.\n\n- The premise it builds is only as good as the parts: vague in, vague out.\n- The variants are templates, not plot — they interrogate the premise rather than extend it.\n- No knowledge of genre conventions is applied; the genre field is a label you carry.\n- There is no store: leave the page and the parts are gone unless you copy the result.\n- The checks name empty or thin fields and never judge the idea itself.\n\nThe test the variants exist for is falsifiability: run the premise past three of them and see whether it survives. A premise that collapses when the obstacle turns out to be right was leaning on surprise rather than force, and the tool has shown you that before you have written a scene. Fill every part before reading the variants — a half-filled premise produces variants about the half you left out.\n\nWhen the premise survives, the neighbouring tools take the next step: the plot structure planner maps its four facts onto a structure's beats, the character profile builder turns the protagonist into a sheet. A premise that has survived the variants and a protagonist sheet that answers the flaw and the backstory together are the two artifacts an outline can be written against, and the first line generator composes an opener from the same character and setting.",
+    howTo: [
+      { step: "Fill the parts: genre, protagonist, want, obstacle and setting." },
+      { step: "Read the assembled premise and the counts panel for parts filled and variants produced." },
+      { step: "Work through the what-if variants and note which ones the premise survives." },
+      { step: "Check the checks panel for empty fields, then copy the result when the premise holds." },
+    ],
+    whenToUse:
+      "Use the story idea generator when four facts exist and a sentence has to hold them together. The {{plot-structure-planner|Plot Structure Planner}} maps the same four facts onto a structure's beats, and the {{first-line-generator|First Line Generator}} composes an opener from the character and place. When the need is sparks rather than assembly, the {{writing-prompt-generator|Writing Prompt Generator}} serves a fixed bank of prompts, and the character profile builder in this domain turns the protagonist into a full sheet.",
     faqs: [
       {
-        q: "What are the parts of a story premise?",
-        a: "A protagonist, a want, an obstacle, and a setting with a genre. The generator assembles those into one sentence and flags any of the four core parts that is missing.",
+        q: "Does the tool write the story idea for me?",
+        a: "No. It assembles the parts you supply in fixed patterns and spins them into what-if variants; nothing is invented. The output reads like your idea rearranged because that is literally what it is.",
       },
       {
         q: "What are the what-if variants for?",
-        a: "They test whether the premise has somewhere to go. Four fixed questions — including what if the obstacle is right, and what if the protagonist is the obstacle — turn the same parts in different directions to find the second act.",
+        a: "Testing the premise. Each one inverts or accelerates a part — what if the want is achieved early, what if the obstacle is right — and a premise that survives several of them is one worth drafting.",
       },
       {
-        q: "Does the generator write the idea for me?",
-        a: "No. It combines the parts you supply and asks questions about them. The protagonist, the want, the obstacle and the setting are all yours; the tool contributes the shape and the tests.",
+        q: "Why is a variant missing?",
+        a: "Variants are conditional on the parts they need. Fill the want and the obstacle, and their variants appear; leave a field empty and only the variants that do not depend on it are built.",
       },
       {
-        q: "How long should a want or an obstacle be?",
-        a: "A clause, not a paragraph. The checks flag either past fifteen words, because a premise that needs a paragraph to state is usually two premises competing for the same sentence.",
+        q: "How long should the parts be?",
+        a: "A phrase each. The premise is a sentence, so a protagonist in a clause and a want in a few words produce the readable result; long inputs are not rewritten, only placed.",
+      },
+      {
+        q: "Is my premise saved anywhere?",
+        a: "No. The parts live in the page until you copy the result. There is no store and no account, so copy anything worth keeping before you leave.",
       },
     ],
   },
 
   "world-building-template": {
-    keywords: ["world building template", "world bible", "geography", "culture", "conflicts"],
-    intro:
-      "The world building template asks the seven questions a story will ask of its setting — geography, culture, politics, economy, rules, history and conflicts — and assembles the answers into a world bible with the gaps named.",
-    content: `The world building template is organised around the seven questions a story will eventually ask of its setting. Geography asks what the land does to the people who live on it; culture asks what they believe, celebrate and forbid; politics asks who holds power and what they fear losing; economy asks what is scarce and who profits; the rules entry asks what magic or technology makes possible and at what cost; history asks what happened before the story that everyone still argues about; and conflicts asks which two forces cannot both get what they want.
-
-That last question is the one that turns a setting into a story. A world bible can be rich in detail and still have nothing to write about; the conflicts entry is where the details start to pull against each other, and the checks ask for it explicitly. The other six questions are not busywork either: a culture's festivals are what a scene can show, an economy's scarcity is what a character can want, and a history's argument is what two characters can disagree about without either being wrong.
-
-The template's checks are about completeness and proportion. Fewer than five of the seven areas filled is flagged, because a bible whose geography is detailed and whose politics is blank will surprise the writer in act two when the plot needs a ruler. A filled area past a hundred and twenty words is flagged as a chapter; a bible entry is a reference, and references are useful in proportion to how quickly they can be skimmed.
-
-The bible is assembled from the fields in a fixed order, so the same answers always produce the same document, and adding a detail is one edit. The copy and download buttons export the whole thing as plain text that can live beside the manuscript, and the word count keeps the bible honest about its own growth.
-
-Nothing is uploaded and nothing is stored beyond the tab. The template invents no world and judges no detail; it asks the questions and formats the answers, and the imagination is entirely the writer's.
-
-Keep the bible in a format you will actually reopen. Plain text is the shape most writing tools import cleanly, and the copy and download buttons produce exactly that, so the document can sit beside the manuscript in the same project folder and be searched with the same keystrokes. Update it at the end of a writing session rather than the start: the details a scene forced you to invent are the ones worth recording, and a bible updated from the draft stays smaller and more useful than one built in advance. When a detail conflicts with an earlier entry, prefer the draft and change the bible; the story is the authority, and the bible exists to keep the story consistent.\n\nA practical note on timing: fill the geography and the conflicts before writing chapter one, and leave the rest provisional. Worlds are discovered through scenes, and a bible completed before the first draft tends to lock in details the story will later need to change. Keep the contradictions that survive to the second draft; they are usually the world's most interesting features.`,
-    howTo: [
-      { step: "Name the world and write a one-line premise." },
-      { step: "Answer geography and conflicts first — where and against what." },
-      { step: "Fill culture, politics, economy, rules and history as the story needs them." },
-      { step: "Read the assembled bible and the areas-filled counter." },
-      { step: "Clear the checks, then copy or download the bible." },
+    keywords: [
+      "world building template",
+      "world bible",
+      "geography",
+      "areas filled",
     ],
-    whenToUse: `Use the world building template when a story needs its setting worked out enough that scenes can happen without contradictions. When the world exists mainly to put pressure on one person, the {{conflict-and-resolution-planner|Conflict & Resolution Planner}} shapes that pressure into escalating turns.\n\nA world usually starts from a premise, so the {{story-idea-generator|Story Idea Generator}} is the natural first step, and once the setting is real the {{scene-and-chapter-organizer|Scene & Chapter Organizer}} keeps the scenes that use it in order.`,
+    intro:
+      "The World Building Template asks seven questions of your setting, assembles a world bible and shows which areas are still empty.",
+    content:
+      "Every story asks its setting the same seven questions, and this world building template asks them in one place: geography, culture, politics, economy, the rules of magic or technology, history and the conflicts that cannot both win. Answer them and the tool assembles a world bible — a single document with the premise at the top and each area beneath it — plus a panel counting words, areas filled and problems found. The engine supplies the questions and formats the answers; it invents no world.\n\nEach area is a labelled field with an example answer that shows the register: a geography placeholder that says what the land does to the people rather than where the mountains are. The checks panel flags the areas left empty and the answers that are too thin to carry a scene, phrased as prompts. Copy and Download produce the bible as text, which is how the template becomes a document your draft can be checked against.\n\n- Seven areas: geography, culture, politics, economy, rules, history and conflicts.\n- A one-line premise above them, so every answer answers the same story.\n- Areas filled: the count of answered areas out of the seven.\n- Problems: the checks for empty or thin answers, shown as prompts.\n- Word count from the shared tokenizer for the assembled bible.\n- Copy and Download for the document as plain text.\n\nThe bible is assembled by fixed section order — premise first, then the seven areas in the order a reader meets them — and every section that has an answer gets its heading, so the gaps are visible as missing headings rather than silence. Checks are mechanical: an empty area is flagged, and a one-clause answer is flagged as too thin to build a scene against. Nothing is generated, and the page says so: the questions are the product, the answers are yours.\n\n- An area count of seven of seven says the fields are filled, not that the world holds together.\n- The seven questions assume a certain kind of story; a slice-of-life setting may find politics and economy genuinely empty.\n- Answers are read literally, so a thin answer that sounds atmospheric still counts as thin.\n- No map, no timeline and no cross-referencing: the bible is a document, not a database.\n- Nothing is stored, so copy the bible before leaving the page.\n\nThe workflow that makes the template useful is to answer the conflicts field last and the rules field first: what is possible constrains everything else, and what cannot both win is what the story is actually about. Then read the checks panel — an empty conflicts field on an otherwise full bible is the most common gap, and it is the one the plot will need first. The bible is also the reference a later argument is settled by: when a scene contradicts the rules field six chapters on, the document wins, and the check that named a thin answer was usually the first sign the contradiction was coming.\n\nThe neighbours cover the parts of the same world: the scene description builder turns one location into sensory notes, the character profile builder fills the people who live in it, and the genre blender collides two genre conventions into the premise this world hosts.",
+    howTo: [
+      { step: "Write a one-line premise, then answer the seven area prompts — geography through conflicts." },
+      { step: "Read the panel for words, areas filled and the problems the checks found." },
+      { step: "Copy or download the assembled world bible as a document." },
+      { step: "Return to the empty or thin areas the checks name and answer them before drafting." },
+    ],
+    whenToUse:
+      "Use the world building template when a setting exists as fragments and needs one document. The {{scene-description-builder|Scene Description Builder}} turns a single location into sensory notes with a filter-word check, and the {{character-profile-builder|Character Profile Builder}} profiles the people who live there. For the premise the world hosts, the {{story-idea-generator|Story Idea Generator}} assembles it from four parts, and the genre blender in this domain decides which genre conventions the world has to honour.",
     faqs: [
       {
-        q: "What questions should a world bible answer?",
-        a: "Seven: geography, culture, politics, economy, rules of magic or technology, history and conflicts. The template asks each as a question about what it does to the people, and flags any area left blank.",
+        q: "Which areas does the template ask about?",
+        a: "Seven: geography, culture, politics, economy, the rules of magic or technology, history and conflicts. Each is a field with an example answer showing the register it wants.",
       },
       {
-        q: "Why is the conflicts entry the important one?",
-        a: "Because a setting is interesting for what it denies people. Two forces that cannot both win give the plot something to happen, which is why the template asks for it explicitly even when the other areas are detailed.",
+        q: "Does it generate any of the world?",
+        a: "No. The engine supplies the questions and formats the answers; it invents no world. The questions and their order are the product, and the answers are entirely yours.",
       },
       {
-        q: "How long should each world bible entry be?",
-        a: "A paragraph. Past about a hundred and twenty words the checks flag it as a chapter, since a bible is a reference to skim, not a document to read end to end.",
+        q: "What do the checks flag?",
+        a: "Areas left empty and answers too thin to build a scene against. They are phrased as prompts, because a small setting may have a genuine reason for an empty area.",
       },
       {
-        q: "Should I finish the bible before writing?",
-        a: "No. Fill geography and conflicts before chapter one and leave the rest provisional; worlds are discovered through scenes, and a bible finished too early locks in details the draft will need to change.",
+        q: "Why is the premise at the top?",
+        a: "So every answer answers the same story. A world bible without a premise collects facts the draft will never use; with one, each area can be read against the line it serves.",
+      },
+      {
+        q: "How do I keep the world bible?",
+        a: "Copy or Download it as text. Nothing is stored in the page, so the document has to leave with you to survive the session.",
       },
     ],
   },
 
   "writing-prompt-generator": {
-    keywords: ["writing prompt generator", "prompts", "bank", "categories", "practice"],
-    intro:
-      "The writing prompt generator serves a fixed, authored bank of prompts — six each for character, setting, conflict, dialogue and opening — three at a time in a stable order, with no randomness.",
-    content: `The writing prompt generator serves prompts from a fixed bank: six for character, six for setting, six for conflict, six for dialogue and six for opening. Three are shown at a time, and the next-three button advances through the bank in a fixed order, wrapping at the end. Nothing is generated and nothing is random, which is the point — a prompt that caught your attention will still be there when you come back to it, and every writer working through a category sees the same list, which makes the bank usable in a group or a class.
-
-The categories map to the parts of craft a practice session might want to exercise. Character prompts ask for someone whose behaviour reveals a contradiction; setting prompts ask for a place that does something to its inhabitants; conflict prompts pose two wants that cannot both be satisfied; dialogue prompts set up conversations in which the real subject is not the one being discussed; opening prompts ask for a first sentence that earns a second. Any one of them can be written in ten minutes, which is the point of a prompt.
-
-The three-at-a-time page size is deliberate. A wall of sixty prompts is a menu; three are an assignment. The category selector resets the cycle to the start, so a session can move from character work to dialogue cleanly, and the counter shows how many prompts the current bank holds.
-
-Because the order is fixed, the generator doubles as a syllabus: working through a category end to end takes two sittings of three prompts, and the second pass is easier than the first, which is the only measure of practice that matters. The prompts are deliberately plain rather than clever — a prompt that needs to be admired is a prompt that will not be written from.
-
-Nothing is uploaded and nothing is stored beyond the tab; there is no account and no history, so the bank is the same clean list every time it is opened. The page states plainly that the bank is finite and authored, and that a prompt is a starting point rather than an assignment: if one does not catch, skip it, because the purpose is words on a page and the words can be thrown away.
-
-Two small disciplines make the bank go further. First, write for the full ten minutes even when the first sentence feels bad; the prompt is doing its job if a paragraph exists, and the paragraphs written under a prompt are practice rather than property. Second, keep the pages: a folder of short exercises becomes a source of scenes later, because a character met quickly in an exercise often turns out to be the one the novel needed. The bank is not a slot machine and will not reward pulling the lever repeatedly; its value comes from finishing what it starts, which is the habit prompts are best at teaching.\n\nFor a longer session, pair the prompt with the {{flash-fiction-timer|Flash Fiction Timer}} and write before the buzzer; for a bigger project, carry a prompt's premise into the {{story-idea-generator|Story Idea Generator}} and see whether it survives being stated in parts.`,
-    howTo: [
-      { step: "Pick the category you want to practise." },
-      { step: "Read the three prompts on the page." },
-      { step: "Choose the one that catches and start writing immediately." },
-      { step: "Press next three to advance through the bank, or reset to the start." },
-      { step: "Switch categories when a session needs a different kind of practice." },
+    keywords: [
+      "writing prompt generator",
+      "prompt bank",
+      "categories",
+      "three at a time",
     ],
-    whenToUse: `Use the writing prompt generator when you want to write but have nothing in mind, or when a session needs to exercise one specific muscle. For timed practice, the {{flash-fiction-timer|Flash Fiction Timer}} gives the prompt a deadline and the exercise a finish line.\n\nWhen a prompt turns into something larger, carry it into the {{story-idea-generator|Story Idea Generator}} to test whether the premise holds up as parts: a protagonist, a want, an obstacle and a setting.`,
+    intro:
+      "The Writing Prompt Generator cycles a fixed, authored prompt bank across five categories, serving three prompts at a time in a stable order.",
+    content:
+      "Nothing here is random, and that is the point of this writing prompt generator. A fixed, authored prompt bank is organised into five categories — character, setting, conflict, dialogue and opening — and served three at a time in a stable order: the next action advances through the bank deterministically, so every writer sees the same prompts in the same order and can return to one. The panel shows how many prompts are in this bank for the chosen category, and the scope panel states plainly that the bank is finite.\n\nThe category picker chooses which bank you are drawing from, and the page of three prompts updates as you cycle. Because the order is stable, a prompt you skip comes back around rather than disappearing — which is what separates a bank from a slot machine. There is no model behind the prompts and no composition step: each one is a sentence someone wrote to be answered, and the count of prompts in the bank is printed so the finitude is visible rather than implied.\n\n- Five categories: character, setting, conflict, dialogue and opening.\n- Three prompts served per page, the same three for everyone at the same position.\n- A stable cycle: the next action wraps at the end, so the list never runs out.\n- Prompts in this bank: the size of the current category's list.\n- Scope and limits: the statement that the bank is authored and finite.\n\nThe engine is a set of arrays and an offset. promptPage reads three entries starting at the current offset and wraps at the end; nextPromptOffset advances the offset. That is the whole mechanism, and the page says so, because a generator that pretends to compose prompts it does not contain is the failure mode this tool is built to avoid. Word counts on the prompts come from the shared tokenizer like everything else in the domain.\n\n- The bank is finite: a category you cycle often will start repeating, by design.\n- Prompts are generic to their category and carry no knowledge of your story.\n- No difficulty rating, no suitability filter and no way to add your own prompts.\n- The cycle position is page state, not storage: a reload starts the category again.\n- Nothing is generated, so two writers on the same page see the same three prompts.\n\nThe habit that makes a fixed bank useful is answering on paper before judging: read three, write the one that produces a sentence fastest, and only then cycle. The temptation to keep cycling is the slot-machine pull the deterministic order exists to remove — the next three are ordinary prompts too, and the one in front of you is the test. Cycle only when three answers exist on paper, and keep a note of which category produced the sentence fastest — that is data about your habits, not about the bank.\n\nThe neighbours take the prompts further: the story idea generator assembles a premise from four parts, the first line generator composes an opener from a character and a place, and the flash fiction timer gives the prompt a clock to be written against.",
+    howTo: [
+      { step: "Choose a category: character, setting, conflict, dialogue or opening." },
+      { step: "Read the three prompts on the page — the same three everyone sees at this position." },
+      { step: "Answer the one that produces a sentence fastest rather than cycling first." },
+      { step: "Cycle when the three are spent; the order wraps so no prompt is lost." },
+    ],
+    whenToUse:
+      "Use the writing prompt generator when the need is a starting point rather than an assembly. The {{story-idea-generator|Story Idea Generator}} builds a premise from four named parts once a prompt gives you something to want, and the {{first-line-generator|First Line Generator}} composes an opener from a character, a place and a tone. For writing against a clock, the {{flash-fiction-timer|Flash Fiction Timer}} adds a word and time limit, and the genre blender in this domain collides two conventions into a premise instead.",
     faqs: [
       {
-        q: "Are the prompts generated or fixed?",
-        a: "Fixed and authored: six prompts for each of five categories. The order is stable and the next-three button simply advances through the bank, so nothing is random and nothing disappears.",
+        q: "Are the prompts generated randomly?",
+        a: "No. The bank is authored and finite, and pages are served from a stable offset, so everyone sees the same prompts in the same order. A prompt you skip comes back around rather than vanishing.",
       },
       {
-        q: "How many prompts are there per category?",
-        a: "Six. Three are shown at a time, and two presses of the next-three button walk the whole bank before it wraps around to the start.",
+        q: "How many prompts are there?",
+        a: "The panel shows how many prompts are in this bank for the chosen category. Five categories share the same serving rule of three at a time.",
       },
       {
-        q: "What can I do with a prompt I like?",
-        a: "Write from it immediately, in ten minutes if you can. A prompt that turns into something larger can be carried into the story idea generator to see whether it holds up as a premise.",
+        q: "Can I add my own prompts?",
+        a: "No. The bank is fixed and published, which is what makes the cycle stable across writers. The scope panel states the limit rather than implying otherwise.",
       },
       {
-        q: "Why only three prompts at a time?",
-        a: "Because a wall of options is a menu and three are an assignment. The page size keeps the decision small and the writing time large, which is the purpose of a practice bank.",
+        q: "Why does the order repeat when I cycle enough?",
+        a: "Because the bank is finite and the offset wraps at the end. Repetition is the honest consequence of a fixed list, and it is also what lets you return to a prompt you passed.",
+      },
+      {
+        q: "Does it know anything about my story?",
+        a: "No. Prompts are generic to their category and carry no context. The story-specific work belongs to the generators that assemble from your parts once a prompt has started something.",
       },
     ],
   },
 
   "villain-motivation-builder": {
-    keywords: ["villain motivation builder", "villain", "wound", "justification", "limit"],
-    intro:
-      "The villain motivation builder assembles the parts that make an antagonist a person — what they want, the wound behind it, how they justify themselves, their method, the line they will not cross and how they see themselves.",
-    content: `The villain motivation builder asks seven questions of an antagonist: what they are called, what they want, the wound behind the want, how they justify themselves in their own eyes, the method they use, the line they will not cross, and the story they tell about themselves. Assembled, the answers form a profile that reads like a person rather than a function, and the checks name the parts most drafts skip — which is usually the wound, the limit and the self-image.
-
-The wound matters because villains who are evil for its own sake are weather, not characters. A want that grew from an old injury is a want a reader can understand while still opposing it, and the profile keeps the wound next to the want, where the connection can be seen. The justification is the same idea from the other side: every convincing antagonist is the hero of their own account, and writing that account down forces the writer to make it coherent rather than convenient.
-
-The limit is the check most writers thank the tool for. A villain with no line they will not cross is a plot device — they will do whatever the story needs, which is another way of saying they have no character. One prohibition, even a small one, turns the rest of their actions into choices. The self-story entry follows from the same test: a villain who sees themselves as the only adult in a room of children will behave consistently in scenes the profile never mentions.
-
-The profile is composed deterministically from the fields, so changing the want or tightening the wound updates the whole document in one edit, and the filled counter shows how many of the seven parts are in place. A want past twenty words is flagged and asked to become a sentence, since a want that takes a paragraph to state is usually a backstory wearing a goal.
-
-Nothing is uploaded and nothing is stored beyond the tab, so an unpublished antagonist stays private. The builder invents no villain and settles no moral question; it asks the questions a memorable one answers and assembles your answers into a reference for the draft.
-
-Return to the profile when the plot stops working, not only when the villain is introduced. Most third-act problems are motivation problems wearing plot clothes: the antagonist does something convenient and the story loses its pressure. Reading the want, the wound and the limit again usually shows which one the scene ignored — a villain acting against their wound, or crossing a line they were built never to cross. The profile is short enough to skim between drafts, which is exactly what a working reference should be, and the checks keep the parts that make a villain a person from quietly disappearing in revision.\n\nOne practical note: test the limit in a scene. Put the villain in a situation where crossing their stated line would get them what they want, and see what they do instead. The answer is usually more interesting than the original want, and it is where the character stops being a profile and starts being a person.`,
-    howTo: [
-      { step: "Name the villain and state what they want." },
-      { step: "Write the wound behind the want, then their justification in their own voice." },
-      { step: "Describe their method — what they actually do." },
-      { step: "Give them a line they will not cross." },
-      { step: "Add how they see themselves, read the profile, then clear the checks." },
+    keywords: [
+      "villain motivation builder",
+      "wound",
+      "method",
+      "line they will not cross",
     ],
-    whenToUse: `Use the villain motivation builder when an antagonist exists as an obstacle rather than a person. When the protagonist also needs filling in before they can meet the villain, the {{character-profile-builder|Character Profile Builder}} asks the mirror questions.\n\nOnce both are people, the {{conflict-and-resolution-planner|Conflict & Resolution Planner}} builds the escalating turns where their wants collide, and the villain's limit is what makes those turns surprising rather than mechanical.`,
+    intro:
+      "The Villain Motivation Builder assembles the parts that make an antagonist a person — want, wound, method and the line they will not cross — and checks the parts drafts skip.",
+    content:
+      "An antagonist is a person with a plan, and this villain motivation builder asks the questions a memorable one answers: what they want, the wound behind the want, how they justify themselves in their own eyes, their method, the line they will not cross and the story they tell about themselves. The engine writes no villain. It collects the parts that make one legible, then reports which are filled and which checks the profile raises.\n\nThe panel holds the six inputs, each with an example that shows the register — a method described as what they actually do, a self-image stated in their own voice rather than yours. Stats report words, parts filled and problems, and the checks panel names the parts most drafts skip: a want with no wound behind it, a method with no line, a self-image that only repeats the justification. Copy and Download produce the profile as text.\n\n- What they want: the concrete object of the plan, in a phrase.\n- The wound: the past event that made the want necessary.\n- Justification: how the plan looks right from inside their own eyes.\n- Method: what they actually do, the behaviour rather than the capability.\n- The line they will not cross: the limit that makes them a person rather than a force.\n- Self-image: the story they tell about themselves, in their voice.\n\nThe checks are comparisons between the fields, not a model of evil: the wound is checked for being present behind the want, the line for existing beside the method, and the self-image for differing from the justification. Each is phrased as a prompt on the page, because a villain who is simply cruel is a valid choice in some stories. The word count and parts-filled figures are there for proportion — a method detailed in eighty words beside a wound in five is telling you where the profile is lopsided. Everything is assembled from what you typed, and the word counts come from the shared tokenizer like the rest of the domain.\n\n- The checks read presence and difference, never quality: a filled profile can still be flat.\n- Six fields assume a character-driven antagonist; a force of nature has no wound to name.\n- Field comparison is literal, so a self-image restating the justification only trips when the wording matches.\n- Nothing is stored, so the profile has to be copied out to survive the page.\n- No knowledge of genre conventions is applied to the answers.\n\nThe pair that does the most work is wound and line: the wound explains why the want exists, and the line explains why the villain has not already won. Read the checks after writing those two, because a profile where the method is detailed and the line is missing usually describes a problem for the plot rather than a character who can be reasoned with.\n\nThe neighbouring builders cover the rest of the cast: the character profile builder prompts the protagonist's want, need, flaw and arc, the conflict planner shapes who opposes whom over what, and the story idea generator assembles the premise the villain is standing inside. Read the six fields as a set rather than individually: the want explains the method, the wound explains the want, and the line explains why the story is not already over.\n",
+    howTo: [
+      { step: "Fill the six inputs: want, wound, justification, method, the line and self-image." },
+      { step: "Read the stats for words, parts filled and problems." },
+      { step: "Work through the checks, especially want against wound and method against line." },
+      { step: "Copy or download the profile when the parts agree." },
+    ],
+    whenToUse:
+      "Use the villain motivation builder when the antagonist needs a plan that reads as a person's. The {{character-profile-builder|Character Profile Builder}} prompts the protagonist's want, need, flaw and arc, the {{conflict-and-resolution-planner|Conflict and Resolution Planner}} shapes who opposes whom over what, and the {{story-idea-generator|Story Idea Generator}} assembles the premise this antagonist stands inside. Their voice in the scene belongs to the {{dialogue-practice-tool|Dialogue Practice Tool}}.",
     faqs: [
       {
-        q: "What makes a villain feel like a person?",
-        a: "A want with a wound behind it, a justification they believe, a method that reveals character, one line they will not cross and a story they tell about themselves. The builder asks for each of the seven parts and flags the missing ones.",
+        q: "Which parts does it ask for?",
+        a: "Six: what they want, the wound behind it, how they justify themselves, their method, the line they will not cross and how they see themselves. Each field shows an example in the register it wants.",
       },
       {
-        q: "Why does the builder insist on a limit?",
-        a: "Because a villain with no line they will not cross will do anything the plot needs, which means they have no character. A single prohibition turns the rest of their behaviour into choices, and the story can test it.",
+        q: "Why does a villain need a wound?",
+        a: "The wound is the past event that made the want necessary. The checks prompt for it because a want with no history behind it reads as appetite rather than motivation.",
       },
       {
-        q: "Should the villain be sympathetic?",
-        a: "Understandable is more useful than sympathetic. A reader can oppose a want completely while understanding the wound behind it, and that tension is where a memorable antagonist lives.",
+        q: "What does the line they will not cross do?",
+        a: "It explains why the villain has not already won. A profile with a method and no line describes a problem for the plot rather than a person who can be bargained with.",
       },
       {
-        q: "Does the builder write the villain?",
-        a: "No. It asks the seven questions and assembles your answers into a profile with checks. The villain, the wound and the moral reckoning are all yours.",
+        q: "Does it rate how convincing the villain is?",
+        a: "No. The checks report presence and difference between fields — never quality. A fully filled profile can still be flat, which is the judgement the tool leaves to you.",
+      },
+      {
+        q: "Is the profile stored?",
+        a: "No. The inputs live in the page, so Copy or Download the profile before leaving; nothing is saved after the session.",
       },
     ],
   },
 
   "first-line-generator": {
-    keywords: ["first line generator", "opening line", "tone", "character", "place"],
-    intro:
-      "The first line generator composes four candidate opening lines from a character, a place and a tone, and checks a line you bring for the borrowed moves — weather, once-upon-a-time, there-was and unearned length.",
-    content: `The first line generator composes four candidate opening lines from three inputs: a character, a place and a tone. The tone selector chooses a register — quiet, strange, dangerous or warm — and each register has its own four fixed patterns. Quiet openings arrive without explanation; strange ones tilt a familiar detail; dangerous ones begin with a decision already made; warm ones lead with a small human gesture. Seeing four lines of the same scene is the point: the tone is easier to choose from examples than to decide in the abstract.
-
-The patterns combine the fields rather than inventing content, so every candidate uses the character and the place named, and nothing arrives that the writer did not supply. A first line is a promise about the voice, the pace and the kind of attention the story wants, and the four candidates let a writer feel those promises side by side before committing. The copy button takes the line that catches.
-
-The own-line checker is the second half. Paste an opening you wrote and it flags the moves that make first lines sound borrowed: opening on the weather, once upon a time, a there-was construction, and a line past thirty words. Each flag explains why the habit costs the reader rather than merely naming it, and all four are prompts rather than bans — a weather opening can be right, but it should be right on purpose.
-
-The generator's limits are on the page. It knows nothing about the story behind the line and cannot tell whether a candidate keeps its promise; only the next paragraph can. It also stores nothing: the fields live in the tab, so an unpublished opening stays unpublished.
-
-One more exercise the checker makes possible: compare openings across the story. Paste the first line of each scene into the own-line field and look at the flags as a set. A draft whose scenes all open on time passing, or all open with a description of the setting, has a rhythm problem the individual lines hide — the reader feels repetition long before they can name it. Varying the openings is often the cheapest fix in a revision: start one scene on an action, one on dialogue, one on a decision. The generator's four tone sets give examples of each, and the checker's four flags give you the vocabulary to talk about a habit that otherwise stays invisible. The first line is a contract; the revision work is making the rest of the page sign it. Read the four candidates aloud before choosing one; the ear hears the promise of a voice before the eye does.\n\nOne habit worth developing: read each candidate with the second sentence already imagined. An opening line is not a standalone joke; it is the first handshake of a voice that has to hold for a chapter. The line that is easiest to continue is often the one that looks least clever in the list — which is a useful thing to learn from four examples at once, and a good reason to write the next sentence immediately, before the choice hardens.`,
-    howTo: [
-      { step: "Name the character and the place." },
-      { step: "Choose the tone the opening should carry." },
-      { step: "Read the four candidates and copy the one that catches." },
-      { step: "Paste your own opening into the checker to see which moves it uses." },
-      { step: "Write the second sentence immediately, before deciding." },
+    keywords: [
+      "first line generator",
+      "opening line",
+      "tone",
+      "candidates",
     ],
-    whenToUse: `Use the first line generator when a draft refuses to start and the first sentence keeps being rewritten. It works best once the premise is settled, so the {{story-idea-generator|Story Idea Generator}} usually comes first, and it pairs naturally with the {{scene-description-builder|Scene Description Builder}} when the opening's job is to establish a place.\n\nWhen the line is chosen, the {{dialogue-practice-tool|Dialogue Practice Tool}} is a good next exercise: the first exchange is where a voice proves the promise its opening made.`,
+    intro:
+      "The First Line Generator composes four candidate opening lines from a character, a place and a tone, and checks your own opener for borrowed moves.",
+    content:
+      "An opening line has one job — make the next line necessary — and this first line generator gives you four attempts at it. Supply a character, a place and a tone from quiet, strange, dangerous or warm, and four candidate opening lines come back built from those three fields. The patterns are fixed and visible; the engine combines your parts and never supplies a story of its own, so the candidates read like openings to your book rather than openings to somebody else's.\n\nThe opening panel holds the three inputs and a separate field for your own line. The candidates panel lists the four, each copyable, and Copy first takes the one you pick. The checks panel covers your own line: the checker names the four moves that make a first line sound borrowed — the stock dark-and-stormy construction among them — so an opener you wrote yourself can be read against the patterns the generator uses.\n\n- Character: who the line is about, in a name or a phrase.\n- Place: where it starts, one image rather than a map.\n- Tone: quiet, strange, dangerous or warm — the register of the sentence.\n- Four candidates: one pattern per template, all built from your three fields.\n- Your own line: checked for the four borrowed moves.\n- Copy first and Copy for taking candidates out.\n\nThe candidates are assembled by fixed string patterns — each places the character, the place and the tone into a shape someone has used before, which is exactly why the checker can name borrowed moves in reverse. Both sides live in the same module: the generator composes from three fields, the checker decomposes an opening into flags. Counts and checks run in the page, and nothing is invented beyond the patterns that are published on it.\n\n- Four candidates share the same three inputs, so they vary by pattern rather than idea.\n- A thin input — a generic character, a generic place — produces a generic line.\n- The checker's four moves are a finite list; an opening can sound borrowed in ways it does not name.\n- Tone changes the wording, not the structure of the pattern it fills.\n- Nothing is stored, so copy the line before leaving the page.\n\nThe workflow is to write your own line first and generate second: the checker on your opener tells you which of the four borrowed moves it already contains, and the candidates then show how the same three fields sound under different patterns. Reading them side by side is the fastest way to see which move your opening is actually making — and deleting a stock construction is easier once it has a name. Keep the three fields concrete, because a line built from a vague place and a generic character collapses into the same sentence every time; a named street or a borrowed coat gives the pattern something to carry.\n\nThe neighbours cover the rest of the opening problem: the ending generator drafts the six verdicts the last line has to pay off, the story idea generator assembles the premise the line promises, and the writing prompt generator cycles an authored bank when the page is blank before line one.\n",
+    howTo: [
+      { step: "Fill the three inputs: character, place and tone." },
+      { step: "Read the four candidates and copy the one that earns a second line." },
+      { step: "Paste your own opening line into the checker field to see the borrowed moves it contains." },
+      { step: "Revise against what the check names, then copy the final line into the draft." },
+    ],
+    whenToUse:
+      "Use the first line generator when the opening exists in notes but not yet in sentences. The {{story-idea-generator|Story Idea Generator}} assembles the premise the line has to promise, and the {{ending-generator|Ending Generator}} drafts the six verdicts that last line has to pay off. When the need is sparks rather than assembly, the {{writing-prompt-generator|Writing Prompt Generator}} cycles an authored bank of prompts, and the dialogue practice tool in this domain takes over once characters start speaking.",
     faqs: [
       {
-        q: "How does the tone setting work?",
-        a: "Quiet, strange, dangerous and warm are four fixed sets of patterns. The tone changes how the same character and place are introduced, and switching it re-renders four new candidates instantly.",
+        q: "How are the candidates produced?",
+        a: "Four fixed patterns place your character, place and tone into shapes that have been used before. The patterns are published on the page, and nothing beyond them is invented.",
       },
       {
-        q: "Why are weather openings flagged?",
-        a: "Because opening on the weather delays the person and the action the reader came for. The check is a prompt rather than a ban — a weather opening can work when it is doing a job the story needs.",
+        q: "What tones can I choose?",
+        a: "Four: quiet, strange, dangerous and warm. The tone changes the wording of each candidate rather than the structure of the pattern filling it.",
       },
       {
-        q: "What other moves does the checker flag?",
-        a: "Once upon a time, which signals a fairy-tale register; a there-was construction, which starts a description rather than a scene; and a line past thirty words, which has not earned its length yet.",
+        q: "What does the checker look for in my own line?",
+        a: "The four moves that make an opening sound borrowed — the stock dark-and-stormy construction among them — named one by one so a revision has something specific to delete.",
       },
       {
-        q: "Does the generator write the opening for me?",
-        a: "It composes four fixed patterns from your character, place and tone, using only the words you supplied. The choice, the voice and the next sentence are the writer's.",
+        q: "Can it write a whole opening paragraph?",
+        a: "No. It composes first lines from three fields and checks ones you bring. The second line, and everything after it, remains the part you write.",
       },
       {
-        q: "Can I check an opening I wrote myself?",
-        a: "Yes. The own-line field runs the same checker over any sentence and returns the borrowed moves it finds, with a note on why each one costs the reader.",
+        q: "Why do all four candidates feel similar?",
+        a: "They share the same three inputs and differ only by pattern, so a generic character and place produce generic lines. Fill the fields with specifics and the candidates separate.",
       },
     ],
   },

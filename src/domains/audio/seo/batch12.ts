@@ -1,0 +1,526 @@
+/**
+ * AUTO-GENERATED — do not edit by hand.
+ *
+ * Source: src/domains/audio/seo/source/batch-12-trimming-editing-a.json
+ * Regenerate: node scripts/audio-json-to-seo.mjs src/domains/audio/seo/source/batch-12-trimming-editing-a.json <this file> audioSeoBatch12
+ * Validate first: node scripts/validate-audio-seo-json.mjs src/domains/audio/seo/source/batch-12-trimming-editing-a.json
+ */
+import type { ToolSeo } from "@/components/shared/seo-types";
+
+export const audioSeoBatch12: Record<string, ToolSeo> = {
+  "audio-trimmer": {
+    keywords: [
+      "trim",
+      "start and end",
+      "duration",
+      "wav",
+    ],
+    intro:
+      "Audio Trimmer keeps only the span you ask for and discards everything outside it. Two fields set the start and the end of the section to keep, with the file's own duration shown so the bounds can be read off any player.",
+    content:
+      "Drop a file, type the boundaries in seconds, and process. The result is a new WAV containing the kept section, with a preview you can play before downloading.\n\nThe panel offers:\n\n- A keep-from field in seconds, defaulting to zero, with a tenth-of-a-second step.\n- A keep-until field that can be left empty, which means the end of the file, plus a to-end button that restores that state after a value has been entered.\n- A live summary of the span in minutes and seconds, with a warning when the end is not after the start.\n- A download named after the source with a trimmed suffix, so the original name is still recognisable.\n\nThe trim itself clamps both boundaries to the file's real length before it cuts anything, so an end beyond the duration simply means the duration, and a start beyond it produces an empty result rather than an error. Every channel is cut at the same sample offsets, which keeps a stereo pair in phase, and the boundary times are turned into sample indices by multiplying by the sample rate and rounding, so the same numbers always produce the same cut regardless of what happens elsewhere in the session. The output is a full sixteen bit WAV written afresh, which means the trimmed file is a normal audio file rather than a pointer into the original, and nothing about the source changes on disk. The span is stated as a start and end in seconds, and both are converted to sample positions with the same arithmetic, so a trim of the same times on a file of the same rate lands on exactly the same samples. The output length is the difference between the two boundary positions after clamping rather than a guess, which is why the reported result always matches what is heard. The page keeps the decoded original in memory as well, which is why the preview can play the untouched file next to the trimmed one — the difference between them is often the quickest way to confirm the boundary was where you intended.\n\nWhat the tool deliberately does not offer:\n\n- No waveform or scrub bar, so boundaries are typed rather than dragged.\n- No crossfade at the cut, so a trim that lands mid-waveform can click at its start or end.\n- The discarded audio is gone from the result; only the source file still holds it.\n- One span only, so several sections cannot be kept in a single pass.\n- The output is always sixteen bit WAV, whatever the source format was.\n- Nothing is written back to the original file, and nothing is uploaded anywhere.\n\nUse it for the routine cases: stripping silence or count-ins from the front of a take, cutting a clip down to a usable length, or extracting one section to work on separately. When several ranges should be removed rather than one kept, the cutter works from the other direction, and when the cut points should follow the audio itself rather than a typed number, the splitter finds the gaps for you.",
+    howTo: [
+      { step: "Drop an audio file onto the panel and read the duration from the header." },
+      { step: "Type the start of the section to keep in seconds." },
+      { step: "Type the end, or clear the field to keep everything to the end of the file." },
+      { step: "Press process, compare the preview against the original, then download the WAV." },
+    ],
+    whenToUse:
+      "Audio Trimmer is the direct tool for keeping one section, so it suits removing a count-in or extracting a passage to work on. {{audio-cutter|Audio Cutter}} works the other way round and removes the ranges you name, and {{audio-slicer|Audio Slicer}} produces many pieces in one pass instead of one. To soften the boundary the trim creates, {{audio-fade-in-out|Audio Fade In/Out}} adds a fade at either end. To turn that section into a short phone-ready clip with its own length cap and fades, {{ringtone-maker|Ringtone Maker}} makes the same cut with the limit built in.",
+    faqs: [
+      {
+        q: "What happens if the end time is past the end of the file?",
+        a: "It is clamped to the real duration rather than treated as an error, so the result is simply the audio that exists. That is deliberate: it makes a rough keystroke harmless, and it means a value can be reused on files of different lengths without adjusting it first.",
+      },
+      {
+        q: "Why can the trimmed file click at the start or the end?",
+        a: "Because a cut lands wherever the boundary falls, which is rarely a zero crossing of the waveform. The sample before the cut and the sample after it are unrelated, and that discontinuity is heard as a click. A short fade from the next tool removes it without changing the trim.",
+      },
+      {
+        q: "Does trimming alter the file I started with?",
+        a: "No. Nothing is written back to the source and nothing is uploaded: the file is decoded in the browser, the section is copied into a new buffer, and the download is a fresh WAV. Reloading the page leaves the original exactly as it was.",
+      },
+      {
+        q: "Can I keep two separate sections?",
+        a: "Not in one pass, because this tool keeps a single span between two boundaries. Keep the first, then run the result through again for the second, or use the joiner if the two sections should end up back-to-back in one file.",
+      },
+      {
+        q: "Why is the output always WAV?",
+        a: "Because WAV is lossless and needs no encoder, so nothing is lost when the file is re-written and no download of any size is required. Convert the result afterwards if a smaller format is needed for delivery.",
+      },
+    ],
+  },
+
+  "audio-cutter": {
+    keywords: [
+      "cut",
+      "overlapping spans",
+      "merged",
+      "wav",
+    ],
+    intro:
+      "Audio Cutter removes one or more ranges from a file and joins what remains, the way a razor and a splice would. Add a span for each section to remove, and the panel shows the total time that will disappear before you process.",
+    content:
+      "Each span has a start and an end in seconds, spans can be added and removed freely, and the running total is shown so the effect on the file's length is known in advance. Processing produces a single WAV with the chosen ranges taken out.\n\nThe controls:\n\n- One row per cut, each with a start and an end field in seconds and a tenth-second step.\n- An add-another-cut button for further spans, and a remove control on every row once more than one exists.\n- A running total of the time to be removed, with a note that overlapping spans are merged.\n- A single output WAV with a cut suffix.\n\nThe merging is the part worth understanding. Spans arrive in whatever order they were typed and are allowed to overlap, so the function normalises each one, sorts them by start, and folds any span that begins inside the previous one into it before a single pass copies everything except the merged ranges. That matters in practice: three overlapping cuts typed carelessly produce one coherent edit rather than duplicated work or double-subtracted time, and the merged total is what the panel reports. The copy pass writes the surviving audio into a new buffer at the right offsets, channel by channel, so a stereo pair stays aligned and the result is shorter by exactly the merged total. As with the trimmer the boundaries are rounded sample indices, so a span is reproducible, and a span whose end precedes its start is normalised rather than rejected. Removing a range has one consequence worth noticing: the sections either side become neighbours, so the output is shorter by exactly the removed total and no gap is inserted where the material used to be. That is what makes this a splice rather than a filter, and it is also why a cut through a sustained note or a loud passage can leave an audible discontinuity, since the samples either side were never adjacent in the original recording.\n\nWhat to expect and what not to:\n\n- No waveform, so spans are typed rather than dragged onto the audio.\n- No crossfade at the splice, so a cut either side of a wave can leave a click.\n- The removed audio is not recoverable from the result; only the original file still holds it.\n- One output only, so a file cannot also be split into the surviving sections as separate downloads.\n- Every channel is cut identically, so a range can only be removed from both sides of a stereo file at once.\n- The output is sixteen bit WAV in all cases.\n\nUse it for the job it was named after: taking out a cough in the middle of a take, removing a false start, cutting a section that should not be heard, or trimming a long recording down to its usable parts. When a single section should be kept instead of removed, the trimmer states the same edit from the positive side, and when silence is the thing to remove, the silence remover finds those ranges automatically.",
+    howTo: [
+      { step: "Drop an audio file onto the panel and note the duration." },
+      { step: "Enter the start and end of the first range to remove, in seconds." },
+      { step: "Add further ranges if needed; overlapping spans are merged automatically." },
+      { step: "Check the total time to be removed, press process, and download the shortened WAV." },
+    ],
+    whenToUse:
+      "Audio Cutter is the tool for removing named ranges, which is the right shape when you know where the problem is. {{audio-trimmer|Audio Trimmer}} keeps one span rather than removing several, and {{silence-remover|Silence Remover}} removes the quiet stretches automatically instead of by typed time. {{audio-slicer|Audio Slicer}} gives every remaining piece its own download rather than joining them again. A cut made at a zero crossing can still leave a click behind, which is what {{click-pop-remover|Click & Pop Remover}} removes.",
+    faqs: [
+      {
+        q: "What happens if two of my cuts overlap?",
+        a: "They are merged into one before anything is removed, so the overlap is not subtracted twice and the running total stays accurate. The spans are also sorted first, which means the order you typed them in does not matter.",
+      },
+      {
+        q: "Why does the join click after a cut?",
+        a: "Because the two samples that end up next to each other in the output were not neighbours in the source, so their levels rarely match. That discontinuity is the click. Cutting where the material is quiet reduces it, and a very short fade at a boundary removes it entirely.",
+      },
+      {
+        q: "How much is removed if a span starts before zero?",
+        a: "Only what actually exists. Every boundary is clamped to the file's real length before the pass runs, so a negative or over-long value is limited to the audio rather than producing an error or an unexpected amount of removal.",
+      },
+      {
+        q: "Can I remove a range from only one channel?",
+        a: "No. The cut applies to every channel at the same offsets, which is what keeps a stereo file coherent. To change one side only, isolate or mix the channels first and cut the result.",
+      },
+      {
+        q: "Does the tool re-encode the audio it keeps?",
+        a: "It writes the surviving samples into a new sixteen bit WAV, so what is kept is intact sample data rather than a further generation of lossy encoding. Nothing is filtered or gained along the way.",
+      },
+    ],
+  },
+
+  "audio-splitter": {
+    keywords: [
+      "silent gaps",
+      "threshold",
+      "minimum gap",
+      "tracks",
+    ],
+    intro:
+      "Audio Splitter cuts a recording into separate tracks at the quiet gaps it already contains, so the division comes from the audio rather than from numbers you supply. Each resulting track gets its own download.",
+    content:
+      "Drop a file and the tool finds the silence, then treats everything between consecutive gaps as one track. It is the shape of job that suits album sides, chaptered recordings and long takes with pauses between them.\n\nThe controls and the readout:\n\n- A silence threshold from eighty to twenty decibels below full scale, defaulting to fifty.\n- A minimum gap from three tenths of a second to five, defaulting to one, so brief pauses are passed over and only real breaks split the file.\n- A split button that reports how many tracks were produced and the span they cover.\n- One row per track showing its index, its start and end in seconds, its size and a WAV download.\n\nDetection scans twenty millisecond frames and measures the peak within each one, keeping runs that stay under the threshold for at least the minimum gap. A single quiet frame is not a break; a sustained quiet stretch is. On a stereo file the scan runs against the maximum of the two channels rather than one of them, which is the correct choice for a gap: a passage only counts as silent if both sides are quiet, and taking the louder channel prevents a quiet side from being mistaken for silence while the other side still has content. Tracks shorter than a fifth of a second are discarded, so a stray blip between two gaps does not become a file of its own, and if fewer than two usable tracks emerge the tool says so and suggests a less negative threshold or a shorter minimum gap rather than silently producing nothing. The logic is worth stating in a sentence: find silent gaps, then treat everything between consecutive gaps as one track. Because the search works on twenty millisecond frames and keeps only runs that satisfy the minimum length, a single quiet frame in the middle of speech never becomes a track boundary, and the list reports each track's start and end so the division can be checked before anything is downloaded.\n\nWhere it cannot help:\n\n- A recording with no real silence cannot be split by this method, however the sliders are set.\n- Continuous music with no pauses between pieces will not divide, since there is nothing to detect.\n- The threshold is absolute, so a file with a high noise floor may need a level that also swallows quiet musical passages.\n- Every track is written as sixteen bit WAV, so a long album produces a set of large files.\n- There is no fade at the boundaries, so a track can begin or end on a non-zero sample.\n- The tracks are produced together; there is no way to keep just one and skip the rest.\n\nUse it for the cases it was designed around: ripping a cassette side into its songs, breaking a long interview or lecture into chapters, or separating takes in a session recording where someone spoke between each one. When the division should follow an arithmetic rule rather than the audio, the slicer does that, and when you want to remove the silence instead of splitting on it, the silence remover joins the material back up.",
+    howTo: [
+      { step: "Drop an audio file and let it decode; the duration appears in the header." },
+      { step: "Set the silence threshold, raising it toward zero if the quiet parts are noisier than expected." },
+      { step: "Set the minimum gap so only real breaks split the file." },
+      { step: "Press split at silences, then download each track from the list." },
+    ],
+    whenToUse:
+      "Audio Splitter is the tool when the cut points are already in the audio as gaps, which makes it the natural choice for albums, chapters and take-separated session recordings. {{audio-slicer|Audio Slicer}} divides by a count or a fixed length instead of by content, and {{audio-cutter|Audio Cutter}} removes ranges you name by time. When the aim is to take the silence out rather than cut on it, {{silence-remover|Silence Remover}} is the counterpart, and {{silence-statistics-calculator|Silence Statistics Calculator}} measures how much of the file is silence before either tool is run.",
+    faqs: [
+      {
+        q: "Why did my file split into more tracks than it has songs?",
+        a: "Because the detector found more quiet stretches than you expected, most often a soft passage inside a piece. Raising the threshold toward zero, so only genuinely quiet material counts, and lengthening the minimum gap are the two adjustments that reduce the count.",
+      },
+      {
+        q: "What does the minimum gap actually measure?",
+        a: "How long the quiet has to last before it counts as a break. At the default of one second, a pause shorter than that is treated as part of the surrounding track. Raising it makes the tool less eager to split, which is usually what fixes a file that divided too much.",
+      },
+      {
+        q: "Why does it look at both channels instead of just one?",
+        a: "A break is a break only if the whole signal is quiet. Comparing the two channels and taking the louder one means a passage is only counted as silent when both sides are silent, so material that sits entirely on one side cannot be mistaken for a gap.",
+      },
+      {
+        q: "What happens if no gaps are found?",
+        a: "The tool reports that no quiet stretches long enough were detected and suggests a less negative threshold or a shorter minimum gap rather than producing a single useless track. Fewer than two usable tracks is the same case, since one track is not a split.",
+      },
+      {
+        q: "Can I get just one of the tracks without the others?",
+        a: "The tracks are produced together, but each one downloads separately and nothing else is saved, so in practice you take the file you want and ignore the rest. To cut a single section out by time instead, the trimmer or the cutter is the shorter route.",
+      },
+    ],
+  },
+
+  "audio-joiner": {
+    keywords: [
+      "back-to-back",
+      "order",
+      "mono",
+      "silence padding",
+    ],
+    intro:
+      "Audio Joiner places several files one after another to make a single longer recording, in the order you arrange them. It is the sequencing counterpart to the merger, which layers files instead.",
+    content:
+      "Add two or more files, rearrange them with the up and down controls, and join. Everyone is decoded up front and listed with its length and sample rate, so the running total is visible before anything is produced.\n\nThe interface and what it reports:\n\n- A drop zone that accepts several files at once and keeps adding to the list on later drops.\n- One row per file showing the basename, the duration and the sample rate, with move-up, move-down and remove controls.\n- A total line giving the file count and the combined duration.\n- A join-and-download control that produces the combined WAV, named joined.wav.\n\nJoining is a direct concatenation: each file's samples are copied into one output buffer at a running offset, so the result is exactly as long as the sum of its parts and no crossfade or gap is introduced between them. Two details matter. First, the channels of each input are padded with silence when an input has fewer channels than the widest one, which is what makes a mono file joinable into a stereo sequence without throwing an error or shifting the signal to one side. Second, all inputs are decoded through the same audio context, and the browser's decoder resamples to that context's rate, so every input arrives at a matching rate before the join happens — which is why the output takes the first file's rate and why a mixed set of sources joins without a pitch change. The join itself is arithmetic on sample offsets, so it is sample-exact and repeatable. Concatenation is back-to-back by definition, with no crossfade and no gap inserted, so the last sample of one file is immediately followed by the first sample of the next. Channel mismatch is handled by silence padding: a mono file joined into a stereo sequence receives an empty second channel rather than a duplicated one, which keeps its level and its position in the image unchanged. Every file is decoded in the browser, so the sequence never leaves the device.\n\nWhat the tool does not do:\n\n- No crossfade or gap option, so consecutive files butt together unless they are prepared to match.\n- No level matching, so a quiet file next to a loud one stays quiet.\n- No metadata handling: the output is a plain WAV and the sources' tags are not carried over.\n- Multi-channel files beyond mono and stereo are not a supported target.\n- Everything is decoded into memory at once, so a large set of long files is bounded by what the browser will hold.\n- The output name is fixed rather than derived from the inputs.\n\nUse it for the straightforward sequencing jobs: joining a two-part interview, assembling a playlist intro and outro, or putting several takes together in the order they should be heard. When the files should play at the same time rather than in sequence, the merger is the right tool, and when the join should be smoothed rather than butted, the crossfade creator blends the two sides.",
+    howTo: [
+      { step: "Drop two or more audio files onto the panel; each is decoded and listed." },
+      { step: "Use the arrow controls to set the order the files should play in." },
+      { step: "Check the combined duration, then press join and download." },
+      { step: "Play the result through and confirm the joins sound as intended." },
+    ],
+    whenToUse:
+      "Audio Joiner is the sequencing tool, so it suits assembling parts into one recording in a chosen order. {{audio-merger|Audio Merger}} plays files at the same time instead, for layering and overdubs, and {{crossfade-creator|Crossfade Creator}} smooths the join rather than butting the two files together. When the joined recording then needs tidying, {{audio-trimmer|Audio Trimmer}} and {{audio-slicer|Audio Slicer}} handle the ends and the interior.",
+    faqs: [
+      {
+        q: "Do the files need the same sample rate?",
+        a: "No. Every input is decoded through the same audio context, and the browser's decoder resamples each file to that context's rate, so they arrive matching by the time the join runs. The output simply takes the first file's rate.",
+      },
+      {
+        q: "What happens when a mono file is joined with a stereo one?",
+        a: "The narrower file has its missing channels padded with silence, so it sits in the sequence with an empty second channel rather than being forced into one side. The alternative, duplicating the mono channel, would change the level of that section in the mix.",
+      },
+      {
+        q: "Is there a crossfade between the parts?",
+        a: "No, they are concatenated exactly, which is what makes the result as long as the sum of its inputs. That is the right behaviour for speech and for parts that were prepared to match, and the wrong one for music that should blend, which is what the crossfade creator is for.",
+      },
+      {
+        q: "Why is the output always called joined.wav?",
+        a: "Because the tool has no single source name to inherit, having combined several files. Rename the download to whatever the finished recording is called; the WAV itself carries no name of its own.",
+      },
+      {
+        q: "Does the order I drop the files in matter?",
+        a: "It sets the initial order, but the arrow controls change it afterwards, and the list order is what gets joined. Moving a row up or down is the intended way to arrange the sequence, so dropping order is only a starting point.",
+      },
+    ],
+  },
+
+  "audio-merger": {
+    keywords: [
+      "layers",
+      "simultaneously",
+      "1/n",
+      "silence",
+    ],
+    intro:
+      "Audio Merger plays several files at the same time and renders the result as one mix, which makes it the tool for layering a voice over a bed or stacking takes. Order does not matter, because every file starts at once.",
+    content:
+      "Add two or more files, preview the blend if you want, then mix and download. The panel reports how many layers are in play, how long the longest one is, and the level they are summed at.\n\nThe controls and syntax:\n\n- A drop zone that accepts several files and keeps adding to the stack.\n- A row per layer showing the basename and its duration, with a remove control.\n- A preview control that plays the blend without rendering it, so the balance can be checked first.\n- A mix-and-download control producing merged-mix.wav, plus a line naming the layer count, the longest duration and the summing level.\n\nMixing sums every input sample by sample and scales the result by one over the number of inputs, so four layers are each counted at a quarter of their level. That choice is deliberate and is the reason the tool cannot clip where the sources did not: if every input peaks at full scale, the sum peaks at the full-scale value rather than at four times it. The trade is that each individual layer comes out quieter than it went in, by roughly the number of layers in decibels, which is why the readout states the scale explicitly. Unequal lengths are handled by treating the longest file as the output length and letting the shorter ones run out into silence, so a short bed under a long voice does not shorten the result. Sample rates are again matched by the browser's decoder, so a set of mixed sources aligns without pitch correction. The preview path uses the browser's own mixer, which is the quickest way to hear the balance without writing a file. The rule is easy to state: every layer is summed sample by sample and the total is scaled by 1/n, where n is the number of layers, so the mix cannot exceed the level any single input reached. All layers begin simultaneously, which is what makes their order irrelevant, and a shorter layer simply runs out into silence while the longest continues to the end of the output.\n\nWhat it does not do:\n\n- No per-layer fader or pan, so the balance is fixed at equal weighting.\n- No offset or delay per layer, so a layer cannot be nudged later than the start.\n- No ducking, so a voice does not automatically push a music bed down.\n- Reverb, gain and compression are separate tools, not options here.\n- Everything is held in memory, so many long layers are bounded by the browser.\n- The output is a plain WAV with no metadata and a fixed name.\n\nUse it for the jobs where two things have to happen at once: a voiceover over an instrumental bed, a narration with a room tone underneath, or several takes stacked to thicken a part. When the same files should follow one another instead, the joiner is the right shape, and when the contents of a layer need work before it is combined, the gain, leveler and EQ tools act on it first.",
+    howTo: [
+      { step: "Drop two or more files to build the layer stack." },
+      { step: "Use the preview control to hear the blend before committing to it." },
+      { step: "Remove any layer that does not belong and check the stated summing level." },
+      { step: "Press mix and download, then listen through to confirm nothing is masked." },
+    ],
+    whenToUse:
+      "Audio Merger is for playing files at the same time, so it suits layering a voice over music or stacking takes. {{audio-joiner|Audio Joiner}} sequences files instead of layering them, and {{crossfade-creator|Crossfade Creator}} blends two files across a transition rather than placing them on top of each other. When a layer needs its level evened out first, {{audio-leveler|Audio Leveler}} and {{multi-guest-leveler|Multi-Guest Leveler}} prepare it.",
+    faqs: [
+      {
+        q: "Why does each layer sound quieter in the mix?",
+        a: "Because the sum is scaled by one over the number of layers, so two inputs are each counted at half level. That is what guarantees the mix cannot clip where the sources did not. If a layer needs to dominate, its own level should be raised before mixing, or fewer layers used.",
+      },
+      {
+        q: "What happens if the files are different lengths?",
+        a: "The longest file sets the output length and the shorter ones simply run out, continuing as silence. No padding is written and nothing is trimmed, so a short bed under a long voice leaves the tail of the voice clear.",
+      },
+      {
+        q: "Can I offset one layer so it starts later?",
+        a: "Not here, every layer starts at zero. Cut the layer so that the material begins where it should, then add it; the trimmer or the fade tool can prepare that leading silence.",
+      },
+      {
+        q: "Does previewing change anything?",
+        a: "No. The preview plays the blend through the browser's own audio engine for checking balance, and it writes nothing. The rendered WAV is produced only when the mix and download control is pressed, and the two follow the same summing rule.",
+      },
+      {
+        q: "Can I keep the layers as separate files too?",
+        a: "The output is the mixed WAV only, since the purpose is to combine. If the individual parts matter as well, keep copies of the originals, which are untouched throughout, and use the slicer or cutter if they need dividing.",
+      },
+    ],
+  },
+
+  "audio-slicer": {
+    keywords: [
+      "equal parts",
+      "fixed length",
+      "segments",
+      "download",
+    ],
+    intro:
+      "Audio Slicer divides one file into many pieces and gives each piece its own download. Two modes do the dividing: a number of equal parts, or a fixed length per segment with a shorter tail.",
+    content:
+      "Drop a file, choose how it should be divided, and slice. The panel lists every segment with its file name, its length and its size, each as its own download.\n\nThe two modes and their controls:\n\n- Equal parts, from two to sixty four, dividing the file into segments as close to the same length as the arithmetic allows.\n- Fixed length, in seconds, cutting a segment every so many seconds until the file runs out.\n- A file header showing the source name and total duration, with a control to choose a different file.\n- A scrollable list of results, each row a download with the segment number in the name.\n\nBoth modes work on sample offsets rather than on seconds, which is what keeps the arithmetic exact. Equal parts divides the total sample count by the requested number, gives every segment that base length, and distributes the remainder one sample at a time across the earliest segments, so the pieces are as even as whole samples permit and together they cover the file with nothing lost. Fixed length multiplies the segment duration by the sample rate, rounds it, and steps through the file in that increment, with a final segment that is shorter because the material simply ends. Because the boundaries fall wherever the arithmetic puts them, a slice edge can land mid-waveform and click when played alone, which is worth knowing before slicing a piece of music into sixteen parts. Everything is produced from a single decode, so slicing a long file into many pieces does not decode it repeatedly. Every segment is a usable file in its own right, encoded once and given a numbered name that keeps the pieces in order. Equal parts is the mode to reach for when the count matters, such as dividing a long recording for transcription, and fixed length is the mode when the size of each piece matters instead, such as preparing material for a sampler with a defined slot length. Anyone who needs to check the arithmetic first can read the segment count and the total duration together on the page and confirm that nothing was dropped from the end.\n\nWhat the tool does not do:\n\n- No content-aware boundaries, so a slice can fall anywhere including through a note.\n- No fade at the segment edges, and no crossfade between them.\n- No audio is discarded, but a segment boundary that lands on a loud sample can click.\n- Segments are mono or stereo according to the source and cannot be re-channelled here.\n- Everything is produced at once, so a file sliced into sixty four parts produces sixty four downloads.\n- The output format is sixteen bit WAV regardless of the source.\n\nUse it when an even division is what the job needs: splitting a long recording into equal chunks for transcription, cutting a loop into retriggerable pieces, preparing a fixed-length file for a sampler, or dividing an audiobook into sections of a known size. When the division should follow pauses in the audio, the splitter finds those instead, and when the pieces should be auditioned before being kept, the sample chopper adds playback per slice.",
+    howTo: [
+      { step: "Drop an audio file and check the total duration shown in the header." },
+      { step: "Choose equal parts and enter a count, or choose fixed length and enter a segment length in seconds." },
+      { step: "Press slice and wait for the list to appear." },
+      { step: "Download the segments you need; the naming keeps them in order." },
+    ],
+    whenToUse:
+      "Audio Slicer is the arithmetic divider, so it suits equal chunks for transcription, sampler-ready pieces and known-length sections. {{audio-splitter|Audio Splitter}} divides on the silence in the audio instead, and {{sample-chopper|Sample Chopper}} slices at a fixed length with playback per piece so you can audition before keeping. When the file should keep its single output but lose some interior material, {{audio-cutter|Audio Cutter}} and {{audio-trimmer|Audio Trimmer}} do that. When the pieces want to run backwards, {{audio-reverser|Audio Reverser}} flips the audio end to end in one step.",
+    faqs: [
+      {
+        q: "How are the segments made equal when the file does not divide evenly?",
+        a: "The total sample count is divided by the requested number, and the remainder is handed out one sample at a time to the earliest segments. So a file of ten thousand and one samples in four parts gives three segments of twenty five hundred samples and one of twenty five hundred and one, covering everything with nothing lost.",
+      },
+      {
+        q: "Will a slice click when I play it?",
+        a: "It can, because the boundary falls where the arithmetic puts it rather than at a zero crossing, so a segment may begin or end on a non-zero sample. Adding a very short fade at each end of a slice removes it, and slicing speech or percussive material rarely shows the problem.",
+      },
+      {
+        q: "Can I choose fifty piece boundaries by time instead of a count?",
+        a: "Yes, that is the fixed length mode: enter a segment length in seconds and the tool steps through the file at that interval. The last segment is shorter, because there is simply no more audio left to fill it.",
+      },
+      {
+        q: "Does slicing degrade the audio?",
+        a: "No, each segment is a straight copy of the source samples written into its own sixteen bit WAV, so nothing is filtered, gained or re-encoded. The only losslessness caveat is that the source itself is decoded first, which is how any editor reads the file.",
+      },
+      {
+        q: "Is there a limit on how many segments I can make?",
+        a: "Equal parts accepts up to sixty four, and fixed length can produce more if the segments are short enough. Every segment becomes its own download, so a very fine division produces a long list rather than an error.",
+      },
+    ],
+  },
+
+  "audio-loop-maker": {
+    keywords: [
+      "loop",
+      "zero crossing",
+      "seam",
+      "search window",
+    ],
+    intro:
+      "Audio Loop Maker cuts a clip down to a length that wraps onto itself cleanly, so playing it on repeat does not give away the join. It looks for the best cut point in the audio rather than asking you for one.",
+    content:
+      "Drop a file and the tool scans the later part of it for the cut whose boundary best matches the very beginning, trims there, and applies a few milliseconds of fade at the tail so the wrap is inaudible.\n\nThe two settings and the report:\n\n- A search window from one to thirty seconds, defaulting to ten, which is how far back from the end the scan looks for a candidate cut.\n- A seam fade from zero to thirty milliseconds, defaulting to five, applied to the end of the loop so the return to the head cannot click.\n- A report after processing giving the loop length, the cut position and the total source duration.\n\nThe search is a two-sample boundary comparison. Every zero crossing inside the search range is examined, and for each one the difference between the samples at the cut and the first two samples of the file is calculated; the crossing with the smallest difference becomes the cut. Choosing a zero crossing matters because the waveform is passing through the middle of its range there, and choosing one whose following samples mirror the file's own opening means the wrap continues the waveform as though nothing had happened. The search window has a floor at the halfway point of the file, which prevents the tool from returning a loop so short it is useless — an early cut would leave only a fraction of the material. The seam fade then covers the remaining imperfection at the join. On steady or percussive material the result loops convincingly; on long evolving pads the underlying material may still change through the loop, which no cut can disguise. The reported figures are an honest summary of what happened: the loop length, the position of the cut in the source, and the duration the source began with. Because the cut is chosen by comparing the samples at a candidate boundary with the first two samples of the file, the loop wraps with the waveform in the same part of its cycle, and the seam fade covers whatever small difference remains.\n\nWhat the tool cannot promise:\n\n- It only looks in the later part of the file, so the ideal cut outside the search window is never considered.\n- Looping cannot add material, so a clip that does not contain a natural period simply gets the closest match available.\n- The output is shorter than the source, and the discarded tail is not recoverable from the result.\n- No tempo or bar information is used, so the loop is not guaranteed to be a whole number of beats.\n- The seam fade is applied to the tail only; there is no matching fade at the head.\n- One channel is used to choose the cut, though every channel is trimmed at the same point so a stereo file stays aligned.\n\nUse it for the cases it was built for: preparing a drum break or a phrase to repeat in a sampler, making a background bed that can run indefinitely, or turning a steady ambience into something that can be looped without a tell. When the pieces should be separate files rather than one loop, the slicer and the sample chopper divide instead, and when a transition between two different pieces is what is needed, the crossfade creator blends them.",
+    howTo: [
+      { step: "Drop an audio file onto the panel; the duration appears once it decodes." },
+      { step: "Set the search window to cover the region where a good loop point might sit." },
+      { step: "Choose a seam fade of a few milliseconds, and raise it only if a click remains audible." },
+      { step: "Process, then play the result on repeat and listen for the join." },
+    ],
+    whenToUse:
+      "Audio Loop Maker is the tool when one file should wrap onto itself without an audible join. {{sample-chopper|Sample Chopper}} and {{audio-slicer|Audio Slicer}} divide a file into separate pieces instead of one seamless whole, and {{crossfade-creator|Crossfade Creator}} blends two different files across a transition. To shape the ends of a loop by hand rather than by search, {{audio-fade-in-out|Audio Fade In/Out}} gives direct control of both fades. When the repeatable extract is short and capped at a phone's length, {{ringtone-maker|Ringtone Maker}} is the same idea with that limit built in.",
+    faqs: [
+      {
+        q: "How does it decide where to cut?",
+        a: "It tests every zero crossing in the search window against the file's own start, comparing the two samples at the cut with the first two samples of the audio, and takes the crossing with the smallest difference. Cutting where the waveform crosses zero and the following samples already match the head is what makes the wrap continue rather than jump.",
+      },
+      {
+        q: "Why is my loop so short?",
+        a: "The search is bounded at the halfway point of the file, because a cut earlier than that would leave less than half the material and produce something closer to a fragment than a loop. If a longer loop is wanted, the source clip should be longer to begin with.",
+      },
+      {
+        q: "What is the seam fade for?",
+        a: "It removes the last trace of mismatch at the join. Even the best cut can leave a small level difference between the end and the start, and a few milliseconds of fade to silence covers it without being audible as a fade. Zero disables it if you want to hear the raw cut.",
+      },
+      {
+        q: "Will the loop be exactly one bar?",
+        a: "Not necessarily, because the tool knows nothing about tempo. It finds the best-matching point in the audio, which may or may not coincide with a musical boundary. For a bar-exact loop, cut the section to length first with the trimmer and then loop it.",
+      },
+      {
+        q: "Why does an evolving pad still sound like it breathes?",
+        a: "Because the material itself changes over the loop, so the sound at the end is genuinely different from the sound at the start even when the samples line up. A cut can match the waveform but not the arrangement; nothing in this tool changes that.",
+      },
+    ],
+  },
+
+  "sample-chopper": {
+    keywords: [
+      "chips",
+      "slice length",
+      "audition",
+      "wav",
+    ],
+    intro:
+      "Sample Chopper cuts a file into evenly spaced pieces and lets you hear each one before deciding to keep it. It is the slicing workflow built for someone about to load the pieces into something else.",
+    content:
+      "Choose a file, set the slice length, and the file is divided and listed. Every chip can be played in place and downloaded separately, so the pieces you do not want are simply not taken.\n\nThe controls and the result:\n\n- A file chooser that accepts a drop or a click to browse.\n- A slice length from a tenth of a second to four seconds, with a twentieth-second step, defaulting to half a second.\n- A count and a hint line explaining that the play control auditions a chip and the download control keeps it.\n- One tile per chip showing its number and its start and end times in seconds, with a play control and a download named from the source.\n\nSlicing uses the fixed-length rule: the slice length is multiplied by the sample rate and rounded to give a sample count, and the file is stepped through in that increment, with a final piece that is shorter because the material ends. Because the same sample count drives both the boundaries and the audio each chip receives, the pieces are exact and contiguous rather than approximated from a floating-point time. Each chip is then encoded once as a sixteen bit WAV and held as an object URL, so downloading one costs nothing beyond the bytes; the pieces are also prepared as audio buffers, which is what lets the play control audition a chip immediately without decoding anything again. The workflow the tool is built around is audition and then keep: play a chip to hear whether it is worth taking, and download only the ones that are. Because the slice length drives both the boundaries and the audio each chip receives, the pieces are contiguous with no gaps or overlaps, which is exactly the property a sampler needs when it assumes evenly spaced slots. Auditioning one chip stops any chip still playing, so there is never a question about which sound is being heard.\n\nWhat the chopper does not do:\n\n- No transient detection, so a chop can land anywhere rather than on a hit.\n- No fade at the chip edges, so a chip cut through a loud sample can click when played alone.\n- Fixed spacing only; the pieces are all the same length except the last.\n- No tempo or bar alignment, so chops do not automatically line up with a grid.\n- No reordering or re-export of a rearranged sequence; the chips come out in source order.\n- Every chip is mono or stereo as the source was, and always WAV.\n\nUse it when a loop or a break needs dividing into pieces to trigger or edit elsewhere: chopping a drum break into sixteenths, cutting a vocal phrase into syllables, or preparing a sample library where the pieces need auditioning before they are chosen. When the division should be a count of equal parts rather than a fixed length, the slicer offers both modes, and when the whole file should be exported as one continuous piece rather than many, the trimmer and cutter work on the file as a whole.",
+    howTo: [
+      { step: "Drop or choose an audio file to chop." },
+      { step: "Set the slice length, using a shorter value for finer chops." },
+      { step: "Play individual chips to audition them, with the play control stopping whatever was sounding." },
+      { step: "Download the chips you want to keep, named after the source and numbered." },
+    ],
+    whenToUse:
+      "Sample Chopper is the audition-first slicer, so it suits someone choosing which pieces of a break or phrase to keep. {{audio-slicer|Audio Slicer}} divides by a part count or a fixed length and exports everything, and {{audio-splitter|Audio Splitter}} cuts where the audio is quiet instead of on a fixed grid. When the piece being chopped is destined to become a loop, {{audio-loop-maker|Audio Loop Maker}} finds a seamless length for it.",
+    faqs: [
+      {
+        q: "How do I preview one chip without downloading everything?",
+        a: "Each chip has its own play control, and starting one stops whatever was already playing, so you always hear a single piece rather than an overlap. Nothing is written to disk until a download control is used.",
+      },
+      {
+        q: "Why do the chips click at their edges?",
+        a: "Because each chip begins and ends wherever the fixed slice length falls, which is rarely a zero crossing of the waveform. Playing a chip on its own starts and stops at a non-zero level, and that step is heard as a click. A very short fade at each end in the sampler removes it.",
+      },
+      {
+        q: "Is the last chip shorter?",
+        a: "Yes, if the file's length is not an exact multiple of the slice length. The tool steps through in fixed increments and the final piece contains whatever remains, which is the honest result rather than padding with silence.",
+      },
+      {
+        q: "Can I chop on the beat?",
+        a: "Only by setting the slice length to match the tempo by hand: at one hundred and twenty beats per minute a sixteenth note is an eighth of a second. The tool itself reads no tempo or transient information, so alignment is a matter of choosing the right slice length.",
+      },
+      {
+        q: "Are the chips lossless?",
+        a: "They are copies of the decoded source written as sixteen bit WAV, so they contain no further lossy encoding and no filtering. The only losslessness caveat is the decoding step itself, which happens before any chopping.",
+      },
+    ],
+  },
+
+  "audio-fade-in-out": {
+    keywords: [
+      "fade in",
+      "fade out",
+      "curve",
+      "equal power",
+    ],
+    intro:
+      "Audio Fade In/Out adds a smooth rise at the start of a file and a smooth fall at the end, with a choice of three curves. The last sample always lands on exact silence, so a faded file never ends in a click.",
+    content:
+      "Set the two fade lengths, pick a curve, and process. The panel reports the sample counts it actually applied, which can be shorter than requested when a file is very short.\n\nThe controls:\n\n- A curve selector with linear, exponential and equal power, described on the page in terms of what each is for.\n- A fade-in length from zero to fifteen seconds in half-second steps, defaulting to two.\n- A fade-out length over the same range, defaulting to three.\n- A report line giving both fade lengths as applied, the curve, and the file's duration.\n\nEach curve is a different gain shape across the same span. Linear multiplies by a straight ramp, which is the neutral choice because it is exactly what the numbers say. Exponential applies a power-of-ten curve, which sounds smoother to most ears because loudness is perceived on a logarithmic scale, and it is the one that needs a correction: a pure exponential never reaches zero, so the final sample is forced to zero to guarantee true silence. Equal power uses a quarter sine for the fade in and a quarter cosine for the fade out, which keeps the perceived loudness constant through the transition rather than dipping as a linear fade does — that is the crossfade curve, which is why it suits a DJ-style ending. The three curves differ only in the shape of the gain across the same span, so choosing between them never changes the length of the fade, only how it is heard. Linear follows the numbers exactly, exponential sounds smooth because loudness is perceived logarithmically, and equal power holds the level steady through the transition. Whichever is chosen, the final sample is forced to silence, which is why a faded file never ends in a click. Both fade lengths are clamped to half the file, so the two cannot collide and overlap in a short clip, and any channel count is handled since every channel gets the same gain at the same place.\n\nWhere the tool is limited:\n\n- Lengths are set by slider in half-second steps rather than typed exactly.\n- The fade starts at the very beginning and ends at the very end, so a fade cannot be placed partway into a file.\n- One curve applies to both fades, so the rise and the fall cannot use different shapes.\n- The values are applied to a copy, so the process is repeatable but not reversible from the result.\n- There is no visual of the gain envelope, only the report of the lengths applied.\n- Output is sixteen bit WAV, and no other processing is combined with the fade.\n\nUse it for the ordinary purposes of a fade: softening the start of a recording that begins mid-note, giving a track a musical ending, hiding a boundary where material was cut, or preparing a file that will be looped so its ends are already silent. When the transition is between two different files rather than at one file's ends, the crossfade creator blends them, and when the fade is only needed to kill a click at a cut, a few milliseconds are enough.",
+    howTo: [
+      { step: "Drop an audio file onto the panel." },
+      { step: "Choose the curve, using equal power if the fade should hold its loudness through the transition." },
+      { step: "Set the fade-in and fade-out lengths with the sliders." },
+      { step: "Press process, check the reported lengths, and download the faded WAV." },
+    ],
+    whenToUse:
+      "Audio Fade In/Out shapes the two ends of a single file, which makes it the tool for musical openings and endings and for killing clicks at a cut. {{crossfade-creator|Crossfade Creator}} blends two files across a transition instead, and {{audio-trimmer|Audio Trimmer}} or {{audio-cutter|Audio Cutter}} produce the cuts that a short fade then tidies. When the goal is a file that loops cleanly, {{audio-loop-maker|Audio Loop Maker}} chooses the cut point as well as sealing the seam.",
+    faqs: [
+      {
+        q: "How do I pick between the three fade shapes?",
+        a: "Linear when the fade should behave exactly as its length suggests, exponential when it should sound smooth, and equal power when the loudness must not dip in the middle of the transition. For a fade at the start or end of a track, exponential is usually the most natural-sounding of the three.",
+      },
+      {
+        q: "Why is the exponential curve forced to zero at the end?",
+        a: "Because an exponential decay approaches zero without ever reaching it, so the last sample would still carry a small amount of signal and the file would not end in true silence. Setting that final sample to zero guarantees the silence without any audible change to the fade.",
+      },
+      {
+        q: "What if my fade lengths are longer than the file?",
+        a: "Each is clamped to half the file's duration, so a two-second fade on a two-second clip becomes one second and the two cannot overlap. The report line shows the lengths that were actually applied, which is the reliable way to check.",
+      },
+      {
+        q: "Can I fade just part of the file?",
+        a: "No, the fades are bound to the beginning and the end. To fade a section in the middle, keep that section with the trimmer, fade it, and join it back, or use the gain tool to shape the level as a whole.",
+      },
+      {
+        q: "Does fading lose audio?",
+        a: "It reduces the level across the fade span by design, so the material inside the fade is attenuated rather than removed. Everything outside the fades is untouched, and the samples underneath are the original ones multiplied by a gain, not new audio.",
+      },
+    ],
+  },
+
+  "crossfade-creator": {
+    keywords: [
+      "crossfade",
+      "equal power",
+      "overlap",
+      "sample rate",
+    ],
+    intro:
+      "Crossfade Creator joins two clips with a blend, so the first fades out while the second fades in and the transition holds its loudness. Drop order matters: the first file is the one that fades away.",
+    content:
+      "Choose two files, set the overlap length, and create. The result is a single WAV as long as the two clips together minus the overlap, which is reported along with a note if the requested length had to be shortened.\n\nThe slots and settings:\n\n- Two labelled file slots, one for the clip that fades out and one for the clip that fades in, each showing the name, duration and sample rate once loaded.\n- A crossfade length from half a second to fifteen seconds in half-second steps, defaulting to four.\n- A result row with the download, the total duration and a note when the overlap was capped.\n\nThe blend uses gains that follow a quarter sine and a quarter cosine across the overlap, which is why it is called equal power: the two gains squared sum to one at every point, so the loudness stays constant through the transition. A linear crossfade would instead dip by about three decibels at the midpoint, which is audible as a small hole in the music, and this is the difference the name is warning about. Two safeguards are built in. The overlap is capped at half of the shorter clip, because an overlap longer than a clip would consume it entirely and the result would no longer contain the material either side of the transition; the note tells you when that cap was applied. And both clips must share a sample rate, since the blend is computed sample for sample; a mismatch is refused with both rates named rather than silently producing a wrong-speed result. The output is one file long enough to hold both clips except for the overlap, so the total duration is the sum of the two minus the blend. Checking that figure is a quick way to confirm the overlap was the length you intended, and the note about a capped overlap appears whenever the shorter clip could not support the length that was asked for. A mono clip mixed with a stereo one pads the missing channel with silence rather than duplicating it.\n\nWhat the tool does not offer:\n\n- Exactly two clips per run, so a chain of transitions means repeating the process.\n- No automatic tempo or key matching, so clips of different speeds blend cleanly only if they were meant to.\n- No preview before rendering, so the balance is judged from the finished file.\n- No level matching between the clips, so one can dominate the blend.\n- Only equal power is available; a linear or asymmetric curve is not offered.\n- Everything is held in memory at once for the two clips, and the output is sixteen bit WAV.\n\nUse it for the transitions it was designed for: joining two songs into a continuous mix, blending an intro into a main section, or stitching two takes together where a straight cut would be obvious. When the files should simply follow one another without a blend, the joiner concatenates them, and when the blend should happen on a single file's own ends, the fade tool is the simpler shape.",
+    howTo: [
+      { step: "Drop the clip that should fade out into the first slot." },
+      { step: "Drop the clip that should fade in into the second slot." },
+      { step: "Set the crossfade length, remembering it cannot exceed half of the shorter clip." },
+      { step: "Press create crossfade and download the blended WAV." },
+    ],
+    whenToUse:
+      "Crossfade Creator is the tool for blending two clips across a transition, which makes it the right choice for a continuous mix or a smoothed join. {{audio-joiner|Audio Joiner}} places files end to end without blending them, and {{audio-fade-in-out|Audio Fade In/Out}} works on the ends of one file rather than between two. To layer clips instead of sequencing them, {{audio-merger|Audio Merger}} plays them together.",
+    faqs: [
+      {
+        q: "Why equal power rather than a straight fade?",
+        a: "Because two signals fading linearly against each other sum to less than either one alone at the midpoint, which is heard as a dip of about three decibels right where the transition happens. Gains that follow a sine and cosine keep the summed power constant, so the loudness holds steady through the blend.",
+      },
+      {
+        q: "Why was my crossfade shorter than I asked for?",
+        a: "The overlap is capped at half the shorter clip. A longer overlap would consume one clip entirely, so the material either side of the transition would no longer be present. The result row reports the capped length whenever that happens.",
+      },
+      {
+        q: "What if the two clips have different sample rates?",
+        a: "The tool refuses and names both rates rather than blending them. The blend is arithmetic on samples, so different rates would have to be resampled first; the format converter can bring both clips to one rate, after which the crossfade will run.",
+      },
+      {
+        q: "Which slot should each clip go into?",
+        a: "It matters, and it is the whole point of having two slots. The first clip fades out across the overlap while the second fades in, so swapping them reverses the direction of the transition even though the overlap length is unchanged.",
+      },
+      {
+        q: "Can I hear it before committing?",
+        a: "There is no preview here, so the finished file is the first thing you hear. That is why the overlap length and the clip choice are worth checking before the run; if the balance is wrong, recreating it with a different length takes only a moment.",
+      },
+    ],
+  },
+
+  "audio-reverser": {
+    keywords: [
+      "reversed",
+      "back-to-front",
+      "samples",
+      "fade",
+    ],
+    intro:
+      "Audio Reverser plays a file backwards, so the last sample becomes the first and every envelope runs the other way. It is a single-button tool because there is nothing to configure.",
+    content:
+      "Drop a file and process it; the reversed audio appears with a preview and a download. Every sample is kept, so the output is exactly as long as the source and no material is lost.\n\nWhat the tool does and reports:\n\n- A drop zone and a process control, with no options beyond choosing the curve-free default behaviour.\n- A preview of both the original and the processed file, so the two can be compared directly.\n- A download named after the source with a reversed suffix.\n- No settings at all, which is the point: reversal has no parameters.\n\nReversal reads each channel and writes its samples into a new array in the opposite order, one channel at a time, so a stereo image is preserved with its left and right sides intact and only the time axis flipped. Because no filtering or interpolation is involved, the operation is exactly invertible: reversing a reversed file returns the original samples. That property is worth knowing because it means the process appears on the spectrum identically, with the same frequency content, and only the temporal envelope changes. The audible consequences are all in the envelope: a fade-in becomes a fade-out, a cymbal swell becomes a decay, a plosive at the start of a word becomes a strange attack at the end, and a reverb tail becomes a rising surge. Reversing audio that will be processed and reversed again is a standard technique for producing a swell that leads into a hit, which is the most common reason to reach for a reverser at all. There is also nothing to set. Playing a file back-to-front is a mechanical operation with no parameters, which is why the page offers a file slot, a process control and a download and nothing else — no length, no curve, no mode. What changes is the order of events: a sound that grew becomes a sound that fades, and a sound that stopped abruptly begins abruptly instead.\n\nWhat it does not do:\n\n- No partial reversal, so a section cannot be flipped on its own without cutting it out first.\n- No fade or envelope is applied, so a file that begins or ends abruptly still does, just at the other end.\n- Nothing about the duration, sample rate or channel count changes.\n- The source is not modified; the result is a new file.\n- Reversal does not make the audio play backwards in pitch, only in time: the frequency content is identical, merely rearranged in time.\n- Output is sixteen bit WAV regardless of the source format.\n\nUse it for the classic applications: building a reverse cymbal or swell to lead into a downbeat, flipping a clip to hear whether a passage works better the other way round, or producing an unsettling effect for a sound design pass. When the file should be played at a different speed rather than backwards, the speed changer handles that, and when the ends need shaping after the reversal, the fade tool works on the result as it would on anything else.",
+    howTo: [
+      { step: "Drop an audio file onto the panel." },
+      { step: "Press process; there is nothing to configure first." },
+      { step: "Compare the preview of the original against the reversed version." },
+      { step: "Download the reversed WAV, which carries the source name with a reversed suffix." },
+    ],
+    whenToUse:
+      "Audio Reverser is the one-job tool for flipping a file in time, useful for building swells and for testing how a passage sounds the other way round. {{audio-trimmer|Audio Trimmer}} and {{audio-cutter|Audio Cutter}} isolate a section to reverse on its own, and {{audio-fade-in-out|Audio Fade In/Out}} shapes the ends afterwards, since a reverse turns an existing fade upside down. When the change wanted is to the speed rather than the direction, {{audio-speed-changer|Audio Speed Changer}} does that.",
+    faqs: [
+      {
+        q: "Does reversing change the pitch or the frequency content?",
+        a: "No. Reversal only reorders samples in time, so every frequency present is still present at the same level. What changes is the shape of the envelope: attacks become decays and rises become falls, which is why a reversed cymbal sounds like a swell.",
+      },
+      {
+        q: "Is the reversal exact?",
+        a: "Yes. Each sample is written once into a new array in the opposite order, with no filtering or interpolation anywhere in the path, so reversing a reversed file gives back the original samples exactly.",
+      },
+      {
+        q: "Why does my reversed file now start with a click?",
+        a: "Because whatever was at the end of the original is now at the start. If the file ended mid-waveform, the reversed version begins there, and that step is heard as a click. A short fade at the new beginning removes it.",
+      },
+      {
+        q: "Can I reverse only part of a file?",
+        a: "Not directly, because the whole file is flipped in one pass. Keep the section you want with the trimmer, reverse that piece, then join it back into place with the joiner if it needs to sit inside the original recording.",
+      },
+      {
+        q: "What is reversing useful for beyond effects?",
+        a: "It is a quick way to hear material afresh: a reversed drum pattern reveals which hits carry the groove, and a reversed vocal phrase makes pronunciation problems obvious because the transitions between sounds are stretched out rather than attacked.",
+      },
+    ],
+  },
+
+  "audio-speed-changer": {
+    keywords: [
+      "tape style",
+      "keep pitch",
+      "presets",
+      "WSOLA",
+    ],
+    intro:
+      "Audio Speed Changer alters playing speed either the way a tape deck does, with pitch following the speed, or with the pitch held steady. Both modes take a factor from a quarter speed up to four times.",
+    content:
+      "Choose a mode, set the factor with the slider or one of the presets, and process. The output has a duration of the original length divided by the factor, so a factor of two halves the file and a factor of half doubles it.\n\nThe modes and controls:\n\n- Tape style, where speed and pitch move together: below one the audio slows and drops in pitch, above one it speeds up and rises, exactly like a record player.\n- Keep pitch, where the duration changes but the pitch stays roughly where it was, at the cost of some airiness on large changes.\n- A factor slider from a quarter to four, in steps of a twentieth, defaulting to one.\n- Five presets at half, three quarters, one and a quarter, one and a half and two times.\n\nThe two modes are genuinely different pieces of arithmetic. Tape style resamples the signal: output frame k reads the input at k times the factor with linear interpolation between neighbouring samples, which compresses or stretches the waveform itself and therefore moves every frequency with it — that is why the pitch changes. Keep pitch instead stretches time without moving pitch, using a windowed overlap-add method with a search that keeps grains aligned: each output grain searches a small range of lags for the position whose onset best continues the audio already written, which is what stops tonal material from comb-filtering into a phasey mess. The search costs about a second of processor time per minute of audio, which is the reason a long stretch takes noticeably longer than a speed change. Both modes size their outputs so the duration arithmetic holds, and both are pure functions of the samples, so the same file and factor always produce the same result. The difference between the modes is worth holding on to when choosing one: tape style changes speed and pitch together because it rewrites the waveform on a different time base, while keep pitch changes only the duration by reconstructing the audio from overlapping grains. The search that aligns each grain is a WSOLA-style pass: every output grain tests a small range of offsets and keeps the one whose samples best continue what has already been written, which is what stops tonal material from turning phasey. Both divide the source length by the factor, so a half-speed pass doubles the file and a double-speed pass halves it.\n\nWhat the tool does not do:\n\n- Large keep-pitch changes sound airy, because the method repeats and overlaps short grains rather than resynthesising.\n- No independent pitch control: the pitch-shifter is the tool for changing pitch at constant speed.\n- One factor applies to the whole file, with no tempo map or gradual change.\n- No presets above two times, although the slider reaches four.\n- No formant handling, so a large keep-pitch stretch on speech can sound unnatural even though the pitch holds.\n- Output is sixteen bit WAV, and each channel is processed independently, which keeps a stereo file aligned but does not preserve any stereo technique that depended on the original timing.\n\nUse it when a recording needs to be longer or shorter: fitting a piece of audio to an edit, making a rehearsal recording easier to follow, speeding up a slow take to hear how it would sit, or slowing something down to transcribe a phrase. When only the pitch should move, the pitch shifter does that independently, and when a file simply needs to be slower for comprehension without any pitch judgement, the accessibility-oriented speed tool takes the narrower range.",
+    howTo: [
+      { step: "Drop an audio file onto the panel." },
+      { step: "Choose tape style if the pitch should move with the speed, or keep pitch if it should not." },
+      { step: "Set the factor with the slider or one of the five presets." },
+      { step: "Press process, then compare the previews and download the result." },
+    ],
+    whenToUse:
+      "Audio Speed Changer is the general speed tool, with both the tape-style and pitch-preserving modes and a range from a quarter to four times. {{tempo-changer|Tempo Changer}} and {{time-stretcher|Time Stretcher}} approach the pitch-preserving case from specific angles, and {{audio-pitch-shifter|Pitch Shifter}} moves the pitch at constant speed instead. For simply slowing speech for comprehension, {{audio-speed-slow-down|Audio Speed Slow Down}} covers that narrower job. For the slowed-and-reverbed remix treatment, {{slowed-reverb-nightcore|Slowed + Reverb / Nightcore}} applies the same speed change with those additions built in.",
+    faqs: [
+      {
+        q: "What is the difference between the two modes?",
+        a: "Tape style resamples the waveform, so the duration and the pitch both change by the same factor, the way a record does when its speed is altered. Keep pitch stretches the time axis without moving the frequencies, by overlapping short grains so that the audio is reconstructed rather than played faster.",
+      },
+      {
+        q: "Why is the keep-pitch mode slower to run?",
+        a: "Because every output grain searches a range of positions for the one that best continues the audio already written, and that search costs roughly a second of processor time per minute of audio. Tape style has no search at all, so it is essentially instant.",
+      },
+      {
+        q: "What does airy mean in the keep-pitch description?",
+        a: "It is the sound of overlapping grains: on large stretches the repeated and blended portions add a soft, slightly hollow quality to sustained material. Small changes are usually inaudible; doubling or halving the duration is where it becomes noticeable, especially on voices.",
+      },
+      {
+        q: "Does the factor of one change anything?",
+        a: "No, both modes return a copy of the input unchanged at a factor of exactly one, which is why the slider defaults there. It is a useful reference point: set the factor, process, and compare against the preview of the original.",
+      },
+      {
+        q: "Which mode should I use for a music bed under a voice?",
+        a: "Keep pitch, because moving the pitch would clash with the voice and change the key of the music. If the result sounds airy, changing the factor by a smaller amount and taking two smaller steps is usually better than one large stretch.",
+      },
+    ],
+  },
+};

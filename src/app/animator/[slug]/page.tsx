@@ -3,12 +3,27 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ChevronRight } from "lucide-react";
-import { categories, TOOLS_BY_SLUG } from "@/domains/animator/registry";
+import { categories, allTools, TOOLS_BY_SLUG } from "@/domains/animator/registry";
 import { ANIMATOR_SITE } from "@/domains/animator/site";
+import { INDEX_SOON_PAGES } from "@/domains/animator/indexing";
 import { toSlug } from "@/lib/utils/slug";
-import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
+import { buildSoonMetadata } from "@/lib/tools/soonMetadata";
+import { pickRelatedTools } from "@/lib/tools/soonRelated";
+import { ComingSoonToolPage } from "@/components/shared/ComingSoonToolPage";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
+
+/** Names repeated among this domain's upcoming tools — used to qualify labels. */
+const SOON_NAME_COUNTS = (() => {
+  const counts = new Map<string, number>();
+  for (const tool of allTools) {
+    if (tool.status === "live") continue;
+    counts.set(tool.name, (counts.get(tool.name) ?? 0) + 1);
+  }
+  return counts;
+})();
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -35,13 +50,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // 2. Check Tool
   const tool = TOOLS_BY_SLUG.get(slug);
   if (tool) {
+    // Upcoming tools keep a self-canonical and real copy; INDEX_SOON_PAGES
+    // controls whether they are also indexable (domains/animator/indexing.ts).
+    if (hasComingSoonPage(tool, "animator")) {
+      return buildSoonMetadata(
+        { tool, domainKey: "animator", siteName: ANIMATOR_SITE.copyrightName, categoryName: tool.category, soonNameCounts: SOON_NAME_COUNTS },
+        INDEX_SOON_PAGES,
+      );
+    }
     return {
       title: `${tool.name} — ${ANIMATOR_SITE.copyrightName}`,
       description: tool.description,
       alternates: {
         canonical: `/animator/${tool.slug}`,
       },
-      robots: isComingSoonToolPage(tool, "animator") ? { index: false, follow: false } : undefined,
     };
   }
 
@@ -102,6 +124,7 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
                   basePath={`/animator/${tool.slug}`}
                   label="tool"
                   soon={!isLiveTool(tool, "animator")}
+                  clickable={hasComingSoonPage(tool, "animator")}
                 />
               );
             })}
@@ -129,7 +152,31 @@ export default async function PolymorphicPage({ params }: PageProps) {
     return <CategoryView category={category} />;
   }
 
-  // 2. No animator tool page renders a real tool — every tool slug 404s.
+  // 2. Upcoming tools render a Coming Soon page instead of 404ing.
+  const tool = TOOLS_BY_SLUG.get(slug);
+  if (tool && hasComingSoonPage(tool, "animator")) {
+    const catName = tool.category ?? "Animation";
+    const related = pickRelatedTools(allTools, {
+      currentSlug: slug,
+      basePath: "/animator",
+      isLive: (t) => isLiveTool(t, "animator"),
+      sameGroup: (t) => t.category === tool.category,
+    });
+    return (
+      <ComingSoonToolPage
+        toolName={tool.name}
+        toolDescription={tool.description}
+        icon={tool.icon}
+        siteName={ANIMATOR_SITE.copyrightName}
+        domainLabel="Animation"
+        domainHref="/animator"
+        categoryName={catName}
+        categoryHref={`/animator/${toSlug(catName)}`}
+        relatedLive={related.live}
+        relatedSoon={related.soon}
+      />
+    );
+  }
 
   // 3. Not found
   notFound();

@@ -26,6 +26,7 @@ import { CATEGORY_SUMMARY } from "../summaryData";
 import { toSlug } from "@/lib/utils/slug";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
+import { INDEX_SOON_PAGES } from "@/domains/calculator/indexing";
 import { CALCULATOR_STUB_SLUGS } from "@/lib/tools/calculatorStubSlugs";
 
 // Full browsable scope — every registry calculator except stub-tagged entries
@@ -183,9 +184,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const url = `https://racira.com/calculator/${canonicalUrlSlug}`;
     const meta: Metadata = { title, description, alternates: { canonical: url } };
     // Calculators that are not genuinely built (soon, or stub-tagged "live")
-    // render the coming-soon template — browsable but excluded from the index.
-    if (!isLiveTool(tool, "calculator")) {
-      // Education "soon" pages: noindex but follow (related-calc links should be crawled)
+    // render the coming-soon template. They are browsable with a self-canonical;
+    // whether they are also excluded from the index is controlled by
+    // INDEX_SOON_PAGES (see domains/calculator/indexing.ts).
+    if (!INDEX_SOON_PAGES && !isLiveTool(tool, "calculator")) {
+      // Soon pages: noindex but follow (related-calc links should be crawled)
       meta.robots = { index: false, follow: true };
     }
     return meta;

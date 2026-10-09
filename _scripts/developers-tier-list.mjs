@@ -125,7 +125,7 @@ const tiers = {
   "rsa-key-generator": "H", // RSA keypair generation
   "elliptic-curve-key-generator": "H", // ECDSA P-256
   "caesar-cipher-tool": "E",
-  "vigenre-cipher-tool": "E",
+  "vigenere-cipher-tool": "E",
   "xor-cipher-tool": "E",
   "rail-fence-cipher-tool": "E",
   "zero-width-character-inserter": "E",

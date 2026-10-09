@@ -1,357 +1,659 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { Timer, RotateCcw } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, ReferenceLine } from "recharts";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-// 1. TypeScript interfaces
-interface ChartPoint {
-  Horsepower: number;
-  "0-60 Time": number;
+type Drivetrain = "fwd" | "rwd" | "awd";
+type TireGrip = "street" | "performance" | "drag";
+type Gearbox = "manual" | "automatic" | "dct";
+
+interface PerfInputs {
+  weightLb: number;
+  horsepower: number;
+  drivetrain: Drivetrain;
+  tireGrip: TireGrip;
+  gearbox: Gearbox;
+  occupantsLb: number;
+  decimals: number;
 }
 
-interface ScheduleRow {
-  hp: number;
-  time060: number;
-  time14: number;
+const DEFAULTS: PerfInputs = {
+  weightLb: 3400,
+  horsepower: 300,
+  drivetrain: "rwd",
+  tireGrip: "performance",
+  gearbox: "automatic",
+  occupantsLb: 0,
+  decimals: 2,
+};
+
+const fmt = (v: number, d = 0) =>
+  Number.isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+const DRIVE_OPTIONS = [
+  { value: "fwd", label: "Front-wheel drive" },
+  { value: "rwd", label: "Rear-wheel drive" },
+  { value: "awd", label: "All-wheel drive" },
+];
+
+const TIRE_OPTIONS = [
+  { value: "street", label: "Street all-season" },
+  { value: "performance", label: "Performance summer" },
+  { value: "drag", label: "Drag / sticky compound" },
+];
+
+const GEARBOX_OPTIONS = [
+  { value: "manual", label: "Manual (2–3 shifts)" },
+  { value: "automatic", label: "Torque-converter auto" },
+  { value: "dct", label: "Dual-clutch / fast auto" },
+];
+
+const DECIMAL_OPTIONS = [
+  { value: "1", label: "1 decimal" },
+  { value: "2", label: "2 decimals" },
+];
+
+interface PerfResult {
+  valid: boolean;
+  errorMsg: string;
+  powerToWeight: number;
+  hpPerTonne: number;
+  t60: number;
+  quarterET: number;
+  quarterTrap: number;
+  energyBase: number;
+  launchPenalty: number;
+  bandLabel: string;
+  bandColor: string;
+  verdict: string;
+  breakdown: { label: string; value: string; highlight?: boolean }[];
 }
 
-interface PerformanceResults {
-  zeroToSixty: number;
-  quarterMileTime: number;
-  powerToWeight: number; // lbs per HP
-  chartData: ChartPoint[];
-  schedule: ScheduleRow[];
-  isError: boolean;
-  errorMsg?: string;
-}
+/** Energy-method 0-60 estimate with drivetrain, tire and gearbox corrections,
+ *  plus the classic Hale cube-root quarter-mile relations. */
+function calculatePerf(i: PerfInputs): PerfResult {
+  const blank = (errorMsg: string): PerfResult => ({
+    valid: false,
+    errorMsg,
+    powerToWeight: 0,
+    hpPerTonne: 0,
+    t60: 0,
+    quarterET: 0,
+    quarterTrap: 0,
+    energyBase: 0,
+    launchPenalty: 0,
+    bandLabel: "",
+    bandColor: "text-muted-foreground",
+    verdict: "",
+    breakdown: [],
+  });
 
-// 2. Pure calculation function
-const calculatePerformance = (inputs: typeof DEFAULTS): PerformanceResults => {
-  const hp = parseFloat(inputs.horsepower);
-  const weight = parseFloat(inputs.weight);
-  const drivetrain = inputs.drivetrain;
+  const nums = [i.weightLb, i.horsepower, i.occupantsLb, i.decimals];
+  if (!nums.every((v) => Number.isFinite(v))) return blank("Enter a number in every field.");
+  if (i.weightLb < 1200 || i.weightLb > 12000) return blank("Curb weight should be between 1,200 and 12,000 lb.");
+  if (i.horsepower < 30 || i.horsepower > 2000) return blank("Horsepower should be between 30 and 2,000.");
+  if (i.occupantsLb < 0 || i.occupantsLb > 1200) return blank("Occupant / cargo weight should be between 0 and 1,200 lb.");
 
-  if (isNaN(hp) || hp <= 0 || isNaN(weight) || weight <= 0) {
-    return {
-      zeroToSixty: 0, quarterMileTime: 0, powerToWeight: 0,
-      chartData: [], schedule: [], isError: true, errorMsg: "Horsepower and Weight must be valid positive numbers."
-    };
-  }
+  const weight = i.weightLb + i.occupantsLb;
+  const powerToWeight = i.horsepower / weight; // hp per lb
+  const hpPerTonne = i.horsepower / (weight * 0.45359237 / 1000);
 
-  // Power to weight ratio
-  const powerToWeight = weight / hp;
+  // Energy method: t = m·v² / (2·P·η) with η ≈ 0.85 driveline + shift-gaps folded in,
+  // v = 60 mph = 26.82 m/s, P in watts. First-order: ignores aero drag and traction
+  // saturation, so empirical corrections are applied on top.
+  const m = weight * 0.45359237;
+  const v = 26.8224;
+  const watts = i.horsepower * 745.699872;
+  const energyBase = (0.5 * m * v * v) / (0.85 * watts); // seconds, idealised
 
-  // Base 0-60 estimation using a modified empirical formula
-  // Base time = (Weight / HP) ^ 0.5 * multiplier
-  // RWD is baseline. FWD is slower (traction limit). AWD is much faster (no traction limit).
-  let multiplier = 0;
-  if (drivetrain === "fwd") multiplier = 0.85;
-  else if (drivetrain === "rwd") multiplier = 0.78;
-  else if (drivetrain === "awd") multiplier = 0.70;
+  const driveFactor = i.drivetrain === "awd" ? 1.0 : i.drivetrain === "rwd" ? 1.06 : 1.1;
+  const tireFactor = i.tireGrip === "drag" ? 0.93 : i.tireGrip === "performance" ? 0.97 : 1.0;
+  const gearFactor = i.gearbox === "dct" ? 1.0 : i.gearbox === "automatic" ? 1.03 : 1.05;
+  const launchPenalty = driveFactor * tireFactor * gearFactor;
+  const t60 = energyBase * launchPenalty;
 
-  // The curve flattens out as cars get extremely fast because aerodynamics and gearing become the limit
-  const base060 = Math.pow(powerToWeight, 0.75) * multiplier;
-  
-  // 1/4 Mile time estimation (Hale's formula inverse)
-  // ET = 5.825 * (Weight / HP) ^ (1/3)
-  const quarterMileTime = 5.825 * Math.pow((weight / hp), 1/3);
+  // Hale's quarter-mile relations from the same power-to-weight.
+  const quarterET = 5.825 * Math.pow(weight / i.horsepower, 1 / 3);
+  const quarterTrap = 234 * Math.pow(i.horsepower / weight, 1 / 3);
 
-  // Generate chart data: 0-60 times for HP ranging from 100 to 1000
-  const chartData = [];
-  const schedule = [];
-  
-  for (let testHp = 100; testHp <= 1000; testHp += 50) {
-    const testPtw = weight / testHp;
-    const test060 = Math.pow(testPtw, 0.75) * multiplier;
-    const test14 = 5.825 * Math.pow((weight / testHp), 1/3);
-    
-    chartData.push({
-      Horsepower: testHp,
-      "0-60 Time": Number(test060.toFixed(2))
-    });
+  const band =
+    t60 < 3.2
+      ? { label: "Hypercar territory", color: "text-violet-600" }
+      : t60 < 4.5
+        ? { label: "Supercar / performance car", color: "text-emerald-600" }
+        : t60 < 6.0
+          ? { label: "Quick — sporty daily", color: "text-emerald-600" }
+          : t60 < 8.0
+            ? { label: "Average modern car", color: "text-foreground" }
+            : t60 < 11.0
+              ? { label: "Slow — economy territory", color: "text-orange-600" }
+              : { label: "Very slow", color: "text-orange-600" };
 
-    if (testHp % 100 === 0) {
-      schedule.push({
-        hp: testHp,
-        time060: Number(test060.toFixed(2)),
-        time14: Number(test14.toFixed(2))
-      });
-    }
-  }
+  const verdict = `A ${fmt(weight, 0)} lb car at ${fmt(i.horsepower, 0)} hp (${fmt(hpPerTonne, 0)} hp/tonne) with ${i.drivetrain.toUpperCase()} launch, ${i.tireGrip} tires and a ${i.gearbox} gearbox should run 0–60 in about ${fmt(t60, 2)} s and the quarter mile in ${fmt(quarterET, 2)} s at ${fmt(quarterTrap, 0)} mph.`;
+
+  const d = Math.max(0, Math.min(2, i.decimals));
+  const breakdown = [
+    { label: "Effective test weight (curb + occupants)", value: `${fmt(weight, 0)} lb` },
+    { label: "Engine power", value: `${fmt(i.horsepower, 0)} hp` },
+    { label: "Power-to-weight", value: `${fmt(powerToWeight * 1000, 0)} hp / 1,000 lb`, highlight: true },
+    { label: "Metric equivalent", value: `${fmt(hpPerTonne, 0)} hp / tonne` },
+    { label: "Ideal energy-method 0–60 (0.85 driveline eff.)", value: `${fmt(energyBase, 2)} s` },
+    { label: `Launch correction (${i.drivetrain.toUpperCase()} × ${i.tireGrip} × ${i.gearbox})`, value: `× ${fmt(launchPenalty, 3)}` },
+    { label: "Estimated 0–60 mph", value: `${fmt(t60, d)} s`, highlight: true },
+    { label: "Estimated quarter-mile ET (Hale)", value: `${fmt(quarterET, d)} s` },
+    { label: "Estimated quarter-mile trap speed", value: `${fmt(quarterTrap, 1)} mph` },
+    { label: "0–60 as share of quarter-mile", value: `${fmt((t60 / quarterET) * 100, 0)}%` },
+  ];
 
   return {
-    zeroToSixty: Number(base060.toFixed(2)),
-    quarterMileTime: Number(quarterMileTime.toFixed(2)),
-    powerToWeight: Number(powerToWeight.toFixed(2)),
-    chartData,
-    schedule,
-    isError: false
+    valid: true,
+    errorMsg: "",
+    powerToWeight,
+    hpPerTonne,
+    t60,
+    quarterET,
+    quarterTrap,
+    energyBase,
+    launchPenalty,
+    bandLabel: band.label,
+    bandColor: band.color,
+    verdict,
+    breakdown,
   };
-};
-
-// 3. DEFAULTS object
-const DEFAULTS = {
-  horsepower: "300",
-  weight: "3500",
-  drivetrain: "rwd"
-};
-
-interface SelectOption {
-  value: string;
-  label: string;
 }
 
 interface CompactInputProps {
   id: string;
   label: string;
   value: string;
-  onChange: (val: string) => void;
-  placeholder?: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  error?: string;
+  type?: string;
+  min?: string;
+  max?: string;
+  step?: string;
   suffix?: string;
-  options?: SelectOption[];
+  tooltip?: string;
 }
 
-const CompactInput = ({ id, label, value, onChange, placeholder, suffix, options }: CompactInputProps) => (
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  onEnter,
+  hint,
+  error,
+  type = "number",
+  min,
+  max,
+  step,
+  suffix,
+  tooltip,
+}: CompactInputProps) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="text-[11px] font-semibold text-muted-foreground mb-1 uppercase tracking-wider">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
       {label}
     </label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {options ? (
-        <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground font-medium">
-          {options.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-        </select>
-      ) : (
-        <input id={id} type="number" placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground font-medium" />
+    <div
+      className={`relative w-full flex items-center rounded-md border bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${
+        error ? "border-destructive" : "border-input"
+      }`}
+    >
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        max={max}
+        step={step}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
       )}
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0 font-semibold">{suffix}</span>}
+    </div>
+    {hint && !error && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+    {error && <p className="text-[11px] text-destructive mt-1">{error}</p>}
+  </div>
+);
+
+const CompactSelect = ({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  tooltip,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  tooltip?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-background outline-none focus:outline-none border-none text-foreground"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
     </div>
   </div>
 );
 
-// 4. Component
-export default function CarPerformanceCalculator() {
-  const [inputs, setInputs] = useState(DEFAULTS);
-  const [results, setResults] = useState<PerformanceResults>(calculatePerformance(DEFAULTS));
-  const [mounted, setMounted] = useState(false);
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export default function CarPerformance060Calculator() {
+  const [weightLb, setWeightLb] = useState(String(DEFAULTS.weightLb));
+  const [horsepower, setHorsepower] = useState(String(DEFAULTS.horsepower));
+  const [drivetrain, setDrivetrain] = useState(String(DEFAULTS.drivetrain));
+  const [tireGrip, setTireGrip] = useState(String(DEFAULTS.tireGrip));
+  const [gearbox, setGearbox] = useState(String(DEFAULTS.gearbox));
+  const [occupantsLb, setOccupantsLb] = useState(String(DEFAULTS.occupantsLb));
+  const [decimals, setDecimals] = useState(String(DEFAULTS.decimals));
+  const [showAdv, setShowAdv] = useState(false);
 
-  const handleChange = (key: keyof typeof DEFAULTS, val: string) => {
-    const newInputs = { ...inputs, [key]: val };
-    setInputs(newInputs);
-    // Auto calculate on change
-    const r = calculatePerformance(newInputs);
-    if (!r.isError) setResults(r);
+  const getInputs = (): PerfInputs => ({
+    weightLb: parseFloat(weightLb) || 0,
+    horsepower: parseFloat(horsepower) || 0,
+    drivetrain: (drivetrain as Drivetrain) || "rwd",
+    tireGrip: (tireGrip as TireGrip) || "performance",
+    gearbox: (gearbox as Gearbox) || "automatic",
+    occupantsLb: parseFloat(occupantsLb) || 0,
+    decimals: parseFloat(decimals),
+  });
+
+  const [calcInputs, setCalcInputs] = useState<PerfInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<PerfResult>(() => calculatePerf(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(calculatePerf(inputs));
   };
 
-  const handleReset = () => {
-    setInputs(DEFAULTS);
-    setResults(calculatePerformance(DEFAULTS));
+  const reset = () => {
+    setWeightLb(String(DEFAULTS.weightLb));
+    setHorsepower(String(DEFAULTS.horsepower));
+    setDrivetrain(String(DEFAULTS.drivetrain));
+    setTireGrip(String(DEFAULTS.tireGrip));
+    setGearbox(String(DEFAULTS.gearbox));
+    setOccupantsLb(String(DEFAULTS.occupantsLb));
+    setDecimals(String(DEFAULTS.decimals));
+    setCalcInputs(DEFAULTS);
+    setResults(calculatePerf(DEFAULTS));
   };
 
-  const handleCalculate = () => {
-    setResults(calculatePerformance(inputs));
+  const weightNum = parseFloat(weightLb);
+  const hpNum = parseFloat(horsepower);
+
+  const errors = {
+    weightLb: !Number.isFinite(weightNum) || weightNum < 1200 ? "Enter 1,200–12,000 lb" : "",
+    horsepower: !Number.isFinite(hpNum) || hpNum < 30 ? "Enter 30–2,000 hp" : "",
   };
+  const hasErrors = Object.values(errors).some(Boolean);
 
   const faqs = [
-    { question: "How accurate is a 0-60 MPH calculator?", answer: "This calculator provides a highly accurate mathematical estimation based on power-to-weight ratios and drivetrain traction physics. However, real-world 0-60 times are heavily influenced by variables that cannot be calculated, such as the exact stickiness of the tires, the driver's reaction time, the shift speed of the transmission, and the condition of the road surface." },
-    { question: "Why is Power-to-Weight Ratio so important?", answer: "Horsepower alone tells you very little about a car's performance. A 300 HP engine sounds fast, but if it is installed in a massive 6,000-pound SUV, the vehicle will be incredibly slow. That same 300 HP engine installed in a lightweight 2,000-pound sports car will produce blistering acceleration. The Power-to-Weight ratio is the true equalizer that allows you to compare the acceleration of completely different vehicles." },
-    { question: "Why do All-Wheel Drive (AWD) cars accelerate faster?", answer: "Acceleration from a dead stop (0-60 MPH) is entirely limited by traction. If you have 1,000 horsepower but only two tires driving the car, the tires will simply spin into smoke rather than pushing the car forward. AWD cars distribute the engine's power equally across all four tires. This drastically increases the tire contact patch with the road, allowing the car to launch violently without spinning the wheels." },
-    { question: "What is the 1/4 Mile Time?", answer: "The 1/4 mile drag strip is the international standard for measuring automotive performance. While a 0-60 time measures low-speed traction and launch capability, the 1/4 mile time (which often ends at speeds over 110 MPH) measures the true sustained power output and aerodynamic efficiency of the vehicle." },
-    { question: "Which formula does the 1/4 mile estimate use?", answer: "The quarter mile elapsed time comes from Hale's formula, ET = 5.825 x (Weight / Horsepower) raised to the one-third power. It is one of the oldest and most widely trusted drag racing approximations, dating back to magazine testing in the 1960s. It works because elapsed time scales with the cube root of the weight-to-power ratio rather than linearly, which is why doubling horsepower does not halve your time." },
-    { question: "Should I enter crank horsepower or wheel horsepower?", answer: "Enter crank horsepower, which is the figure quoted on the manufacturer's spec sheet. The drivetrain multiplier already accounts for the typical driveline losses between the engine and the pavement, roughly 10 to 15 percent for a manual transmission and 15 to 20 percent for an automatic. If you only have a dyno reading measured at the wheels, add about 15 percent before entering it." },
-    { question: "Why does my car feel slower than the calculated time?", answer: "Published 0-60 times are set by professional drivers on prepared surfaces using launch control, aggressive brake torquing, and sometimes a one-foot rollout that shaves two to three tenths off the number. A normal driver on a cold public road with all-season tires will routinely be a full second slower. Elevation also matters: a naturally aspirated engine loses roughly three percent of its power for every 1,000 feet of altitude." },
-    { question: "Does this work for electric vehicles?", answer: "Partially. The power-to-weight relationship still applies, but EVs deliver peak torque from zero RPM and do not shift gears, so they typically beat the estimate at low speeds. The calculator will tend to be pessimistic for an EV's 0-60 time while remaining reasonable for the quarter mile, where the EV's power taper and extra battery weight start to work against it." },
-    { question: "How much weight equals one horsepower?", answer: "As a rough rule of thumb in the ranges most street cars occupy, removing 100 pounds is worth roughly 10 horsepower for acceleration purposes. This is why motorsport teams spend enormous sums on lightweight components. Weight reduction also improves braking and cornering, whereas added horsepower only helps in a straight line." }
+    {
+      question: "How does a calculator estimate 0–60 from just weight and power?",
+      answer:
+        "The core physics is the energy method: accelerating a mass to 60 mph requires a fixed kinetic energy, and the time to deliver it is mass times velocity squared divided by twice the driveline power — roughly half a car's mass at 26.8 m/s against 85% of crank horsepower. That idealised number is then corrected for the things the energy method cannot see: launch traction (all-wheel drive hooks up best), tire compound and shift gaps. The result lands within a few tenths of instrumented tests for most cars, which is respectable for two inputs.",
+    },
+    {
+      question: "Why do all-wheel-drive cars launch faster than the same power rear-wheel drive?",
+      answer:
+        "Acceleration is limited by traction before it is limited by power at the start of a run. A rear-drive car with 400 hp can spin its tires through first and part of second gear, so much of that power is spent as smoke rather than motion; an all-wheel-drive car spreads the same torque over four contact patches and accelerates at what the power allows. That is why the correction factor is 1.00 for AWD, 1.06 for RWD and 1.10 for FWD — and why sticky tires are worth more on a powerful rear-drive car than a weak one.",
+    },
+    {
+      question: "How accurate is the quarter-mile estimate?",
+      answer:
+        "The quarter-mile figures use Hale's cube-root relations — ET = 5.825 × (weight/power)^⅓ and trap speed = 234 × (power/weight)^⅓ — which are fitted to thousands of drag-strip runs and are typically within about 3% for conventional cars. They break down at the extremes: very low powered vehicles (heavy trucks), extremely sticky drag cars that leave hard, or cars with tall gearing. Treat the ET as a strip-day expectation on street tires and the trap speed as the better indicator of real power.",
+    },
+    {
+      question: "What changes more the 0–60 time: weight or horsepower?",
+      answer:
+        "For a typical car, percentage changes in either move the result almost identically, because both enter the energy method linearly — 10% less weight or 10% more power each cut the idealised time by about 10%. In practice weight also affects braking, cornering and tire wear, so on real roads removing mass usually pays twice. Add the occupant and cargo weight in the calculator: two 180 lb passengers add 360 lb, which on a 3,400 lb, 300 hp car costs roughly two tenths.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Automobile", href: "/calculator#automobile" }, { label: "Car Performance (0-60) Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Transportation", href: "/calculator#transportation" },
+          { label: "Car Performance 0-60 Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Car Performance (0-60) Calculator</h1>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          {/* LEFT 460px */}
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
-            <p className="text-sm text-muted-foreground mb-2">Estimate your vehicle's 0-60 MPH and 1/4 mile drag strip times based on its power-to-weight ratio.</p>
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Weight & Power">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="weight"
+                  label="Curb Weight"
+                  value={weightLb}
+                  onChange={setWeightLb}
+                  onEnter={runCalculate}
+                  min="1200"
+                  max="12000"
+                  step="50"
+                  suffix="lb"
+                  error={errors.weightLb}
+                  hint="Empty car, no cargo."
+                  tooltip="Manufacturer curb weight in pounds."
+                />
+                <CompactInput
+                  id="hp"
+                  label="Horsepower"
+                  value={horsepower}
+                  onChange={setHorsepower}
+                  onEnter={runCalculate}
+                  min="30"
+                  max="2000"
+                  step="5"
+                  suffix="hp"
+                  error={errors.horsepower}
+                  hint="Crank, not wheel, figure."
+                  tooltip="Rated engine output at the crank."
+                />
+              </div>
+            </SubSection>
 
-            <div className="grid grid-cols-2 gap-4">
-              <CompactInput id="hp" label="Engine Horsepower" value={inputs.horsepower} onChange={(v: string) => handleChange("horsepower", v)} suffix="HP" placeholder="300" />
-              <CompactInput id="weight" label="Vehicle Weight" value={inputs.weight} onChange={(v: string) => handleChange("weight", v)} suffix="lbs" placeholder="3500" />
+            <SubSection title="Launch & Drivetrain">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactSelect
+                  id="drivetrain"
+                  label="Drivetrain"
+                  value={drivetrain}
+                  onChange={setDrivetrain}
+                  options={DRIVE_OPTIONS}
+                  tooltip="Sets the traction correction: AWD 1.00, RWD 1.06, FWD 1.10."
+                />
+                <CompactSelect
+                  id="gearbox"
+                  label="Transmission"
+                  value={gearbox}
+                  onChange={setGearbox}
+                  options={GEARBOX_OPTIONS}
+                  tooltip="Shift gaps: dual-clutch 1.00, auto 1.03, manual 1.05."
+                />
+              </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Tires & Load">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactSelect
+                        id="tires"
+                        label="Tire Compound"
+                        value={tireGrip}
+                        onChange={setTireGrip}
+                        options={TIRE_OPTIONS}
+                        tooltip="Grip correction: drag 0.93, performance 0.97, all-season 1.00."
+                      />
+                      <CompactInput
+                        id="cargo"
+                        label="Occupants & Cargo"
+                        value={occupantsLb}
+                        onChange={setOccupantsLb}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="1200"
+                        step="20"
+                        suffix="lb"
+                        hint="Add to curb weight."
+                        tooltip="Extra mass carried during the run — passengers, luggage, fluids."
+                      />
+                    </div>
+                  </SubSection>
+                  <SubSection title="Display">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactSelect
+                        id="decimals"
+                        label="Decimals"
+                        value={decimals}
+                        onChange={setDecimals}
+                        options={DECIMAL_OPTIONS}
+                        tooltip="Decimal places on time figures."
+                      />
+                    </div>
+                  </SubSection>
+                </div>
+              )}
             </div>
 
-            <div className="grid grid-cols-1 gap-4 mt-2">
-              <CompactInput id="drive" label="Drivetrain Layout" value={inputs.drivetrain} onChange={(v: string) => handleChange("drivetrain", v)} options={[
-                { label: "Front-Wheel Drive (FWD)", value: "fwd" },
-                { label: "Rear-Wheel Drive (RWD)", value: "rwd" },
-                { label: "All-Wheel Drive (AWD)", value: "awd" }
-              ]} />
-            </div>
-
-            <div className="flex gap-2 mt-4">
-              <button type="button" onClick={handleCalculate} className="h-10 w-full rounded-md bg-primary text-primary-foreground font-semibold hover:opacity-90 transition">
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                disabled={hasErrors}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Calculate
               </button>
-              <button type="button" onClick={handleReset} aria-label="Reset" title="Reset" className="h-10 w-10 shrink-0 rounded-md border border-input bg-background text-foreground hover:bg-muted/50 transition flex items-center justify-center">
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
-            
           </div>
 
-          {/* RIGHT fluid */}
-          <div id="results-section" className="flex flex-col gap-4">
-            {results.isError ? (
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
               <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
-                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Error</div>
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
                 <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
-            ) : (
-              <>
-                {/* 1. Primary Result Card */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Estimated 0-60 MPH</div>
-                    <div className="flex items-end gap-3 mb-1">
-                      <div className="text-6xl font-black text-primary tracking-tighter">{results.zeroToSixty}</div>
-                      <div className="text-2xl font-bold text-primary mb-1">sec</div>
-                    </div>
-                  </div>
-
-                  <div className="bg-card border border-border rounded-lg p-6 relative overflow-hidden shadow-sm">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Estimated 1/4 Mile</div>
-                    <div className="flex items-end gap-3 mb-1">
-                      <div className="text-5xl font-black text-foreground tracking-tighter">{results.quarterMileTime}</div>
-                      <div className="text-xl font-bold text-muted-foreground mb-1">sec</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 2. 3-Stat Bar */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-card border border-border rounded-lg p-4 text-center shadow-sm">
-                    <div className="text-xs text-muted-foreground uppercase font-semibold mb-1">Power / Weight</div>
-                    <div className="text-2xl font-bold text-foreground">{results.powerToWeight}</div>
-                    <div className="text-xs text-muted-foreground">lbs per HP</div>
-                  </div>
-                  <div className="bg-card border border-border rounded-lg p-4 text-center shadow-sm">
-                    <div className="text-xs text-muted-foreground uppercase font-semibold mb-1">Drivetrain</div>
-                    <div className="text-xl font-bold text-blue-500 uppercase">{inputs.drivetrain}</div>
-                  </div>
-                  <div className="bg-card border border-border rounded-lg p-4 text-center shadow-sm">
-                    <div className="text-xs text-muted-foreground uppercase font-semibold mb-1">Status</div>
-                    <div className="text-xl font-bold text-emerald-500">
-                      {results.zeroToSixty < 4 ? "Supercar" : results.zeroToSixty < 6 ? "Fast" : results.zeroToSixty < 8 ? "Average" : "Slow"}
-                    </div>
-                  </div>
-                </div>
-
-                {/* 4. Chart */}
-                <div className="card-calculator !p-5 border border-border bg-card shadow-sm mt-2">
-                  <h3 className="text-base font-semibold text-foreground mb-4">Diminishing Returns: 0-60 Time vs Added Horsepower</h3>
-                  <div className="h-[250px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={results.chartData} margin={{ top: 5, right: 30, left: 10, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                        <XAxis dataKey="Horsepower" tickFormatter={(val) => `${val} HP`} tick={{fill: 'hsl(var(--muted-foreground))', fontSize: 12}} type="number" domain={['dataMin', 'dataMax']} axisLine={false} tickLine={false} />
-                        <YAxis tickFormatter={(val) => `${val}s`} tick={{fill: 'hsl(var(--muted-foreground))', fontSize: 12}} domain={['auto', 'auto']} axisLine={false} tickLine={false} />
-                        <ReferenceLine x={parseFloat(inputs.horsepower)} stroke="hsl(var(--primary))" strokeDasharray="3 3" label={{ position: 'top', value: 'Current HP', fill: 'hsl(var(--primary))', fontSize: 12, fontWeight: 'bold' }} />
-                        
-                        <RechartsTooltip 
-                          formatter={(value: number) => [`${value} sec`, '0-60 Time']}
-                          labelFormatter={(label) => `Engine HP: ${label}`}
-                          contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} 
-                        />
-                        <Line type="monotone" dataKey="0-60 Time" stroke="hsl(var(--primary))" strokeWidth={3} dot={false} activeDot={{r: 6}} />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  </div>
-                  <div className="text-xs text-muted-foreground text-center mt-3">Notice how adding 100 HP to a slow car makes a massive difference, but adding 100 HP to a fast car barely changes the 0-60 time due to traction limits.</div>
-                </div>
-
-                {/* 3. Breakdown Table */}
-                <div className="card-calculator !p-0 overflow-hidden border border-border bg-card shadow-sm mt-2">
-                  <div className="px-4 py-3 bg-muted/30 border-b border-border flex justify-between items-center">
-                    <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">Performance Scaling at {inputs.weight} lbs</h3>
-                  </div>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left">
-                      <thead className="bg-muted/10 border-b border-border text-muted-foreground uppercase text-[11px] tracking-wider">
-                        <tr>
-                          <th className="px-4 py-3 font-semibold">Engine HP</th>
-                          <th className="px-4 py-3 font-semibold text-right">0-60 MPH Time</th>
-                          <th className="px-4 py-3 font-semibold text-right">1/4 Mile Time</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-border/50">
-                        {results.schedule.map((row) => (
-                          <tr key={row.hp} className={`hover:bg-muted/20 transition-colors ${row.hp == parseFloat(inputs.horsepower) ? 'bg-primary/5 font-medium' : ''}`}>
-                            <td className="px-4 py-3 text-foreground">{row.hp} HP</td>
-                            <td className="px-4 py-3 text-right text-primary font-bold">{row.time060} sec</td>
-                            <td className="px-4 py-3 text-right text-muted-foreground">{row.time14} sec</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                {/* 5. Summary Statistics */}
-                <div className="bg-muted/30 rounded-lg p-5 mt-2">
-                  <div className="text-sm font-bold text-foreground mb-3">Summary Statistics</div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6 text-sm">
-                    {results.schedule.map((row) => (
-                      <div key={row.hp} className="flex justify-between gap-3">
-                        <span className="text-muted-foreground">{row.hp} HP</span>
-                        <span className="text-foreground font-medium">{row.time060} s / {row.time14} s</span>
-                      </div>
-                    ))}
-                    <div className="flex justify-between gap-3 sm:col-span-2 border-t border-border pt-2 mt-1">
-                      <span className="font-bold text-foreground">Your vehicle ({inputs.horsepower} HP)</span>
-                      <span className="font-bold text-foreground">{results.zeroToSixty} s / {results.quarterMileTime} s</span>
-                    </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-3">Each row shows the estimated 0-60 time followed by the quarter mile elapsed time at {inputs.weight} lbs.</p>
-                </div>
-
-              </>
             )}
+
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Estimated 0–60 mph</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? `${fmt(results.t60, calcInputs.decimals)} s` : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${results.bandLabel} · power-to-weight ${fmt(results.hpPerTonne, 0)} hp/tonne`
+                  : "Enter weight and power to estimate the run"}
+              </div>
+            </div>
+
+            {/* 2. 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Quarter-Mile ET</span>
+                <span className="font-extrabold text-foreground">{results.valid ? `${fmt(results.quarterET, 2)} s` : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Trap Speed</span>
+                <span className="font-extrabold text-foreground">{results.valid ? `${fmt(results.quarterTrap, 0)} mph` : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">hp / 1,000 lb</span>
+                <span className={`font-extrabold ${results.valid ? results.bandColor : "text-muted-foreground"}`}>
+                  {results.valid ? fmt(results.powerToWeight * 1000, 0) : "—"}
+                </span>
+              </div>
+            </div>
+
+            {/* 3. BREAKDOWN TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Performance Item</th>
+                    <th className="p-2.5 pr-3 text-right w-[220px]">Estimate</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.valid ? (
+                    results.breakdown.map((row) => (
+                      <tr key={row.label} className={row.highlight ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                        <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                        <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td className="p-2.5 pl-3 text-muted-foreground" colSpan={2}>
+                        Enter the weight and power figures to model the run.
+                      </td>
+                    </tr>
+                  )}
+                  {results.valid && (
+                    <tr className="font-bold bg-secondary/30 border-t-2 border-border">
+                      <td className="p-2.5 pl-3 text-foreground">Launch correction applied</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">
+                        {`${fmt(results.launchPenalty, 3)} × · ideal ${fmt(results.energyBase, 2)} s`}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">0–60 mph</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? `${fmt(results.t60, calcInputs.decimals)} s` : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Quarter-mile ET</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? `${fmt(results.quarterET, calcInputs.decimals)} s` : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Trap speed</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? `${fmt(results.quarterTrap, 1)} mph` : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Power-to-weight</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? `${fmt(results.hpPerTonne, 0)} hp/t` : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Performance band</span>
+                  <span className={`text-base font-bold ${results.valid ? results.bandColor : "text-muted-foreground"}`}>
+                    {results.valid ? results.bandLabel : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Launch correction</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? `× ${fmt(results.launchPenalty, 3)}` : "—"}</span>
+                </div>
+              </div>
+              {results.valid && <p className="text-[11px] mt-3 font-semibold text-muted-foreground">{results.verdict}.</p>}
+            </div>
           </div>
         </div>
-        
-        {/* SEO CONTENT */}
+
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Mathematics of Acceleration</h2>
-            <p>Predicting a vehicle's 0-60 MPH and 1/4 mile times is not a guessing game; it is an exercise in applied physics. The fundamental equation of acceleration relies on the <strong>Power-to-Weight Ratio</strong>. The amount of energy (horsepower) required to move a specific mass (vehicle weight) across a set distance is mathematically constant. By evaluating this ratio alongside the physical traction limits of the vehicle's drivetrain, our calculator provides a highly accurate estimate of real-world straight-line performance.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is a Car Performance 0-60 Calculator?</h2>
+            <p>
+              A car performance 0-60 calculator estimates how quickly a vehicle accelerates from standstill to 60 mph using its weight,
+              power and launch characteristics — no dyno, drag strip or GPS box required. The engine driving the estimate is the energy
+              method: reaching 60 mph demands a fixed amount of kinetic energy, and the time to deliver it follows directly from
+              power-to-weight. Corrections for drivetrain layout, tire compound and transmission type then account for the physics the
+              core model cannot see, chiefly traction saturation at launch and shift gaps.
+            </p>
+            <p>
+              The same run produces quarter-mile figures through Hale's cube-root relations, fitted to thousands of real strip passes.
+              Together the two estimates give a rounded picture of straight-line performance — the 0-60 time that reviewers quote and the
+              trap speed that drag racers trust as the honest signal of actual power.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">Why Power-to-Weight Ratio is Everything</h2>
-            <p>Many car enthusiasts focus entirely on horsepower, but horsepower is only half of the equation. Weight is the enemy of acceleration. Consider a Dodge Challenger Hellcat producing 707 horsepower; it is incredibly fast. But it also weighs 4,400 pounds, giving it a power-to-weight ratio of 6.2 lbs per HP. Now consider a tiny Ariel Atom sports car. It only has 230 horsepower, but it weighs a feather-light 1,350 pounds. Its power-to-weight ratio is 5.8 lbs per HP. Despite having less than a third of the horsepower, the Ariel Atom will physically out-accelerate the Hellcat to 60 MPH.</p>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              The energy method treats the run as one big energy transfer: half the car's mass times the square of 60 mph, divided by the
+              driveline power — crank horsepower times a realistic 85% delivery efficiency. A 3,400 lb, 300 hp car resolves to about 4.7
+              seconds in that idealised world. Reality is slower, so three correction factors stack on top: 1.00 for all-wheel drive
+              against 1.06 for rear and 1.10 for front; 0.93 to 1.00 for tire compound; and 1.00 to 1.05 for gearbox. Dual-clutch
+              transmissions change gear with almost no torque interruption, manual gearboxes cost a shift and a human, and torque
+              converters sit in between.
+            </p>
+            <p>
+              The quarter-mile side uses Hale's empirical fits: ET equals 5.825 times the cube root of weight divided by power, and trap
+              speed equals 234 times the cube root of power divided by weight. Because the relations are cubic, small power gains matter
+              more as a car gets faster — the trap speed is the more sensitive indicator of genuine horsepower, which is why strip
+              regulars read trap before ET. The breakdown table shows the idealised time, the correction stack and the final estimate
+              side by side, so the cost of each launch penalty is visible rather than buried.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">The Traction Limit: Why Drivetrain Matters</h2>
-            <p>Our calculator asks for your drivetrain layout (FWD, RWD, or AWD) because it massively impacts your 0-60 time due to the physical limits of rubber tires gripping asphalt.</p>
-            <ul>
-              <li><strong>Front-Wheel Drive (FWD):</strong> FWD cars are the slowest off the line. When you accelerate, the physical weight of the vehicle transfers to the rear wheels. This lifts weight off the front driving tires, causing them to lose grip and spin helplessly.</li>
-              <li><strong>Rear-Wheel Drive (RWD):</strong> RWD cars benefit from weight transfer. As the car launches, the weight squats over the rear driving tires, forcing them into the pavement and increasing traction.</li>
-              <li><strong>All-Wheel Drive (AWD):</strong> AWD cars are the undisputed kings of 0-60 times. Because the engine's power is split across four tires instead of two, each tire is only asked to handle half as much torque. This prevents wheel spin and allows the car to launch with violent force.</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold mb-3">The Law of Diminishing Returns</h2>
-            <p>Look at the Horsepower Curve chart generated by the calculator. You will notice a distinct phenomenon: the law of diminishing returns. If you have a slow 100 HP car and you add 100 HP to it, you will shave multiple seconds off your 0-60 time. The difference is night and day. However, if you have a 700 HP supercar and you add 100 HP to it, your 0-60 time might only improve by 0.1 seconds.</p>
-            <p>Why? Because as cars get incredibly fast, they hit the limit of physical tire traction. A 1,000 HP car spinning its tires in 1st, 2nd, and 3rd gear will accelerate no faster than a 600 HP car that actually grips the road. Furthermore, at high speeds (like the end of a 1/4 mile), the car must overcome exponential aerodynamic drag, requiring massive amounts of horsepower just to punch through the air.</p>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card is the 0-60 estimate with a performance band label, and the three-stat bar adds the quarter-mile ET, trap
+              speed and the power-to-weight figure that drives everything. The band is a sanity check against published tests: production
+              cars under 3.2 seconds are hypercars, 4.5 to 6.0 covers quick sporty dailies, and most modern economy cars land between 8
+              and 11. If the estimate disagrees with a magazine figure by more than a few tenths, the usual suspects are drivetrain loss
+              assumptions, underrated factory power figures or an optimistic curb weight — every input is editable, so test the
+              sensitivity rather than trusting one configuration.
+            </p>
+            <p>
+              Two cautions apply. First, the model ignores aerodynamic drag, which is negligible at 60 mph but not at 130 — the
+              quarter-mile trap speed remains sound, but top-speed questions need a different tool. Second, altitude, temperature and
+              surface move real-world runs by tenths on their own; instrumented tests from a hot day at 5,000 ft are not comparable to a
+              cool sea-level pass. Use the calculator to compare configurations of the same car — tires, passengers, power mods — where
+              those environmental factors cancel out, and the differences the model shows are the ones you will actually feel.
+            </p>
           </section>
-          
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/car-performance060-calculator" />
           <PopularCalculators exclude="/calculator/car-performance060-calculator" />
         </div>

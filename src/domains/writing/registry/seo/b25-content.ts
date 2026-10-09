@@ -13,211 +13,173 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B25_CONTENT_SEO: Record<string, ToolSeo> = {
   "sales-page-copywriting-tool": {
-    keywords: ["sales page", "long-form", "objections", "proof", "call to action"],
-    intro:
-      "The sales page copywriting tool assembles the nine blocks of a long-form sales page from your own facts and checks each one, from the promise through the answered objections to the close.",
-    content: `The sales page copywriting tool starts from the structure rather than the copy, because structure is what a long-form sales page is. The nine blocks — promise, problem, mechanism, benefits, proof, offer, guarantee, objections and close — are in that order for a reason: each answers the question the previous one raises. A reader who accepts the promise wants to know why the problem exists; a reader who accepts the mechanism wants to know what changes. The builder asks for each block in turn and assembles what you write into a page.
-
-The problem block is the one most often skipped and the one that decides the reading. A page that opens with the product asks the reader to supply the reason to care, and most will not. Writing the problem means describing the situation the reader is already in, in their words, before the product appears. The builder checks for it and says plainly what its absence costs.
-
-The mechanism is the second structural block. Without it the page claims an outcome without saying how it happens, and a claim with no mechanism is unverifiable by construction. The mechanism does not need to be technical; it needs to be specific enough that the reader can picture the thing working. Benefits come after, three to five of them, because that is the number a reader holds in mind while scanning.
-
-Proof is checked for a number, since a counted result is the only proof a reader can weigh. The offer and the guarantee follow: what the reader gets, at what price, and the risk reversal that answers the last hesitation. Objections come next, and the builder asks for the three common ones — price, effort, and whether it works for the reader's case — each with its answer written out. An objection left to be argued in the reader's head is argued by the reader, and the reader usually wins.
-
-The close is measured. One action, stated once, in a dozen words or fewer; a close that has become a paragraph is asking the reader to find the instruction inside it. The whole page is checked against claiming words such as revolutionary and effortless, which are flagged when no fact anywhere on the page supports them.
-
-What the builder cannot do is write the copy or verify a claim. It cannot tell whether the promise is true, whether the proof is representative, or whether the price is fair. It assembles your text in the order a reader reads it and names the blocks that are missing or doing less work than they should. A well-ordered page with a false promise is still a false promise, and the page says so rather than implying otherwise.
-
-Read the assembled page aloud before publishing. Blocks that looked complete on the form often repeat themselves next to each other, and the repetition is easiest to hear. The builder keeps the order fixed so this read-through has a shape: promise, problem, mechanism, benefits, proof, offer, guarantee, objections, call to action. If a block can be removed without the next one losing its footing, the page is longer than its argument.
-
-One more discipline: keep the language of the promise in the language of the close. A promise about time saved and a close about features sends the reader back to re-read rather than forward to act. The checks cannot match vocabulary for you, but the two blocks sit at the top and the bottom of the same page, and the comparison takes a minute.`,
-    howTo: [
-      { step: "Write the promise as one sentence a reader could repeat." },
-      { step: "Describe the problem before the product appears, in the reader's words." },
-      { step: "Explain the mechanism in plain language, then list three to five benefits." },
-      { step: "Add proof with at least one number, then the offer and the guarantee." },
-      { step: "Answer three objections and close with one action under a dozen words." },
+    keywords: [
+      "sales page copywriting tool",
+      "long-form sales page",
+      "guarantee",
+      "objections",
     ],
-    whenToUse: `Use the sales page copywriting tool when a long-form page is being drafted or rewritten and the argument needs checking block by block: a product launch, a course page, a service page that carries a high price. It is most useful before the copy is polished, because a missing block is cheap to fix and expensive to discover after publication.
-The blocks pair with the {{product-description-writer|Product Description Writer}} for the catalogue version of the same facts, with the {{cta-button-copy-generator|CTA Button Copy Generator}} for the button the close points at, and with the {{landing-page-copy-builder|Landing Page Copy Builder}} when a shorter page has to carry the same argument.`,
+    intro:
+      "The Sales Page Copywriting Tool assembles the nine blocks of a long-form sales page in their settled order and checks the blocks a skimmer reads.",
+    content:
+      "Long-form sales copy has a settled order because each block answers the question the previous one raises, and this sales page copywriting tool assembles yours in that order. Fill the fields — promise, problem, mechanism, benefits, proof, offer, guarantee, objections and close — and the builder stacks the nine blocks, then checks the ones a skimmer reads: a proof without a figure, an offer that is not concrete, a guarantee with no terms, a close with no next step. The nine blocks are the long-form sales page shape; an argument that fits in six blocks belongs to the landing page builder instead.\n\nThe product and the promise panel holds the opening fields; the case panel takes the problem, the mechanism, the benefits and the proof; the close panel takes the offer, the guarantee, the objections and the final call. The checks panel names what is thin — a proof line without a number, fewer than three objections answered, a claiming word like revolutionary or instant standing without a fact beside it. Scope and limits states that the builder cannot verify a claim.\n\n- Nine blocks: the promise, the problem, why this works, what changes, proof, the offer, the guarantee, objections answered, the close.\n- Benefits and proof: one per line, so the blocks can be counted and joined.\n- Objections: written as objection | answer, one pair per line.\n- Claiming words: a published list — revolutionary, game-changing, world-class, best-in-class, ultimate, unbeatable, effortless, instant — flagged when they stand alone.\n- Stats: words, benefits, objections and proof lines, counted as you type.\n- Checks: the promise, the proof with a figure, the offer, the guarantee and the close.\n\nThe assembly is block composition in the published order: each field is cleaned, benefit and proof lines are stripped of their bullets, objections are split on the pipe into question and answer, and the blocks are joined with their labels. The checks are arithmetic — a count of objections, a regex for a digit in the proof — and the claiming-word scan is a fixed list. No copy is written and no claim is verified.\n\n- The nine-block order is fixed; a page that needs a different argument is out of scope.\n- The proof check looks for a figure, not for truth.\n- Objections must use the pipe separator; a prose objection is treated as one line.\n- The claiming-word list is eight entries; a hype word outside it passes.\n- Nothing is stored, so copy the page before leaving it.\n\nWrite the objections first and the rest of the page organises itself: every objection names a fear the earlier blocks have to answer, and a page with no objections answered leaves the reader to argue with the page in their own head, where the reader wins. Then read the proof block — a proof line with a number in it is doing work, and one without is decoration. The checks panel is the last pass before you read the page aloud once.\n\nThe neighbours hold the page's parts: the Value Proposition Builder writes the one-sentence pitch the promise compresses, the Case Study Template supplies the proof block with figures, and the Testimonial Formatter formats the social proof. When the page sits behind a launch, the Product Launch Copy Builder writes the announcement, and the landing page copy builder in this domain shortens the same argument.",
+    howTo: [
+      { step: "Fill the promise and problem, then the mechanism, benefits and proof." },
+      { step: "Add the offer, the guarantee and at least three objections with answers." },
+      { step: "Write the close and read the assembled page top to bottom." },
+      { step: "Work through the checks and copy the page." },
+    ],
+    whenToUse:
+      "Use the sales page copywriting tool when the argument is long and the order matters. The {{case-study-template|Case Study Template}} writes the proof block the page depends on, and the {{testimonial-formatter|Testimonial Formatter}} turns quotes into social proof. When the page is short, the {{landing-page-copy-builder|Landing Page Copy Builder}} carries the same blocks in six, and the value proposition builder in this domain writes the one-sentence version.",
     faqs: [
       {
-        q: "Why does the problem block come before the product?",
-        a: "Because a reader who does not recognise the problem has no reason to read about the solution. Describing the situation first, in the reader's words, is what earns the next paragraph.",
+        q: "Why does the page have nine blocks?",
+        a: "Because long-form sales copy has a settled order — promise, problem, mechanism, benefits, proof, offer, guarantee, objections, close — and each block answers the question the previous one raises. The builder enforces the order rather than inventing one.",
       },
       {
-        q: "What counts as a mechanism?",
-        a: "The specific way the outcome is produced: the process, the material, the method, the sequence. It does not need to be technical, but a claim with no mechanism cannot be checked by the reader and is discounted accordingly.",
+        q: "How should objections be written?",
+        a: "One pair per line, as objection | answer. The pipe separates the reader's fear from your response, and the builder counts the pairs and flags a page with fewer than three answered.",
       },
       {
-        q: "How many objections should a sales page answer?",
-        a: "Three is the working minimum, and they are predictably price, effort and whether it works for the reader's case. Answering them on the page is better than leaving a skimmer to answer them privately.",
+        q: "What are claiming words?",
+        a: "Eight published words — revolutionary, game-changing, world-class, best-in-class, ultimate, unbeatable, effortless and instant — that claim a result without evidence. The check flags them when they stand without a fact beside them.",
       },
       {
-        q: "Why does the close have a length limit?",
-        a: "Because a close is an instruction rather than a paragraph. Past a dozen words the reader has to find the action inside the sentence, and the ones who scan will miss it entirely.",
+        q: "Does the builder verify my proof?",
+        a: "No. It looks for a figure in the proof block because numbers are harder to wave away, but it cannot audit the claim. The scope panel states that the copy and its truth are the writer's.",
       },
       {
-        q: "Does the tool write the sales copy?",
-        a: "No. Every sentence is yours. The builder asks for each block, assembles them in order, and checks the ones a skimmer reads — the promise, the proof, the offer, the guarantee and the close.",
+        q: "Is the sales page saved anywhere?",
+        a: "No. The assembly runs in the page from the fields you typed; nothing is stored or sent, and the draft is gone when the tab closes unless you copied it.",
       },
     ],
   },
 
   "testimonial-formatter": {
-    keywords: ["testimonial", "attribution", "pull quote", "carousel", "quote"],
-    intro:
-      "The testimonial formatter turns a list of quotes into a wall, a carousel selection and a pull quote at once, and names the attribution, length and specificity problems that make testimonials read as decoration.",
-    content: `The testimonial formatter takes one testimonial per line — quote, name and role separated by pipes — and does three jobs at once. It attributes, because a quote without a name beside it is an assertion rather than a testimonial. It measures, because a quote past fifty words stops being read and one under twenty is ready for a slide. And it grades specificity, because the phrases every business collects describe nothing a reader can weigh.
-
-Attribution is the first check for a reason. A testimonial's power comes from the reader recognising a person and a context: a name, a role, a company. When the name is missing, the reader is asked to take the business's word for what a customer said, which is exactly what a testimonial exists to avoid. The formatter marks unattributed quotes in the wall output and counts them in the checks.
-
-Length is the second. Long testimonials are usually two testimonials: the story and the result. The formatter keeps the whole quote in the wall and identifies the short, specific line for the carousel, because a slide has a few seconds and a sentence. A set with no quote under twenty words is flagged, since the carousel has nothing to lead with and will end up truncating mid-clause.
-
-Specificity is the third and most useful check. Phrases such as great service and highly recommend appear in almost every collected testimonial, and they could describe any business in any industry. The formatter lists the offending quotes so the business can go back and ask for the specific before-and-after instead. A set where no testimonial names a number or a result is flagged as a whole, because one counted outcome is worth several enthusiastic sentences.
-
-The wall output, the carousel selection and the pull quote are produced from the same parse, so the three artefacts stay consistent with each other. The pull quote is taken from the longest attributed line under the length limit — the one with enough texture to stand alone. Everything is copyable and downloadable as plain text.
-
-What the formatter cannot do is verify that a testimonial is genuine or that the person gave permission. Testimonials are claims the business publishes, and keeping the written permission for each name is the business's job rather than the tool's. It formats, attributes and grades, and the page says so.
-
-Ask for the specific when you ask for the testimonial, not after. A request that invites detail — what changed, what you tried before, what you would tell a friend — collects lines with a before-and-after in them, which is what the specificity check is looking for. Requests for a quick quote collect the phrase the formatter then flags.
-
-Keep the roles short and real. A name with a role reads as a person; a paragraph of credentials reads as a press release, and the reader stops at the attribution line rather than the quote. Company and city are usually enough, and anything longer belongs in the case study the quote links to.
-
-Finally, vary the openings. Testimonials collected over a year tend to begin the same way — with praise — and a wall of six identical openings reads as one voice even when six people are speaking. Leading with the result instead of the thanks fixes most of it.`,
-    howTo: [
-      { step: "Paste one testimonial per line as quote, name and role, separated by pipes." },
-      { step: "Read the wall output and fix any quote marked unattributed." },
-      { step: "Cut quotes over fifty words to the sentence that carries the result." },
-      { step: "Use the carousel selection for the slides and the pull quote for the header." },
-      { step: "Clear the specificity checks by asking customers for the before and after." },
+    keywords: [
+      "testimonial formatter",
+      "pull quote",
+      "attribution",
+      "social proof",
     ],
-    whenToUse: `Use the testimonial formatter when testimonials have been collected and now need to appear somewhere: a homepage wall, a carousel, a proposal, a case study. It is most useful when the quotes have grown long and vague in the inbox, because the checks make both problems visible in one pass.
-The formatted set slots into the {{about-page-builder|About Page Builder}} as its proof section and into the {{case-study-template|Case Study Template}} as the customer voice. When the testimonials need names and roles verified against a contact record, that stays a manual step.`,
+    intro:
+      "The Testimonial Formatter formats quotes for a wall, a carousel and a pull quote at once, and names the weaknesses that make social proof decorative.",
+    content:
+      "Social proof fails in three ways — quotes with no name, quotes with nothing specific in them, and quotes too long to finish — and this testimonial formatter addresses all three. Paste one testimonial per line in the format quote | name | role, and the tool renders three outputs at once: the formatted wall, a slide-ready set of the short quotes, and a pull quote drawn from the strongest, while checking attribution, length and specificity.\n\nThe testimonials panel takes the lines. The formatted output and the slide-ready set are copyable on their own, the pull quote has its own panel, and the checks panel names the weaknesses: a quote with no name beside it is an assertion, not a testimonial; past fifty words a quote stops being read; under twenty it is slide-ready; and the phrases every business collects — great service, highly recommend, amazing, fantastic, five stars and the rest of the published ten — describe nothing a reader can weigh. Scope and limits states that the formatter cannot verify a testimonial is real.\n\n- Line format: quote | name | role, one testimonial per line.\n- Formatted wall: the full set, attributed and ordered.\n- Slide-ready set: quotes at twenty words or fewer.\n- Pull quote: the strongest short quote, chosen for specificity.\n- Counts: total, attributed, slide-ready and with a result in them.\n- Checks: missing names, length past fifty words, and the ten vague phrases.\n- Result detection: a quote with a figure in it is marked as carrying evidence.\n\nThe engine parses each line on the pipe, cleans the parts and measures the quote with the shared tokenizer. The slide-ready threshold and the long-quote threshold are published constants, the vague-phrase list is a fixed ten, and the pull-quote choice favours a quote with a number in it. Every judgement the formatter makes is a count or a lookup, and the panel says so.\n\n- The pipe format is required; a line without it is treated as an unattributed quote.\n- The vague-phrase list is ten entries; vague copy outside it passes.\n- Result detection is a digit test, not an understanding of the outcome.\n- The pull-quote choice is a rule, not an editorial judgement; the final pick is yours.\n- Nothing is stored, so copy each output before leaving the page.\n\nCurate before formatting: a set of twenty quotes is a haystack, and the tool's counts tell you which three are doing the work — the attributed ones, under twenty words, with a number in them. Delete the rest, then format. A wall of five specific quotes outperforms a carousel of thirty generic ones, and the specificity check is what shows you which is which. A quote that names a figure and a name is worth three that say great service, which is why the counts lead the checks.\n\nThe neighbours hold the proof around the quotes: the Case Study Template builds the longer evidence block, the Sales Page Copywriting Tool places the quotes in its proof section, and the Landing Page Copy Builder uses them in the page's proof block. When the quotes speak in the brand's voice, the Brand Voice Guide Builder keeps the surrounding copy consistent, and the microcopy library in this domain covers the interface.",
+    howTo: [
+      { step: "Paste one testimonial per line as quote | name | role." },
+      { step: "Read the formatted wall and the counts." },
+      { step: "Check the slide-ready set and the pull quote." },
+      { step: "Work through the checks and copy each output you need." },
+    ],
+    whenToUse:
+      "Use the testimonial formatter when quotes exist and the question is which ones carry evidence. The {{case-study-template|Case Study Template}} writes the longer proof block, and the {{sales-page-copywriting-tool|Sales Page Copywriting Tool}} places the set in a page's proof section. When the page is short, the {{landing-page-copy-builder|Landing Page Copy Builder}} carries the quotes into its proof block, and the brand voice guide builder in this domain keeps the surrounding wording in voice.",
     faqs: [
       {
-        q: "Why is attribution the first check?",
-        a: "Because a quote without a name is the business vouching for itself. The reader needs a person and a context to weigh the words, and the formatter marks any line that arrives without one.",
+        q: "What format do the testimonials need?",
+        a: "One per line as quote | name | role, with the pipe separating the parts. The name and role are optional in the parse, but a quote without a name is flagged — an unattributed quote is an assertion rather than a testimonial.",
       },
       {
-        q: "What makes a quote slide-ready?",
-        a: "Twenty words or fewer and a named source. A slide is read in a few seconds, and a longer quote forces a truncation that usually cuts the specific detail the slide was chosen for.",
+        q: "Why is fifty words the long-quote threshold?",
+        a: "Past fifty words a quote stops being read inline, so the check flags it and suggests cutting. The slide-ready threshold is the other end: at twenty words or fewer a quote fits a carousel slide.",
       },
       {
-        q: "Why flag phrases like highly recommend?",
-        a: "Not because they are insincere, but because they could describe any business. The formatter asks for the specific before-and-after, which is the part a reader can actually weigh.",
+        q: "What makes a quote specific?",
+        a: "A result — a number, a duration, a before-and-after. The formatter marks quotes with a figure in them and flags the ten vague phrases, from great service to five stars, that describe nothing a reader can weigh.",
       },
       {
-        q: "How do I choose the pull quote?",
-        a: "The formatter takes the longest attributed quote under the length limit, on the reasoning that the fuller line has more texture. Override it freely if another quote carries the result more clearly.",
+        q: "How is the pull quote chosen?",
+        a: "By rule: the shortest quote that carries a result and an attribution wins, with the first qualifying quote breaking ties. It is a heuristic, not an editorial judgement, and the panel says so.",
       },
       {
-        q: "Does the formatter check permission to publish?",
-        a: "No. It cannot know what a customer agreed to. Keep the written permission for each name on file and remove any quote on request; the formatting is the easy part.",
+        q: "Are my testimonials uploaded?",
+        a: "No. The parsing and formatting run in the page from the text you pasted; nothing is stored or sent, and the outputs are gone when the tab closes unless you copied them.",
       },
     ],
   },
 
   "brand-voice-guide-builder": {
-    keywords: ["brand voice", "voice attributes", "say list", "sample paragraph", "register"],
-    intro:
-      "The brand voice guide builder documents three voice attributes with their practice, a say and do-not-say list, and a sample paragraph checked against the guide it is supposed to demonstrate.",
-    content: `The brand voice guide builder writes a guide that a writer can actually use. Its unit is not the adjective but the attribute with its practice: "plain" becomes short sentences, kitchen words, no specification sheets. Three attributes is the working range, because a guide with eight is a mood board and a guide with one is a slogan. The builder asks for each attribute as a line with what it means in practice, and names any attribute that arrives without one.
-
-The say list and the do-not-say list are where a guide becomes operational. The say list holds the constructions to reach for — the words the brand uses for its own things, the sentence shapes that come naturally. The do-not-say list holds the phrases that break the voice: jargon, borrowed prestige words, anything the brand has decided it is not. The builder checks the two lists against each other, because the same phrase on both is the quiet way a guide contradicts itself and gets ignored.
-
-The sample paragraph is the test. Writers copy an example before they follow a description, so the guide asks for one paragraph in the voice and checks it against the guide it demonstrates. Banned phrasing in the sample is reported by name, and sentences past twenty-five words are counted — whatever the voice, a reader holds a sentence for one breath. A guide whose own sample fails its rules will not survive contact with a content calendar.
-
-The register question sits underneath all of it. A voice is not a tone; the same voice can be formal in a contract summary and friendly in a launch note. What stays constant is the vocabulary, the sentence length and what the brand refuses to say. The builder keeps the guide to those constants rather than freezing a tone that will date.
-
-The output is a one-page document: who the guide is written for, the three attributes with their practice, the two lists, and the checked sample. It is copyable and downloadable as plain text so it can live where writers actually work rather than in a slide deck nobody opens.
-
-What the builder cannot do is tell whether the voice suits the audience or whether the sample is any good. It checks the guide's internal consistency and nothing more, and the page says so. A guide is judged by the copy written from it over the following year, not by the document itself.
-
-Write the voice attributes where the work happens, then test them against real copy: a release note, an error message, a sales email. The guide is not finished until a writer can take an unfamiliar draft and say which attribute it breaks. If nothing breaks, the attributes are too broad to be useful, and the practice lines are the place to tighten them.
-
-Version the guide and keep the changes visible. A voice shifts deliberately — a new audience, a new market, a change of leadership — and each shift deserves a dated line rather than a silent rewrite. When a writer asks why the old copy sounds different, the changes section answers before the conversation starts.`,
-    howTo: [
-      { step: "Name the brand and the reader the voice is written for." },
-      { step: "Write three attributes, each with a line on what it means in practice." },
-      { step: "Build the say list and the do-not-say list, checking they do not overlap." },
-      { step: "Paste a sample paragraph and clear the banned-phrasing and length checks." },
-      { step: "Copy the guide where writers work; the sample is the part they will copy." },
+    keywords: [
+      "brand voice guide builder",
+      "voice attributes",
+      "say list",
+      "sample",
     ],
-    whenToUse: `Use the brand voice guide builder when more than one person writes for the brand and the results are drifting: a small marketing team, a founder handing copy to a freelancer, an agency onboarding a client. It is most useful with a sample paragraph to hand, because the sample is what the guide is checked against.
-The guide pairs with the {{email-template-library|Email Template Library}} for the recurring messages it governs and the {{social-post-caption-builder|Social Post Caption Builder}} for the channel where voice drifts fastest. When the guide has to sit inside a broader document, the {{about-page-builder|About Page Builder}} carries the public-facing version of the same facts.`,
+    intro:
+      "The Brand Voice Guide Builder documents a brand's voice attributes with their practice, a say and do-not-say list, and a sample paragraph checked against the guide it demonstrates.",
+    content:
+      "A voice guide fails in one of two ways — it is too abstract to apply, or the brand's own copy contradicts it — and this brand voice guide builder addresses both. Document the reader, the voice attributes with a practice line each, the say list, the do-not-say list and a sample paragraph; the tool assembles the guide and checks the sample against it for banned terms, sentences a reader cannot hold in one breath, and the overlap between the two lists that quietly contradicts the guide.\n\nThe brand panel holds the fields. The guide output carries five sections — who we are writing for, voice attributes, we say, we do not say, and the example in voice — and is copyable as a whole. The checks panel names the contradictions: a banned term that appears in the sample, a sentence past the long-sentence threshold, and a word that appears in both the say and do-not-say lists. Scope and limits states that the builder cannot judge whether the voice is good, only whether it is consistent.\n\n- Reader: the audience named by the situation they arrive in.\n- Attributes: one per line as attribute | practice, so every attribute carries what it means in practice.\n- Say list: words and phrases the brand uses, one per line.\n- Do-not-say list: the banned terms, one per line.\n- Sample: a paragraph in the voice, checked against the guide.\n- Stats: attributes, say entries, do-not-say entries, sample words and long sentences.\n- Checks: banned terms in the sample, long sentences, and list overlap.\n\nThe engine parses the attribute lines on the pipe, strips bullets from the lists, and splits the sample into sentences with the shared tokenizer. The checks are lookups and thresholds: a banned term is a substring test, a long sentence is a word count, and the overlap is a set intersection between the two lists. No voice is judged and no copy is written.\n\n- The guide is only as specific as the practice lines; an attribute without one is abstract.\n- The long-sentence threshold is a word count, not a readability grade.\n- The overlap check compares exact words, not stems or synonyms.\n- The sample is one paragraph; a voice that shifts between channels is out of scope.\n- Nothing is stored, so copy the guide before leaving the page.\n\nWrite the do-not-say list first and the sample last: the bans are the easiest decisions and the sample is the test of whether the guide can be applied. Then read the attributes against the sample — an attribute whose practice line the sample ignores is either the wrong attribute or the wrong sample, and the overlap check is what catches the guide arguing with itself. Keep the guide short enough to remember: three attributes and two lists fit on one page, and a guide nobody can recite is a document rather than a voice. Revisit it when the sample stops sounding like the brand, which is the signal the guide has drifted from the copy.\n\nThe neighbours keep the voice applied: the Tagline Generator writes the shortest line in the voice, the Value Proposition Builder the pitch, and the Microcopy Library the interface copy. When the voice governs a page, the Landing Page Copy Builder carries it, and the testimonial formatter in this domain keeps the social proof in the same register.",
+    howTo: [
+      { step: "Name the reader and the voice attributes, one per line as attribute | practice." },
+      { step: "Write the say list, the do-not-say list and a sample paragraph." },
+      { step: "Read the assembled guide and its stats." },
+      { step: "Work through the checks — banned terms, long sentences, list overlap — then copy the guide." },
+    ],
+    whenToUse:
+      "Use the brand voice guide builder when the voice exists in people's heads and needs to be written down. The {{microcopy-library|Microcopy Library}} applies the guide to interface slots, and the {{tagline-generator|Tagline Generator}} compresses it into a line. When the voice governs a page, the {{landing-page-copy-builder|Landing Page Copy Builder}} carries it into the structure, and the value proposition builder in this domain states it in one sentence.",
     faqs: [
       {
-        q: "How many voice attributes should a guide have?",
-        a: "Three is the working range: enough to shape a sentence, few enough that a writer remembers them without the document open. More than five and the guide stops being applied.",
+        q: "What does the attribute | practice format do?",
+        a: "It forces every attribute to carry a definition: warm | we greet the reader before we explain. An attribute without a practice line is abstract, and an abstract attribute is one no writer can apply.",
       },
       {
-        q: "What makes an attribute usable?",
-        a: "The practice line. Plain means short sentences and kitchen words; precise means the temperature rather than the adjective. An attribute with no practice line is a preference, not an instruction.",
+        q: "How does the guide check the sample?",
+        a: "Three ways: banned terms from the do-not-say list found in the sample, sentences past the long-sentence word count, and words that appear in both the say and do-not-say lists, which is the quiet way a guide contradicts itself.",
       },
       {
-        q: "Why check the sample paragraph?",
-        a: "Because writers copy examples before they follow descriptions. If the sample uses a banned phrase or a sentence past twenty-five words, the guide contradicts itself in the one artefact people actually imitate.",
+        q: "How many attributes should a guide have?",
+        a: "Three is the working number the guide is designed around — enough to describe a voice, few enough to remember. The builder does not enforce a count, but the stats line shows how many you wrote.",
       },
       {
-        q: "Is voice the same as tone?",
-        a: "No. Tone flexes by situation — a launch note and a contract summary differ — while voice stays constant in vocabulary, sentence length and what the brand refuses to say. The guide documents the constants.",
+        q: "Can I use it for a personal brand?",
+        a: "Yes. The fields are the same — reader, attributes, lists, sample — and a personal voice is documented the same way. The guide does not assume an organisation.",
       },
       {
-        q: "Does the tool write the guide for me?",
-        a: "No. It structures your attributes, lists and sample, and checks their consistency. The judgment about what the brand sounds like stays with the people who write it.",
+        q: "Does the builder judge my voice?",
+        a: "No. It checks consistency, not quality: whether the sample obeys the lists and whether the lists agree with each other. Whether the voice is good is an editorial judgement the tool cannot make.",
       },
     ],
   },
 
   "microcopy-library": {
-    keywords: ["microcopy", "button label", "empty state", "error message", "register"],
-    intro:
-      "The microcopy library drafts the twelve interface slots every product writes and rewrites — button labels, labels and helpers, empty states, loading, errors, confirmations and links — in the register you choose.",
-    content: `The microcopy library starts from the action rather than the words. You name the product, the thing being acted on and what the reader is trying to do — create a report, book a fitting, start a trial — and the library drafts the twelve slots that cause the most support tickets: the primary button, the secondary button, the field label and its helper text, the empty state title and body, the loading state, the error message, the success message, the destructive confirmation, the link text and the permission prompt.
-
-The register is the second input. Neutral, friendly and formal each change the vocabulary and rhythm of the drafts without changing what they say: the friendly error suggests another go, the formal one offers the support route, the neutral one simply states what happened. Drafting all twelve in one register is what makes an interface feel written rather than assembled from three people's habits. The library returns the slots as labelled lines so the whole set can be compared at a glance.
-
-The checks apply the published guidance. A button label past four words stops being a button and becomes a sentence; the reader scans rather than reads it. The word invalid is flagged because it tells the reader they are wrong rather than what the form needs. An exclamation mark is flagged because in a confirmation it is noise and in an error it is tone-deaf. A short list of interface jargon — leverage, utilize, seamless — is checked across the output and your own wording, because at a glance every unfamiliar word costs the glance.
-
-The empty state is treated as a slot rather than an afterthought. It names what is absent and what will appear there once the reader acts, which is the difference between an interface that feels broken and one that feels ready. The permission prompt carries the same discipline: what is being asked, and how to change it later.
-
-The error message is the slot worth the most attention. It says what failed, avoids blaming the reader, and offers the next step — try again, check the connection, contact support — in one or two sentences. The library drafts it from the action so the message names what the reader was doing, which is what makes an error actionable rather than merely apologetic.
-
-What the library cannot do is know your error cases, your permissions or your brand's exceptions. The drafts are starting points for a voice that a product team then owns, and the checks are published guidance rather than rules. Copy the set into your design system and edit in place.
-
-Audit the shipped interface against the set once it exists. Collected screenshots of empty states, errors and confirmations are usually more honest than the design file, and comparing them with the library shows which slots drifted. The drift is predictable: errors written under time pressure, empty states inherited from a template, buttons renamed by feature teams.
-
-Keep the set short enough to remember. Twelve slots are the ones that repeat across an interface; a product with a hundred screens has a hundred sentences, and the library governs the shapes rather than the vocabulary alone. When a new slot appears — a survey prompt, an inline hint — draft it in the same register and add it to the set.`,
-    howTo: [
-      { step: "Name the product, the object and the action the reader is trying to take." },
-      { step: "Choose the register the interface is written in and keep it consistent." },
-      { step: "Read the twelve slots and edit the drafts into your product's own voice." },
-      { step: "Clear the checks: short button labels, no blaming wording, no jargon." },
-      { step: "Copy the set into the design system next to the components it labels." },
+    keywords: [
+      "microcopy library",
+      "interface copy",
+      "empty state",
+      "error message",
     ],
-    whenToUse: `Use the microcopy library when an interface is being built or audited and the copy has to be consistent: a first release, a settings screen that has grown by accretion, a design system that needs the twelve slots documented. It is most useful before engineering writes placeholder text that ships.
-The same voice shows up in the {{email-template-library|Email Template Library}} for the messages the interface sends and in the {{faq-generator|FAQ Generator}} for the questions the interface raises. When the product needs its public explanation written, the {{about-page-builder|About Page Builder}} carries the longer version of the same claims.`,
+    intro:
+      "The Microcopy Library drafts the twelve interface slots in three registers — neutral, friendly or formal — and checks them against the published UX writing guidance.",
+    content:
+      "Interface copy is written in twelve slots and rewritten forever, and this microcopy library drafts all twelve at once. Give it the product, the action, the object and a register — neutral, friendly or formal — and it writes the primary and secondary buttons, the field label and its helper, the empty state title and body, the loading state, the error, the success message, the destructive confirmation, the link text and the permission prompt, each specific to what you typed rather than generic.\n\nThe product's action panel holds the four inputs. The library output lists the twelve slots with the situation each is used in, and is copyable as a whole. The checks panel applies the published guidance: a button label past four words stops being a button, the word invalid blames the reader for a form's failure, an exclamation mark in an error is tone-deaf, and a formal register that uses contractions contradicts itself. Scope and limits states what the library cannot know about the product.\n\n- Twelve slots: primary button, secondary button, field label, field helper, empty state title, empty state body, loading state, error message, success message, destructive confirmation, link text, permission prompt.\n- Registers: neutral, friendly and formal, chosen once for the whole set.\n- Product, action and object: the three fields that make the drafts specific.\n- Jargon list: leverage, utilize, seamless, robust, please note, in order to and prior to are flagged.\n- Checks: long button labels, the word invalid, exclamation marks, and contractions in the formal register.\n- Each slot names when it is used, so the drafts arrive in context.\n\nThe engine drafts each slot from published patterns that place the action and the object into the register's phrasing, and the register changes the wording rather than the structure. The checks are lookups — a jargon list, a word count on button labels, a contraction regex — and the guidance behind them is the published UX writing convention rather than a house opinion. No product knowledge is applied.\n\n- The twelve slots are a fixed set; a product with different surfaces needs copy written by hand.\n- The drafts are patterns with your nouns; they are starting points, not finished copy.\n- The jargon list is seven entries and the register rules are conventions, not laws.\n- The checks cannot judge whether the tone fits the product's audience.\n- Nothing is stored, so copy the library before leaving the page.\n\nStart with the error and the empty state, because they are the slots customers meet when something has gone wrong and the ones most often left as defaults. Then read the button labels against their objects: a primary button that says Submit is a slot nobody chose. The register is the last decision — write neutral, read it aloud, and move to friendly only if the product would greet a customer that way.\n\nThe neighbours keep the surrounding copy consistent: the Brand Voice Guide Builder documents the voice these slots have to obey, the CTA Button Copy Generator builds the marketing button rather than the interface one, and the Social Post Caption Builder renders the outward-facing version of the same message. When the interface copy announces a change, the Product Launch Copy Builder frames it, and the value proposition builder in this domain states the promise the interface has to keep.",
+    howTo: [
+      { step: "Fill the product, the action, the object and the register." },
+      { step: "Read the twelve drafts with the situation each is used in." },
+      { step: "Work through the checks — jargon, button length, error tone, register contradictions." },
+      { step: "Copy the slots you need and edit them to the product's voice." },
+    ],
+    whenToUse:
+      "Use the microcopy library when an interface needs its twelve slots drafted and the copy is still boilerplate. The {{brand-voice-guide-builder|Brand Voice Guide Builder}} documents the voice the slots must obey, and the {{cta-button-copy-generator|CTA Button Copy Generator}} covers the marketing button rather than the interface one. When the message goes outward, the {{social-post-caption-builder|Social Post Caption Builder}} renders it for feeds, and the product launch copy builder in this domain frames the announcement.",
     faqs: [
       {
         q: "What are the twelve slots?",
-        a: "The primary and secondary buttons, the field label and helper text, the empty state title and body, the loading state, the error message, the success message, the destructive confirmation, the link text and the permission prompt.",
+        a: "Primary button, secondary button, field label, field helper, empty state title, empty state body, loading state, error message, success message, destructive confirmation, link text and permission prompt — the slots that generate the most support tickets when they are left as defaults.",
       },
       {
-        q: "Why cap a button label at four words?",
-        a: "Because a button is scanned rather than read. Past four words it becomes a sentence the reader has to parse, and on a phone the label wraps or truncates at the moment it matters most.",
+        q: "What changes between the registers?",
+        a: "The wording, not the structure: neutral states, friendly greets, formal withholds contractions. The drafts come from the same patterns, and the formal register's check flags any contraction that slips in.",
       },
       {
-        q: "Why is invalid a flagged word?",
-        a: "Because it tells the reader they are wrong rather than what the form needs. Say what is required and why — enter a date after today — and the reader can fix it without guessing.",
+        q: "Why is invalid flagged?",
+        a: "Because it blames the reader for the form's failure. The published guidance is to say what went wrong and how to fix it — Enter a date after today rather than Invalid date — and the check names the word when it appears.",
       },
       {
-        q: "What makes an empty state good?",
-        a: "It names what is absent and what will appear there once the reader acts. That turns a blank panel from a dead end into the first step, and the library drafts both the title and the body.",
+        q: "Why do button labels have a word limit?",
+        a: "Four words is where a label stops being a button and becomes a sentence. The check counts the primary and secondary labels and flags anything longer, because a button that needs reading is a button that gets skipped.",
       },
       {
-        q: "Can I mix registers across a product?",
-        a: "You can, but it reads as three different authors. The library drafts all twelve slots in one register so the interface stays in character; the checks warn when a formal register slips into contractions.",
+        q: "Is my interface copy saved?",
+        a: "No. The drafts are assembled in the page from the fields you typed; nothing is stored or sent, and the library is gone when the tab closes unless you copied it.",
       },
     ],
   },

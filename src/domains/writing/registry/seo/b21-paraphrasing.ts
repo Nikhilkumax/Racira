@@ -13,248 +13,216 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B21_PARAPHRASING_SEO: Record<string, ToolSeo> = {
   "headline-rewriter": {
-    keywords: ["headline rewriter", "headline angles", "clickbait", "headline length", "search results"],
-    intro:
-      "The headline rewriter composes five published headline angles from a subject and an action, then checks any headline you bring for headline length, clickbait phrasing, shouted words and repeats.",
-    content: `The headline rewriter works from two fields because English headlines need two kinds of phrase. An action — write a better headline — feeds the how-to and list angles. A subject — headline writing — feeds the guide, mistakes and question angles. Splitting the input that way is what keeps the five outputs grammatical; a single free-text field would produce promises the patterns cannot keep. An optional audience is appended where the pattern takes it, and an optional number sets the count in the list and mistakes angles.
-
-The five headline angles are deliberately different in kind rather than five wordings of one idea. How to is the plainest promise in the form. A numbered list sets a visible length, which is why it is easy to click and easy to write badly. A colon-and-noun guide signals a reference rather than a promise, which suits evergreen pages. A mistakes headline leans on fear of error, so it should be used only when the article names the mistakes plainly. A question works when the reader genuinely does not know, and fails when the answer is obvious.
-
-The checker is the second half and the part most writers keep using. Paste a headline and it flags a character count that search results will truncate, a word count that has started explaining, a trailing period, any phrase from a published clickbait list, words in full capitals, and a word that appears twice. Each flag carries a sentence explaining the cost rather than merely naming the habit, because a rule you can argue with is a rule you can apply.
-
-Headline length deserves its own note. Search results and social cards truncate, and the truncation point is a character count rather than a word count, which is why the check reports characters first. A headline can be short in words and still be cut, and the fix is usually to move the distinctive noun earlier rather than to delete an adjective. The check says how long the line is; only the writer can decide which words earn the front.
-
-Nothing is uploaded and nothing is stored beyond the tab, so an unpublished title stays private. The rewriter composes from your words, the checker applies published rules, and neither knows whether the article delivers what the headline promises. That last judgement stays where it belongs.
-
-It is worth rewriting a headline at the end of a draft rather than the start. Only then do you know which of the five angles the article actually supports, and a headline chosen after the fact tends to promise less and deliver more, which is the direction a headline should err.
-
-Keep a file of the headlines you did not use. The five angles are generated from the same article, so the ones you rejected describe the piece you were writing when you started, and rereading them later is a quick way to see what the draft turned into. The checker is worth running over published work too: a title that still passes the length, clickbait and repeat checks months later is usually the one that earned its traffic honestly.\n\nFor subject lines in email the same discipline applies with different constraints; the {{email-subject-line-tester|Email Subject Line Tester}} scores those against their own rules.`,
-    howTo: [
-      { step: "Write the action as a verb phrase, e.g. write a better headline." },
-      { step: "Write the subject as a noun phrase, e.g. headline writing." },
-      { step: "Add an audience and a number if the angles you want use them." },
-      { step: "Read the five candidate headlines and copy the one that fits the article." },
-      { step: "Paste your chosen headline into the checker field and clear the flags." },
+    keywords: [
+      "headline rewriter",
+      "headline angles",
+      "clickbait check",
+      "shouted words",
     ],
-    whenToUse: `Use the headline rewriter when a draft is finished and the title is still the working one. Five angles from the same article is the fastest way to notice which promise the piece can actually keep, and the checks catch the habits that creep into a rushed title.\n\nFor email subject lines the constraints are different enough to deserve their own tool, and the {{email-subject-line-tester|Email Subject Line Tester}} scores length, trigger phrases and shouting for inboxes. When the page behind the headline is still being positioned, the {{value-proposition-builder|Value Proposition Builder}} is the better place to start.`,
+    intro:
+      "The Headline Rewriter composes five published headline angles from your subject and action, and runs a clickbait check on a headline you already have, alongside length, shouted words and repetition.",
+    content:
+      "A headline rewriter that invents a claim is worse than no tool at all, so this one composes from the writer's own words using five fixed angles, and never adds a fact the article does not have. The second half of the tool is a check list for a headline you already wrote, which is often the more useful half.\n\n- Five published angles, offered in order: How to, Numbered list, Guide, Mistakes and Question.\n- Two fields keep the grammar sound: Action is a verb phrase for the how-to and list angles, Subject is a noun phrase for the guide, mistakes and question angles.\n- Audience is woven into the patterns where the angle calls for it, and Number sets how many variations to compose.\n- A clickbait check on your own headline, alongside length in characters and words, a trailing period, shouted words and a repeated word.\n- Each flag explains the cost rather than merely naming the habit.\n- Scope and limits printed on the page.\n\nThe angle patterns are fixed, which is what makes the output honest: the tool arranges your subject, action and audience into five shapes rather than generating a claim. The checks use published constants — 60 characters and 12 words as the length thresholds, a clickbait phrase list, and a test for words written in capitals — and each flag carries its reason, because a headline that is 64 characters long fails for a specific reason that the writer can weigh. The distinction between subject and action is the one grammar constraint the user has to respect, and it exists so the how-to pattern receives a verb phrase while the guide pattern receives a noun phrase; the page states that rather than letting the patterns produce a sentence that does not parse.\n\n- The five angles are patterns, not ideas: the tool will not find an angle your subject does not support.\n- Compose quality depends on the subject and action being the right kind of phrase, and the fields say which is which.\n- The checks flag habits, not effectiveness; a headline that passes every check can still be dull.\n- Clickbait detection is a published phrase list, so a headline that ends in a question mark and a colon has nowhere to put the article's own claim.\n- A novel bait phrase passes the check, and a legitimate question headline is not a bait headline: the list targets promises rather than shapes.\n- Length thresholds are conventions, and a venue's own limit overrides them.\n\nUse the composer when you know what the piece is about and want the shapes it could take, and use the checks on anything you are about to publish. The five angles are also a diagnostic: if none of them fits the piece, the article may not have a clear subject or action yet, which is worth knowing before the headline is chosen. Read each flag's reason before changing the headline, because the fix for a shouted word is not the fix for a clickbait phrase. The check list also works on a headline the composer produced: compose five angles, paste the one you like into the check field, and see which flags it carries. Two fields also keep the field labelled Subject and the check for a repeated word catch the case where the same noun would appear twice. A headline that scores well on length can still fail the repetition check, and both flags are worth reading before the piece is published. The composer's five headline angles are also the fastest way to see whether the piece has an action worth naming at all; if you cannot state one, the article may not have one.",
+    howTo: [
+      { step: "Enter the Subject as a noun phrase and the Action as a verb phrase." },
+      { step: "Add the Audience and set how many variations you want." },
+      { step: "Read the five angles and pick the one that fits the piece." },
+      { step: "Paste a headline you already have into the check field and work through each flag's reason." },
+    ],
+    whenToUse:
+      "Use the rewriter when a piece needs a headline and you want the shapes it can take. When the headline exists and needs scoring rather than composing, the {{headline-analyzer|Headline Analyzer}} measures length, detail, power words and faults on the same text.\n\nWhen the copy beneath the headline needs building rather than naming, the {{landing-page-copy-builder|Landing Page Copy Builder}} scaffolds the page, and for email subjects the {{email-subject-line-tester|Email Subject Line Tester}} applies the checks that matter in an inbox.",
     faqs: [
       {
-        q: "Why are there two input fields instead of one?",
-        a: "Because the five angles need different phrase types. The how-to and list angles need a verb phrase; the guide, mistakes and question angles need a noun phrase. Two fields keep every composed headline grammatical.",
+        q: "Why do I need both a subject and an action?",
+        a: "Because the five angles have different grammatical shapes. The how-to and list patterns need a verb phrase, while the guide, mistakes and question patterns need a noun phrase. Supplying both keeps every pattern grammatical.",
       },
       {
-        q: "What exactly does the checker flag?",
-        a: "Characters past the truncation point, words past twelve, a trailing period, phrases from a published clickbait list, words in full capitals and a word repeated in the headline. Each flag explains the cost.",
+        q: "Does the tool invent claims about my article?",
+        a: "No. The angles are fixed patterns that arrange your own subject, action and audience. Nothing is added that the piece does not contain, which is why the composer cannot produce a headline your article fails to support.",
       },
       {
-        q: "Is the clickbait list a blocklist?",
-        a: "It is a list of phrases that promise more than an article can easily deliver. A hit is a prompt to check the article, not a ban on the phrase.",
+        q: "What does the check list flag?",
+        a: "Length in characters and words against published thresholds, a trailing period, a clickbait phrase, words written in capitals and a repeated word. Each flag explains the cost rather than just naming the habit.",
       },
       {
-        q: "Does the rewriter write the headline for me?",
-        a: "It composes five fixed patterns from your subject, action, audience and number. Every word in the output is yours; the tool supplies the shape.",
+        q: "How are clickbait phrases detected?",
+        a: "From a published phrase list. A novel bait phrase that is not on the list will pass, which is a limit of any fixed list and is stated on the page rather than glossed over.",
       },
       {
-        q: "Is the text stored anywhere?",
-        a: "No. Composition and checking run in the browser and nothing leaves the tab, so an unpublished title stays unpublished.",
+        q: "Are the length limits absolute?",
+        a: "No. They are conventions — 60 characters and 12 words — and a venue's own limit overrides them. The checks exist so a headline that ignores them does so deliberately.",
       },
     ],
   },
 
   "paragraph-compressor": {
-    keywords: ["paragraph compressor", "hedge words", "redundant pairs", "repeated sentences", "word count"],
-    intro:
-      "The paragraph compressor applies four documented cuts — hedge words, wordy phrases, redundant pairs and repeated sentences — and reports the word count before and after with every cut listed.",
-    content: `The paragraph compressor makes four kinds of cut, and each one is published. Hedge words go first: phrases such as it is worth noting that, as a matter of fact and needless to say are removed because they postpone the point without adding information. Wordy phrases go second, using the shared table that replaces in order to with to and make a decision with decide. Redundant pairs go third, so advance planning becomes planning and basic fundamentals becomes fundamentals.
-
-The fourth cut is the only one that removes a whole sentence, and it is measured rather than guessed. Each sentence is reduced to its content words — stop words removed — and compared with the sentences already kept using the Jaccard overlap of those word sets. When a sentence overlaps an earlier one by sixty per cent or more, it is dropped, and the report names both the sentence and the one it repeated so the deletion can be checked. That is how a repeated sentence is caught without a model deciding what the paragraph meant.
-
-Every cut is listed with its kind, the text that was removed and what replaced it, so the compressed version is reproducible from the change list. The word count is reported before and after, together with the whole-number percentage removed, and a paragraph that yields no cuts says so plainly rather than pretending to have found something. A reduction under ten per cent comes with a note that the rest is content rather than padding.
-
-The compressor never paraphrases a sentence or reorders an argument. It deletes hedges, applies a substitution table, trims duplicated words and drops exact repeats. That makes it safe to run on a draft whose meaning is settled and whose weight is not — which is most drafts in their third pass, after the structure has stopped moving.
-
-The honest limit is context. A repeated sentence is sometimes deliberate, in a summary or a transition, and a hedge sometimes softens a claim that should be softened. The change list exists so those cases can be restored by hand, and the notes say so. Compression is a proposal, not an edit.
-
-A note on repeated sentences: the overlap check runs after the earlier cuts, so hedging can push two sentences together that looked distinct before. That is deliberate — a sentence whose only distinguishing words were it is worth noting that was not carrying an argument of its own, and the drop is reported with its overlap so the judgement can be checked. When the repeated sentences are a deliberate refrain, restore them; a refrain is a device, not padding.
-
-One more thing worth knowing: the overlap check is order sensitive, so the earlier sentence survives. If the later one is the better wording, keep the later and delete the earlier by hand.\n\nWhen a paragraph is long but has no filler to remove, the {{simplify-text-tool|Simplify Text Tool}} splits sentences at a documented seam instead, and the {{sentence-rewriter|Sentence Rewriter}} changes their shape where the rhythm is the problem.`,
-    howTo: [
-      { step: "Paste the paragraph you want to tighten." },
-      { step: "Read the reduction figure and the before and after word counts." },
-      { step: "Work down the change list and check each cut against your meaning." },
-      { step: "Review the dropped sentences, which name the sentence each one repeated." },
-      { step: "Copy the compressed version and keep the original beside it for a day." },
+    keywords: [
+      "paragraph compressor",
+      "hedge phrases",
+      "redundant pairs",
+      "Jaccard overlap",
     ],
-    whenToUse: `Use the paragraph compressor on a draft whose argument is settled and whose word count is not — the third pass, after structure has stopped moving. Hedges, redundant pairs and exact repeats are the cheapest weight a paragraph carries, and each cut is listed for review.\n\nWhen there is nothing to cut but the sentences are still heavy, the {{simplify-text-tool|Simplify Text Tool}} replaces wordy phrases and splits long sentences. Where the problem is a run of same-shaped sentences rather than length, the {{sentence-rewriter|Sentence Rewriter}} offers clause-order variants instead.`,
+    intro:
+      "The Paragraph Compressor applies four documented cuts — hedges, wordy phrases, redundant pairs and a repeated sentence — and reports the before and after counts with every change listed.",
+    content:
+      "Padded paragraphs are usually padded in the same four ways, and this paragraph compressor makes exactly those four cuts in a published order: hedge phrases removed, wordy phrases replaced with their plainer equivalent, redundant pairs trimmed, and a sentence that repeats an earlier one dropped.\n\n- Hedge phrases removed: openers such as it is worth noting that and as a matter of fact, which postpone the point without adding information.\n- Wordy phrases replaced from the shared table, so the substitution is the same one the Simplify Text Tool makes.\n- Redundant pairs trimmed: advance planning becomes planning, and the second half of a pair that says the same thing twice is dropped.\n- A repeated sentence is dropped only when a later sentence measures as a duplicate of an earlier one.\n- Figures: words before, words after, cuts made and words removed.\n- Every cut is listed with the text it removed and the reason, so nothing is deleted invisibly.\n\nThe fourth rule is the only one that removes a whole sentence, and it is the one the page explains most carefully. Repetition is measured by the Jaccard overlap of the two sentences' content words rather than by a guess, so the report can name both the sentence that was dropped and the one it duplicated. Nothing else is deleted, and the compressor never rewrites a sentence's structure: the first three rules remove or substitute phrases inside sentences, and the fourth removes a sentence whole. That division matters because it keeps the output checkable — every change in the list maps to one of the four documented rules, and a cut that does not appear in the list did not happen.\n\n- The hedge and wordiness lists are finite; a phrase outside them is untouched.\n- Because every cut maps to a rule, a change that is not in the list did not happen, and the report can be read as a complete account of the compression.\n- The duplicate rule fires on content-word overlap rather than on identical strings, so two sentences can be judged duplicates even when their wording differs.\n- A sentence that partly repeats an earlier one survives, because the fourth rule only fires on a measured duplicate.\n- Compression changes emphasis as well as length: a trimmed hedge was doing rhetorical work.\n- The tool does not judge whether the shorter paragraph is better, only what the four rules removed.\n- Metrics come from the shared word counter, so counts match the rest of the domain. The before and after figures are the summary a reviewer reads first: a paragraph that loses a handful of words was not padded, and one that loses a third of its length almost certainly was.\n- A paragraph with nothing to cut returns an unchanged result and a zero cut count, which is a useful confirmation when reviewing rather than writing.\n- The four rules run in a fixed order, so the same paragraph always produces the same cuts.\n\nUse it when a paragraph has grown through revision and needs to lose its padding. Read the change list before the result, because a dropped sentence is the one cut that removes content rather than words, and the paired sentences are listed so the decision can be reversed.",
+    howTo: [
+      { step: "Paste the padded paragraph; the four documented cuts are applied as you type." },
+      { step: "Read the before and after word counts and the number of cuts made." },
+      { step: "Open What was cut and check every removal against its reason." },
+      { step: "Pay particular attention to any dropped sentence, which is listed with the sentence it duplicated." },
+    ],
+    whenToUse:
+      "Use the compressor when the paragraph is padded rather than badly written. When the problem is individual long sentences, the {{simplify-text-tool|Simplify Text Tool}} splits at documented seams, and when the paragraph needs its clauses rearranged, the {{sentence-rewriter|Sentence Rewriter}} moves them.\n\nWhen the padding is jargon rather than hedging, the {{jargon-remover|Jargon Remover}} substitutes from the curated term list.",
     faqs: [
       {
-        q: "How does it decide two sentences say the same thing?",
-        a: "Each sentence is reduced to its content words with stop words removed, then compared with the sentences already kept using the Jaccard overlap of those sets. Sixty per cent or more and the later sentence is dropped, with both sentences named.",
+        q: "What are the four cuts?",
+        a: "Hedge phrases removed, wordy phrases replaced with a plainer equivalent, redundant pairs trimmed, and a sentence that repeats an earlier one dropped. Every change in the list maps to one of the four.",
       },
       {
-        q: "What counts as a hedge word?",
-        a: "A published list of openers and qualifiers such as it is worth noting that, as a matter of fact, needless to say and for what it is worth. They postpone the point without adding information.",
+        q: "How does it decide two sentences are duplicates?",
+        a: "By the Jaccard overlap of their content words, not by a guess. The dropped sentence is reported together with the sentence it duplicated, so the decision can be checked and reversed.",
       },
       {
-        q: "Will it change my meaning?",
-        a: "It never paraphrases or reorders a sentence. It removes listed hedges, applies a substitution table, trims documented redundant pairs and drops sentences that repeat an earlier one; every change is listed so it can be reversed.",
+        q: "Does it ever rewrite a sentence's structure?",
+        a: "No. The first three rules remove or substitute phrases inside sentences, and the fourth removes a sentence whole. Structure is never rebuilt, which is what keeps the output comparable to the input.",
       },
       {
-        q: "Why would a repeated sentence be deliberate?",
-        a: "In a summary or a transition, repetition can be the structure. That is why the dropped sentence and the sentence it repeated are both named in the report rather than silently removed.",
+        q: "Which redundant pairs does it trim?",
+        a: "Published pairs where both halves say the same thing, such as advance planning. The list is finite, and a redundant pair outside it survives the compression.",
       },
       {
-        q: "Does it work on more than one paragraph?",
-        a: "Yes. The cuts apply to the whole text and the counts are totals, though the overlap check is most useful within a paragraph. The compressed version can be copied or downloaded as plain text.",
+        q: "Can compression change my emphasis?",
+        a: "Yes. A hedge that reads as padding also softens a claim, so removing it can make the paragraph blunter. That is why every cut is listed: the list is the record of what the rules removed, not a verdict on the result. The before and after counts are the summary: a paragraph that loses two words was not padded, and one that loses forty usually was. Because the rules run in a published order, the same paragraph always produces the same cuts, and a second pass on the output finds nothing left to do unless the first pass reported a cut it could not make. If a hedge or a redundant pair survives, it is because the phrase was not on the list; the tool never reports a change it did not make, and every entry in the cut list names the rule that produced it. That mapping is what makes the compressed paragraph checkable against the original: the difference between the two is exactly the union of the cuts in the list, so any change that does not appear in the list did not happen, and any change that does appear can be traced to a documented rule. Read the list beside the four rule names and every change is either accepted or reversed by hand. The compressor is a rule engine with four published cuts, not an editor with an opinion, which is the whole reason its output can be checked in a minute.",
       },
     ],
   },
 
   "email-to-formal-letter-converter": {
-    keywords: ["email to formal letter", "salutation", "valediction", "contractions", "signature line"],
-    intro:
-      "The email to formal letter converter rewrites the salutation and the valediction, expands contractions, replaces listed casual phrasing and removes emoji, listing every substitution it makes.",
-    content: `The email to formal letter converter turns a casual message into a letter, and it treats the three parts of a letter separately. The salutation is rewritten from whatever opened the message: Hi Sam becomes Dear Sam, and the reader's name is kept exactly as written. When no greeting line exists at all, Dear Sir or Madam is added and the writer is told to replace it.
-
-The valediction is found rather than assumed. The sign-off can sit on the last line or one or two lines above a typed name, so the converter checks the last few non-empty lines for a closing such as Thanks, Cheers, Best or Take care, and replaces the whole block with Yours sincerely plus a signature line. The signature is taken from the typed name when there is one, from the sender field when it is filled, and left as a placeholder otherwise. A message with no sign-off gets one, and a note saying it was added.
-
-Between the two, the body is edited mechanically. Contractions are expanded from a published table — can't to cannot, it's to it is — because a letter does not contract. Casual phrasing is replaced from a second table, and the first-person openers carry their own pronoun so I just wanted to becomes I am writing to rather than producing a doubled I. Emoji are removed and runs of exclamation marks are reduced, and both are counted in the change list.
-
-Every substitution is listed with the source text, the replacement and a sentence explaining why the change belongs in a letter. The body itself is never restructured: no sentence is reordered, no paragraph is split and no argument is rewritten. A letter that needs a different argument needs a writer, and the notes say so instead of pretending the conversion is editorial work.
-
-The register rules are worth stating plainly. Contractions, phrasal verbs and emoji are markers of speech, and a printed letter carries almost none of them. The converter removes the markers it can see and names the ones it cannot. What it cannot do is decide whether the letter should be formal at all — a note to a colleague may be better left as a message.
-
-Two parts of a letter are outside the converter's reach and worth checking by hand: the date and the recipient's address block. A formal letter usually carries both, and neither can be inferred from a message. The salutation and the signature line are handled because they are the parts a reader notices first; the block above them is a convention the writer supplies.
-
-Use it when the content is settled and only the packaging is wrong: a complaint, an application, a formal request that began life as an email. Read the result once for the salutation and the signature line, which are the parts a reader notices first, then copy or download it.\n\nWhen the letter is right but the tone is still too casual, the {{formality-adjuster|Formality Adjuster}} moves the word choice further toward the formal register. When the message is better rebuilt from a template, the {{email-template-library|Email Template Library}} starts from a fixed shape instead.`,
-    howTo: [
-      { step: "Paste the casual message, keeping its greeting and sign-off lines." },
-      { step: "Fill the sender field so the signature line is complete." },
-      { step: "Read the letter and check the salutation and the signature line first." },
-      { step: "Work through the substitution list and clear the notes." },
-      { step: "Copy or download the letter and read it once aloud." },
+    keywords: [
+      "email to formal letter converter",
+      "greeting",
+      "sign-off",
+      "contractions",
     ],
-    whenToUse: `Use the email to formal letter converter when the content of a message is right and its packaging is wrong — a request, a complaint or an application that began as an email to a colleague and now has to be a letter. The salutation, the valediction and the contract-free register are handled in one pass.\n\nWhen the letter is structurally fine but the word choice still reads too casually, the {{formality-adjuster|Formality Adjuster}} moves specific expressions in one direction. When a letter has to follow a house shape instead, the {{email-template-library|Email Template Library}} starts from a fixed template with named placeholders.`,
+    intro:
+      "The Email to Formal Letter Converter reformats a casual message as a letter — greeting, sign-off and signature — expands contractions and replaces casual phrases, listing every substitution.",
+    content:
+      "An email and a letter carry the same facts in different clothes, and this email to formal letter converter changes only the clothes: the greeting is rewritten, the sign-off block is replaced with a formal valediction and a signature, contractions are expanded from a published table, and casual phrases are substituted. Every move is mechanical and every move is listed.\n\n- The greeting is rewritten, so Hi Sam, becomes Dear Sam,; if there is no greeting, one is added and flagged.\n- The sign-off block is found anywhere in the last few lines and replaced with a formal valediction plus a signature taken from the email or the sender field.\n- Contractions are expanded from a published table of 27 pairs.\n- Casual phrases are replaced from a table of 17 entries — asap becomes as soon as possible, for example.\n- First-person openers include their pronoun in the replacement, so I just wanted to cannot turn into I I am writing to.\n- Emoji and runs of exclamation marks are removed, and counted.\n- Every substitution is listed, and the notes section reports what the letter checks could not resolve.\n\nThe body is never restructured, and the page says so: a letter that needs a different argument needs a writer. The substitution tables are paired and published, which makes the conversion auditable — each change in the list names the expression it replaced. The pronoun guard on first-person openers is a small detail with a visible effect: because the replacement carries its own pronoun, a phrase such as I just wanted to ask becomes I am writing to ask rather than a doubled subject. Emoji removal is counted rather than silent, so a writer can see how much of the message was carrying tone rather than content.\n\n- The body is reformatted, not rewritten: arguments, order and claims stay exactly as they were.\n- Contraction expansion is listed per occurrence, so a contraction left untouched is one that was not in the published table.\n- The sign-off block is found anywhere in the last few lines, so a stray Thanks line in the middle of the body is not mistaken for the end of the message.\n- Tables are finite and published; a casual phrase outside them survives into the letter.\n- A missing greeting or sign-off is added and flagged rather than left out silently.\n- Removing emoji and exclamation runs strips tone markers that may have been doing real work.\n- The signature comes from the email or the sender field, and a placeholder remains if neither supplies one.\n- The letter keeps the email's paragraph breaks, so the shape of the argument survives the reformatting.\n\nUse it when a message written for a colleague has to go to a client, a committee or a records file. Read the substitution list first, then the notes, and fix by hand anything the tables could not reach — the letter is a draft with the mechanical work done, not a finished document. If the substitution list is long, that is a signal about the original rather than a failure of the conversion: a message full of contractions and casual phrases may need more than a new greeting before it goes to a committee.",
+    howTo: [
+      { step: "Paste the casual email; the letter is assembled as you type." },
+      { step: "Add your name for the signature if the email does not contain one." },
+      { step: "Read Every substitution, which lists each greeting, sign-off, contraction and casual phrase that changed." },
+      { step: "Check the notes for anything the tables could not resolve, then copy the letter." },
+    ],
+    whenToUse:
+      "Use the converter when the message's content is right and its register is wrong. When the register needs shifting in general rather than letter formatting specifically, the {{formality-adjuster|Formality Adjuster}} maps paired expressions in either direction.\n\nWhen the words themselves are jargon rather than casual, the {{jargon-remover|Jargon Remover}} substitutes from the curated list, and when the letter is a proposal rather than a reply, the {{proposal-template|Proposal Template}} scaffolds the sections a reader expects.",
     faqs: [
       {
-        q: "How is the sign-off found?",
-        a: "The last three non-empty lines are checked for a closing such as Thanks, Cheers, Best or Take care. The whole block is replaced with Yours sincerely plus a signature, and the typed name above it becomes the signature when the sender field is empty.",
+        q: "Does it rewrite the body of my message?",
+        a: "No. The body is reformatted, not rewritten: the greeting, sign-off and signature change, contractions are expanded and listed casual phrases are replaced. The argument, its order and its claims stay exactly as written.",
       },
       {
-        q: "Why does the converter expand contractions?",
-        a: "Because a printed letter does not contract. Can't becomes cannot and it's becomes it is, from a published table, and each expansion is listed so it can be reviewed.",
+        q: "Why does I just wanted to become I am writing to rather than I I am writing to?",
+        a: "Because the first-person openers in the table include their pronoun in the replacement. That guard exists so a casual opener with a subject cannot produce a doubled subject in the formal version.",
       },
       {
-        q: "Does it rewrite the body of the message?",
-        a: "No. It replaces listed casual phrases and expands contractions, and it never reorders or restructures a sentence. If the argument needs changing, that is a writer's job, and the notes say so.",
+        q: "What happens if my email has no greeting or sign-off?",
+        a: "One is added and flagged in the notes. The letter needs both, and the flag means you can see that the tool supplied something you did not write rather than discovering it later.",
       },
       {
-        q: "What happens to emoji and exclamation marks?",
-        a: "Emoji are removed and runs of exclamation marks are reduced to one, both counted in the change list. Single exclamation marks are left, since they are a matter of taste rather than register.",
+        q: "How many substitutions are in the tables?",
+        a: "27 contraction pairs and 17 casual phrases, plus the greeting, sign-off and punctuation rules. Every one is listed in the change panel with the expression it replaced.",
       },
       {
-        q: "What if the message has no greeting or sign-off?",
-        a: "Both are added — Dear Sir or Madam and Yours sincerely with a signature line — and the notes tell you to replace the placeholder salutation with the reader's name.",
+        q: "Are emoji really removed?",
+        a: "Yes, along with runs of exclamation marks, and the count is reported. Removing them strips tone markers, which is the point of a formal letter and also the reason the count is shown.",
       },
     ],
   },
 
   "bullet-to-prose-converter": {
-    keywords: ["bullet to prose", "bullet list", "connectors", "topic sentence", "scannable"],
-    intro:
-      "The bullet to prose converter joins a bullet list into a paragraph — or into a single sentence when the items are short — and flags the bullets prose will not carry.",
-    content: `The bullet to prose converter turns a list into running text, and it offers two published shapes. One sentence per bullet is the default: each item is stripped of its marker and trailing punctuation, capitalised and given a full stop, and an optional fixed connector sequence — First, Next, Then, After that, Finally — can open the later sentences so the paragraph has direction without invented transitions. The single-sentence shape joins short items with commas and a final and, which is how a list reads inside one sentence.
-
-The parser accepts the markers people actually type: hyphens, asterisks, round and square bullets, and numbered or lettered items with a full stop or a bracket. Markers and trailing punctuation are removed, blank lines are skipped, and each item's word count is reported. That count is what drives the flags, because prose fails in predictable ways at predictable lengths.
-
-Three flags are published. A bullet past twenty-five words will read as a paragraph inside the paragraph, so it is flagged and the advice is to split it before converting. A bullet of two words or fewer, or one that ends with a colon, is really a heading rather than a sentence, and prose needs a verb. A duplicate bullet is dropped and named, since a list can carry a repetition that a paragraph cannot.
-
-The honest limit is that a bullet list is not merely a paragraph in disguise. Each item is visibly equal and separately scannable, which is why procedures, options and specifications are written as lists in the first place. Converting to prose suits a discussion, a summary or a narrative where the items are related by argument rather than by position. The page says that plainly rather than presenting prose as the more finished form.
-
-Copies are cheap: the result is a single paragraph or sentence with a copy button, and the bullet count and sentence count are reported so the shape of the conversion is visible. Nothing is uploaded and nothing is stored beyond the tab.
-
-Keep the list when a reader has to find one item quickly; convert when a reader has to follow an argument.
-
-The connectors are the most misused part of the tool, which is why they are off by default. A fixed sequence — First, Next, Then, After that, Finally — gives an assembled paragraph a direction, and it can also make a list of equal items sound like a process with stages it does not have. Turn them on when the bullets really are steps or a sequence of reasons, and leave them off when the items are parallel points in an argument.
-
-The first sentence is the one place the conversion can improve on the list. If the list had a preamble — a line ending in a colon that introduced it — that line is usually the topic sentence the paragraph needs, and it is worth pasting it in front of the joined sentences by hand. The converter cannot supply it, because the preamble is a claim about the items rather than one of them.\n\nWhen the paragraph is composed and still reads heavily, the {{sentence-rewriter|Sentence Rewriter}} and the {{simplify-text-tool|Simplify Text Tool}} take the next pass, and when the items are really sections, the {{outline-builder|Outline Builder}} keeps them as structure instead.`,
-    howTo: [
-      { step: "Paste the bullet list, one item per line, with or without markers." },
-      { step: "Choose one sentence per bullet or a single sentence." },
-      { step: "Turn on the connector sequence if the paragraph needs direction." },
-      { step: "Read the flags and split or rename the bullets prose will not carry." },
-      { step: "Copy the paragraph and check it against the list for lost emphasis." },
+    keywords: [
+      "bullet to prose converter",
+      "connector sequence",
+      "single sentence",
+      "bullets that will not travel",
     ],
-    whenToUse: `Use the bullet to prose converter when a list exists because the draft was assembled rather than written — meeting notes, research notes, a feature list that now has to read as a discussion. The conversion preserves every item and reports the ones that will not survive as sentences.\n\nWhen the items are headings rather than sentences, the {{outline-builder|Outline Builder}} is the honest destination. When the paragraph that comes out is heavy, the {{simplify-text-tool|Simplify Text Tool}} and the {{sentence-rewriter|Sentence Rewriter}} take the next pass over it.`,
+    intro:
+      "The Bullet to Prose Converter joins a bullet list into a paragraph or a single sentence, and flags the bullets that prose will not carry — too long, really a heading, or duplicated.",
+    content:
+      "A list is not a paragraph with dashes removed, and this bullet to prose converter treats the difference as the whole problem. It offers two published shapes, joins the bullets with a fixed connector sequence when you ask for one, and flags the bullets that will not travel in prose rather than quietly mangling them.\n\n- One sentence per bullet: every bullet becomes its own sentence in the paragraph.\n- A single sentence: short bullets are joined with commas and and, which reads as a list inside a sentence.\n- An optional connector sequence — First, Next, Then, After that, Finally — opens the sentences, with the last connector used for every bullet after it.\n- Flags for what will not travel: a bullet past 25 words, a bullet that is really a heading, and duplicates.\n- Figures: bullets in the list, sentences produced and the shape used.\n- Scope and limits printed on the page.\n\nThe engine never invents a transition with meaning. The connectors are a fixed sequence rather than generated prose, which is why the output's joins are predictable and why the connector option can be switched off entirely. The single-sentence shape is only offered for bullets short enough to survive it, because a forty-word item inside a comma list is unreadable. The flags exist because a bullet list often contains material that is not a sentence at all: a heading, a fragment or a duplicate of the item above it. Naming those bullets is more useful than converting them, and the tool does not silently drop them either.\n\n- The connector sequence is fixed and unvaried, so long lists repeat Finally after the fifth item.\n- The flags are computed from the bullets, so fixing one in the source list removes it from the report on the next keystroke.\n- A duplicate bullet is flagged but never deleted from the list: the report names it and the converter still carries it into the paragraph.\n- The single-sentence shape is unsuitable for long bullets, which is why the tool flags them rather than joining them.\n- A heading-style bullet is reported, not converted, because prose cannot carry a label as a sentence.\n- Joining changes emphasis: a list gives every item equal weight, and a paragraph does not.\n- Nothing is reordered; the output follows the order of the list.\n- The shape choice is a suggestion with a rationale rather than a constraint, and switching shapes re-renders the same bullets without touching the source list.\n- The converter reads the list itself, so a bullet already written as a sentence needs no special treatment.\n- Because the connector sequence is fixed, the output's joins are predictable rather than a matter of taste.\n\nUse it when a document needs prose and the material arrived as a list. Try both shapes on the same list — the single sentence suits short parallel items and the paragraph suits anything with a clause in it — and fix the flagged bullets at source, because the tool is right that they will not travel. A list that converts cleanly usually had sentences in it already; a list that flags heavily is telling you the material was notes rather than prose, which is worth knowing before the paragraph is published.",
+    howTo: [
+      { step: "Paste the list, one item per line." },
+      { step: "Choose the shape: One sentence per bullet or A single sentence." },
+      { step: "Switch the connector sequence on if the sentences should be opened with First, Next and so on." },
+      { step: "Read What will not travel, then copy the prose and fix the flagged bullets at source." },
+    ],
+    whenToUse:
+      "Use the converter when a list has to become prose. When the job runs the other way and prose has to become a list, the {{bullet-point-extractor|Bullet Point Extractor}} turns one sentence into one bullet with an optional connector removal.\n\nWhen the prose that follows needs tightening, the {{paragraph-compressor|Paragraph Compressor}} applies four documented cuts, and when the sentences need their clauses rearranged, the {{sentence-rewriter|Sentence Rewriter}} moves them.",
     faqs: [
       {
-        q: "Which bullet markers are accepted?",
-        a: "Hyphens, asterisks, round and square bullets, and numbered or lettered items followed by a full stop or bracket. Blank lines are ignored and trailing punctuation is removed.",
+        q: "What is the difference between the two shapes?",
+        a: "One sentence per bullet keeps every item as its own sentence in a paragraph. A single sentence joins short bullets with commas and and, which reads as a list inside one sentence and is only suitable for short parallel items.",
       },
       {
-        q: "When should I keep the list instead?",
-        a: "Whenever a reader has to find one item quickly. A list makes items visibly equal and separately scannable; prose suits a discussion where the items relate by argument rather than by position.",
+        q: "Where do the connectors come from?",
+        a: "A fixed published sequence: First, Next, Then, After that, Finally. The last connector is used for every bullet after the fifth, so a long list repeats it rather than inventing new transitions.",
       },
       {
-        q: "What does the connector sequence do?",
-        a: "It opens the later sentences with First, Next, Then, After that and Finally, so a paragraph assembled from notes has direction without inventing a transition that means something.",
+        q: "What does the flag list mean?",
+        a: "It names the bullets prose will not carry: one past 25 words, one that is really a heading, and duplicates. Those bullets are reported rather than converted or dropped, because the fix belongs in the source list.",
       },
       {
-        q: "What makes a bullet unsuitable for prose?",
-        a: "More than twenty-five words, two words or fewer, or a trailing colon: the first reads as a paragraph inside the paragraph, and the others are headings rather than sentences because they lack a verb.",
+        q: "Is a heading-style bullet converted?",
+        a: "It is flagged, not converted. A label such as Benefits: cannot become a sentence without inventing one, so the tool reports it and leaves the decision to you.",
       },
       {
-        q: "Are duplicate bullets removed?",
-        a: "Yes, and the duplicate is named in the report. A list can survive a repetition that a paragraph cannot, so the drop is reported rather than silent.",
+        q: "Can I turn the connectors off?",
+        a: "Yes. The connector sequence is optional; with it off, the bullets become plain sentences and the paragraph reads without the First, Next pattern.",
       },
     ],
   },
 
   "abstract-generator": {
-    keywords: ["abstract generator", "structured abstract", "background", "methods", "results"],
-    intro:
-      "The abstract generator assembles your five parts in IMRaD order — background, objective, methods, results and conclusions — and checks the abstract against a word band and a short list of structural rules.",
-    content: `The abstract generator asks for five parts and assembles them in the order a reader expects: background, objective, methods, results and conclusions. Filling them in separately is the discipline the tool is really teaching. A reader who meets the objective before the methods knows what the study was for; a reader who meets the methods without an objective is reading procedure with no question attached. The parts are labels on your sentences, not prompts for new ones.
-
-The structured and unstructured shapes come from the same five parts. Structured, each part is prefixed with its label, which is what most clinical and scientific journals ask for. Unstructured, the labels are dropped and the sentences are joined into one paragraph, which is common in the humanities and in general-interest summaries. Switching between them is one checkbox, and the word count does not change because nothing is added or removed.
-
-The checks are the things a rule can genuinely judge. A missing part is named, since an abstract is read as a whole and a gap is noticed immediately. Methods shorter than fifteen words are flagged, because a reader needs the design, the sample and the analysis in one or two sentences. Results with no figure in them are flagged, because an abstract without a number gives the reader nothing to weigh. A conclusions part longer than the results is flagged, since the findings should be the heavier half. And the total is checked against the chosen band, which defaults to the usual one hundred and fifty to two hundred and fifty words.
-
-Three bands are offered because abstracts are not all the same length. A short note may want one hundred to one hundred and fifty words; a review article may be allowed two hundred and fifty to three hundred and fifty. The band is a target rather than a rule, and the check reports how far the draft is from it in words rather than in judgement.
-
-Nothing is written for you. Every sentence in the output is one you typed, reordered into a published shape with the labels applied. The generator cannot judge whether the sample is adequate or the conclusion follows, and the limits panel says so.
-
-Write the parts at the end of the work, from the results upwards: conclusions first, then results, then methods, then the objective and background. An abstract written in that order tends to describe the study that was done rather than the one that was planned.
-
-A structured abstract is not a longer abstract; it is the same abstract with its parts labelled. Journals ask for the labels because a reviewer reading many abstracts in a day can find the design and the sample in seconds. If your venue accepts either shape, the labelled version is usually the safer submission: it costs nothing in words and saves the reader a search.\n\nWhen the objective itself is still loose, the {{thesis-statement-builder|Thesis Statement Builder}} tightens the claim the paper makes, and the {{argument-mapping-tool|Argument Mapping Tool}} lays out the reasons and evidence behind it before the abstract is written.`,
-    howTo: [
-      { step: "Fill the objective and methods first — they carry the abstract's weight." },
-      { step: "Add the background, then the results with their figures, then the conclusions." },
-      { step: "Choose the word band your venue uses and the structured or unstructured shape." },
-      { step: "Work through the checks until every part is filled and inside the band." },
-      { step: "Copy the abstract into the manuscript and reread it against the paper itself." },
+    keywords: [
+      "abstract generator",
+      "five parts",
+      "word band",
+      "structured abstract",
     ],
-    whenToUse: `Use the abstract generator once the paper is drafted and its parts are settled: the five labels are the fastest way to see whether the study can be summarised at all, and the checks catch the missing figure or the oversized conclusion that reviewers notice first.\n\nWhen the central claim is still moving, start with the {{thesis-statement-builder|Thesis Statement Builder}}; when the supporting reasons need arranging, the {{argument-mapping-tool|Argument Mapping Tool}} maps them before any abstract is written.`,
+    intro:
+      "The Abstract Generator assembles five labelled parts — Background, Objective, Methods, Results and Conclusions — into a structured abstract or a single paragraph, and checks it against a published word band.",
+    content:
+      "An abstract is read before a paper is chosen, and this abstract generator treats it as five parts in the order readers expect: Background, Objective, Methods, Results and Conclusions. You supply every sentence; the tool supplies the order, the labels and the checks. Each part carries a hint and a live word count, and empty parts are left out of the output rather than rendered as blanks. The page shows a filled-parts count and the shape — structured or unstructured — as you work, so the distance to a complete abstract is visible.\n\n- Word band: 150-250 words for a journal abstract (the default), 100-150 for a short note, or 250-350 for a review article.\n- Label each part: on gives a structured abstract with each part labelled; off joins the parts into one unstructured paragraph.\n- Checks: a missing part, Methods under 15 words, Results with no figures, Conclusions longer than Results, and a total outside the chosen band.\n- Export: a Copy control on the assembled abstract and Download abstract.txt.\n- Empty parts are omitted from the output, so three filled parts produce a three-part abstract with no placeholders.\n\nThe parts are assembled in a fixed order and whitespace-collapsed, then checked with rules a pattern engine can genuinely test. The figures check is a digit test on the Results part, which is deliberately blunt: it can prove a number is present but not that the number is the right one. The length checks compare the parts with each other and the total with the band you selected, and the Methods threshold exists because a methods sentence shorter than 15 words rarely lets a reader picture the study. Nothing is generated, so an empty part is reported as empty rather than filled in. The structured output prefixes each non-empty part with its label and a colon, one part per line, and the word band is checked against the sum of all five parts. The length checks are the only ones a journal's own guidance can override, which is why the band is a choice rather than a constant.\n\n- It cannot write the parts; every sentence in the output is yours.\n- The figure check is a digit test, so a number can satisfy it without being a finding.\n- The thresholds are published heuristics, not a journal's submission requirements.\n- An unstructured abstract loses the labels, and some venues require one shape or the other.\n- Word counts come from the shared tokeniser and can differ from a journal's counter by a word or two.\n- The checks compare parts and totals; they cannot tell a supported claim from an overreach.\n\nFill the parts in order, clear the checks, and read the result aloud once: an abstract is the one paragraph in a paper that is read by people who have not yet decided to read the paper. Two passes are usually enough: one to fill the parts, one to cut back to the band after the checks stop complaining. A labelled abstract with every part filled and every check clear is ready to paste; anything still flagged deserves a minute of your own judgement.",
+    howTo: [
+      { step: "Fill the five parts; each has a hint and a live word count." },
+      { step: "Choose a word band and whether to label each part." },
+      { step: "Work through the checks until none are reported." },
+      { step: "Copy the assembled abstract or Download abstract.txt." },
+    ],
+    whenToUse:
+      "Use the generator when you have already written the study and need the abstract assembled and audited. The {{scientific-abstract-builder|Scientific Abstract Builder}} works from five abstract roles instead, which suits drafting before the results exist.\n\nFor the summary of a whole document rather than a paper, the {{executive-summary-builder|Executive Summary Builder}} extracts a bottom line and findings, and when the register itself is the question, the {{academic-writing-tone-checker|Academic Writing Tone Checker}} reads the text for formality and hedging.",
     faqs: [
       {
-        q: "What is the difference between a structured and an unstructured abstract?",
-        a: "A structured abstract prefixes each part with its label — Background, Methods, Results and so on — which most scientific and clinical journals require. An unstructured abstract drops the labels and runs the same sentences together as one paragraph.",
+        q: "What counts as a figure in the Results part?",
+        a: "Any digit. The check is a simple digit test, so it proves a number is present but not that the number matters. A p-value or a sample size satisfies it; the check is a prompt to look, not a verdict.",
       },
       {
-        q: "Why does the tool flag results without numbers?",
-        a: "Because an abstract is usually the only part a reader sees before deciding whether to read the paper, and a results section with no figure in it gives that reader nothing to weigh.",
+        q: "Why is the Methods part checked for length?",
+        a: "Under 15 words it is flagged, because a methods sentence that short rarely names the design, the sample and the analysis, which are the three things a reader needs to picture the study.",
       },
       {
-        q: "Which word band should I choose?",
-        a: "Whichever your venue specifies. The default is one hundred and fifty to two hundred and fifty words; a short note may ask for one hundred to one hundred and fifty, and a review article may allow two hundred and fifty to three hundred and fifty.",
+        q: "What is the difference between structured and unstructured output?",
+        a: "Structured prefixes each part with its label, so the abstract reads as Background, Objective, Methods, Results and Conclusions. Unstructured joins the same sentences into one paragraph, which some journals require.",
       },
       {
-        q: "Does the generator write the abstract?",
-        a: "No. Every sentence is yours; the tool orders the five parts, applies the labels, counts the words and runs the structural checks. It cannot judge whether the study is sound.",
+        q: "Why is Conclusions longer than Results flagged?",
+        a: "Because at that point the interpretation outweighs the findings. An abstract is supposed to let the reader weigh what was found before hearing what it means, so the flagged ratio is worth a second look.",
       },
       {
-        q: "Why is a conclusion longer than the results a problem?",
-        a: "Because the findings are the substance of an abstract and the conclusion is what follows from them. When the conclusion outweighs the results, a reader suspects the study produced less than the summary claims.",
+        q: "Does the generator rewrite my sentences?",
+        a: "No. It orders and labels your sentences and runs checks over them. Every clause in the output came from one of the five fields exactly as you typed it, with surrounding whitespace collapsed.",
       },
     ],
   },

@@ -295,7 +295,7 @@
       "Reach for the palette extractor when the image has more than one theme.",
       "Use the value as the base for a scheme rather than as a finished decision."
     ],
-    "whenToUse": "Use this when you want one representative colour from an image — to tint a card, blend a photograph into a layout, or check what an image actually consists of. Use the image colour picker for sampling a specific spot, and a palette extractor when you need the image's several main colours instead of one. When a set rather than a single answer is wanted, the {{color-palette-extractor|palette extractor}} returns a whole palette and the {{color-histogram|color histogram}} shows the distribution behind it.",
+    "whenToUse": "Use this when you want one representative colour from an image — to tint a card, blend a photograph into a layout, or check what an image actually consists of. Use the image colour picker for sampling a specific spot, and a palette extractor when you need the image's several main colours instead of one. When a set rather than a single answer is wanted, the {{color-palette-extractor|palette extractor}} returns a whole palette and the {{color-histogram|color histogram}} shows the distribution behind it — and once the dominant colour is found, the {{color-replacer|color replacer}} is what swaps it for a different value across the image.",
     "faqs": [
       {
         "q": "Is the dominant colour the same as the average colour?",

@@ -4,6 +4,7 @@ import { categories } from "@/domains/design/registry";
 import { LegalLinks } from "@/components/LegalLinks";
 import { Search } from "lucide-react";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
 import { DESIGN_SITE } from "@/domains/design/site";
 import { copyrightLine } from "@/lib/site-identity";
 
@@ -74,8 +75,10 @@ export default function Index() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {cat.tools.map((tool) => {
                 const Icon = tool.icon;
-                // No design tool page renders a real tool — every card is inert.
+                // Live tools open the wired component; upcoming tools open their
+                // Coming Soon page — every card is navigable.
                 const isLive = isLiveTool(tool, "design");
+                const clickable = isLive || hasComingSoonPage(tool, "design");
                 const cardBody = (
                   <>
                     {!isLive && (
@@ -90,7 +93,7 @@ export default function Index() {
                     <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.desc}</p>
                   </>
                 );
-                return isLive ? (
+                return clickable ? (
                   <Link
                     key={tool.slug}
                     href={`/design/${tool.slug}`}

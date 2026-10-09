@@ -5,7 +5,12 @@ import { notFound } from "next/navigation";
 import { ChevronRight, Construction, Sparkles } from "lucide-react";
 import { categories, allToolsWithComponents, findTool, findToolWithComponent } from "@/domains/typography/registry";
 import { toSlug } from "@/lib/utils/slug";
-import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
+import { buildSoonMetadata } from "@/lib/tools/soonMetadata";
+import { pickRelatedTools } from "@/lib/tools/soonRelated";
+import { ComingSoonToolPage } from "@/components/shared/ComingSoonToolPage";
+import { INDEX_SOON_PAGES } from "@/domains/typography/indexing";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
@@ -16,12 +21,32 @@ import { TYPOGRAPHY_SITE } from "@/domains/typography/site";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
+/** Names repeated among this domain's upcoming tools — used to qualify labels. */
+const SOON_NAME_COUNTS = (() => {
+  const counts = new Map<string, number>();
+  for (const tool of allToolsWithComponents) {
+    if (tool.status === "live") continue;
+    counts.set(tool.name, (counts.get(tool.name) ?? 0) + 1);
+  }
+  return counts;
+})();
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = categories.find(c => toSlug(c.name) === slug);
   if (category) return { title: `${category.name} — ${TYPOGRAPHY_SITE.copyrightName}`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/typography/${slug}` } };
   const result = findTool(slug);
-  if (result) return { title: `${result.tool.name} — ${TYPOGRAPHY_SITE.copyrightName}`, description: result.tool.desc ?? "", alternates: { canonical: `/typography/${slug}` }, robots: isComingSoonToolPage(result.tool, "typography") ? { index: false, follow: false } : undefined };
+  if (result) {
+    // Upcoming tools keep a self-canonical and real copy; INDEX_SOON_PAGES
+    // controls whether they are also indexable (domains/typography/indexing.ts).
+    if (hasComingSoonPage(result.tool, "typography")) {
+      return buildSoonMetadata(
+        { tool: result.tool, domainKey: "typography", siteName: TYPOGRAPHY_SITE.copyrightName, categoryName: result.category, soonNameCounts: SOON_NAME_COUNTS },
+        INDEX_SOON_PAGES,
+      );
+    }
+    return { title: `${result.tool.name} — ${TYPOGRAPHY_SITE.copyrightName}`, description: result.tool.desc ?? "", alternates: { canonical: `/typography/${slug}` } };
+  }
   return { title: "Not Found — Racira" };
 }
 
@@ -60,9 +85,10 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {category.tools.map((tool: any) => {
               const Icon = tool.icon || inferIcon(tool.name, tool.slug);
-              // Live = registry status is "live" AND a component is wired — soon
-              // cards stay non-clickable and never get a page.
+              // Live tools open the real tool; upcoming tools open their Coming
+              // Soon page (never a 404) — same decision the ToolCard makes.
               const isLive = isLiveTool(tool, "typography");
+              const clickable = isLive || hasComingSoonPage(tool, "typography");
               const cardBody = (
                 <>
                   {!isLive && (
@@ -77,7 +103,7 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
                   <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.desc}</p>
                 </>
               );
-              return isLive ? (
+              return clickable ? (
                 <Link key={tool.slug} href={`/typography/${tool.slug}`} className="tool-card group hover:-translate-y-[3px]">
                   {cardBody}
                 </Link>
@@ -132,5 +158,30 @@ export default async function PolymorphicPage({ params }: PageProps) {
   if (category) return <CategoryView category={category} />;
   const result = findToolWithComponent(slug);
   if (result && isLiveTool(result.tool, "typography")) return <ToolView tool={result.tool} categoryName={result.category} />;
+
+  // Upcoming tools render a Coming Soon page instead of 404ing.
+  if (result && hasComingSoonPage(result.tool, "typography")) {
+    const related = pickRelatedTools(allToolsWithComponents, {
+      currentSlug: slug,
+      basePath: "/typography",
+      isLive: (t) => isLiveTool(t, "typography"),
+      sameGroup: (t) => (t as any).category === result.category,
+    });
+    return (
+      <ComingSoonToolPage
+        toolName={result.tool.name}
+        toolDescription={result.tool.desc ?? ""}
+        icon={result.tool.icon}
+        siteName={TYPOGRAPHY_SITE.copyrightName}
+        domainLabel="Fonts"
+        domainHref="/typography"
+        categoryName={result.category}
+        categoryHref={`/typography/${toSlug(result.category)}`}
+        relatedLive={related.live}
+        relatedSoon={related.soon}
+      />
+    );
+  }
+
   notFound();
 }

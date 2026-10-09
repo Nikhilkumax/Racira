@@ -6,11 +6,17 @@ import { ChevronRight } from "lucide-react";
 import { categories, allTools, findTool } from "@/domains/writing/registry";
 import { WRITING_SITE } from "@/domains/writing/site";
 import { toSlug } from "@/lib/utils/slug";
-import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
+import { buildSoonMetadata } from "@/lib/tools/soonMetadata";
+import { pickRelatedTools } from "@/lib/tools/soonRelated";
+import { ComingSoonToolPage } from "@/components/shared/ComingSoonToolPage";
+import { INDEX_SOON_PAGES } from "@/domains/writing/indexing";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
 import SeoContent from "@/components/shared/SeoContent";
+import { RelatedTools } from "@/domains/writing/components/related-tools";
 import { WRITING_TOOL_COMPONENTS } from "@/domains/writing/components/tools/registry";
 import { getToolSeo } from "@/domains/writing/registry/tool-seo";
 
@@ -28,6 +34,16 @@ function hasComponent(slug: string): boolean {
   return Boolean(WRITING_TOOL_COMPONENTS[slug]);
 }
 
+/** Names repeated among this domain's upcoming tools — used to qualify labels. */
+const SOON_NAME_COUNTS = (() => {
+  const counts = new Map<string, number>();
+  for (const tool of allTools) {
+    if (tool.status === "live") continue;
+    counts.set(tool.name, (counts.get(tool.name) ?? 0) + 1);
+  }
+  return counts;
+})();
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
 
@@ -42,11 +58,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const result = findTool(slug);
   if (result) {
+    // Upcoming tools keep a self-canonical and real copy; INDEX_SOON_PAGES
+    // controls whether they are also indexable (domains/writing/indexing.ts).
+    if (hasComingSoonPage(result.tool, "writing")) {
+      return buildSoonMetadata(
+        { tool: result.tool, domainKey: "writing", siteName: WRITING_SITE.copyrightName, categoryName: result.category, soonNameCounts: SOON_NAME_COUNTS },
+        INDEX_SOON_PAGES,
+      );
+    }
     return {
       title: `${result.tool.name} — ${WRITING_SITE.copyrightName}`,
       description: result.tool.description,
       alternates: { canonical: `/writing/${slug}` },
-      robots: isComingSoonToolPage(result.tool, "writing") ? { index: false, follow: false } : undefined,
     };
   }
 
@@ -93,6 +116,7 @@ function CategoryView({ category }: { category: typeof categories[number] }) {
             {category.tools.map((tool: WritingTool) => {
               const Icon = tool.icon || inferIcon(tool.name, tool.slug);
               const isLive = isLiveTool(tool, "writing") && hasComponent(tool.slug);
+              const clickable = isLive || hasComingSoonPage(tool, "writing");
               const cardBody = (
                 <>
                   {!isLive && (
@@ -107,7 +131,7 @@ function CategoryView({ category }: { category: typeof categories[number] }) {
                   <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
                 </>
               );
-              return isLive ? (
+              return clickable ? (
                 <Link key={tool.slug} href={`/writing/${tool.slug}`} className="tool-card group hover:-translate-y-[3px]">
                   {cardBody}
                 </Link>
@@ -130,9 +154,43 @@ function ToolView({ tool, categoryName }: { tool: WritingTool; categoryName: str
   // in registry/tool-seo.ts so it never ships in a client bundle.
   const definition: WritingTool = { ...tool, seo: getToolSeo(tool.slug) };
   const seo = definition.seo;
+  const categorySlug = toSlug(categoryName);
+
+  // Mirrors the visual breadcrumb below, four levels deep, on flat URLs.
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "/" },
+      { "@type": "ListItem", position: 2, name: "Writing", item: "/writing" },
+      { "@type": "ListItem", position: 3, name: categoryName, item: `/writing/${categorySlug}` },
+      { "@type": "ListItem", position: 4, name: tool.name, item: `/writing/${tool.slug}` },
+    ],
+  };
+
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: tool.name,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    url: `/writing/${tool.slug}`,
+    description: tool.description,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <script
+        type="application/ld+json"
+        id="writing-tool-breadcrumb-schema"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        id="writing-tool-software-schema"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
       <Header mode="category" categoryName="Writing" />
       <main className="flex-1">
         <ToolPageHeader
@@ -146,6 +204,11 @@ function ToolView({ tool, categoryName }: { tool: WritingTool; categoryName: str
         />
         <div className="racira-page-container pb-16">
           <Component />
+          {/* Related tools — a separate full-width row, not part of the SEO block. */}
+          <RelatedTools currentSlug={tool.slug} category={categoryName} />
+          {/* Editorial SEO block — full container width, unboxed, rendered by the
+              shared component so the locked structure stays identical across
+              domains. Link targets resolve against /writing. */}
           {seo && <SeoContent seo={seo} toolName={tool.name} basePath="/writing" />}
         </div>
       </main>
@@ -164,7 +227,29 @@ export default async function PolymorphicPage({ params }: PageProps) {
     return <ToolView tool={result.tool} categoryName={result.category} />;
   }
 
-  // Coming-soon tools are non-clickable cards on the index and category pages;
-  // they have no page of their own.
+  // Upcoming tools render a Coming Soon page instead of 404ing.
+  if (result && hasComingSoonPage(result.tool, "writing")) {
+    const related = pickRelatedTools(allTools, {
+      currentSlug: slug,
+      basePath: "/writing",
+      isLive: (t) => isLiveTool(t, "writing") && hasComponent(t.slug),
+      sameGroup: (t) => (t as any).category === result.category,
+    });
+    return (
+      <ComingSoonToolPage
+        toolName={result.tool.name}
+        toolDescription={result.tool.description}
+        icon={result.tool.icon}
+        siteName={WRITING_SITE.copyrightName}
+        domainLabel="Writing"
+        domainHref="/writing"
+        categoryName={result.category}
+        categoryHref={`/writing/${toSlug(result.category)}`}
+        relatedLive={related.live}
+        relatedSoon={related.soon}
+      />
+    );
+  }
+
   notFound();
 }

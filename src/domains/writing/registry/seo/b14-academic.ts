@@ -11,245 +11,216 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B14_ACADEMIC_SEO: Record<string, ToolSeo> = {
   "logical-fallacy-detector": {
-    keywords: ["logical fallacy detector", "fallacies", "cue phrases", "appeal to popularity", "false dilemma"],
-    intro:
-      "The logical fallacy detector scans a passage for a documented list of cue phrases and names the common fallacy each phrase usually signals — a prompt to look, not a verdict on the argument.",
-    content: `The logical fallacy detector does one narrow thing and is honest about it. It holds a documented list of cue phrases for the common informal fallacies and reports where those phrases appear, naming the fallacy each one usually signals. An appeal to popularity is flagged by "everyone knows" or "most people agree"; a false dilemma by "either … or" or "only two options"; a slippery slope by "will lead to" or "next thing you know". The result is a list of sentences to look at again, each with the phrase that triggered it and a one-line explanation of the pattern.
-
-That design is deliberate, because a logic engine is not what a writer needs at the desk. A text field cannot evaluate an argument's validity — that depends on meaning, on context and on premises the passage may not state — but it can reliably find the stock phrases that fallacies leave behind. Flagging those phrases puts the passages a reader might stumble over in one list, which is a useful first pass over a draft and, in a debate or an op-ed, a useful check before publishing.
-
-The tool lists every rule it knows, with its cue phrases and a description, so the list is inspectable rather than mysterious. There is no hidden model and no network call: the same passage always produces the same findings, which makes the output something to reason about rather than trust blindly. A flagged sentence may be perfectly sound — "always" is sometimes the right word — and an unsound argument may carry no cue at all, and both of those limits are on the page.
-
-Fallacies are worth knowing for more than editing. Naming the pattern — the straw man, the ad hominem, the appeal to emotion — is how you answer one, and seeing the list of cues is a compact way to learn to spot them. The detector is therefore a teaching aid as much as a proofreading pass: it shows what the phrases look like before they are pointed out to you in someone else's reply.
-
-Nothing is uploaded and nothing is stored beyond the tab, so a passage stays private. The detection is lexical, the list is finite, and the judgement stays with the writer — which is the only honest way for a tool like this to work, and the page says so plainly.
-
-A detector of cue phrases is not a substitute for reading closely, and it is worth saying what it is for. In an op-ed or a policy memo the phrases travel ahead of the argument: a reader spots "everyone knows" before they weigh the evidence, and the writer who removes it has to make the case instead. In a classroom the list doubles as a syllabus of the informal fallacies, since each rule names its pattern and shows the words that give it away. Either way the value is in the first pass, when a draft is long enough that the obvious weak spots are buried and a targeted list of them saves a slow, uneven read later.`,
-    howTo: [
-      { step: "Paste the passage, one argument per line." },
-      { step: "Read the findings: each names a fallacy, the cue phrase and the sentence it sat in." },
-      { step: "Check the explanation of the pattern before deciding whether the passage is really affected." },
-      { step: "Copy the report, or read the full list of cues the tool knows." },
+    keywords: [
+      "logical fallacy detector",
+      "fallacy",
+      "ad hominem",
+      "false dilemma",
     ],
-    whenToUse: `Use the logical fallacy detector as a first pass over an argument you are about to publish or submit. When you want to see the reasoning laid out rather than checked for cues, the {{argument-mapping-tool|Argument Mapping Tool}} shows the claim, its reasons and the warrants between them, and when the sentence itself needs sharpening the {{thesis-statement-builder|Thesis Statement Builder}} assembles and checks it.
-
-If the passage is academic and the concern is register rather than logic, the {{academic-writing-tone-checker|Academic Writing Tone Checker}} measures that instead.`,
+    intro:
+      "The Logical Fallacy Detector scans a passage sentence by sentence against nine published fallacy patterns and quotes the exact words that triggered each finding.",
+    content:
+      "A fallacy is easier to commit than to notice, and this logical fallacy detector reads your text the way a hostile reader would. Paste the passage and it splits it into sentences, matches each one against nine published patterns — appeal to popularity, false dilemma, hasty generalisation, slippery slope, ad hominem, straw man, appeal to authority, circular reasoning and appeal to emotion — and reports every hit with the sentence quoted and the rule named, so you can judge each finding instead of trusting a score.\n\nThe input panel takes the passage. The findings panel lists one card per hit: the rule's name, the sentence that matched, and the note that explains what the pattern is. The report panel assembles the findings into a readable summary you can paste into a margin or a review note. Scope and limits states the honest boundary: pattern matching catches the wording habits fallacies travel in, not the logic underneath, and a clean pass is not a licence.\n\n- Nine rules: popularity, false dilemma, hasty generalisation, slippery slope, ad hominem, straw man, authority, circular reasoning, emotion.\n- Sentence split: each sentence is checked on its own, so findings point somewhere.\n- Quoted evidence: every finding carries the exact sentence that triggered it.\n- Report: the findings assembled into plain text you can paste.\n- Scope note: pattern matching names suspects; judgement decides guilt.\n\nThe detection is lexicon and pattern work: each rule holds a set of published phrase patterns, the passage is split into sentences with the shared tokenizer, and every match records its rule and its evidence. The same text always produces the same findings, which makes the tool usable in a workshop — two readers arguing about a finding can see the same quoted words. No logic engine runs underneath and no claim is evaluated. Run the detector on your own drafts before anyone else's, because the habits it catches are cheapest to fix in the paragraph you have not fallen in love with yet.\n\n- A finding is a suspect, not a verdict; context can make the wording innocent.\n- The nine patterns are fixed; a fallacy with different wording passes unseen.\n- Sentence splitting is mechanical; long semicolon chains read as one sentence.\n- The report ranks nothing — the order is the passage's order.\n- The passage is not stored, so copy the report before closing the page.\n\nRead each finding against its sentence rather than the count: an appeal to authority in a literature review is how the genre works, and a slippery slope in a satire may be the joke. The tool's value is that it makes you look — every finding is a place a sceptical reader will slow down, and the quoted sentence tells you whether the slowness is your problem. Then run the passage again after edits: the detector is deterministic, so the before-and-after findings are comparable, and a passage that sheds its findings without losing its force is the goal. Keep the strongest sentences and cut the ones that survive only on volume.\n\nThe neighbours finish the audit: the counterargument generator drafts the objections the passage has not met, the argument mapping tool structures the reasons underneath it, and the clarity score tool flags the sentences that stumble before they persuade. The tone analyzer in this domain catches the emotional register the appeal-to-emotion rule points at.",
+    howTo: [
+      { step: "Paste the passage into the input panel." },
+      { step: "Read the findings with their quoted sentences." },
+      { step: "Judge each finding against its context." },
+      { step: "Copy the report, edit, and run the passage again." },
+    ],
+    whenToUse:
+      "Use the logical fallacy detector when a passage must survive hostile readers — a review, a debate, an op-ed. The {{counterargument-generator|Counterargument Generator}} drafts the objections the wording invites, and the {{argument-mapping-tool|Argument Mapping Tool}} rebuilds the structure the findings point at. When the problem is register rather than logic, the tone analyzer in this domain names the drift, and the clarity score tool cleans the sentences.",
     faqs: [
       {
-        q: "Does it prove an argument is fallacious?",
-        a: "No. It matches a documented list of cue phrases and names the fallacy each usually signals. A flagged sentence may be perfectly sound, and an unsound argument may contain none of the cues, so treat a finding as a place to look rather than a verdict.",
+        q: "Which fallacies does the detector know?",
+        a: "Nine published patterns: appeal to popularity, false dilemma, hasty generalisation, slippery slope, ad hominem, straw man, appeal to authority, circular reasoning and appeal to emotion. Each rule is a set of phrase patterns, and the list is fixed.",
       },
       {
-        q: "Which fallacies are covered?",
-        a: "The common informal ones, each with its cue phrases: appeal to popularity, false dilemma, hasty generalisation, slippery slope, ad hominem, straw man, appeal to authority, circular reasoning and appeal to emotion. The full list is shown on the page.",
+        q: "It flagged my sentence — is it a fallacy?",
+        a: "It is a suspect. The rule matched the wording a fallacy usually travels in, but context decides: citing an authority is normal in a literature review, and always can be literal. Read the quoted sentence and judge.",
       },
       {
-        q: "Is a language model used?",
-        a: "No. There is no model and no network call. The detector is a fixed set of patterns, so the same passage always produces the same findings, and you can read exactly why each one was flagged.",
+        q: "Why quote the whole sentence?",
+        a: "So the finding points somewhere. A score without evidence teaches nothing; the quoted sentence lets you see exactly which words tripped the rule and whether they are a problem in context.",
       },
       {
-        q: "Is the passage uploaded?",
-        a: "No. There is no account and no upload, and the text lives only in the tab where you pasted it, so unpublished work stays private.",
+        q: "Does a clean pass mean the argument is sound?",
+        a: "No. The detector matches wording patterns; an unsound argument in careful wording passes clean. The tool narrows where to look, and the scope panel states that limit plainly.",
       },
       {
-        q: "Why does the tool explain each pattern?",
-        a: "Because the point is to learn to spot the pattern, not to accept a flag. Each finding carries a one-line description of what the fallacy does, so the cue and the reasoning behind it are visible together.",
+        q: "Is my passage uploaded anywhere?",
+        a: "No. The split, the matching and the report all run in the page from the text you pasted, and the passage is gone when the tab closes unless you copied the report.",
       },
     ],
   },
 
   "thesis-statement-builder": {
-    keywords: ["thesis statement builder", "thesis statement", "position", "reasons", "hedge"],
-    intro:
-      "The thesis statement builder assembles a thesis from a topic, a position and its reasons, then flags the wording habits that weaken it — a hedge that softens the claim, a vague word, or a length that became a paragraph.",
-    content: `The thesis statement builder starts from the parts of a thesis rather than from prose. You give it a topic, a position and the reasons behind the claim, and it assembles the sentence — joining the topic and the position into a claim and attaching the reasons with "because". Working from parts keeps the two things a thesis needs separate: a subject, and something arguable said about it. A sentence that names a subject without taking a position is a topic, not a thesis, and the builder's split makes that visible.
-
-The wording checks are the second half, and they are about shape, not truth. The tool flags a hedge — "I think", "maybe", "in my opinion" — because a hedge removes the claim the essay is supposed to defend; it flags vague words such as "things", "society" or "important", because a claim built on them cannot be argued against; and it flags a thesis that has grown past forty words, which usually means two claims have been fused into one sentence. It also asks for reasons when none are given, since a thesis that says why it is true is easier to argue and easier to read.
-
-Those checks are prompts, and the page says so. A hedge is sometimes a deliberate signal of scope, "society" is occasionally the precise word, and a field may expect a roadmap sentence rather than a single claim. What the tool guarantees is that the shape is visible: the assembled sentence sits above the checks, so a writer can see what was built and decide what to change.
-
-Because the thesis is a pure function of the parts you enter, the same parts always produce the same sentence, and copying it into a draft is a single action. The tool writes no supporting paragraph and knows nothing about your discipline's conventions — some expect the thesis at the end of a first paragraph and others in an abstract — so it makes the claim's shape visible and leaves the placement and the argument to the writer.
-
-Nothing is uploaded and nothing is stored beyond the tab. It is a small, deterministic assembler with honest checks: the sentence is yours, and the tool's job is to make sure it is a sentence that can be argued with.
-
-Working from parts also makes revision concrete. If the checks flag a hedge, the fix is one field; if they flag a vague word, the position field is where it lives; if the thesis is too long, the reasons can move into the paragraph that follows, since a reason needing a clause of its own usually belongs in the argument rather than in the claim. Because the sentence is reassembled instantly, a writer can try several positions against the same set of reasons and see which one the evidence would actually support, which is a faster route to the arguable claim than editing prose by hand and losing track of what changed. Naming the position and the reasons in separate fields also keeps a later revision honest: when the evidence changes, the sentence that must change is the one the evidence bears on, not the whole paragraph around it.`,
-    howTo: [
-      { step: "Enter the topic and the position; a verb in the position makes it a claim." },
-      { step: "Add the reasons, one per line." },
-      { step: "Read the assembled thesis and its word count." },
-      { step: "Work through the checks for hedges, vague words and length." },
-      { step: "Copy or download the thesis and the report." },
+    keywords: [
+      "thesis statement builder",
+      "thesis statement",
+      "research question",
+      "three reasons",
     ],
-    whenToUse: `Use the thesis statement builder when a claim needs to be sharp before an essay is written around it. When the reasons behind the thesis need their evidence and warrants laid out, the {{argument-mapping-tool|Argument Mapping Tool}} is the next step, and when the essay's structure is the question the {{outline-builder|Outline Builder}} numbers the sections that will carry the argument.
-
-If the concern is that the drafting has drifted into an informal register, the {{academic-writing-tone-checker|Academic Writing Tone Checker}} measures that separately.`,
+    intro:
+      "The Thesis Statement Builder assembles a debatable thesis from a topic, a position and up to three reasons, then checks the habits that make a thesis gradeable.",
+    content:
+      "A thesis statement is a position someone could reasonably dispute, and this thesis statement builder assembles yours from three parts. Name the topic, state the position the paper defends, and list up to three reasons; the tool joins them into one sentence — topic, position, because, reasons — and checks the habits that separate a thesis from a topic sentence.\n\nThe thesis panel takes the three parts. The statement panel shows the assembled sentence with its word count, and the checks panel names the habits that weaken a thesis: hedging verbs like I think or in my opinion, vague nouns like things, stuff or society, a thesis with no reasons behind it, and a statement so agreed nobody needs to read the paper. Scope and limits says the tool assembles and checks; it cannot judge whether the position is true or whether the evidence will hold.\n\n- Topic: the subject the paper is about, named once and plainly.\n- Position: what the paper claims, phrased so a reasonable reader could disagree.\n- Reasons: up to three, joined with and or commas depending on the count.\n- Output: one sentence — topic, position, because, reasons — with a word count beside it.\n- Checks: hedging, vagueness, missing reasons, and the obviousness test.\n\nThe assembly is sentence composition: the topic and position are joined and capitalised, the reasons are joined with commas or and by count, and the whole is ended with a single period. The checks are pattern lookups over a fixed hedge list and a fixed vagueness list, so the same wording always produces the same notes. Nothing about the argument is inferred; the reasons are exactly as strong as you wrote them. Read the notes as editing instructions rather than verdicts, because each one points at a habit you can fix in a single pass.\n\n- The builder does not supply a position; a thesis without a real claim is a summary.\n- The vagueness list is fixed; a vague word outside it passes the check.\n- Three reasons is the structural maximum, not a quality guarantee.\n- The word count is information, not a limit; disciplines differ on length.\n- The sentence is not saved anywhere, so copy it before closing the page.\n\nWrite the reasons before the position and the sentence nearly writes itself: what the paper can actually prove decides what it should claim. Then read the thesis against the research question the paper answers — if the question asks why, the thesis must carry reasons, and if it asks whether, the position must be falsifiable. Test the statement by arguing its opposite: if no reasonable person would argue the other side, the position is a fact wearing a thesis statement's clothes, and the paper has nothing to defend. Keep the strongest reason last, because the because clause is the part a sceptical reader reads first, and trim hedges until the sentence would survive being said out loud in a seminar.\n\nThe neighbours carry the argument forward: the argument mapping tool structures the reasons into claim, evidence and warrant, the counterargument generator drafts the objections a reader will raise, and the outline builder turns the finished statement into sections. When the wording drifts academic, the academic writing tone checker pulls the register back.",
+    howTo: [
+      { step: "Fill the topic, the position and up to three reasons." },
+      { step: "Read the assembled statement and its word count." },
+      { step: "Work through the checks — hedging, vagueness, missing reasons." },
+      { step: "Copy the thesis and argue its opposite once before drafting." },
+    ],
+    whenToUse:
+      "Use the thesis statement builder when the research question is settled and the one-sentence answer is not. The {{argument-mapping-tool|Argument Mapping Tool}} structures the reasons the thesis lists, and the {{counterargument-generator|Counterargument Generator}} drafts the objections the paper must answer. When the statement needs to become a paper, the {{outline-builder|Outline Builder}} turns it into sections, and the academic writing tone checker in this domain keeps the register honest.",
     faqs: [
       {
-        q: "What makes a thesis different from a topic?",
-        a: "A position. A topic names a subject; a thesis says something arguable about it. The builder keeps the two as separate fields, so a subject without a position is visible rather than hidden inside a vague sentence.",
+        q: "Why does the thesis need reasons in it?",
+        a: "Because a thesis with reasons is a promise the paper can keep: each reason becomes a section, and the reader knows where the argument is going. The because clause is what separates a position from an announcement of a topic.",
       },
       {
-        q: "Why is a hedge a problem?",
-        a: "Because a thesis exists to be defended, and 'I think' or 'maybe' removes the claim before the argument starts. The check flags hedges as prompts; a deliberate qualifier may still be worth keeping.",
+        q: "What counts as a vague word?",
+        a: "A fixed list — things, stuff, society, people, interesting, important, good, bad — matched as whole words. The list catches the nouns that most often hide an unargued claim, though a vague phrase outside it will pass.",
       },
       {
-        q: "Does it write the supporting argument?",
-        a: "No. It assembles the thesis sentence and checks its wording. The reasons you enter are attached to the claim; the paragraphs that argue for them are yours to write.",
+        q: "Can the tool tell me if my thesis is good?",
+        a: "No. It checks mechanical habits — hedging, vagueness, structure — and says nothing about whether the position is true, original or defensible. Those are judgements for you and your reader.",
       },
       {
-        q: "Where does a thesis go?",
-        a: "That depends on the discipline and the assignment: often at the end of the introduction, sometimes in an abstract. The tool does not decide placement or check your field's conventions, and it says so on the page.",
+        q: "How long should the statement be?",
+        a: "Long enough to carry the reasons and short enough to hold in one breath, which for three reasons usually lands between twenty-five and forty words. The panel prints the count; no discipline-wide limit is enforced.",
       },
       {
-        q: "Is my thesis uploaded?",
-        a: "No. There is no account and no upload, and the parts stay in the tab, so an unpublished claim stays unpublished until you choose to share it.",
+        q: "Is my thesis sent anywhere?",
+        a: "No. The assembly and checks run in the page from the fields you typed, and the sentence disappears when the tab closes unless you copied it first.",
       },
     ],
   },
 
   "argument-mapping-tool": {
-    keywords: ["argument mapping tool", "argument", "claim", "evidence", "warrant"],
-    intro:
-      "The argument mapping tool lays an argument out as a claim, the reasons behind it and, for each reason, the evidence and the warrant that connects the evidence to the claim — the step writers most often leave out.",
-    content: `The argument mapping tool is built around the oldest way to find a hole in an argument: write out the step that was left unstated. It asks for a claim, the reasons that support it, and for each reason the evidence behind it and the warrant — the assumption that makes the evidence relevant to the claim. Laying those out side by side is what turns a paragraph of confident prose into an argument you can inspect, because the warrant is exactly the part a fluent paragraph tends to skip.
-
-The warrant is worth dwelling on. Evidence rarely supports a claim on its own; the leap is a general principle that the writer usually holds without stating it. That a study found something is evidence; that the study's population resembles the reader's is a warrant, and it is often false in interesting ways. Writing the warrant down either confirms it or reveals that the argument rests on an assumption the writer never examined — which is the entire purpose of mapping an argument rather than just reading it back.
-
-The tool checks the structure as you build it. A reason with no evidence is an assertion, not support; a reason with no warrant has left its connecting step implicit; fewer than two reasons is usually too thin to stand on; and an argument with no objection named has probably not met its strongest counter. Those are prompts about shape, and the page says plainly that they say what is missing rather than whether the reasoning is sound.
-
-The map exports as a markdown document with a heading per reason, so it can sit beside a draft or a set of notes, and the report gathers the counts — how many reasons have evidence, how many have a warrant — with the checks. That makes revision concrete: the list of unwarranted reasons is the list of paragraphs that need another sentence, usually the sentence that explains why the evidence matters.
-
-Nothing is uploaded and nothing is stored beyond the tab. The tool evaluates no argument's validity, which is properly the work of logic and of a reader, and it generates none of the content. It provides the slots and the structural checks, and it leaves the thinking, which is where it belongs.
-
-Mapping an argument also makes collaboration simpler. A reader who can see the claim, the reasons and the warrants can say exactly which step they doubt — usually a warrant — instead of disagreeing with the whole piece, and the writer can answer that one step in a sentence. The same layout works as a plan before drafting: filling the slots forces the reasons to be found before the prose is written, and a claim with two warranted reasons and a named objection is most of an essay's argumentative work already done, leaving the paragraphs to do the linking and the illustration. Used recursively, the same three slots — claim, evidence, warrant — also make a paragraph's topic sentence testable, since a topic sentence is itself a claim and the sentences beneath it are expected to earn it.`,
-    howTo: [
-      { step: "State the claim in one sentence." },
-      { step: "Add each reason as reason | evidence | warrant, one per line." },
-      { step: "Name the strongest objection and your answer to it." },
-      { step: "Read the shape checks for reasons with no evidence or no warrant." },
-      { step: "Copy or download the map as markdown." },
+    keywords: [
+      "argument mapping tool",
+      "evidence",
+      "warrant",
+      "reasons",
     ],
-    whenToUse: `Use the argument mapping tool when a piece of persuasive writing needs its reasoning made explicit, especially the unstated warrants between evidence and claim. When the wording rather than the structure is the concern, the {{logical-fallacy-detector|Logical Fallacy Detector}} scans for the cue phrases of common fallacies, and when the central claim itself needs sharpening the {{thesis-statement-builder|Thesis Statement Builder}} assembles and checks it.
-
-If the argument is long enough to need sections, the {{outline-builder|Outline Builder}} numbers the structure that will carry it.`,
+    intro:
+      "The Argument Mapping Tool structures a conclusion and its reasons into claim, evidence and warrant, then reports which links are missing.",
+    content:
+      "An argument is only as strong as its weakest hidden link, and this argument mapping tool makes the links explicit. Give it a conclusion, at least two reasons, and for each reason the evidence that supports it and the warrant that connects the evidence to the claim; the tool renders the map as markdown, numbers the links, and reports which parts of the structure are missing.\n\nThe map panel holds the conclusion and the reason rows. Each reason carries its own evidence and warrant fields, so a reason with no evidence behind it is visible immediately. The output panel shows the assembled map — conclusion first, then each reason with its supports and the warrant that licenses the step — and the completeness panel reports the counts: reasons supplied, evidence supplied, warrants supplied. Scope and limits says the tool checks structure, not truth.\n\n- Conclusion: the claim the whole map exists to support.\n- Reasons: at least two, because one reason is an assertion rather than an argument.\n- Evidence: what the reason rests on — a figure, a source, an observation.\n- Warrant: the principle that makes the evidence count for the reason.\n- Output: markdown you can paste into notes, slides or a paper draft.\n- Completeness: a count of every link, so gaps cannot hide.\n\nThe rendering is markdown composition: the conclusion is written as a heading, each reason becomes a numbered block, and the evidence and warrant sit under their reason with labels. The completeness check is arithmetic — counts of filled and empty fields — and the checks panel names the specific gaps rather than scoring the whole. The map never evaluates whether the evidence is real or whether the warrant is sound; it shows you the shape so you can judge. Map the argument early and again after the objections land; a structure that survives its own counterarguments is the draft that gets to keep its conclusion.\n\n- A filled map is not a sound argument; evidence can be weak and warrants wrong.\n- Two reasons is the structural minimum, not an ideal count.\n- The tool does not rank reasons or order them by strength.\n- Warrants are the part writers skip; the panel flags a missing one by name.\n- The map is not stored, so copy the markdown before leaving the page.\n\nFill the warrants last and the map will teach you something: the warrant is where weak arguments hide, because a reason that feels obvious is usually resting on a principle nobody has stated out loud. Write each warrant as a sentence a sceptic could accept — when evidence of this kind holds, the conclusion follows — and the map stops being a diagram and becomes a test. Then read the reasons against each other: two reasons that both rest on the same warrant are one reason wearing two coats, and the completeness panel cannot catch that, only you can. When a reason resists a warrant, split it or cut it, because an argument with three honest links beats one with five decorative ones.\n\nThe neighbours test the map from outside: the logical fallacy detector scans the finished wording for named fallacy patterns, the counterargument generator drafts the objections the map has not answered, and the thesis statement builder compresses the conclusion into one sentence. The clarity score tool in this domain flags the sentences a reader will stumble over.",
+    howTo: [
+      { step: "Write the conclusion and at least two reasons." },
+      { step: "Add the evidence and the warrant for each reason." },
+      { step: "Read the completeness panel and fill the named gaps." },
+      { step: "Copy the markdown map into your draft or notes." },
+    ],
+    whenToUse:
+      "Use the argument mapping tool when a position feels right but the structure behind it is fog. The {{logical-fallacy-detector|Logical Fallacy Detector}} scans the wording for named fallacies, and the {{counterargument-generator|Counterargument Generator}} drafts what an opponent would say to the map. When the conclusion needs one sentence, the {{thesis-statement-builder|Thesis Statement Builder}} compresses it, and the clarity score tool in this domain cleans up the prose.",
     faqs: [
       {
-        q: "What is a warrant?",
-        a: "The general principle that makes a piece of evidence relevant to a claim — the unstated step between them. Writing it down either confirms the argument or reveals an assumption the writer never examined, which is why the field exists.",
+        q: "What is a warrant, exactly?",
+        a: "The principle that makes the evidence count for the reason: if the evidence is this survey of two hundred users, the warrant is that two hundred users are enough to represent the group. Warrants are the links writers leave implicit, which is where bad arguments hide.",
       },
       {
-        q: "Does it judge whether my argument is valid?",
-        a: "No. It checks the structure: reasons, evidence, warrants, an objection and a rebuttal. Whether the reasoning holds is a matter of logic and of what the evidence actually shows, and the tool does not attempt it.",
+        q: "Why is one reason not enough?",
+        a: "A single reason makes the conclusion rest entirely on one link, so the map cannot show whether the argument has breadth. Two reasons is the minimum for a structure worth reading; the tool enforces the floor without pretending it is a virtue.",
       },
       {
-        q: "How many reasons does an argument need?",
-        a: "There is no fixed number, but the tool asks for at least two before it stops prompting, because a claim resting on a single reason is usually either too broad or not yet thought through.",
+        q: "Does the tool check my evidence?",
+        a: "No. It records what you supply and reports whether the fields are filled. Whether the evidence is real, current or relevant is outside the tool's reach, and the scope panel says so.",
       },
       {
-        q: "Why name an objection?",
-        a: "Because an argument that never meets its strongest counterargument is weaker for it, and naming the objection is the step that forces you to answer it. The tool asks for the objection and the rebuttal as separate fields.",
+        q: "What format is the output?",
+        a: "Markdown: the conclusion as a heading, each reason as a numbered block with labelled evidence and warrant lines. Paste it into notes, a paper draft or a slide's speaker notes and the structure survives.",
       },
       {
-        q: "Is the map stored?",
-        a: "Only in the tab, plus whatever you copy or download. There is no account and no upload, so an unpublished argument stays private.",
+        q: "Is my argument kept anywhere?",
+        a: "No. The map is assembled in the page from what you typed, and nothing is stored or transmitted; the markdown is gone when the tab closes unless you copied it.",
       },
     ],
   },
 
   "survey-question-builder": {
-    keywords: ["survey question builder", "survey questions", "leading", "double-barrelled", "loaded"],
-    intro:
-      "The survey question builder checks a questionnaire for the wording problems that quietly ruin data: leading questions, double-barrelled ones, absolutes, loaded words and questions too long to read once.",
-    content: `The survey question builder is a wording checker for questionnaires, and wording is where a great deal of survey data goes wrong before a single response is collected. It reads your survey questions, one per line, and flags the mechanical problems each one carries, naming the exact phrase it found so the fix is obvious: a leading question that suggests its own answer, a double-barrelled one that asks two things at once, an absolute that forces a position, a loaded word that pushes the response, or a question long enough that a respondent will lose the thread before the end.
-
-Those five checks cover the most common failures. A double-barrelled question is especially costly, because a single answer cannot be read back: "How satisfied are you with the price and the support?" mixes two dimensions, and a middling score tells you nothing about which one disappointed. An absolute such as "always" or "all" leaves no room for the ordinary case, and a loaded word — "reckless", "bureaucratic" — has already argued with the respondent before they answer. Spotting each in a list before the survey goes out is far cheaper than discovering it in unusable data afterwards.
-
-The tool also lists the standard question types — multiple choice, single choice, rating scale, open text, yes/no and ranking — because the type shapes what an answer can mean. A rating scale produces a number that can be compared; an open question produces language that has to be coded. Deciding the type before writing the question is part of writing it well, and the page says as much rather than leaving it implicit.
-
-It is careful about its own limits. A flagged question is a prompt, not an error: a word can be loaded in one field and neutral in another, and a short indirect question can still be leading. The tool judges wording only — not sampling, not question order, not response scales and not whether a question is worth asking, which are research decisions no wording checker can make.
-
-Nothing is uploaded and nothing is stored beyond the tab, so draft questions stay private. And because the analysis is deterministic, the same question always produces the same list of issues, which makes the report something a research team can read and argue about rather than take on trust.
-
-Wording checks are cheapest at the drafting stage and most expensive later. Once a survey is in the field, a double-barrelled question cannot be fixed without either discarding the responses or fielding a corrected version, and both cost far more than the few minutes the check takes. Reading the flagged list out loud is a useful habit on its own: the phrasing that pushes an answer is usually audible, and a question that cannot be read in one breath is the one most likely to be abandoned half-finished by a respondent answering on a phone in a queue. Each check also names the phrase it matched, so a disputed flag can be argued about on the wording itself rather than on the tool's opinion of the question.`,
-    howTo: [
-      { step: "Write each survey question on its own line." },
-      { step: "Read the analysis: leading, double-barrelled, absolute and loaded wording, and length." },
-      { step: "Check the named phrase in each flagged question and decide whether the wording is deliberate." },
-      { step: "Note the question types listed and match each question to the answer it should produce." },
-      { step: "Copy or download the report for the team." },
+    keywords: [
+      "survey question builder",
+      "leading question",
+      "double-barrelled",
+      "respondent",
     ],
-    whenToUse: `Use the survey question builder when a questionnaire is being drafted and the wording needs a check before it goes out. When the questions are really the evidence for an argument about people's views, the {{argument-mapping-tool|Argument Mapping Tool}} lays out how that evidence supports a claim, and when the questionnaire accompanies a paper the {{peer-review-checklist|Peer Review Checklist}} covers the manuscript's own sections.
-
-If the questionnaire is short and the concern is only its length, the {{word-count-tool|Word Count Tool}} answers that in one step.`,
+    intro:
+      "The Survey Question Builder checks each question against the four faults that ruin response data — leading, double-barrelled, absolute and loaded wording — and reports them per question.",
+    content:
+      "A survey is only as honest as its worst question, and this survey question builder reads every line the way a respondent's bias would. Paste the questions — one per line — and the tool checks each against the four published faults: leading wording that suggests the answer, double-barrelled questions that ask two things at once, absolutes that force a position, and loaded words that carry an evaluation; each question also gets a word count, because a question that cannot be read in one breath cannot be answered honestly.\n\nThe questions panel takes the lines. The report panel lists every question with its issues — the rule name, the note, and the word count — so a question with two faults shows both, and the summary counts the clean questions against the rest. The answer-type guide beside the panel pairs each question with the scale it suits: frequency, agreement, or the respondent's own words. Scope and limits says the builder detects wording patterns; it cannot know your respondents.\n\n- Four rules: leading, double-barrelled, absolute, loaded.\n- Leading: don't you agree, isn't it, obviously, clearly, surely.\n- Double-barrelled: any and or or that joins two asks in one question.\n- Absolute: always, never, every, everyone, all, none, only.\n- Loaded: radical, reckless, bureaucratic, dangerous, obvious, backward.\n- Per-question word count, with long questions named.\n\nThe analysis is rule matching: each line is checked against the four pattern sets, matched as whole words, and the word count runs from the shared tokenizer. The same survey always produces the same report, which makes the tool usable in a methods seminar — students can compare their rewrites against the same faults. Sort the report by fault rather than by line, because fixing every double-barrelled question in one pass teaches the habit faster than fixing one question at a time. No sampling knowledge is applied and no question is rewritten for you. Run the set through the report after every rewrite round; the clean count rising is the instrument getting ready for the field.\n\n- The rules catch wording habits; a leading question in careful words passes.\n- The and test is strict: two genuinely single ideas joined by and are flagged anyway.\n- The word-count line is guidance, not a limit.\n- Answer types are advice beside the panel, not enforced structure.\n- Nothing is stored, so copy the report before revising.\n\nFix the double-barrelled questions first — split every and into two lines — because they corrupt the data silently: a respondent who agrees with half the question has nowhere to put the disagreement, and no statistical cleaning recovers it. Then blunt the leading questions by deleting the adverb, not rephrasing the ask: obviously and clearly are the words that do the leading, and the sentence behind them is usually fine. Absolutes come next, because always and never force respondents who mean sometimes to choose a lie. Read the finished survey as the respondent — one breath per question, one idea per line, no adjective the data cannot cash.\n\nThe neighbours clean the surrounding documents: the readability grade scorer shows how plain the instrument reads, the IRB consent form template carries the study's ethics wrapper, and the meeting summary formatter structures the findings session afterwards. The tone analyzer in this domain catches the register that drifts formal.",
+    howTo: [
+      { step: "Paste the questions, one per line." },
+      { step: "Read each question's issues and word count." },
+      { step: "Split double-barrelled lines and delete leading adverbs." },
+      { step: "Re-paste the revised set until the report is clean." },
+    ],
+    whenToUse:
+      "Use the survey question builder when an instrument exists and the fielding date is close. The {{readability-grade-scorer|Readability Grade Scorer}} shows how plain the questions read, and the {{irb-consent-form-template|IRB Consent Form Template}} builds the consent wrapper the survey ships with. When the results come back, the {{meeting-summary-formatter|Meeting Summary Formatter}} structures the readout, and the tone analyzer in this domain keeps the follow-up neutral.",
     faqs: [
       {
-        q: "What is a double-barrelled question?",
-        a: "One that asks two things at once, such as satisfaction with both price and support. A single answer cannot be read back to either, so a middling score tells you nothing about which part disappointed; the tool flags the joining word it found.",
+        q: "What are the four faults?",
+        a: "Leading — wording that suggests the answer; double-barrelled — two asks joined by and or or; absolute — always, never, every and friends that force a false position; loaded — words like radical or dangerous that carry the evaluation inside the question. Each rule is a fixed word list.",
       },
       {
-        q: "Why flag absolutes like always and all?",
-        a: "Because they force respondents into a position that may not describe them. A question that offers only 'always' and 'never' leaves out the ordinary case, which is usually where most of the answers would fall.",
+        q: "Why is every and flagged?",
+        a: "Because the test cannot tell a true compound ask from two ideas stapled together, and the safe fix is the same either way: split the line into two questions. The rule is strict on purpose, and the note tells you which word triggered it.",
       },
       {
-        q: "Does it check the survey design?",
-        a: "No. It checks wording only: leading, double-barrelled, absolute and loaded phrasing, and overall length. Sampling, question order, scales and whether the question is worth asking are research decisions the tool does not attempt.",
+        q: "How long should a question be?",
+        a: "Short enough to read in one breath — the report names questions past the comfortable band. Length is guidance rather than a rule, because a technical question sometimes needs its clause.",
       },
       {
-        q: "Can a flagged question still be right?",
-        a: "Yes. A word can be loaded in one field and neutral in another, and a deliberately leading question can be a valid design choice. The finding is a prompt to look, and the page says so.",
+        q: "Does the builder rewrite my questions?",
+        a: "No. It names the fault, quotes the note and moves on; the rewrite is the researcher's job, which is where the judgement lives. The scope note states the boundary.",
       },
       {
-        q: "Is my questionnaire uploaded?",
-        a: "No. There is no account and no upload, and the questions stay in the tab, so an unreleased survey stays private.",
+        q: "Is my survey stored?",
+        a: "No. The analysis runs in the page from the lines you pasted, and nothing is stored or sent; the report is gone when the tab closes unless you copied it.",
       },
     ],
   },
 
   "peer-review-checklist": {
-    keywords: ["peer review checklist", "peer review", "manuscript", "sections", "limitations"],
-    intro:
-      "The peer review checklist walks a reviewer through the manuscript section by section — summary, introduction, methods, results, discussion and presentation — with progress and a copyable report.",
-    content: `The peer review checklist is a reading aid for a reviewer, organised the way a manuscript is. It states the twelve questions a reviewer conventionally brings to a paper — does the abstract say what was actually done, is the research question answerable, could the methods be repeated from the text, do the results support the claims in the discussion, are the limitations named honestly — grouped into the sections they belong to. Working through the list in order makes a review systematic, and it makes it harder to reach the end of a paper without having noticed that, say, the ethics section or the limitations paragraph is missing.
-
-The grouping matters as much as the items. A paper has a shape, and each section does a specific job: the introduction positions a question against the literature, the methods describe how it was answered, the results report what was found, and the discussion says what it means and what it does not. A checklist that mirrors that shape turns "review this paper" into a sequence of small, answerable questions, which is both faster and less likely to skim past a section that merely looks complete.
-
-Progress is tracked overall and by section, so a reviewer can see at a glance which parts of the manuscript still need attention. The report marks every item checked and includes any notes you have attached, producing a structured summary that can be pasted into a review form or a decision letter and then edited in the reviewer's own words. It organises the reading and the note-taking; it does not assess the paper.
-
-That distinction is stated on the page. The checklist cannot know a journal's own reviewer form, cannot judge whether a method is appropriate to a question, and cannot tell a strong paper from a weak one — those judgements need a reader's expertise. What it can do is make sure the reader asked each conventional question before writing the review, which is the failure mode a checklist exists to prevent.
-
-Nothing is uploaded and nothing is stored beyond the tab: no manuscript, no notes, no identity. A reviewer can work through a confidential submission here and copy only the finished report, and the page makes clear that the checklist is a structure for the reviewer's own judgement rather than a substitute for it.
-
-A checklist is most useful at the two ends of a review. Before reading, it sets out what to look for, so the first pass is deliberate rather than impressionistic; after reading, it is a way to check that the review answers each of the conventional questions before it is sent. Reviews that come back as a single paragraph of reaction with no mention of methods or limitations are a familiar complaint, and working through the items is a cheap guard against writing one, because an unticked item is a question the review has not yet addressed at all. The notes field is where the substance of the review accumulates as you read; the checklist only keeps each note attached to the item that prompted it.`,
-    howTo: [
-      { step: "Read the manuscript, ticking each item as you check for it." },
-      { step: "Watch the progress by section to see which parts of the paper still need attention." },
-      { step: "Note the items you cannot tick; they are the review's open questions." },
-      { step: "Copy the report, which marks every item and carries your notes." },
-      { step: "Paste it into your review system and rewrite it in your own words." },
+    keywords: [
+      "peer review checklist",
+      "reproducible",
+      "limitations",
+      "reviewer",
     ],
-    whenToUse: `Use the peer review checklist when you are reviewing a manuscript and want a systematic pass rather than a run-through. When the paper's citations need checking, the {{citation-formatter|Citation Formatter}} covers the styles the manuscript is likely to use, and when the prose register is the concern the {{academic-writing-tone-checker|Academic Writing Tone Checker}} measures that.
-
-If you are preparing your own submission rather than reviewing someone else's, the {{manuscript-formatter|Manuscript Formatter}} handles the typography and the counts a submission form expects.`,
+    intro:
+      "The Peer Review Checklist walks a manuscript through twelve published review questions in six sections, tracks progress, and assembles the reviewer's report from your notes.",
+    content:
+      "A review is a service, and this peer review checklist keeps it thorough instead of loud. The tool carries twelve questions across six sections — summary, introduction, methods, results, discussion and presentation — from whether the abstract states what was actually done to whether the references are complete and the figures legible. Tick the questions as you verify them, attach a note to any question you answered no, and the tool assembles the review report: section by section, the verified strengths, the named problems and your notes in the reviewers' usual order.\n\nThe checklist panel shows the twelve questions grouped by section, each with its tick box and its note field. The progress panel counts the answered questions by section, so the sections you have quietly skipped are visible, and the report panel assembles the finished review — the checklist's structure becomes the report's headings. Scope and limits says the checklist organises your judgement; it does not replace it.\n\n- Twelve questions: the published concerns a reviewer owes every manuscript.\n- Six sections: summary, introduction, methods, results, discussion, presentation.\n- Notes per question: the reason behind every no, captured where it was found.\n- Progress: answered counts per section, so gaps cannot hide.\n- Report: the ticks and notes assembled into a pasteable review.\n\nThe mechanics are checklist state: each question holds its tick and its note, the progress counts run per section, and the report is the state rendered in order. The questions are fixed and published — whether the methods are reproducible, whether the statistics are reported in judgeable detail, whether the limitations are named honestly, whether the conclusion follows from the evidence — so two reviewers using the tool are reviewing the same manuscript against the same floor.\n\n- The checklist is the floor of a review, not the ceiling; expertise adds the rest.\n- A ticked box records a check, not a virtue.\n- The report is plain text; your venue's form may want its own shape.\n- Anonymous or signed, the report reads the same — the tool takes no side.\n- Nothing is stored, so copy the report before closing the tab.\n\nAnswer the methods section first and the review gets fairer: reproducibility is where most manuscripts fail, and a reviewer who has verified the methods section reads the results with calibrated trust rather than inherited optimism. Write the note while the no is fresh — a note written from memory a week later defends the author's feelings instead of the manuscript — and keep every note about the work, never the author, because the checklist's flat tone is the review's best etiquette. Read the progress panel before submitting: the section with zero answers is the section your report will be asked about, and it is better asked now. Then read the assembled report once as the author would — every no with its reason, every strength named — and cut any sentence you would not sign.\n\nThe neighbours check the surface the review walks on: the readability grade scorer shows how hard the prose runs, the clarity score tool names the sentences that stumble, and the scientific abstract builder tightens the summary section the first question tests. The academic writing tone checker in this domain keeps the report's register even.",
+    howTo: [
+      { step: "Read the manuscript with the twelve questions open." },
+      { step: "Tick each question you can verify and note every no." },
+      { step: "Watch the progress panel for the sections you skipped." },
+      { step: "Copy the assembled report and read it once as the author." },
+    ],
+    whenToUse:
+      "Use the peer review checklist when a manuscript is open in one window and your duty to it in the other. The {{readability-grade-scorer|Readability Grade Scorer}} measures the prose the presentation questions ask about, and the {{clarity-score-tool|Clarity Score Tool}} names the sentences to quote in the report. When the summary question fails, the {{scientific-abstract-builder|Scientific Abstract Builder}} shows what the abstract owed, and the academic writing tone checker in this domain levels the report's tone.",
     faqs: [
       {
-        q: "Does the checklist assess the paper?",
-        a: "No. It gives the reviewer the conventional questions and tracks which ones have been answered. Whether a method is appropriate or a claim is supported needs a reader's expertise, and the tool does not attempt that judgement.",
+        q: "What are the twelve questions?",
+        a: "Two on the summary, two on the introduction, three on methods including reproducibility and ethics, two on results including the statistics, two on discussion including honest limitations, and one on presentation. Each is a published concern, phrased as a checkable question.",
       },
       {
-        q: "Which sections are covered?",
-        a: "Summary, introduction, methods, results, discussion and presentation, with twelve items spread across them — from whether the abstract states what was done to whether the references are complete and the figures legible.",
+        q: "Why does section order matter in the report?",
+        a: "Because it is the order editors and authors read in: summary first, presentation last. The assembled report keeps that order so the reader's first impression is the work's own structure, not the reviewer's mood.",
       },
       {
-        q: "Can I add my own notes?",
-        a: "Yes, notes attach to items and appear in the report beneath them, so the ticks and your comments travel together into whichever review system you submit through.",
+        q: "Should every no carry a note?",
+        a: "Yes. A ticked no without a reason is an assertion the author cannot act on, and the note field sits beside the question precisely so the reason is captured where it was found.",
       },
       {
-        q: "Is the manuscript stored anywhere?",
-        a: "No. Nothing is uploaded and there is no account; the checklist holds only your ticks and notes in the tab, so a confidential submission stays confidential.",
+        q: "Does the checklist write the review for me?",
+        a: "No. It structures the questions, tracks the progress and assembles your ticks and notes into report form. The judgement — and the fairness — remain entirely yours.",
       },
       {
-        q: "Does it match my journal's reviewer form?",
-        a: "No. Journals have their own forms and criteria, and this is a general checklist based on the sections a paper has. Use it to structure your reading, then transfer the report into the journal's form.",
+        q: "Is the review saved between sessions?",
+        a: "No. The checklist state lives in the page, so finish the session or copy the report before closing the tab; nothing is stored or transmitted.",
       },
     ],
   },

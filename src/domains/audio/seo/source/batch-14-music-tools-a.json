@@ -1,0 +1,422 @@
+[
+  {
+    "slug": "bpm-calculator",
+    "keywords": ["beats", "duration", "beats per minute", "bar"],
+    "intro": "BPM Calculator works out the tempo of a piece from a beat count and the time it took. Count any whole number of beats, note how long they lasted, and the tempo falls out of the division.",
+    "content": "Enter the number of beats and the duration they spanned, and the tempo appears with the duration of one beat and of one bar in common time.\n\nThe inputs and the readout:\n\n- A beat count from one to a thousand, defaulting to thirty two.\n- A duration in seconds from a hundredth to an hour, defaulting to fifteen and two tenths.\n- A result showing the tempo to two decimal places, the length of one beat in milliseconds, and the length of one bar in four four time.\n- A tip reminding you that counting a whole section is more accurate than counting a few beats.\n\nThe arithmetic is one division. Beats divided by seconds gives beats per second, which multiplied by sixty gives beats per minute; the reciprocal, multiplied by a thousand, gives the length of one beat in milliseconds, and four of those make a bar in common time. The reason the tool asks for a beat count rather than a time signature is that tempo does not depend on the meter at all. Eight bars of four four and four bars of eight four contain the same thirty two beats, so either produces the same answer, and the bar figure that appears in the result is offered as a convenience in four four rather than as a claim about what the music is written in. Accuracy comes entirely from the measurement. Counting a handful of beats means that a small timing error at either end is divided by a small number and comes out large; counting thirty two beats spreads the same error over eight times as much material, which is why the tip suggests counting a whole section. Reading the figure to two decimals also makes it obvious when a round tempo is intended: a piece that is meant to be at a hundred and twenty will show a hundred and nineteen point eight or a hundred and twenty point three rather than landing exactly, and that difference is measurement error rather than a real tempo.\n\nWhat it does not do:\n\n- It does not listen to the audio, so the beat count has to come from you.\n- No tap input, so a tempo you feel rather than count needs the other tool.\n- Nothing is inferred about the meter, and the bar figure always assumes four four.\n- The answer is only as precise as the duration you type.\n- No history, so a second measurement replaces the first.\n- Nothing is stored or uploaded; the calculation runs in the page.\n\nUse it when you already know how many beats passed and can time them, which covers most cases where someone needs a tempo: reading it off a recording section by section, confirming a figure written on a chart, or working out what a rehearsal tempo actually was. When the tempo is easier to feel than to count, tap tempo measures it from the intervals between taps instead, and when the tempo is known and the useful question is how long a bar lasts, the time signature calculator answers that with the meter included.",
+    "howTo": [
+      "Play the track and count beats across a whole section rather than a few bars.",
+      "Enter the total beat count in the first field.",
+      "Enter the duration those beats covered, in seconds.",
+      "Read the tempo, the beat length in milliseconds, and the bar length."
+    ],
+    "whenToUse": "BPM Calculator is the tool when you have a beat count and a stopwatch reading, which is the most reliable pair of measurements available without software. {{tap-tempo|Tap Tempo}} takes the tempo from the rhythm you tap instead of from numbers. Once the tempo is known, {{delay-time-calculator|Delay Time Calculator}} turns it into note-division times and {{time-signature-calculator|Time Signature Calculator}} turns it into bar lengths for any meter.",
+    "faqs": [
+      {
+        "q": "How many beats should I count?",
+        "a": "As many as the section allows. The error in a stopwatch reading is roughly fixed, so spreading it over thirty two beats rather than eight divides it by four. Counting a full verse or a chorus and entering the total is usually accurate to a fraction of a beat per minute."
+      },
+      {
+        "q": "Does the meter matter for the answer?",
+        "a": "Not for the tempo, because tempo is beats per minute whatever those beats are grouped into. The bar length shown in the result assumes four four, which is the most common grouping; for other meters, the time signature calculator gives the bar length that matches the music."
+      },
+      {
+        "q": "Why does my answer come out slightly off a round number?",
+        "a": "Because human counting and stopping are approximate. A tempo that should read a hundred and twenty commonly comes out a few tenths either side. If it sits within about half a beat per minute of a round figure, that figure is almost certainly the intended one."
+      },
+      {
+        "q": "Can I use it to find the tempo of a live performance?",
+        "a": "Yes, and it is one of the better uses for it, since a live performance often has no fixed tempo to look up. Count a long stretch rather than a short one, and remember that a band that drifts will give a figure somewhere in the middle of its range."
+      },
+      {
+        "q": "Does it tell me the time signature?",
+        "a": "No. Knowing that there are a hundred and twenty beats per minute says nothing about whether they are grouped in fours or threes. That information has to come from the music, and the time signature calculator is the tool that turns a meter into durations once you know it."
+      }
+    ]
+  },
+  {
+    "slug": "tap-tempo",
+    "keywords": ["tap", "median", "interval", "taps"],
+    "intro": "Tap Tempo measures a tempo from the intervals between your taps. Keep tapping along with the music and the reading settles, because the figure comes from the median interval rather than from the last one.",
+    "content": "Tap the pad in time with the music and the tempo appears after two taps, steadying as you keep going.\n\nThe interface:\n\n- A large tap pad that registers a tap on every press.\n- A reading that appears once there are at least two taps, showing the tempo to one decimal place and the number of taps so far.\n- A line giving the most recent interval in milliseconds, which is useful for spotting a tap that went astray.\n- A reset control that clears the taps and starts the measurement again.\n\nTwo details make the reading trustworthy. The first is that the tempo is taken from the median of the intervals between taps rather than from their average or from the most recent one. A median ignores outliers by construction: if you double-tap once or miss a beat, that interval is either very short or very long, and with a median it simply sits at one end of the sorted list without moving the middle. An average would be dragged toward it, and using only the last interval would throw the whole reading away. The second is a sixty millisecond debounce. A single physical press can register twice on some input devices, which would produce an interval near zero and, without the guard, a wildly inflated tempo; anything arriving within sixty milliseconds of the previous tap is discarded as a duplicate rather than counted. The tap list is capped at thirty two entries, so the reading reflects recent taps rather than everything since you started, which means it follows a performance that drifts rather than averaging across it. Tapping in time is itself an inexact process, so a steady readout after eight or ten taps is a better sign of a real tempo than an exact landing on a round number.\n\nWhere it is limited:\n\n- Only as accurate as your tapping, so a reading can settle a beat per minute away from the true tempo.\n- No audio input, so it measures you rather than the recording.\n- Nothing is stored between sessions and nothing is uploaded.\n- The tap list is thirty two entries, after which older taps fall away.\n- Very fast or very slow tempos are harder to tap consistently than moderate ones.\n- No subdivision or meter information, only a single tempo figure.\n\nUse it when the tempo is easier to feel than to count: matching a click to a live take, working out what a groove actually sits at, or setting a delay by ear before checking the number. When you have a beat count and a stopwatch reading instead, the BPM calculator does the division without relying on reflex, and once the tempo is settled the delay time calculator and the metronome put it to work. Tapping is a skill as much as a measurement, so the reading improves with practice: a steady hand on the pad after ten taps is a better indication of a real tempo than a figure that lands exactly on a round number, because a consistent offset in your own timing cancels out in the intervals while a random one does not. If two readings a minute apart agree, the figure is almost certainly right.",
+    "howTo": [
+      "Start the music playing and tap the pad on the beat.",
+      "Keep tapping for eight or ten beats so the reading settles.",
+      "Watch the reported interval to check that no tap went astray.",
+      "Press reset and tap again if the reading looks wrong."
+    ],
+    "whenToUse": "Tap Tempo is the fastest way to get a number for a tempo you can feel, whether the source is a recording or a room. {{bpm-calculator|BPM Calculator}} is the more deliberate route, requiring a counted section and a stopwatch reading instead of rhythm. Once you have the figure, {{metronome|Metronome}} and {{click-track-generator|Click Track Generator}} turn it into a click to play against, and {{delay-time-calculator|Delay Time Calculator}} turns it into note-division times.",
+    "faqs": [
+      {
+        "q": "Why does the reading settle rather than jump around?",
+        "a": "Because it uses the median interval. When you tap a little early or late, that interval lands at one end of the sorted list and the middle value barely moves, so the number drifts gently rather than swinging. It also means a single bad tap cannot ruin the reading."
+      },
+      {
+        "q": "What if a tap does not register?",
+        "a": "The interval around the miss becomes twice as long as the others, which sits at the top of the sorted list. With several taps already recorded the median absorbs it, but the reported interval line is the quick way to spot it, and a reset followed by a fresh set of taps clears it entirely."
+      },
+      {
+        "q": "Why does a double tap not break it?",
+        "a": "Any tap arriving within sixty milliseconds of the previous one is ignored, which is shorter than any musical interval you would be tapping. That guard exists because a single press can register twice on some pointing devices, and an interval of nearly zero would otherwise read as an enormous tempo."
+      },
+      {
+        "q": "How accurate is tapping compared with counting?",
+        "a": "Counting with a stopwatch is more accurate over a long section, because a fixed reading error is spread across many beats. Tapping depends on reflex, which varies by twenty or thirty milliseconds either way. For most purposes the difference does not matter, but a figure that has to be exact is better measured."
+      },
+      {
+        "q": "Does the tempo follow the music if it changes?",
+        "a": "It follows your recent taps, since only the last thirty two are kept, so a tempo that drifts will show up as a slowly moving number. For a piece with deliberate tempo changes, tapping through each section and noting the figure separately gives a more useful picture than one average."
+      }
+    ]
+  },
+  {
+    "slug": "delay-time-calculator",
+    "keywords": ["divisions", "dotted", "triplet", "modulation rate"],
+    "intro": "Delay Time Calculator turns a tempo into the delay times every note division needs, with straight, dotted and triplet values side by side. It is the table a mixing engineer reaches for before touching a delay.",
+    "content": "Enter a tempo and the table fills in with twelve divisions, each showing its straight time in milliseconds, its dotted and triplet equivalents, and the modulation rate that corresponds to it.\n\nThe table and its columns:\n\n- Twelve divisions from a whole note down to a thirty second, labelled in the usual way.\n- Three timing columns per row: the straight value, the dotted value at one and a half times it, and the triplet value at two thirds.\n- A fourth column giving the frequency that corresponds to each division, which is the modulation rate to dial into a chorus or tremolo that should sit in time.\n- A footnote naming the classic settings, including the eighth note dotted for a wide stereo ping-pong delay.\n\nEverything in the table is derived from one number, the length of a beat. A quarter note is one beat, so its time is simply the beat length; a whole note is four beats, an eighth is half a beat, and the sixteenth and thirty second follow the same halving. The dotted column multiplies each of those by one and a half, which is what a dot does in notation: it adds half the note's value. The triplet column multiplies by two thirds, because three triplet notes fit into the space of two ordinary ones. The frequency column is the reciprocal of the time, and it exists because the same arithmetic that sets a delay also sets a modulation: a chorus whose rate matches a division will pulse with the music rather than against it. At the default tempo of a hundred and twenty, one beat is five hundred milliseconds, so a quarter note delay reads five hundred, its dotted form seven hundred and fifty, and its triplet form three hundred and thirty three. The whole table then follows from those by doubling and halving. Nothing here is approximate, and nothing depends on the material; the table is a conversion from tempo to time, and the musical judgement about which division suits a part comes from listening.\n\nWhat the table cannot tell you:\n\n- Which division fits the music, since that is a matter of taste.\n- Where the delay should sit in the stereo image or how much feedback it wants.\n- Anything about swing, which falls between the straight and triplet values.\n- Reverb pre-delay or decay, which follow the room rather than the division.\n- Tempo changes over time; the table is computed for the figure you enter.\n- Nothing is measured from audio, so the tempo must be known or found elsewhere.\n\nUse it when a delay has to sit in time rather than in free time: setting a quarter note slap on a vocal, choosing an eighth or dotted eighth for a wide rhythmic echo, or checking that a chorus rate will not fight the track. When the useful figure is a reverb's pre-delay and decay rather than a delay time, the reverb time calculator gives those from the same tempo, and when the tempo itself still needs measuring, the BPM calculator and tap tempo tools supply it.",
+    "howTo": [
+      "Enter the tempo of the material, or use the default to see the shape of the table.",
+      "Find the note division the effect should follow.",
+      "Read the straight, dotted or triplet time from that row in milliseconds.",
+      "Take the frequency column instead when the target is a modulation rate."
+    ],
+    "whenToUse": "Delay Time Calculator is the tool whenever an effect has to lock to the tempo rather than run free. {{reverb-time-calculator|Reverb Time Calculator}} does the same job for pre-delay and decay. When the delay is being heard rather than calculated, {{echo-delay-generator|Echo Delay Generator}} produces it as audio, and {{bpm-calculator|BPM Calculator}} or {{tap-tempo|Tap Tempo}} supply the tempo figure this table depends on.",
+    "faqs": [
+      {
+        "q": "Why is the dotted value so much longer than the straight one?",
+        "a": "Because a dot in music notation adds half of the note's own value. A dotted eighth is an eighth plus half an eighth, which is one and a half times the straight eighth. That is why the dotted column is always exactly one and a half times the main column."
+      },
+      {
+        "q": "What is the frequency column for?",
+        "a": "It is one divided by the time, which is the rate at which that division repeats. Delays use time, but modulation effects use rate, so a chorus that should pulse with the music takes its rate from here rather than from the millisecond figure."
+      },
+      {
+        "q": "Which division is the classic for a stereo delay?",
+        "a": "The dotted eighth, which at a hundred and twenty beats per minute is three hundred and seventy five milliseconds. The long gap between repeats and the shorter offset between the two sides is what gives the sound its width without crowding the beat."
+      },
+      {
+        "q": "How do I handle a swung feel?",
+        "a": "Swing sits between the straight and triplet values rather than on either. A common approach is to move the triplet figure slightly toward the straight one, or to start from the triplet and increase the delay a little until the repeats land where the music does."
+      },
+      {
+        "q": "Do I enter the tempo in beats per minute even for a fast subdivision?",
+        "a": "Yes. The tempo is the tempo, and the division you choose handles the fraction. Entering a doubled tempo to reach an eighth note would also double every other row and would no longer describe the music."
+      }
+    ]
+  },
+  {
+    "slug": "reverb-time-calculator",
+    "keywords": ["pre-delay", "decay", "RT60", "room"],
+    "intro": "Reverb Time Calculator suggests a pre-delay and decay for a tempo and a room character, so a reverb's tail sits with the music instead of blurring across it. The figures are a mixing starting point, not a rule.",
+    "content": "Enter a tempo, choose a room character, and the panel gives a pre-delay and a decay in milliseconds, along with the length of one beat at that tempo.\n\nThe inputs and the two figures:\n\n- A tempo from one to four hundred beats per minute, defaulting to a hundred and twenty.\n- Four room characters: a small room described as tight and transient-safe, a medium room for general vocals, a large hall for ballads and pads, and a plate described as dense with a short pre-delay.\n- A pre-delay figure and a decay figure, each in milliseconds, in their own panel.\n- A note giving the beat length at the chosen tempo and explaining that the suggested decay keeps reflections from smearing across the next beat.\n\nBoth figures are derived from one measurement, the length of a beat, and a room-dependent multiplier. A small room suggests ten milliseconds of pre-delay and half a beat of decay, a medium room twenty milliseconds and a full beat, and a large hall thirty milliseconds and a beat and a half. The plate is the exception, and deliberately so: it uses eight milliseconds of pre-delay and a decay of a beat and a quarter with a floor of eight hundred milliseconds, because a plate's density comes from the metal rather than from distance and the usual advice about room size does not apply to it. The reason the decay is expressed as a fraction of the beat is that a tail that outlives the next beat makes the music sound smeared rather than spacious, so a busier tempo wants a shorter decay for the same room. Pre-delay does something different: it holds the onset of the tail back from the dry sound, which is what keeps a vocal's consonants sharp while a large sounding space sits behind it. Ten to thirty milliseconds is the usual range for that separation, and a plate's near-zero figure is a feature of the design rather than an oversight. The decay figure is labelled as RT60, the time for the tail to fall sixty decibels, which is the standard way reverb length is described.\n\nWhat the figures do not decide:\n\n- How much reverb to use, which is the wet and dry balance.\n- The tone or colour of the tail, which is set by the reverb's own controls.\n- Anything about the frequency response of the room being imitated.\n- Diffusion, density or modulation settings inside a specific plugin.\n- The effect of other processing, such as a compressor that lifts the tail.\n- Nothing is measured from audio; the figures come from the tempo you enter.\n\nUse it before dialling in a reverb: choose a room, take the suggested pre-delay and decay as your starting values, then listen and adjust. When the effect to be timed is a delay rather than a tail, the delay time calculator gives note-division times instead, and when the reverb itself is the thing being produced rather than configured, the reverb simulator and the convolution reverb render it as audio.",
+    "howTo": [
+      "Enter the tempo of the material being mixed.",
+      "Choose the room character closest to the space the mix should suggest.",
+      "Read the suggested pre-delay and decay in milliseconds.",
+      "Set those values in the reverb and adjust by ear from there."
+    ],
+    "whenToUse": "Reverb Time Calculator is the tool for choosing a starting pre-delay and decay that will not fight the tempo. {{delay-time-calculator|Delay Time Calculator}} answers the equivalent question for echoes and modulation rates. When the goal is to hear a reverb rather than configure one, {{reverb-simulator|Reverb Simulator}} and {{convolution-reverb|Convolution Reverb}} render the audio, and {{bpm-calculator|BPM Calculator}} supplies the tempo if it is not known.",
+    "faqs": [
+      {
+        "q": "Why does the suggested decay change with the tempo?",
+        "a": "Because a tail has to fit between beats to avoid smearing the music. At a slow tempo a beat is long, so a generous decay still clears before the next one; at a fast tempo the same decay would still be sounding when the next note arrives, which reads as blur rather than space."
+      },
+      {
+        "q": "Why does the plate ignore room size?",
+        "a": "Because a plate is a sheet of metal with transducers on it rather than a room, so its density comes from the material and not from distance. That is why its figures are a short pre-delay and a decay based on the beat with a floor, rather than the scaling the three rooms use."
+      },
+      {
+        "q": "What is RT60?",
+        "a": "The time it takes for a reverb tail to fall by sixty decibels, which is the point at which it is effectively inaudible. It is the standard way to state a decay time, so a figure in that column can be typed straight into any reverb that asks for a decay or RT60 value."
+      },
+      {
+        "q": "Is the pre-delay really about keeping consonants sharp?",
+        "a": "That is its main use on vocals. Holding the tail back by ten to thirty milliseconds lets the dry attack register before the reflections arrive, so the words stay clear even when the space behind them is large. A plate's near-zero pre-delay is the deliberate opposite, trading separation for density."
+      },
+      {
+        "q": "Should I use these figures as they are?",
+        "a": "Use them as starting points. They are derived from the tempo and a rough room character, and they say nothing about how wet the mix should be or how the reverb sounds. Setting them and then listening is faster than guessing from nothing and then adjusting."
+      }
+    ]
+  },
+  {
+    "slug": "note-frequency-calculator",
+    "keywords": ["scientific pitch notation", "equal temperament", "tuning reference", "cents"],
+    "intro": "Note Frequency Calculator converts between note names and frequencies in both directions, and it can do it against a tuning reference other than the modern standard. Type a note to get its frequency, or a frequency to get the nearest note and how far off it is.",
+    "content": "Set the tuning reference, then use either panel: a note name gives a frequency, or a frequency gives a note with its offset in cents.\n\nThe controls and the two panels:\n\n- A tuning reference from four hundred and fifteen to four hundred and sixty six hertz for the note A4, defaulting to the modern four hundred and forty.\n- A note field accepting scientific pitch notation such as A4, C sharp 3 or E flat 2, with the resulting frequency and the MIDI number beneath it.\n- A frequency field from one to twenty thousand hertz, with the nearest note name, its offset in cents, and the fractional MIDI number.\n- A note explaining that equal temperament divides the octave into twelve parts with a semitone ratio of two to the one twelfth, and that each octave doubles the frequency.\n\nThe conversion rests on equal temperament. Each semitone is a fixed ratio rather than a fixed number of hertz, so the whole scale can be generated by multiplying from a single reference; the reference here is whichever A4 you have set, and everything else is measured relative to it. That is why the tuning slider matters. Historical instruments and some ensembles tune to four hundred and fifteen or four hundred and thirty two rather than four hundred and forty, and moving the reference shifts every note proportionally rather than shifting them all by the same number of hertz. Reading the second panel in reverse is just as useful. A measured frequency is almost never exactly on a note, so the tool reports the nearest one and the offset in cents, which is the unit that matters for tuning: a hundred cents is a semitone, so a reading of twenty cents sharp describes a pitch that is a fifth of the way to the next note. The fractional MIDI number is the same information in the scale used by software, where a whole number is a note and the fraction is the detuning. Both directions are exact arithmetic, so a frequency typed in and converted to a note and back lands on the same figure.\n\nWhat it does not do:\n\n- No audio input, so a frequency has to come from a meter or from your own reading.\n- No temperament other than equal, so a historically tempered interval will not match exactly.\n- Nothing about the pitch of a recording in the sense of analysis over time.\n- No instrument-specific transposition, so a transposing instrument's written note is not converted.\n- The nearest note is chosen by frequency, so a microtonal system will read as a series of detunings.\n- Nothing is uploaded; the arithmetic runs in the page.\n\nUse it when a frequency has to become a note name, or a note name a frequency: checking where a filter's resonance sits, working out what a measured pitch is in cents, or setting a generator to an exact frequency. When the interval between two notes is the question rather than a single pitch, the interval calculator answers with the interval name, the ratio and the cents, and the cents calculator works entirely in the tuning-offset unit.",
+    "howTo": [
+      "Set the tuning reference if the material is not at modern pitch.",
+      "Type a note name such as A4 or E flat 2 to read its frequency and MIDI number.",
+      "Or type a frequency to read the nearest note, its cents offset and the fractional MIDI number.",
+      "Move the reference slider to see how every note moves with the tuning."
+    ],
+    "whenToUse": "Note Frequency Calculator is the converter to reach for when a note name and a frequency have to be exchanged, in either direction and at any tuning reference. {{cents-calculator|Cents Calculator}} works purely in tuning offsets, and {{midi-note-to-frequency|MIDI Note to Frequency}} and {{frequency-to-midi-note|Frequency to MIDI Note}} each do one direction of the same conversion in the scale software uses. To measure a real instrument rather than calculate, {{guitar-tuner|Guitar Tuner}} and {{instrument-tuner|Instrument Tuner}} listen instead.",
+    "faqs": [
+      {
+        "q": "Why does the tuning reference move every note?",
+        "a": "Because equal temperament defines every note as a ratio relative to the reference rather than as an absolute frequency. Changing A4 therefore changes the whole set proportionally: the notes far from A move by more hertz than the ones near it, which is why the reference shifts the scale rather than transposing it."
+      },
+      {
+        "q": "What does the cents figure mean?",
+        "a": "It is the distance from the nearest note measured in hundredths of a semitone. A reading of twenty cents sharp means the pitch is a fifth of the way to the note above it, and it is the unit that matters in tuning because it is the same size at every pitch."
+      },
+      {
+        "q": "What is scientific pitch notation?",
+        "a": "The system where a letter and an accidental are followed by an octave number, with middle C written C4 and the A above it A4. The octave number increments at C, not at A, which is the detail that most often trips people up when typing a note in."
+      },
+      {
+        "q": "Can it handle double sharps or flats?",
+        "a": "The parser accepts a letter with a sharp or flat and an octave number, which covers ordinary naming. A double accidental is better written as the equivalent single name, since the pitch is the same and the conversion is concerned with pitch rather than with spelling."
+      },
+      {
+        "q": "Why is the MIDI number not a whole number?",
+        "a": "Because the frequency you entered falls between two notes. The integer part identifies the nearest note and the fraction gives the detuning, so a value of sixty point two means a note slightly sharp of middle C. The same information appears in the cents column with a sign."
+      }
+    ]
+  },
+  {
+    "slug": "interval-calculator",
+    "keywords": ["semitones", "ratio", "cents", "interval name"],
+    "intro": "Interval Calculator names the distance between two notes and gives it three ways: in semitones, as a frequency ratio, and in cents. Enter any two notes and the relationship appears.",
+    "content": "Type a note in each field and the panel shows the interval name and its abbreviation, the number of semitones, the frequency ratio, and the distance in cents.\n\nThe result columns:\n\n- The interval name, drawn from the twelve names that cover an octave, from unison up to a major seventh.\n- The short form of that name, which is what appears on a chart.\n- The semitone count, which is the integer distance in the twelve-note scale.\n- The frequency ratio to four decimal places, and the same distance in centsas a whole number.\n\nThe three figures are the same relationship seen three ways. Semitones are the counting unit of the keyboard, so a perfect fifth is seven of them; the ratio is the frequency relationship, which for a perfect fifth in equal temperament is one point four nine eight three, close to but not exactly the three to two that a just fifth would be; and the cents figure is that same ratio on a logarithmic scale, where seven semitones come to exactly seven hundred. Cents are the most useful of the three when the question is how far apart two pitches actually sound, because a cent is the same proportional distance at every pitch, whereas a fixed number of hertz is a large interval low down and a tiny one high up. The ratio is most useful when the interval is going into arithmetic, such as working out where a filter or an oscillator should sit. One piece of musical spelling is visible in the result and worth knowing about. Intervals are counted from letter to letter, so the same number of semitones can carry different names depending on how the notes are written: C up to D sharp and C up to E flat are both three semitones apart, but one is an augmented second and the other a minor third. The tool reports what the two note names imply rather than only the distance, which is why the name and the semitone count can disagree with a naive reading of the interval.\n\nWhere it stops:\n\n- Octave equivalents are folded, so notes more than an octave apart read as the interval within one.\n- No inversion or compound naming beyond the folded form.\n- Equal temperament only, so a just or historically tempered interval differs from the ratio shown.\n- No audio input; the notes have to be typed.\n- Spelling depends on how you write the notes, not on how they sound.\n- Nothing is uploaded, and no history is kept.\n\nUse it when a chart has to be understood rather than played: working out what a part is doing, checking whether two lines move by a third or a fourth, or finding the ratio to use for a harmonic relationship in synthesis. When a single pitch rather than a relationship is the question, the note frequency calculator covers that, and when the interval has to be measured in tuning terms rather than named, the cents calculator does the arithmetic directly. Both figures are exact, so the interval can be trusted as a reference for tuning or for working out a harmonic relationship between two pitches.",
+    "howTo": [
+      "Type the lower or first note in the first field, such as C4.",
+      "Type the second note in the second field, such as G4.",
+      "Read the interval name and its short form.",
+      "Use the semitone, ratio and cents columns for whichever form you need."
+    ],
+    "whenToUse": "Interval Calculator is the tool for naming and quantifying the distance between two pitches, which is what a chart or a harmonic plan needs. {{note-frequency-calculator|Note Frequency Calculator}} converts a single note to a frequency instead. When the interval matters as a tuning offset rather than as a name, {{cents-calculator|Cents Calculator}} works in that unit, and {{chord-calculator|Chord Calculator}} stacks intervals into complete chords with their spellings.",
+    "faqs": [
+      {
+        "q": "Why can the same number of semitones have two names?",
+        "a": "Because intervals are measured in letter steps as well as in semitones. Three semitones from C to E flat is a third, since it spans three letters, while three semitones from C to D sharp is an augmented second, since it spans two. The sound is identical and the spelling is not."
+      },
+      {
+        "q": "What is the difference between a ratio and cents?",
+        "a": "Both describe the same relationship. The ratio is the frequency of the upper note divided by the lower one, which is the form needed for arithmetic on frequencies. Cents are the logarithm of that ratio scaled so that an equal-tempered semitone is exactly a hundred, which makes intervals comparable at any pitch."
+      },
+      {
+        "q": "Why is a perfect fifth not exactly three to two?",
+        "a": "Because equal temperament divides the octave into twelve identical steps, and no power of two to the one twelfth lands exactly on a simple ratio. The fifth comes out slightly narrow of three to two, by about two cents, which is the compromise that lets every key sound equally usable."
+      },
+      {
+        "q": "What happens if the two notes are more than an octave apart?",
+        "a": "The interval is folded into a single octave, so the name stays within the twelve available. That is the form most useful for identifying a relationship, since a tenth and a third are the same interval with an octave added, but it does mean the octave count is not reported separately."
+      },
+      {
+        "q": "Can it tell me the interval of notes from a recording?",
+        "a": "Not directly, because it works from typed note names. Measure the two frequencies first, then convert each to a note name with the note frequency calculator and enter those here, or work in cents if you want to skip the naming step."
+      }
+    ]
+  },
+  {
+    "slug": "chord-calculator",
+    "keywords": ["chord quality", "root", "letter steps", "spelling"],
+    "intro": "Chord Calculator spells any chord from a root note and a quality, and lists every tone with its MIDI number and frequency. The spelling follows the root letter, so a chord from E flat reads with flats rather than sharps.",
+    "content": "Choose a root and a quality from the list and the chord appears with every tone named, numbered and given in hertz.\n\nThe controls and the output:\n\n- A root field accepting a note with an octave, such as C4, E flat 3 or F sharp 2.\n- A quality selector covering fifteen forms: major, minor, diminished, augmented, both suspensions, three seventh shapes, the half-diminished, the diminished seventh, major and minor sixths, the add nine and the dominant nine.\n- A tone row naming the notes without their octave numbers, which is the way a chord is usually written.\n- A table of each tone with its MIDI number and its frequency in hertz.\n\nEvery quality is stored as a set of letter steps and semitone distances rather than as a list of note names, and that is what makes the spelling correct rather than merely serviceable. A dominant seventh on E flat takes the letters E, G, B and D and the semitone distances zero, four, seven and ten, which produces E flat, G, B flat and D flat. Spelling the same pitches from D sharp would produce D sharp, F double sharp, A sharp and C sharp, which sounds identical and is wrong in every practical sense. Because the letters advance by one degree at a time, every chord quality spells out with the right accidentals whatever root it is placed on, including roots that need sharps, flats or a mixture. The suspended forms replace the third rather than adding to it, which is why they are neither major nor minor; the half-diminished and diminished sevenths differ in one semitone at the top; and the add nine and dominant nine reach past the octave, which is why their semitone values exceed twelve. The MIDI numbers make the chord playable and the frequencies make it usable as a reference for tuning or synthesis.\n\nWhat the tool does not do:\n\n- No voicing, so the tones are listed in root position rather than in any arrangement.\n- No inversions, so the bass note is always the root.\n- No audio, so the chord is not played back.\n- No progressions or key context, so nothing is suggested about where the chord belongs.\n- No omission or alteration beyond the fifteen qualities listed.\n- Nothing is uploaded, and the spelling is decided by the root letter you type.\n\nUse it to check a spelling, to work out the notes of an unusual chord before writing it down, or to get the frequencies of a chord's tones for synthesis. When the relationship between just two of those notes is the question, the interval calculator names it, and when the chord belongs in a key rather than standing alone, the chord progression builder places it among the diatonic triads of that key. The three kinds of output are worth keeping separate in your head. The names tell you how to write the chord, the numbers tell you how a synthesizer or sequencer will address its tones, and the frequencies tell you where those tones actually sit, which is the figure needed when a chord has to line up with a filter, a resonance or an existing recording rather than with a keyboard.",
+    "howTo": [
+      "Type a root note with its octave, such as E flat 3.",
+      "Choose the chord quality from the selector.",
+      "Read the tone names, which follow the spelling of the root letter.",
+      "Use the MIDI and frequency columns if the chord is going into software or synthesis."
+    ],
+    "whenToUse": "Chord Calculator is the tool for spelling a chord correctly and for getting its tones in numbers. {{chord-progression-builder|Chord Progression Builder}} puts chords in the context of a key and renders a progression as audio, and {{scale-generator|Scale Generator}} supplies the scale a chord is drawn from. When only the distance between two of the chord's tones matters, {{interval-calculator|Interval Calculator}} names it.",
+    "faqs": [
+      {
+        "q": "Why does the chord from E flat use flats rather than sharps?",
+        "a": "Because the spelling follows the root letter. Each quality is defined as letter steps plus semitone distances, so a chord built on E flat advances through the letters E, G, B and D and takes whatever accidentals are needed to reach the right pitches. The same notes from D sharp would need double sharps to stay spelled correctly."
+      },
+      {
+        "q": "Why do the add nine and dominant nine go beyond twelve semitones?",
+        "a": "Because a ninth is a second an octave higher. The distance from the root is fourteen semitones and the letter advances by eight steps, which keeps the tone spelled as a ninth rather than as a second. That is also why the resulting note lands above the octave in the table."
+      },
+      {
+        "q": "What is the difference between a half-diminished and a diminished seventh?",
+        "a": "One semitone at the top. The half-diminished seventh is a diminished triad with a minor seventh above it, while the fully diminished seventh squeezes that top note down to nine semitones. The first is common as a two chord in minor keys, the second is symmetrical and belongs to no single key."
+      },
+      {
+        "q": "Can I get an inversion or a different voicing?",
+        "a": "The tones are always listed in root position, so the bass note is the root and the rest stack upward. To play another arrangement, take the names the tool gives and place them wherever suits the instrument; the pitch content is unchanged by voicing, only the register and the bass."
+      },
+      {
+        "q": "Is the frequency of each tone at modern pitch?",
+        "a": "Yes, the frequencies follow the standard reference. If the material is at another tuning, take the note names from here and convert them with the note frequency calculator set to the reference you need, which shifts every tone by the same proportion."
+      }
+    ]
+  },
+  {
+    "slug": "scale-generator",
+    "keywords": ["mode", "root", "rendered WAV", "spelling"],
+    "intro": "Scale Generator spells a scale in any of twelve modes and qualities from a chosen root, and renders it as a WAV you can play back. It is both a reference and something to practise against.",
+    "content": "Choose a root, a mode and a note length, and the scale is spelled out and rendered as audio.\n\nThe controls and what is produced:\n\n- A root field with an octave, such as C4, F sharp 4 or B flat 3.\n- A mode selector with twelve options: the major scale and natural minor, harmonic and ascending melodic minor, the five remaining church modes, major and minor pentatonic, and the blues scale.\n- A note length from a tenth of a second to two seconds, defaulting to four tenths.\n- A rendered WAV of the scale plus a readout of the notes in order, the note count, the length of each note and the total duration.\n\nEach mode is stored as a set of letter steps and semitone distances from the root, so the spelling is correct for whatever root is chosen rather than only for the easy keys. That shows up most clearly in the sharp keys: an F sharp major scale is spelled F sharp, G sharp, A sharp, B, C sharp, D sharp, E sharp, where the final note is E sharp rather than F, because the seventh degree has to take the letter E to keep every letter used exactly once. The blues scale carries a note about its own construction in the library: it is the minor pentatonic with a raised fourth added, and because a six-note scale cannot be spelled from six unique letter steps the blue note repeats the fourth degree's letter, which is how the raised fourth is written in practice. The rendering is a plain sequence of notes at a moderate amplitude with each note held for nine tenths of its slot, so the notes are separate rather than legato. The scale is played upward only, in the order the letters run, and the total duration is simply the note count multiplied by the note length.\n\nWhat it does not offer:\n\n- Upward scales only, so there is no descending or melismatic form.\n- No tempo control beyond the note length, and no metronome alongside the render.\n- No audio input or analysis, so it cannot identify a scale from a recording.\n- One octave, so the sequence does not extend across several registers.\n- No chords or harmonization of the scale, which is a different job.\n- Nothing is uploaded; the WAV is generated in the browser.\n\nUse it to check a spelling before writing it down, to hear how a mode differs from the major scale, or to have a scale to play along with while learning it. When the question is which chords a scale supports, the chord progression builder lists its diatonic triads, and when the notes need to be turned into transposed material for an instrument, the musical transpose tool moves them by an interval instead. The generated WAV is a plain reference tone sequence rather than music, which is exactly what makes it useful: no tempo, no accompaniment and no instrument character to distract from the pitches themselves, so a mode can be compared against the major scale it is derived from with nothing in the way.",
+    "howTo": [
+      "Type a root with its octave, such as C4.",
+      "Choose the mode or scale quality from the selector.",
+      "Set the length of each note in seconds.",
+      "Read the spelled notes and generate the WAV to hear the scale."
+    ],
+    "whenToUse": "Scale Generator is the tool for spelling and hearing a scale from any root, which makes it a reference as much as a generator. {{chord-progression-builder|Chord Progression Builder}} takes a key and shows the chords built on its degrees, and {{circle-of-fifths-tool|Circle of Fifths Tool}} relates the keys to one another. When the scale needs to be played rather than generated as reference material, {{guitar-tuner|Guitar Tuner}} and {{instrument-tuner|Instrument Tuner}} help you check the pitches you produce.",
+    "faqs": [
+      {
+        "q": "Why is F sharp major spelled with an E sharp?",
+        "a": "Because a seven-note scale uses seven different letters, one per degree. Counting F, G, A, B, C, D, E means the seventh degree has to be written on E, and E raised by a semitone is E sharp. Writing F instead would repeat the letter the root already uses and misdescribe the interval."
+      },
+      {
+        "q": "What is the difference between the modes and the scales?",
+        "a": "The modes are the same seven notes started from different degrees, so they share their note content with the major scale but differ in which note feels like home. The pentatonic and blues entries are different again, having five and six notes rather than seven, which is why the blues scale needs a repeated letter."
+      },
+      {
+        "q": "Can I change the octave the scale is rendered in?",
+        "a": "By typing a different root octave. The render takes the notes the spelling produces, so a root of C3 gives a scale an octave below a root of C4, and the note length control changes the speed rather than the register."
+      },
+      {
+        "q": "Does the rendered WAV loop?",
+        "a": "It ends on the octave above the root, so playing it on repeat gives a short gap rather than a seamless cycle. If it is going to be used as a loop, trim it with the trimmer or join several repetitions into one longer file first."
+      },
+      {
+        "q": "Why are the notes separated rather than smooth?",
+        "a": "Each note is held for nine tenths of its slot and then released, which gives a clear articulation between them. That makes the scale easier to follow by ear, at the cost of sounding like an exercise rather than like music."
+      }
+    ]
+  },
+  {
+    "slug": "chord-progression-builder",
+    "keywords": ["diatonic triads", "roman numerals", "key", "arpeggio"],
+    "intro": "Chord Progression Builder lists the seven chords that belong to a key and lets you click them into a progression, which it then renders as audio. The roman numerals update with the key and the mode.",
+    "content": "Choose a key and a mode, click the triads in the order you want them, and generate the progression as a WAV.\n\nThe controls and the display:\n\n- A key root with an octave, defaulting to C4.\n- A mode selector with major and natural minor.\n- A tempo from forty to two hundred and forty beats per minute, defaulting to ninety.\n- Seven buttons, one per degree of the scale, each showing its roman numeral, its root and its quality.\n- A line naming the selected chords in order and a readout of the chord count, the tempo and the resulting duration.\n\nThe seven chords come from the scale itself. Each degree of the scale is taken as a root and stacked in thirds using only notes from that scale, which produces a fixed pattern of qualities: in a major key the chords are major, minor, minor, major, major, minor and diminished, and in natural minor the pattern shifts so the first and fourth degrees are minor. Those patterns are why the roman numerals matter. A numbered progression describes a shape rather than a set of chords, so the same sequence moved to another key preserves its character, and the tool shows the numerals alongside the roots precisely so that the two can be read together. Roman numerals in upper case indicate major chords and lower case minor ones, and the diminished chord is marked as such, so the quality of each degree is legible at a glance rather than having to be worked out. Selecting is a toggle: clicking a triad adds it to the end of the progression, and clicking one already chosen removes it, so the order is the order you clicked in. The render plays the progression as an arpeggio rather than as block chords, one tone per eighth note at the chosen tempo, which makes the harmony easy to hear and gives a rhythm to judge the progression against.\n\nWhat it does not do:\n\n- Triads only, so there are no seventh chords or extensions.\n- No inversions or voice leading between the chords.\n- Major and natural minor only, so the other modes are not offered.\n- No rhythm, melody or arrangement beyond an even eighth-note arpeggio.\n- Nothing is saved, so the progression exists only in the current page.\n- The render is a plain WAV without any instrument modelling.\n\nUse it to hear how a progression in a key sounds before committing it to a song, to check the quality of the chords on each degree, or to practise over a sequence. When the scale behind those chords is the thing being studied, the scale generator spells it out, and when a chord needs its full spelling or a quality outside the seven diatonic triads, the chord calculator covers all fifteen of its forms. The selection order is the progression, so a sequence can be built up a chord at a time and then trimmed by clicking a chord out of it again, which makes auditioning alternatives quick. Since the pattern of qualities is fixed for a mode, the same numerals always give the same kind of progression in any key, which is the property that lets a shape be moved from one song to another without rewriting it.",
+    "howTo": [
+      "Set the key root and choose major or natural minor.",
+      "Click the triads in the order the progression should play.",
+      "Set the tempo and check the duration readout.",
+      "Generate and play the WAV to hear the progression as an arpeggio."
+    ],
+    "whenToUse": "Chord Progression Builder is the tool when the question is which chords belong together in a key and how they sound in sequence. {{chord-calculator|Chord Calculator}} spells any single chord and includes qualities outside the diatonic set, while {{scale-generator|Scale Generator}} shows the scale those chords are built from. When the relationship between keys rather than within one is the point, {{circle-of-fifths-tool|Circle of Fifths Tool}} maps the whole set.",
+    "faqs": [
+      {
+        "q": "Why do the same roman numerals give different chords in a minor key?",
+        "a": "Because the scale they are stacked from is different. Taking every other note of a natural minor scale produces a different pattern of qualities from a major scale, so the first degree comes out minor and the third major. The numeral names the degree, and the quality follows from the key and the mode."
+      },
+      {
+        "q": "Can I build a progression starting with any chord?",
+        "a": "Yes, the order is whatever you click. The numerals are shown so you can see what you have chosen, not to constrain the sequence, and any of the seven can come first, including the diminished chord if it is what you want."
+      },
+      {
+        "q": "Why is the result an arpeggio rather than block chords?",
+        "a": "Playing one tone at a time makes each chord's notes audible in sequence, which is easier to judge than a wall of sound and gives a clear pulse to hear the tempo against. It is a rendering choice for clarity, not a statement about how the progression should be played."
+      },
+      {
+        "q": "What does the tempo change?",
+        "a": "The length of each note and therefore the total duration. Each tone lasts an eighth note at the chosen tempo, so a faster tempo compresses the whole progression and a slower one spreads it out, without altering the chords themselves."
+      },
+      {
+        "q": "Can I add seventh chords to a progression?",
+        "a": "Only the diatonic triads are offered here, since those are the seven that belong to the key without any added notes. A seventh chord can be worked out with the chord calculator, and its sound imagined from the triad the tool plays."
+      }
+    ]
+  },
+  {
+    "slug": "circle-of-fifths-tool",
+    "keywords": ["perfect fifth", "relative minor", "key signature", "wheel"],
+    "intro": "Circle of Fifths Tool lays out the twelve major keys on a wheel with their relative minors, and shows the diatonic triads of whichever key you select. It is the map that shows how keys relate to one another.",
+    "content": "Click any key on the wheel and the centre shows its signature while the panel below lists its seven diatonic triads.\n\nThe wheel and the panel:\n\n- Twelve major keys arranged around the circle, each showing its key signature beside the name.\n- An inner ring of relative minors, labelled in the short form, sitting inside each major key.\n- A centre readout naming the selected major key and its signature.\n- A panel listing the seven diatonic triads of the selected key, with their roman numerals, roots and qualities.\n\nThe construction is the whole point of the tool. Moving one position clockwise raises the key by a perfect fifth, which means one more sharp in the signature, and moving one position counterclockwise lowers it by a fifth, which means one more flat. Going all the way around therefore passes through every key and arrives back where it started after twelve steps, and the number of accidentals can be read off directly from the distance travelled in either direction. That is why the wheel is useful for more than reference: the keys next to each other on it are the ones that share the most notes, so a modulation to a neighbouring key is the smoothest available, and the further round the wheel a move goes the more it changes. The relative minor of each key sits on the inner ring three positions clockwise, and it shares the exact same key signature because it is built from the same notes started from a different degree. Selecting a key therefore gives two things at once: the signature, which says which notes are altered throughout the piece, and the seven triads, which are the chords the key supports without any additional accidentals.\n\nWhere it stops:\n\n- Twelve major keys only, each with its relative minor, so the parallel minor keys are not shown.\n- No enharmonic spellings, so a key appears in one form rather than both of its written equivalents.\n- Nothing about modulations or how to move between keys.\n- No audio, so nothing is played back.\n- The triads are diatonic triads only, with no seventh chords.\n- Nothing is uploaded, and no state is kept between visits.\n\nUse it when a key needs to be placed in relation to others, when a modulation is being planned, or when the signature of a key has to be confirmed rather than looked up. When only the signature matters and the question comes from the other direction, the key signature identifier takes a key and gives its accidentals or vice versa. When the chords of the selected key need to be heard in sequence, the chord progression builder picks up where this tool leaves off. Reading the wheel in relation to a piece of music is often more useful than reading it as a list of keys. A song that uses mostly one key but visits its two neighbours is doing something unremarkable; one that jumps to the far side of the circle is doing something that will be heard as a real change of scene. The distance travelled on the wheel is a fair measure of how much has actually changed, which is why the tool is worth having open when a modulation is being planned rather than only when a signature is being confirmed.",
+    "howTo": [
+      "Look at the wheel and find the key you are working in.",
+      "Click it to select and read its signature in the centre.",
+      "Note the relative minor on the inner ring, which shares the same signature.",
+      "Read the seven diatonic triads listed below for that key."
+    ],
+    "whenToUse": "Circle of Fifths Tool is the reference for how keys relate, and it is what to consult when planning a modulation or checking a signature. {{key-signature-identifier|Key Signature Identifier}} answers the narrower question of how many sharps or flats a key carries, working in both directions. When the triads of a key need to be turned into something audible, {{chord-progression-builder|Chord Progression Builder}} does that, and {{scale-generator|Scale Generator}} spells out the scale the whole wheel is built from.",
+    "faqs": [
+      {
+        "q": "Why does going clockwise add sharps?",
+        "a": "Because each step is a perfect fifth up, and every fifth above a key's tonic introduces one more sharp. Five fifths up from C is the key of B, which carries five sharps. Going the other way is a fifth down each time, which introduces flats instead."
+      },
+      {
+        "q": "Where is the relative minor?",
+        "a": "On the inner ring, three positions clockwise from its major key. It shares the key signature exactly, because the same seven notes are simply started from the sixth degree rather than the first, which is why the two are described as relative rather than parallel."
+      },
+      {
+        "q": "What makes a neighbouring key easy to modulate to?",
+        "a": "Shared notes. Adjacent keys differ by a single accidental, so almost every note is common to both and a move between them changes very little. The further apart two keys are on the wheel, the more notes they disagree about and the more abrupt the change will sound."
+      },
+      {
+        "q": "Does the selected key change what the triads are?",
+        "a": "The pattern of qualities stays the same in every major key, since it comes from stacking thirds within the scale, but the actual notes move. Selecting a new key therefore changes the roots and spelling of all seven chords while leaving their roman numerals and qualities in the same order."
+      },
+      {
+        "q": "Can I see the minor keys' own diatonic chords?",
+        "a": "The wheel shows relative minors but lists the triads of the selected major key. For a minor key's chords, the chord progression builder switches between major and natural minor and shows the diatonic triads for whichever is chosen."
+      }
+    ]
+  },
+  {
+    "slug": "key-signature-identifier",
+    "keywords": ["sharps", "flats", "relative minor", "signature"],
+    "intro": "Key Signature Identifier works in both directions: count the sharps or flats to find the key, or name a key to see its signature. It also gives the order the accidentals appear in.",
+    "content": "Choose a direction, then either pick how many sharps or flats the signature has or select a major key, and the answer appears with the relative minor.\n\nThe two directions:\n\n- A signature-to-key mode with two rows of buttons, one for zero to seven sharps and one for zero to seven flats.\n- A key-to-signature mode with a selector covering fifteen major keys, from C through the sharp keys to the flat ones.\n- A result naming the major key and its relative minor together.\n- A line listing the accidentals in the order they appear in the signature, or stating that the key is open when there are none.\n\nThe two directions are the same lookup read from either end. Counting sharps upward from none gives the keys in fifths: one sharp is G, two is D, three is A, and so on as far as seven. Counting flats gives the keys in fourths, since each added flat takes the key a fifth down: one flat is F, two is B flat, three is E flat. Seven of each is the practical limit, and the reason is that beyond seven the signature would have to double an accidental, which is why the keys at the far side of the wheel appear in their enharmonic equivalents instead. The order in which the accidentals appear is fixed and is worth knowing, because it is the same in every key. Sharps arrive as F sharp, C sharp, G sharp, D sharp, A sharp, E sharp and B sharp, and flats arrive as B flat, E flat, A flat, D flat, G flat, C flat and F flat; in both cases each new accidental is a fifth above or below the previous one. The result also gives the relative minor for every key, which shares the signature exactly. A signature cannot contain both kinds of accidental, and trying to select both is rejected rather than guessed at.\n\nWhat it does not cover:\n\n- Major keys and their relative minors only, so the parallel minor keys are not listed.\n- No double sharps or double flats, since the seven-accidental limit is reached first.\n- Nothing about how a key signature is drawn on a stave.\n- No audio and no chord information.\n- Both accidentals at once is an error rather than a case to be resolved.\n- Nothing is uploaded, and no choice is remembered between visits.\n\nUse it when reading a score rather than writing one, when a key has to be confirmed from its signature, or when the order the accidentals appear in needs checking before writing them out. When the wider relationship between keys is what matters, the circle of fifths tool places every key on the wheel, and when the chords within the identified key are needed, the chord progression builder lists them. The two directions are worth using together when reading a new piece: count the accidentals in the signature, take the pair of keys it identifies, and then decide from the music which of the two is the tonic. Nearly every confusion about key signatures comes from the fact that a signature names two keys rather than one.",
+    "howTo": [
+      "Choose whether you are starting from a signature or from a key.",
+      "Pick the number of sharps or flats, or select the major key.",
+      "Read the major key and its relative minor from the result.",
+      "Note the order of the accidentals if the signature is being written out."
+    ],
+    "whenToUse": "Key Signature Identifier is the tool for translating between a key and its accidentals, in whichever direction the question comes. {{circle-of-fifths-tool|Circle of Fifths Tool}} shows the same information as a relationship between keys and adds the diatonic chords. When the key is known and the scale or the chords need spelling out, {{scale-generator|Scale Generator}} and {{chord-progression-builder|Chord Progression Builder}} continue from there.",
+    "faqs": [
+      {
+        "q": "Why do sharps and flats stop at seven?",
+        "a": "Because a key needing eight would have to alter a note that is already altered, which means a double sharp or double flat in the signature. Rather than notate that, the far keys are written in their enharmonic equivalents, so the practical range is seven of either."
+      },
+      {
+        "q": "What order do the accidentals come in?",
+        "a": "Sharps appear as F sharp, C sharp, G sharp, D sharp, A sharp, E sharp, B sharp, and flats as B flat, E flat, A flat, D flat, G flat, C flat, F flat. In both cases each new accidental is a fifth from the one before, which is why the orders are fixed and never vary between pieces."
+      },
+      {
+        "q": "Why can a signature not have both sharps and flats?",
+        "a": "Because a key is defined by which notes are altered from the natural scale, and a mixture would describe a different set of notes rather than a transposition of it. Selecting both is therefore treated as an impossible request instead of being resolved to something arbitrary."
+      },
+      {
+        "q": "Does zero sharps and zero flats mean C major?",
+        "a": "For a major key, yes, since C major needs no alterations, and its relative minor is A minor, which shares the same notes. That is the case the tool reports as an open key, with no accidentals to list."
+      },
+      {
+        "q": "How do I tell a major key from its relative minor by the signature alone?",
+        "a": "You cannot, because they are identical by definition. The signature narrows the key to a pair, and which of the two it is comes from the music itself, usually from which note the piece treats as home. The relative minor is always three semitones below the major tonic."
+      }
+    ]
+  },
+  {
+    "slug": "time-signature-calculator",
+    "keywords": ["bars", "note value", "meter", "duration"],
+    "intro": "Time Signature Calculator converts between bars and durations for any meter and tempo, in both directions. It is the tool for working out how long a section actually is.",
+    "content": "Set the tempo and the meter, then use either panel: a bar count gives a duration, or a duration gives a bar count.\n\nThe inputs and outputs:\n\n- A tempo from one to four hundred beats per minute, defaulting to a hundred and twenty.\n- A beats-per-bar figure from one to thirty two, defaulting to four.\n- A note value from one to sixty four, where four means a quarter note, defaulting to four.\n- A meter readout showing the two figures as a fraction, and a panel for bars to duration and another for duration to bars.\n\nThe calculator is built around one idea that most people get wrong: the bottom number of a time signature names which note value counts as a beat. A four means quarter notes, an eight means eighth notes, a two means half notes. So a six eight bar is not six quarter notes; it is six eighth notes, which at a hundred and twenty beats per minute lasts one and a half seconds, because the beat being counted is the eighth rather than the quarter. The beat length is therefore derived from the tempo and the note value together, and the bar length is that beat multiplied by the number of beats in the bar. That makes the two panels the same arithmetic in opposite directions. Giving a bar count multiplies out to a duration, which is what is needed when a section has to fit an edit or a video, and giving a duration divides back to bars and beats, which is what is needed when a piece of audio has to be cut at a bar line. The report also gives the beat length in milliseconds and the length of a single bar, and the duration-to-bars panel adds the equivalent number of beats, so a figure that lands between bars can be read as a position rather than only as a count. Nothing here depends on the music; it is arithmetic from a tempo and a meter.\n\nWhat it cannot tell you:\n\n- Nothing about tempo changes within the material.\n- No pickup bars or anacrusis handling, so a partial bar counts as a full one.\n- No swing or groove interpretation, only even subdivisions.\n- Nothing about the music's phrasing or where sections begin.\n- No compound-meter grouping, so a six eight bar is treated as six eighth beats rather than two groups of three.\n- Nothing is uploaded, and no history is kept.\n\nUse it when a section's length matters: scoring to picture, working out how long a loop has to be, or cutting audio so it lands on a bar rather than mid-phrase. When the tempo that goes into it still needs measuring, the BPM calculator and tap tempo tools supply it, and when the question is the note-division time of a single hit rather than a whole bar, the delay time calculator is the more direct route. The bar figure is the one to hold on to when working with audio, because an edit at a bar line lands where the music does rather than a fraction of a beat off it.",
+    "howTo": [
+      "Enter the tempo of the material.",
+      "Set the beats per bar and the note value that counts as the beat.",
+      "Enter a bar count to read the duration, or a duration to read the bar count.",
+      "Use the beat and bar figures to place an edit precisely."
+    ],
+    "whenToUse": "Time Signature Calculator is the tool for turning a meter and a tempo into real durations, in either direction. {{bpm-calculator|BPM Calculator}} measures a tempo from beats and a stopwatch reading in the first place, and {{delay-time-calculator|Delay Time Calculator}} covers the note-division times inside a bar rather than the bar itself. When the beat needs to be heard rather than calculated, {{metronome|Metronome}} and {{click-track-generator|Click Track Generator}} produce it.",
+    "faqs": [
+      {
+        "q": "What does the bottom number of the time signature mean?",
+        "a": "It names the note value that counts as one beat. A four means quarter notes, an eight means eighth notes, and a two means half notes. That is why a six eight bar at a given tempo is not the same length as a six four bar: the beats being counted are different note values."
+      },
+      {
+        "q": "Why is a six eight bar at 120 BPM one and a half seconds?",
+        "a": "Because the beat is the eighth note, which lasts a quarter of a second at that tempo, and there are six of them. The tempo names quarter notes per minute, so the eighth note is half of that value, and six halves make three quarters of a second times two, which is one and a half seconds."
+      },
+      {
+        "q": "Can I work out how many bars a piece of audio is?",
+        "a": "Yes, that is the duration-to-bars panel. Enter the length in seconds along with the tempo and the meter, and the answer comes out as a bar count with the equivalent number of beats, which is the figure to use when a loop has to be trimmed to exactly one or two bars."
+      },
+      {
+        "q": "Does it handle compound meters properly?",
+        "a": "It handles the arithmetic of them, since the beat values divide correctly, but it does not group them. A six eight bar is treated as six eighth-note beats rather than as two groups of three, which matters for accenting a click but not for working out the duration."
+      },
+      {
+        "q": "What if the section starts with a partial bar?",
+        "a": "A pickup is counted as a full bar by this arithmetic, so a piece that begins with a half bar of beats will read as one bar longer than it feels. For precise work, measure from the first full bar rather than from the very start of the audio."
+      }
+    ]
+  }
+]

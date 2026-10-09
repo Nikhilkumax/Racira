@@ -1,8 +1,11 @@
 import Link from "next/link";
 import type { Tool } from "@/domains/video/registry";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
 
 export function ToolCard({ tool }: { tool: Tool }) {
   const isLive = tool.status === "live";
+  // Upcoming tools link to their Coming Soon page — every card is navigable.
+  const clickable = isLive || hasComingSoonPage(tool, "video");
   const Icon = tool.icon as React.ComponentType<{ className?: string }>;
 
   const cardBody = (
@@ -20,7 +23,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
     </>
   );
 
-  if (!isLive) {
+  if (!clickable) {
     return (
       <div className="tool-card group relative cursor-default">
         {cardBody}

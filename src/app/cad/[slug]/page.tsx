@@ -3,9 +3,14 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { categories, TOOLS_BY_SLUG, totalCount, findCategoryForTool, CAD_SITE } from "@/domains/cad/registry";
+import { categories, allTools, TOOLS_BY_SLUG, totalCount, findCategoryForTool, CAD_SITE } from "@/domains/cad/registry";
 import { toSlug } from "@/lib/utils/slug";
-import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
+import { buildSoonMetadata } from "@/lib/tools/soonMetadata";
+import { pickRelatedTools } from "@/lib/tools/soonRelated";
+import { ComingSoonToolPage } from "@/components/shared/ComingSoonToolPage";
+import { INDEX_SOON_PAGES } from "@/domains/cad/indexing";
 import { copyrightLine } from "@/lib/site-identity";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
@@ -20,6 +25,16 @@ import SeoContent from "@/domains/cad/components/SeoContent";
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+/** Names repeated among this domain's upcoming tools — used to qualify labels. */
+const SOON_NAME_COUNTS = (() => {
+  const counts = new Map<string, number>();
+  for (const tool of allTools) {
+    if (tool.status === "live") continue;
+    counts.set(tool.name, (counts.get(tool.name) ?? 0) + 1);
+  }
+  return counts;
+})();
 
 // ==========================================
 // METADATA
@@ -42,13 +57,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // 2. Check Tool
   const tool = TOOLS_BY_SLUG.get(slug);
   if (tool) {
+    // Upcoming tools keep a self-canonical and real copy; INDEX_SOON_PAGES
+    // controls whether they are also indexable (domains/cad/indexing.ts).
+    if (hasComingSoonPage(tool, "cad")) {
+      const cat = findCategoryForTool(slug);
+      return buildSoonMetadata(
+        { tool, domainKey: "cad", siteName: CAD_SITE.copyrightName, categoryName: cat?.title ?? "CAD", soonNameCounts: SOON_NAME_COUNTS },
+        INDEX_SOON_PAGES,
+      );
+    }
     return {
       title: `${tool.name} — ${CAD_SITE.copyrightName}`,
       description: tool.description,
       alternates: {
         canonical: `/cad/${tool.slug}`,
       },
-      robots: isComingSoonToolPage(tool, "cad") ? { index: false, follow: false } : undefined,
     };
   }
 
@@ -110,6 +133,7 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
                   basePath={`/cad/${tool.slug}`}
                   label="tool"
                   soon={!isLiveTool(tool, "cad")}
+                  clickable={hasComingSoonPage(tool, "cad")}
                 />
               );
             })}
@@ -183,7 +207,33 @@ export default async function PolymorphicPage({ params }: PageProps) {
     return <ToolView tool={tool} />;
   }
 
-  // 3. Not found — soon tools are non-clickable cards and have no pages.
+  // 3. Upcoming tools render a Coming Soon page instead of 404ing.
+  if (tool && hasComingSoonPage(tool, "cad")) {
+    const cat = findCategoryForTool(slug);
+    const catName = cat?.title ?? "CAD";
+    const related = pickRelatedTools(allTools, {
+      currentSlug: slug,
+      basePath: "/cad",
+      isLive: (t) => isLiveTool(t, "cad"),
+      sameGroup: (t) => findCategoryForTool(t.slug)?.title === catName,
+    });
+    return (
+      <ComingSoonToolPage
+        toolName={tool.name}
+        toolDescription={tool.description}
+        icon={tool.icon}
+        siteName={CAD_SITE.copyrightName}
+        domainLabel="CAD"
+        domainHref="/cad"
+        categoryName={catName}
+        categoryHref={`/cad/${toSlug(catName)}`}
+        relatedLive={related.live}
+        relatedSoon={related.soon}
+      />
+    );
+  }
+
+  // 4. Not found
   notFound();
 }
 

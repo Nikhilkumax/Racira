@@ -1822,6 +1822,8 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "pubertal-stage-tanner-stage-estimator": () => import("@/domains/calculator/components/TannerStageEstimator"),
   "egg-quality-age-calculator": () => import("@/domains/calculator/components/EggQualityAgeCalculator"),
   "solder-joint-reliability-calculator": () => import("@/domains/calculator/components/SolderJointReliabilityCalculator"),
+  "timber-beam-bending-calculator": () => import("@/domains/calculator/components/TimberBeamBendingCalculator"),
+  "insurance-combined-ratio-calculator": () => import("@/domains/calculator/components/InsuranceCombinedRatioCalculator"),
 };
 
 // Lazily create dynamic() wrappers on first access to avoid building all 1,450+

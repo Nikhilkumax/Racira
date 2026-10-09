@@ -252,7 +252,7 @@ export const SEO_BATCH_17: Record<string, ToolSeo> = {
       { step: "Edit the value in place to compare variants without leaving the page." },
     ],
     whenToUse:
-      "Use this when a gradient value exists already and you want to see it — checking output from another generator, reviewing a layered background, or testing unfamiliar syntax. Use the builders when you are creating the gradient from colours rather than from code. If the value needs flipping rather than looking at, the {{gradient-reverser|gradient reverser}} mirrors its stops while keeping its angle; if it needs to go into a stylesheet, the {{gradient-to-css-exporter|gradient to CSS exporter}} returns it in the three forms a stylesheet consumes.",
+      "Use this when a gradient value exists already and you want to see it — checking output from another generator, reviewing a layered background, or testing unfamiliar syntax. Use the builders when you are creating the gradient from colours rather than from code, and when a batch of preset ramps needs scanning rather than rendering one value, the {{gradient-collection-browser|gradient collection browser}} lists the whole library. If the value needs flipping rather than looking at, the {{gradient-reverser|gradient reverser}} mirrors its stops while keeping its angle; if it needs to go into a stylesheet, the {{gradient-to-css-exporter|gradient to CSS exporter}} returns it in the three forms a stylesheet consumes.",
     faqs: [
       {
         q: "Which gradient types can it preview?",

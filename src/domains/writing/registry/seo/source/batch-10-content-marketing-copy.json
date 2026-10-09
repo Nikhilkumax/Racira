@@ -1,0 +1,562 @@
+[
+  {
+    "slug": "headline-analyzer",
+    "keywords": [
+      "headline analyzer",
+      "headline score",
+      "power words",
+      "headline length"
+    ],
+    "intro": "The Headline Analyzer scores a headline against the six mechanical habits strong headlines share and names the ones it breaks.",
+    "content": "A headline has one job — earn the next second of attention — and this headline analyzer scores whether yours does the mechanical work. Paste a headline and it grades it out of a hundred across six parts: length, a power word, a concrete number, an address to the reader, a question or list shape, and readable capitalisation. The score is a documented rubric, not a prediction of traffic, and the panel says so.\n\nThe headline panel takes one line of text. The score panel breaks the total into its six parts with the points each earned, and the checks panel lists the faults — past fifteen words readers skim, fewer than four words say too little, a headline with no number or no you leaves the reader outside the sentence. ALL CAPS words are flagged as shouting, a closing period is flagged, and a repeated word is named. How the score is built shows the exact weights; Scope and limits says what the rubric cannot do. The headline length band and the headline score parts print beside one another, so a rewrite starts from the named fault rather than the total.\n\n- Length (6-12 words): 25 points inside the band, 15 between four and fifteen, nothing outside it.\n- Power word: 20 points for at least one of the published list, from proven and essential to field-tested.\n- Concrete number: 15 points for any digit in the line.\n- Addresses the reader: 10 points for you or your.\n- Question or list shape: 10 points for a question mark, colon or spaced dash.\n- Readable capitalisation: 10 points for a headline that opens like a sentence.\n- Grade: Strong, Workable or Weak from the total.\n\nThe analysis is arithmetic on the string: the tokens come from the shared tokenizer, the power words are a fixed set of eighteen, and every point is awarded by a published condition rather than a model. That is why the checks can name the same habits the score rewards, and why two writers with the same headline see the same number. The rubric measures what a headline contains; it has no opinion about the story underneath.\n\n- The score is a rubric, not a forecast: it does not predict clicks, shares or search position.\n- The power-word list is fixed at eighteen entries; a strong word outside it earns nothing.\n- Numbers are credited by presence, not usefulness — a misleading figure still scores.\n- The capitalisation check reads only the first character; it cannot judge a house style.\n- Nothing is stored, so copy the headline and the breakdown before leaving the page.\n\nRead the checks before the score: a headline that scores well and still draws three faults has the parts and misses the point. Then run the same line through the headline rewriter when the fault is vocabulary rather than shape, and compare the two readings side by side. A headline that earns its number and its power word while naming the reader is one worth testing. Keep the line honest as well: a number the story does not deliver, or a power word the piece cannot carry, scores the same as the truth and costs the reader's trust instead.\n\nThe neighbours cover the rest of the problem: the email subject line tester applies a parallel rubric to the inbox, the headline rewriter trades power words in and out, and the CTA button copy generator finishes the job the headline starts.",
+    "howTo": [
+      "Paste the headline into the headline panel.",
+      "Read the score and the six parts that built it.",
+      "Work through the checks — length, number, you, caps, period, repeats.",
+      "Copy the line and the breakdown, then test a variant."
+    ],
+    "whenToUse": "Use the headline analyzer when a headline exists and the question is whether its mechanics hold. The {{email-subject-line-tester|Email Subject Line Tester}} applies the same kind of rubric to inbox lines, and the {{headline-rewriter|Headline Rewriter}} trades the vocabulary once the faults are known. When the headline sits over a full page, the {{landing-page-copy-builder|Landing Page Copy Builder}} carries it into a structure, and the CTA button copy generator in this domain writes the click the headline promises.",
+    "faqs": [
+      {
+        "q": "Is the headline score a prediction of performance?",
+        "a": "No. It is a published rubric that measures six mechanical habits — length, power word, number, address, shape, capitalisation — and grades what the line contains. Traffic depends on the audience, the placement and the promise, none of which the tool can see."
+      },
+      {
+        "q": "What counts as a power word?",
+        "a": "A fixed set of eighteen: proven, ultimate, free, new, guide, essential, easy, fastest, best, complete, step-by-step, simple, practical, honest, quiet, exact, working and field-tested. A strong word outside the list scores nothing, which is the honest limit of a fixed lexicon."
+      },
+      {
+        "q": "Why did my headline lose points for length?",
+        "a": "The full 25 points are reserved for six to twelve words, the band a reader can take in at a glance. Four to fifteen words earn 15 points, and anything outside that earns none — the check tells you how far past fifteen the line ran."
+      },
+      {
+        "q": "Does the analyzer rewrite the headline?",
+        "a": "No. It scores and flags; the wording stays yours. The headline rewriter in this domain is the tool that trades power words and shapes once the analyzer has named the faults."
+      },
+      {
+        "q": "Where does my headline go when I close the page?",
+        "a": "Nowhere. The analysis runs in the page from the text you typed, and nothing is stored or sent; closing the tab discards the line unless you copied it."
+      }
+    ]
+  },
+  {
+    "slug": "cta-button-copy-generator",
+    "keywords": [
+      "cta button copy generator",
+      "button label",
+      "call to action",
+      "weak verbs"
+    ],
+    "intro": "The CTA Button Copy Generator builds five button-label variants from a verb, an object and a benefit, then checks the wording a button cannot afford.",
+    "content": "A button label is the smallest copy on a page and the only one the reader is asked to obey, and this cta button copy generator builds five candidates from three fields. Give it a verb, the object of the click and the benefit behind it; it returns the label alone, the label with the benefit, a sentence-length variant, a next-step framing and a question that hands the choice back. The wording is yours; the tool arranges it. However the variants are phrased, the label stays a call to action — the words a reader must obey to get what the page promised.\n\nThe click panel holds the three inputs. The variants panel lists the five labels with their word counts, each copyable on its own. The checks panel names what a button cannot afford: no verb, no object, no benefit, or a verb that asks for effort rather than offering a reward — submit, click, send, read, view and continue are called out by name. Scope and limits says what the generator does not know about the offer.\n\n- Verb: what the reader does — download, start, get, save.\n- Object: what the click gets — the template, the checklist, the trial.\n- Benefit: what changes after the click, in the reader's terms.\n- Five variants: label alone, label plus benefit, an em-dash sentence, a Your next step framing, and a Ready to question.\n- Word counts beside every variant, because a button that needs a second line is not a button.\n- Checks for missing parts and for the six weak verbs.\n\nThe engine is string composition against five fixed patterns, and the checks are a small vocabulary test: the weak-verb list is published, the benefit is stripped of a leading to or and so the label reads as a command rather than a fragment, and the capitalisation of the sentence variants is handled in the pattern. Nothing about your offer is inferred, and no variant is ranked — the ordering is fixed and visible.\n\n- Five variants from three fields is a small space; the right label may need a fourth idea you write yourself.\n- The weak-verb list is a fixed six; a verb that is weak for your audience but absent from the list passes.\n- No claim in the benefit is checked — the tool cannot know whether the promise is true.\n- Word counts come from the shared tokenizer; hyphenated words count as several.\n- Nothing is stored, so copy the variant you pick before leaving the page.\n\nThe useful test is reading the variants against the object: a label whose object is vague — learn more, get started — fails the check in spirit even when it passes in form. Fill the benefit last and watch the sentence variants; the moment the label can be read without the benefit, the benefit is decoration. Then check that the destination the button points at still matches the promise, which no tool on this page can do. A button is a promise with a short memory, and the page behind it has to keep the words the label chose.\n\nThe neighbours finish the click: the Landing Page Copy Builder places the button as the page's next step, the Value Proposition Builder writes the promise the label depends on, and the Headline Analyzer scores the line above it.",
+    "howTo": [
+      "Fill the verb, the object and the benefit.",
+      "Read the five variants and their word counts.",
+      "Work through the checks — missing parts and weak verbs.",
+      "Copy the label you pick and test it against the page's promise."
+    ],
+    "whenToUse": "Use the cta button copy generator when the click exists and only the label is undecided. The {{landing-page-copy-builder|Landing Page Copy Builder}} writes the page the button sits on, and the {{value-proposition-builder|Value Proposition Builder}} supplies the promise the label has to keep. When the click is on a product page, the {{product-launch-copy-builder|Product Launch Copy Builder}} frames the announcement around it, and the tagline generator in this domain covers the promise above the fold.",
+    "faqs": [
+      {
+        "q": "Why are submit and click called weak verbs?",
+        "a": "They name the effort rather than the reward: submit and click describe what the reader does to the page, not what the reader gets. Download, start, get and save name the outcome, which is what the button is selling."
+      },
+      {
+        "q": "What do the five variants change?",
+        "a": "Only the pattern. The first is the bare verb and object, the second adds the benefit, the third makes an em-dash sentence, the fourth frames the click as your next step, and the fifth turns the benefit into a question. The words stay yours."
+      },
+      {
+        "q": "Which variant should I use?",
+        "a": "The tool does not rank them; the shortest variant that still carries the benefit is usually the safest, and the sentence-length variants are for buttons with room for a second line. Read them against the object before choosing."
+      },
+      {
+        "q": "Can I use a verb that is not in the checks?",
+        "a": "Yes. The weak-verb list is six published entries, not a rule; a verb outside it passes the check even if it is weak for your audience, which is a limit the scope panel states."
+      },
+      {
+        "q": "Does the generator save my variants?",
+        "a": "No. Everything runs in the page, nothing is stored, and the variants are gone when the tab closes unless you copy the one you picked."
+      }
+    ]
+  },
+  {
+    "slug": "landing-page-copy-builder",
+    "keywords": [
+      "landing page copy builder",
+      "hero line",
+      "benefits",
+      "proof"
+    ],
+    "intro": "The Landing Page Copy Builder assembles a hero line, an audience line, the benefits, a proof block and one next step into the skeleton of a landing page, then checks each block.",
+    "content": "A landing page is an argument in a fixed order, and this landing page copy builder assembles yours from six fields. Name the product, write the hero line, say who the page is for, list the benefits, supply the proof and the one next step; the tool stacks them in the order a reader scans — headline, audience, numbered benefits, why it holds up, next step, about the product — and checks each block against the published rules.\n\nThe page panel holds the six inputs. The output panel shows the assembled page with its word count, and the checks panel names what is missing or thin: no product name, no hero line, a hero line past twelve words, no audience, fewer than three benefits, more than seven. Scope and limits states what the builder does not verify — every claim stays the writer's.\n\n- Product: what the page is about, named once.\n- Hero line: one promise the page can keep, kept under twelve words.\n- Audience: who the page is for, named by situation rather than demographic.\n- Benefits: three to seven reasons to keep reading, numbered in the output.\n- Proof: the evidence block — a figure, a result, a name.\n- Next step: the single action the page asks for.\n- Checks: the six blocks and the two thresholds that decide them.\n\nThe assembly is block composition: each field is cleaned, the benefits are numbered in a list, and the blocks are joined in the published order with a blank line between them. The thresholds are arithmetic — a hero line over twelve words, a benefits list under three — and the checks report rather than repair. No claim is generated, no benefit is invented, and the page cannot verify that the proof is true.\n\n- The order is fixed; a page that needs a different argument order is out of scope.\n- Benefits are counted, not weighed — three weak reasons pass the check.\n- The proof block is not checked for a figure, unlike the case study and sales page tools.\n- The hero line length check is the only style rule; voice is left to the writer.\n- Nothing is stored, so copy the page before leaving it.\n\nWrite the benefits before the hero line and the hero line almost writes itself: the three or four reasons that survive the cut are the promise. Then read the page top to bottom as a skimmer would — hero, benefits, proof, next step — and check that each block answers the question the previous one raised. The checks panel is the last pass, not the first. Keep the page in one voice throughout: the hero line, the benefits and the next step should sound like the same person wrote them, because a page that changes register between blocks reads as a template.\n\nThe neighbours carry the page's parts: the Headline Analyzer scores the hero line's mechanics, the CTA Button Copy Generator writes the button the next step points at, and the Value Proposition Builder assembles the one-sentence pitch behind the page. When the page is for a launch, the Product Launch Copy Builder frames the announcement, and the case study template in this domain supplies the proof block with figures.",
+    "howTo": [
+      "Name the product and write the hero line.",
+      "Add the audience, three to seven benefits, the proof and the next step.",
+      "Read the assembled page top to bottom as a skimmer would.",
+      "Work through the checks and copy the page."
+    ],
+    "whenToUse": "Use the landing page copy builder when a page needs its skeleton and the words exist in fragments. The {{headline-analyzer|Headline Analyzer}} scores the hero line once it is written, and the {{cta-button-copy-generator|CTA Button Copy Generator}} builds the button for the next step. When the page sells long form, the {{sales-page-copywriting-tool|Sales Page Copywriting Tool}} extends the same argument across nine blocks, and the case study template in this domain writes the proof section.",
+    "faqs": [
+      {
+        "q": "How many benefits should a landing page list?",
+        "a": "Three to seven. Fewer than three gives the reader no reason to keep reading, and past seven the page dilutes; the checks enforce both thresholds and report the count."
+      },
+      {
+        "q": "Why does the hero line have a word limit?",
+        "a": "Twelve words is the check's band because the hero line is read at a glance; past it the line becomes a paragraph and the reader skims to the benefits. The builder flags the length rather than cutting the line."
+      },
+      {
+        "q": "Does the builder write the page copy?",
+        "a": "No. Every block is assembled from what you supply; the tool supplies the order and the checks. Nothing is invented and no claim is made on your behalf."
+      },
+      {
+        "q": "Can the blocks be reordered?",
+        "a": "No. The order is the published one — headline, audience, benefits, proof, next step, about — because each block answers the question the previous one raises. A different argument needs a different tool."
+      },
+      {
+        "q": "Is the assembled page saved anywhere?",
+        "a": "No. The assembly runs in the page from the fields you typed; nothing is stored or sent, and closing the tab discards the draft unless you copied it."
+      }
+    ]
+  },
+  {
+    "slug": "value-proposition-builder",
+    "keywords": [
+      "value proposition builder",
+      "positioning statement",
+      "alternative",
+      "proof"
+    ],
+    "intro": "The Value Proposition Builder assembles the one paragraph that names who a product is for, the need it answers, the benefit, the alternative it replaces and the proof.",
+    "content": "A value proposition is the one paragraph that says who a product is for, what it is, and what it replaces, and this value proposition builder assembles yours from seven fields. Supply the audience, the need, the brand, the category, the benefit, the alternative and the proof; the tool writes the two sentences — the positioning sentence and the contrast — and checks the shape of each part.\n\nThe pitch panel holds the seven inputs. The output is the assembled proposition with a word count, and the checks panel names what is missing or weak: no audience, no need, no category, a proof without a figure, an alternative with nothing on the other side. Scope and limits states the tool's one hard line — it assembles and checks, it cannot verify that the proof is true. What the checks can still do is push the paragraph toward a positioning statement — who it is for, what it is, what it replaces — instead of a slogan.\n\n- Audience: who the proposition is for, named by the situation they arrive in.\n- Need: what they are struggling with, phrased to attach to who.\n- Brand and category: the name and the shelf it sits on.\n- Benefit: what changes, in the reader's terms.\n- Alternative: the thing the product replaces — a competitor, a spreadsheet, a habit.\n- Proof: the evidence, ideally with a figure.\n- Checks: missing fields, thin fields and the contrast test.\n\nThe assembly is sentence composition against two published patterns: For the audience who need it, the brand is a category that benefits. Unlike the alternative, the proof. The article before the category is chosen by a vowel test, the proof is capitalised and punctuated into a sentence, and the whole proposition is joined from the parts. When the audience or the need is missing, the pattern degrades to the brand-and-benefit form rather than inventing one, and the checks say so.\n\n- The sentence patterns are fixed; a proposition that needs a different shape must be written by hand.\n- Proof is checked for a figure but never for truth — the tool cannot audit a claim.\n- The alternative is a free field; the tool has no competitor database and makes no comparisons.\n- Word count comes from the shared tokenizer and is not a length limit.\n- Nothing is stored, so copy the proposition before leaving the page.\n\nThe order that works is audience, need, alternative, proof, then the benefit last: the benefit reads as a conclusion when the first four fields are concrete, and as a slogan when they are not. Then read the proposition aloud — the positioning sentence should sound like something a customer would repeat, and the contrast sentence should name a thing the customer already knows. If the contrast is a straw man, the proof will not save it. Revisit the paragraph when the product changes: a proposition is a living sentence, and one written for last year's audience describes a product that no longer exists.\n\nThe neighbours hold the parts: the Landing Page Copy Builder carries the proposition onto a page, the Tagline Generator compresses it into a phrase, and the CTA Button Copy Generator writes the click at the end of it. When the proposition is for a launch, the Product Launch Copy Builder frames the announcement, and the brand voice guide builder in this domain keeps the wording in voice.",
+    "howTo": [
+      "Fill the seven fields: audience, need, brand, category, benefit, alternative and proof.",
+      "Read the assembled proposition and its word count.",
+      "Work through the checks — missing fields, thin proof, the contrast test.",
+      "Copy the proposition and read it aloud once."
+    ],
+    "whenToUse": "Use the value proposition builder when the pitch exists in fragments and needs one paragraph. The {{tagline-generator|Tagline Generator}} compresses the same promise into a phrase, and the {{landing-page-copy-builder|Landing Page Copy Builder}} expands it into a page. When the audience is a market rather than a person, the {{brand-voice-guide-builder|Brand Voice Guide Builder}} keeps the wording consistent, and the case study template in this domain supplies the proof the proposition promises.",
+    "faqs": [
+      {
+        "q": "What is the alternative field for?",
+        "a": "It names what the product replaces — a competitor, a spreadsheet, a habit — so the proposition can say unlike this, that. A proposition with no alternative has nothing to be better than, and the check flags it."
+      },
+      {
+        "q": "Does the proof need a number?",
+        "a": "The check looks for a figure because numbers are harder to wave away, but a named result or a customer count works too. What the tool cannot do is verify the claim, and the scope panel says so."
+      },
+      {
+        "q": "Why are there two sentences?",
+        "a": "The first positions — for whom, what it is, what it does. The second contrasts — unlike what, proven how. Together they answer the two questions a reader asks, and the tool assembles both from the same fields."
+      },
+      {
+        "q": "Can I use it for a service rather than a product?",
+        "a": "Yes. The category field takes any shelf — a consultancy, a course, a service — and the sentence pattern is unchanged. Only the alternative and proof fields change meaning."
+      },
+      {
+        "q": "Does the builder keep my fields?",
+        "a": "No. The proposition is assembled in the page from what you typed; nothing is stored or sent anywhere, and the fields are gone when the tab closes."
+      }
+    ]
+  },
+  {
+    "slug": "tagline-generator",
+    "keywords": [
+      "tagline generator",
+      "brand promise",
+      "slogan",
+      "audience"
+    ],
+    "intro": "The Tagline Generator composes five tagline patterns from a brand, a benefit and an audience, then checks the faults a tagline cannot carry.",
+    "content": "A tagline is one benefit said in one breath, and this tagline generator shows the same promise said five ways. Give it the brand, the benefit and the audience; it returns five patterns — the brand with the benefit as a statement, an em-dash pair, a for-audience construction, a helps construction, and a three-part sign-off — each with its word count beside it.\n\nThe promise panel holds the three fields. The taglines panel lists the five candidates, each copyable, and the checks panel names the faults a tagline cannot carry: no brand, no benefit, no audience, a candidate past ten words, and a benefit that contains and, which usually means two benefits fighting for one line. Scope and limits says what the generator does not know about the brand. Every pattern is built to carry the brand promise in one breath, because a promise that needs a second breath is a paragraph wearing a tagline's clothes.\n\n- Brand: the name the tagline has to hold, without which it is a slogan for anyone.\n- Benefit: one thing the reader gets, phrased as an outcome rather than an activity.\n- Audience: who the line is for; knowing who it excludes is half of what a tagline says.\n- Five patterns: statement, em-dash, for-audience, helps, and the three-part sign-off.\n- Word counts: a tagline that needs a second breath is a sentence.\n- Checks: missing fields, length and the and test.\n\nThe engine is fixed string composition: the benefit is stripped of its closing period, capitalised where a pattern needs it, and placed into one of five published templates. The audience is only used by the three patterns that need it, and the checks are arithmetic on the fields — presence, word count, and the word and inside the benefit. Nothing is scored or ranked, and no brand knowledge is applied.\n\n- Five patterns is a small space; a tagline that needs a different shape must be written by hand.\n- The and test is a heuristic: a benefit can contain and and still be one idea.\n- No trademark or similarity check runs — the line may echo an existing slogan.\n- The audience field is free text; the tool cannot judge whether the exclusion is deliberate.\n- Nothing is stored, so copy the candidate before leaving the page.\n\nThe discipline the patterns teach is subtraction: write the benefit as a sentence first, then cut until only the outcome is left, then read the five patterns and keep the one that survives being said out loud. A tagline that needs the audience field to make sense is usually a positioning statement wearing a slogan's clothes, and the value proposition builder is where it belongs. Test the finalists in the places the line will actually live — a signature block, a slide footer, the end of a podcast read — because a tagline that only works on the page it was written on has not been tested at all.\n\nThe neighbours work the same promise at other lengths: the Value Proposition Builder writes the paragraph the tagline compresses, the Headline Analyzer scores a headline's mechanics, and the Brand Voice Guide Builder keeps the wording in voice. When the tagline launches with a product, the Product Launch Copy Builder frames the announcement, and the CTA button copy generator in this domain writes the click beneath it.",
+    "howTo": [
+      "Fill the brand, the benefit and the audience.",
+      "Read the five tagline patterns and their word counts.",
+      "Work through the checks — missing fields, length, the and test.",
+      "Copy the candidate that survives being said aloud."
+    ],
+    "whenToUse": "Use the tagline generator when the promise is settled and only its shortest form is undecided. The {{value-proposition-builder|Value Proposition Builder}} writes the paragraph the tagline compresses, and the {{brand-voice-guide-builder|Brand Voice Guide Builder}} records the voice the line has to stay inside. When the line is for a launch, the {{product-launch-copy-builder|Product Launch Copy Builder}} frames the announcement, and the headline analyzer in this domain scores the longer line above it.",
+    "faqs": [
+      {
+        "q": "How many taglines does the generator produce?",
+        "a": "Five patterns when all three fields are filled, and fewer when the audience is missing — three patterns use it and two do not. The word count beside each candidate tells you which are short enough to say."
+      },
+      {
+        "q": "Why is and a problem in the benefit?",
+        "a": "Because a benefit with and is usually two benefits, and a tagline can only carry one. The check names the word rather than cutting it; the choice of which half survives is the writer's."
+      },
+      {
+        "q": "Can a tagline be longer than ten words?",
+        "a": "It can, but the check flags it: past ten words the line needs a second breath and reads as a sentence. The five patterns are built to stay under the limit."
+      },
+      {
+        "q": "Does the generator check whether my tagline already exists?",
+        "a": "No. There is no trademark or slogan database behind it, so a candidate that echoes an existing line passes every check. A similarity search is a separate job."
+      },
+      {
+        "q": "Is my brand name stored?",
+        "a": "No. The patterns are composed in the page from the fields you typed; nothing is stored or transmitted, and closing the tab discards the candidates unless you copied them."
+      }
+    ]
+  },
+  {
+    "slug": "social-post-caption-builder",
+    "keywords": [
+      "social post caption builder",
+      "character limit",
+      "hashtags",
+      "caption"
+    ],
+    "intro": "The Social Post Caption Builder renders one post for four platforms, checks each against its character limit and hashtag cap, and says where the caption will be cut.",
+    "content": "One post does not fit four networks, and this social post caption builder shows exactly where it breaks. Write the hook, the body, the hashtags and the link; the tool renders the same post as a caption for X, LinkedIn, Instagram and Facebook, counts every caption's characters, and flags the platform habits that punish copy-paste — the 280-character limit on X, LinkedIn's hashtag cap of five, Instagram's ten-hashtag cap and its inability to carry a working link in the caption at all.\n\nThe post panel holds the four inputs. The captions panel lists one caption per platform with its character count and an over-limit flag, and the checks panel names the platform faults: a caption past the limit, more hashtags than the platform tolerates, and a link that will not work where it was placed. Scope and limits says what the builder does not know about reach or the algorithm.\n\n- Hook: the first line, which is all most feeds show before the fold.\n- Body: the rest of the post, kept plain.\n- Hashtags: normalised to start with a hash, capped per platform.\n- Link: appended where the platform allows it — Instagram is excluded by design.\n- Four platforms: X at 280 characters and three hashtags, LinkedIn at 3,000 and five, Instagram at 2,200 and ten, Facebook at 63,206 and five.\n- Per-platform character count and over-limit flag beside every caption.\n\nThe engine holds a small platform table — id, label, character limit, hashtag cap, and whether a link works in the caption — and renders the same parts through it four times. The over flag is arithmetic on the rendered length, and the hashtag cap is enforced by the table rather than by trimming, so nothing is silently changed. Every rule in the table is published on the page.\n\n- The limits are the published ones and change when platforms change them.\n- Hashtags past the cap are counted and flagged, never trimmed.\n- Character counts treat every character as one, including emoji and links.\n- Instagram's link rule is the only cross-platform behaviour modelled; feeds, threads and alt text are out of scope.\n- Nothing is stored, so copy each caption before leaving the page.\n\nThe order that works is hook, body, hashtags, link — then read the X caption first, because it is the harshest cut and the one that shows what the hook has to carry alone. A hook that survives 280 characters is a hook; a hook that only works with the body attached is an introduction. Then trim the hashtag list to the smallest cap in play, and the same list works everywhere. Keep one caption per platform rather than one caption trimmed four times, because the platforms disagree about links, tags and tone, and the differences are exactly what the table is there to show.\n\nThe neighbours cover the copy around the post: the Headline Analyzer scores the hook's mechanics, the CTA Button Copy Generator writes the click the post asks for, and the Email Subject Line Tester applies a parallel rubric to the inbox. When the post is part of a launch, the Product Launch Copy Builder frames the announcement, and the microcopy library in this domain covers the interface slots.",
+    "howTo": [
+      "Write the hook, the body, the hashtags and the link.",
+      "Read each platform's caption and its character count.",
+      "Fix the captions flagged over-limit or over the hashtag cap.",
+      "Copy each platform's caption separately."
+    ],
+    "whenToUse": "Use the social post caption builder when one post has to run on several networks and the limits decide the wording. The {{headline-analyzer|Headline Analyzer}} scores the hook as a headline, and the {{email-subject-line-tester|Email Subject Line Tester}} scores the inbox version of the same idea. When the post announces a product, the {{product-launch-copy-builder|Product Launch Copy Builder}} writes the announcement, and the CTA button copy generator in this domain finishes the call to action.",
+    "faqs": [
+      {
+        "q": "Why is my Instagram link flagged?",
+        "a": "Instagram captions do not carry working links — the platform strips them — so the builder excludes the link from that caption and names the reason. The link belongs in the bio, which no caption tool can fill."
+      },
+      {
+        "q": "What are the hashtag caps based on?",
+        "a": "The published habits of each platform: three hashtags for X, five for LinkedIn, ten for Instagram, five for Facebook. Past the cap the tags stop helping and start reading as spam, so the builder flags the count."
+      },
+      {
+        "q": "Are hashtags trimmed automatically?",
+        "a": "No. The builder normalises them to start with a hash and counts them against each platform's cap; nothing is removed. Trimming is your call, and the checks panel tells you how far over you are."
+      },
+      {
+        "q": "Do emoji count toward the character limit?",
+        "a": "Yes. The count treats every character as one, which is the conservative reading — some platforms count an emoji as two, so a caption that just fits here may not fit there."
+      },
+      {
+        "q": "Does the builder post anywhere?",
+        "a": "No. It renders captions in the page from the text you typed; nothing is stored, sent or published. Copy each caption and post it yourself."
+      }
+    ]
+  },
+  {
+    "slug": "email-subject-line-tester",
+    "keywords": [
+      "email subject line tester",
+      "spam words",
+      "subject line length",
+      "inbox"
+    ],
+    "intro": "The Email Subject Line Tester scores a subject line against the mechanical faults inboxes punish — length, spam vocabulary, shouting and stacked exclamation marks.",
+    "content": "A subject line is a headline with a harsher reader, and this email subject line tester scores yours against the faults inboxes punish. Paste a line and it grades it out of a hundred across five parts: length at fifty characters or fewer, no spam-trigger phrases, no ALL-CAPS words, at most one exclamation mark, and a number or personalisation token. The rubric is fixed and visible; it does not predict open rates, which depend on the list, the sender and the moment.\n\nThe subject line panel takes one line of text. The score panel breaks the total into the five parts with the points each earned, and the checks panel names the faults — the spam phrase that matched, the caps word that reads as shouting, the exclamation marks that stacked. How the score is built shows the exact weights; Scope and limits states what the rubric cannot know. The subject line length and the spam words that matched print beside the parts, so the rewrite starts from the named fault rather than the total.\n\n- Length: 30 points for fifty characters or fewer, 15 up to seventy, none past it.\n- No spam-trigger phrases: 25 points for a clean line, 10 for one match, none for two or more.\n- No ALL-CAPS words: 15 points, because one shouted word drags the line's tone.\n- At most one exclamation mark: 15 points.\n- Contains a number or personalisation: 15 points for a digit or a merge token.\n- Grade: Strong at 80, Workable at 55, Weak below.\n- Spam vocabulary: a published list from free and guarantee to act now and lowest price.\n\nThe analysis is arithmetic on the string: the spam list is a fixed thirteen phrases matched by substring, the caps test is a per-token uppercase comparison, and the exclamation count is a regex. The same tokenizer as the rest of the domain supplies the word count, and every point is awarded by a published condition. The score measures what the line contains, never how a list will respond to it.\n\n- The score is a rubric, not a forecast: open rates depend on the list, the sender and the moment.\n- The spam list is thirteen fixed phrases; a trigger outside it passes.\n- Personalisation is credited by token shape, not by whether the merge field will fill.\n- Length is measured in characters, not in the pixels of a preview pane.\n- Nothing is stored, so copy the line and the breakdown before leaving the page.\n\nRead the spam matches first: a line that scores 85 with one trigger phrase in it is a line that will earn the flag somewhere. Then check the length against your own inbox — fifty characters is the conservative band, and a preview that cuts at forty punishes lines the rubric passes. The number check is the quiet one: a subject line with a figure in it is specific, and specific is what survives a crowded inbox.\n\nThe neighbours split the same job: the Headline Analyzer scores the page headline with a parallel rubric, the Headline Rewriter trades the vocabulary once the faults are named, and the Social Post Caption Builder renders the same hook for social feeds. When the email announces a product, the Product Launch Copy Builder frames the announcement, and the microcopy library in this domain covers the interface copy.",
+    "howTo": [
+      "Paste the subject line into the subject line panel.",
+      "Read the score and the five parts that built it.",
+      "Work through the checks — spam matches, caps, exclamation marks.",
+      "Copy the line and test a variant against the same rubric."
+    ],
+    "whenToUse": "Use the email subject line tester when a subject line exists and the question is whether its mechanics hold. The {{headline-analyzer|Headline Analyzer}} applies the same kind of rubric to headlines, and the {{headline-rewriter|Headline Rewriter}} swaps the vocabulary once the faults are known. When the line carries a campaign, the {{social-post-caption-builder|Social Post Caption Builder}} renders it for feeds, and the product launch copy builder in this domain frames the announcement behind it.",
+    "faqs": [
+      {
+        "q": "Which phrases does the spam check look for?",
+        "a": "Thirteen published phrases: free, guarantee, guaranteed, act now, limited time, risk-free, click here, urgent, winner, no obligation, buy now, lowest price and special promotion. The check matches them as substrings and names the ones that hit."
+      },
+      {
+        "q": "Why is fifty characters the length target?",
+        "a": "It is the conservative band that survives the common preview pane on desktop and mobile. The rubric still gives partial credit up to seventy characters, but the check flags anything longer."
+      },
+      {
+        "q": "Does the score predict my open rate?",
+        "a": "No. Open rates depend on the list, the sender, the subject and the moment; the rubric measures five mechanical habits and says nothing about response. It is a filter, not a forecast."
+      },
+      {
+        "q": "What counts as personalisation?",
+        "a": "A merge token — a first name in curly braces — or any digit in the line earns the same points. The check looks at the token's shape, not at whether your platform will fill it."
+      },
+      {
+        "q": "Where does my subject line go?",
+        "a": "Nowhere. The analysis runs in the page from the text you typed; nothing is stored or sent, and the line is gone when the tab closes unless you copied it."
+      }
+    ]
+  },
+  {
+    "slug": "ad-copy-framework-builder",
+    "keywords": [
+      "ad copy framework builder",
+      "aida",
+      "pas",
+      "bab"
+    ],
+    "intro": "The Ad Copy Framework Builder reads one offer through the AIDA, PAS and BAB structures, assembling each from the same six fields and checking every slot the framework needs.",
+    "content": "Three ad structures have survived because each answers a different reader, and this ad copy framework builder reads your offer through all three. Fill the fields — product, audience, problem, agitate, benefit and proof — and switch between AIDA, PAS and BAB to see the same facts in each shape: attention-interest-desire-action, problem-agitate-solution, before-after-bridge.\n\nThe framework panel holds the six fields and the three-way switch. The draft panel shows the assembled copy for the chosen framework, and the checks panel names the slots the framework needs that are still empty — PAS wants the agitate line, AIDA and BAB do not. Scope and limits states the builder's line: it writes no claims and knows nothing about the offer.\n\n- AIDA: attention, interest, desire, action — needs product, audience, problem, benefit and proof.\n- PAS: problem, agitate, solution — needs all six fields including the agitate line.\n- BAB: before, after, bridge — needs product, audience, problem, benefit and proof.\n- Fields: product, audience, problem, agitate, benefit, proof.\n- Slot hints: each slot carries a prompt describing what belongs in it.\n- Checks: the framework's required fields, named slot by slot.\n\nThe engine maps your fields onto the chosen framework's slots and joins them in the structure's order, ending each line as a sentence and capitalising where the pattern needs it. The three frameworks are data — id, label, slots with hints, and the fields each needs — so the checks are a comparison between the required list and the filled fields. No line is generated and no claim is added.\n\n- Three frameworks is a finite shelf; a structure outside them is out of scope.\n- The checks test presence, not quality — a weak benefit in every slot passes.\n- The agitate line is required by PAS alone, which is why switching frameworks changes the checks.\n- No claim is verified; the builder cannot know whether the proof is true.\n- Nothing is stored, so copy each framework's draft before switching.\n\nThe useful pass is writing the fields once and reading all three drafts in sequence: PAS punishes a vague problem line because the agitate has nothing to hold, and BAB punishes a vague after because the bridge has nothing to cross. Whichever framework collapses first is the one whose field needs work. Then keep the draft whose structure matches where the reader is — problem-aware readers get PAS, unaware readers get BAB. Rewrite the fields rather than the draft: the frameworks share every field, so one improved problem line improves all three readings at once, and the weakest draft is always the honest signal of which field is still thin. A framework is a lens, not a template, and the offer underneath it stays the same offer. When one draft reads badly, the fault is usually in the field the frameworks share, not in the framework you chose.\n\nThe neighbours cover the copy around the ad: the CTA Button Copy Generator writes the button the action slot points at, the Headline Analyzer scores the attention line's mechanics, and the Value Proposition Builder assembles the pitch the ad repeats. When the ad supports a launch, the Product Launch Copy Builder frames the announcement, and the sales page copywriting tool in this domain extends the argument.",
+    "howTo": [
+      "Fill the six fields: product, audience, problem, agitate, benefit and proof.",
+      "Switch between AIDA, PAS and BAB and read each draft.",
+      "Work through the checks — the slots the chosen framework still needs.",
+      "Copy the draft whose structure matches the reader."
+    ],
+    "whenToUse": "Use the ad copy framework builder when one offer has to be read through more than one structure. The {{cta-button-copy-generator|CTA Button Copy Generator}} writes the action line as a button, and the {{value-proposition-builder|Value Proposition Builder}} supplies the pitch the ad compresses. When the copy runs long, the {{sales-page-copywriting-tool|Sales Page Copywriting Tool}} applies the same field discipline across nine blocks, and the headline analyzer in this domain scores the attention line.",
+    "faqs": [
+      {
+        "q": "What is the difference between AIDA, PAS and BAB?",
+        "a": "AIDA builds attention, interest, desire and action; PAS opens on the problem, agitates it and solves it; BAB shows the world before, the world after and the bridge between. The fields are the same; the order and the emphasis change."
+      },
+      {
+        "q": "Why does PAS need an extra field?",
+        "a": "Because PAS is built on the agitate step — the cost of leaving the problem alone. AIDA and BAB do not have that slot, so the checks only require the agitate line when PAS is selected."
+      },
+      {
+        "q": "Does the builder write the claims?",
+        "a": "No. It places your text into the framework's slots and checks that the slots the structure needs are filled. No claim is generated, and none is verified."
+      },
+      {
+        "q": "Can I add a fourth framework?",
+        "a": "Not in the tool. The three frameworks are a fixed shelf of published structures; a different one has to be written by hand, and the scope panel says so."
+      },
+      {
+        "q": "Are my fields kept between frameworks?",
+        "a": "The fields stay while the page is open, so you can switch frameworks without retyping, but nothing is stored — closing the tab discards everything unless you copied the draft."
+      }
+    ]
+  },
+  {
+    "slug": "sales-page-copywriting-tool",
+    "keywords": [
+      "sales page copywriting tool",
+      "long-form sales page",
+      "guarantee",
+      "objections"
+    ],
+    "intro": "The Sales Page Copywriting Tool assembles the nine blocks of a long-form sales page in their settled order and checks the blocks a skimmer reads.",
+    "content": "Long-form sales copy has a settled order because each block answers the question the previous one raises, and this sales page copywriting tool assembles yours in that order. Fill the fields — promise, problem, mechanism, benefits, proof, offer, guarantee, objections and close — and the builder stacks the nine blocks, then checks the ones a skimmer reads: a proof without a figure, an offer that is not concrete, a guarantee with no terms, a close with no next step. The nine blocks are the long-form sales page shape; an argument that fits in six blocks belongs to the landing page builder instead.\n\nThe product and the promise panel holds the opening fields; the case panel takes the problem, the mechanism, the benefits and the proof; the close panel takes the offer, the guarantee, the objections and the final call. The checks panel names what is thin — a proof line without a number, fewer than three objections answered, a claiming word like revolutionary or instant standing without a fact beside it. Scope and limits states that the builder cannot verify a claim.\n\n- Nine blocks: the promise, the problem, why this works, what changes, proof, the offer, the guarantee, objections answered, the close.\n- Benefits and proof: one per line, so the blocks can be counted and joined.\n- Objections: written as objection | answer, one pair per line.\n- Claiming words: a published list — revolutionary, game-changing, world-class, best-in-class, ultimate, unbeatable, effortless, instant — flagged when they stand alone.\n- Stats: words, benefits, objections and proof lines, counted as you type.\n- Checks: the promise, the proof with a figure, the offer, the guarantee and the close.\n\nThe assembly is block composition in the published order: each field is cleaned, benefit and proof lines are stripped of their bullets, objections are split on the pipe into question and answer, and the blocks are joined with their labels. The checks are arithmetic — a count of objections, a regex for a digit in the proof — and the claiming-word scan is a fixed list. No copy is written and no claim is verified.\n\n- The nine-block order is fixed; a page that needs a different argument is out of scope.\n- The proof check looks for a figure, not for truth.\n- Objections must use the pipe separator; a prose objection is treated as one line.\n- The claiming-word list is eight entries; a hype word outside it passes.\n- Nothing is stored, so copy the page before leaving it.\n\nWrite the objections first and the rest of the page organises itself: every objection names a fear the earlier blocks have to answer, and a page with no objections answered leaves the reader to argue with the page in their own head, where the reader wins. Then read the proof block — a proof line with a number in it is doing work, and one without is decoration. The checks panel is the last pass before you read the page aloud once.\n\nThe neighbours hold the page's parts: the Value Proposition Builder writes the one-sentence pitch the promise compresses, the Case Study Template supplies the proof block with figures, and the Testimonial Formatter formats the social proof. When the page sits behind a launch, the Product Launch Copy Builder writes the announcement, and the landing page copy builder in this domain shortens the same argument.",
+    "howTo": [
+      "Fill the promise and problem, then the mechanism, benefits and proof.",
+      "Add the offer, the guarantee and at least three objections with answers.",
+      "Write the close and read the assembled page top to bottom.",
+      "Work through the checks and copy the page."
+    ],
+    "whenToUse": "Use the sales page copywriting tool when the argument is long and the order matters. The {{case-study-template|Case Study Template}} writes the proof block the page depends on, and the {{testimonial-formatter|Testimonial Formatter}} turns quotes into social proof. When the page is short, the {{landing-page-copy-builder|Landing Page Copy Builder}} carries the same blocks in six, and the value proposition builder in this domain writes the one-sentence version.",
+    "faqs": [
+      {
+        "q": "Why does the page have nine blocks?",
+        "a": "Because long-form sales copy has a settled order — promise, problem, mechanism, benefits, proof, offer, guarantee, objections, close — and each block answers the question the previous one raises. The builder enforces the order rather than inventing one."
+      },
+      {
+        "q": "How should objections be written?",
+        "a": "One pair per line, as objection | answer. The pipe separates the reader's fear from your response, and the builder counts the pairs and flags a page with fewer than three answered."
+      },
+      {
+        "q": "What are claiming words?",
+        "a": "Eight published words — revolutionary, game-changing, world-class, best-in-class, ultimate, unbeatable, effortless and instant — that claim a result without evidence. The check flags them when they stand without a fact beside them."
+      },
+      {
+        "q": "Does the builder verify my proof?",
+        "a": "No. It looks for a figure in the proof block because numbers are harder to wave away, but it cannot audit the claim. The scope panel states that the copy and its truth are the writer's."
+      },
+      {
+        "q": "Is the sales page saved anywhere?",
+        "a": "No. The assembly runs in the page from the fields you typed; nothing is stored or sent, and the draft is gone when the tab closes unless you copied it."
+      }
+    ]
+  },
+  {
+    "slug": "product-launch-copy-builder",
+    "keywords": [
+      "product launch copy builder",
+      "announcement",
+      "launch date",
+      "early access"
+    ],
+    "intro": "The Product Launch Copy Builder assembles the announcement skeleton — what is new, who it is for, why it matters, the date and one next step — and checks that nothing essential is missing.",
+    "content": "An announcement is five facts in a fixed order, and this product launch copy builder assembles yours from six fields. Name the product, give the date, say who it is for, what is new, why it matters and the one next step; the tool stacks them into an announcement — masthead, what is new, who it is for, why it matters, next step — and checks what is missing or vague.\n\nThe launch panel holds the six inputs. The output panel shows the assembled announcement with its word count, and the checks panel names the faults: no product, no date, a date with no digit in it, no audience, no what, a what past thirty words, and no why. Scope and limits says the builder writes no news — the announcement's facts are yours. The launch date anchors the masthead, and early access windows use the same five blocks with the date carrying the opening instead.\n\n- Product: the thing launching, named in the masthead.\n- Date: when it lands, and it must contain a digit to be circleable.\n- Audience: who the launch is for, which tells readers whether to keep reading.\n- What is new: one or two sentences, kept to a breath.\n- Why it matters: the reason a stranger should care — newness alone is not news.\n- Next step: the single action the announcement asks for.\n- Checks: the six fields, the date's digit test and the thirty-word limit on the what.\n\nThe engine composes blocks in the published order and joins them with their labels: the masthead pairs the product with a launching date, the what, audience and why blocks carry their own headings, and the next step closes. The checks are arithmetic — a digit test on the date, a word count on the what — and the fields are never invented. The same block-composition pattern as the landing page builder, applied to the announcement's shorter order.\n\n- The order is fixed and short; a launch that needs a longer argument is out of scope.\n- The date check looks for a digit, not for a real date — 32 February passes.\n- No claim about the product is verified, and none is written.\n- The audience field is free text; the tool cannot judge whether it is specific.\n- Nothing is stored, so copy the announcement before leaving the page.\n\nWrite the why before the what: a launch is only news to the maker, and the why field is where that changes — the reason a stranger should care is the only line that decides whether the announcement is read. Then make the date concrete, because readers plan around it and writers need the deadline, and keep the what to a breath so the audience line is still above the fold. Read the finished announcement as a reader who has never heard of the product: if the first two lines do not answer what this is and why it exists, the announcement is a note to the team rather than news for anyone else.\n\nThe neighbours write the copy around the announcement: the Landing Page Copy Builder turns the news into a page, the CTA Button Copy Generator writes the next step as a button, and the Email Subject Line Tester scores the line that carries it. When the announcement is long form, the Sales Page Copywriting Tool extends the argument, and the social post caption builder in this domain renders it for feeds.",
+    "howTo": [
+      "Name the product, the date and the audience.",
+      "Write what is new and why it matters.",
+      "Add the next step and read the assembled announcement.",
+      "Work through the checks and copy the announcement."
+    ],
+    "whenToUse": "Use the product launch copy builder when the news exists and the announcement needs its skeleton. The {{landing-page-copy-builder|Landing Page Copy Builder}} turns the announcement into a page, and the {{cta-button-copy-generator|CTA Button Copy Generator}} writes the next step. When the launch runs across channels, the {{social-post-caption-builder|Social Post Caption Builder}} renders it for feeds, and the email subject line tester in this domain scores the line that carries it.",
+    "faqs": [
+      {
+        "q": "What does the announcement include?",
+        "a": "Five blocks: the masthead with the product and launch date, what is new, who it is for, why it matters and the next step. Each is assembled from your fields in the published order, and the checks report what is missing."
+      },
+      {
+        "q": "Why does the date need a digit?",
+        "a": "A date without a number — soon, later this year — cannot be circled, and the check flags it. The digit test is deliberately loose: it cannot tell a real date from an impossible one, only a concrete one from a vague one."
+      },
+      {
+        "q": "How long should the what section be?",
+        "a": "Under thirty words. The check flags anything longer, because an announcement's job is to make the reader decide whether to read more, not to replace the page it links to."
+      },
+      {
+        "q": "Does the builder write the news?",
+        "a": "No. Every fact comes from your fields; the builder supplies the order, the labels and the checks. No claim is written and none is verified."
+      },
+      {
+        "q": "Is my announcement stored?",
+        "a": "No. The assembly runs in the page from the fields you typed; nothing is stored or sent, and the draft is gone when the tab closes unless you copied it."
+      }
+    ]
+  },
+  {
+    "slug": "testimonial-formatter",
+    "keywords": [
+      "testimonial formatter",
+      "pull quote",
+      "attribution",
+      "social proof"
+    ],
+    "intro": "The Testimonial Formatter formats quotes for a wall, a carousel and a pull quote at once, and names the weaknesses that make social proof decorative.",
+    "content": "Social proof fails in three ways — quotes with no name, quotes with nothing specific in them, and quotes too long to finish — and this testimonial formatter addresses all three. Paste one testimonial per line in the format quote | name | role, and the tool renders three outputs at once: the formatted wall, a slide-ready set of the short quotes, and a pull quote drawn from the strongest, while checking attribution, length and specificity.\n\nThe testimonials panel takes the lines. The formatted output and the slide-ready set are copyable on their own, the pull quote has its own panel, and the checks panel names the weaknesses: a quote with no name beside it is an assertion, not a testimonial; past fifty words a quote stops being read; under twenty it is slide-ready; and the phrases every business collects — great service, highly recommend, amazing, fantastic, five stars and the rest of the published ten — describe nothing a reader can weigh. Scope and limits states that the formatter cannot verify a testimonial is real.\n\n- Line format: quote | name | role, one testimonial per line.\n- Formatted wall: the full set, attributed and ordered.\n- Slide-ready set: quotes at twenty words or fewer.\n- Pull quote: the strongest short quote, chosen for specificity.\n- Counts: total, attributed, slide-ready and with a result in them.\n- Checks: missing names, length past fifty words, and the ten vague phrases.\n- Result detection: a quote with a figure in it is marked as carrying evidence.\n\nThe engine parses each line on the pipe, cleans the parts and measures the quote with the shared tokenizer. The slide-ready threshold and the long-quote threshold are published constants, the vague-phrase list is a fixed ten, and the pull-quote choice favours a quote with a number in it. Every judgement the formatter makes is a count or a lookup, and the panel says so.\n\n- The pipe format is required; a line without it is treated as an unattributed quote.\n- The vague-phrase list is ten entries; vague copy outside it passes.\n- Result detection is a digit test, not an understanding of the outcome.\n- The pull-quote choice is a rule, not an editorial judgement; the final pick is yours.\n- Nothing is stored, so copy each output before leaving the page.\n\nCurate before formatting: a set of twenty quotes is a haystack, and the tool's counts tell you which three are doing the work — the attributed ones, under twenty words, with a number in them. Delete the rest, then format. A wall of five specific quotes outperforms a carousel of thirty generic ones, and the specificity check is what shows you which is which. A quote that names a figure and a name is worth three that say great service, which is why the counts lead the checks.\n\nThe neighbours hold the proof around the quotes: the Case Study Template builds the longer evidence block, the Sales Page Copywriting Tool places the quotes in its proof section, and the Landing Page Copy Builder uses them in the page's proof block. When the quotes speak in the brand's voice, the Brand Voice Guide Builder keeps the surrounding copy consistent, and the microcopy library in this domain covers the interface.",
+    "howTo": [
+      "Paste one testimonial per line as quote | name | role.",
+      "Read the formatted wall and the counts.",
+      "Check the slide-ready set and the pull quote.",
+      "Work through the checks and copy each output you need."
+    ],
+    "whenToUse": "Use the testimonial formatter when quotes exist and the question is which ones carry evidence. The {{case-study-template|Case Study Template}} writes the longer proof block, and the {{sales-page-copywriting-tool|Sales Page Copywriting Tool}} places the set in a page's proof section. When the page is short, the {{landing-page-copy-builder|Landing Page Copy Builder}} carries the quotes into its proof block, and the brand voice guide builder in this domain keeps the surrounding wording in voice.",
+    "faqs": [
+      {
+        "q": "What format do the testimonials need?",
+        "a": "One per line as quote | name | role, with the pipe separating the parts. The name and role are optional in the parse, but a quote without a name is flagged — an unattributed quote is an assertion rather than a testimonial."
+      },
+      {
+        "q": "Why is fifty words the long-quote threshold?",
+        "a": "Past fifty words a quote stops being read inline, so the check flags it and suggests cutting. The slide-ready threshold is the other end: at twenty words or fewer a quote fits a carousel slide."
+      },
+      {
+        "q": "What makes a quote specific?",
+        "a": "A result — a number, a duration, a before-and-after. The formatter marks quotes with a figure in them and flags the ten vague phrases, from great service to five stars, that describe nothing a reader can weigh."
+      },
+      {
+        "q": "How is the pull quote chosen?",
+        "a": "By rule: the shortest quote that carries a result and an attribution wins, with the first qualifying quote breaking ties. It is a heuristic, not an editorial judgement, and the panel says so."
+      },
+      {
+        "q": "Are my testimonials uploaded?",
+        "a": "No. The parsing and formatting run in the page from the text you pasted; nothing is stored or sent, and the outputs are gone when the tab closes unless you copied them."
+      }
+    ]
+  },
+  {
+    "slug": "case-study-template",
+    "keywords": [
+      "case study template",
+      "quantified results",
+      "challenge",
+      "approach"
+    ],
+    "intro": "The Case Study Template assembles a challenge, an approach, results and a quote into the case study shape, then checks the parts that make one credible — a named client, steps and results with figures.",
+    "content": "A case study earns its name with figures, and this case study template assembles yours and checks whether the figures are there. Supply the client, the sector, the challenge, the approach steps, the results and a quote; the tool builds the study — title, challenge, numbered approach, results, quote — and flags the parts that make one credible: an unnamed client, fewer than two approach steps, and results with no number in the value.\n\nThe case panel holds the client, the sector and the challenge. The approach is one step per line and is numbered in the output; the results field is one result per line in the format metric | value, and the tool parses each pair and marks the quantified ones. The checks panel names what is missing, and the quote closes the study. Scope and limits states that the template writes no story and verifies no result. The stats line prints how many results were read and how many are quantified results, which is the study's evidence count at a glance.\n\n- Client and sector: the title of the study and the context it sits in.\n- Challenge: the situation before, in the client's terms.\n- Approach: one step per line, at least two, numbered in the output.\n- Results: one per line as metric | value; a value with a digit in it is marked quantified.\n- Quote: the client's line, placed at the end.\n- Checks: the named client, the two-step minimum, and the quantified-results test.\n\nThe engine composes the blocks in the published order, numbers the approach steps, and parses each result line on the pipe into a metric and a value. The quantified flag is a digit test on the value, and the checks are counts and presence tests. The assembly is string work; no story is written and no figure is computed or verified.\n\n- The template writes no narrative — the challenge and approach are your sentences.\n- The quantified flag is a digit test, not an audit of the result.\n- Results must use the pipe separator; a prose result line is treated as a metric with an empty value.\n- The order is fixed; a study with a different shape is out of scope.\n- Nothing is stored, so copy the study before leaving the page.\n\nWrite the results first and the challenge second: the figures decide which situation is worth describing, and a challenge written before the results usually describes the wrong problem. Then check the approach against the results — every step should be load-bearing for a figure, and a step that no result depends on is context, not approach. The quote is the last line to write, because it should say what the figures mean rather than repeat them. A case study with one quantified result and one honest step is more convincing than a list of five metrics with no method behind them, and the checks reward exactly that shape.\n\nThe neighbours carry the evidence further: the Testimonial Formatter turns quotes into social proof, the Sales Page Copywriting Tool places the study in a proof block, and the Landing Page Copy Builder uses its figures in a page's proof section. When the study sits behind an announcement, the Product Launch Copy Builder writes the news, and the value proposition builder in this domain compresses the finding.",
+    "howTo": [
+      "Name the client and sector and write the challenge.",
+      "List the approach steps, one per line, and the results as metric | value.",
+      "Add the client quote and read the assembled study.",
+      "Work through the checks and copy the study."
+    ],
+    "whenToUse": "Use the case study template when a result exists and the evidence needs its shape. The {{testimonial-formatter|Testimonial Formatter}} formats the quotes that surround it, and the {{sales-page-copywriting-tool|Sales Page Copywriting Tool}} places the study in a proof block. When the finding is one sentence, the {{value-proposition-builder|Value Proposition Builder}} compresses it, and the landing page copy builder in this domain uses the figures above the fold.",
+    "faqs": [
+      {
+        "q": "What result format does the template expect?",
+        "a": "One result per line as metric | value — for example First-response time | cut 40% in a month. The tool splits each line on the pipe and marks the value as quantified when it contains a digit."
+      },
+      {
+        "q": "How many approach steps does a case study need?",
+        "a": "At least two, and the check flags fewer. The steps are numbered in the output, and the discipline the check enforces is that every step should be load-bearing for one of the results."
+      },
+      {
+        "q": "Does the template verify my figures?",
+        "a": "No. It flags a result with no digit in its value, because a result without a number is a claim, but it cannot audit whether the number is true. The scope panel states that."
+      },
+      {
+        "q": "Can I write the challenge as several paragraphs?",
+        "a": "Yes — the challenge field takes prose, and the template places it under its heading unchanged. The approach and results are the structured fields; the challenge is the one block written as a story."
+      },
+      {
+        "q": "Is my case study saved?",
+        "a": "No. The assembly runs in the page from the fields you typed; nothing is stored or sent, and the study is gone when the tab closes unless you copied it."
+      }
+    ]
+  },
+  {
+    "slug": "brand-voice-guide-builder",
+    "keywords": [
+      "brand voice guide builder",
+      "voice attributes",
+      "say list",
+      "sample"
+    ],
+    "intro": "The Brand Voice Guide Builder documents a brand's voice attributes with their practice, a say and do-not-say list, and a sample paragraph checked against the guide it demonstrates.",
+    "content": "A voice guide fails in one of two ways — it is too abstract to apply, or the brand's own copy contradicts it — and this brand voice guide builder addresses both. Document the reader, the voice attributes with a practice line each, the say list, the do-not-say list and a sample paragraph; the tool assembles the guide and checks the sample against it for banned terms, sentences a reader cannot hold in one breath, and the overlap between the two lists that quietly contradicts the guide.\n\nThe brand panel holds the fields. The guide output carries five sections — who we are writing for, voice attributes, we say, we do not say, and the example in voice — and is copyable as a whole. The checks panel names the contradictions: a banned term that appears in the sample, a sentence past the long-sentence threshold, and a word that appears in both the say and do-not-say lists. Scope and limits states that the builder cannot judge whether the voice is good, only whether it is consistent.\n\n- Reader: the audience named by the situation they arrive in.\n- Attributes: one per line as attribute | practice, so every attribute carries what it means in practice.\n- Say list: words and phrases the brand uses, one per line.\n- Do-not-say list: the banned terms, one per line.\n- Sample: a paragraph in the voice, checked against the guide.\n- Stats: attributes, say entries, do-not-say entries, sample words and long sentences.\n- Checks: banned terms in the sample, long sentences, and list overlap.\n\nThe engine parses the attribute lines on the pipe, strips bullets from the lists, and splits the sample into sentences with the shared tokenizer. The checks are lookups and thresholds: a banned term is a substring test, a long sentence is a word count, and the overlap is a set intersection between the two lists. No voice is judged and no copy is written.\n\n- The guide is only as specific as the practice lines; an attribute without one is abstract.\n- The long-sentence threshold is a word count, not a readability grade.\n- The overlap check compares exact words, not stems or synonyms.\n- The sample is one paragraph; a voice that shifts between channels is out of scope.\n- Nothing is stored, so copy the guide before leaving the page.\n\nWrite the do-not-say list first and the sample last: the bans are the easiest decisions and the sample is the test of whether the guide can be applied. Then read the attributes against the sample — an attribute whose practice line the sample ignores is either the wrong attribute or the wrong sample, and the overlap check is what catches the guide arguing with itself. Keep the guide short enough to remember: three attributes and two lists fit on one page, and a guide nobody can recite is a document rather than a voice. Revisit it when the sample stops sounding like the brand, which is the signal the guide has drifted from the copy.\n\nThe neighbours keep the voice applied: the Tagline Generator writes the shortest line in the voice, the Value Proposition Builder the pitch, and the Microcopy Library the interface copy. When the voice governs a page, the Landing Page Copy Builder carries it, and the testimonial formatter in this domain keeps the social proof in the same register.",
+    "howTo": [
+      "Name the reader and the voice attributes, one per line as attribute | practice.",
+      "Write the say list, the do-not-say list and a sample paragraph.",
+      "Read the assembled guide and its stats.",
+      "Work through the checks — banned terms, long sentences, list overlap — then copy the guide."
+    ],
+    "whenToUse": "Use the brand voice guide builder when the voice exists in people's heads and needs to be written down. The {{microcopy-library|Microcopy Library}} applies the guide to interface slots, and the {{tagline-generator|Tagline Generator}} compresses it into a line. When the voice governs a page, the {{landing-page-copy-builder|Landing Page Copy Builder}} carries it into the structure, and the value proposition builder in this domain states it in one sentence.",
+    "faqs": [
+      {
+        "q": "What does the attribute | practice format do?",
+        "a": "It forces every attribute to carry a definition: warm | we greet the reader before we explain. An attribute without a practice line is abstract, and an abstract attribute is one no writer can apply."
+      },
+      {
+        "q": "How does the guide check the sample?",
+        "a": "Three ways: banned terms from the do-not-say list found in the sample, sentences past the long-sentence word count, and words that appear in both the say and do-not-say lists, which is the quiet way a guide contradicts itself."
+      },
+      {
+        "q": "How many attributes should a guide have?",
+        "a": "Three is the working number the guide is designed around — enough to describe a voice, few enough to remember. The builder does not enforce a count, but the stats line shows how many you wrote."
+      },
+      {
+        "q": "Can I use it for a personal brand?",
+        "a": "Yes. The fields are the same — reader, attributes, lists, sample — and a personal voice is documented the same way. The guide does not assume an organisation."
+      },
+      {
+        "q": "Does the builder judge my voice?",
+        "a": "No. It checks consistency, not quality: whether the sample obeys the lists and whether the lists agree with each other. Whether the voice is good is an editorial judgement the tool cannot make."
+      }
+    ]
+  },
+  {
+    "slug": "microcopy-library",
+    "keywords": [
+      "microcopy library",
+      "interface copy",
+      "empty state",
+      "error message"
+    ],
+    "intro": "The Microcopy Library drafts the twelve interface slots in three registers — neutral, friendly or formal — and checks them against the published UX writing guidance.",
+    "content": "Interface copy is written in twelve slots and rewritten forever, and this microcopy library drafts all twelve at once. Give it the product, the action, the object and a register — neutral, friendly or formal — and it writes the primary and secondary buttons, the field label and its helper, the empty state title and body, the loading state, the error, the success message, the destructive confirmation, the link text and the permission prompt, each specific to what you typed rather than generic.\n\nThe product's action panel holds the four inputs. The library output lists the twelve slots with the situation each is used in, and is copyable as a whole. The checks panel applies the published guidance: a button label past four words stops being a button, the word invalid blames the reader for a form's failure, an exclamation mark in an error is tone-deaf, and a formal register that uses contractions contradicts itself. Scope and limits states what the library cannot know about the product.\n\n- Twelve slots: primary button, secondary button, field label, field helper, empty state title, empty state body, loading state, error message, success message, destructive confirmation, link text, permission prompt.\n- Registers: neutral, friendly and formal, chosen once for the whole set.\n- Product, action and object: the three fields that make the drafts specific.\n- Jargon list: leverage, utilize, seamless, robust, please note, in order to and prior to are flagged.\n- Checks: long button labels, the word invalid, exclamation marks, and contractions in the formal register.\n- Each slot names when it is used, so the drafts arrive in context.\n\nThe engine drafts each slot from published patterns that place the action and the object into the register's phrasing, and the register changes the wording rather than the structure. The checks are lookups — a jargon list, a word count on button labels, a contraction regex — and the guidance behind them is the published UX writing convention rather than a house opinion. No product knowledge is applied.\n\n- The twelve slots are a fixed set; a product with different surfaces needs copy written by hand.\n- The drafts are patterns with your nouns; they are starting points, not finished copy.\n- The jargon list is seven entries and the register rules are conventions, not laws.\n- The checks cannot judge whether the tone fits the product's audience.\n- Nothing is stored, so copy the library before leaving the page.\n\nStart with the error and the empty state, because they are the slots customers meet when something has gone wrong and the ones most often left as defaults. Then read the button labels against their objects: a primary button that says Submit is a slot nobody chose. The register is the last decision — write neutral, read it aloud, and move to friendly only if the product would greet a customer that way.\n\nThe neighbours keep the surrounding copy consistent: the Brand Voice Guide Builder documents the voice these slots have to obey, the CTA Button Copy Generator builds the marketing button rather than the interface one, and the Social Post Caption Builder renders the outward-facing version of the same message. When the interface copy announces a change, the Product Launch Copy Builder frames it, and the value proposition builder in this domain states the promise the interface has to keep.",
+    "howTo": [
+      "Fill the product, the action, the object and the register.",
+      "Read the twelve drafts with the situation each is used in.",
+      "Work through the checks — jargon, button length, error tone, register contradictions.",
+      "Copy the slots you need and edit them to the product's voice."
+    ],
+    "whenToUse": "Use the microcopy library when an interface needs its twelve slots drafted and the copy is still boilerplate. The {{brand-voice-guide-builder|Brand Voice Guide Builder}} documents the voice the slots must obey, and the {{cta-button-copy-generator|CTA Button Copy Generator}} covers the marketing button rather than the interface one. When the message goes outward, the {{social-post-caption-builder|Social Post Caption Builder}} renders it for feeds, and the product launch copy builder in this domain frames the announcement.",
+    "faqs": [
+      {
+        "q": "What are the twelve slots?",
+        "a": "Primary button, secondary button, field label, field helper, empty state title, empty state body, loading state, error message, success message, destructive confirmation, link text and permission prompt — the slots that generate the most support tickets when they are left as defaults."
+      },
+      {
+        "q": "What changes between the registers?",
+        "a": "The wording, not the structure: neutral states, friendly greets, formal withholds contractions. The drafts come from the same patterns, and the formal register's check flags any contraction that slips in."
+      },
+      {
+        "q": "Why is invalid flagged?",
+        "a": "Because it blames the reader for the form's failure. The published guidance is to say what went wrong and how to fix it — Enter a date after today rather than Invalid date — and the check names the word when it appears."
+      },
+      {
+        "q": "Why do button labels have a word limit?",
+        "a": "Four words is where a label stops being a button and becomes a sentence. The check counts the primary and secondary labels and flags anything longer, because a button that needs reading is a button that gets skipped."
+      },
+      {
+        "q": "Is my interface copy saved?",
+        "a": "No. The drafts are assembled in the page from the fields you typed; nothing is stored or sent, and the library is gone when the tab closes unless you copied it."
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "credit-utilization-ratio-calculator",
+    "description": "Work out your credit utilization ratio, see which risk band it falls in, and how much to pay to reach a target."
+  },
+  {
+    "slug": "total-interest-cost-calculator",
+    "description": "Total the interest a carried balance costs until payoff, and see how much extra payments save."
+  },
+  {
+    "slug": "interest-savings-calculator",
+    "description": "See what moving a balance to a lower rate saves after transfer fees, including the break-even month."
+  },
+  {
+    "slug": "installment-debt-cost-calculator",
+    "description": "Find the true cost of installment financing, including fees and the effective annual rate."
+  },
+  {
+    "slug": "foreign-transaction-fee-cost-calculator",
+    "description": "Total the annual cost of foreign transaction fees and compare it against a no-fee card."
+  }
+]

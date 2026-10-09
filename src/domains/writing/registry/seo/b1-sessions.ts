@@ -11,223 +11,259 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B1_SESSIONS_SEO: Record<string, ToolSeo> = {
   "writing-sprint-timer": {
-    keywords: ["writing sprint timer", "writing sprint", "pomodoro for writers"],
-    intro:
-      "Time a focused writing sprint with a live countdown, a measured words-this-sprint figure and a real pace, while your draft autosaves in this browser only.",
-    content: `A writing sprint timer does one simple thing well: it removes the two questions that stall a session, how long have I been going and how much have I actually written. Set a length, start the clock, and write in the box on the page. The countdown, the word count and the pace update while you type, and nothing is uploaded anywhere.\\n\\nThe length field defaults to twenty-five minutes, the interval most people know from the pomodoro technique, but any length above zero works. Short sprints of ten minutes suit a difficult paragraph; longer blocks suit drafting in flow. Pausing stops the clock and keeps the elapsed time, so an interruption does not cost you the session. Resuming continues from where it stopped, and Reset clears the clock and the starting word count.\\n\\nThe part worth trusting is how progress is measured. When you first start a sprint, the tool records how many words the draft contained at that moment and counts from there. Words written this sprint is therefore the difference between the current count and that snapshot, not a guess about your typing speed. The pace figure divides those words by the elapsed running time, and it appears only after a few seconds of running so that it is not distorted by the very first keystrokes. Pause time is excluded, because elapsed time is accumulated rather than read from the wall clock.\\n\\nWord counting uses the same Unicode-aware tokenizer as the rest of the site, so hyphenated compounds count once, apostrophes stay inside words and standalone emoji are not counted as words. If your draft contains a table, a code block or a list, those are counted the same way a word processor counts them.\\n\\nThe draft lives in this browser. It is saved to local storage shortly after you stop typing, which means a refresh, a crash or an accidental tab close does not lose it, and it also means the text never leaves your machine. A label on the panel says so. When you want the text outside the browser, the download button writes it to a plain text file, and the copy button produces a short session summary with the sprint length, elapsed time, words in the document, words this sprint and the measured pace — the numbers a writing log wants.\\n\\nTwo honest limits are worth knowing. The timer runs in the page, so closing the tab stops it, and elapsed time will be shorter than wall-clock time if the browser suspends the tab in the background. And the word count is a count, not a judgement: hits per session say nothing about whether the sentences are worth keeping, which is what the second and third drafts are for.\n\nThe default length is the pomodoro interval, which is why this tool is often described as a pomodoro for writers: roughly twenty-five minutes of writing followed by a short break, repeated through the day. Because the clock and the count are both visible, a session ends with a number you can log rather than a vague sense of having worked. Keeping a simple record of sprints per day and words per sprint says far more about a week's progress than any single draft's total does.`,
-    howTo: [
-      { step: "Set the sprint length in minutes. Twenty-five is the default starting point." },
-      { step: "Press Start sprint. The tool records the current word count as the baseline for this session." },
-      { step: "Write in the draft box. The countdown, word count and pace update as you type." },
-      { step: "Pause if you are interrupted; resuming continues from the same elapsed time." },
-      { step: "Copy the session summary into a writing log, or download the draft as a text file." },
+    keywords: [
+      "writing sprint timer",
+      "sprint pace",
+      "words written this sprint",
+      "sprint length",
     ],
-    whenToUse: `Reach for it at the start of a drafting session when the goal is to produce words rather than to polish them. The {{writing-goal-tracker|Writing Goal Tracker}} answers the other question — how far through a daily target you are — and keeps a short history of recent days.\\n\\nFor a timed constraint with a word ceiling as well as a clock, the {{flash-fiction-timer|Flash Fiction Timer}} adds the word limit to the countdown and warns as soon as you pass it.`,
+    intro:
+      "The Writing Sprint Timer runs a timed writing session with live word counts, a sprint pace in words per minute and a draft stored in this browser.",
+    content:
+      "A writing sprint is a clock and a count: choose a sprint length in minutes, start the timer and write until it stops. This writing sprint timer adds the figure that makes sprints comparable — sprint pace — by measuring words written this sprint against the elapsed time. The words in the document are counted alongside them, so a session that produced two hundred words in fifteen minutes and one that produced two hundred in eight are visibly different sessions.\n\nThe progress panel carries the countdown, a progress bar and four rows: words in the document, words written this sprint, the sprint pace in words per minute and the time elapsed. The session summary copies as plain text, which is how a week of sprints becomes a log you can keep. The draft box below counts words as you go and stores the text in this browser only, with a download control that turns the session's output into a file.\n\n- Sprint length in minutes, entered before the start.\n- Countdown with a progress bar and elapsed time.\n- Words in the document, counted with the shared Unicode tokenizer.\n- Words written this sprint, measured from the count at the moment the sprint began.\n- Sprint pace in words per minute, computed from the sprint's own word delta.\n- Copy session summary, a draft box stored in this browser, and Download draft.\n\nWord counting runs through the shared tokenizer, the same segmentation the counters in this domain use, so the pace figure agrees with the word count tool. The sprint delta is taken as the document count at start minus the count now, which means edits that delete words are visible as a lower pace rather than hidden. State is kept through the shared browser-storage hook, so the draft persists across reloads in this browser while never leaving it.\n\n- The pace counts net words: deleting while you sprint lowers the figure.\n- No account, no cloud and no sync; clearing site data loses the stored draft.\n- The timer runs against page state, so closing the tab ends the session rather than pausing it.\n- Pace assumes the whole elapsed window was writing — a break inside the sprint is counted as time.\n- The tool does not judge the words; a sprint that produced revisions rather than additions still records its delta. The draft box is there for the same reason: some sessions produce a paragraph worth keeping and a pace worth forgetting.\n\nSprints work best with a target rather than a duration alone: decide the sprint length by the section you intend to finish, then read the pace afterwards rather than during it. Watching the words-per-minute figure while writing works against the point of a sprint, because the number rewards speed over sense. The summary is for after the timer stops. A second read at the end of the week is more useful still: several pace figures side by side show whether a sprint length suits you or whether you routinely run past it.\n\nThe neighbours cover the adjacent sessions: the writing goal tracker measures a day rather than a sprint, and the distraction-free editor is the surface many writers sprint on without a clock. When the session ends and the count matters more than the pace, the word count tool reports the totals with the frequency table behind them.",
+    howTo: [
+      { step: "Enter a sprint length in minutes above zero to arm the timer, then start it." },
+      { step: "Write in the draft box or your own editor; words are counted as you go." },
+      { step: "Watch the progress panel for the countdown, words written this sprint and the sprint pace." },
+      { step: "Copy the session summary when the timer stops, and download the draft if the session produced keepers." },
+    ],
+    whenToUse:
+      "Use the writing sprint timer when a clock makes the writing happen. The {{writing-goal-tracker|Writing Goal Tracker}} measures a day's progress against a daily word goal instead of a single timed block, and the {{distraction-free-writing-editor|Distraction-Free Writing Editor}} gives the same counts with no timer attached. When the number you need afterwards is the document total rather than the pace, the {{word-count-tool|Word Count Tool}} reports words with a frequency table, and the reading time estimator converts them into minutes.",
     faqs: [
       {
-        q: "Does the word count include what I had already written?",
-        a: "No. Starting a sprint takes a snapshot of the draft's word count, and words written this sprint is the increase since then. The total word count is shown separately.",
+        q: "How is sprint pace calculated?",
+        a: "Words written this sprint divided by the elapsed time, expressed in words per minute. The sprint delta is the document's word count now minus its count when the sprint began, so deletions lower the pace honestly.",
       },
       {
-        q: "Does the timer keep running if I close the tab?",
-        a: "No. The clock lives in the page, so closing the tab ends the session. Your draft is still saved in the browser and reappears when you return.",
+        q: "Where is my sprint draft kept?",
+        a: "In this browser only, through the shared local-storage hook. Nothing is uploaded, and clearing site data removes it — use Download draft when a session produces something worth keeping.",
       },
       {
-        q: "Why does the pace show a dash when I start?",
-        a: "Pace is measured, not assumed, so it stays blank for the first few seconds of running time to avoid dividing a handful of words by almost no time.",
+        q: "What if I take a break during the sprint?",
+        a: "The elapsed window keeps running, so the break is counted as time and the pace drops accordingly. The tool measures the session, not the attention inside it.",
       },
       {
-        q: "Where is my draft stored?",
-        a: "In this browser's local storage only. There is no account and no upload. Downloading the draft is how you keep it outside the browser.",
+        q: "Does it count words with the same rules as the Word Count Tool?",
+        a: "Yes, both use the shared Unicode tokenizer, so hyphenated compounds, numbers and apostrophes are counted the same way on both pages.",
       },
       {
-        q: "Can I change the sprint length mid-session?",
-        a: "Yes. The remaining time is recalculated from the new length; if you shorten it below the time already elapsed, the sprint reads as finished.",
+        q: "What happens when the timer reaches zero?",
+        a: "The sprint finishes with a notice showing the words written and the duration, and you can keep writing or start a fresh sprint. The pace figure stays on the progress panel for comparison.",
       },
     ],
   },
 
   "writing-goal-tracker": {
-    keywords: ["writing goal tracker", "daily word goal", "word count goal"],
-    intro:
-      "Set a daily word goal, watch a measured pace and a projected finish time, and keep a short local history of the last two weeks — all stored in this browser, never uploaded.",
-    content: `A daily word goal is the most effective target most writers use, and the hardest to keep honest without a number to look at. The Writing Goal Tracker shows words written against the target, the remaining count, your measured pace and a projected finish time, and it records how the last fortnight went. It is a writing goal tracker, not a coach: it reports what happened and leaves the judgement to you.\\n\\nThe pace figure is measured rather than assumed. The tool notes when your session began — the first time the draft box has content in it — and divides the words in the draft by the minutes since then. That means a pace of six hundred words an hour is a statement about this session, not a generic average from a writing advice article. The projected finish time is the remaining words divided by that same pace, so a slow start or a break moves it honestly. There is a button to restart the pace measurement if you want to begin a fresh session without clearing the draft.\\n\\nProgress is shown three ways: a headline count with the percentage of the goal, a progress bar, and the remaining word count. When the count passes the target, a notice confirms the goal for the day rather than simply stopping. The results box also states the goal itself, so a screenshot or a copied summary always carries the target it was measured against.\\n\\nThe history strip records the highest word count the draft reached on each local calendar day, and shows the last seven. Because the day boundary is taken from your own clock, the entry rolls over at local midnight rather than at a server's idea of midnight, and the stored history is capped at fourteen days. Two limits are stated rather than hidden: the figure is the count in this browser's draft box, so writing elsewhere is not included, and clearing your browser's site data removes the history along with the draft.\\n\\nEverything is local. The draft autosaves a moment after you stop typing, the goal and the history are kept in the same browser storage, and there is no account, no sync and no upload. Word counting uses the site's Unicode-aware tokenizer, so hyphenated compounds, apostrophes and punctuation behave the way a word processor would treat them. Download gives you the draft as a plain text file, and the copy button produces a summary with the goal, the count, the percentage, the remainder and the measured pace.\\n\\nThe honest caveat is the important one: a word count goal measures output, and output is a leading indicator of progress rather than progress itself. Use it to make writing happen daily, not to decide whether a chapter is finished.\n\nA few small habits make the tracker worth returning to. Decide the goal before the session rather than after it, write in the box rather than in another window, and let the history accumulate instead of resetting it; a fortnight of entries shows which days of the week actually produce words and which are habitually lost. Because everything stays in this browser, the record is a private log rather than a public streak, and nobody has to see a bad Tuesday.`,
-    howTo: [
-      { step: "Enter a realistic daily goal, in words. Five hundred is a fair starting point for a first session." },
-      { step: "Write in the draft box below. Every count on the page updates as you type." },
-      { step: "Watch the remaining figure and the projected finish time, which are based on your measured pace." },
-      { step: "Use the restart button when you return after a long break so the pace reflects the new session." },
-      { step: "Copy the summary or download the draft; the history updates automatically as the day's count grows." },
+    keywords: [
+      "writing goal tracker",
+      "daily word goal",
+      "measured pace",
+      "time to goal",
     ],
-    whenToUse: `Use it for a sustained project — a novel, a thesis, a daily publishing habit — where the target is a number of words per day. The {{writing-sprint-timer|Writing Sprint Timer}} fits the opposite situation: a single focused block where the clock, not the daily total, is the constraint.\\n\\nWhen you want the count to match what a publisher or a submission form expects, the {{word-count-tool|Word Count Tool}} reports the same number with sentences, paragraphs and reading time beside it.`,
+    intro:
+      "The Writing Goal Tracker sets a daily word goal and reports words written, remaining words, the measured pace of this session and the time to goal at that pace.",
+    content:
+      "A daily goal is a number, and this writing goal tracker keeps the number in view: set the daily word goal, write in the box below, and the progress panel reports words written, what remains, the measured pace of this session and the time to goal at that pace. The last row is the honest one — it converts today's rate into a finish time, which is what turns a goal from a wish into a schedule.\n\nThe history panel lists previous days with their totals against the goal, each as a bar so a week's consistency reads at a glance. The draft box counts words as you go and autosaves locally through the shared storage hook, with a download control for anything worth keeping. Copy summary produces the session's figures as plain text, which is how a goal becomes a log rather than a dashboard you forget. A week of bars also answers the question a single day cannot — whether yesterday's shortfall was a one-off or the beginning of a pattern.\n\n- Daily word goal: the target the day is measured against.\n- Words written: counted from the text in the box with the shared tokenizer.\n- Remaining: the goal minus today's count, floored at zero.\n- Measured pace: this session's words per minute of writing time.\n- Time to goal: remaining words divided by that pace, shown as a duration.\n- History bars: previous days with their totals against the goal.\n- Copy summary and Download draft for the record.\n\nThe counts run through the same Unicode tokenizer the counters in this domain use, so hyphenated compounds and apostrophes are counted identically everywhere. The pace is measured from this session rather than assumed from a rate, and the time-to-goal projection is that pace applied to the remainder — which is why the projection moves the moment you type. State lives in this browser through the shared local-storage hook: the draft and the goal persist across reloads and never leave the machine.\n\n- Pace assumes the current session's rate continues, which writing rarely does.\n- A goal with a zero or tiny denominator makes time-to-goal meaningless, so the panel says so rather than guessing.\n- The history is local: another device or a cleared cache will not see it.\n- Words are counted net — deletions reduce today's total, because the goal tracks the text that exists.\n- No streaks, no reminders and no notifications; the tracker reports, it does not nag.\n\nThe useful moment is mid-afternoon: read the remaining figure and the time to goal, and decide whether the pace on offer is real. If the projection says two hours and you have forty minutes, the honest response is to lower the goal or raise the pace — both are decisions the numbers support rather than feelings to argue with. The projection is deliberately linear; life is not, and the panel would rather state a simple measured rate than model a schedule it cannot see.\n\nThe neighbours cover the adjacent units of measurement: the writing sprint timer measures a timed block rather than a day, the distraction-free editor gives the same counts with no target attached, and the word count tool reports the finished document with a frequency table behind the total.",
+    howTo: [
+      { step: "Enter a daily word goal above zero to arm the tracker." },
+      { step: "Write in the draft box; words are counted as you go and the draft autosaves locally." },
+      { step: "Read the progress panel for words written, remaining, measured pace and time to goal." },
+      { step: "Copy the session summary or download the draft when the day is done." },
+    ],
+    whenToUse:
+      "Use the writing goal tracker when the target is a day's total rather than a timed block. The {{writing-sprint-timer|Writing Sprint Timer}} measures a single sprint's words and pace, and the {{distraction-free-writing-editor|Distraction-Free Writing Editor}} provides the same surface with no target attached. When the goal's number is the whole document rather than today's share of it, the {{word-count-tool|Word Count Tool}} reports the total with its frequency table, and the reading time estimator converts the remainder into minutes.",
     faqs: [
       {
-        q: "Where is my history kept?",
-        a: "In this browser's local storage, capped at the last fourteen days. Nothing is sent anywhere, and clearing site data removes it.",
+        q: "How is the measured pace calculated?",
+        a: "From this session's words over this session's writing time, rather than a published rate. The time-to-goal row then applies that pace to the remaining words, so the projection moves as you type.",
       },
       {
-        q: "Why does the pace start blank?",
-        a: "The pace is measured from the moment your session started, so it needs a little elapsed time before a rate is meaningful. The restart button resets that measurement deliberately.",
+        q: "Where is my goal and draft stored?",
+        a: "In this browser, through the shared local-storage hook. Nothing is uploaded, the history is local, and clearing site data removes both the goal and the draft.",
       },
       {
-        q: "Does the goal reset at midnight?",
-        a: "Progress is tracked against the day, and history entries are keyed to your local calendar date, so a new day begins with the current draft count as that day's starting point.",
+        q: "Do deletions reduce today's count?",
+        a: "Yes. The goal tracks the words that exist in the box now, so cuts lower the total honestly rather than hiding behind a high-water mark.",
       },
       {
-        q: "Can I use it to track a book-length project?",
-        a: "The history keeps fourteen days, which suits a daily habit rather than a year-long chart. Copy the summaries into a spreadsheet if you want a full project record.",
+        q: "Does it track streaks or send reminders?",
+        a: "No. There are no streaks, reminders or notifications; the tracker reports the figures and the history bars, and the decision to write stays yours.",
       },
       {
-        q: "What counts as a word here?",
-        a: "The same segments the site's Unicode-aware tokenizer counts everywhere: numbers count, hyphenated compounds count once, and apostrophes stay inside the word.",
+        q: "Why is time to goal blank?",
+        a: "The projection needs a pace, so an empty box or a goal already met leaves it unreported rather than guessed. Start writing, or lower the goal, and the row fills in.",
       },
     ],
   },
 
   "flash-fiction-timer": {
-    keywords: ["flash fiction timer", "flash fiction", "word limit timer"],
-    intro:
-      "Write to two constraints at once — a word ceiling and a time limit — with a live countdown, a remaining-words figure and an immediate warning if you go past the limit.",
-    content: `Flash fiction is defined by its shortness, which makes it the one form where a word count and a clock belong together. The Flash Fiction Timer gives you both: a word limit and a time limit, a countdown, words remaining, and a warning the moment the draft passes the ceiling. It is a constraint tool rather than a judge — it will tell you that you are three words over, not whether the three words were earned.\\n\\nSet the limit for the market you are writing to. A hundred words is the classic drabble. Two hundred and fifty words covers many online flash outlets, and five hundred words is the upper end that most anthologies still call flash. The default combination in the tool is a hundred words in five minutes, which is a demanding but survivable start; adjust one field and the other keeps its value.\\n\\nThe timer behaves like the sprint timer: start, pause, resume and reset, with elapsed time accumulated so pausing genuinely stops the clock. The status panel shows the countdown, a progress bar, the words written, the words remaining and whether you are over the limit. If the time runs out while you are still inside the limit, the notice says exactly how many of the allowed words you used. If you cross the word ceiling first, the over-limit warning appears with the number of words to trim, which is more useful than a red border.\\n\\nThe draft box is where the piece is written, and it saves to this browser shortly after you stop typing. That means an interruption does not cost you the piece, and it also means the text never leaves your machine. A label on the panel states that plainly. Download writes the draft to a plain text file for pasting into an editor, and the copy button produces a status summary with the limits, the words written, the words remaining and the time left.\\n\\nWord counting follows the site's Unicode tokenizer, the same rule the word count tool uses, so the number this tool shows is the number a submission form will show. Two caveats are stated on the page rather than buried: the count includes any notes or headings you paste into the box, and the timer runs in the page, so a suspended tab is not counted as writing time.\\n\\nWhat the tool will not do is tell you whether the story works. A hundred words in five minutes is a writing exercise, and the editing pass that follows is where the piece is actually made. Use the countdown to force a draft into existence, then read it aloud before trimming a single word.\n\nA word limit timer is a useful exercise tool well beyond competitions. Set a hundred words and one minute less than you think you need, and the constraint forces a complete thought instead of a fragment. Writers who feel blocked often find a ceiling easier to work with than a blank page, because the piece has a shape before the first sentence exists. The tool supplies the shape and the clock; what the hundred words actually say stays your decision.`,
-    howTo: [
-      { step: "Set a word limit and a time limit. A hundred words in five minutes is the default." },
-      { step: "Press Start challenge; the countdown begins and the words remaining figure appears." },
-      { step: "Write straight into the draft box without editing as you go." },
-      { step: "Watch the status panel: the over-limit warning tells you how many words to trim if you pass the ceiling." },
-      { step: "Copy the status summary or download the draft when the piece is done." },
+    keywords: [
+      "flash fiction timer",
+      "word limit",
+      "time limit",
+      "words remaining",
     ],
-    whenToUse: `Use it when a market, a contest or a writing exercise gives you both a ceiling and a window, and you want to see both constraints at once while you draft. The {{writing-sprint-timer|Writing Sprint Timer}} is the better fit when only the clock matters and the word target is open-ended.\\n\\nOnce the draft exists, the {{word-count-tool|Word Count Tool}} confirms the final count and shows sentences, paragraphs and reading time alongside it, which is what most submissions actually ask for.`,
+    intro:
+      "The Flash Fiction Timer pairs a word limit with a time limit, counts the words remaining and holds your draft for the one sitting it took.",
+    content:
+      "Flash fiction is a constraint with a clock, and this flash fiction timer is both halves of it. Set a word limit and a time limit in minutes, start, and the live status reports words written, words remaining against the word limit, and how far over the limit you are once you pass it. The draft box below is the writing surface: one sitting, no edits, no looking back, with the count running as you type.\n\nThe challenge panel holds the two limits, and the live status panel carries the four figures — words written, words remaining, the word limit itself and over the limit — so the number that matters is always on screen. Copy status produces a plain-text line for the session, and Download draft takes the text with you when the timer stops. The count comes from the shared Unicode tokenizer, so words written here agrees with every other counter in this domain.\n\n- Word limit: the target the remaining figure is measured against.\n- Time limit in minutes: the clock counting down against the draft.\n- Words written: counted from the draft box with the shared tokenizer.\n- Words remaining: the limit minus the count, reported while it is still positive.\n- Over the limit: the excess once the count passes the target.\n- Copy status and Download draft for the session's record.\n\nThere is no trick behind the clock: elapsed time against the limit you set, and a word count that is a plain tokenization of the text in the box. Because the count is exact rather than estimated, the remaining figure can be trusted while you write, which is the only reason a word limit is useful mid-draft. The same is true of the time limit: an exact elapsed count against a number you chose is a different experience from a vague sense of running late. Everything runs in the page; the draft is text you can download at any point in the session.\n\n- The limit is a target, not a gate: the tool reports the excess rather than stopping you.\n- The clock measures elapsed time, so a pause inside the session counts against it.\n- No storage beyond the page: a reload loses the draft, so download anything worth keeping.\n- Word counts follow the Unicode rules, so hyphenated compounds count once.\n- No prompts and no structure: the timer constrains, it does not suggest.\n\nThe discipline flash fiction needs is subtraction, and the two numbers enforce it from opposite sides: words remaining tells you how little room is left, and the clock tells you how little time. The useful moment is the last third of the limit — cut the sentence that explains, keep the one that shows, and let the over-the-limit row be zero when the timer stops. Practically, that means deciding before the clock starts which sentences are load-bearing, because the last minutes are for cutting rather than adding.\n\nThe neighbouring tools cover the sessions around it: the writing sprint timer runs an open-length sprint with a pace figure, the writing goal tracker measures a day's total, and the writing prompt generator supplies the starting point when the page asks for one.\n",
+    howTo: [
+      { step: "Set a word limit and a time limit in minutes." },
+      { step: "Start the clock and write in the draft box; words are counted as you go." },
+      { step: "Watch the live status for words written, words remaining and any excess over the limit." },
+      { step: "Copy the status line and download the draft when the timer stops." },
+    ],
+    whenToUse:
+      "Use the flash fiction timer when the constraint is both words and minutes. The {{writing-sprint-timer|Writing Sprint Timer}} runs an open-length sprint with a pace figure instead, and the {{writing-goal-tracker|Writing Goal Tracker}} measures a day's total rather than one sitting. When the number you need afterwards is the document total, the {{word-count-tool|Word Count Tool}} reports words with a frequency table, and the {{writing-prompt-generator|Writing Prompt Generator}} supplies a starting point before the clock starts.",
     faqs: [
       {
-        q: "How short is flash fiction?",
-        a: "The most common ceilings are a hundred words, two hundred and fifty, and a thousand, with five hundred a frequent upper bound. The tool defaults to a hundred and lets you set any limit the market specifies.",
+        q: "What happens when I pass the word limit?",
+        a: "The over-the-limit row reports the excess. Nothing stops you writing — the limit is a target with a visible overshoot, which is how flash writers usually want it.",
       },
       {
-        q: "Does the timer stop when I reach the word limit?",
-        a: "No, the clock keeps running. Passing the ceiling raises a warning that says how many words to trim rather than ending the session, because trimming is an editing decision.",
+        q: "Does the clock pause?",
+        a: "No. Elapsed time counts against the limit continuously once started, so a pause inside the session spends the same minutes a sentence does.",
       },
       {
-        q: "What happens if the time runs out first?",
-        a: "The status panel reports that time is up and how many of the allowed words you used, so you can see whether the constraint that caught you was the clock or the ceiling.",
+        q: "Is my draft saved?",
+        a: "The draft is text in the page for the session. Download draft before reloading, because nothing is stored beyond the box you are writing in.",
       },
       {
-        q: "Is my flash fiction draft saved?",
-        a: "It is saved in this browser a moment after you stop typing. There is no upload and no account, and downloading the draft is how you preserve it outside the browser.",
+        q: "How are words counted?",
+        a: "With the shared Unicode tokenizer used across this domain, so hyphenated compounds count once and numbers count as words. The remaining figure is therefore exact rather than estimated.",
       },
       {
-        q: "Should I write and edit in the same session?",
-        a: "The countdown rewards drafting without second-guessing. Most writers use the timed pass to get a complete draft and the untimed pass afterwards to cut it.",
+        q: "Does it suggest prompts or structures?",
+        a: "No. The timer constrains and counts; it does not suggest. For a starting point, the writing prompt generator cycles an authored bank across five categories.",
       },
     ],
   },
 
   "focus-sentence-highlighter": {
-    keywords: ["focus sentence highlighter", "sentence highlighter", "edit sentence by sentence"],
-    intro:
-      "Isolate one sentence at a time from a long passage, with its own word, character and reading-time figures, so you can edit sentence by sentence without losing the surrounding context.",
-    content: `Most editing problems are sentence-sized, but a long document makes them hard to see. The Focus Sentence Highlighter lifts one sentence out of the text at a time, shows it in a highlighted block with its own measurements, and keeps the whole passage below so you never lose the thread. It is a sentence highlighter for revision, not a grade: it reports length and reading time and leaves the rewriting to you.\\n\\nThe list is built with the same sentence tokenizer the counting tools use, which follows Unicode sentence boundaries. Each entry can be clicked, and Previous and Next step through the passage in order. The focused sentence appears with its word count, character count, the length of its longest word and an estimated reading time at two hundred and twenty words per minute. Those figures are the ones that make a weak sentence obvious: a sentence of forty-five words with three long words is not the same shape as one of twelve, and seeing the count makes the difference concrete.\\n\\nThe optional dimming switch fades every sentence except the current one. With it on, the passage reads like a set of highlights and the structure of the paragraph becomes visible — which sentences carry the argument, which ones repeat it, and where the rhythm is uniform. With it off, the full passage stays at normal weight and you can judge the flow around the sentence you are editing.\\n\\nOne long-standing caveat of the tokenizer applies and is stated rather than hidden: abbreviations followed by a period can be segmented as their own sentence, so a sentence beginning with a title is sometimes split in two. The same rule is documented on the Sentence Count Tool, exactly as it behaves here, because accurate reporting beats a quietly patched-up count.\\n\\nThe focused sentence can be copied in one click, which is the fastest way to move it into an editor, a comment on a colleague's draft, or a list of lines to rewrite. The tool deliberately does not offer editing inside the page: there is no rich text, no saved revision and no document model. It is a reading and diagnosis surface, and the copy button is the bridge to wherever you actually work.\\n\\nNothing is stored or sent. Pasting a client document, a manuscript or an exam answer carries no upload risk, because the segmentation and the counts happen in the page and are discarded when you close the tab.\n\nThe habit that makes the measurements pay off is to edit sentence by sentence after one full read. Read the passage at normal weight first, then work through the list with dimming on, copying each sentence out and rewriting it before moving on. Long sentences announce themselves, repeated openings become obvious when they appear one after another, and a sentence that has to be read twice usually has a figure that explains why. When the pass is finished, turn dimming off and read the paragraph again as a whole, because rhythm belongs to the sequence rather than to any single line.`,
-    howTo: [
-      { step: "Paste a paragraph or an entire passage into the box." },
-      { step: "Read the focused sentence and its word, character and reading-time figures." },
-      { step: "Use Previous and Next, or click any sentence in the list, to move through the passage." },
-      { step: "Toggle dimming to see the paragraph's shape without the distraction of the surrounding lines." },
-      { step: "Copy the sentence you want to rewrite and edit it in your own editor." },
+    keywords: [
+      "focus sentence highlighter",
+      "sentence number",
+      "reading time",
+      "longest word",
     ],
-    whenToUse: `Use it during a revision pass on a paragraph you already know is cluttered, or when a passage reads heavily but no single sentence looks wrong. The {{sentence-count-tool|Sentence Count Tool}} gives the whole-document view of the same segmentation when you want to know how long sentences average out overall.\\n\\nIf the target is your own drafting pace rather than revision, the {{writing-sprint-timer|Writing Sprint Timer}} turns the same word counter into a clock for getting new sentences onto the page.`,
+    intro:
+      "The Focus Sentence Highlighter lets you click the sentence you are editing, dims the rest, and reports that sentence's own counts.",
+    content:
+      "Editing one sentence while a paragraph surrounds it is the everyday problem of revision, and the focus sentence highlighter solves it with a click: paste a paragraph, click the sentence you want to work on, and it comes forward while the rest dims. The dim control turns the contrast on or off, and the copy control takes the sentence out on its own — which is how a sentence gets worked on in a scratch buffer without losing its place in the paragraph.\n\nThe selected sentence gets its own panel: sentence number in the text, words, characters, longest word in characters and reading time at the default rate. The list below shows every sentence with its own counts, so the neighbours of the selected one are visible at the same time — a 58-word sentence between two 12-word sentences announces itself in the list before it announces itself in the prose. Because the selection and the list come from the same tokenizer, the neighbours are measured exactly like the sentence you picked. Selection is by click, and the panels follow it immediately.\n\n- Click-to-select: choose the sentence you are editing from the rendered paragraph.\n- Dim the other sentences: contrast that keeps the selected sentence foregrounded.\n- Sentence panel: sentence number, words, characters, longest word and reading time.\n- Reading time: the shared 220 words-per-minute default, formatted as minutes and seconds.\n- All sentences: every sentence with its counts, for the neighbours.\n- Copy this sentence: the selected sentence alone, ready for a scratch edit.\n\nSentences and words come from the shared Unicode tokenizer, so the sentence boundaries and counts are identical to the sentence count tool and the word count tool — clicking a sentence here selects exactly what the list there reports. Reading time reuses the shared duration formatter with the default rate, so the figure agrees with the reading time estimator. Nothing is uploaded: the paragraph, the selection and the copy all happen in the page. The panel doubles as a quick reading aid too: click the longest sentence in a paragraph and its reading time tells you which one is slowing the reader down.\n\n- Abbreviations followed by a full stop split sentences, so the selected sentence may be shorter than a reader sees.\n- The selection is index-based, so editing above it moves the highlight to a different sentence.\n- Very long paragraphs render fine, but the all-sentences list grows with them.\n- The tool highlights; it does not rewrite, grade or score the sentence.\n- Reading time assumes continuous reading at the default rate and models no pauses.\n\nThe workflow is click, copy, fix, paste: select the sentence, copy it to a scratch buffer, work on it where nothing else is visible, then paste it back. The counts beside the selection are the sanity checks — if the sentence you are cutting is twice the median in the all-sentences list, the cut is doing measurable work rather than feeling like it.\n\nThe sentence neighbours divide the labour: the sentence count tool lists every sentence with its word count for the whole document, the sentence complexity analyzer estimates clause load for the same units, and the word count tool reports the paragraph-level totals the selection sits inside.",
+    howTo: [
+      { step: "Paste a paragraph into the input panel." },
+      { step: "Click the sentence you want to work on; it comes forward while the rest dims." },
+      { step: "Read the sentence panel for number, words, characters, longest word and reading time." },
+      { step: "Copy this sentence to a scratch buffer, fix it, and paste it back into the paragraph." },
+    ],
+    whenToUse:
+      "Use the focus sentence highlighter when the unit of work is one sentence inside a paragraph. The {{sentence-count-tool|Sentence Count Tool}} lists every sentence with its word count across the whole document, and the {{sentence-complexity-analyzer|Sentence Complexity Analyzer}} estimates clause load for the same units. For the totals the sentence sits inside, the {{word-count-tool|Word Count Tool}} reports words with the frequency table, and the reading time estimator converts the same count into minutes.",
     faqs: [
       {
-        q: "Why is an abbreviation counted as its own sentence?",
-        a: "The tokenizer follows Unicode sentence boundaries, which treat a period after an abbreviation as a boundary. The rule is stated here and behaves identically in the sentence count tool.",
+        q: "How do I select a sentence?",
+        a: "Click it in the rendered paragraph. It comes forward while the others dim, and the sentence panel updates to its number, words, characters, longest word and reading time.",
       },
       {
-        q: "How is the per-sentence reading time calculated?",
-        a: "Words in the focused sentence divided by two hundred and twenty words per minute, the same default the reading time estimator uses. It is an estimate for that sentence alone, not for the passage.",
+        q: "Why did my selection move when I edited an earlier sentence?",
+        a: "Selection is index-based, so a change above it shifts the highlight by one. Click the intended sentence again after edits above it.",
       },
       {
-        q: "Does the tool save my text?",
-        a: "No. The passage is analysed in the page and never stored; closing the tab clears it. The copy button is the only way text leaves the tool.",
+        q: "Are the counts the same as the Sentence Count Tool?",
+        a: "Yes. Both use the shared Unicode tokenizer for sentence boundaries and words, so the sentence selected here is the same unit the list there reports.",
       },
       {
-        q: "Can I edit inside the highlighter?",
-        a: "No, by design. It is a diagnosis view with no document model, so copy the sentence into your own editor to change it.",
+        q: "Does it split sentences at abbreviations?",
+        a: "It uses the same Unicode sentence-boundary rule as the rest of this domain, so a period after an abbreviation followed by a capital starts a new segment. The rule is stated rather than hidden.",
       },
       {
-        q: "What does the dimming option change?",
-        a: "Only the appearance. With dimming on, all sentences except the focused one are faded so the paragraph's shape stands out; with it off, everything stays at full weight.",
+        q: "Can the tool suggest a rewrite?",
+        a: "No. It highlights and counts; rewriting belongs to the sentence-level tools elsewhere in this domain. The copy control exists so you can work on the sentence wherever you like.",
       },
     ],
   },
 
   "footnote-formatter": {
-    keywords: ["footnote formatter", "footnote numbering", "format footnotes"],
-    intro:
-      "Match inline markers to a list of notes, renumber both consistently, convert between bracket, caret, parenthesis, superscript and Markdown forms, and export the result as Markdown, HTML or plain text.",
-    content: `Notes accumulate messily. A draft uses square brackets in one chapter and superscripts in another, a note is added without a marker, a marker is left behind after its note was cut, and the numbering stops matching somewhere in the middle. The Footnote Formatter reads the body text and the note list together, matches markers to notes in order of first appearance, renumbers both so they agree, and reports every mismatch it found instead of quietly fixing it.\\n\\nDetection is automatic by default. The tool identifies which marker style the body uses — square brackets, carets, parentheses or symbol marks such as an asterisk or dagger — and shows which one it found in the style menu, so you can confirm it before trusting the result. If a document mixes styles, or you are converting deliberately, you can select the style by hand and the analysis follows your choice.\\n\\nFootnote numbering is separate from marker style, which is what makes the tool useful for formats that care. The numeric style gives 1, 2, 3. The alpha style gives a, b, c and continues past z to aa, the way a spreadsheet column does. The roman style gives lowercase i, ii, iii. The symbol style walks the traditional sequence of asterisk, dagger and double dagger. Body markers and the note list are rendered in the same scheme, so a document numbered in roman numerals does not end up with arabic numbers in its notes.\\n\\nMarkers in the body can be reformatted independently of the notes list. Superscript output is the usual choice for prose, square brackets suit plain-text files and Markdown, the caret form matches a common plain-text convention, and the Markdown form uses the footnote syntax an editor will convert. The list itself can be Markdown, an HTML ordered list with anchor links back to each reference, or plain text for a file that will be pasted into a form or an email.\\n\\nThe result panel reports markers found, notes matched and notes provided, which is where discrepancies surface. Markers without notes, notes without markers and duplicate references are all listed as warnings with enough context to find them, and because renumbering follows first appearance, a body that jumps from one to three with two notes comes out as one and two with the mismatch reported. The combined output — renumbered body plus formatted notes — is one click away from the clipboard or a download, with the file extension and MIME type matching the format you chose.\\n\\nEverything runs on the text you paste. No document is uploaded, nothing is stored, and the formatting is a deterministic transformation of your input rather than a guess about your style guide.\n\nConsistency is the reason to format footnotes with a tool rather than by hand. A long document is usually written in pieces, and every piece arrives with its own habit: superscript markers here, square brackets there, a note added mid-sentence with no number at all. One pass through this tool makes the numbering agree, converts the markers into the form your publisher or house style expects, and lists every discrepancy it found. The warnings are the part to read closely, because a marker without a matching note is exactly the kind of error that survives all the way to proof stage.`,
-    howTo: [
-      { step: "Paste the body text with its inline markers into the first box." },
-      { step: "Paste the notes into the second box, one per line." },
-      { step: "Confirm the detected marker style, or choose one yourself if the document mixes styles." },
-      { step: "Pick the numbering scheme, the marker format for the body and the format for the note list." },
-      { step: "Read the warnings, then copy or download the renumbered body with its formatted notes." },
+    keywords: [
+      "footnote formatter",
+      "marker style",
+      "renumbering",
+      "matched notes",
     ],
-    whenToUse: `Use it whenever a document carries notes that have been edited in pieces: a thesis chapter, a magazine feature, a report with sources, or a manuscript being converted between tools. The {{word-count-tool|Word Count Tool}} is the companion check when a submission limit excludes or includes the notes, since it can count the body and the note list separately.\\n\\nFor a document whose numbering has drifted alongside its dates and figures, the {{number-format-checker|Number Format Checker}} reports inconsistent separators in the prose while this tool keeps the notes themselves in order.`,
+    intro:
+      "The Footnote Formatter detects which marker style your body text uses, matches markers to notes in order of first appearance, renumbers them sequentially and reports the structural problems it finds.",
+    content:
+      "Footnotes break down in two ways: a marker with no note, or a note that no marker ever reaches. This footnote formatter finds both by treating the body text and the notes as two separate inputs, matching markers to notes in order of first appearance and renumbering so the exported list is always sequential. Both inputs are plain text and the whole analysis runs locally, so nothing is uploaded and nothing is inferred beyond the documented marker patterns.\n\n- Marker styles: square brackets, caret, parentheses or symbols, detected automatically with the count it found, or chosen by hand.\n- Numbering: 1, 2, 3; a, b, c; i, ii, iii; or the symbol sequence *, †, ‡.\n- Marker format in the body: superscript, square brackets, Markdown, caret or parentheses.\n- Notes list format: Markdown list, HTML ordered list or plain text list.\n- Result figures: markers in the body, matched notes, notes provided and the marker style used, plus the pair list and any notes never referenced.\n- Copy body + notes, or download the formatted result.\n\nThe analysis is structural and says so. Each marker style is counted in the body so the tool can name the one you actually used, and detection is a count rather than a guess. Markers are then paired with notes in order of first appearance; a marker with no note, a note never referenced, and a marker used more than once are reported as the real problems they are. When the body has more markers than notes, the pairing stops at the shorter list and the analysis says so rather than inventing a note. Renumbering rewrites the markers in place, including letter sequences that run past z in spreadsheet-column style and symbol sequences, and the notes list is rendered in the format you chose for pasting into a manuscript or a web page. Because pairing follows first appearance rather than the numbers themselves, a note list whose numbers are stale but whose order is intact still pairs correctly, and the renumbering repairs the numbers afterwards.\n\n- No meaning is read: a note attached to the wrong claim still matches perfectly.\n- When the counts differ, pairing stops at the shorter list and the analysis reports it.\n- Symbol numbering keeps its own sequence, because symbols cannot be renumbered as digits.\n- The tool formats markers and notes; it does not write, fetch or edit the note content.\n- Only the four documented marker styles are detected; anything else is left alone and said to be undetected.\n- Detection is a count, not a judgement: a body that mixes two styles is reported with the dominant one, and the other is still counted among the unmatched text.\n\nRun it before a submission, when the notes have been through several edits: the report will tell you which note lost its marker and which marker lost its note, and renumbering makes the exported list safe to paste without leaving a gap in the sequence. If the report shows a note never referenced, the note is either an orphan or its marker was lost in an edit; both are worth resolving before a deadline rather than during one.",
+    howTo: [
+      { step: "Paste the body text with its inline markers and the notes, one per line." },
+      { step: "Confirm the detected marker style, or choose one of the four by hand." },
+      { step: "Choose the numbering and the marker and notes-list formats." },
+      { step: "Read the matched pairs and any structural problems, then Copy body + notes or download." },
+    ],
+    whenToUse:
+      "Use the formatter when the notes already exist and the numbering has broken. When the notes are citations that need a style, the {{endnote-manager|Endnote Manager}} numbers them in the order you arrange them, and the {{citation-formatter|Citation Formatter}} produces the individual entries in APA 7, MLA 9, Chicago 17 or Bluebook 21.\n\nIf the list is a bibliography rather than notes, the {{reference-list-generator|Reference List Generator}} pairs each entry with the in-text marker that points at it.",
     faqs: [
       {
-        q: "How are markers matched to notes?",
-        a: "In order of first appearance in the body. The first marker becomes note one, the second becomes note two, and so on, regardless of the numbers the draft used.",
+        q: "How does the tool decide which marker style I used?",
+        a: "It counts occurrences of each documented style in the body and names the one with the most matches. You can override the detection and choose a style by hand if the count picked the wrong one.",
       },
       {
-        q: "What happens if a marker has no note?",
-        a: "It is reported as a warning with its position in the text, and it is not silently deleted or merged with another note. You decide whether to add the note or remove the marker.",
+        q: "What happens when the body has more markers than notes?",
+        a: "The pairing stops at the shorter list and the analysis says so. Nothing is invented to fill the gap, and the mismatch is reported as the structural problem it is.",
       },
       {
-        q: "Can I convert superscript notes to Markdown?",
-        a: "Yes. Marker form and note-list format are separate settings, so the body can use superscript while the list is written as Markdown, or the reverse, in one pass.",
+        q: "Can it renumber notes that use symbols?",
+        a: "It can reformat symbol markers, but symbol numbering keeps its own sequence rather than becoming 1, 2, 3, because symbols cannot be renumbered as digits. Numeric, alphabetic and Roman numbering all renumber.",
       },
       {
-        q: "Which numbering styles are supported?",
-        a: "Numeric, lowercase alpha continuing past z, lowercase roman, and the traditional symbol sequence of asterisk, dagger and double dagger.",
+        q: "Are the notes themselves edited?",
+        a: "No. The tool parses markers, matches them to notes, renumbers the markers and renders the list. The note text is reproduced exactly as you pasted it.",
       },
       {
-        q: "Is my document uploaded for formatting?",
-        a: "No. The analysis and the renumbering happen in the page, nothing is sent to a server, and nothing is retained after you close the tab.",
+        q: "Which formats can the notes list be exported in?",
+        a: "A Markdown list, an HTML ordered list or a plain text list, chosen from the Notes list format control. The body markers can separately be rendered as superscript, square brackets, Markdown, caret or parentheses.",
       },
     ],
   },
 
   "distraction-free-writing-editor": {
-    keywords: ["distraction free editor", "distraction free writing", "focus mode editor"],
-    intro:
-      "A plain writing surface with no toolbar, no formatting and no notifications — a distraction free editor that autosaves in this browser and can expand to fill the whole screen.",
-    content: `Sometimes the problem is not the sentence, it is the interface. A distraction free editor removes everything that competes with the text: no toolbar, no style panel, no word-count ticker in the corner, no formatting buttons to fiddle with. This one gives you a single surface, a live count, a focus mode and a download button, and nothing else.\\n\\nThe surface is plain text on purpose. What you type is what is stored — no hidden marks, no rich-text structure, no proprietary document format that has to be converted before another program can read it. Paste from a word processor and you get the words, not the styling, which is usually what a draft needs in its first pass. Because the file you export is plain text, it opens in every editor, survives every migration and can be diffed against later versions.\\n\\nFocus mode expands the surface to fill the entire screen and hides the surrounding interface, leaving margins sized for comfortable line lengths. It is the same editor, not a separate mode: the text stays where it is, the counts keep updating, and the exit button returns you to the page. Writers who find the browser chrome itself a distraction get the most from it.\\n\\nThe counters are deliberately quiet. Words, characters and sentences update as you type, and the reading time uses two hundred and twenty words per minute, the same default as the reading time estimator, rounding up so that a short draft is never reported as zero minutes. Nothing in the interface moves while you write; the numbers change in place rather than animating.\\n\\nAutosave is local. The draft is written to this browser's storage shortly after you stop typing, which protects it from a refresh or an accidental tab close. It also means the text is never uploaded, never synced to an account and never visible to anyone else. Download writes the draft to a plain text file, which is how you take it somewhere else, and Clear empties the editor after asking for confirmation because the action cannot be undone.\\n\\nTwo honest limits. There is no spell check beyond what the browser itself offers, no grammar analysis and no version history — this is a surface for producing a draft, and the checking tools on this site are separate. And because the draft lives in the browser, clearing site data removes it; download anything you would mind losing. If richer writing structures are what you need, that is a different tool, not a missing feature here.\n\nThe case for a plain surface is old and still holds. Distraction free writing removes the small decisions that interrupt drafting — which style to apply, where the cursor should land after a heading, whether a comment needs answering — and leaves one task in view. A focus mode editor takes the same idea further by hiding the rest of the browser as well, and the quiet counters give just enough feedback to know whether the session produced anything. What the tool gives up is deliberate: no formatting, no structure, no collaboration. Those belong to later passes, with other tools.`,
-    howTo: [
-      { step: "Start typing. The editor opens empty unless a previous draft is stored in this browser." },
-      { step: "Read the word, character, sentence and reading-time counts below the surface as you write." },
-      { step: "Use Focus mode to expand the editor to the full screen and hide the rest of the page." },
-      { step: "Download the draft to a plain text file whenever you want a copy outside the browser." },
-      { step: "Use Clear only when you want an empty page; the editor asks for confirmation first." },
+    keywords: [
+      "distraction-free writing",
+      "focus mode",
+      "autosave",
+      "reading time",
     ],
-    whenToUse: `Use it for a first draft, a morning page, a letter, or any session where the writing itself is the whole task and a feature-rich editor would get in the way. When the aim is timed output, the {{writing-sprint-timer|Writing Sprint Timer}} adds a countdown and a measured pace to the same idea.\\n\\nIf the draft needs structure rather than a blank page — notes to format, sentences to tighten — the {{footnote-formatter|Footnote Formatter}} and the {{focus-sentence-highlighter|Focus Sentence Highlighter}} are the tools that come after the words exist.`,
+    intro:
+      "The Distraction-Free Writing Editor is a plain writing surface with a focus mode, live counts and a local autosave that keeps the draft in your browser.",
+    content:
+      "Distraction-free writing is a subtraction: this editor gives you a text box, a word count and nothing else until you ask for it. Focus mode hides the surrounding controls so the page becomes just you and the words, and the exit control is always reachable when you want the counts back. The text is yours throughout — there is no formatting to reach for, no toolbar to browse and no account to sign into.\n\nThe panel reports words, characters, sentences and reading time as you type, each computed from the text in the box rather than estimated from a document model. Reading time uses the same two hundred and twenty words per minute default the Reading Time Estimator uses, so the figure agrees with that tool rather than contradicting it. The status line reads autosaved locally: the autosave is debounced at three hundred milliseconds after your last keystroke, so a long session does not rewrite storage on every character.\n\n- Counts: words, characters, sentences and reading time, updated as you type.\n- Focus mode: hides the chrome so the page is only the writing surface, with an always-visible exit.\n- Local autosave: the text is written to browser storage three hundred milliseconds after typing stops.\n- Restore on return: reopening the page loads the last autosaved text instead of an empty box.\n- Download: takes the plain text out as a file whenever the session needs to become a document.\n\nEverything runs in the page. The autosave uses the browser's local storage through a shared storage hook, which is the same mechanism the other writing surfaces here use, and the text is never sent anywhere. Because the surface is a plain text area, there is no rich formatting to corrupt, no half-applied markup and no version history to manage — what you type is exactly what the counts and the download see. Pasted text keeps its characters and loses nothing but the formatting it arrived with.\n\n- No storage beyond this browser: clearing site data or another device will not see the draft.\n- The word count splits on whitespace, so a hyphenated compound counts as two parts where the Unicode tokenizer would count one.\n- Reading time is a fixed-rate estimate at 220 words per minute and does not model pauses.\n- No collaboration, no comments and no track changes: the tool is deliberately single-writer.\n- Focus mode changes the view only; it does not lock the page or protect the text from anyone using the machine.\n\nThe workflow that suits this surface is a first draft: open it, enter focus mode, write until the counts say the piece is long enough, then exit and read. When the draft needs structure, move it to the outline builder or the markdown editor; when it needs a count with a frequency table, the word count tool reads the same text. The point of the tool is that the move out of it is always a copy or a download, because the text never belonged to the page in the first place.\n\nUse distraction-free writing when the problem is attention rather than features: a morning's freewrite, a section that keeps stalling, or a session where every toolbar invitation costs you momentum. The adjacent tools in this domain cover what happens next — structuring, counting and formatting — without asking this page to become them.",
+    howTo: [
+      { step: "Open the editor and start typing, or paste an existing draft into the text box." },
+      { step: "Read the counts panel for words, characters, sentences and reading time as you write." },
+      { step: "Enter focus mode to hide the chrome while drafting, and exit it whenever you want the counts back." },
+      { step: "Download the draft as a text file when the session is done; the text autosaves locally in the meantime." },
+    ],
+    whenToUse:
+      "Use distraction-free writing when you need a blank surface and a count, not a feature set. The {{writing-goal-tracker|Writing Goal Tracker}} adds a daily target against the same words-as-you-go counting, and the {{writing-sprint-timer|Writing Sprint Timer}} puts a clock and a pace next to them. When the draft is ready for structure or formatting, the {{markdown-editor|Markdown Editor}} gives it headings and an outline, and the focus sentence highlighter in this domain takes over once you are editing sentence by sentence.",
     faqs: [
       {
-        q: "Does the editor keep the formatting when I paste text in?",
-        a: "No. It is a plain-text surface, so pasted styling is dropped and only the characters remain. That is what keeps the downloaded file readable in any other program.",
-      },
-      {
-        q: "Where is my draft kept?",
-        a: "In this browser's local storage, saved shortly after you stop typing. Nothing is uploaded, and clearing your browser's site data removes it.",
+        q: "Where is my draft saved?",
+        a: "In this browser only. The text autosaves to local storage three hundred milliseconds after you stop typing, and nothing is sent to a server. Clearing site data removes it, so download a file when a draft matters.",
       },
       {
         q: "What does focus mode do?",
-        a: "It expands the writing surface to the whole screen and hides the surrounding interface, keeping comfortable margins. The text and the counters are unchanged.",
+        a: "It hides the surrounding controls so the page shows only the writing surface and an exit control. It changes the view, not the text — counts and autosave keep running while focus mode is on.",
       },
       {
-        q: "How is the reading time calculated?",
-        a: "Words divided by two hundred and twenty per minute, rounded up so a short draft never shows zero. The reading time estimator on this site uses the same default and lets you change the rate.",
+        q: "How is reading time calculated?",
+        a: "Words divided by two hundred and twenty words per minute, the default silent-reading rate used across this domain. It is a fixed estimate and does not model pauses, headings or figures.",
       },
       {
-        q: "Can I lose work in this editor?",
-        a: "Only if you clear the draft, clear your browser data, or use private browsing where storage is discarded. Downloading the draft is the safe habit for anything you care about.",
+        q: "Why does my word count differ from the Word Count Tool?",
+        a: "This surface splits on whitespace, so a hyphenated compound counts as two parts, while the Word Count Tool uses Unicode word boundaries that count it once. For figures you will quote, use the word count tool.",
+      },
+      {
+        q: "Does it support bold, italics or headings?",
+        a: "No. The surface is a plain text area on purpose, so nothing you type is interpreted as markup. When you need formatting, move the text to the Markdown Editor or the Rich Text Editor.",
       },
     ],
   },

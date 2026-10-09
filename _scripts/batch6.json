@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "pay-off-debt-vs-invest-calculator",
+    "description": "Compare attacking a debt with investing the difference and find the break-even return that decides it."
+  },
+  {
+    "slug": "debt-payoff-comparison-calculator",
+    "description": "Run snowball and avalanche payoff orders against the same three debts and compare interest and payoff months."
+  },
+  {
+    "slug": "systematic-investment-plan-sip-calculator",
+    "description": "Project a monthly SIP with an optional lumpsum, annual step-up and inflation-adjusted value."
+  },
+  {
+    "slug": "dividend-reinvestment-drip-calculator",
+    "description": "Model dividend reinvestment and see how compounding shares, dividend growth and price gains build a position."
+  },
+  {
+    "slug": "weighted-average-cost-of-capital-wacc-calculator",
+    "description": "Compute WACC from equity, debt and preferred weights with the tax shield and an implied enterprise value."
+  }
+]

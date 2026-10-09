@@ -100,10 +100,10 @@ export const orphanedCalculators: CalculatorDef[] = [
   {
     slug: "car-performance060-calculator",
     name: "Car Performance (0-60) Calculator",
-    description: "Estimate your vehicle's 0-60 MPH and 1/4 mile drag strip times based on its power-to-weight ratio.",
+    description: "Estimate 0-60 MPH and quarter-mile times from a car's power-to-weight ratio, with trap speed, launch quality and drivetrain corrections.",
     category: "EVERYDAY_LIFE",
     subcategory: "Other Utilities",
-    status: "live"
+    status: "live", isBuilt: true
   },
   {
     slug: "car-wash-cost-calculator",
@@ -342,10 +342,10 @@ export const orphanedCalculators: CalculatorDef[] = [
   {
     slug: "personal-loan-payoff-calculator",
     name: "Personal Loan Payoff Calculator",
-    description: "Personal Loan Payoff Calculator — calculate and convert instantly",
+    description: "Work out the months and total interest to clear a personal loan or card balance at a fixed payment, a card minimum, or with extra principal every month.",
     category: "EVERYDAY_LIFE",
     subcategory: "Other Utilities",
-    status: "live"
+    status: "live", isBuilt: true
   },
   {
     slug: "piti-calculator",

@@ -8,6 +8,12 @@ interface SubcategoryCardProps {
   basePath: string;
   label?: string;
   soon?: boolean;
+  /**
+   * Upcoming tools that have a Coming Soon page pass this so the card still
+   * links through (basePath) instead of rendering as an inert tile. Live tools
+   * are always links, so this only affects the `soon` state.
+   */
+  clickable?: boolean;
 }
 
 export function SubcategoryCard({
@@ -16,7 +22,8 @@ export function SubcategoryCard({
   count,
   basePath,
   label = "tools",
-  soon = false
+  soon = false,
+  clickable = false
 }: SubcategoryCardProps) {
   const cardBody = (
     <>
@@ -42,8 +49,8 @@ export function SubcategoryCard({
     </>
   );
 
-  if (soon) {
-    // Soon cards are informational only — not links anywhere.
+  if (soon && !clickable) {
+    // Soon cards without a destination stay informational — not links anywhere.
     return (
       <div className="tool-card group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-5 cursor-default">
         {cardBody}

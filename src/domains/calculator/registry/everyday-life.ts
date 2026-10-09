@@ -18,7 +18,7 @@ export const everydaylifeCalculators: CalculatorDef[] = [
   { slug: "cat-pregnancy-calculator", name: "Cat Pregnancy Calculator", description: "Calculate your cat", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier2", priorityScore: 58, icon: Cat, status: "live" },
   { slug: "dog-pregnancy-calculator", name: "Dog Pregnancy Calculator", description: "Determine your dog", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier2", priorityScore: 58, icon: Bone, status: "live" },
   { slug: "margin-calculator", name: "Margin Calculator", description: "Calculate retail margin and markup.", category: "EVERYDAY_LIFE", subcategory: "Consumer & Shopping", tier: "Tier3", priorityScore: 43, icon: Percent, status: "live" },
-  { slug: "discount-calculator", name: "Discount Calculator", description: "Calculate discount amount and final price after percent off.", category: "EVERYDAY_LIFE", subcategory: "Personal & Family", tier: "Tier3", priorityScore: 43, icon: ShoppingBag, status: "live" },
+  { slug: "discount-calculator", name: "Discount Calculator", description: "Work out sale price, money saved and the effective discount from a list price and a percentage, fraction or fixed-amount reduction, with stacked-discount support.", category: "EVERYDAY_LIFE", subcategory: "Personal & Family", tier: "Tier3", priorityScore: 43, icon: ShoppingBag, status: "live", isBuilt: true },
   { slug: "coffee-brewing-calculator", name: "Coffee Brewing Calculator", description: "Calculate the perfect coffee-to-water ratio for any brewing method.", category: "EVERYDAY_LIFE", subcategory: "Food & Cooking", tier: "Tier3", priorityScore: 43, icon: Coffee, status: "live" },
   { slug: "dog-chocolate-toxicity-calculator", name: "Dog Chocolate Toxicity Calculator", description: "Assess toxicity risk based on dog weight, chocolate type, and amount eaten.", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier3", priorityScore: 28, icon: AlertTriangle, status: "live" },
   { slug: "dog-size-predictor", name: "Dog Size Predictor", description: "Predict your puppy", category: "EVERYDAY_LIFE", subcategory: "Gaming & Hobbies", tier: "Tier3", priorityScore: 28, icon: Bone, status: "live" },
@@ -1033,7 +1033,7 @@ export const everydaylifeCalculators: CalculatorDef[] = [
   {
     slug: "roman-numeral-converter", name: "Roman Numeral Converter", description: "Convert between Roman numerals and decimal numbers.", category: "EVERYDAY_LIFE", subcategory: "Personal & Family", tier: "Tier3", priorityScore: 28, status: "live" },
   {
-    slug: "hours-calculator", name: "Hours Calculator", description: "Calculate total hours worked with break deductions.", category: "EVERYDAY_LIFE", subcategory: "Personal & Family", tier: "Tier3", priorityScore: 28, status: "live" },
+    slug: "hours-calculator", name: "Hours Calculator", description: "Add up hours worked between clock-in and clock-out across a week, deducting unpaid breaks and applying overtime rules.", category: "EVERYDAY_LIFE", subcategory: "Personal & Family", tier: "Tier3", priorityScore: 28, status: "live", isBuilt: true },
   {
     slug: "bra-size-calculator", name: "Bra Size Calculator", description: "Find your bra size from band and bust measurements.", category: "EVERYDAY_LIFE", subcategory: "Personal & Family", tier: "Tier3", priorityScore: 28, status: "live" },
   {

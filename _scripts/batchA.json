@@ -1,0 +1,30 @@
+[
+  {
+    "slug": "age-difference-calculator",
+    "description": "Find the exact age gap between two birthdates in years, months and days, plus milestones and who is older at any future date."
+  },
+  {
+    "slug": "pipe-flow-calculator",
+    "description": "Solve flow velocity, pipe bore or flow rate from any two, with velocity per bore and head loss per 100 metres."
+  },
+  {
+    "slug": "torque-calculator",
+    "description": "Convert between torque, force and lever arm in metric and imperial units, with the power at a given shaft speed."
+  },
+  {
+    "slug": "reynolds-number-calculator",
+    "description": "Classify flow as laminar, transitional or turbulent from velocity, diameter and viscosity, with a velocity sweep and regime chart."
+  },
+  {
+    "slug": "concrete-weight-calculator",
+    "description": "Estimate the weight and volume of concrete slabs, footings and columns, with bags of mix and truckload counts."
+  },
+  {
+    "slug": "fuel-consumption-calculator",
+    "description": "Convert distance and fuel used into MPG, L/100 km and km/L, with trip cost and a fuel-needed table for common distances."
+  },
+  {
+    "slug": "mean-median-mode-calculator",
+    "description": "Get the mean, median, mode and range of any data set, with quartiles, standard deviation and an outlier check."
+  }
+]

@@ -576,6 +576,15 @@ export default function EquipmentFinancingCalculator() {
               receives, and searches for the rate that makes the two equal. Because the fee inflates the financed balance
               without adding cash to the borrower, the effective rate always exceeds the quoted one.
             </p>
+            <p>
+              Equipment finance differs from a general-purpose loan in three ways that matter to the arithmetic. The asset itself
+              is the collateral, so lenders price against its liquidation value as well as your credit, which usually means a
+              better rate on titled, serial-numbered machinery than an unsecured facility would carry but also a tighter limit on
+              the term, because the loan rarely outlives a sensible fraction of the equipment's working life. Origination fees are
+              quoted as a proportion of the loan rather than a flat cost, so their effect scales with the amount financed and lands
+              directly in the effective rate. And many agreements carry end-of-term options — a one-dollar buyout, a fair-market
+              value purchase, or a return — with the residual field modelling the second of those.
+            </p>
 
             <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
             <p>

@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "revolving-debt-cost-calculator",
+    "description": "See what a revolving balance costs on percentage-based minimum payments, and what paying extra saves."
+  },
+  {
+    "slug": "collection-agency-fee-calculator",
+    "description": "Work out the net recovery from placing a debt with a collection agency after commissions and fees."
+  },
+  {
+    "slug": "minimum-payment-trap-calculator",
+    "description": "See how long minimum payments really take on a card balance and what a fixed payment saves."
+  },
+  {
+    "slug": "late-payment-fee-impact-calculator",
+    "description": "Total the cost of a late payment — the fee plus the months of penalty APR interest that follow."
+  },
+  {
+    "slug": "housing-expense-ratio-calculator",
+    "description": "Check your housing expense ratio and total debt-to-income against the 28/36 guideline."
+  }
+]

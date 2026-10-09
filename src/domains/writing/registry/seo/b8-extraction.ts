@@ -9,148 +9,130 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B8_EXTRACTION_SEO: Record<string, ToolSeo> = {
   "text-summarizer": {
-    keywords: ["text summarizer", "extractive summary", "summarize text"],
-    intro:
-      "This text summarizer scores every sentence with TextRank centrality, log term frequency and position, then returns the highest-ranked sentences in their original order as an extractive summary — the sentences are taken from your text, never rewritten.",
-    content: `Most summarisers on the web either call a model or quietly paraphrase. This text summarizer does neither. It was built for one job: summarize text by selecting the sentences that already say what it says, so every sentence in the output already exists in the input, in the same words and the same order. Nothing is composed, shortened or reworded, and the page labels the result an extractive summary for exactly that reason. The engine runs in the browser: no model, no training data, no network request, and nothing is uploaded.
-
-Sentence scoring has three published parts. TextRank centrality is the first: sentences become vectors of their content words, a similarity graph is built with the classic Mihalcea-Tarau measure |Si shared with Sj| / (log |Si| + log |Sj|), and PageRank runs for 30 fixed iterations with damping 0.85. Log term frequency is the second: each content word weighs 1 + log(count), summed over the sentence and divided by the square root of its length so long sentences do not win by size alone. Position is the third: a mild 1 / (1 + 0.12 x index) decay. The final score is 0.55 x centrality + 0.35 x frequency + 0.10 x position, normalised so the best sentence reads 1.000. Every part is printed per sentence in the score table, so a ranking can be recomputed rather than trusted.
-
-Length is a control, not a guess. Choosing about 10, 20, 30 or 40 percent sets the selection size to that share of the sentence count, rounded to at least one sentence. The tool reports how many sentences were selected, what share of the words that is, and the key-term coverage: the top ten content terms by weight, and the share of their total weight the selection contains. Coverage is the honest measure of what a summary kept, and it is more informative than a length percentage on its own.
-
-Where the method is weak, the page says so. Repetition beats meaning: a sentence that shares vocabulary with the rest of the text outranks one that carries the single most important claim but uses unusual words. Texts with one dominant term, very short texts, and documents whose opening paragraph restates the title are the cases where the ranking is least useful. The sentence splitter is also a mechanical rule, so headings, captions and list items are treated as sentences, abbreviations such as Dr. can split a sentence in two, and negation is invisible — a summary can quote a sentence that says the opposite of the document's point if the vocabulary matches.
-
-In practice the tool is a triage aid, not an author. Run it at 10 percent to see what the scoring thinks the text is about, then at 30 percent for a working brief, then read the original for anything the ranking missed by design. Because the output is a quotation, the seams between selected sentences show; that is information about the document, not a bug to smooth over.
-
-The result is deterministic. The PageRank starts from a uniform vector, performs a fixed number of iterations and involves no randomness, so the same text produces the same ranking every time. Your text is processed in this browser only and is not stored; the summary disappears with the tab unless you copy or download it.
-
-What this is not: an abstract generator, a rewriter, a translation tool or a fact checker. It cannot judge whether the extracted sentences are true or whether the document argues well, and it does not claim to understand the text — it ranks sentences by three stated signals and shows its arithmetic.`,
-    howTo: [
-      { step: "Paste the text you want to summarise; the sentence scores appear as you type." },
-      { step: "Choose a length — 10 percent for a triage read, 30 percent for a fuller brief." },
-      { step: "Read the summary, then check the key-term coverage figure to see what the selection kept." },
-      { step: "Open the score table and look at the three parts of any sentence you think was misjudged." },
-      { step: "Copy or download the report, and edit the selection by hand where the scoring missed your point." },
+    keywords: [
+      "text summarizer",
+      "extractive summary",
+      "TextRank",
+      "sentence scoring",
     ],
-    whenToUse: `Use this summarizer when you need a shorter version of a document you already have and want to know exactly which sentences survived. When you need the result as a ranked list rather than a paragraph, the {{key-points-extractor|Key Points Extractor}} shows the same scoring as numbered points with their evidence, and when you need a single line that fits a strict character budget, the {{tldr-generator|TL;DR Generator}} is built for that.\\n\\nIf the question is how the text reads rather than what it says, the {{readability-grade-scorer|Readability Grade Scorer}} measures difficulty and the {{sentence-variety-checker|Sentence Variety Checker}} looks at rhythm.`,
+    intro:
+      "The text summarizer ranks every sentence with a published three-part score and returns the highest-ranked ones in document order, so every line of the extractive summary is a sentence you wrote. It selects, and never rewrites.",
+    content:
+      "Paste a draft and this text summarizer splits it into sentences, scores each one with the same method every time, and shows the ranking before you choose a length. This is an extractive summary built from sentences you wrote: nothing is generated, and joining the selected sentences reproduces your own words in the order they appear.\n\n- Length: about 10%, 20%, 30% or 40% of the sentences, defaulting to 20%, applied to the sentence count and rounded to at least one sentence.\n- Sentence scoring table: every sentence's centrality, frequency and position parts, each normalised to its best sentence, plus the weighted total and rank.\n- Key terms: up to 40 content terms, most frequent first, each with its count and its 1 + log count weight.\n- Export: Copy summary, Copy report and Download extractive-summary.txt, with compression and key-term coverage figures in the report.\n\nThe sentence scoring is TextRank, the Mihalcea-Tarau construction: a PageRank walk over a graph whose nodes are sentences and whose edges are content-word overlap, with similarity measured as shared content words divided by the log sizes of the two sentences. The iteration is deterministic — no random start, damping 0.85, 30 fixed passes. Three parts are then added with published weights: 0.55 centrality, 0.35 frequency and 0.10 position. Frequency sums each content word's 1 + log(count) weight and divides by the square root of the sentence length, so a long sentence cannot win by size. Position decays as 1 / (1 + 0.12 x index), which keeps an opening sentence in the running without letting it dominate. Stopwords, single characters and bare punctuation are excluded from the content words, and the combined score is normalised so the best sentence is 1.000. Selection keeps document order, and compression and coverage are reported so you can see how much was kept and which of the top ten terms survived.\n\n- The ranking cannot know what matters to you. A pivotal sentence with unusual wording can rank below one that repeats common terms.\n- Sentences are selected whole, so a single long sentence can dominate a short percentage.\n- Headings and list lines are treated as sentences like any other, because the splitter does not know what a heading is.\n- Key-term coverage counts the top ten terms only, so it is an indicator rather than a guarantee.\n- Nothing is generated, which is the honest limit as well as the point: a text with no clear topic has no clearly central sentences to find.\n- Stopwords are removed with a published list, so a sentence built from common words scores lower than its meaning may warrant.\n\nUse the sentence scoring table as the audit, not the summary: it shows the three parts behind each rank. Start at 20%, raise the percentage until every point you need is present, and watch coverage rather than length. The key terms panel belongs to the same audit: if a subject you expected is missing from the terms, no percentage will put it in the summary. Compression is the third figure to watch — a 40% selection of a short note is usually the right answer, while the same percentage of a long report is a different kind of document.",
+    howTo: [
+      { step: "Paste the text; every sentence is scored as you type and the ranked table appears." },
+      { step: "Pick a length from about 10% to 40% of the sentences and watch the selected count update." },
+      { step: "Read the sentence scoring table to see which sentences the ranking chose and why." },
+      { step: "Check key-term coverage, then Copy summary, Copy report or Download extractive-summary.txt." },
+    ],
+    whenToUse:
+      "Use the summariser when the result needs to read as prose and scale with the text. For a one-line gist instead, the {{tldr-generator|TL;DR Generator}} fills a character budget with the same ranking, and the {{key-points-extractor|Key Points Extractor}} returns the winners as a numbered list rather than a flowing extract.\n\nIf the reason you are summarising is an edit, the {{important-sentence-highlighter|Important Sentence Highlighter}} marks the top-ranked sentences where they sit in the draft, so you can see the load-bearing lines before you cut anything.",
     faqs: [
       {
-        q: "Is the summary written by the tool or taken from my text?",
-        a: "Taken from your text. The summarizer is extractive: it selects whole sentences and returns them verbatim in their original order. It never composes, shortens or paraphrases, which is why the output can read as disjointed and is always labelled extractive.",
+        q: "Does the summariser write new sentences?",
+        a: "No. It is extractive: every sentence in the summary appears in your text, selected by score and returned in document order. Nothing is paraphrased, merged or generated.",
       },
       {
-        q: "What do the three scores in the sentence table mean?",
-        a: "Centrality is TextRank PageRank over a sentence-similarity graph, frequency is the summed log weight of the sentence's content words divided by the square root of its length, and position is a mild decay from the start of the text. The final score weights them 0.55, 0.35 and 0.10.",
+        q: "What are the three parts of a sentence score?",
+        a: "Centrality is a TextRank PageRank walk over sentence similarity, frequency sums each content word's 1 + log count weight divided by the square root of the sentence length, and position decays as 1 / (1 + 0.12 x index). They are combined at 0.55, 0.35 and 0.10.",
       },
       {
-        q: "Why did the summarizer pick a sentence I would not have chosen?",
-        a: "Because the scoring rewards vocabulary shared with the rest of the text, not importance. A sentence that repeats the document's key terms ranks above one carrying a decisive but unusual claim. The score table shows which signal raised it so you can disagree with the reason, not just the result.",
+        q: "How is the percentage length turned into a number of sentences?",
+        a: "The sentence count is multiplied by the percentage and rounded, with a minimum of one sentence. The selected count is shown beside the control, so a 20% choice over 30 sentences selects six.",
       },
       {
-        q: "How is key-term coverage calculated?",
-        a: "The tool takes the ten content terms with the highest weight, where a term's weight is 1 + log(count), and reports what share of their combined weight appears in the selected sentences. It is a measure of what the summary kept, not a quality judgement.",
+        q: "What does key-term coverage measure?",
+        a: "The share of the weight of the ten most frequent content terms that the selected sentences actually contain. A low figure means a recurring subject was left out of the selection, not that the scoring failed.",
       },
       {
-        q: "Does the same text always produce the same summary?",
-        a: "Yes. PageRank starts from a uniform vector and runs a fixed 30 iterations with deterministic arithmetic, so there is no randomness and no model sampling. The same input produces the same output on every run, in every browser.",
+        q: "Why did a short sentence outrank a longer one?",
+        a: "Because frequency is divided by the square root of the sentence length. The division is deliberate: without it, the longest sentence in any document would win by size alone rather than by content.",
       },
     ],
   },
 
   "key-points-extractor": {
-    keywords: ["key points extractor", "extract key points", "key point"],
-    intro:
-      "The key points extractor ranks the sentences of a passage and returns the top ones as numbered points, each with its score and the terms that carried it — extraction rather than generation, so every point is a verbatim sentence from your text.",
-    content: `A summary reads as prose; a list of key points reads as a list, and the difference matters when the output is going into meeting notes, a revision plan or a slide. Use this tool to extract key points from a long passage and get them back as numbered items rather than a paragraph. The key points extractor uses the same sentence-scoring engine as the summariser and presents its result as ranked points. The maximum is yours to set from 1 to 20, with five as the default. Nothing is generated: each point is a sentence lifted whole from the source, so a point can be checked against the original in a second.
-
-Scoring is identical across the extractive tools and is published on the page. Each sentence is scored 0.55 x TextRank centrality + 0.35 x log term frequency divided by the square root of its length + 0.10 x position decay, normalised so the best sentence is 1.000. The point list shows the final score, the word count and up to four of the sentence's highest-weight terms. Below it, the key-term table lists every content term the scoring used with its count and its weight, which is the evidence for why one sentence outranked another.
-
-Rank order and document order are different things, and the tool shows both. The numbered points run from most important to least important as the scoring sees it; the continuous extract beneath joins the same sentences back in their original sequence, which is what you want when the points need to be read as a passage rather than a checklist. Stopwords are excluded from the scoring, terms are matched case-insensitively, and the counts shown are the counts used.
-
-The limits are worth stating plainly, because a ranked list invites more trust than a paragraph does. The extractor does not cluster near-duplicate sentences, so two points can say almost the same thing and both appear; it has no idea what a decision, an action item or a speaker is, so it is not a meeting-minutes tool despite the format; it treats headings, captions and list items like any other sentence; and the sentence splitter is mechanical, so an abbreviation such as Dr. can cut one sentence into two and names with initials can merge text unexpectedly. A document that is mostly bullet lists will produce points that are themselves bullet fragments.
-
-Used within those limits, the ranked list is a fast way through long material. Paste a report and read the top five points before deciding whether the whole thing needs reading. Paste two drafts of the same section and compare which points each one ranks first. Paste a talk transcript and build a speaking outline from the sentences that carry the most shared vocabulary. In every case the output is a shortlist to check against the source, not a substitute for reading it.
-
-Everything runs locally in this browser. There is no model, no training data, no network call and no storage: the points exist on screen and in whatever you copy or download, and closing the tab removes them. The scoring is deterministic, so the same text with the same point limit produces the same list every time.
-
-Use it when the shape you need is a list and the honesty you need is quotation. If you want flowing prose instead, the summariser presents the same selection as a paragraph, and if the passage needs to fit a hard character limit, the TL;DR generator is the one that enforces a budget.`,
-    howTo: [
-      { step: "Paste the passage; the ranked points appear as you type." },
-      { step: "Set the maximum number of points, from 1 to 20 — five is the default." },
-      { step: "Read the numbered points in rank order, and the terms beside each one as its evidence." },
-      { step: "Use the continuous extract to check the same sentences in their original sequence." },
-      { step: "Copy or download the list and verify any point you plan to quote against the source." },
+    keywords: [
+      "key points extractor",
+      "ranked sentences",
+      "key terms",
+      "best first",
     ],
-    whenToUse: `Use this extractor when the result needs to be a shortlist rather than a paragraph — meeting prep, revision notes, a talk outline. When you want the same selection written as flowing text, the {{text-summarizer|Text Summarizer}} presents it that way, and when the output has to fit a strict character cap, the {{tldr-generator|TL;DR Generator}} enforces one.\\n\\nIf the points will be quoted in published work, the {{grammar-checker|Grammar Checker}} and the {{spell-checker|Spell Checker}} are the mechanical passes to run over the surrounding text first.`,
+    intro:
+      "The Key Points Extractor turns the highest-ranked sentences of a text into a numbered list, best first, with up to 20 points and the key terms behind the ranking shown beside it.",
+    content:
+      "Where a summary keeps the prose flowing, this key points extractor returns the same ranked sentences as a list you can work through, with no sentence merged, dropped or joined to a neighbour. Each point is one sentence from the text, shown with its rank, its score and up to four of its highest-weight terms, and the list is ordered best first.\n\n- Maximum points: 1 to 20, default 5, with a Reset to 5 points button.\n- Every point carries its rank, its score and up to four of its highest-weight terms.\n- The key terms table lists the top 12 content terms with their counts and the 1 + log(count) weight the ranking used.\n- Points as a continuous extract, plus Copy points and Download key-points.txt.\n- The continuous extract joins the same points with spaces, in document order, for pasting where a list would be wrong.\n\nThe scoring is the same published method the summariser uses: TextRank centrality over a sentence-similarity graph, weighted 0.55, plus a frequency part weighted 0.35 and a position part weighted 0.10, each normalised to its best sentence. Content words exclude stopwords, single characters and punctuation, and rank 1 is simply the highest combined score; ties fall back to document order so the result is deterministic. The key terms panel shows the same weights the frequency part used, which is why a point's terms and the term table often overlap: the terms are the evidence, and the score is the conclusion.\n\nWhen you ask for more points than a short text can support, the page says so rather than repeating itself: the extractor never returns the same sentence twice, and the count beside the control reflects what was actually extracted. Ties are broken by document order, so two equally scored sentences always appear in the order the author wrote them.\n\n- The ranking measures centrality, not importance to your argument, so a point you cannot lose may sit below one that repeats.\n- A point is a whole sentence; a verbose sentence occupies a slot a tighter one might fill better, and the engine never trims it.\n- The list is in score order, so it is a set of claims rather than an outline; sequencing them is your job.\n- A short text can return fewer points than the maximum you set, and the page shows what was extracted.\n- The engine cannot merge, split or edit sentences; every point is exactly as written.\n- Sentence scoring has no memory: each point is scored in isolation from the others, so two similar sentences can both make the list.\n\nUse the points as an outline rather than an output: read them best first, reorder them into the argument you want, and use the continuous extract when a list would be the wrong shape for the final document. If a point reads as two ideas, that is a sentence to fix in the source rather than a reason to ignore the point. A point is a starting position, not a verdict: the score says the sentence is central, and only you can say it is true.",
+    howTo: [
+      { step: "Paste the text; the points are ranked as you type." },
+      { step: "Set Maximum points between 1 and 20, or use Reset to 5 points." },
+      { step: "Read the key points best first, with each point's score and terms beside it." },
+      { step: "Copy points or Download key-points.txt to use the list as an outline." },
+    ],
+    whenToUse:
+      "Use the extractor when you want a list to work from. The {{text-summarizer|Text Summarizer}} returns the same selection as continuous prose, and the {{bullet-point-extractor|Bullet Point Extractor}} takes the other approach entirely, turning every sentence into a bullet rather than ranking them.\n\nWhen the constraint is a single line rather than a list, the {{tldr-generator|TL;DR Generator}} quotes the top-ranked sentences inside a character cap.",
     faqs: [
       {
-        q: "Are the key points written or quoted?",
-        a: "Quoted. Each point is a whole sentence copied from your text, shown with the score that ranked it and the terms that carried it. The extractor never paraphrases, which is why a point can be pasted into notes without changing its wording.",
+        q: "How is this different from the Text Summarizer?",
+        a: "The scoring is identical. The summariser selects a percentage and returns continuous prose in document order; this tool returns the top-ranked sentences as a list, best first, with an explicit maximum you control.",
       },
       {
-        q: "Why do two of my key points say nearly the same thing?",
-        a: "Because the extractor does not cluster near-duplicate sentences. If a document repeats a claim in different words and both sentences score well, both are returned. Remove the one you do not need, or lower the maximum number of points.",
+        q: "What do the terms beside a point mean?",
+        a: "They are up to four of the sentence's highest-weight content words, ranked by the same 1 + log(count) weight the frequency score uses. They show why the sentence ranked where it did.",
       },
       {
-        q: "Can I use this to extract action items from meeting notes?",
-        a: "No, and it does not claim to. The scoring knows term frequency and sentence centrality; it has no concept of a decision, an owner, a deadline or a speaker. A sentence containing an action item may rank well, but so may a sentence that merely repeats the topic. Treat the list as a shortlist only.",
+        q: "Can I extract more than twenty points?",
+        a: "No. The Maximum points field accepts 1 to 20. Longer lists stop being key points; if you need every sentence, the Bullet Point Extractor is the right tool.",
       },
       {
-        q: "What is the continuous extract for?",
-        a: "It joins the same chosen sentences back into document order. Rank order answers what matters most; document order answers what comes first, which is what you need when the points will be read as a passage or used as a talk outline.",
+        q: "Two points share the same score — how is the order decided?",
+        a: "Ties are broken by document order, so the same text always produces the same list. There is no random element anywhere in the ranking.",
       },
       {
-        q: "Is the scoring the same as the text summariser?",
-        a: "Yes — 0.55 x TextRank centrality + 0.35 x log term frequency + 0.10 x position, normalised to the best sentence. The two tools differ only in how they present the selection: as numbered points here, as a paragraph there.",
+        q: "Is the key terms table the same as key-term coverage?",
+        a: "No. The table lists the top 12 terms with counts and weights; coverage, shown by the summariser, measures how much of the top ten terms' weight a selection contains.",
       },
     ],
   },
 
   "tldr-generator": {
-    keywords: ["TL;DR generator", "TL;DR", "character cap"],
-    intro:
-      "The TL;DR generator returns the shortest honest gist of a text: the highest-scoring sentences that fit your character cap, quoted verbatim, and when even the best sentence is too long it says so instead of hiding the overrun.",
-    content: `A TL;DR is a promise about length, so a TL;DR generator that ignores its own limit is useless. This one takes a character cap — 220 by default, adjustable from 40 to 2,000 — and builds the gist from whole sentences that fit inside it. The output is extractive: the sentences are quoted from your text in their original order, never written or compressed. A truncated sentence would be a misquotation, so the tool would rather return one long sentence with a visible over-budget notice than cut it in half.
-
-Selection works from the ranked sentence list. Every sentence is scored with the shared engine — TextRank centrality at weight 0.55, log term frequency at 0.35, position decay at 0.10, normalised so the best sentence is 1.000 — and the generator takes sentences in rank order while the running character count fits the cap, up to your sentence limit of one to five. The counts shown are recomputed from the final text: characters including spaces, words, the share of the whole document, and the number of sentences used. Because the chosen sentences are re-sorted into document order before display, the gist reads in the sequence the author wrote it.
-
-Each sentence in the result is listed with the figures that chose it: rank, final score, centrality, frequency. That list is the answer to the obvious question a one-line summary provokes — why this sentence and not another — and it makes the tool auditable in a way a one-line output usually is not. If the list looks wrong, the score table under the summariser shows the same arithmetic across every sentence in the document.
-
-The failure modes are structural, not hidden. A document whose opening sentences restate the topic will produce a gist from those sentences, because they share the most vocabulary with the rest of the text. A document with no repeated terms has no clear centre, so the ranking is closer to arbitrary. A single-sentence document returns that sentence whether it fits or not. Dialogue, lists and captions are segmented mechanically, so a TL;DR can quote a caption as if it were a claim, and negation is invisible to the scoring.
-
-The character cap is a hard limit on the output the tool produces, but not a cap it can always honour: if the highest-scoring sentence exceeds it, that sentence is returned with the over-budget flag set, because the alternatives — truncating it or substituting a lower-scoring sentence — would both be dishonest. The flag tells you exactly which situation you are in, and raising the cap is the one-line fix.
-
-Use the TL;DR generator for reading triage, changelog headers, newsletter intros and anywhere a reader has a fixed budget of attention. Do not use it as an abstract: an abstract is supposed to summarise a whole argument in the author's voice, and this tool quotes instead. Do not use it where a misquote would matter without checking the sentence against the source, which is why the sentences used are always listed.
-
-Nothing leaves the browser. The ranking is deterministic, so the same text and the same cap produce the same TL;DR every time, and nothing is stored after the tab closes.`,
-    howTo: [
-      { step: "Paste the text to compress; the TL;DR appears as you type." },
-      { step: "Set the character cap — 220 is the default, useful for intros and headers." },
-      { step: "Set the maximum number of sentences, from 1 to 5." },
-      { step: "Read the sentences-used list to see the rank and score behind each quoted sentence." },
-      { step: "Copy the TL;DR, or the full report when you need the figures alongside it." },
+    keywords: [
+      "TL;DR generator",
+      "character cap",
+      "top-ranked sentences",
+      "document order",
     ],
-    whenToUse: `Use this generator when the output has a hard length limit — a subject line, an intro paragraph, a changelog header. When the limit is a share of the document rather than characters, the {{text-summarizer|Text Summarizer}} takes a percentage instead, and when the output should be a ranked list of points, the {{key-points-extractor|Key Points Extractor}} presents the same scoring as numbered items.\\n\\nFor a measured view of how long your text already is, the {{word-count-tool|Word Count Tool}} and the {{character-count-tool|Character Count Tool}} give the counts the cap is applied against.`,
+    intro:
+      "The TL;DR Generator quotes the highest-scoring sentences that fit a character cap — 220 characters by default — and never more than the sentence limit you set. If nothing fits, it says so instead of inventing a shorter line.",
+    content:
+      "A short gist is a budget problem, and this TL;DR generator is built around the budget: you set a character cap and a maximum sentence count, and it fills them from the top-ranked sentences, quoted exactly and returned in document order. The defaults — 220 characters and three sentences — suit a chat reply or an email opener, and both can be changed before or after pasting.\n\n- Character cap: 40 to 2000 characters, default 220.\n- Maximum sentences: default 3, within whatever the character cap can hold.\n- Budget behaviour: the best sentence is always shown; if even it exceeds the cap, the page reports that rather than dropping it silently.\n- Stats and export: characters in the gist, words, sentences used and the share of the text, plus Copy TL;DR, Copy report and Download tldr.txt.\n- The character count shown is the gist's own length after joining, not the sum of the selected sentences, so it always matches what you would paste in.\n\nThe selection runs on the shared sentence scoring: TextRank centrality weighted 0.55, term frequency weighted 0.35 and position weighted 0.10, normalised so the best sentence is 1.000, and the same input always produces the same gist. Sentences are then visited in rank order and kept while the projected length — including the joining space — stays inside the cap and the sentence limit. Nothing is paraphrased, trimmed or reordered: the chosen sentences are joined with single spaces in the order they appear in the source, so the TL;DR reads as an excerpt rather than a patchwork. The over-budget flag exists because a cap can be smaller than every sentence in the text, and a tool that pretended otherwise would be lying about what it did. The report spells out the arithmetic: characters, words, sentences used and the share of the source, with a method line naming the three weights.\n\n- A character cap is a budget, not a judgement: the last sentence that fits can be weaker than one that did not.\n- Dense text may fit only one sentence inside 220 characters, and the page shows that plainly.\n- The gist inherits the ranking's blind spots, so repetitive text can produce a repetitive gist.\n- Sentence boundaries come from the shared splitter; an abbreviation it misreads can affect which sentences fit.\n- A gist of one long sentence can read as a fragment of a thought, which is why the report shows how much of the text was used.\n- It cannot summarise ideas spread across short fragments; several short sentences can crowd out one strong one.\n- The sentence limit is applied as a stop: three strong sentences end the gist even when a fourth would still fit the character budget.\n\nUse the TL;DR as a first line, not as a summary: it is the best sentence-sized answer to what is this, and the full summariser remains the right tool when the answer needs to scale with the text. Raise the cap to about 280 characters when the gist opens an email, lower it for chat, and read the sentence table when the result feels off: it shows which sentence forced the budget. A gist that fits the cap but misses the point is a signal to raise the cap rather than to distrust the ranking.",
+    howTo: [
+      { step: "Paste the text; the gist is chosen as you type." },
+      { step: "Set the character cap between 40 and 2000, and the maximum sentences." },
+      { step: "Read the one-line gist and the sentence table showing why each sentence was used." },
+      { step: "Copy TL;DR, Copy report or Download tldr.txt." },
+    ],
+    whenToUse:
+      "Use the TL;DR when the answer has to fit a fixed slot such as a chat reply or an email opener. When the length should scale with the text instead, the {{text-summarizer|Text Summarizer}} takes a percentage, and when the output should be a list rather than a line, the {{key-points-extractor|Key Points Extractor}} is the better shape.\n\nFor a brief with a bottom line and findings, the {{executive-summary-builder|Executive Summary Builder}} arranges the same ranking around the way briefs are actually read.",
     faqs: [
       {
-        q: "What happens if my best sentence is longer than the character cap?",
-        a: "It is returned anyway, with an over-budget notice. Truncating the sentence would misquote it and swapping in a lower-scoring sentence would hide the problem, so the tool reports the overrun and suggests raising the cap instead.",
+        q: "What happens if no sentence fits the character cap?",
+        a: "The best sentence is still shown, and the page flags that it is over budget. Nothing shorter scored highly enough to replace it, and the tool reports that situation rather than truncating a sentence.",
       },
       {
-        q: "How is the character cap counted?",
-        a: "In characters, including spaces, across the joined sentences. The cap is applied while sentences are selected in rank order and recomputed once the final text is assembled, so the number shown beside the result is the real length of what you are about to copy.",
+        q: "Are sentences shortened to fit the cap?",
+        a: "Never. Whole sentences are selected or skipped. Trimming would put words in your text that you did not write, which is exactly what an extractive tool must not do.",
       },
       {
-        q: "Is the TL;DR a paraphrase?",
-        a: "No. It is an extractive gist: the sentences are quoted verbatim from your text, in their original order. The generator selects and joins; it never rewrites. That is also why the wording cannot drift from the source.",
+        q: "Why is the gist in document order?",
+        a: "Because an excerpt should read like the source. The sentences are chosen by rank but joined in the order they appear, so the gist scans as a passage rather than as a jump-cut between unrelated lines.",
       },
       {
-        q: "Why does the TL;DR sometimes come from the first part of the text?",
-        a: "Because opening sentences usually share the most vocabulary with the rest of the document, and centrality rewards shared vocabulary. A text whose introduction states the topic will therefore often supply the gist; a text with no repeated terms has no strong centre at all.",
+        q: "What does the over-budget note mean?",
+        a: "It means the highest-ranked sentence is longer than your cap. Lower the sentence limit cannot help; either raise the cap or accept that this text has no short strong sentence.",
       },
       {
-        q: "Can I use this for an abstract or an executive summary?",
-        a: "It is the wrong shape for both. An abstract is written in the author's voice and an executive summary carries recommendations, while this tool quotes sentences and has no idea what a recommendation is. Use it for length-bounded gists and check the quoted sentences before publishing.",
+        q: "Can this tool make a longer summary?",
+        a: "Not directly. Raise the character cap and the sentence limit, but for a multi-paragraph result the Text Summarizer is the right tool: same scoring, length expressed as a percentage instead of a budget.",
       },
     ],
   },

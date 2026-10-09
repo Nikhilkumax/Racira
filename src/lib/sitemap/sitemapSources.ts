@@ -244,7 +244,11 @@ export const sitemapSources: SitemapSource[] = [
     getEntriesForCategory: (categorySlug) =>
       VOICE_CATS.flatMap((c: any) =>
         toSlug(c.name) === categorySlug
-          ? c.tools.map((t: any) => ({ loc: `${baseUrl}/voice/${t.slug}`, lastmod: FALLBACK_LASTMOD }))
+          ? c.tools
+              // Only genuinely-live voice tools belong here — without this a
+              // soon/unbuilt voice tool would leak into the sitemap.
+              .filter((t: any) => isLiveTool(t, "voice"))
+              .map((t: any) => ({ loc: `${baseUrl}/voice/${t.slug}`, lastmod: FALLBACK_LASTMOD }))
           : []
       ),
   },

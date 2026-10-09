@@ -1,0 +1,212 @@
+[
+  {
+    "slug": "show-notes-timestamp-generator",
+    "keywords": ["show notes", "timestamps", "words per minute", "transcript"],
+    "intro": "Show Notes Timestamp Generator turns a plain-text transcript into timestamped lines you can paste straight into podcast show notes, prefixing every entry with a running time. The clock is estimated from a timing rate you choose rather than measured from the audio.",
+    "content": "Paste a transcript into the textarea, one paragraph or line per entry, and the tool prefixes every line with a bracketed hour, minute and second stamp so that a line reading Welcome to the show comes out as [0:00:30] Welcome to the show, ready for your show notes. Nothing is analysed and no audio is loaded: the clock is built from a start offset plus a duration you set for each entry, which makes it instant and predictable but means it assumes the pacing is roughly even from start to finish.\n\nTwo timing modes decide how the clock advances, and a summary line above the output reports the entry count and the final timestamp so the estimate can be sanity-checked at a glance:\n\n- Fixed seconds per line mode, defaulting to 30 seconds and clamped to a minimum of 0.5 seconds per entry.\n- Words per minute mode, defaulting to 150 wpm and clamped to a minimum of 60.\n- An audio start time in seconds, for transcripts that begin partway through an episode.\n- Bracketed h:mm:ss timestamps from the shared time formatter, so hours appear automatically once a file passes the one-hour mark.\n- A summary showing how many lines were numbered and the last timestamp generated.\n- A click-to-select output textarea, so one click selects the whole block for copying.\n\nThe timing maths is deliberately simple and pure. In fixed mode every entry advances the clock by the seconds-per-line value, floored at half a second so a mistyped zero cannot stack dozens of entries on the same second. In words-per-minute mode the tool counts the whitespace-separated words in each line, divides that by the words-per-minute figure to get a fraction of a minute, and adds the result to the running total. Both modes push the accumulated seconds through the same formatter used elsewhere in the domain, which floors to whole seconds and switches from m:ss to h:mm:ss at the hour boundary. Blank lines and lines that are only whitespace are dropped before numbering, so a stray empty paragraph cannot shift every timestamp that follows it.\n\nWhat the tool genuinely cannot do:\n\n- It never listens to the audio, so every timestamp is an estimate from your rate rather than a measured position.\n- Fixed-rate mode assumes each entry takes exactly the same time, which drifts badly on episodes with variable pacing.\n- Words-per-minute mode is only as accurate as the value you type, and real reading speed changes with guests, ads and music beds.\n- Entries must be one per line; a pasted multi-paragraph blob becomes a single very long timestamped line.\n- It produces text only and writes no chapter markers or metadata into any file.\n- There is no round-trip, so you cannot import existing timestamps and correct them in place.\n\nUse fixed-rate mode when you have a rough plan and want usable numbers in seconds, and switch to words-per-minute when the transcript came from a speech-to-text pass where line lengths vary wildly. Treat the result as a first draft either way: paste it out, spot-check two or three points against the real episode, and nudge the rate if the drift is consistent rather than random. When the timestamps have to be exact to the second, build the chapter markers alongside the finished file instead of estimating them from text.",
+    "howTo": [
+      "Paste your transcript into the large textarea, keeping one paragraph or line per entry you want timestamped.",
+      "Set the audio start time in seconds if the transcript begins partway through the episode, then choose a timing mode.",
+      "Enter seconds per line for fixed mode, or a words-per-minute figure for wpm mode; the label switches with the mode.",
+      "Check the summary line for the entry count and final timestamp, then click the output box to select the whole block and copy it."
+    ],
+    "whenToUse": "Show Notes Timestamp Generator is the text-side timing tool: it works from a transcript you already have, with no audio involved. {{podcast-chapter-marker-tool|Podcast Chapter Marker Tool}} solves the opposite problem, writing real chapter markers into an MP3 so players show skip points inside your show notes player. Once the episode metadata is settled, {{id3-tag-editor|ID3 Tag Editor}} fixes the title, artist and album fields on the finished file, and {{podcast-recorder|Podcast Recorder}} is where the raw take comes from in the first place. Together they cover the timeline from recording to published notes.",
+    "faqs": [
+      {
+        "q": "Does the generator listen to my audio to find the timestamps?",
+        "a": "No. Nothing is uploaded or decoded. The clock starts at the audio start time you enter and advances by either a fixed number of seconds per line or an estimate from the words in each line. That is why it returns instantly and works on a transcript alone, and also why the result is an estimate you should spot-check."
+      },
+      {
+        "q": "What does a timestamp actually look like?",
+        "a": "Each output line is bracketed and zero-padded, always in hours, minutes and seconds: [0:00:30] for the first entry at thirty seconds, and [1:12:05] once the running total passes an hour. A leading zero hour is kept so every line lines up when the notes are pasted into a description."
+      },
+      {
+        "q": "Which timing mode should I use?",
+        "a": "Use fixed seconds per line when you know roughly how long each segment runs and want predictable, even spacing, which suits a scripted interview with regular blocks. Use words per minute when the transcript lines differ a lot in length, since counting words approximates natural speech pacing better than a flat interval does."
+      },
+      {
+        "q": "Why did my first timestamp not start at zero?",
+        "a": "Because the audio start time is set to something other than zero. That field exists for clips that begin partway into an episode, so a transcript for a ten-minute segment should start around 600 seconds. Clear it back to 0 if the transcript covers the episode from the opening second."
+      },
+      {
+        "q": "How accurate are the estimates?",
+        "a": "Close enough for a first draft, not exact. Fixed mode drifts whenever entries are unevenly paced, and words-per-minute mode drifts whenever the actual speaking rate differs from the figure you typed. Spot-check a couple of middle timestamps against the episode and adjust the rate until the drift shrinks to a few seconds."
+      }
+    ]
+  },
+  {
+    "slug": "podcast-chapter-marker-tool",
+    "keywords": ["chapter markers", "ID3 CHAP", "MP3", "v2.3"],
+    "intro": "Podcast Chapter Marker Tool writes real, player-readable chapter markers into an MP3 by building ID3 CHAP frames from titles and start times you type. Players such as Apple Podcasts then offer skip points inside the episode.",
+    "content": "Drop an MP3 onto the panel, add a start time and a title for each chapter, and download the same audio with chapter markers written into its tag block. The tool reads any chapters already present in the file and loads them into the editor, so you can adjust an episode rather than starting over. Existing ID3 CHAP frames are parsed on load, and the duration is measured by decoding the file so the final chapter can be closed off at the true end of the audio.\n\nWhat the editor gives you:\n\n- A chapter title field and a start time in seconds, with the Add button appending the row and advancing the next start by 60 seconds as a convenience.\n- End times that are worked out automatically: each chapter runs until the next one begins, and the last runs to the measured file duration.\n- A sortable chapter table showing each start as an h:mm:ss timestamp with an editable title and a remove control.\n- Automatic loading of existing chapters, so an already-chaptered episode opens with its markers in place.\n- A single write step that produces a new file named after the original with a .chaptered.mp3 suffix.\n- ID3 CHAP frames are written under a fresh ID3v2.3 tag, matched against Apple's expectations.\n\nOn the technical side the file is held as raw bytes and the tag block is rebuilt rather than patched. The tool locates the existing ID3 header, strips it, and prepends a newly constructed tag containing one CHAP frame per chapter. Each CHAP frame carries an embedded TIT2 subframe for its title plus start and end times in milliseconds, and the tag declares ID3v2.3 with 512 bytes of padding appended so a later edit can rewrite in place without moving the audio. Because the whole tag is rebuilt, the writer is also what makes version upgrades automatic: a file carrying an older tag simply comes out with a clean v2.3 block.\n\nHonest limits, all confirmed against the code:\n\n- It accepts MP3 only; there is no support for M4A, M4B or other containers here.\n- Writing chapters produces a fresh tag that contains the CHAP frames and nothing else, so pre-existing title, artist and album text frames are not carried across.\n- If the file cannot be decoded, the duration is unknown and the last chapter's end time falls back to zero, which some players read as an open-ended final chapter.\n- Chapter starts are sorted by time but are not validated against the duration, so a start past the end of the audio is written exactly as typed.\n- There is no waveform or scrubber; you type start times rather than clicking them on a timeline.\n- Chapters are ID3 CHAP frames, not MP4 chapter tracks, so players that only read MP4 chapters on another container will not see them.\n\nThe practical workflow is to add chapters from the intro outward, giving each segment a descriptive title and a start time rounded to the nearest second, then check the table's timestamps against your notes before writing. If the episode already had a title and artist tag you care about, set those again with the tag editor after writing the chapters, since the chapter write starts from a clean tag.",
+    "howTo": [
+      "Drop an MP3 onto the panel or click to choose one; existing chapters are detected and listed automatically.",
+      "Type a chapter title and its start time in seconds, then press Add; the next start time pre-fills 60 seconds later.",
+      "Edit or remove rows in the chapter table until the start times and titles are right; end times update automatically.",
+      "Click Write chapters and download to save the file as name.chaptered.mp3 with the CHAP frames inside."
+    ],
+    "whenToUse": "Reach for Podcast Chapter Marker Tool when listeners should be able to skip to a segment inside the player, and use {{show-notes-timestamp-generator|Show Notes Timestamp Generator}} when you only need readable times in a written description. The two are built from different inputs on purpose: one writes binary markers into the file, the other formats text. If the download needs its title, artist or album fixed as well, {{id3-tag-editor|ID3 Tag Editor}} handles those fields, and {{podcast-recorder|Podcast Recorder}} is the step before either of them.",
+    "faqs": [
+      {
+        "q": "Which players actually show these chapters?",
+        "a": "Any player that reads ID3 CHAP frames, which is the convention Apple Podcasts established and most podcast apps follow. Chapters appear as a list with skip points. Players that only understand MP4 chapter tracks will not see frames written into an MP3, and the plain MP3 hardware players ignore them entirely."
+      },
+      {
+        "q": "Will writing chapters keep my existing title and artist tags?",
+        "a": "No, and this is worth knowing before you start. The writer rebuilds the whole tag block from scratch, and this tool supplies only the chapter frames, so previously set title, artist and album text is dropped. Set those fields again with the tag editor after writing chapters if you need them."
+      },
+      {
+        "q": "What does the tool do with a file that already has chapters?",
+        "a": "It parses the existing CHAP frames and loads them into the table as editable rows, numbering any untitled chapter as Chapter 1, Chapter 2 and so on. You can then retitle, re-time, add or remove entries and write the file back out, so re-editing an episode does not mean retyping every chapter."
+      },
+      {
+        "q": "How are chapter end times decided?",
+        "a": "Automatically. Each chapter ends where the following one begins, and the final chapter ends at the measured duration of the decoded file. That is why the tool decodes the audio on load, and why an undecodable file leaves the last chapter's end at zero instead of guessing."
+      },
+      {
+        "q": "Can I use it on an M4A or M4B file?",
+        "a": "No. This tool accepts MP3 only, and the file picker is restricted to MPEG audio. Audiobooks distributed as M4B use a different chapter mechanism inside an MP4 container, so an MP3-specific chapter writer cannot write into one without re-muxing the audio."
+      }
+    ]
+  },
+  {
+    "slug": "id3-tag-editor",
+    "keywords": ["ID3 tags", "MP3 metadata", "title", "artist"],
+    "intro": "ID3 Tag Editor reads the metadata block inside an MP3, lets you edit the common text fields, and writes a fresh ID3 tag back into the file. It also strips a tag entirely when you need a clean master before distribution.",
+    "content": "Choose an MP3 and the editor parses its ID3 tags on load, showing the tag version and the number of frames alongside the current title, artist, album and year values. Six fields are editable, and each one maps to a specific text frame in the file: Title to TIT2, Artist to TPE1, Album to TALB, Year to TYER, Genre to TCON and Comment to COMM. Whatever was already present is pre-filled into the form, so editing an existing tag starts from its real values rather than a blank slate.\n\nWhat the editor exposes:\n\n- Six editable MP3 metadata fields: title, artist, album, year, genre and comment.\n- A current-tags panel showing the detected tag version and frame count, plus a title, artist, album and year summary line.\n- A write action that rebuilds the tag as ID3v2.3 and downloads the audio as name (tagged).mp3.\n- A strip action that removes the entire ID3 block and downloads the audio as name (no tags).mp3.\n- An automatic download on completion, so there is no extra save step after the rewrite.\n- A clear-file control that resets the session without touching anything on disk.\n\nAll the parsing and serialisation lives in one library module, and the write path is a full rewrite rather than a patch. The writer finds the existing ID3 header, measures its size from the syncsafe length field, discards everything up to the start of the audio, and prepends a newly built tag. Text frames are emitted for whichever fields you filled in; an empty field is simply not written rather than written blank. The Comment frame is assembled with an English language code and Latin-1 text, and 512 bytes of padding are appended inside the tag so a future edit has room to rewrite in place without shifting the audio. Because the old tag is discarded first, an older or non-standard tag is normalised to a clean ID3v2.3 block as a side effect.\n\nThe real limitations to plan around:\n\n- MP3 only; the picker accepts MPEG audio and nothing else.\n- Only the six documented fields are editable, so there is no album art, track number, disc number, lyrics, composer or multi-value artist support.\n- Output is always written as ID3v2.3, so a file that arrived as v2.4 comes back as v2.3.\n- Genre is free text written straight into TCON, not the numeric ID3 genre list, so a player may show it verbatim rather than as a mapped name.\n- Text is encoded as Latin-1, which means non-Latin scripts can be mangled; keep metadata to Latin characters for reliable round-trips.\n- There is no batch mode and no undo; each file is handled one at a time and the original on disk is never modified, only a new download is produced.\n\nThe two buttons cover two different intents, and it helps to be deliberate about which you use. Write tags and download is for finishing an episode: fill the fields that matter, leave the rest blank, and let the writer normalise the tag. Strip tags and download is for producing a clean master when a distributor or a client wants an untagged file, since it removes the whole block in one step instead of blanking field by field.",
+    "howTo": [
+      "Click Drop or choose an MP3 and select a file; the existing tag is parsed and the fields fill in with whatever was already there.",
+      "Edit the title, artist, album, year, genre and comment fields you want to change, leaving any field blank to omit it from the new tag.",
+      "Press Write tags and download to rebuild the tag as ID3v2.3 and save the audio with a (tagged) suffix.",
+      "If you need an untagged copy instead, press Strip tags and download to remove the ID3 block entirely."
+    ],
+    "whenToUse": "ID3 Tag Editor is the metadata tool for a finished MP3, while {{podcast-chapter-marker-tool|Podcast Chapter Marker Tool}} writes the chapter frames that sit alongside those fields in the same tag block. If you are preparing notes rather than the file, {{show-notes-timestamp-generator|Show Notes Timestamp Generator}} produces the text-side timings. For tidying a folder of episode files in one pass, {{batch-file-renamer|Batch File Renamer}} handles the filenames that sit next to the tags. When the artwork that goes into those fields does not exist yet, {{podcast-cover-art-generator|Podcast Cover Art Generator}} makes it before the tag is written.",
+    "faqs": [
+      {
+        "q": "Which metadata fields can I actually edit?",
+        "a": "Six: title, artist, album, year, genre and comment. They map to the TIT2, TPE1, TALB, TYER, TCON and COMM frames. Album art, track and disc numbers, lyrics and composer are not exposed, even if the original file contained them, so those frames are not carried into the rewritten tag."
+      },
+      {
+        "q": "What happens to the original file on my disk?",
+        "a": "Nothing. The editor reads the file into memory, rewrites the tag in memory, and downloads a new copy named with a (tagged) or (no tags) suffix. Your original is never opened for writing, which means a bad edit is always recoverable by simply discarding the download."
+      },
+      {
+        "q": "Will editing a tag re-encode the audio?",
+        "a": "No. The audio bytes are copied across untouched; only the tag block is rebuilt and prepended. That is why the operation is instant even on a long episode and why the sound is identical to the source. The tag is the only thing that changes."
+      },
+      {
+        "q": "Why did my ID3v2.4 file come back as v2.3?",
+        "a": "Because the writer emits ID3v2.3 by design. It discards the old tag block entirely and builds a clean v2.3 tag, with the year going into the TYER frame that v2.3 expects. This makes the output widely compatible across players at the cost of not preserving a v2.4-only structure."
+      },
+      {
+        "q": "Can I tag several files at once?",
+        "a": "No. The editor works on one file at a time and there is no queue, because it is built around inspecting and editing the fields of a single tag. If you need to process a batch, run the files through one after another; the per-file work is quick since no audio is decoded."
+      }
+    ]
+  },
+  {
+    "slug": "podcast-cover-art-generator",
+    "keywords": ["podcast cover art", "1400", "3000", "PNG"],
+    "intro": "Podcast Cover Art Generator draws a square show cover from a title, a subtitle and two colours, exporting it at the resolution the platforms ask for. It renders entirely on a canvas, with no uploads and no template download.",
+    "content": "Type a show title and a subtitle, pick a background and an accent colour, and the generator draws podcast cover art on a canvas that updates as you type. The layout is a fixed, deliberate composition rather than a template gallery: a solid background fills the square, a large accent circle is cropped by the top-right corner, a darker circle adds depth at the bottom left, the title is set in white and wrapped across up to three lines, and the subtitle sits underneath it in a lighter tone.\n\nWhat you control:\n\n- A show title field, used as the large white headline, with word wrapping measured against the canvas rather than a fixed character count.\n- A subtitle field under the headline.\n- A background colour and an accent colour, both picked with standard colour inputs.\n- Two export sizes: 1400 x 1400 for the publishing minimum and 3000 x 3000 as a high-resolution master.\n- A live preview rendered at 640 px so the composition can be judged without exporting.\n- A single PNG download, named podcast-cover.png.\n\nEverything is drawn in a normalised 1000-unit design space and then scaled to the chosen pixel size, which is why changing the export size never changes the layout. The background is filled first, then the accent circle is drawn at a centre and radius expressed in those units, then a translucent black circle adds depth, then the title is measured word by word and broken into lines whose measured width stays inside an 800-unit margin. Choosing 1400 multiplies every coordinate by 1.4 and choosing 3000 multiplies by 3, so the 3000 px master is a true high-resolution render of exactly the same artwork rather than an upscaled preview.\n\nWhere it stops, in plain terms:\n\n- The composition is fixed; you cannot reposition elements, change the shape of the accent circle or pick a different layout.\n- There is no image upload, so a logo, a photo or a texture cannot be placed on the cover.\n- The title is clipped to three lines, and text that overflows is dropped rather than shrunk to fit.\n- The subtitle is a single line and is not wrapped or measured, so a long subtitle can run off the right edge.\n- Type is set in the system UI font, and the font size, weight and colour are not adjustable.\n- Export is PNG only, so there is no JPEG option even though flat covers would compress far smaller.\n- It produces a still image and nothing else: no multiple sizes in one pass, and no variant export for other platforms.\n\nIn practice this is a fast way to get a clean, on-spec square cover without opening a design app, and the title wrapping means a long show name usually survives intact. Keep the title short enough to fit comfortably in three lines, keep the subtitle to a handful of words, and choose an accent with enough contrast against the background that the circle reads clearly at thumbnail size. When the design calls for a real logo or an image background, this is the wrong tool and a full editor is the right one; the value here is speed and a predictable, platform-friendly result.",
+    "howTo": [
+      "Enter the show title in the first field, since it drives the headline that wraps across the cover.",
+      "Add a subtitle, then choose a background colour and an accent colour to set the palette.",
+      "Choose the export size, either 1400 x 1400 for publishing or 3000 x 3000 for a high-resolution master.",
+      "Check the live preview and press Download PNG to save the square cover as podcast-cover.png."
+    ],
+    "whenToUse": "Podcast Cover Art Generator produces the square artwork that goes with an episode, and {{id3-tag-editor|ID3 Tag Editor}} handles the metadata fields that sit inside the audio file itself. If you want a visual read on the sound rather than a designed cover, {{waveform-visualizer|Waveform Visualizer}} draws the actual waveform. To record the episode this artwork will represent, {{podcast-recorder|Podcast Recorder}} is the capture step, and {{podcast-chapter-marker-tool|Podcast Chapter Marker Tool}} finishes the file with skip points.",
+    "faqs": [
+      {
+        "q": "What size should I export for podcast platforms?",
+        "a": "Use 1400 x 1400, which is the minimum most directories ask for and the one they display. Export 3000 x 3000 when you want a high-resolution master to keep or to hand to a designer later. Because both are rendered from the same layout, the larger file is a genuine re-render rather than an upscale."
+      },
+      {
+        "q": "Can I upload a logo or photo to put on the cover?",
+        "a": "No. The generator is a text-and-shape composition only, with no image upload and no way to place a bitmap. If the cover needs a photograph or a logo mark, this tool cannot produce it and you would need a full graphics editor."
+      },
+      {
+        "q": "Why is my title cut off?",
+        "a": "Because the headline is limited to three wrapped lines and anything past the third is dropped. The wrap is measured against the canvas, so the exact limit depends on the width of the words rather than a character count. Shorten the title or move detail into the subtitle, which is a single line."
+      },
+      {
+        "q": "Is the artwork uploaded anywhere?",
+        "a": "No. The image is drawn in the browser on a canvas element and exported directly to a PNG download. There is no server component, no image service and no account, so the title and colours you type never leave the page."
+      },
+      {
+        "q": "Could you add JPEG export or an image background?",
+        "a": "Those are real gaps rather than settings. Export is PNG only, and the artwork is drawn from a fixed composition of shapes and type. Flat covers compress well as PNG, so the format is rarely the limiting factor, but a photograph background is simply outside what this generator draws."
+      }
+    ]
+  },
+  {
+    "slug": "multi-guest-leveler",
+    "keywords": ["stereo recording", "RMS", "two guests", "level"],
+    "intro": "Multi-Guest Leveler balances two speakers who were recorded onto separate channels of one stereo recording, steering each channel to the same target level on its own. It is built for the standard two-microphone setup where one guest sits left and the other sits right.",
+    "content": "Drop a stereo recording in which each guest occupies one channel and the tool levels both independently to a common target, then hands back a balanced WAV. The assumption is explicit: this works when the microphones were kept apart, so the left channel is essentially one voice and the right channel another. Two guests recorded that way, one quieter and one louder, come out matched without touching the other channel, and the tool reports the measured before and after levels plus the gain range it applied to each side.\n\nThe three controls, with their real ranges:\n\n- Target level per guest, adjustable from -24 to -12 dBFS RMS and defaulting to -16 dBFS.\n- Max gain per guest, from +6 to +24 dB and defaulting to +15 dB, which caps amplification on a near-silent channel.\n- Max speed, from 6 to 40 dB per second in steps of 2 and defaulting to 18 dB/s, which limits how fast gain is allowed to move.\n- A required stereo input: the tool rejects mono and anything with more than two channels and says so rather than guessing.\n- A readout after processing showing each guest's input level, output level and the gain range applied.\n\nThe leveling itself is a block-based automatic gain routine run once per channel. The signal is cut into 100 millisecond blocks, each block's root mean square level is measured, and the gain needed to reach the target is computed in decibels. That request is clamped so it never exceeds the max gain per guest, then rate-limited so the change from the previous block is at most the slew allowance, which at the default of 18 dB/s works out to 1.8 dB per block. The resulting gain is applied to the whole block and the next one is evaluated from the new position. Because the slew limit is applied after the target is clamped, gain eases toward the target instead of jumping, which is what keeps a syllable from pumping. The minimum and maximum gain reached during the pass are tracked and reported back as the gain range.\n\nThe limits worth knowing before you rely on it:\n\n- It needs exactly two channels, so a mono mixdown or a single-microphone recording cannot be split by this tool.\n- It cannot separate guests that bled into both microphones; if both voices are audible on both channels, leveling a channel levels both voices together.\n- It corrects level only, with no EQ, de-essing or noise reduction, so a thin or noisy channel stays thin or noisy, just louder.\n- The max gain cap means a genuinely silent channel is left quiet rather than being lifted into audibility.\n- Output is a 16-bit WAV, so a long episode becomes a large file even though the input was compressed.\n- The report describes levels and gain range only; it is not a waveform view and offers no per-word correction.\n\nUse it immediately after a two-microphone capture, before any other processing, and let slow slew keep the movement invisible: 18 dB/s is a good default because it reacts within a second or two without chasing every syllable. Raise the max-gain cap only when a guest was recorded genuinely quiet, and lower the target if the balanced result sounds loud against your other episodes. If both speakers are already on the same channel, this is the wrong tool; a general leveler or a per-channel edit is the right one.",
+    "howTo": [
+      "Drop a stereo recording where each guest is on their own channel, left for guest one and right for guest two.",
+      "Set the target level per guest, between -24 and -12 dBFS RMS, with -16 dBFS as the usual starting point.",
+      "Adjust the max gain per guest and the max speed if you need more headroom or faster correction.",
+      "Press Process, check the reported gain range per guest, then preview the result and download the balanced WAV."
+    ],
+    "whenToUse": "Multi-Guest Leveler is the two-channel, two-person case, and {{audio-leveler|Audio Leveler}} is the general one that levels a whole file without assuming anything about channel layout. When the destination is a streaming platform with a published loudness target, {{loudness-normalizer|Loudness Normalizer}} matches an integrated LUFS figure instead of block RMS, and {{rms-normalizer|RMS Normalizer}} does the same job against RMS. If the problem is peaks rather than average level, {{audio-compressor|Audio Compressor}} shapes the dynamics with a threshold and ratio.",
+    "faqs": [
+      {
+        "q": "Do both guests need to be on separate channels?",
+        "a": "Yes, and the tool enforces it. It requires exactly two channels and rejects mono, so the real precondition is a recording where each microphone landed on its own side. If both voices share one channel, or both microphones picked up both voices, this tool cannot separate them."
+      },
+      {
+        "q": "What does the target level mean?",
+        "a": "It is the block RMS level that each channel is steered toward, expressed in dBFS, with the slider covering -24 to -12 dBFS and a default of -16. The leveler compares each 100 millisecond block against that target and requests the gain needed to reach it, subject to the max-gain and slew caps."
+      },
+      {
+        "q": "Why is the max speed setting important?",
+        "a": "Because it is what stops the leveler sounding like it is pumping. The slew limit caps how far gain can move per block, so at 18 dB/s the gain moves at most 1.8 dB every 100 milliseconds. Turn it up for faster correction on long level changes and down for a gentler, less obvious ride."
+      },
+      {
+        "q": "Will the report tell me what gain was applied?",
+        "a": "Yes. After processing, a readout lists each guest's measured input level, the resulting output level, and the range of gain applied as a low and high figure in decibels. That range is useful for seeing whether a channel was riding the max-gain cap, which is a sign the microphone was too far away."
+      },
+      {
+        "q": "Does it fix a guest who sounds thin or noisy?",
+        "a": "No. This is a gain tool and nothing more. It balances loudness, and a channel that is thin, boomy or hissy stays that way after leveling. Tone and noise belong to a different tool, and lifting a hissy channel with gain can make the noise more audible, which is why the max-gain cap exists."
+      }
+    ]
+  },
+  {
+    "slug": "room-tone-generator",
+    "keywords": ["room tone", "mains hum", "seed", "WAV"],
+    "intro": "Room Tone Generator synthesises the quiet hum and air a real room actually has, so you can lay it under edited dialogue and hide the abruptness of a cut. It builds the tone from hum, filtered noise and a slow level wander rather than recording a real space.",
+    "content": "Pick a room character, set a duration and generate a track of room tone you can loop under dialogue or crossfade into pauses. Four presets stand in for real spaces: apartment, with a noticeable 60 Hz hum and street rumble; house, with a softer hum and deeper rumble; studio, with nearly silent air and a faint 50 Hz tone; and office, with HVAC-style hiss and wide stereo air. Each preset carries its own hum frequency, hum level, harmonic content, air brightness, rumble depth and stereo spread, so switching rooms changes the character rather than just the volume.\n\nThe controls and their ranges:\n\n- Room character, one of apartment, house, studio or office, each with a fixed character profile.\n- Duration from 1 to 600 seconds, defaulting to 30.\n- Level from 1 to 100 percent, scaling the overall output amplitude, defaulting to 25 percent.\n- Wander from 0 to 100 percent, controlling how much the level drifts over time, defaulting to 35.\n- Seed, an integer defaulting to 12345, which makes the same settings reproduce the identical file.\n- Output at either 44100 Hz or 48000 Hz as a 16-bit WAV, with the download named from a room-tone prefix and a timestamp.\n\nThe synthesis is three layered sources mixed into stereo. Mains hum is a sine at the preset frequency plus two harmonics at defined relative levels, so the studio preset's 50 Hz tone and the apartment preset's louder 60 Hz both carry their own timbre. Air is white noise passed through a one-pole lowpass, with independent noise streams for left and right and a pan factor derived from the preset's stereo spread, which is why the office preset sounds wide and the studio preset nearly centred. Rumble is a separate noise stream lowpassed much more heavily to sit under everything. On top of that, a seeded random walk nudges the hum and air levels, resampled roughly every 37 milliseconds with linear interpolation, so the tone breathes slowly instead of looping audibly. Hum and rumble stay centred while the air spreads, and the fixed random seed means a level that you liked can be reproduced exactly.\n\nWhat it does not do:\n\n- It is synthetic, so it will not match the specific tone of your actual room; it approximates a class of space rather than a recording.\n- The hum is generated sine harmonics, not a captured electrical buzz, so it lacks the texture of real interference.\n- There are four presets and no fine control over hum frequency, filters or harmonic balance beyond what the presets define.\n- Output is always stereo, even for a preset whose spread is small, so there is no mono export.\n- It adds tone; it cannot remove the real room tone from an existing recording, and it will not seamlessly match a clip's own noise floor without manual level adjustment.\n- Loop points are not matched automatically, so laying it under a long edit still needs a crossfade at the join.\n\nThe clean workflow is to generate a length comfortably longer than the gap you need, set the level a little below the dialogue's own noise floor, and crossfade the generated tone in and out at the edit so the change in bed is gradual rather than a step. Keep the seed for any tone you like, so a re-edit of the same episode uses the same background. Choose studio for near-silence, apartment or house when the recording was made in a living space and needs to sound like it, and office for a hissier, wider bed.",
+    "howTo": [
+      "Choose a room character, apartment, house, studio or office, and read the hint under each button for its character.",
+      "Set the duration in seconds and a seed; keep the seed fixed if you want to reproduce a tone you liked later.",
+      "Adjust the level and wander sliders to set how loud the tone is and how much it drifts as it plays.",
+      "Pick the sample rate, generate, preview the result, and download the 16-bit WAV for use under your edit."
+    ],
+    "whenToUse": "Room Tone Generator makes a synthetic bed, and the noise generators are its cousins: {{white-noise-generator|White Noise Generator}} for a flat spectrum, {{pink-noise-generator|Pink Noise Generator}} for a musical balance and {{brown-noise-generator|Brown Noise Generator}} for a deep low-frequency wash. When the job is the opposite one, taking a bed out rather than putting one in, {{noise-reducer|Noise Reducer}} goes the other way and suppresses steady background noise.",
+    "faqs": [
+      {
+        "q": "Why use generated room tone instead of recording real silence?",
+        "a": "Because a real room is rarely available when you need it and never repeats identically. A synthetic bed is deterministic from its seed, so a re-edit months later can reproduce the exact same background. It also has no accidental noises in it, which a real recording of a quiet room almost always contains."
+      },
+      {
+        "q": "What does the seed change?",
+        "a": "It seeds the random number generator behind the noise layers and the slow level wander, so the same seed with the same settings reproduces a bit-identical file. Change the seed to get a different wander pattern and a subtly different noise texture while keeping the room character and level the same."
+      },
+      {
+        "q": "What do the four room presets actually differ in?",
+        "a": "Hum frequency and level, harmonic content, air brightness and level, rumble depth and stereo width. Apartment is a loud 60 Hz hum with noticeable street rumble, studio drops to a faint 50 Hz with nearly silent air, and office brightens the air and widens the stereo image for an HVAC feel."
+      },
+      {
+        "q": "Can it remove the room tone already in my recording?",
+        "a": "No. This tool only generates tone; it never processes a file you supply. Removing an existing bed is a different job handled by a noise reduction tool, and matching a generated bed to a real recording's floor takes a manual level adjustment plus a crossfade at the joins."
+      },
+      {
+        "q": "What does the wander control do to the sound?",
+        "a": "It sets how much the hum and air levels drift as the tone plays, from a completely static bed at zero up to a noticeably breathing one at full. The drift is resampled about every 37 milliseconds and interpolated, so it moves slowly enough to sound like a room rather than a flicker, and slow enough that a loop is hard to hear."
+      }
+    ]
+  }
+]

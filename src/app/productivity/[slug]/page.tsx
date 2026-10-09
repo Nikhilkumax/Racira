@@ -5,8 +5,13 @@ import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { CATEGORIES } from "@/domains/productivity/registry";
 import { PRODUCTIVITY_SITE } from "@/domains/productivity/site";
+import { INDEX_SOON_PAGES } from "@/domains/productivity/indexing";
 import { toSlug } from "@/lib/utils/slug";
-import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
+import { buildSoonMetadata } from "@/lib/tools/soonMetadata";
+import { pickRelatedTools } from "@/lib/tools/soonRelated";
+import { ComingSoonToolPage } from "@/components/shared/ComingSoonToolPage";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
 
@@ -18,12 +23,32 @@ function findToolBySlug(slug: string) {
   return allTools.find(t => t.slug === slug);
 }
 
+/** Names repeated among this domain's upcoming tools — used to qualify labels. */
+const SOON_NAME_COUNTS = (() => {
+  const counts = new Map<string, number>();
+  for (const tool of allTools) {
+    if (tool.status === "live") continue;
+    counts.set(tool.name, (counts.get(tool.name) ?? 0) + 1);
+  }
+  return counts;
+})();
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = CATEGORIES.find(c => toSlug(c.name) === slug);
   if (category) return { title: `${category.name} — ${PRODUCTIVITY_SITE.copyrightName}`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/productivity/${slug}` } };
   const tool = findToolBySlug(slug);
-  if (tool) return { title: `${tool.name} — ${PRODUCTIVITY_SITE.copyrightName}`, description: tool.description, alternates: { canonical: `/productivity/${slug}` }, robots: isComingSoonToolPage(tool, "productivity") ? { index: false, follow: false } : undefined };
+  if (tool) {
+    // Upcoming tools keep a self-canonical and real copy; INDEX_SOON_PAGES
+    // controls whether they are also indexable (domains/productivity/indexing.ts).
+    if (hasComingSoonPage(tool, "productivity")) {
+      return buildSoonMetadata(
+        { tool, domainKey: "productivity", siteName: PRODUCTIVITY_SITE.copyrightName, categoryName: tool.categoryName, soonNameCounts: SOON_NAME_COUNTS },
+        INDEX_SOON_PAGES,
+      );
+    }
+    return { title: `${tool.name} — ${PRODUCTIVITY_SITE.copyrightName}`, description: tool.description, alternates: { canonical: `/productivity/${slug}` } };
+  }
   return { title: "Not Found — Racira" };
 }
 
@@ -60,8 +85,10 @@ function CategoryView({ category }: { category: typeof CATEGORIES[0] }) {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {category.tools.map((tool: any) => {
               const Icon = tool.icon || inferIcon(tool.name, tool.slug);
-              // No productivity tool page renders a real tool — every card is inert.
+              // Live tools open the real tool; upcoming tools open their Coming
+              // Soon page (never a 404) — same decision the ToolCard makes.
               const isLive = isLiveTool(tool, "productivity");
+              const clickable = isLive || hasComingSoonPage(tool, "productivity");
               const cardBody = (
                 <>
                   {!isLive && (
@@ -76,7 +103,7 @@ function CategoryView({ category }: { category: typeof CATEGORIES[0] }) {
                   <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
                 </>
               );
-              return isLive ? (
+              return clickable ? (
                 <Link key={tool.slug} href={`/productivity/${tool.slug}`} className="tool-card group hover:-translate-y-[3px]">
                   {cardBody}
                 </Link>
@@ -97,6 +124,32 @@ export default async function PolymorphicPage({ params }: PageProps) {
   const { slug } = await params;
   const category = CATEGORIES.find(c => toSlug(c.name) === slug);
   if (category) return <CategoryView category={category} />;
-  // No productivity tool page renders a real tool — every tool slug 404s.
+
+  const tool = findToolBySlug(slug);
+
+  // Upcoming tools render a Coming Soon page instead of 404ing.
+  if (tool && hasComingSoonPage(tool, "productivity")) {
+    const related = pickRelatedTools(allTools, {
+      currentSlug: slug,
+      basePath: "/productivity",
+      isLive: (t) => isLiveTool(t, "productivity"),
+      sameGroup: (t) => t.categoryName === tool.categoryName,
+    });
+    return (
+      <ComingSoonToolPage
+        toolName={tool.name}
+        toolDescription={tool.description}
+        icon={tool.icon}
+        siteName={PRODUCTIVITY_SITE.copyrightName}
+        domainLabel="Productivity"
+        domainHref="/productivity"
+        categoryName={tool.categoryName}
+        categoryHref={`/productivity/${toSlug(tool.categoryName)}`}
+        relatedLive={related.live}
+        relatedSoon={related.soon}
+      />
+    );
+  }
+
   notFound();
 }

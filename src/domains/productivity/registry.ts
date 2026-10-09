@@ -8,7 +8,7 @@ export const CATEGORIES: Category[] = [
     name: "Focus & Time Management",
     description: "Plan deep work, time blocks, and energy.",
     tools: [
-      { slug: "deep-work-session-planner", name: "Deep Work Session Planner", description: "Manage time and focus.", icon: DatabaseZap, status: "live" },
+      { slug: "deep-work-session-planner", name: "Deep Work Session Planner", description: "Manage time and focus.", icon: DatabaseZap, status: "soon" },
       { slug: "time-blocking-planner", name: "Time Blocking Planner", description: "Manage time and focus.", icon: Calendar, status: "soon" },
       { slug: "daily-schedule-builder", name: "Daily Schedule Builder", description: "Manage time and focus.", icon: LayoutTemplate, status: "soon" },
       { slug: "priority-matrix-generator", name: "Priority Matrix Generator", description: "Manage time and focus.", icon: ALargeSmall, status: "soon" },

@@ -1,0 +1,397 @@
+/**
+ * AUTO-GENERATED — do not edit by hand.
+ *
+ * Source: src/domains/audio/seo/source/batch-18-converter-migration.json
+ * Regenerate: node scripts/audio-json-to-seo.mjs src/domains/audio/seo/source/batch-18-converter-migration.json <this file> audioSeoBatch18
+ * Validate first: node scripts/validate-audio-seo-json.mjs src/domains/audio/seo/source/batch-18-converter-migration.json
+ */
+import type { ToolSeo } from "@/components/shared/seo-types";
+
+export const audioSeoBatch18: Record<string, ToolSeo> = {
+  "mp3-converter": {
+    keywords: [
+      "lamejs",
+      "bitrate",
+      "VBR",
+      "ID3",
+    ],
+    intro:
+      "MP3 Converter turns any audio your browser can decode into an MP3, at a constant bitrate or a variable-quality level you pick. Many conversions complete without downloading an encoder at all.",
+    content:
+      "Drop a file, choose the quality, and convert. The output is a plain MP3 that plays on essentially any device made in the last twenty-five years.\n\nThe controls:\n\n- Four quality tiers at 64, 128, 192 and 320 kbps, labelled Economy, Standard, High and Best.\n- A mode switch between constant bitrate and variable bitrate (VBR). In VBR mode the same four tiers become LAME V-levels of 7, 5, 2 and 0, where the lower number spends more bits.\n- Advanced settings shared across the converters here: channel mode (original, mono or stereo), sample rate (original, or 16, 24, 32, 44.1 and 48 kHz), and metadata set to preserve or strip.\n\nThe part worth understanding is which encoder does the work. MP3 has an in-process encoder built into this tool, lamejs, so a constant-bitrate conversion with metadata stripped never touches a downloaded binary at all: the browser decodes the file, JavaScript encodes it, and the result comes straight back. Two settings change that. Switching to VBR, or asking for metadata to be preserved, escalates the job to the bundled ffmpeg core, which is a one-off static download of roughly 31 MB served from this site and cached afterwards. It is a capability rule rather than a quality one: lamejs has no variable mode, and the in-process encoders cannot attach tags or cover art, so anything that needs either of those uses the wider encoder set.\n\nThe two modes trade differently. A constant bitrate gives every second the same cost, so file sizes are predictable and every player seeks accurately. VBR spends bits where the material needs them, which usually yields a smaller file at the same perceived quality but makes the final size harder to guess. As a rough guide, a constant 128 kbps rate costs about a megabyte per minute, so a three-minute track lands near 2.8 MB, and the same track at 320 kbps takes roughly 7 MB. That arithmetic is exact enough to plan with, which is why plenty of people stay on constant rate even when VBR would save space. 128 kbps is the everyday compromise; 320 is worth choosing when the source is lossless and the file is meant to last.\n\nThe advanced settings are the same panel every converter on this site shares. Channel mode can fold a stereo source to mono, which halves the size and costs the image but keeps a voice recording perfectly usable. Sample rate can be lowered to any of the listed values. Metadata can be stripped, which is the default because it is what makes the in-process path possible, or preserved, which carries tags and embedded art across on the ffmpeg path and is the reason MP3 files here can arrive with proper ID3 labels intact.\n\nWhat it will not do:\n\n- Converting a lossy source cannot restore what that source already discarded, so an MP3 made from another MP3 is a second round of loss.\n- ID3 metadata and embedded art are carried across only through the ffmpeg path; a stripped, constant-bitrate run arrives unlabelled.\n- Sample rate can be lowered but never raised above the source, because the tool clamps to the file's own rate rather than fake-upsampling.\n- One file per run, with no batch queue.\n- Nothing is normalised or limited on the way through, so a quiet source stays quiet.",
+    howTo: [
+      { step: "Drag an audio file onto the panel, or click to browse for one." },
+      { step: "Choose a quality tier, and switch to variable bitrate if size matters more than predictability." },
+      { step: "Open advanced settings if the channel mode, sample rate, bit depth or metadata need changing." },
+      { step: "Convert, then download the MP3 and confirm the reported size and settings." },
+    ],
+    whenToUse:
+      "MP3 Converter is the safe default when the file has to play on absolutely anything, from an old car stereo to a share link. {{m4a-converter|M4A Converter}} sounds better at the same size on modern devices, {{wav-converter|WAV Converter}} and {{flac-converter|FLAC Converter}} keep the audio intact when quality matters more than space, and {{bitrate-quality-converter|Bitrate/Quality Converter}} re-encodes an existing lossy file at a different bitrate without changing its format.",
+    faqs: [
+      {
+        q: "Why does a constant-bitrate run sometimes finish instantly?",
+        a: "Because it never downloads the encoder. The MP3 encoder used for constant-bitrate output runs inside the page, so once the browser has decoded your file there is nothing to fetch. Only VBR output or metadata preservation pulls the larger ffmpeg core, and that download is cached for later runs.",
+      },
+      {
+        q: "Which bitrate should I pick?",
+        a: "128 kbps is the usual answer for casual listening and voice, 192 for music you will listen to often, and 320 when the source is lossless and you intend to keep the file. Below 128 the encoder starts removing detail you can hear on good headphones.",
+      },
+      {
+        q: "Does variable bitrate really produce a smaller file?",
+        a: "Usually, at the same perceived quality, because quiet and simple passages cost fewer bits than dense ones. The catch is predictability: a constant bitrate lets you work out the size from the duration, while VBR depends on the material, so it is the wrong choice when the file has to fit a fixed slot.",
+      },
+      {
+        q: "Why can the sample rate only go down?",
+        a: "Raising it would invent samples that were never recorded and would not add any detail, so the tool clamps the requested rate to whatever the source already uses. Lowering it is a genuine change and is applied as one.",
+      },
+      {
+        q: "Is anything uploaded to a server?",
+        a: "No. Decoding and encoding both happen in the tab. When the ffmpeg core is needed it is a static file download from this site, and your audio stays in the browser's memory throughout.",
+      },
+    ],
+  },
+
+  "wav-converter": {
+    keywords: [
+      "bit depth",
+      "16-bit",
+      "24-bit",
+      "uncompressed",
+    ],
+    intro:
+      "WAV Converter writes uncompressed PCM audio into the WAV container, at 16-bit or 24-bit depth. It is the format to choose when the file is going into an editor rather than a phone.",
+    content:
+      "Drop a file, choose the bit depth, and write. The files the tool produces are the same shape as the audio a recording engineer would expect: uncompressed PCM, sample-accurate and immediately editable.\n\nThe controls:\n\n- A bit depth of 16-bit or 24-bit, where 16 is the delivery standard and 24 is the one to pick for work that will be processed again.\n- Advanced settings for channel mode, sample rate and metadata, the same panel every converter here shares.\n- A reported output size and the settings that produced it, so the cost of a depth change is visible before you commit to it.\n\nWAV has its own in-process writer, which makes it one of the three formats that can convert without any encoder download: the browser decodes the source, the writer lays the samples into the WAV structure, and the file is handed back. Asking for 24-bit, mixing to mono, or resampling all stay inside that path, because the Web Audio layer and the writer both handle them natively. Only metadata preservation escalates, and for a good reason: WAV never had a proper tagging standard, so there is nothing in the writer that could carry tags or artwork even if you wanted it to. When the job does go through the wider encoder set, the PCM codec is chosen to match the depth you asked for.\n\nDepth is a dynamic-range decision rather than a quality label. Sixteen bits give an ideal quantiser about 96 dB of range, which comfortably covers anything a listener will ever hear, while 24 bits give roughly 146 dB and cost half again the file size. The extra room is not for listening louder; it is for surviving repeated processing, because each stage that rounds a sample adds a little error and a 24-bit file has far more distance between its quietest detail and its noise floor. That is why an editing session runs at 24 bits and the delivered master is written at 16.\n\nSize is where WAV is honest and unforgiving. Sixteen-bit stereo at 44.1 kHz costs roughly 10 MB per minute, and 24-bit at the same rate costs around 16 MB per minute, because there is no compression at any point. Doubling the channel count or the sample rate doubles the file again, so a six-channel 24-bit mix at 48 kHz grows by a factor of three over a plain stereo version. That is the trade for storing every sample exactly as it was decoded. Converting a lossy source to WAV cannot improve it: the file gets much larger and contains precisely the audio it was given, including whatever the earlier encoder removed.\n\nWhere it stops:\n\n- No compression, so a long recording becomes a very large file.\n- Artwork and tags are not supported in the output, and the request to preserve metadata routes around the in-process writer instead.\n- No dithering stage, so a change from 24-bit to 16-bit simply drops the extra bits rather than shaping the error.\n- One file per run.\n- No editing, trimming or normalising on the way through: the samples are written as decoded.",
+    howTo: [
+      { step: "Drop an audio file onto the panel and wait for it to decode." },
+      { step: "Choose 16-bit for finished audio or 24-bit for material that will be edited further." },
+      { step: "Adjust the channel mode or sample rate in advanced settings if the target needs them." },
+      { step: "Convert, check the reported size, and download the WAV." },
+    ],
+    whenToUse:
+      "WAV Converter is the right destination when the next stage is an editor, a mixer or an archive that must hold an exact copy. {{flac-converter|FLAC Converter}} stores the same samples in roughly half the space when you want lossless without the bulk, {{aiff-converter|AIFF Converter}} is the equivalent choice for Apple-centric production, and {{audio-file-size-calculator|Audio File Size Calculator}} works out what a duration will cost at a given depth and rate before you convert.",
+    faqs: [
+      {
+        q: "Do I gain quality by converting an MP3 to WAV?",
+        a: "No. WAV stores what it is given, so a WAV made from a lossy file is a much larger container holding the same already-reduced audio. Convert to WAV from a lossless or uncompressed source when the aim is genuinely better fidelity.",
+      },
+      {
+        q: "16-bit or 24-bit for a project?",
+        a: "24-bit if the file is going to be edited, mixed or processed more than once, because the extra headroom keeps rounding error out of the result. 16-bit for anything finished and being handed to someone else.",
+      },
+      {
+        q: "Why is the WAV so much bigger than the source?",
+        a: "Because it is uncompressed. Nothing is thrown away, so size follows directly from the sample rate, the channel count and the bit depth. A three-minute stereo track at 44.1 kHz and 16-bit lands near 30 MB.",
+      },
+      {
+        q: "Can the WAV keep my tags and cover art?",
+        a: "No, and the tool does not pretend otherwise. Preserving metadata sends the job through the wider encoder path, but WAV has no standard field set for tags or pictures, so alternate formats are the honest choice when the labels matter.",
+      },
+      {
+        q: "Does the sample rate ever get increased?",
+        a: "Never above the source. The tool clamps the requested rate to the file's own so the output cannot claim detail that was not recorded. Lowering it is applied normally, with the audio resampled in the browser.",
+      },
+    ],
+  },
+
+  "ogg-converter": {
+    keywords: [
+      "Vorbis",
+      "quality",
+      "variable bitrate",
+      "CBR",
+    ],
+    intro:
+      "OGG Converter writes Ogg Vorbis files, a format built around variable quality rather than a fixed bitrate. It is the open, royalty-free option for music that is staying on a computer or a browser.",
+    content:
+      "Drop a file, choose a quality level, and encode. The result is a standard Ogg Vorbis file that plays in browsers, on Android and in desktop players.\n\nThe controls:\n\n- A quality scale of 2, 5, 7 and 10, labelled Low through Best, where the default middle setting suits most listening.\n- An advanced escape hatch to a constant bitrate (CBR) of 96, 128, 192 or 256 kbps, for pipelines that insist on a fixed rate.\n- The shared advanced panel for channel mode, sample rate and metadata.\n\nThe format explains the shape of those controls. Vorbis is variable bitrate by nature: the encoder is handed a quality target and spends bits according to how demanding each passage is, so a sparse verse costs less than a dense chorus. That is why the primary control is a quality number rather than a bitrate, and why the fixed-rate option is tucked away as an alternative instead of being the main ladder. Each step of the quality scale is a discrete target rather than a continuum, and the default sits deliberately in the middle: below it the encoder starts thinning detail in cymbals and reverb tails, and above it the returns shrink quickly while the file grows in step. Choosing between the four levels is therefore a judgement about the material rather than a sum to work out, and the labels are there to be taken literally.\n\nVorbis was designed well after MP3 and holds detail better in the 96 to 128 kbps region, which is most of the reason to choose it. It is also open and royalty-free, which matters when software cannot license a proprietary encoder and is why the format turns up in open-source players and game engines. In practice a file encoded here lands at a size close to an MP3 of the same average rate, with the difference showing up as extra detail in quiet passages rather than as a different overall file size. Container-wise the extension is honest about the contents: an Ogg file can, in principle, carry other codecs, but everything produced here is Vorbis audio in the usual structure.\n\nThe trade is reach rather than quality. Browsers, Android and desktop players handle Ogg Vorbis comfortably, while Apple's built-in music playback does not, so an Ogg file is a poor choice for anything headed to an iPhone or an older car stereo. Since Vorbis is not one of the formats with an in-process encoder, the job uses the bundled ffmpeg core, which downloads once and is cached. Metadata can be preserved when the encoder path is used, though album art is not something the tool attempts to carry into this container.\n\nWhere it stops:\n\n- No native in-process path, so the first conversion uses the encoder download.\n- No artwork passthrough, because the Ogg container is not one the tool attempts to carry pictures through.\n- Nothing above the quality scale's top level: there is no lossless Vorbis output.\n- One file per run.\n- Apple's built-in players do not read Ogg Vorbis, so it is the wrong target for an iPhone library.",
+    howTo: [
+      { step: "Drop an audio file onto the panel." },
+      { step: "Pick a quality level, keeping the middle setting unless the material is unusually demanding." },
+      { step: "Switch to a constant bitrate only if a device or pipeline requires a fixed rate." },
+      { step: "Convert, then listen back before deleting the source." },
+    ],
+    whenToUse:
+      "OGG Converter is the open-format choice, best for music libraries, game audio and anything distributed alongside royalty-free software. {{mp3-converter|MP3 Converter}} is the safer target when the file has to play everywhere, {{opus-converter|OPUS Converter}} is the newer and more efficient option for low bitrates, and {{codec-compatibility-reference|Codec Compatibility Reference}} lists which devices actually read each container before you commit a library to one.",
+    faqs: [
+      {
+        q: "Why is there a quality scale instead of a bitrate?",
+        a: "Because Vorbis is designed as a variable-bitrate codec. A quality number tells the encoder how much detail to preserve and lets it decide where to spend the bits, which is more useful than a flat rate for music that varies in density.",
+      },
+      {
+        q: "Is Vorbis better than MP3 at the same rate?",
+        a: "Generally yes, particularly below 160 kbps, since it was designed later and handles detail better at low rates. The reason to still choose MP3 is compatibility rather than sound.",
+      },
+      {
+        q: "Will an Ogg file play on a phone?",
+        a: "On Android, yes. On an iPhone it will not play in the built-in music app. If the file is going to Apple hardware, M4A or MP3 is the practical choice.",
+      },
+      {
+        q: "What is the constant-bitrate option for?",
+        a: "Fixed-rate delivery where a system expects predictable bandwidth, such as a constrained streaming setup. For ordinary listening the variable quality scale gives a better result for the same average size.",
+      },
+      {
+        q: "Does anything leave my computer?",
+        a: "No. The decoder and the Vorbis encoder both run in the browser. The encoder core is a static download from this site, and your audio is never sent anywhere.",
+      },
+    ],
+  },
+
+  "aac-converter": {
+    keywords: [
+      "AAC",
+      "raw AAC",
+      "CBR",
+      "bitrate",
+    ],
+    intro:
+      "AAC Converter produces a raw AAC stream, the codec inside most modern streaming and Apple audio, written without a container. It is the target for pipelines that expect a bare stream rather than an M4A file.",
+    content:
+      "Drop a file, choose a bitrate, and encode. The output is a raw AAC stream with the .aac extension, which is the form some encoders, streamers and command-line tools expect to receive.\n\nThe controls:\n\n- A bitrate ladder of 96, 128, 192 and 256 kbps, labelled Economy through Best, starting and ending higher than the MP3 ladder.\n- The shared advanced panel for channel mode, sample rate and metadata.\n- A reported output size alongside the settings, so the cost of a rate change is visible before the run finishes.\n\nTwo things separate this from the M4A tool, and both are about the container rather than the codec. The audio is identical, because both use AAC. What differs is that a raw AAC stream has nowhere to put tags, cover art or chapter markers, so nothing is preserved here even when metadata is set to keep, whereas an MP4 container has real fields for all three. The second difference is the ladder itself: AAC is more efficient than MP3, so 128 kbps AAC is broadly comparable to 192 kbps MP3, which is why the useful range sits between 96 and 256 rather than reusing MP3's 64 to 320. Sizing follows the same arithmetic as any constant rate, roughly a megabyte per minute at 128 kbps, so a one-hour recording lands near 55 MB, while the same hour at 96 kbps takes closer to 42 MB.\n\nThe encoder stays on constant and average bitrate (CBR) by design. Its variable mode behaves inconsistently across builds, producing unpredictable results on some inputs, and rather than ship a control that quietly misbehaves the tool leaves VBR out entirely. That makes the output size predictable and the behaviour repeatable between runs, which is the property a streaming or delivery pipeline usually wants anyway. The trade is that material with quiet passages does not get the saving a variable encoder would find.\n\nBecause AAC has no in-process encoder here, the job runs through the bundled ffmpeg core, downloaded once and cached by the browser. That is also the path that makes metadata preservation possible for the formats that support it, though a raw stream is not one of them. What you get back is exactly the audio you asked for at the rate you chose, with no level change, filtering or normalisation applied at any point. Speech is where this format earns its place: an interview or a voice note stays intelligible at rates where older codecs begin to smear consonants, and because the bare stream carries no container overhead the figures above describe the whole file, with nothing else attached. If the audio is heading to a phone rather than a delivery pipeline, the M4A tool is the one to reach for instead.\n\nWhere it stops:\n\n- No tags, artwork or chapters, because a bare stream has no container to hold them.\n- No variable-bitrate mode, by design.\n- No lossless output: AAC is always lossy.\n- One file per run.\n- Converting from one lossy format to AAC adds a second generation of loss rather than recovering anything.",
+    howTo: [
+      { step: "Drop an audio file onto the panel." },
+      { step: "Choose a bitrate, starting at 128 kbps unless the target device or pipeline says otherwise." },
+      { step: "Open advanced settings if the channel mode or sample rate must change." },
+      { step: "Convert and download the raw AAC stream." },
+    ],
+    whenToUse:
+      "AAC Converter is the tool for a bare AAC stream, which is what some encoders and streaming setups want to receive. {{m4a-converter|M4A Converter}} holds the same audio in a container that carries tags and artwork, so it is the better choice for anything a person will play. {{opus-converter|OPUS Converter}} is more efficient again at low rates, and {{bitrate-quality-converter|Bitrate/Quality Converter}} changes the rate of an existing file without switching its format.",
+    faqs: [
+      {
+        q: "Is this the same audio as the M4A converter produces?",
+        a: "Yes. Both use the AAC codec, so at the same bitrate the sound is the same. The difference is the container: this tool writes a bare stream with no room for metadata, while the M4A tool wraps it in MP4 where tags and artwork have proper fields.",
+      },
+      {
+        q: "Why do the bitrates start at 96 instead of 64?",
+        a: "Because AAC is efficient enough that 64 kbps is rarely the right answer for music. Its useful range is higher and narrower than MP3's, so the ladder runs from 96 to 256 rather than stretching down to the rates an older codec needs.",
+      },
+      {
+        q: "Why is there no variable-bitrate option?",
+        a: "The encoder's variable mode is inconsistent between builds and can misbehave on some inputs. Rather than offer a switch that works unpredictably, the tool keeps AAC on constant and average bitrate so results are repeatable.",
+      },
+      {
+        q: "Will the output keep my cover art?",
+        a: "No. A raw AAC stream has no metadata container, so there is nowhere for artwork or tags to live. Convert to M4A if the labels and pictures need to survive.",
+      },
+      {
+        q: "Is AAC a good choice for speech?",
+        a: "Yes, it is efficient on speech at low rates, though Opus is better still for real-time voice. For stored speech either is fine, and M4A is usually the friendlier container for a player to open.",
+      },
+    ],
+  },
+
+  "flac-converter": {
+    keywords: [
+      "compression level",
+      "lossless",
+      "album art",
+      "bit-identical",
+    ],
+    intro:
+      "FLAC Converter compresses audio without discarding anything, so the decoded file is bit-identical to the source. It is the format for keeping a library intact at roughly half the size of WAV.",
+    content:
+      "Drop a file, choose a compression level, and encode. What comes out is lossless: decoding it returns exactly the samples that went in, whatever level was used, which is what bit-identical means in practice.\n\nThe controls:\n\n- A compression level from 0 to 12, defaulting to 5, which trades encoding effort against file size and nothing else.\n- The shared advanced panel for channel mode, sample rate and metadata.\n- A reported output size so the effect of the level is visible on the actual file rather than in theory.\n\nLevel is the control people misread, so it is worth stating plainly: every level is lossless, and a file written at 0 decodes to the same audio as one written at 12. Higher levels ask the encoder to search harder for redundancy, which takes longer and usually produces a smaller file, and that is the entire trade. Level 5 is the sensible resting point; beyond about 8 the extra time buys very little on most material. What cannot happen at any level is a smaller file than the information content allows, because the samples have to survive the round trip exactly. Encoding time is the other side of the level setting. A short file at level 5 finishes in a moment, while a long recording at level 12 can take noticeably longer for a saving measured in single-digit percent, which is why the default sits in the middle rather than at the top of the scale.\n\nThe gain over uncompressed audio depends on the content. Dense, loud, heavily compressed mixes compress least, while sparse acoustic recordings compress most, and 40 to 60 percent smaller than WAV is the usual range. FLAC is also one of the formats here where album art and tags can be carried across, since the container has fields for both and the tool attempts the passthrough when metadata is set to preserve. Where the format cannot help is the source itself: a FLAC file made from an MP3 is a faithful reproduction of that MP3's losses, and the only thing it recovers is honesty about size.\n\nPlayback support is broad but not universal. Modern phones, desktop players, browsers and media servers read FLAC without help, while some older portable players and a number of car head units still do not. The practical pattern is to keep the library in FLAC and transcode a smaller lossy copy for the device that cannot read it, rather than choosing the lossy format for the archive, since keeping one lossless master means later decisions about bitrates stay reversible.\n\nWhere it stops:\n\n- Nothing is improved: lossless means preserved, not repaired, so a lossy source stays lossy.\n- The compression level cannot make the audio smaller than its information content, only closer to it.\n- No lossy option at all; if the goal is a small file, another converter is the right tool.\n- One file per run.\n- Support is broad but not universal, so very old portable players and some car head units will not read the result.",
+    howTo: [
+      { step: "Drop an audio file onto the panel and let it decode." },
+      { step: "Leave the compression level at the default unless you have time to trade for size." },
+      { step: "Set metadata to preserve if tags and album art should be carried across." },
+      { step: "Convert, compare the reported size against the source, and download." },
+    ],
+    whenToUse:
+      "FLAC Converter is the archiving choice: keep a library at full fidelity in about half the space of WAV, then transcode copies for players later. {{wav-converter|WAV Converter}} is the uncompressed equivalent when an editor wants raw samples, {{m4a-converter|M4A Converter}} is the small lossy option for everyday listening, and {{audio-file-size-calculator|Audio File Size Calculator}} estimates what a duration will occupy in each before you convert a whole collection.",
+    faqs: [
+      {
+        q: "Do higher compression levels reduce quality?",
+        a: "No. Every level is lossless, so the decoded audio is identical whatever you choose. The level only decides how hard the encoder works to find redundancy, which changes encoding time and file size.",
+      },
+      {
+        q: "How much smaller than WAV does it get?",
+        a: "Typically 40 to 60 percent smaller, depending on the material. Loud, dense mixes have less redundancy to remove than quiet acoustic recordings, so the ratio follows the content rather than a fixed promise.",
+      },
+      {
+        q: "Should I convert my MP3s to FLAC?",
+        a: "Not for quality. FLAC preserves exactly what it receives, so converting a lossy file produces a large file containing the same losses. It is worth doing only when you want one uniform container for a library and accept that this does not restore anything.",
+      },
+      {
+        q: "What is the best compression level to use?",
+        a: "The default of 5 suits almost everything. Raise it towards 8 when encoding a small number of files and size matters; going higher mostly costs encoding time for a marginal saving.",
+      },
+      {
+        q: "Will FLAC keep my tags and cover art?",
+        a: "It can. FLAC's container has fields for both, so setting metadata to preserve attempts to carry album art and tags across. That request routes the job through the wider encoder path rather than the in-process writers.",
+      },
+    ],
+  },
+
+  "m4a-converter": {
+    keywords: [
+      "MP4 container",
+      "AAC",
+      "chapters",
+      "album art",
+    ],
+    intro:
+      "M4A Converter wraps AAC audio in an MP4 container, which is the combination Apple devices expect and one of the better containers for tags, chapters and cover art.",
+    content:
+      "Drop a file, choose a bitrate, and convert. The result is an M4A that opens in the built-in music apps on Apple hardware and on virtually everything else built this century.\n\nThe controls:\n\n- A bitrate ladder of 96, 128, 192 and 256 kbps, with the middle settings covering most needs.\n- The shared advanced panel for channel mode, sample rate and metadata.\n- A reported output size so the effect of a rate change is visible on the real file.\n\nThe useful thing to understand here is what M4A actually is. It is an MP4 container holding only audio, and the extension exists so players and file managers know not to look for video. Internally it is the same structure as MP4, which is precisely why it handles metadata so well: the container has proper fields for tags, chapter markers and embedded album art, and the tool attempts to carry all of them across when metadata is set to preserve. That request escalates the job to the wider encoder set, because the in-process encoders cannot write those structures. The audio inside is AAC, the same codec the raw AAC tool writes, so the sound at a given bitrate is the same; the difference is entirely about what the file can carry and where it plays. The two tools share the same ladder precisely so a rate chosen in one behaves identically in the other, which makes comparing them trivial.\n\nSizes behave like any constant-rate lossy file, at roughly a megabyte per minute for 128 kbps, so an album of forty-minute records is a modest download rather than a project. Because the ladder mirrors the raw AAC tool, a rate that sounds right there will sound right here, and 192 kbps is the setting most people settle on for music they care about. Tooling matters as much as sound here, too. Because the container is standard MP4, ordinary media players show the title, artist and artwork without help, and a file written with metadata preserved can be dropped into a phone's library and appear correctly labelled, with the right cover on the right track, rather than as an untitled item in a list of numbers.\n\nFor long-form material the container matters more than the codec. An audiobook or podcast benefits from chapters and per-file metadata that a bare stream cannot represent, and AAC holds up well at the low bitrates spoken word uses. Variable bitrate is not offered, for the same reason as the raw AAC tool: the encoder's variable mode is inconsistent between builds, so constant and average bitrate are used instead and the output stays predictable from one run to the next.\n\nWhere it stops:\n\n- AAC is lossy, so this is not an archive format.\n- No variable-bitrate mode.\n- Metadata and album art are only carried when the preserve option is chosen, and that path needs the encoder download.\n- One file per run.\n- Nothing is normalised on the way through, so the source's balance is preserved rather than improved.",
+    howTo: [
+      { step: "Drop an audio file onto the panel." },
+      { step: "Pick a bitrate, keeping 128 kbps as the default unless the material needs more." },
+      { step: "Set metadata to preserve if tags or album art should travel with the file." },
+      { step: "Convert, then check the reported size against the source." },
+    ],
+    whenToUse:
+      "M4A Converter is the natural target for anything heading to an Apple device or a player that expects chapters and pictures. {{aac-converter|AAC Converter}} writes the same audio as a bare stream for pipelines that want one, {{mp3-converter|MP3 Converter}} plays on older hardware that never learned AAC, while {{flac-converter|FLAC Converter}} and {{wav-converter|WAV Converter}} keep the audio intact when the file is meant for further work.",
+    faqs: [
+      {
+        q: "Is M4A the same as MP4?",
+        a: "Nearly. M4A is an MP4 container restricted to audio, and the separate extension exists so software knows there is no video track to find. The internal structure is otherwise the same, which is why metadata support is good.",
+      },
+      {
+        q: "Does M4A only work on Apple devices?",
+        a: "No. Despite the Apple association, the AAC codec inside it is near-universal on hardware made in the last fifteen years, and every major browser, Android and Windows all play it.",
+      },
+      {
+        q: "Why can the M4A keep artwork when the AAC tool cannot?",
+        a: "Because the container has somewhere to put it. An MP4 structure holds fields for tags, pictures and chapters, so the tool can carry album art across when metadata is set to preserve. A raw AAC stream has no such fields.",
+      },
+      {
+        q: "M4A or MP3 for an audiobook?",
+        a: "M4A, if the player supports it. The container carries chapter markers and long-form metadata that MP3 represents poorly, and AAC sounds better than MP3 at the low bitrates narration uses.",
+      },
+      {
+        q: "Is the audio processed in any way?",
+        a: "No. It is decoded and re-encoded at the chosen bitrate, with no level change, filtering or normalisation. Whatever balance the source had is what the output has.",
+      },
+    ],
+  },
+
+  "wma-converter": {
+    keywords: [
+      "wmav2",
+      "CBR",
+      "legacy Windows",
+      "codec",
+    ],
+    intro:
+      "WMA Converter produces Windows Media Audio files for the software and systems that still require them. It is deliberately a compatibility tool rather than a quality choice.",
+    content:
+      "Drop a file, choose a bitrate, and convert. The output is a WMA file that legacy Windows software will open without complaint.\n\nThe controls:\n\n- A bitrate ladder of 64, 128 and 192 kbps, which is shorter than the others here and stops lower.\n- The shared advanced panel for channel mode, sample rate and metadata.\n- A reported output size alongside the settings that produced it, so the cost of a rate change is visible before you commit to the file.\n\nThe ladder is short for a reason worth knowing. The codec used here, wmav2, stops giving useful returns above about 192 kbps, so pushing higher would mostly grow the file without a matching improvement in what you hear. The ladder ends where the codec does rather than where a marketing table would. Constant bitrate (CBR) is the only mode for the same kind of reason: this codec has no meaningful variable mode in the encoder being used, so offering the switch would imply a capability that does not exist. WMA output is CBR only, which also makes the output size easy to predict from the duration and the chosen rate.\n\nThe advanced panel behaves as it does everywhere else on this site. Channel mode can fold a stereo source to mono, which halves the size and is often the right call for a spoken-word file that was recorded in mono anyway. Sample rate can be lowered to the listed values but never raised above the source, because the tool clamps to the file's own rate rather than inventing detail. Metadata preservation is available on the encoder path, though this container is not one the tool attempts to carry album art through, so an embedded picture in the source will not appear in the result. Sizes are easy to reason about at a constant rate: 128 kbps costs about a megabyte per minute, so a forty-minute recording is roughly 38 MB, and the same material at 192 kbps is around 58 MB. Those figures make the ceiling obvious, since nothing below 64 kbps is offered at all, which means a voice-only recording cannot be shrunk as far as a newer codec would allow.\n\nBeing straight about the format is part of the job here. This is an older, basic codec, and for almost any modern purpose MP3, M4A or Opus will sound better at the same size. The honest reason to convert to WMA is that something specific demands it: an old Windows Media Player playlist, a corporate or archival system built around the format, or a portable device from before 2010. If none of those applies, another converter on this site is the better answer, and the sibling links below point at them.\n\nWhere it stops:\n\n- The codec itself is dated, so quality at a given size trails MP3 and M4A.\n- 192 kbps is the ceiling, and there is no lossless WMA output.\n- No variable-bitrate mode and no album art passthrough.\n- Support for playback is now concentrated in older legacy Windows software.\n- One file per run.",
+    howTo: [
+      { step: "Drop an audio file onto the panel." },
+      { step: "Choose a bitrate, accepting that 192 kbps is the practical ceiling." },
+      { step: "Adjust the channel mode or sample rate in advanced settings if the target system needs it." },
+      { step: "Convert, verify the file opens in the software that required it, and download." },
+    ],
+    whenToUse:
+      "WMA Converter exists for the cases where a legacy Windows system will not accept anything else, such as an old media library or an archival pipeline built around that format. {{mp3-converter|MP3 Converter}} is the better general lossy choice, {{m4a-converter|M4A Converter}} sounds stronger at the same size on modern devices, and {{codec-compatibility-reference|Codec Compatibility Reference}} is worth checking before converting a collection to a format this old.",
+    faqs: [
+      {
+        q: "Should I use WMA at all?",
+        a: "Only if something requires it. The encoder behind it is old and basic, and MP3, M4A or Opus all deliver more for the same space on modern hardware. Choose WMA for compatibility with a specific system, not for quality.",
+      },
+      {
+        q: "Why is the bitrate capped at 192 kbps?",
+        a: "Because the codec stops improving usefully above that point. Higher rates would enlarge the file without a corresponding gain in what you actually hear, so the ladder ends where the encoder's returns do.",
+      },
+      {
+        q: "Why is there no variable-bitrate switch?",
+        a: "The codec has no meaningful variable mode in the encoder being used, so the option would suggest a setting that does nothing useful. Output stays constant bitrate, which at least makes the file size predictable.",
+      },
+      {
+        q: "What still plays WMA?",
+        a: "Older Windows software, legacy media playlists, some corporate and archival systems, and portable devices from before about 2010. Modern phones and browsers are poor targets for it.",
+      },
+      {
+        q: "Can the WMA carry tags or cover art?",
+        a: "No album art is carried, because the tool does not attempt a picture passthrough for this container. If labels and pictures matter, an MP3 or M4A conversion is the practical route.",
+      },
+    ],
+  },
+
+  "aiff-converter": {
+    keywords: [
+      "big-endian",
+      "bit depth",
+      "PCM",
+      "Apple",
+    ],
+    intro:
+      "AIFF Converter writes uncompressed PCM audio in Apple's interchange format, at 16-bit or 24-bit depth. It is the WAV equivalent for production tools that expect AIFF.",
+    content:
+      "Drop a file, choose the bit depth, and write. The result holds the same uncompressed PCM samples a WAV would, arranged the way Apple's software has always expected them.\n\nThe controls:\n\n- A bit depth of 16-bit or 24-bit, matching the choice the WAV tool offers.\n- The shared advanced panel for channel mode, sample rate and metadata.\n- A reported output size, which for uncompressed audio is determined by duration, rate, channels and depth alone.\n\nAIFF and WAV store the same audio at the same size, and the difference between them is byte order and heritage rather than quality. AIFF is Apple's format and writes samples big-endian, while WAV is Microsoft's and writes them little-endian. Sound is identical either way; the reason to pick one is that a particular piece of software prefers it. Logic, GarageBand and older Pro Tools sessions handle AIFF natively, and the format's metadata support has always been tidier than plain WAV's, which never gained a proper tagging standard.\n\nDepth is a range decision rather than a quality label. Sixteen bits give an ideal quantiser around 96 dB of usable range, which is more than any listener will need, while 24 bits give roughly 146 dB and cost half again the space. The extra room exists for repeated processing: every stage that rounds a sample adds a little error, and a deeper file keeps that error far below the quietest detail. Sessions therefore run at 24-bit and delivered masters are usually written at 16-bit. The same reasoning applies to AIFF exactly as it applies to WAV, since both store identical numbers in a different order.\n\nAIFF is also one of the three formats with an in-process writer, so a plain conversion runs entirely in the page: the browser decodes, the writer lays out the samples, and no encoder needs downloading. Bit depth, channel mode and sample rate are all handled on that path, so only metadata preservation escalates to the wider encoder set. Size behaves like WAV's, at roughly 10 MB per minute for 16-bit stereo at 44.1 kHz and around 16 MB per minute at 24-bit, and a six-channel surround mix triples both figures. A mono file halves the first number, which is why single-channel narration at 16-bit is a comfortable file to move around even without compression. Nothing is compressed and nothing is repaired, so converting a lossy source to AIFF makes a large file containing exactly the audio it was given. Converting the other way, from AIFF down to a lossy format, is the sensible way to produce a small copy for a phone.\n\nWhere it stops:\n\n- No compression, so a long recording is a big file.\n- No dithering stage when moving from 24-bit down to 16-bit.\n- Tags and artwork are not the point of the format, and preserve requests route around the in-process writer.\n- Windows-centric tools may prefer WAV, so check the target before a large conversion.\n- One file per run.",
+    howTo: [
+      { step: "Drop an audio file onto the panel and wait for it to decode." },
+      { step: "Choose 16-bit for delivery or 24-bit for material that will be processed again." },
+      { step: "Change the channel mode or sample rate in advanced settings if the session needs it." },
+      { step: "Convert, check the reported size, and download the AIFF." },
+    ],
+    whenToUse:
+      "AIFF Converter is for production work in Apple's ecosystem, where a session expects AIFF rather than WAV. {{wav-converter|WAV Converter}} stores the identical samples for Windows-centric tools, {{flac-converter|FLAC Converter}} keeps the audio intact at roughly half the size, and {{bit-depth-calculator|Bit Depth Calculator}} explains what choosing 24-bit over 16-bit actually buys in dynamic range before you commit.",
+    faqs: [
+      {
+        q: "What is the difference between AIFF and WAV?",
+        a: "Byte order and origin. Both hold uncompressed PCM at the same size and quality, with AIFF writing samples big-endian for Apple tools and WAV writing them little-endian for Microsoft ones. Nothing about the audio differs.",
+      },
+      {
+        q: "Why choose AIFF over WAV?",
+        a: "Because the software you are feeding prefers it. Apple's production applications have long handled AIFF natively, and the format has carried metadata more coherently than WAV, which never adopted a proper tagging standard.",
+      },
+      {
+        q: "How big will the file be?",
+        a: "The same as the equivalent WAV: roughly 10 MB per minute of 16-bit stereo at 44.1 kHz, or about 16 MB per minute at 24-bit. With no compression, duration and depth decide the size on their own.",
+      },
+      {
+        q: "Does converting an MP3 to AIFF improve it?",
+        a: "No. AIFF stores what it receives, so an AIFF made from a lossy file is a large container holding the same audio. Convert from a lossless source when quality is the goal.",
+      },
+      {
+        q: "Does this need the encoder download?",
+        a: "Not for a plain conversion. AIFF has an in-process writer, so decoding and writing both happen in the page. Only preserving metadata sends the job through the wider encoder path.",
+      },
+    ],
+  },
+
+  "opus-converter": {
+    keywords: [
+      "VBR",
+      "libopus",
+      "latency",
+      "RFC 6716",
+    ],
+    intro:
+      "OPUS Converter produces Opus audio, the codec behind most modern real-time voice and video, at bitrates where older formats are already struggling. It is the most efficient lossy option here.",
+    content:
+      "Drop a file, choose a bitrate, and encode. The output is an Opus file produced by libopus inside an Ogg container, which browsers, Android and desktop software all read.\n\nThe controls:\n\n- A bitrate ladder of 64, 96, 128 and 192 kbps, where 96 already sounds excellent.\n- A mode switch between variable and constant bitrate, with VBR as the default because that is how the codec was designed to run.\n- The shared advanced panel for channel mode, sample rate and metadata.\n\nOpus is the most efficient codec on this site, and the ladder reflects that rather than ambition. It holds up at rates where MP3 falls apart, so 96 kbps Opus is comfortably better than 128 kbps MP3, and the scale tops out at 192 because higher numbers would mostly waste space. VBR is the natural mode: the encoder allocates bits according to demand, which is exactly where its efficiency comes from, and the constant-rate option exists mainly for fixed-bandwidth links that cannot tolerate variation. A constant rate is also useful when a file has to be split into fixed-size chunks for a delivery or storage system. Turning VBR off makes the size predictable at the cost of the efficiency that makes the format worth choosing. Sizes are correspondingly small, which is the headline benefit in practice. A 128 kbps file averages close to a megabyte per minute, and a 64 kbps voice recording can sit near half that, which is part of why the format made long-distance calls and shared voice notes practical in the first place.\n\nThe codec's other defining property is latency. Opus was standardised as RFC 6716 with both speech and music in mind and with real-time use as the target, which is why it ends up behind voice notes, group calls, screen sharing and modern video streaming rather than only in stored files. That design also means the encoder is comfortable at the low rates speech needs, and the container it is written into accepts the same rate ladders without complaint. For anyone delivering audio on the web the practical consequence is straightforward: the same perceptual quality arrives in a smaller download, so a listener on a poor connection hears less stalling and fewer artefacts than an older codec would give them at the same bandwidth. That is the whole argument for moving a streaming library over, once the players in use can read it.\n\nThe compatibility picture is the mirror of its strengths. Modern browsers, Android and desktop software all handle Opus well, while older hardware, most car stereos and older portable players do not. For anything that has to work on unknown or aging devices, MP3 remains the safer target. As the format has no in-process encoder here, the conversion runs through the bundled ffmpeg core, which downloads once and is cached by the browser afterwards.\n\nWhere it stops:\n\n- Poor support on older hardware, car stereos and pre-smartphone devices.\n- Lossy output, so it is not an archiving format.\n- The bitrate ladder stops at 192 kbps, deliberately.\n- One file per run.\n- No album art passthrough, so cover art is not carried into the output.",
+    howTo: [
+      { step: "Drop an audio file onto the panel." },
+      { step: "Choose a bitrate, keeping 96 kbps for most material since the codec is efficient." },
+      { step: "Leave variable bitrate on unless a fixed-bandwidth link requires otherwise." },
+      { step: "Convert and play the result back before deleting the source." },
+    ],
+    whenToUse:
+      "OPUS Converter is the best lossy choice when the playback target is modern and size matters most, which covers web audio, voice material and mobile apps. {{ogg-converter|OGG Converter}} is the older open alternative with slightly wider legacy support, {{mp3-converter|MP3 Converter}} is the format to fall back on when the destination is unknown, and {{streaming-bitrate-calculator|Streaming Bitrate Calculator}} works out what a given rate costs per listener before you publish.",
+    faqs: [
+      {
+        q: "Why do the bitrates look so low?",
+        a: "Because the codec is far more efficient than the older formats. It stays clean at rates where MP3 already sounds rough, so the useful range is 64 to 192 rather than 128 to 320. Higher rates would add size without adding much.",
+      },
+      {
+        q: "Why is variable bitrate the default?",
+        a: "Opus was designed around VBR. Letting the encoder decide where to spend bits is where its efficiency comes from, and the constant-rate mode exists mainly for links where the bandwidth cannot vary.",
+      },
+      {
+        q: "Where will an Opus file not play?",
+        a: "Older hardware, most car stereos and pre-smartphone portable players. Browsers, Android and desktop software are all fine, so the risk is only with unknown or aging devices.",
+      },
+      {
+        q: "Is Opus good for music as well as speech?",
+        a: "Yes. It was designed to handle both, which is unusual for a low-latency codec, and it is why libopus has become the default for so much real-time audio. Music at 128 kbps Opus is generally better than the same rate in MP3.",
+      },
+      {
+        q: "Does the file keep my tags and artwork?",
+        a: "Tags can be carried when metadata is set to preserve. Album art is not attempted for this container, so a picture embedded in the source will not appear in the output.",
+      },
+    ],
+  },
+};

@@ -1,0 +1,422 @@
+[
+  {
+    "slug": "word-count-tool",
+    "keywords": ["word count tool", "word counter", "count words", "unique words"],
+    "intro": "The Word Count Tool counts words, characters, sentences and paragraphs in one pass, states the counting rule behind every figure, and shows which words the text repeats most.",
+    "content": "This word count tool reports the figures a submission window, an abstract limit or a caption cap actually asks for, and it explains the rule behind each one. Counting follows Unicode word boundaries, the same segmentation a browser uses when you double-click a word, so the total matches what a word processor would report rather than a rough estimate. A word counter is only useful if its rule is stated, which is why the behaviour of numbers, hyphens and abbreviations is described on the page instead of hidden in a footnote.\n\nThe headline figures sit in one panel: words, characters, sentences and paragraphs, plus the longest word, the unique words and reading and speaking times. Reading time is modelled at 220 words per minute and speaking time at 130 words per minute, the same defaults used by the Reading Time Estimator, which lets you change the rates when your material is denser or lighter than average. Every number comes from a single pass over the same token stream, so the panels can never disagree with each other.\n\n- Words, characters, sentences and paragraphs, each counted from the same token stream.\n- Unique words, counted case-insensitively, and the longest word in the text.\n- Reading time at 220 words per minute and speaking time at 130 words per minute, formatted as minutes and seconds.\n- A most-used words table with the counts behind each row.\n- A hide function words toggle that excludes the, of, and and similar closed-class words from the table.\n- Copy counts and Download counts produce a plain-text summary of every figure.\n\nThe counter is built on Intl.Segmenter, the platform Unicode text segmentation API, with a regular-expression fallback for engines that lack it. Numbers count as words, so 2026 and 10,000 each count once. Hyphenated compounds count as single words because segments joined by an intra-word hyphen are re-joined, matching word-processor behaviour. Apostrophes stay inside the word, so contractions count once. Standalone punctuation and standalone emoji are not words at all. Analysis is debounced, so a long document settles a fraction of a second after you stop typing rather than stuttering on every keystroke.\n\n- Abbreviations followed by a period start a new sentence segment, so initialled names and titles can inflate the sentence count even when a reader sees one sentence.\n- Languages without spaces between words are counted by word-like segments, which is a useful approximation rather than a dictionary word count.\n- The frequency table ignores case when grouping, so a word at the start of a sentence and the same word mid-sentence share one row.\n- Very long documents can take a moment before the figures settle, because the analysis waits for a pause in typing.\n- Counts describe the pasted text only; there is no file import, and nothing leaves the browser.\n\nTwo habits make the numbers more useful. First, decide what you are counting before you paste: a progress log wants the whole document, while a submission form usually wants a specific section, and pasting just that section gives its figures with no configuration. Second, use the frequency table as an editing tool rather than a curiosity: the most-used list makes a draft's favourite words visible, and the hide function words toggle lets you decide whether connectors deserve a place in that list.\n\nReach for the word count tool when you need to count words against a hard boundary: a submission window, an abstract limit, a manuscript on its way out, a platform that caps a caption. Copy counts when the figure has to go into a form, and Download counts when you want a record of the version you measured. For the same text expressed in characters rather than words, the companion counters in this domain break the figure down further.",
+    "howTo": [
+      "Paste or type your text into the input panel; the counts update as you type and settle after a short pause.",
+      "Read the Counts panel for words, characters, sentences, paragraphs, unique words and the reading and speaking times.",
+      "Toggle hide function words to switch the frequency table between content words and every word.",
+      "Use Copy counts or Download counts to export the plain-text summary of every figure."
+    ],
+    "whenToUse": "Reach for the word count tool when a number is a hard boundary: a submission window, an abstract limit, a manuscript on its way out. When the text must fit a character limit instead, the {{character-count-tool|Character Count Tool}} breaks the count down by spaces, code points and bytes, and the {{reading-time-estimator|Reading Time Estimator}} turns the same word count into minutes at a rate you can change. To see which words the count is made of, the {{keyword-density-analyzer|Keyword Density Analyzer}} ranks terms by density, while the {{sentence-count-tool|Sentence Count Tool}} shows how those words are distributed across sentences.",
+    "faqs": [
+      {
+        "q": "Does the word count match Microsoft Word?",
+        "a": "It matches for most prose, because both count hyphenated compounds as one word and keep apostrophes inside words. Differences appear around abbreviations and around text pasted from web pages, where hidden markup can change the segments. The page states the counting rule, so any figure can be checked by hand."
+      },
+      {
+        "q": "Are numbers counted as words?",
+        "a": "Yes. Any word-like segment counts, so 2026, 10,000 and 3.5 each count once. Standalone punctuation and standalone emoji do not count at all."
+      },
+      {
+        "q": "Why do my reading and speaking times differ from another tool?",
+        "a": "The defaults here are 220 words per minute for silent reading and 130 for speaking aloud, and both are editable in the Reading Time Estimator. A tool using different rates will report different times even when the word count agrees."
+      },
+      {
+        "q": "Can I count only part of a document?",
+        "a": "Yes. Paste just the section you need counted; the figures describe exactly the text in the box. Selecting a chapter and pasting it gives that chapter's counts without any extra configuration."
+      },
+      {
+        "q": "Is my text uploaded anywhere?",
+        "a": "No. Counting runs in the browser with JavaScript, there is no account and no server call, and the text disappears when the tab closes."
+      }
+    ]
+  },
+  {
+    "slug": "character-count-tool",
+    "keywords": ["character count tool", "character counter", "count characters", "user-perceived characters"],
+    "intro": "The Character Count Tool counts your text the way different systems do — code units, code points, user-perceived characters and UTF-8 bytes — and shows which platform limits it fits.",
+    "content": "A character count is never one number. A textarea length limit counts UTF-16 code units, a database column counts UTF-8 bytes, and a reader counts what they see: letters, accents and emoji. This character count tool reports all of those figures side by side, so you can match the number to the rule the destination actually applies. A character counter that shows only one total forces you to guess which one a form is enforcing. Paste text to count characters here and all the plausible rules are answered on one screen.\n\nThe main panel shows characters with spaces, characters without whitespace, user-perceived characters as grapheme clusters, Unicode code points and UTF-8 size in bytes, alongside letters, digits, punctuation, symbols, whitespace characters and paragraphs. The Fits in panel compares the same text against six real limits: an X or Twitter post at 280 characters, an SMS segment at 160, a meta description at 155, an SEO title tag at 60, an Instagram caption at 2,200 and a LinkedIn post at 3,000. Each row shows the percentage used and turns red once the text is over the limit.\n\n- Characters with spaces, counted in UTF-16 code units, the unit a textarea maxlength enforces.\n- Without whitespace, plus letters, digits, punctuation, symbols and whitespace characters counted by Unicode category.\n- User-perceived characters as grapheme clusters, where an accented letter or a skin-tone emoji counts once.\n- Unicode code points, which differ from code units only for characters outside the Basic Multilingual Plane.\n- UTF-8 size in bytes, the figure a database column or an API payload limit will enforce.\n- Platform fit checks for X posts, SMS segments, meta descriptions, SEO title tags, Instagram captions and LinkedIn posts.\n\nThe counts are computed locally with JavaScript string primitives and the TextEncoder API. Length in code units comes straight from the string; code points come from iterating the text by code point; grapheme clusters come from Intl.Segmenter, so combining accents, zero-width joiners and emoji modifiers collapse into one user-perceived character. UTF-8 bytes are measured with TextEncoder when the runtime provides it. No upload, no account and no server round trip: the analysis runs in the page and the text disappears when you close the tab.\n\n- Code-unit counts differ from what a reader perceives whenever the text contains emoji or characters outside the Basic Multilingual Plane.\n- Grapheme cluster counts depend on the platform's segmentation tables, so an uncommon emoji sequence might count differently in an older browser.\n- The platform limits are the published figures at the time of writing; a service can change them without notice.\n- Paragraph counts treat blocks separated by blank lines as separate, following word-processor convention rather than HTML conventions.\n- The tool measures pasted text and does not strip HTML or Markdown markup, so pasting formatted source counts the tags too.\n\nReach for this character counter when a limit is expressed in characters and the failure mode is a truncated post, a rejected payload or a cut-off meta description. Paste the text, read the count that matches the destination's rule — the Fits in panel names which one to use — and edit until the bar turns back to normal. When the limit is a file size rather than a field length, the UTF-8 size figure is the one to watch, because accented letters and emoji occupy more bytes than their character count suggests.\n\nCopy counts or Download counts when the measurement needs to be recorded or pasted into a form. The count pair is worth reading together with the word count: a tweet is limited by characters, an essay by words, and a page that must satisfy both is easiest to check with both tools open. For the same text measured in words, the sibling counter in this domain applies the label instead of the character rule.",
+    "howTo": [
+      "Type or paste your text; the counts update as you type, including emoji and accented characters.",
+      "Read the Character counts panel for code units, graphemes, code points, UTF-8 bytes and per-category counts.",
+      "Check the Fits in panel to see the percentage of each platform limit the text uses and whether it overflows.",
+      "Use Copy counts or Download counts to export the full breakdown as plain text."
+    ],
+    "whenToUse": "Use the character counter when a limit is expressed in characters and a truncated post, a rejected payload or a cut-off meta description is the failure mode; the Fits in panel names the destination rule to match. For word-level limits the {{word-count-tool|Word Count Tool}} is the right count, the {{reading-time-estimator|Reading Time Estimator}} answers how long the same text takes to read, and the {{keyword-density-analyzer|Keyword Density Analyzer}} shows repetition, which is the other reason a page gets shortened.",
+    "faqs": [
+      {
+        "q": "Which character count should I use for an X or Twitter post?",
+        "a": "The Fits in panel uses the code-unit count, the same unit the platform composer enforces. Check the X or Twitter post row and keep the percentage under 100."
+      },
+      {
+        "q": "Why do code points and user-perceived characters differ?",
+        "a": "Emoji and characters outside the Basic Multilingual Plane take two UTF-16 code units but are one code point, and a combining sequence can be several code points but one grapheme. The tool shows all three so you can match the rule you are held to."
+      },
+      {
+        "q": "Does the tool count emoji as characters?",
+        "a": "Yes. An emoji counts once in user-perceived characters, once or twice in code points depending on whether it sits outside the Basic Multilingual Plane, and more in UTF-8 bytes."
+      },
+      {
+        "q": "What is UTF-8 size and when does it matter?",
+        "a": "It is the byte length a database column, an SMS gateway or an API payload limit actually enforces. Accented letters and emoji take more bytes than ASCII characters, so a short message can still exceed a byte limit."
+      },
+      {
+        "q": "Are newlines and spaces counted?",
+        "a": "Characters with spaces includes every code unit, line breaks included. Without whitespace removes them, and the whitespace characters figure reports how many were removed."
+      }
+    ]
+  },
+  {
+    "slug": "reading-time-estimator",
+    "keywords": ["reading time estimator", "reading time", "words per minute", "speaking time"],
+    "intro": "The Reading Time Estimator turns a word count into minutes and seconds at a rate you can see and change, with a comparison table at slow, average and fast speeds.",
+    "content": "Reading time is arithmetic: word count divided by a rate. The only honest way to present it is to show both numbers, which is what this reading time estimator does. Paste a script, an article or a speech, and the estimate updates as you type, with the words per minute used to produce it always on screen. An estimate that hides its rate is a guess wearing a number; this one lets you audit the division.\n\nThe defaults are 220 words per minute for silent reading and 130 words per minute for speaking time aloud, the figures most publishing style guides quote for adult prose and a comfortable delivery pace. Both are editable inputs, so dense technical material can be timed at 150 and light prose at 300 without the tool pretending the text changed length. Under the headline times you get the inputs the estimate rests on — words, sentences and paragraphs — all from the same counting engine used across this domain, plus a table that shows the same text at three reference speeds.\n\n- Reading time at an editable words-per-minute rate, defaulting to 220.\n- Speaking time at an editable rate, defaulting to 130 words per minute for delivery aloud.\n- A comparison table at three reference rates: a slow reader at 150 words per minute, an average adult at 220 and a fast reader at 300.\n- Input figures — words, sentences and paragraphs — so the arithmetic can be checked by hand.\n- Copy times produces a plain-text summary of every figure.\n\nThe estimator divides the tokenized word count by the rate and formats the result as seconds, minutes and hours. Word segmentation goes through Intl.Segmenter with a regular-expression fallback, the same rule the Word Count Tool applies, so the word figure here always matches the one there. Times are recomputed on every keystroke after a short debounce, which keeps long documents responsive instead of re-rendering on every character. Everything runs in the browser: nothing is uploaded and nothing is logged.\n\n- Silent reading speed varies enormously between people and between texts, so any single figure is a convention rather than a measurement.\n- Pauses are not modelled: headings, figures, tables and code blocks make a real read take longer than the arithmetic suggests.\n- Speaking rates assume continuous delivery; slides, demos and audience reactions push recorded or presented time upward.\n- The reference table uses rounded published averages, not measurements of your audience.\n- Estimates describe the pasted text only, so a partial draft produces a partial time.\n\nTwo habits keep the estimate honest. Lower the rate for technical, legal or second-language material, and raise it for light prose; the editable field exists precisely so the number can match the audience rather than a generic average. And when only part of a document is finished, paste that part instead of the whole outline, because the estimate should describe text that actually exists.\n\nUse the reading time estimator when time is the constraint: promising a reading time on an article, fitting a script into a segment, planning a lesson around a passage, or checking that a speech fits its slot. A five-minute result at 220 can become over seven minutes at 150, and knowing that range is what prevents an overrun during recording or presenting. When the constraint is a word or character limit instead, the counters in this domain answer that question directly.",
+    "howTo": [
+      "Paste the text you want to time — a blog post, a script or a speech — into the input panel.",
+      "Adjust the reading speed and speaking speed fields if your material or audience differs from the defaults.",
+      "Read the Estimated time panel for the reading and speaking times and the input figures behind them.",
+      "Check the At other reading speeds table for the same text at 150, 220 and 300 words per minute, or copy the times."
+    ],
+    "whenToUse": "Use the reading time estimator when time is the constraint: promising a reading time on an article, fitting a script into a segment or checking that a speech fits its slot. When the constraint is words or characters, the {{word-count-tool|Word Count Tool}} and the sentence count reported by the {{sentence-count-tool|Sentence Count Tool}} answer that directly. The {{average-word-length-calculator|Average Word Length Calculator}} explains why a dense passage reads slower than its word count suggests.",
+    "faqs": [
+      {
+        "q": "What reading speed does the tool assume?",
+        "a": "220 words per minute by default for silent reading and 130 for speaking aloud. Both are editable, and the comparison table also shows 150 and 300 as slow and fast reference paces."
+      },
+      {
+        "q": "Should I lower the reading speed for technical content?",
+        "a": "Yes. Dense, unfamiliar or second-language material is read more slowly than the 220 convention, so entering 150 or 180 gives a more honest figure. The editable rate exists so the estimate can match the audience."
+      },
+      {
+        "q": "Does the estimate include time for images or tables?",
+        "a": "No. The model times words only; pauses for figures, tables, code and ads are not included, so real reading time on a media-heavy page is longer than the number shown."
+      },
+      {
+        "q": "How is the number calculated?",
+        "a": "Word count divided by the rate you set, formatted as minutes and seconds. The word count comes from the same Unicode tokenizer used by the Word Count Tool, so the two pages never disagree."
+      },
+      {
+        "q": "Is speaking time the same as reading time?",
+        "a": "No, they use separate rates. Speaking aloud defaults to 130 words per minute because delivery is slower than silent reading, which is why scripts and speeches should be timed with the speaking figure."
+      }
+    ]
+  },
+  {
+    "slug": "sentence-count-tool",
+    "keywords": ["sentence count tool", "sentence counter", "count sentences", "average words per sentence"],
+    "intro": "The Sentence Count Tool counts sentences, reports the average words per sentence, and lists each sentence with its word count so outliers stand out.",
+    "content": "Sentence length is the simplest measure of whether prose is readable, and a sentence count is where that measurement starts. This sentence count tool splits the text into sentences with Unicode sentence boundaries, and the summary reports the average words per sentence alongside the longest and shortest. The list below is the working part: every sentence appears with its own word count, so the 58-word sentence is visible in a list of 12-word ones rather than hidden inside an average.\n\nUse it to count sentences when the question is shape rather than volume. The summary panel gives total sentences, total words, the average words per sentence, and the longest and shortest sentences in the text. Average sentence length in English nonfiction usually sits between 15 and 25 words; a run well above that is a candidate for splitting, and one well below can read as choppy. The list shows the first 25 sentences with their word counts and states how many further sentences were counted but not listed, so long documents stay responsive without losing the totals.\n\n- Total sentences and total words from the same token stream.\n- Average words per sentence, the summary figure most style guides care about.\n- Longest and shortest sentence with their lengths.\n- A per-sentence list, capped at the first 25 rows, each showing that sentence's word count.\n- Copy summary produces a plain-text version of every figure.\n\nSentence segmentation goes through Intl.Segmenter, which implements the Unicode sentence-boundary rules used by browsers and word processors, with a regular-expression fallback for engines without it. That rule is deliberately mechanical: a period after an abbreviation followed by a capital is a boundary, so a name and its sentence can split into two segments. The alternative — a hand-tuned abbreviation list — would be more accurate for English and less predictable for every other language, so the tool states the rule it applies instead of hiding it.\n\n- Abbreviations followed by a period split sentences, so initials, titles and Latin abbreviations can inflate the count.\n- Only the first 25 sentences are listed; the totals still cover the whole document.\n- Very long texts settle after a short pause because the analysis is debounced.\n- The count is rule-based, not semantic: a missing full stop merges two sentences into one segment.\n- Very short segments may be headings, list items or captions rather than prose, and they still count.\n\nA sentence counter is most useful as a source of outliers. Read the list first and the total second: the average changes slowly, but one sentence twice the length of its neighbours is exactly the thing an editor would mark, and it appears in the list with its length attached. Combining that list with the whole-document totals is the pattern most style guides describe when they talk about varied sentence rhythm.\n\nPair the sentence count with a word count when judging readability, because the same 500 words in 12 sentences reads very differently from the same 500 in 30. When time rather than shape is the question, the Reading Time Estimator shares the same word count and converts it into minutes, and the word-length side of difficulty is covered by its own calculator in this domain. For a rhythm check across a whole document, note the longest sentences first and the average second, because the average hides exactly the outliers that make prose feel uneven.",
+    "howTo": [
+      "Paste your text into the input panel; the sentence and word counts update as you type.",
+      "Read the Counts panel for total sentences, average words per sentence, and the longest and shortest sentences.",
+      "Scan the sentence list, capped at the first 25 rows, to find the outliers worth splitting.",
+      "Use Copy summary to export the figures as plain text."
+    ],
+    "whenToUse": "Use the sentence count tool to judge shape rather than volume: finding the sentence that should have been three, or checking whether a rewrite actually shortened the prose. Pair it with the {{word-count-tool|Word Count Tool}} for the whole-document count and with the {{average-word-length-calculator|Average Word Length Calculator}}, since sentence length and word length together explain most of a text's reading difficulty. When the question is time rather than shape, the {{reading-time-estimator|Reading Time Estimator}} converts the same counts into minutes.",
+    "faqs": [
+      {
+        "q": "Why does the count treat a title abbreviation as a sentence boundary?",
+        "a": "The tool applies Unicode sentence-boundary rules, which treat a period followed by a capital as an ending. Disabling that rule for known abbreviations would improve English and degrade every other language, so the rule is stated instead."
+      },
+      {
+        "q": "Why are only 25 sentences listed?",
+        "a": "The preview is capped so long documents stay responsive. The totals, averages and extremes still cover the whole text, and the list notes how many further sentences were counted."
+      },
+      {
+        "q": "What is a normal average words per sentence?",
+        "a": "English nonfiction usually averages 15 to 25 words per sentence. Above 30 is where splitting usually helps, and below 10 often reads as choppy; both are clues to look at, not rules to obey."
+      },
+      {
+        "q": "Does the count include headings and list items?",
+        "a": "Yes if they end in terminal punctuation. A heading without a full stop may merge with the following sentence, which is one reason the per-sentence list is worth reading rather than trusting the total alone."
+      },
+      {
+        "q": "Can I copy the figures?",
+        "a": "Yes, Copy summary produces a plain-text version of the sentence total, word total, average, and the longest and shortest sentences."
+      }
+    ]
+  },
+  {
+    "slug": "average-word-length-calculator",
+    "keywords": ["average word length", "word length calculator", "median word length", "word length distribution"],
+    "intro": "The Average Word Length Calculator reports the mean and median word length and plots the distribution, so long technical vocabulary is visible rather than averaged away.",
+    "content": "Average word length sits between a plain word count and a full readability score. It answers a simple question: are the words in this text short and direct, or long and technical? This word length calculator computes the mean and the median, names the longest and shortest words, and charts the word length distribution so you can see the shape rather than trusting one number to represent it.\n\nLength is measured in user-perceived characters, so accented letters count once and an emoji counts once regardless of how many code points it uses. The mean is the arithmetic average across every word; the median word length is the middle value once the words are sorted, and it is the more robust figure when a handful of long technical terms would otherwise drag the mean upward. A mean of 5.2 with a median of 4.6 tells a different story from a mean and median that agree, which is why both are shown side by side.\n\n- Average word length in grapheme clusters, the headline figure.\n- Median word length, kept as the less sensitive twin of the mean.\n- Longest and shortest words with their lengths.\n- Total words and total letters across all words.\n- A distribution histogram in one-character buckets, with everything longer than 15 characters folded into the final column.\n\nWords come from the shared Unicode tokenizer, and length is counted in grapheme clusters through Intl.Segmenter, which is why accented letters and emoji count as single characters. The histogram counts each token once and buckets it by length; because the bucket heights are raw counts, they can be checked against the total word figure on the same panel. Everything is computed locally in the page, with no upload and no account, and the results update after a short debounce while you type.\n\n- Mean length is pulled upward by a single long term; the median is the figure to trust on short texts.\n- Distribution buckets fold every word longer than 15 characters into one column, so the tail loses detail.\n- A token that is long because two words were joined without a space is counted as one long word.\n- Non-English and transliterated vocabulary can sit outside the usual English bands.\n- The measurement describes vocabulary weight only; it is not a readability score or a quality judgement.\n\nTypical figures provide the reference points. Everyday English prose averages between four and five characters per word, academic and legal writing often lands between five and six, and marketing copy written for scanning tends to sit near four. None of these are targets, but they make an outlier obvious in either direction. The word length distribution is where the useful signal lives: a normal distribution peaks at three to four characters and tails off, while a distribution with a fat tail past ten characters is a text full of nominalisations and imported jargon.\n\nUse this calculator when vocabulary weight is the question: checking that a plain-language rewrite actually shortened the words, comparing a technical document against its simplified version, or finding the accidental concatenation that is throwing off an average. Frequency is the complementary view — the Word Count Tool shows which words repeat, while this page shows how long they are — and reading difficulty is covered by the scored indices in the same family of tools.",
+    "howTo": [
+      "Paste your text into the input panel; the length figures update as you type.",
+      "Read the Word length panel for the average, median, longest and shortest words, plus the word and letter totals.",
+      "Check the distribution histogram to see how much of the text sits in the long-word tail.",
+      "Use Copy summary to export the figures as plain text."
+    ],
+    "whenToUse": "Use this word length calculator when vocabulary weight is the question: checking that a plain-language rewrite shortened the words, or finding the accidental long word that is throwing off an average. It pairs with the {{sentence-count-tool|Sentence Count Tool}}, since sentence length and word length together drive readability, and with the {{reading-time-estimator|Reading Time Estimator}} when you need the time implication. For variety rather than length, the {{vocabulary-richness-scorer|Vocabulary Richness Scorer}} measures how many different words a draft uses.",
+    "faqs": [
+      {
+        "q": "What is a normal average word length in English?",
+        "a": "Everyday prose sits around four to five characters per word, academic and legal writing around five to six, and scan-friendly copy nearer four. These are bands for comparison, not targets."
+      },
+      {
+        "q": "Why show the median as well as the mean?",
+        "a": "A few very long technical terms pull the mean upward. The median is the middle word's length once all words are sorted, so it stays stable and shows what a typical word actually looks like."
+      },
+      {
+        "q": "Are emoji and accented letters counted as one character?",
+        "a": "Yes. Length is counted in grapheme clusters, so an accented letter counts once and an emoji counts once, regardless of how many code points or code units the text uses."
+      },
+      {
+        "q": "Why is my longest word longer than anything I wrote?",
+        "a": "Two words joined without a space, a pasted URL fragment or a hyphen removed by cleaning are the usual causes. The longest-word readout is the quickest way to find it."
+      },
+      {
+        "q": "Does a higher average mean worse writing?",
+        "a": "Not by itself. Long words can be precise or simply inflated, and the distribution shows whether the long terms are a consistent style or a thin tail of jargon."
+      }
+    ]
+  },
+  {
+    "slug": "vocabulary-richness-scorer",
+    "keywords": ["vocabulary richness", "type-token ratio", "guiraud index", "moving-average type-token ratio"],
+    "intro": "The Vocabulary Richness Scorer measures how varied the vocabulary is using a moving-average type-token ratio and the Guiraud index, with the length trap in plain type-token ratio stated up front.",
+    "content": "Vocabulary richness asks how many different words a text uses, but the simplest answer is also the most misleading: plain type-token ratio falls mechanically as a text grows, because common words repeat. This scorer therefore leads with a moving-average type-token ratio that stays comparable across lengths, and shows the raw ratio second so you can see why. No band or pass or fail is attached anywhere, because richness depends on genre: legal writing repeats terms on purpose, and literary prose repeats them for effect.\n\nThe headline number is the moving-average type-token ratio at a window size you choose, defaulting to 100 words. The panel also reports total words, unique words, the whole-text type-token ratio, the Guiraud index — unique words divided by the square root of the total — the words used exactly once, and syllables per word. Every figure comes from the same normalised token stream, so they can be compared without worrying about which counter produced them.\n\n- Moving-average type-token ratio at an adjustable window, the headline figure because it survives length changes.\n- Whole-text type-token ratio, shown second with a note explaining why it falls as a text grows.\n- Guiraud index, which divides unique words by the square root of the word count and stays steadier across lengths.\n- Words used exactly once — the hapax count, a direct signal of vocabulary variety.\n- Syllables per word, from the shared syllable heuristic.\n- Copy report and Download produce a plain-text summary of every figure.\n\nTokens come from the shared Unicode tokenizer, normalised to lowercase with surrounding punctuation dropped. The moving-average type-token ratio follows Covington and McFall: the ratio is computed inside fixed-size windows and averaged, so a 200-word sample and a 2,000-word essay can be compared on the same scale. A window wider than the token list falls back to the whole text's ratio. The Guiraud index and the hapax share come from the same token stream. Everything runs locally, and a warning appears while the text is short enough that the figures are still settling.\n\n- Richness measures need a few hundred words before they stabilise; below that, every figure is provisional.\n- Repetition is not automatically a fault — deliberate repetition is a device, and technical terms must repeat.\n- The moving-average ratio depends on the chosen window, so two texts should be compared at the same window size.\n- Function words inflate variety counts in the same way as content words unless a stopword filter is applied separately.\n- There is no universal rich vocabulary target; genre sets the expectation, so the tool reports measurement plus a length warning.\n\nRead the figures as one signal among several. A draft whose moving-average ratio and Guiraud index both sit high is leaning on a wide vocabulary; one whose hapax count is tiny is reusing the same words. The typical comparison is between drafts of the same genre and similar length, where a gap of several points is worth a look and a gap under a point is noise.\n\nCombine the view with the Lexical Diversity Calculator, which reports the same underlying ratios across several window sizes, and with the Word Count Tool when you want the frequency table that shows exactly where the repeats come from. The in-page note on why the whole-text ratio is listed second is worth reading once, because it explains the trap that makes most vocabulary scores misleading.",
+    "howTo": [
+      "Paste a draft into the input panel; the richness figures update as you type.",
+      "Set the moving-average window if you want a different comparison scale from the default of 100 words.",
+      "Read the Richness panel for the moving-average ratio, the whole-text ratio, the Guiraud index, hapax count and syllables per word.",
+      "Use Copy report or Download to export the summary, and note the length warning until the text is long enough."
+    ],
+    "whenToUse": "Reach for the vocabulary richness view when you want to know whether a draft reuses the same words, not just how many it contains. The {{lexical-diversity-calculator|Lexical Diversity Calculator}} reports the same ratios across several window sizes, the {{average-word-length-calculator|Average Word Length Calculator}} covers the length side of vocabulary, and the {{word-count-tool|Word Count Tool}} supplies the frequency table that shows exactly which words are repeating.",
+    "faqs": [
+      {
+        "q": "Why is plain type-token ratio shown second?",
+        "a": "Because it falls mechanically as a text grows, making short samples look richer than long ones. The headline figure is the moving-average ratio, which averages inside fixed windows and stays comparable across lengths."
+      },
+      {
+        "q": "What is a good vocabulary richness score?",
+        "a": "There is no universal target. Legal and technical writing repeats terms deliberately, while literary prose repeats them for effect, so the tool reports measurements and a length warning instead of a pass or fail."
+      },
+      {
+        "q": "How long should the text be?",
+        "a": "A few hundred words is the practical floor. Below that the figures are provisional, and the page displays a warning until the sample is long enough to be meaningful."
+      },
+      {
+        "q": "What is the Guiraud index?",
+        "a": "Unique words divided by the square root of the word count. It is an algebraic correction for the length dependence of type-token ratio, so it stays steadier when comparing texts of different sizes."
+      },
+      {
+        "q": "What counts as a unique word?",
+        "a": "A token that differs from every previous token after lowercasing and stripping surrounding punctuation. No stemming is applied, so run and running count separately."
+      }
+    ]
+  },
+  {
+    "slug": "keyword-density-analyzer",
+    "keywords": ["keyword density", "keyword density analyzer", "two-word phrases", "per 1,000 words"],
+    "intro": "The Keyword Density Analyzer counts single words and two-word phrases, reports density against the full word total, and avoids inventing a pass or fail score.",
+    "content": "Keyword density is a count divided by a word total, and this keyword density analyzer states the denominator so the number can be checked. Paste an article, a landing page or a draft, and the tool ranks the single words and the two-word phrases the text actually uses, with counts, percentages and a per 1,000 words figure for each. The report describes repetition; it does not grade it.\n\nTwo tables make up the report. Single words lists one term per row; two-word phrases lists consecutive word pairs, which is where phrases like content strategy or search intent appear. Matching is case-insensitive, windows are computed over the token stream, and a phrase must contain at least one non-stopword before it is reported, so a string of function words never shows up as a keyword. Controls set the minimum occurrences, the number of rows per table and whether function words are hidden from the single-word view.\n\n- A minimum-occurrences filter, defaulting to 2, so one-off words stay out of the tables.\n- A rows-per-table setting, defaulting to 15, to keep the report readable.\n- A hide function words toggle that keeps the, of and and out of the single-word table.\n- Single-word rows with term, count, density and occurrences per 1,000 words.\n- Two-word phrase rows with the same four columns, so phrase repetition is as visible as word repetition.\n- Copy report and Download export the tables as plain text.\n\nDensity is count divided by total words times 100, where the denominator is every word token including stopwords — that is what percentage of the text means to a reader. N-grams are windows of consecutive tokens joined by a space and counted case-insensitively. Entries are sorted by count and then by first appearance, so equal counts keep document order and the table does not reshuffle between keystrokes. The tool reports repetition rather than a verdict: there is no universal safe density, which is why the report shows counts and distances instead of a score.\n\n- Density varies with text length by construction; a short page will always show higher percentages for the same repetition.\n- Stemming is not applied, so run and running count as different terms.\n- Phrases longer than two words are not reported.\n- Function words are included in the denominator even when hidden from the table.\n- A high count is a signal to read the passage in context, not proof of keyword stuffing.\n\nUse the analyzer when you want to see what a page repeats: checking a draft against its target term, noticing a phrase that appears far more often than the writing can justify, or confirming that a rewrite actually reduced repetition. Read the top rows in context before changing anything, because a term repeated five times in a technical explainer may be required for clarity, while the same count in a short promotional paragraph may be doing all the work.\n\nFor length-based companions, the Word Count Tool reports total words and most-used words, while the Vocabulary Richness Scorer covers how varied the vocabulary is overall. The how-to-read-density note under the tables is worth keeping in view, because it explains why a percentage is a description of the text, not a threshold to cross.",
+    "howTo": [
+      "Paste your text into the input panel; the density tables build as you type.",
+      "Set the minimum occurrences and rows per table if the defaults of 2 and 15 do not fit your document.",
+      "Toggle hide function words to switch the single-word table between content words and every word.",
+      "Read the density and per-1,000-words columns for both single words and two-word phrases, then copy or download the report."
+    ],
+    "whenToUse": "Use the keyword density analyzer to see what a page repeats and whether the repetition is justified. The {{word-count-tool|Word Count Tool}} gives the total and most-used words, the {{character-count-tool|Character Count Tool}} covers limits expressed in characters, and the {{lexical-diversity-calculator|Lexical Diversity Calculator}} shows how varied the vocabulary is overall rather than term by term.",
+    "faqs": [
+      {
+        "q": "What is a safe keyword density?",
+        "a": "There is no universal safe figure. Density depends on text length and genre, and the useful question is whether a term repeats more often than the writing can justify, which is why the tool reports counts and distances instead of a score."
+      },
+      {
+        "q": "Why are two-word phrases included?",
+        "a": "Because repeated meaning usually lives in phrases. A phrase like content strategy can repeat while neither word does on its own, so the bigram table catches repetition the single-word table misses."
+      },
+      {
+        "q": "Why does the density denominator include stopwords?",
+        "a": "Because percentage of the text should mean exactly that. Excluding function words would inflate every percentage and make the figure impossible to reproduce by hand, so the denominator is stated on the panel."
+      },
+      {
+        "q": "Does the tool stem words?",
+        "a": "No. Run and running are separate rows, which keeps the report reproducible but means morphological repetition is not merged."
+      },
+      {
+        "q": "Can I export the tables?",
+        "a": "Yes, Copy report places the ranked tables on the clipboard as plain text and Download saves the same report as a file."
+      }
+    ]
+  },
+  {
+    "slug": "flesch-kincaid-score-calculator",
+    "keywords": ["flesch-kincaid grade", "flesch reading ease", "grade level", "syllables per word"],
+    "intro": "The Flesch-Kincaid Score Calculator applies the two published formulas — grade level and reading ease — and shows the sentence and syllable inputs behind them.",
+    "content": "The Flesch-Kincaid formulas turn sentence length and word weight into a school grade. This flesch-kincaid grade calculator applies both published equations to your text and then shows the inputs they were computed from, so the score can be checked by hand rather than taken on trust. A readability number whose arithmetic is visible is far more useful in an editorial discussion than one that appears from nowhere.\n\nThe grade level formula is 0.39 times average sentence length plus 11.8 times average syllables per word minus 15.59. The Flesch Reading Ease formula is 206.835 minus 1.015 times average sentence length minus 84.6 times syllables per word. The panel reports both scores, the average sentence length, syllables per word, and the total words, sentences and syllables behind them, plus a grade reference table that labels each score range from very easy through standard to very difficult.\n\n- Flesch-Kincaid grade level, the US school-grade score.\n- Flesch Reading Ease on the published 0-to-100 scale with its named bands.\n- Average sentence length in words and syllables per word, the two inputs both formulas share.\n- Word, sentence and syllable totals so the arithmetic can be reproduced.\n- A grade reference table mapping score ranges to typical material.\n- Copy result and Download export the figures and the formula used.\n\nSyllables come from a documented heuristic rather than a dictionary: vowel groups are counted with y included, a silent final e is removed except after consonant plus l and except for ed and es endings that add no syllable, adverbs in -ely are repaired, and a curated exception table fixes hiatus words. Numbers count as one syllable. Sentence and word counts come from the shared Unicode tokenizer. The tool flags a short sample below roughly 100 words, because every formula here becomes noisy on small inputs. Pasting a representative stretch of the document rather than the title and first line is the single biggest thing you can do to make the scores stable.\n\n- Syllable counts are estimates, so every score carries that error; proper nouns, brand names and abbreviations are the main sources.\n- The formulas were designed for English prose and are not meaningful for other languages.\n- Short samples below roughly 100 words produce unstable scores, which the page flags explicitly.\n- Non-English words and acronyms are counted as written, which can stretch the syllables-per-word figure.\n- A score describes the text, not the reader: background knowledge changes comprehension more than grade level does.\n\nUse the calculator when you need a defensible number rather than a feeling: checking a document against a plain-language target, comparing two drafts of the same passage, or reporting readability in a review. Read the grade level and the reading ease together, because they share inputs but move in opposite directions, and that disagreement is a useful cross-check. When a score looks wrong, the input figures are where to look first: an odd syllables-per-word value usually traces back to technical terms or abbreviations.\n\nWhen you want the same machinery expressed through other published formulas, the Gunning Fog Index and SMOG Index calculators apply their own arithmetic to the same token counts, and comparing the three is the quickest way to see whether a passage is genuinely dense or merely unusual in one dimension.",
+    "howTo": [
+      "Paste around 100 words or more of representative text; the scores update as you type.",
+      "Read the Score panel for the Flesch-Kincaid grade level and the Flesch Reading Ease value.",
+      "Check the inputs — average sentence length, syllables per word, and the word, sentence and syllable totals.",
+      "Use the grade reference table to interpret the score, then Copy result or Download to keep the figures."
+    ],
+    "whenToUse": "Use the Flesch-Kincaid calculator when a defensible readability number matters: plain-language targets, editorial review notes or comparing two drafts of the same passage. The {{gunning-fog-index-calculator|Gunning Fog Index Calculator}} and the {{smog-index-calculator|SMOG Index Calculator}} apply different published formulas to the same counts, so their agreement is a useful cross-check. When a formula points at word weight, the {{average-word-length-calculator|Average Word Length Calculator}} shows which words are responsible.",
+    "faqs": [
+      {
+        "q": "What do the two Flesch-Kincaid numbers mean?",
+        "a": "The grade level is the US school grade a reader needs, and reading ease is a 0-to-100 comfort score where higher is easier. They share inputs but move in opposite directions, so reading them together is a useful check."
+      },
+      {
+        "q": "How many words should I paste?",
+        "a": "At least about 100. Below that the formulas are noisy and the page flags the short sample; a few hundred words of representative prose is better still."
+      },
+      {
+        "q": "Why does the score change when I split a sentence?",
+        "a": "Both formulas include average sentence length, so splitting long sentences lowers the grade and raises the ease. Replacing long words with shorter ones moves the other input."
+      },
+      {
+        "q": "Are syllable counts exact?",
+        "a": "No. Syllables come from a documented heuristic with rules for silent e, ed and es endings, -ely adverbs and a curated exception list. Proper nouns and technical terms are the usual sources of error."
+      },
+      {
+        "q": "Can I use the score for languages other than English?",
+        "a": "No. The formulas were calibrated on English and the syllable heuristic is English-specific, so scores for other languages are not meaningful."
+      }
+    ]
+  },
+  {
+    "slug": "gunning-fog-index-calculator",
+    "keywords": ["gunning fog index", "complex words", "proper nouns", "average sentence length"],
+    "intro": "The Gunning Fog Index Calculator applies Robert Gunning's formula, counts complex words by his definition and lets you exclude capitalised proper nouns.",
+    "content": "The Gunning Fog index estimates the years of formal education a reader needs to understand a passage on first reading. This calculator applies the published formula, 0.4 times average sentence length plus 100 times complex words divided by the words total, and it counts complex words using Gunning's own definition rather than a loose approximation. The definition matters, because most disagreements about a Fog score come down to which words were classified as complex.\n\nA complex word is one with three or more syllables, excluding words that reach three syllables only through an es, ed or ing ending, and excluding tokens that are capitalised in the source because they are likely proper nouns. The checkbox for excluding capitalised words matches Gunning's original instruction. The panel reports the Fog index, the complex-word count, the share of the text they represent, the average sentence length, and the word and sentence totals behind the score, so every component of the arithmetic is visible.\n\n- The Fog index itself, rounded to one decimal place as these indices are usually quoted.\n- Complex words with three or more syllables, counted by Gunning's definition.\n- The share of the text classified as complex, so the reason behind a high score is visible.\n- Average sentence length in words, the other half of the formula.\n- An exclude capitalised words option that drops likely proper nouns from the complex-word count.\n- An arithmetic panel showing 0.4 times the sum of ASL and 100 times complex divided by words.\n\nSyllable counts come from the same documented heuristic used across this domain's readability tools: vowel groups, silent-e handling, ed and es endings, -ely repair and a curated exception table. Capitalised detection works on the source token, so a sentence-initial word counts as capitalised and is excluded when the option is on. Word segmentation is the shared Unicode tokenizer. Because both inputs are counts you can inspect, a surprising index can be traced to the exact words and sentences that produced it.\n\n- Syllable counting is heuristic, so borderline three-syllable words can be misclassified in either direction.\n- Gunning's exclusion of proper nouns is approximate: a capitalised common noun or a lowercase brand name will be treated the wrong way.\n- Short samples are unstable; most references suggest at least 100 words.\n- The index ignores vocabulary difficulty beyond length, so jargon built from short words can score easier than it reads.\n- It is a US grade-level convention, not a comprehension guarantee.\n\nReach for the Fog index when you want to show the effect of simplification in numbers: paste a draft, note the score and the complex-word list, simplify, then paste again. Comparing before and after is the real use of the tool, because a single absolute Fog value means little across genres — a legal memo and a children's story are not aiming at the same number. The same discipline applies when the score is quoted to someone else: include the sentence count and the complex-word share, because those are what the number actually means.\n\nThe Flesch-Kincaid Score and SMOG Index calculators apply the same sentence and syllable counts through different formulas, which is useful when you want to check that a revision moved all three indices in the same direction rather than gaming one of them.",
+    "howTo": [
+      "Paste the passage you want to score; the Fog index appears as you type.",
+      "Read the Fog index panel for the score, the complex-word count and its share of the text.",
+      "Toggle exclude capitalised words to apply Gunning's proper-noun rule, and check the arithmetic panel to see the formula with your figures.",
+      "Simplify the words and sentences the panel flags, then re-paste to compare before and after."
+    ],
+    "whenToUse": "Use the Fog index when you want to see simplification work in numbers: score a draft, simplify the complex words and sentences the panel lists, then score it again. The {{flesch-kincaid-score-calculator|Flesch-Kincaid Score Calculator}} and the {{smog-index-calculator|SMOG Index Calculator}} cover the same ground with different formulas, and the {{average-word-length-calculator|Average Word Length Calculator}} isolates the word-length half of the arithmetic when a score moves unexpectedly.",
+    "faqs": [
+      {
+        "q": "What Fog score should I aim for?",
+        "a": "A Fog of 7 to 9 reads comfortably for a general audience; 12 and above is university level. The number to watch is the direction of travel when you revise, not the absolute value."
+      },
+      {
+        "q": "Why are proper nouns excluded from complex words?",
+        "a": "Gunning's original definition excludes words that reach three syllables only as names, since a reader does not need vocabulary knowledge to read them. The checkbox applies that rule; turning it off counts them."
+      },
+      {
+        "q": "How does Fog differ from Flesch-Kincaid?",
+        "a": "Both use average sentence length, but Fog weights complex words by their share of the text while Flesch-Kincaid uses syllables per word. Different formulas, same underlying counts."
+      },
+      {
+        "q": "Why is my Fog score lower after editing?",
+        "a": "Splitting sentences lowers average sentence length, and replacing three-syllable words lowers the complex-word share. The panel shows both counts, so you can see which change did the work."
+      },
+      {
+        "q": "Is the syllable count exact?",
+        "a": "No, it is a documented heuristic. Edge cases around silent letters, hyphenated compounds and imported words can shift a count in either direction."
+      }
+    ]
+  },
+  {
+    "slug": "smog-index-calculator",
+    "keywords": ["smog index", "polysyllabic words", "reading grade", "sample size"],
+    "intro": "The SMOG Index Calculator applies the published formula, counts polysyllabic words and states the 30-sentence sample size it was validated on.",
+    "content": "The SMOG index — Simple Measure of Gobbledygook — estimates the reading grade a person needs to understand a passage. This smog index calculator applies the published formula, 1.043 times the square root of polysyllables times 30 divided by sentences, plus 3.1291, and it counts every word with three or more syllables. Like its siblings in this domain, it shows the counts the score was built from rather than dropping a number with no provenance.\n\nThe panel reports the SMOG index and its reading grade, the polysyllabic words count, the share of the text those words represent, and the sentence, word and syllable totals behind the score. A sample size line states how many sentences were analysed: SMOG was validated on at least 30 sentences, so shorter passages are flagged as provisional. A conversion table maps the index to a reading grade, which is the form most style guides quote.\n\n- The SMOG index to one decimal place.\n- The reading grade it corresponds to, on the US school-grade scale.\n- Polysyllabic words, counted as any token with three or more syllables.\n- The share of the text made up of polysyllables.\n- Sentence, word and syllable totals from the shared counters.\n- A sample size note comparing the text against the 30 sentences SMOG was validated on.\n\nThe formula depends on counting sentences and polysyllabic words, both taken from the shared Unicode tokenizer and the documented syllable heuristic. The multiplication by 30 and division by the sentence count is what makes SMOG sample-dependent: the score estimates the grade needed for a full text from a sample, which is why the tool states the sample size instead of hiding it. Two texts with identical vocabulary can receive different scores purely because one was pasted in longer form. Everything runs locally in the page; no text is uploaded and no result is stored.\n\n- Below 30 sentences SMOG is unreliable, and on very short samples it overestimates the grade.\n- The syllable heuristic can miscount polysyllables, especially proper nouns and technical terms.\n- SMOG rewards short sentences and few long words, so splitting sentences alone can lower it.\n- The index is defined for English and has no published calibration for other languages.\n- It estimates first-reading comprehension, not enjoyment or retention.\n\nUse the SMOG index when you need a conservative reading-grade estimate for health, instructional or public-facing material, where understanding matters more than pace. Any summary of the score should carry the sample size with it, which is why that line is printed beside the number rather than buried in a footnote. Because it was validated on 30-sentence samples, paste a representative stretch rather than a caption, and treat short results as indicative only. When the score matters to a decision, supply a longer sample rather than rounding a short one, because the formula's reliability depends on the sample more than on the text. The share-of-text figure is the quickest explanation for a high score: if the polysyllabic share is small but the score is high, the text's structure is doing more work than its vocabulary.\n\nThe Flesch-Kincaid and Gunning Fog calculators apply different formulas to the same counts, so running all three and looking at their spread is a fast way to judge whether a passage is genuinely dense or merely unusual in one dimension.",
+    "howTo": [
+      "Paste the whole passage into the input panel; the index appears as you type.",
+      "Read the SMOG index panel for the score, its reading grade and the polysyllabic-word counts.",
+      "Check the sample size line: with fewer than 30 sentences, treat the result as provisional.",
+      "Use the SMOG to grade table to interpret the score, and re-run after edits to see the movement."
+    ],
+    "whenToUse": "Use the SMOG index for public-facing material where first-reading comprehension matters most, and paste at least 30 sentences so the sample-size caveat does not apply. The {{flesch-kincaid-score-calculator|Flesch-Kincaid Score Calculator}} and the {{gunning-fog-index-calculator|Gunning Fog Index Calculator}} give alternative grades from the same counts, and the {{sentence-count-tool|Sentence Count Tool}} shows whether the long sentences behind a high score are isolated or spread through the text.",
+    "faqs": [
+      {
+        "q": "How many sentences should I paste for SMOG?",
+        "a": "At least 30, the sample size the formula was validated on. With fewer, the tool flags the result as provisional and the estimate typically runs high."
+      },
+      {
+        "q": "Why does SMOG rise on short texts?",
+        "a": "The formula scales by the square root of polysyllables times 30 divided by sentences. With few sentences the multiplier grows and the estimate inflates, which is exactly why the sample-size note exists."
+      },
+      {
+        "q": "What counts as a polysyllabic word?",
+        "a": "Any token with three or more syllables by the shared syllable heuristic. Numbers count as one syllable, and no words are excluded as proper nouns."
+      },
+      {
+        "q": "Is SMOG better than Flesch-Kincaid?",
+        "a": "Neither is better in general. SMOG is more conservative on health and instructional material, while the Flesch formulas read more quickly across genres; running both and comparing is the safer habit."
+      },
+      {
+        "q": "Why do commas and hyphens not matter to SMOG?",
+        "a": "The formula only counts sentences and polysyllabic words, so punctuation does not enter the arithmetic. A text can be difficult by structure and still score the same as one that is difficult by vocabulary."
+      }
+    ]
+  },
+  {
+    "slug": "lexical-diversity-calculator",
+    "keywords": ["lexical diversity", "type-token ratio", "mattr", "herdan index"],
+    "intro": "The Lexical Diversity Calculator reports tokens, types, type-token ratio, the Guiraud and Herdan indices and MATTR across window sizes.",
+    "content": "Lexical diversity measures how many different words a text uses relative to its length. The catch is that plain type-token ratio falls as a text grows, so a short sample looks more diverse than a long one even when the vocabulary is identical. This lexical diversity calculator shows the length-sensitive measures alongside the ones that correct for it, and the table of MATTR values across window sizes is the part that answers the comparison question fairly.\n\nThe main panel reports tokens, types, the whole-text type-token ratio, the Guiraud index — types divided by the square root of tokens — the Herdan index, which uses logarithms, and the sentence count. A table below reports MATTR, the moving-average type-token ratio, at a reference window you choose, so the same text can be examined at several window sizes on one screen. When the text is shorter than a few hundred tokens, a note warns that every measure here is provisional.\n\n- Tokens and types, the raw counts every other measure divides.\n- Type-token ratio, shown with the warning that it falls as text length grows.\n- Guiraud index, types divided by the square root of tokens, which stays steadier across lengths.\n- Herdan index, log types divided by log tokens, a compression-based alternative.\n- MATTR by window size, averaged over fixed windows so short and long samples can be compared.\n- A note explaining that none of these figures is a quality score.\n\nTokens are normalised through the shared Unicode tokenizer with case folded and surrounding punctuation dropped. MATTR follows Covington and McFall: within each window the type-token ratio is computed, then the window values are averaged, which removes most of the length dependence that makes plain type-token ratio unsuitable for comparison. The Guiraud and Herdan indices are algebraic corrections rather than empirical ones. All of the measures share one token stream, so they rise and fall together when the text changes. Comparing two drafts that differ greatly in length without a length-corrected measure is the classic mistake, and the table exists to make that comparison defensible rather than impressionistic.\n\n- Diversity measures stabilise only after several hundred tokens; short texts flatter themselves.\n- MATTR depends on window size, so comparisons must hold the window constant between texts.\n- Tokenisation rules decide what counts as the same type: case folding merges capitalised variants, and no stemming is applied.\n- Genre and purpose dominate interpretation, because technical writing repeats terms deliberately.\n- None of the measures detects vocabulary difficulty, only repetition.\n\nRead the table across window sizes rather than trusting one figure: a text whose MATTR is stable from 50 to 200 words is genuinely varied, while one that drops sharply is leaning on repetition. Compare drafts of the same genre and similar length, and treat any gap under a few points as noise rather than signal. If a gap survives that check, read the MATTR table again at the two window sizes that bound the difference, because an unstable value is the usual explanation.\n\nThe Vocabulary Richness Scorer presents the same underlying ratios around a single headline window, the Text Fingerprint Analyzer folds type-token ratio and hapax share into a wider stylometric profile, and the which-measure-to-trust note below the tables explains why several measures are shown instead of one.",
+    "howTo": [
+      "Paste a draft into the input panel; the diversity figures update as you type.",
+      "Set the reference window if you want a comparison scale other than the default.",
+      "Read the Diversity panel for tokens, types, type-token ratio, the Guiraud and Herdan indices, and the sentence count.",
+      "Check the MATTR table across window sizes to see whether the value is stable, then copy or download the report."
+    ],
+    "whenToUse": "Reach for the lexical diversity view when comparing drafts of different lengths, since length-corrected measures are the only fair comparison. The {{vocabulary-richness-scorer|Vocabulary Richness Scorer}} presents the same ratios around a single headline window, the {{text-fingerprint-analyzer|Text Fingerprint Analyzer}} folds diversity into a wider stylometric profile, and the {{average-word-length-calculator|Average Word Length Calculator}} adds the length dimension these measures ignore.",
+    "faqs": [
+      {
+        "q": "Why is type-token ratio not enough?",
+        "a": "It falls as a text grows, so a short sample always looks more diverse than a long one. MATTR and the Guiraud and Herdan indices correct for length in different ways, which is why several measures are shown."
+      },
+      {
+        "q": "Which window size should I use for MATTR?",
+        "a": "100 tokens is the common default and works for most texts. If you compare two texts, use the same window for both, and check the table to see whether the value is stable across sizes."
+      },
+      {
+        "q": "How long does the text need to be?",
+        "a": "Several hundred tokens before the measures settle. The page displays a provisional warning below that threshold."
+      },
+      {
+        "q": "Is high lexical diversity always good?",
+        "a": "No. Repetition can be deliberate — technical terms must repeat, and refrains repeat for effect. Diversity describes the vocabulary; it does not grade it."
+      },
+      {
+        "q": "What is the Herdan index?",
+        "a": "The log of the number of types divided by the log of the number of tokens. It is a length-corrected diversity measure that compresses large counts, so it moves more slowly than plain type-token ratio."
+      }
+    ]
+  },
+  {
+    "slug": "text-fingerprint-analyzer",
+    "keywords": ["text fingerprint", "stylometric profile", "function-word similarity", "authorship attribution"],
+    "intro": "The Text Fingerprint Analyzer profiles a text's measurable style features and compares two texts field by field — while stating plainly what it is not.",
+    "content": "A text fingerprint, as a browser tool can honestly produce one, is a set of measurable features: sentence-length distribution, word length, lexical diversity, punctuation rates and the share of function words. This analyzer computes that stylometric profile for one text and compares it with a second, showing every difference rather than a single opaque score. The honesty of the tool lies in what it refuses to claim: authorship attribution and AI detection need calibrated corpora and published error rates, and those are not available in a page.\n\nText A is the reference and Text B is the comparison. The panel reports a function-word similarity — the cosine similarity of the two closed-class share vectors, from 0 to 1 — with a plain-language band such as nearly identical profile or loosely related. Below that, the profile of text A lists sentences, mean sentence length, sentence-length variation, mean word length, type-token ratio, Guiraud index, words used once and commas per 1,000 words, and a comparison table shows each feature for both texts with the difference between them.\n\n- Two text inputs: a reference text A and a comparison text B.\n- Function-word similarity as the cosine similarity of the closed-class share vectors, with a named band.\n- Sentence features: count, mean sentence length and sentence-length variation.\n- Word features: mean word length, syllables per word and the share of words of seven or more letters.\n- Diversity features: type-token ratio, Guiraud index and the share of words used exactly once.\n- Punctuation rates per 1,000 words for commas, semicolons, colons, dashes, questions, exclamations, parentheses and quotation marks.\n\nThe profile is computed from the shared tokenizer and syllable heuristic: sentence segments yield length statistics, word tokens yield length and diversity measures, and a curated function-word list yields the closed-class shares. Similarity is cosine similarity over those share vectors, a standard vector comparison rather than a trained model. The bands run from nearly identical at 0.98 and above through very close, similar and loosely related to distinct profiles below 0.8. Everything runs in the page, and both texts are gone when you leave.\n\n- This is not authorship attribution, plagiarism detection or AI detection; those need calibrated corpora and published error rates, which a browser tool cannot supply.\n- A high similarity means the two texts distribute function words and sentence lengths alike; two drafts by the same writer often score high, and so do two texts in the same genre by different writers.\n- Punctuation features depend on formatting, because quotation styles and dash choices change the rates without changing the writing.\n- Non-English text and quoted material distort the function-word vectors.\n- Short samples produce unstable profiles; a few hundred words per text is the practical floor.\n\nUse the analyzer to compare what can be measured: whether two drafts sound like the same voice, whether a rewrite preserved the original's rhythm, or how a translation differs from its source in sentence shape. Read the field-by-field table rather than the similarity number alone, because the single figure condenses every feature, while the table shows which of them actually differ.\n\nThe Lexical Diversity Calculator and Vocabulary Richness Scorer go deeper on the vocabulary side, and the Word Count Tool supplies the raw counts behind every profile. The what-a-fingerprint-is-and-is-not note at the bottom of the page is deliberately blunt, and it is worth reading before quoting any similarity figure in an argument.",
+    "howTo": [
+      "Paste the reference text into the Text A panel and the text you want to compare into the Text B panel.",
+      "Read the Profile similarity panel for the function-word similarity and its named band.",
+      "Check the profile of text A for the sentence, word, diversity and punctuation features.",
+      "Scan the field-by-field comparison table for the features that differ beyond noise, then copy or download the report."
+    ],
+    "whenToUse": "Use the text fingerprint analyzer to compare measurable style: two drafts by the same author, an original and its rewrite, or a translation against its source. The {{lexical-diversity-calculator|Lexical Diversity Calculator}} goes deeper on the vocabulary ratios, the {{vocabulary-richness-scorer|Vocabulary Richness Scorer}} focuses on richness specifically, and the {{keyword-density-analyzer|Keyword Density Analyzer}} shows term repetition, which the profile's aggregate features deliberately do not capture.",
+    "faqs": [
+      {
+        "q": "Can this tool tell whether two texts were written by the same person?",
+        "a": "No. The profile compares measurable features, and similarity is cosine similarity over function-word shares. Authorship attribution needs calibrated corpora and published error rates, which this tool does not have."
+      },
+      {
+        "q": "Why do two texts by one writer sometimes score low?",
+        "a": "Different genres, formats or levels of editing change sentence length and punctuation rates. The feature table shows which dimensions differ, which is more informative than the single similarity figure."
+      },
+      {
+        "q": "What does function-word similarity actually measure?",
+        "a": "How similarly the two texts distribute closed-class words like the, of and and. It is a property of style rather than topic, but it cannot identify an author on its own."
+      },
+      {
+        "q": "How much text do I need in each box?",
+        "a": "A few hundred words per text for a stable profile. Shorter samples produce provisional features, especially for diversity and punctuation rates."
+      },
+      {
+        "q": "Is either text stored or uploaded?",
+        "a": "No. Both texts are profiled in the browser, and they are gone when the page closes; nothing is sent to a server."
+      }
+    ]
+  }
+]

@@ -46,7 +46,8 @@
     ".next-adsbuild/types/**/*.ts",
     ".next-sievecheck/types/**/*.ts",
     ".next-seolive/types/**/*.ts",
-    ".next-gs/types/**/*.ts"
+    ".next-gs/types/**/*.ts",
+    ".next-audit/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

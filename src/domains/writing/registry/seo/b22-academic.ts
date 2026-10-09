@@ -12,261 +12,216 @@ import type { ToolSeo } from "@/components/shared/seo-types";
  */
 export const B22_ACADEMIC_SEO: Record<string, ToolSeo> = {
   "scientific-abstract-builder": {
-    keywords: ["scientific abstract", "structured abstract", "gap statement", "key results", "word band"],
-    intro:
-      "The scientific abstract builder assembles five sentence roles — context, gap, approach, key results and implication — and checks each one for what it has to contain.",
-    content: `The scientific abstract builder asks for five roles rather than five paragraphs, because those are the parts a reader is looking for. Context establishes what is already known. The gap statement says what is not yet known, in the voice of an absence rather than an interest. Approach names the design and the sample. Key results carry the figures. Implication draws the consequence. A scientific abstract missing any one of them reads as either a plan or a boast.
-
-The gap statement is the role most often written badly, so it is checked against published markers. A sentence such as we did something interesting does not state a gap; a sentence such as it remains unclear whether, or has not been examined, does. The distinction matters because a gap is a claim about the state of knowledge, and a reader who cannot see it cannot judge whether the study closes it.
-
-Key results are checked for a number and for hedging words. A results sentence with no figure in it cannot be weighed, and hedging there is a category error: appears to and may belong in the implication, where they are honest, rather than in the finding, where they are evasive. The checker flags both and explains which role the caution belongs to.
-
-Most clinical and scientific journals ask for a structured abstract with the labels visible, and the builder produces that shape from the same five roles. The continuous version drops the labels and joins the same sentences into a paragraph for venues that prefer it. Switching between the two is one checkbox and the word count does not change, because nothing is added or removed.
-
-The word band is the usual two hundred to three hundred, and the check reports the distance rather than the verdict. Acronyms are counted as well: more than three and a reader outside the subfield will be decoding rather than reading. Citations are flagged, since an abstract is read apart from the reference list and conventionally carries none.
-
-Write the roles from the results upwards. Draft the key results first, then the approach that produced them, then the gap the study addressed, then the context, and finally the implication. An abstract written in that order describes the study that was actually done, which is the only study a reviewer can assess.
-
-The builder cannot judge the research. Whether the sample is adequate, whether the analysis fits the design and whether the implication follows from the figures are the reviewer's questions, and the page says so rather than implying that a clean set of role checks means a sound paper.
-
-A useful exercise before writing is to read the five roles aloud as a single paragraph and listen for the join between the gap and the approach. That join is where an abstract either convinces or loses a reader, because it is the move from what was missing to what was done. When the join is weak the approach usually answers a slightly different question from the one the gap raised, and the fix is in the roles rather than in the wording. Read the key results against the approach as well, since a figure the sample cannot produce is the fastest way to lose a reviewer's confidence.`,
-    howTo: [
-      { step: "Draft the key results first, with the figures the study actually produced." },
-      { step: "Write the approach that produced them: design, sample and analysis." },
-      { step: "State the gap the study addressed using an absence marker such as remains unclear." },
-      { step: "Add the context above it and the implication below." },
-      { step: "Clear the role checks, then copy the labelled or continuous shape your venue wants." },
+    keywords: [
+      "scientific abstract builder",
+      "word budget",
+      "key results",
+      "hedges",
     ],
-    whenToUse: `Use the scientific abstract builder when the paper is drafted and the abstract has to be written in the venue's shape. Role checks catch the gap that never states a gap and the results sentence that carries no number, which are the two things reviewers notice first.
-When the objective itself is still moving, the {{thesis-statement-builder|Thesis Statement Builder}} tightens the claim first. For a general abstract outside the sciences, the {{abstract-generator|Abstract Generator}} labels the same five IMRaD parts without the scientific role checks.`,
+    intro:
+      "The Scientific Abstract Builder assembles the five roles of a research abstract under a word budget, and checks which roles the draft actually covers.",
+    content:
+      "An abstract is five jobs in a few hundred words — what is known, what is missing, what you did, what you found, what it means — and this scientific abstract builder assembles them in order. Fill the five roles: the context, the gap, the approach with its design and sample, the key results with their figures, and the implication; the tool joins them into one paragraph, counts the words against the published 200-to-300 band, and checks each role for the markers that show the job was done.\n\nThe roles panel takes one field per role. The draft panel shows the assembled paragraph with its word count against the budget band, and the checks panel names the weak roles: a gap with no gap marker — remains unclear, little is known, no study — an approach with no method words, results with no figures, a hedge like might or possibly doing the work of a finding. Scope and limits says the builder assembles and checks shape; it cannot judge whether the science is sound.\n\n- Context: what is established, in one or two sentences.\n- Gap: what is not known, phrased with an explicit gap marker.\n- Approach: the design, the sample and what was measured.\n- Key results: the findings with their figures, not their adjectives.\n- Implication: what the results suggest and for whom.\n- Budget: 200 to 300 words, counted and shown against the band.\n\nThe assembly is role composition: each field is trimmed and joined in the published order, the word count runs against the fixed band, and the role checks are marker regexes — a gap phrase for the gap, method words for the approach, digits for the results, a hedge list for the findings. The same draft always produces the same notes, and every note quotes the habit rather than scoring the science. Write the abstract last and the paper thanks you, because the five roles are only honest once the results have stopped moving and the implications have settled.\n\n- The band is the usual range for a scientific abstract, not a journal's rule.\n- The gap, method and hedge checks are marker lists; elegant wording can evade them.\n- Figures in the results are checked by presence, not correctness.\n- The builder writes no sentences; every claim is yours.\n- The draft is not stored, so copy it before closing the page.\n\nFill the results first and the abstract tightens: the figures decide which gap was worth stating, and a gap written before the results usually promises more than the study delivered. Then read the implication against the results — an implication the figures cannot carry is the sentence reviewers underline — and cut the hedges the check names, because an abstract that hedges its own findings invites the reader to hedge their interest. The word budget is a discipline, not a nuisance: at 300 words there is room for exactly one story, and the role checks show you which sentences are not part of it. When the draft is past the band, cut context before results and results before implication, in that order.\n\nThe neighbours compress and clean the rest: the text summarizer shortens a long background section, the key points extractor pulls the findings out of a results draft, and the academic writing tone checker holds the register impersonal. The word count tool in this domain does the counting the panel repeats.",
+    howTo: [
+      { step: "Fill the five roles: context, gap, approach, results, implication." },
+      { step: "Read the assembled paragraph against the word budget." },
+      { step: "Work through the role checks — gap markers, method words, figures, hedges." },
+      { step: "Copy the abstract and trim to the journal's limit." },
+    ],
+    whenToUse:
+      "Use the scientific abstract builder when a study is finished and the 250-word door is not yet built. The {{text-summarizer|Text Summarizer}} compresses a background that runs long, and the {{key-points-extractor|Key Points Extractor}} pulls candidate results from a findings draft. When the register drifts, the {{academic-writing-tone-checker|Academic Writing Tone Checker}} pulls it back, and the word count tool in this domain verifies the final count.",
     faqs: [
       {
-        q: "What is a gap statement and why is it checked?",
-        a: "It is the sentence that says what is not yet known. The check looks for absence markers such as remains unclear, has not been examined or little is known, because a gap stated as an interest cannot be judged or closed.",
+        q: "What are the five roles?",
+        a: "Context — what is established; gap — what is not known; approach — the design, sample and measures; key results — the findings with their figures; implication — what the results suggest. The builder assembles them in that order because readers expect it.",
       },
       {
-        q: "Why are hedging words flagged in the results?",
-        a: "Because appears to and may belong in the implication rather than in the finding. The role check flags the hedge and says which role it belongs to, so the caution is kept without weakening the number.",
+        q: "Why 200 to 300 words?",
+        a: "It is the band most journals ask for and most abstracts miss on the long side. The builder counts against that published band and shows the number; your target journal's limit overrides it.",
       },
       {
-        q: "What is the difference between a structured and a continuous abstract?",
-        a: "The structured abstract prefixes each role with its label, which most clinical and scientific journals require. The continuous version joins the same sentences into one paragraph. The word count is identical either way.",
+        q: "What is a gap marker?",
+        a: "A phrase that states the hole explicitly — remains unclear, little is known, has not been tested, no study has. The check looks for one because a gap the reader cannot point to reads as background noise.",
       },
       {
-        q: "Why does the tool count acronyms and flag citations?",
-        a: "Abstracts are read apart from the paper and often by readers outside the subfield, so more than three acronyms forces decoding, and citations conventionally do not appear in an abstract at all.",
+        q: "Why are hedges flagged in the results?",
+        a: "Because might and possibly in the findings sentence soften a result the data already earned. Hedges belong in the implication, where uncertainty is honest; in the results they read as doubt about your own measurements.",
       },
       {
-        q: "Does the builder write the abstract?",
-        a: "No. Every sentence is yours; the tool orders the five roles, applies the labels, counts the words and checks each role against a published marker list so the gaps are visible.",
+        q: "Does the builder check my figures?",
+        a: "Only that the results carry digits. Whether a figure is right, significant or honest is outside the tool, and the scope note says so — the builder checks shape, not science.",
       },
     ],
   },
 
   "literature-review-organizer": {
-    keywords: ["literature review organizer", "synthesis", "stance", "annotated bibliography", "themes"],
-    intro:
-      "The literature review organizer parses one source per line, groups the sources by the stance their findings take, and builds a synthesis scaffold that names what is agreed, contested and still open.",
-    content: `The literature review organizer takes one source per line in a plain format — citation, then the finding, then the stance — and groups the result by what each finding does to the others. That grouping is the whole point. A reading list becomes a synthesis when the writer can say which sources agree, which disagree and which extend the question, and those three groups are exactly what the scaffold produces, with the sources listed under each.
-
-The stance field is optional. When it is left empty the organizer reads the finding for markers: consistent or confirms places a source in the agreeing group, contradicts or no effect places it in the disagreeing group, and extends or builds on places it in the third. Anything it cannot place is listed as unstanced, which is a useful state rather than an error — those are the sources whose position the writer has not yet decided.
-
-The scaffold is deliberately short. Each group opens with a sentence frame such as the evidence consistently shows or this agreement is not universal, followed by the citations with their findings. Filling the frames is the writer's work, and the prompts beside the scaffold say what each paragraph has to do: state what the agreeing sources establish together, name who found the opposite and on what sample, and finish with the question none of the sources answer.
-
-The difference between this and an annotated bibliography is the reason the tool exists. An annotated bibliography describes sources one at a time, which is a useful preparation and not a review. A literature review is an argument about a body of work, and an argument needs the groups. When every source in the list agrees, the organizer says so plainly, because a review with no tension reads as a list no matter how well each entry is written.
-
-The checks cover the gaps that make the writing phase harder than it needs to be: sources with no year, sources recorded as a citation with no finding, findings under four words that are too thin to synthesise, duplicate citations, and a list long enough that themes will have to be introduced before the review can be organised at all. Above twenty-five sources the advice is to group them by themes first, since no single review section can carry that many.
-
-The scaffold, the source list and the counts can be copied or downloaded as plain text, and nothing is uploaded. The organizer does not read the papers and does not decide whether a finding really challenges another; that judgement stays with the writer, and the scaffold is arranged to make it visible rather than to make it for them.
-
-Keep the line format in a notes file while reading. A review written from notes that recorded the stance as the paper was read is a different document from one written from a pile of PDFs two months later, and the difference is visible in the first paragraph.
-
-The organizer is also useful in reverse. Paste a review section you have already written, one source per line as it appears, and the grouping shows which stance is over-represented and which is missing entirely. A section that only ever agrees has become a summary, and a section with no extending sources has not said what the work opened up. Both are quick to fix once they are visible as counts rather than as an impression.`,
-    howTo: [
-      { step: "Record one source per line as citation | finding | stance." },
-      { step: "Leave the stance off where you have not decided yet; the organizer will read the finding." },
-      { step: "Read the three groups and check that the disagreement group is not empty." },
-      { step: "Fill the sentence frames in the scaffold, one group at a time." },
-      { step: "Clear the gaps in the list, then copy the scaffold beside your draft." },
+    keywords: [
+      "literature review organizer",
+      "stance",
+      "synthesis",
+      "clusters",
     ],
-    whenToUse: `Use the literature review organizer once you have read enough sources to have opinions about them, and before you write the review section. Grouping by stance is what turns a reading list into an argument, and the scaffold gives each group a paragraph to live in.
-When the sources are organised but the citations themselves need formatting, the {{academic-journal-reference-formatter|Academic Journal Reference Formatter}} and the {{bibliography-builder|Bibliography Builder}} handle the reference list. When the paper's own claim needs tightening after the review is written, the {{thesis-statement-builder|Thesis Statement Builder}} is the next step.`,
+    intro:
+      "The Literature Review Organizer tags every source with a stance — supports, challenges or extends — groups them into clusters, and hands you a synthesis prompt for each group.",
+    content:
+      "A literature review is an argument about a field, not a list of its papers, and this literature review organizer builds the argument's skeleton. Paste your sources — one per line, each with its author, year and the one-line finding — and the tool tags each source with a stance: supports the thesis, challenges it, or extends it; groups the tagged sources into clusters by topic; marks the lines it could not classify as unstanced; and hands each cluster a synthesis prompt, because a group of sources is not a paragraph until someone says what they add up to.\n\nThe sources panel takes the lines. The plan panel shows the clusters with their stances and counts, the unstanced lines listed by name so nothing vanishes, and the synthesis prompts beside each cluster — the question the paragraph has to answer about that group. Scope and limits says the organizer structures your reading; it does not read the papers for you.\n\n- Stances: supports, challenges, extends — plus unstanced for the lines that resist.\n- Clustering: sources grouped by topic so each cluster becomes a paragraph.\n- Counts: every cluster carries its source count, so thin groups are visible.\n- Synthesis prompts: one question per cluster, written to force a claim.\n- Unstanced list: the lines to re-tag before drafting.\n- Output: a plan you can paste above the draft.\n\nThe organization is parsing and grouping: each line is split into its parts, the stance is read from your tag, the clusters form around the topic you gave, and the synthesis prompts come from a published set attached to the stance patterns. The same source list always produces the same plan, which makes the tool usable across drafts — the plan changes only when the sources do. Treat the counts as a progress meter for the reading, because a review half-tagged is a draft half-argued.\n\n- Stances are only as honest as your tagging; the tool trusts your read.\n- A cluster with two sources is a cluster; whether it earns a paragraph is your call.\n- Unstanced lines are not errors — they are the sources you have not decided about.\n- The prompts are questions, not topic sentences; the claim is yours.\n- Nothing is stored, so copy the plan before closing the page.\n\nWrite the challenges cluster first: the sources against your thesis are the review's credibility, and a paragraph that grants them their strongest form buys the space for everything else. Then answer each cluster's synthesis prompt in one sentence before writing the paragraph — the sentence is the topic sentence, and a cluster whose prompt you cannot answer is a cluster that belongs to someone else's review. Sweep the unstanced list last: every line you leave untagged is a source the draft will silently ignore, and reviewers notice omissions faster than errors. Keep the clusters few — five strong paragraphs beat twelve thin ones, and the counts panel shows you which is which.\n\nThe neighbours compress and carry: the key points extractor pulls the one-line finding from each paper's abstract, the text summarizer shortens a background that runs long, and the thesis statement builder restates the claim the stances serve. The academic writing tone checker in this domain holds the register.",
+    howTo: [
+      { step: "Paste the sources, one per line, with your stance tags." },
+      { step: "Read the clusters, their counts and the unstanced list." },
+      { step: "Answer each cluster's synthesis prompt in one sentence." },
+      { step: "Copy the plan and draft the challenges cluster first." },
+    ],
+    whenToUse:
+      "Use the literature review organizer when the sources are collected and the review refuses to become an argument. The {{key-points-extractor|Key Points Extractor}} distils each paper to its finding, and the {{text-summarizer|Text Summarizer}} compresses the background that resists shortening. When the review's claim needs one sentence, the {{thesis-statement-builder|Thesis Statement Builder}} writes it, and the academic writing tone checker in this domain keeps the register scholarly.",
     faqs: [
       {
-        q: "What line format does the organizer expect?",
-        a: "One source per line as citation | finding | stance, for example Smith (2021) | remote work cuts informal contact by a third | supports. The stance is optional and is read from the finding when it is omitted.",
+        q: "What do the three stances mean?",
+        a: "Supports — the source's findings back your thesis; challenges — they cut against it; extends — they push the thesis into new territory. The three-way split is coarse on purpose: it forces a decision per source, which is the review's real work.",
       },
       {
-        q: "How is this different from an annotated bibliography?",
-        a: "An annotated bibliography describes sources one at a time. A literature review makes an argument about the body of work, which needs the sources grouped by what their findings do to each other — agree, disagree or extend.",
+        q: "What is an unstanced source?",
+        a: "A line the tool could not classify because no tag was given. It appears in the unstanced list rather than a cluster, so it cannot vanish silently — re-tag it or decide it does not belong in the review.",
       },
       {
-        q: "What happens when every source agrees?",
-        a: "The organizer flags it. A review with no tension reads as an annotated bibliography, so the check names the missing disagreement rather than letting a supervisor find it later.",
+        q: "What is a synthesis prompt?",
+        a: "The question your paragraph has to answer about a cluster — what the group adds up to, not what each paper said. Answering it in one sentence gives you the topic sentence; skipping it is how reviews become annotated bibliographies.",
       },
       {
-        q: "Does it read the papers or verify the findings?",
-        a: "No. It parses the lines you write, groups them and reports the gaps. Whether a finding really challenges another is your judgement, and the stance field is where you record it.",
+        q: "How many clusters should a review have?",
+        a: "As many as have something to say — usually three to six. The counts panel makes thin clusters visible, and two sources with no synthesis is a sign the group needs merging or cutting.",
       },
       {
-        q: "What should I do with more than twenty-five sources?",
-        a: "Group them by themes before organising the review. No single review section can carry that many, and the check says so instead of letting the scaffold grow past usability.",
+        q: "Does the organizer read the papers?",
+        a: "No. It structures the lines you paste, trusting your stance tags and your one-line findings. The scope note says the tool organises reading; it does not do the reading.",
       },
     ],
   },
 
   "academic-paper-section-planner": {
-    keywords: ["paper section planner", "word budget", "methods section", "results section", "discussion section"],
-    intro:
-      "The academic paper section planner splits a total word budget across the five standard sections using published proportions, and flags the shares that have drifted out of range.",
-    content: `The academic paper section planner turns a total word budget into targets for the five sections of a research article. The proportions are published rather than invented: introduction fifteen per cent, methods twenty, results thirty, discussion thirty and conclusion five. Multiplying a stated total by those shares gives every section a number before writing begins, and a plan with numbers is much easier to argue with than a plan that says the discussion will be long.
-
-The proportions encode a view about what a paper is. The results and discussion sections are the paper; everything else supports them. A methods section at five per cent of a six thousand word article is eight hundred words short of repeatable, and the planner says so as a note attached to that section rather than as a general warning. An introduction past a quarter of the paper has stopped introducing and started reviewing, and it gets its own note.
-
-The three statements the plan has to carry are checked by name. The research question is the first: without it, the sections are containers with nothing to hold, and the planner says so. A question running past forty words gets a second check, because a question that needs a paragraph to state will not survive being answered in the conclusion. The method and the contribution are checked the same way, since a methods section budgeted but never described and a contribution never named are the two most common reasons a plan stalls in the second week.
-
-The word budget also makes the venue limit visible. Under three thousand words the planner warns that sections may be squeezed, which is the honest way to say that a short-format article cannot carry a full results and discussion.
-
-Targets are most useful when they are checked twice: once when the plan is made and once when a full draft exists. Compare the actual section lengths with the budget and the differences are informative in both directions. A results section far under its target usually means a finding was left in the discussion, where it reads as interpretation. A discussion far over its target usually means the comparison with prior work has grown into a second review, which belongs elsewhere. Over twelve thousand it suggests checking the venue limit before splitting the difference across sections, because most journals cap the total rather than each part.
-
-The outline it produces is plain text and can be copied or pasted beside the draft: the question, the method, the contribution, the total, then each section with its target, its purpose and the elements a reader expects to find in it. That list of elements is the part writers use most — results expects a main finding, secondary findings, figures and tables, and uncertainty and exclusions, and a section that cannot answer for all four is not finished.
-
-Nothing is uploaded and nothing is stored beyond the tab. The planner does not read your draft and cannot tell whether the sections were actually written to their targets; it plans the budget and names the statements the plan depends on.
-
-Revise the plan when the paper changes shape, and expect it to change. A plan made in the first week and never revisited is usually the reason a discussion section is twice its target while the results section reports one finding.`,
-    howTo: [
-      { step: "State the research question in one sentence." },
-      { step: "State the method and the contribution in a line each." },
-      { step: "Set the total word budget the venue allows." },
-      { step: "Read the five section targets and the notes attached to any that look thin." },
-      { step: "Clear the checks and keep the outline beside the draft as the sections are written." },
+    keywords: [
+      "academic paper section planner",
+      "word budget",
+      "IMRaD",
+      "sections",
     ],
-    whenToUse: `Use the paper section planner at the start of a writing block rather than at the start of the project, when the study exists and the article has to be budgeted. Section targets make an overgrown methods section visible in week one rather than in the second review round.
-When the literature the introduction has to summarise is still a pile of notes, organise it first with the {{literature-review-organizer|Literature Review Organizer}}. When the paper is drafted and the abstract has to be written, the {{scientific-abstract-builder|Scientific Abstract Builder}} takes over from there.`,
+    intro:
+      "The Academic Paper Section Planner splits a target word count across the paper's sections in the IMRaD order, and shows which section carries the argument's weight.",
+    content:
+      "A paper is a word budget before it is a document, and this academic paper section planner spends it. Give the target — the default is six thousand words — and the tool allocates the budget across the sections in the IMRaD order: introduction, methods, results, discussion, conclusion, each with its share, its job and the prose shape that job implies; the plan is the outline you argue with before you write, when changing your mind is still free.\n\nThe input panel takes the total and any section you want to weight by hand. The plan panel lists every section with its allocated words, its share of the total and its purpose line, and the arithmetic is visible: the shares sum to the budget, and a section you weight by hand takes the difference from the others. Scope and limits says the planner allocates; it cannot know your journal's structure or your committee's taste.\n\n- Sections: introduction, methods, results, discussion, conclusion — the IMRaD spine.\n- Budget: the total split by published proportions, shown as words and percent.\n- Purpose lines: each section's job stated in one sentence.\n- Hand weighting: pin a section and the rest of the budget adjusts.\n- Output: a plan to paste above the draft and argue with.\n\nThe planning is proportional allocation: each section carries a published share of the total, the words are rounded, and the plan is recomputed whenever the total or a hand weight changes. The same budget always produces the same plan, which makes the tool useful in a writing group — two authors can argue about shares rather than vibes. Print the plan beside the outline and let the two disagree in public, because a budget nobody wrote down is a budget nobody keeps.\n\n- The shares are conventions; a results-heavy paper may need its own weights.\n- The planner does not write, outline or schedule; it splits a number.\n- Journal templates override the section list, not the discipline of budgeting.\n- A plan is a hypothesis; the draft will renegotiate it. Revisit the plan after the first full draft, because the sections that overran are telling you where the paper's real centre is, and the budget should learn from the draft.\n- Nothing is stored, so copy the plan before leaving the page.\n\nBudget the discussion first and the paper gets easier to write: it is the section reviewers read most closely and the one authors under-fund, so give it its share before the methods eats the surplus. Then check the results share against your evidence — a paper with six figures does not fit the same split as one with none, and the hand-weighting exists for exactly that argument. Read the plan top to bottom once and ask where the argument actually lives: if the discussion's share is smaller than the methods', the paper is a methods report wearing a paper's clothes, and the budget shows it. Keep the plan beside the draft and re-read it at half the word count; budgets are most useful exactly when the draft starts ignoring them.\n\nThe neighbours track the spending: the word count tool measures each section as drafted, the reading time estimator shows how long the paper holds a reader, and the outline builder turns the plan into headings. The paragraph compressor in this domain pays back words when a section runs over.",
+    howTo: [
+      { step: "Enter the target word count." },
+      { step: "Read the section shares and their purpose lines." },
+      { step: "Hand-weight any section the paper's shape demands." },
+      { step: "Copy the plan and check the draft against it." },
+    ],
+    whenToUse:
+      "Use the academic paper section planner before drafting, when the budget is still spendable. The {{word-count-tool|Word Count Tool}} measures each section as it grows, and the {{reading-time-estimator|Reading Time Estimator}} shows the paper's cost to a reader. When the plan needs headings, the {{outline-builder|Outline Builder}} builds them, and the paragraph compressor in this domain claws back a section that ran over.",
     faqs: [
       {
-        q: "Where do the section proportions come from?",
-        a: "They are published working proportions: introduction fifteen per cent, methods twenty, results thirty, discussion thirty and conclusion five. They fit a standard research article and are a starting position rather than a rule.",
+        q: "What is IMRaD?",
+        a: "Introduction, Methods, Results and Discussion — the spine most empirical papers hang on, with the conclusion as the close. The planner uses the five-section form because it is the common denominator of journal structures.",
       },
       {
-        q: "What does the planner check besides the budget?",
-        a: "The research question, the method and the contribution, plus the total against a realistic range. Notes are attached to sections whose targets fall below what that section needs to do its job.",
+        q: "Where do the default shares come from?",
+        a: "Published conventions for empirical papers: a compact introduction, a methods section that carries reproducibility, results proportional to the evidence, and a discussion that gets room to argue. They are starting proportions, not rules.",
       },
       {
-        q: "Why does the methods section have a minimum?",
-        a: "Because a methods section has to describe the design, the sample and the analysis well enough for another researcher to repeat the study. Under about four hundred words at a six thousand word total, it usually cannot.",
+        q: "Can I weight a section by hand?",
+        a: "Yes. Pin the section's share and the planner redistributes the remainder across the others, keeping the sum at your target. The arithmetic stays visible in the plan.",
       },
       {
-        q: "A question longer than forty words is flagged — why that length?",
-        a: "Because a research question should fit in a sentence. Past forty words it is usually several questions sharing a full stop, and a paper that answers all of them answers none of them well.",
+        q: "Does the planner write the outline?",
+        a: "No. It allocates words and states each section's job; the headings and the prose are yours. The outline builder in this domain is the tool that turns a plan into headings.",
       },
       {
-        q: "Does the planner write the sections?",
-        a: "No. It divides the budget, names the purpose and elements of each section and checks the three statements the plan depends on. Every word of the paper is still yours.",
+        q: "Is my target saved?",
+        a: "No. The plan is computed in the page from the number you typed, and nothing is stored; copy the plan before closing the tab.",
       },
     ],
   },
 
   "grant-proposal-outline": {
-    keywords: ["grant proposal outline", "objectives", "evaluation plan", "timeline", "budget justification"],
-    intro:
-      "The grant proposal outline assembles one of three published funder frameworks and checks the parts reviewers reject proposals for: unmeasurable objectives, a missing evaluation plan, an undated timeline and an unjustified budget.",
-    content: `The grant proposal outline offers three frameworks because funders organise their calls differently. A significance, innovation and approach structure suits a scientific call. A need, objectives, methods, evaluation structure suits a programme grant. A generic outline of summary, problem, plan, outcomes, risks and budget covers everything else. Choosing a framework changes the sections and the prompts; the checks are the same in all three, because the same omissions sink a proposal wherever it is submitted.
-
-The objectives check is the one writers act on most. An objective a reviewer cannot measure is a wish, so the check looks for a number or a measurable verb — increase, reduce, establish, develop, test, measure, recruit and the rest — and flags a set that has neither. It also counts the objectives and warns past five, which is roughly the number a reviewer can hold while reading the rest of the application.
-
-The evaluation plan is checked by presence and by substance. Every framework in the tool has an evaluation section, and an empty one is named in the checks with its prompt, so a proposal cannot pass with outcomes claimed and no method of showing them. The same is true of the timeline: where a framework has one, a timeline without dates or periods is flagged, because milestones without a month, a quarter or a year are not milestones.
-
-The budget justification is the section most often left to last, and the tool's prompt for it says what reviewers look for: costs tied to activities rather than to categories. Two research assistants for nine months is tied to an activity. Personnel: two is a category. The check cannot judge the numbers, but it can and does name the section as empty when nothing has been written there at all.
-
-Length is checked against a stated limit, which defaults to two thousand five hundred words for the narrative. Over the limit is flagged plainly, because reviewers stop reading before the budget justification, which is the section that decides the award. Well under the limit is also flagged: most calls expect the narrative to use the space it has been given, and a proposal at a third of the allowance reads as unfinished.
-
-Keep the objectives and the evaluation plan beside each other while writing, because they are the two sections a reviewer reads as a pair. Each objective should map to at least one measure in the evaluation plan, and each measure should be traceable to an objective. Where the mapping breaks, the proposal is either claiming an outcome it cannot show or collecting data it never promised to use, and reviewers look for both deliberately. The tool cannot perform that mapping, but it can make sure neither section is empty while the other carries the argument.
-
-The whole outline can be copied or downloaded as plain text, with each section carrying its prompt where nothing has been written yet. Nothing is uploaded, and the framework and limit can be changed at any point without losing the text already typed.
-
-Read the call itself before trusting any framework. Funder requirements change, page limits change, and a structure that fits one competition may be disqualified in another for reasons no outline tool can know.`,
-    howTo: [
-      { step: "Choose the framework the call is organised around." },
-      { step: "Set the narrative word limit from the call." },
-      { step: "Write the objectives as three to five measurable statements, one per line." },
-      { step: "Fill the evaluation plan and put dates on every timeline item." },
-      { step: "Clear the checks, then read the narrative against the limit before exporting it." },
+    keywords: [
+      "grant proposal outline",
+      "measurable",
+      "timeline",
+      "sections",
     ],
-    whenToUse: `Use the grant proposal outline as soon as the call is chosen, before the narrative is drafted. The frameworks give the sections their shape, and the objective and evaluation checks catch the two omissions that cost applications at first review.
-When the proposal is a client-facing document rather than a funder application, the {{proposal-template|Proposal Template}} is organised around problem, approach, deliverables and price. When the narrative has to be read by non-specialists, the {{technical-to-plain-language-converter|Technical to Plain Language Converter}} expands the acronyms and replaces the jargon before submission.`,
+    intro:
+      "The Grant Proposal Outline assembles the Significance, Innovation and Approach sections against a word limit, and checks every aim for the measurability and timeline reviewers score.",
+    content:
+      "A grant proposal is scored section by section, and this grant proposal outline builds it that way. Pick the framework — the full Significance, Innovation, Approach structure or its three short-form variants — and fill the sections against the word limit, which defaults to twenty-five hundred; for each research aim, the tool checks the two things reviewers actually score: whether the aim is measurable, and whether it carries a timeline. The output is the outline with every section's word share and every aim's flags, ready to argue with before the deadline argues for you.\n\nThe framework panel takes the sections and the aims. The plan panel shows each section with its allocated share of the limit, and the checks panel names the weak aims: an aim with no measurable verb — increase, reduce, establish, test, measure, compare — and no figure, or an aim with no timeline words — month, quarter, a year, a named quarter. Scope and limits says the outline structures and flags; it cannot know your funder's priorities.\n\n- Frameworks: Significance, Innovation, Approach, plus the short-form variants.\n- Word limit: twenty-five hundred by default, split across the sections.\n- Measurability: every aim needs a measurable verb or a number.\n- Timeline: every aim needs month, quarter, year or a named date.\n- Section shares: the limit spent visibly, so no section starves.\n- Output: the outline with flags, ready for the rewrite pass.\n\nThe assembly is section composition with aim checks: the sections are rendered in the framework's order with their word shares, and each aim is tested against a measurable verb list and a timeline pattern. The checks are deterministic — the same aims always earn the same flags — which makes the tool usable in a writing group where someone else has to believe your aims.\n\n- A measurable verb does not make an aim achievable; it makes it scoreable.\n- The word limit is a default; your call's limit overrides it.\n- The framework list is fixed; agency-specific forms need their own mapping.\n- Budget and staffing sections are out of scope; this outline is the science.\n- Nothing is stored, so copy the outline before leaving the page.\n\nWrite the aims first and the sections fill with purpose: a proposal with three measurable, time-boxed aims is a plan, and the Significance section writes itself around why the plan matters. Then read each aim's flags honestly — the measurable check is not bureaucracy, it is the reviewer's first test of whether you will be able to tell in year three that the project worked. Spend the word budget on Approach: reviewers fund the how, and a proposal that gives its limit to Significance rhetoric while the approach starves is the outline shape the shares panel makes visible. Finish by reading the aims in sequence — each should be possible if the previous one lands, and an aim that secretly depends on aim three failing is the kind of thing the flags cannot catch and reviewers love to.\n\nThe neighbours assemble the rest of the submission: the executive summary builder compresses the pitch for the cover letter, the meeting summary formatter structures the team's planning sessions, and the key points extractor distils the preliminary data into aim-supporting bullets. The word count tool in this domain tracks the limit as sections grow.",
+    howTo: [
+      { step: "Pick the framework and enter the sections." },
+      { step: "Write the aims and read their measurable and timeline flags." },
+      { step: "Check the section shares against the word limit." },
+      { step: "Copy the outline and fix the flagged aims." },
+    ],
+    whenToUse:
+      "Use the grant proposal outline when the science is ready and the scoring structure is not. The {{executive-summary-builder|Executive Summary Builder}} writes the cover-letter pitch, and the {{key-points-extractor|Key Points Extractor}} distils the preliminary data into bullets. When the team plans, the {{meeting-summary-formatter|Meeting Summary Formatter}} structures the session, and the word count tool in this domain watches the limit.",
     faqs: [
       {
-        q: "Which framework should I choose?",
-        a: "Whichever the call is organised around: significance, innovation and approach for a scientific call; need, objectives, methods and evaluation for a programme grant; the generic outline otherwise. The checks behave identically in all three.",
+        q: "What frameworks does the outline support?",
+        a: "The Significance, Innovation, Approach structure used by major federal funders, plus three short-form variants built from the same sections. Each framework is a fixed list of sections with their order and shares.",
       },
       {
-        q: "What makes an objective measurable?",
-        a: "A number or a measurable verb — increase, reduce, establish, develop, test, measure, recruit. The check flags a set of objectives with neither, and warns when there are more than five to hold in mind.",
+        q: "What makes an aim measurable?",
+        a: "A verb from the published list — increase, reduce, establish, develop, test, measure, compare, deliver, train, publish, recruit, complete — or a number in the aim. The check wants a result you could observe, not admire.",
       },
       {
-        q: "Why is an undated timeline flagged?",
-        a: "Because a milestone without a month, a quarter or a year is not a milestone. The check looks for dates and periods and says plainly that the timeline carries none.",
+        q: "Why does every aim need a timeline?",
+        a: "Because reviewers read an aim without dates as a wish. The timeline pattern accepts months, quarters, years and named dates; the flag just asks when, and the answer is yours.",
       },
       {
-        q: "What should a budget justification contain?",
-        a: "Costs tied to activities rather than to categories. Two research assistants for nine months is tied to an activity; a personnel line is a category. The prompt says so, and an empty section is named in the checks.",
+        q: "Does the tool write the budget or staffing sections?",
+        a: "No. The outline covers the scientific sections and their aims; administrative sections belong to your institution's process, and the scope note says so.",
       },
       {
-        q: "Why warn when the narrative is under the limit?",
-        a: "Because most calls expect the space to be used. A narrative at a third of the allowance usually means an evaluation plan, a timeline or a budget justification has not been written properly yet.",
+        q: "Is the outline saved between edits?",
+        a: "No. The plan and flags are computed in the page from your text, and nothing is stored; copy the outline before the tab closes.",
       },
     ],
   },
 
   "technical-report-template": {
-    keywords: ["technical report template", "scope statement", "findings", "recommendations", "revision history"],
-    intro:
-      "The technical report template assembles seven standard sections into a numbered report and checks the parts a reader looks for first: the scope statement, evidence behind the findings, and recommendations with an owner and a date.",
-    content: `The technical report template assembles seven sections in the order a decision-maker reads them: summary, scope and audience, background, findings, risks and limitations, recommendations, and an appendix for the material that would otherwise interrupt the body. The output is numbered, carries the title and the audience as front matter, and ends with a revision history placeholder, because a report that is revised without a record of what changed is a report nobody can rely on.
-
-The scope statement is checked against the audience. A scope that never names who the report is for is flagged, and so is one that names a different audience from the one set in the front matter. Scope is the section that stops a report being read as more than it is: what was examined, what was not, and for whom. The check uses the audience's content words rather than its first word, so the operations board is not satisfied by the word the.
-
-The findings section is checked for evidence markers — figures, observations, sources, comparisons — because a finding with nothing behind it is an opinion with a heading. The check names what is missing rather than arguing with the content: a reader cannot tell what was measured, and a report that cannot be verified will not be acted on.
-
-Recommendations are checked for an owner and a date. An action with neither is a hope, and the check says so. Any recommendation also implies a risk, so when the recommendations section has content and the risks section is empty, that pairing is flagged: every recommendation carries a risk, and a report that recommends without naming one is asking to be trusted rather than read.
-
-Sections under ten words are marked thin rather than filled. A heading with one line under it reads as an omission, and reviewers notice missing content faster than they notice extra words. Required sections that are empty are named individually, so the report cannot be exported looking complete when it is not. The word count is reported as a total, which is useful when a report has a stated limit or when a summary has grown longer than the findings it summarises.
-
-Everything can be copied or downloaded as plain text with the numbering intact, and nothing is uploaded. The template assembles and checks; it does not write the analysis, judge the recommendations or decide whether the risks are the right ones.
-
-Write the summary last. A summary written first is a plan, and a plan presented as a summary is the most common reason a technical report is sent back for revision.
-
-The summary deserves its own discipline. Three sentences is the target: the finding, the consequence and the recommendation. A summary that runs to a page is a second introduction, and one that lists everything the report covers tells the reader nothing about what was concluded. Write it last, from the findings and the recommendations as they finally stand, then read it against the scope statement to be sure it does not claim more than the report established. That comparison is the first one a reviewer makes.`,
-    howTo: [
-      { step: "Set the title and the audience before writing any section." },
-      { step: "Write the scope statement: what was examined, what was not, and for whom." },
-      { step: "Put the evidence behind each finding — figures, observations or sources." },
-      { step: "Give every recommendation an owner and a date, and list the risks beside it." },
-      { step: "Clear the checks, write the summary last, then export the numbered report." },
+    keywords: [
+      "technical report template",
+      "recommendations",
+      "findings",
+      "scope",
     ],
-    whenToUse: `Use the technical report template when the work is finished and the document has to be read and acted on by someone who was not involved: an incident review, a feasibility assessment, a handover document. The checks are aimed at the omissions that send reports back.
-When the report is long enough that the prose itself needs work, the {{simplify-text-tool|Simplify Text Tool}} and the {{sentence-rewriter|Sentence Rewriter}} take the next pass. When the process being described is a proposal rather than a review, the {{proposal-template|Proposal Template}} is the better starting structure.`,
+    intro:
+      "The Technical Report Template assembles a report from seven fixed sections, checks each for evidence and next-step discipline, and flags the thin sections that are headings in disguise.",
+    content:
+      "A technical report is read by people who were not in the room, and this technical report template assembles yours for them. Fill the seven sections — summary, scope and audience, background, findings, risks and limitations, recommendations, appendix — and the tool builds the document in that order, checks each section for the discipline its job demands: findings need evidence words or a figure, recommendations need an owner and a date, and any section under ten words is flagged as a heading wearing a paragraph's clothes.\n\nThe input panel takes the seven sections. The draft panel shows the assembled report with section headings in the fixed order and a word count per section, and the checks panel names the faults: a finding with no evidence behind it — no number, no observed, no measured, no data — a recommendation with no owner-and-date pattern, a required section left empty, and the thin-section flags. Scope and limits says the template assembles and checks; it cannot verify your findings.\n\n- Seven sections: summary, scope, background, findings, risks, recommendations, appendix.\n- Required: summary, scope, findings, risks and recommendations; background and appendix optional.\n- Evidence scan: findings checked for numbers and observed facts.\n- Owner-and-date: every recommendation needs who and when.\n- Thin-section flag: under ten words is a heading, not a section.\n- Per-section word counts beside the assembled draft.\n\nThe assembly is section composition: each section is rendered under its heading in the published order, and the checks are pattern tests — an evidence list for findings, an owner-and-date pattern for recommendations, presence for the required sections, and the ten-word floor. The same input always produces the same draft, which makes the template safe to standardise on across a team. Read the assembled report once as the person who has to act on it, because the reader's first question is never what did you do but what should I do now.\n\n- The order is fixed; an organisation with its own template wins where they differ.\n- The evidence check is pattern matching; a wrong figure with a digit passes.\n- The appendix is not checked; it exists to hold what the body should not.\n- Owner and date are pattern checks; whether the plan is real is not checkable.\n- Nothing is stored, so copy the draft before leaving the page.\n\nWrite the recommendations before the findings and the report gets honest: the actions decide which findings matter, and a finding that supports no recommendation is context the appendix can hold. Then fill the risks section with the same care — what the work could not establish is the paragraph that buys the report its credibility, because a report with no named limits invites the reader to imagine them. Read the summary last and keep it to three sentences: the finding and the recommendation, in that order, since the summary is the only section everyone will read. Then sweep the thin-section flags — each one is a promise the report has not kept, and ten words is a generous floor.\n\nThe neighbours tighten the body: the executive summary builder tests the summary section against a stricter brief, the jargon remover strips the vocabulary the scope-and-audience section warns about, and the word count tool tracks each section as it grows. The paragraph compressor in this domain pays back the words a section borrowed.",
+    howTo: [
+      { step: "Fill the seven sections, required ones first." },
+      { step: "Read the assembled draft with its per-section counts." },
+      { step: "Work through the checks — evidence, owner-and-date, thin sections." },
+      { step: "Copy the draft and write the summary last." },
+    ],
+    whenToUse:
+      "Use the technical report template when the work is done and the write-up owes an audience that was not there. The {{executive-summary-builder|Executive Summary Builder}} stress-tests the summary section, and the {{jargon-remover|Jargon Remover}} strips the terms the scope section has not defined. When the report runs long, the {{word-count-tool|Word Count Tool}} shows where, and the paragraph compressor in this domain trims it back.",
     faqs: [
       {
-        q: "Why is the scope statement checked against the audience?",
-        a: "Because scope only means something relative to a reader. A scope that never names who the report is for leaves the reader guessing how much authority the document has, and the check compares the audience's content words against the scope text.",
+        q: "Which sections are required?",
+        a: "Summary, scope and audience, findings, risks and limitations, and recommendations. Background and appendix are optional because not every report needs them — but if they are present they are placed, not policed.",
       },
       {
-        q: "What counts as evidence in the findings?",
-        a: "A number, an observation, a measured comparison or a source. The check looks for those markers and, when none appear, says plainly that a reader cannot tell what was measured.",
+        q: "Why do findings need evidence words?",
+        a: "Because a finding without its evidence reads as an opinion with authority. The check looks for numbers and observed-fact words — measured, tested, compared, data — and flags the findings that assert without showing.",
       },
       {
-        q: "Why do recommendations need an owner and a date?",
-        a: "Because an action with neither is a hope. The check looks for an owner, a responsible party or a date and flags recommendations where the next step is left unassigned.",
+        q: "What counts as owner-and-date on a recommendation?",
+        a: "A pattern that names who and when: a month, a quarter, a year, a by-date, or an explicit owner marker. A recommendation with neither is a wish, and the report's readers know it.",
       },
       {
-        q: "Why is an empty risks section flagged alongside recommendations?",
-        a: "Because every recommendation carries a risk, and a report that recommends without naming one asks to be trusted rather than read. The pairing is checked automatically.",
+        q: "Why flag sections under ten words?",
+        a: "Because ten words is the floor at which a section says something; under it, the section is a heading that drifted. The flag tells you which promises the draft has not kept yet.",
       },
       {
-        q: "What does the revision history placeholder do?",
-        a: "It reserves the front or back matter where dates, authors and changes are recorded. A revised report without a change record cannot be relied on by anyone who read the earlier version.",
+        q: "Is the report stored anywhere?",
+        a: "No. The assembly and checks run in the page from your sections, and nothing is stored or sent; copy the draft before closing the tab.",
       },
     ],
   },

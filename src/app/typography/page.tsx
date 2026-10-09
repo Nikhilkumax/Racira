@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { categories, SEARCH_REGISTRY } from "@/domains/typography/registry";
 import { onlyLive, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
 import { TYPOGRAPHY_SITE } from "@/domains/typography/site";
 
 const LIVE_TYPO_COUNT = onlyLive(categories.flatMap((c) => c.tools), "typography").length;
@@ -50,9 +51,10 @@ export default function Index() {
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {cat.tools.map((tool) => {
                   const Icon = (tool as any).icon as React.ComponentType<{ className?: string }>;
-                  // Live = registry status is "live" AND a component is wired —
-                  // soon cards are inert by design and never get a page.
+                  // Live tools open the wired component; upcoming tools open
+                  // their Coming Soon page — every card is navigable.
                   const isLive = isLiveTool(tool, "typography");
+                  const clickable = isLive || hasComingSoonPage(tool, "typography");
                   const cardBody = (
                     <>
                       {!isLive && (
@@ -67,7 +69,7 @@ export default function Index() {
                       <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.desc}</p>
                     </>
                   );
-                  return isLive ? (
+                  return clickable ? (
                     <Link
                       key={tool.slug}
                       href={`/typography/${tool.slug}`}

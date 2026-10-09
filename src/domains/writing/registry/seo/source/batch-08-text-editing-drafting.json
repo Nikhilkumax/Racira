@@ -1,0 +1,492 @@
+[
+  {
+    "slug": "distraction-free-writing-editor",
+    "keywords": ["distraction-free writing", "focus mode", "autosave", "reading time"],
+    "intro": "The Distraction-Free Writing Editor is a plain writing surface with a focus mode, live counts and a local autosave that keeps the draft in your browser.",
+    "content": "Distraction-free writing is a subtraction: this editor gives you a text box, a word count and nothing else until you ask for it. Focus mode hides the surrounding controls so the page becomes just you and the words, and the exit control is always reachable when you want the counts back. The text is yours throughout — there is no formatting to reach for, no toolbar to browse and no account to sign into.\n\nThe panel reports words, characters, sentences and reading time as you type, each computed from the text in the box rather than estimated from a document model. Reading time uses the same two hundred and twenty words per minute default the Reading Time Estimator uses, so the figure agrees with that tool rather than contradicting it. The status line reads autosaved locally: the autosave is debounced at three hundred milliseconds after your last keystroke, so a long session does not rewrite storage on every character.\n\n- Counts: words, characters, sentences and reading time, updated as you type.\n- Focus mode: hides the chrome so the page is only the writing surface, with an always-visible exit.\n- Local autosave: the text is written to browser storage three hundred milliseconds after typing stops.\n- Restore on return: reopening the page loads the last autosaved text instead of an empty box.\n- Download: takes the plain text out as a file whenever the session needs to become a document.\n\nEverything runs in the page. The autosave uses the browser's local storage through a shared storage hook, which is the same mechanism the other writing surfaces here use, and the text is never sent anywhere. Because the surface is a plain text area, there is no rich formatting to corrupt, no half-applied markup and no version history to manage — what you type is exactly what the counts and the download see. Pasted text keeps its characters and loses nothing but the formatting it arrived with.\n\n- No storage beyond this browser: clearing site data or another device will not see the draft.\n- The word count splits on whitespace, so a hyphenated compound counts as two parts where the Unicode tokenizer would count one.\n- Reading time is a fixed-rate estimate at 220 words per minute and does not model pauses.\n- No collaboration, no comments and no track changes: the tool is deliberately single-writer.\n- Focus mode changes the view only; it does not lock the page or protect the text from anyone using the machine.\n\nThe workflow that suits this surface is a first draft: open it, enter focus mode, write until the counts say the piece is long enough, then exit and read. When the draft needs structure, move it to the outline builder or the markdown editor; when it needs a count with a frequency table, the word count tool reads the same text. The point of the tool is that the move out of it is always a copy or a download, because the text never belonged to the page in the first place.\n\nUse distraction-free writing when the problem is attention rather than features: a morning's freewrite, a section that keeps stalling, or a session where every toolbar invitation costs you momentum. The adjacent tools in this domain cover what happens next — structuring, counting and formatting — without asking this page to become them.",
+    "howTo": [
+      "Open the editor and start typing, or paste an existing draft into the text box.",
+      "Read the counts panel for words, characters, sentences and reading time as you write.",
+      "Enter focus mode to hide the chrome while drafting, and exit it whenever you want the counts back.",
+      "Download the draft as a text file when the session is done; the text autosaves locally in the meantime."
+    ],
+    "whenToUse": "Use distraction-free writing when you need a blank surface and a count, not a feature set. The {{writing-goal-tracker|Writing Goal Tracker}} adds a daily target against the same words-as-you-go counting, and the {{writing-sprint-timer|Writing Sprint Timer}} puts a clock and a pace next to them. When the draft is ready for structure or formatting, the {{markdown-editor|Markdown Editor}} gives it headings and an outline, and the focus sentence highlighter in this domain takes over once you are editing sentence by sentence.",
+    "faqs": [
+      {
+        "q": "Where is my draft saved?",
+        "a": "In this browser only. The text autosaves to local storage three hundred milliseconds after you stop typing, and nothing is sent to a server. Clearing site data removes it, so download a file when a draft matters."
+      },
+      {
+        "q": "What does focus mode do?",
+        "a": "It hides the surrounding controls so the page shows only the writing surface and an exit control. It changes the view, not the text — counts and autosave keep running while focus mode is on."
+      },
+      {
+        "q": "How is reading time calculated?",
+        "a": "Words divided by two hundred and twenty words per minute, the default silent-reading rate used across this domain. It is a fixed estimate and does not model pauses, headings or figures."
+      },
+      {
+        "q": "Why does my word count differ from the Word Count Tool?",
+        "a": "This surface splits on whitespace, so a hyphenated compound counts as two parts, while the Word Count Tool uses Unicode word boundaries that count it once. For figures you will quote, use the word count tool."
+      },
+      {
+        "q": "Does it support bold, italics or headings?",
+        "a": "No. The surface is a plain text area on purpose, so nothing you type is interpreted as markup. When you need formatting, move the text to the Markdown Editor or the Rich Text Editor."
+      }
+    ]
+  },
+  {
+    "slug": "markdown-editor",
+    "keywords": ["markdown editor", "markdown-it", "heading outline", "code blocks"],
+    "intro": "The Markdown Editor renders your source with markdown-it, escapes any raw HTML by default, and reports document stats plus a copyable heading outline.",
+    "content": "This markdown editor renders your source, counts what is in it and hands you the outline as text. The preview is produced by the markdown-it library with raw HTML disabled, so anything that looks like a tag in the source is escaped before it reaches the renderer; the component also runs a sanitiser over the result as a belt-and-braces measure. The result is a page that can render Markdown without trusting the text you paste.\n\nThe document panel reports words, lines, headings, links, code blocks and list items — counts of the source, not of the rendered HTML, which is what makes them reproducible. The outline panel lists every heading in order with its level, indented so the shape of the document is visible at a glance, and Copy outline takes it as plain text. The source itself can be copied or downloaded as a .md file, so the round trip from editor to repository is a single action.\n\n- Rendered preview: markdown-it output with raw HTML escaped at render time.\n- Document stats: words, lines, headings, links, code blocks and list items.\n- Heading outline: every heading with its level, indented, copyable as plain text.\n- Anchor slugs: GitHub-style slugs computed per heading for the outline links.\n- Copy source and Download .md for the Markdown itself.\n- Copyable outline for pasting into an issue, a README or another document.\n\nThe renderer is the project's existing markdown-it dependency configured with HTML disabled at the parser level, which means escaped output rather than sanitised output — the text never becomes markup in the first place. Counts come from the source string itself: headings from the line markers, links from the inline syntax, code blocks from fenced spans. The module is pure and synchronous, so the same source always produces the same preview, outline and stats, and nothing touches the network.\n\n- Raw HTML in the source is shown as escaped text, not rendered, by design.\n- The outline covers headings only; bold text and list items do not appear in it.\n- Stats count the source, so a link inside a code span still counts as a link in the syntax scan.\n- No collaborative editing and no version history; the source is the version.\n- Very large documents render fine but the preview re-renders on every keystroke, so huge files feel heavier.\n\nA useful rhythm is to write in source, check the outline for structure and only read the preview for flow. When the outline shows a level jump or a missing heading, the structure problem is visible before the prose review starts. Copy the outline into a review comment and the reviewer sees the document's shape without reading the whole thing — which is the part of Markdown that engineers and technical writers actually reach for. The same outline control also works as a review artefact on its own: paste a document, copy the heading list, and the reviewer sees the shape of the argument before reading a sentence of it.\n\nWhen the document needs to become formatted text rather than source, the rich text editor offers marks and block kinds without syntax, and the block-based editor builds the same structure from typed blocks. Developers working in this domain may recognise the comparison and inspection tools under other names; here they live as document-facing tools rather than command-line ones.",
+    "howTo": [
+      "Write or paste Markdown into the source panel; the preview renders as you type.",
+      "Read the Document panel for words, lines, headings, links, code blocks and list items.",
+      "Check the outline panel for the heading structure, and copy it when a review needs the shape.",
+      "Copy source or Download .md to move the Markdown into a repository or another editor."
+    ],
+    "whenToUse": "Use the markdown editor when the document has to exist as source — a README, an issue, a documentation page. The {{rich-text-editor|Rich Text Editor}} offers the same writing without syntax, marking text with clicks instead, and the {{block-based-editor|Block-Based Editor}} types structure directly into blocks. When the outline is the deliverable rather than the document, the {{outline-builder|Outline Builder}} renders indented text three ways, and the distraction-free editor in this domain strips even the preview away.",
+    "faqs": [
+      {
+        "q": "Can I paste HTML into the editor?",
+        "a": "Yes, but it will be escaped and shown as text. Raw HTML is disabled in the renderer on purpose, so nothing you paste can become markup on the page."
+      },
+      {
+        "q": "How is the heading outline built?",
+        "a": "Every heading line in the source becomes an entry with its level and a GitHub-style anchor slug, indented by depth. Copy outline produces the same list as plain text for a review or an issue."
+      },
+      {
+        "q": "Do the stats count the source or the preview?",
+        "a": "The source. Words, lines, headings, links, code blocks and list items are counted from the Markdown you typed, which makes the figures reproducible without rendering anything."
+      },
+      {
+        "q": "Is the rendered preview sanitised?",
+        "a": "The parser escapes raw HTML before rendering, and the component additionally runs a sanitiser over the output as a second layer. Two independent defences, both stated on the page."
+      },
+      {
+        "q": "Can I download the file?",
+        "a": "Yes, Download .md saves the source as a Markdown file, and Copy source puts it on the clipboard. The outline has its own copy control."
+      }
+    ]
+  },
+  {
+    "slug": "rich-text-editor",
+    "keywords": ["rich text editor", "inline marks", "block kinds", "html export"],
+    "intro": "The Rich Text Editor keeps plain text as the source of truth and layers inline marks and block kinds over it, with a live preview and HTML export.",
+    "content": "This rich text editor treats text as the only source of truth. Bold, italic, underline, strikethrough and code are stored as offset ranges into that plain text, and each line carries a block kind — paragraph, heading, subheading, quote or bullet. Keeping the marks off the characters means editing the text can never leave half-open tags behind: ranges are clamped and split back to the line they belong to whenever the document is normalised.\n\nThe document panel reports words, lines, formatted words and marks, so you can see how much of the text carries formatting rather than guessing. The preview renders after mount and shows the document as it would export. Copy HTML and Download .html take the result out; the export escapes every character of the text and emits only tags from two fixed tables, so nothing you type is ever interpreted as markup.\n\n- Inline marks: bold, italic, underline, strikethrough and code, stored as offset ranges.\n- Block kinds: paragraph, heading, subheading, quote and bullet, one kind per line.\n- Document stats: words, lines, formatted words and total marks.\n- Live preview that renders after mount from the same model the export uses.\n- Copy HTML and Download .html for the escaped export.\n- Headings export as h2 and h3 because the page's own h1 belongs to the page, not the document.\n\nBecause marks are ranges rather than wrappers, normalisation is what keeps the document honest: a mark that would span a line break is split, out-of-range marks are clamped and overlapping marks merge. The HTML export walks the text once, escapes it and interleaves tags from the fixed tables, which is why the editor can show a preview without a sanitiser of its own — the source never becomes markup. Every operation is a pure function over the document model. The model is small enough to reason about: text, a list of marks and a kind per line, which is why the stats panel can say how much of the document carries formatting without walking the rendered output.\n\n- There is no undo history beyond what your browser provides for the underlying text.\n- Marks cannot span blocks: a bold run that crosses a line break is split into two.\n- Nested formatting beyond the five marks is not representable; there is no bold-inside-link.\n- The preview renders after mount, so the first paint shows the text before the styled version appears.\n- No collaboration and no comments; the document is a single local model.\n\nUse it when the deliverable is formatted text rather than Markdown: a letter, a section with mixed quotes and headings, or a draft you want to hand to someone as HTML. The block-based editor is the sibling for typed blocks and to-dos, and the markdown editor is the sibling when the output must be source. The important property shared by all three is that the underlying text is always recoverable.\n\nThe HTML export is deliberately boring: escaped text plus a fixed tag set, which means it pastes cleanly into an email client or a CMS without carrying attributes you never chose. When the document needs to survive a submission process instead, the manuscript formatter applies the mechanical substitutions that format asks for. Between the two sits this editor, whose job is to keep the text honest while the marks change around it, and whose export is deliberately free of attributes you never chose.",
+    "howTo": [
+      "Type or paste the document text; each line takes a block kind from the picker.",
+      "Apply inline marks — bold, italic, underline, strikethrough, code — to ranges of the text.",
+      "Watch the preview for the rendered result and the document panel for words, lines, marks and formatted words.",
+      "Copy HTML or Download .html to export the document as escaped, standards-clean markup."
+    ],
+    "whenToUse": "Use the rich text editor when you want formatting without syntax and need the output as HTML. The {{markdown-editor|Markdown Editor}} produces the same document as source instead, and the {{block-based-editor|Block-Based Editor}} builds structure from typed blocks with to-dos. When the document is going into a submission format rather than a web page, the {{manuscript-formatter|Manuscript Formatter}} applies the typographic clean-up that publishers ask for, and the distraction-free editor in this domain removes formatting entirely.",
+    "faqs": [
+      {
+        "q": "How are bold and italics stored?",
+        "a": "As offset ranges into the plain text, not as wrappers around characters. That is why editing the text cannot leave half-open tags: ranges are clamped and split to their line whenever the document is normalised."
+      },
+      {
+        "q": "What block kinds are available?",
+        "a": "Paragraph, heading, subheading, quote and bullet — one kind per line. Headings export as h2 and h3 because the page's own h1 belongs to the page rather than your document."
+      },
+      {
+        "q": "Is the HTML export safe to paste elsewhere?",
+        "a": "Yes. The export escapes every character of your text and emits only tags from two fixed tables, so nothing you typed is interpreted as markup. It pastes cleanly into a CMS or mail client."
+      },
+      {
+        "q": "Can a mark cross a line break?",
+        "a": "No. Marks cannot span blocks; a bold run that would cross a line break is split into two marks, one per line, when the document is normalised."
+      },
+      {
+        "q": "Why does the preview appear after a moment?",
+        "a": "The preview renders after mount so the editor can paint the text first. It is a rendering choice rather than a limitation; the model is already complete when the preview appears."
+      }
+    ]
+  },
+  {
+    "slug": "outline-builder",
+    "keywords": ["outline builder", "indented outline", "numbered outline", "plain indented text"],
+    "intro": "The Outline Builder reads an indented outline into a tree, reports its shape and renders it as markdown, a numbered outline or plain indented text.",
+    "content": "An outline is indented lines, and this outline builder reads that text into a tree, reports its shape and writes it back out three ways. Type or paste two spaces per level, with or without leading markdown bullets, and the parser normalises the indentation so a stray space or a pasted tab does not break the tree. Blank lines are skipped, and levels never skip: the shape it reports is the shape you authored.\n\nThe shape panel counts items, finds the deepest level and shows the population of each level, which is how a lopsided outline announces itself before anyone reads it. Rendering offers three outputs: indented markdown bullets at two spaces per level, a numbered outline in either hierarchical decimals or the classic I. A. 1. a. i. scheme, and plain indented text for a word processor. Every rendering has its own copy control, and the report combines them all.\n\n- Parsing: indented lines, optional leading bullets, tabs counted as four spaces.\n- Shape report: item count, deepest level and the population of each level.\n- Indented markdown: two spaces per level, ready to paste into a README.\n- Numbered outline: hierarchical decimals or the classic scheme, switchable.\n- Plain indented text: no bullets, the shape a word processor expects.\n- Copy and Download for each rendering, plus one combined report.\n\nThe parser walks the lines, measures each indent against the current level and pushes nodes onto a stack, which is why levels cannot skip: an indent that jumps two levels is read as the next available level rather than silently creating a gap. Renders are pure functions over the tree, so the three outputs always agree with each other and with the shape report. Everything runs in the page; the outline never leaves the browser.\n\n- The parser is indentation-based, so a genuinely skipped level is interpreted as a level rather than an error.\n- Prose attached to a line becomes a single node; there is no separate body text.\n- No reordering, dragging or collapsing — the tree comes from the text you wrote.\n- Bullets are optional and ignored in the shape, so mixing styles does not change the tree.\n- Very deep outlines render fine, but the classic scheme repeats markers past depth five. Mixed bullet styles in one document are tolerated as well, because the tree comes from indentation alone and the bullets are decoration.\n\nThe workflow is to dump the structure first and render second: write the shape quickly with rough indentation, read the population of each level to see where the outline is thin, then choose the rendering the destination wants. A numbered outline suits a review document, indented markdown suits a repository, and plain indented text suits a word processor — the same tree answers all three.\n\nThe neighbours handle the neighbouring shapes: the markdown editor extracts a heading outline from a finished document, the plot point mapper lays events over a named structure, and the scene board organises scenes with word counts. This tool is the one that starts from nothing and turns an indented outline typed in a box into a structure you can export. A population count reading ten at the first level and one at the third tells you the outline is a list with headings, and that is visible before anyone reads a node.",
+    "howTo": [
+      "Type or paste the outline, indented two spaces per level, with or without leading bullets.",
+      "Read the Shape panel for the item count, deepest level and population of each level.",
+      "Choose a rendering: indented markdown, a numbered outline in decimal or classic style, or plain indented text.",
+      "Copy or download the rendering you need; the combined report carries every view at once."
+    ],
+    "whenToUse": "Use the outline builder when the structure is the deliverable and it starts as indented text. The {{markdown-editor|Markdown Editor}} extracts an outline from a document that already has headings, while the {{plot-point-mapper|Plot Point Mapper}} lays story events over a named beat sheet instead of free indentation. The {{scene-and-chapter-organizer|Scene and Chapter Organizer}} adds word counts to a chapter list, and the block-based editor in this domain types structure directly as blocks.",
+    "faqs": [
+      {
+        "q": "How does it decide the outline's levels?",
+        "a": "By indentation: two spaces per level, with tabs counted as four. Blank lines are skipped and levels never skip, so an indent that jumps two levels is read as the next available level rather than a gap."
+      },
+      {
+        "q": "Do I need markdown bullets?",
+        "a": "No. Leading dashes are accepted and ignored for the tree, so you can paste either bullets or plain indented text. Mixing the two does not change the shape."
+      },
+      {
+        "q": "What is the classic numbering scheme?",
+        "a": "The I. A. 1. a. i. markers by depth, alongside hierarchical decimals. Both renderings come from the same tree, so switching between them changes only the markers."
+      },
+      {
+        "q": "Can I reorder items in the tool?",
+        "a": "No. The outline is edited as text and the tree follows it; there is no dragging or collapsing. Adjust the indentation and the shape report updates immediately."
+      },
+      {
+        "q": "What does the shape report actually tell me?",
+        "a": "Item count, the deepest level and how many items sit at each level. A branch with ten items at level one and one at level three is a structure problem visible before you read a word."
+      }
+    ]
+  },
+  {
+    "slug": "draft-versioning-tool",
+    "keywords": ["draft versioning", "version label", "word delta", "timeline"],
+    "intro": "The Draft Versioning Tool saves labelled snapshots of a draft in the browser and shows the word delta between each version and the next.",
+    "content": "Draft versioning here is deliberately small: a version is a label and the text you saved under it, kept in this browser with no server behind it. Paste or type a draft, give it a version label, save, and the timeline grows. What makes the tool worth using is not the storage — a folder of files does that — but the word delta: every row shows how the count moved from the version before it, which is the number writers actually argue about.\n\nThe timeline lists each saved version with its word count and the change against the previous one, so a rewrite that cut forty words reads as minus forty at a glance. The latest change panel names what happened between the last two snapshots: unchanged, words added, words removed. The report copy carries the whole running total across every adjacent pair, which is how a week of revision sessions becomes one paragraph of numbers rather than a folder of guesses. The latest change row is the quick read and the timeline is the argument; between them, a week of saving turns into a shape — cuts, additions, and a session that changed nothing — that no single document shows on its own.\n\n- Version label: the name you save each snapshot under, shown on the timeline.\n- Draft text: the content of the snapshot, kept as typed.\n- Timeline rows: word count per version plus the change against the previous version.\n- Latest change: the delta between the most recent two snapshots.\n- Comparison: the same word-level diff the document diff viewer uses, applied to two saved versions.\n- Copy report for the running total across every adjacent pair.\n\nSnapshots are saved through the shared browser-storage hook, so they live in this browser and nowhere else. Comparison reuses the document diff engine, which means what changed between draft two and draft three is literally the same calculation the diff viewer performs — one word diff implementation behind both pages. The word counts come from the shared tokenizer, so the deltas agree with every other counter in this domain.\n\n- No history beyond this browser: another device or a cleared cache will not see the versions.\n- A version stores the text as it was saved, so later edits to the box do not rewrite it.\n- There is no diff view in this tool itself; opening two snapshots side by side belongs to the diff viewer.\n- Labels are free text and never validated, so duplicate labels are allowed and distinguished by position.\n- Very long drafts save fine, but each snapshot stores the full text rather than a patch.\n\nThe habit that makes versioning work is saving before the risky change rather than after the good result: a labelled snapshot before a structural rewrite is what lets you quantify what the rewrite cost. Save at natural boundaries — before an outline passes, after feedback, at the end of a session — and the timeline becomes a record of decisions rather than a backup.\n\nFor the substance of a change rather than its size, the document diff viewer opens two texts and shows line, word and patch views; the writing goal tracker records daily totals instead of named snapshots; and the word count tool gives the figure the delta is computed from. For a draft that already has a home elsewhere, the box is still the session's record: paste at the start, save at the end, and the timeline carries the week's shape without anyone maintaining a folder.",
+    "howTo": [
+      "Paste or type a draft, then give it a version label that names the moment — after feedback, before the rewrite.",
+      "Save the version; it joins the timeline with its word count.",
+      "Read the timeline for the word delta against the previous version and the latest change panel for what happened.",
+      "Copy the report for the running total across every adjacent pair of versions."
+    ],
+    "whenToUse": "Use draft versioning when you want named snapshots and the numbers between them. The {{document-diff-viewer|Document Diff Viewer}} shows what changed inside a single pair of texts, line by line and word by word, while the {{writing-goal-tracker|Writing Goal Tracker}} records daily totals instead of named versions. For a surface that stays out of the way while you produce the drafts, the {{distraction-free-writing-editor|Distraction-Free Writing Editor}} is the writing half of the same workflow.",
+    "faqs": [
+      {
+        "q": "Where are my versions stored?",
+        "a": "In this browser, through the same local-storage hook the other writing surfaces use. There is no server and no history beyond this tab's storage, so download anything that matters."
+      },
+      {
+        "q": "How is the word delta calculated?",
+        "a": "Word counts come from the shared Unicode tokenizer, and each row shows the count minus the previous version's count. Comparison between two snapshots reuses the document diff engine's word diff."
+      },
+      {
+        "q": "Can I see the actual changes between versions?",
+        "a": "This tool shows size and direction, not content. Open the two texts in the document diff viewer for the line-by-line and word-level view; the comparison function behind both pages is the same."
+      },
+      {
+        "q": "What happens if I edit a draft after saving it?",
+        "a": "Nothing changes in the saved version — a snapshot stores the text as it was at save time. Your edits accumulate in the box until you save the next labelled version."
+      },
+      {
+        "q": "Can two versions share a label?",
+        "a": "Yes. Labels are free text and never validated; versions are distinguished by their position on the timeline, so a repeated name is a duplicate rather than an error."
+      }
+    ]
+  },
+  {
+    "slug": "writing-sprint-timer",
+    "keywords": ["writing sprint timer", "sprint pace", "words written this sprint", "sprint length"],
+    "intro": "The Writing Sprint Timer runs a timed writing session with live word counts, a sprint pace in words per minute and a draft stored in this browser.",
+    "content": "A writing sprint is a clock and a count: choose a sprint length in minutes, start the timer and write until it stops. This writing sprint timer adds the figure that makes sprints comparable — sprint pace — by measuring words written this sprint against the elapsed time. The words in the document are counted alongside them, so a session that produced two hundred words in fifteen minutes and one that produced two hundred in eight are visibly different sessions.\n\nThe progress panel carries the countdown, a progress bar and four rows: words in the document, words written this sprint, the sprint pace in words per minute and the time elapsed. The session summary copies as plain text, which is how a week of sprints becomes a log you can keep. The draft box below counts words as you go and stores the text in this browser only, with a download control that turns the session's output into a file.\n\n- Sprint length in minutes, entered before the start.\n- Countdown with a progress bar and elapsed time.\n- Words in the document, counted with the shared Unicode tokenizer.\n- Words written this sprint, measured from the count at the moment the sprint began.\n- Sprint pace in words per minute, computed from the sprint's own word delta.\n- Copy session summary, a draft box stored in this browser, and Download draft.\n\nWord counting runs through the shared tokenizer, the same segmentation the counters in this domain use, so the pace figure agrees with the word count tool. The sprint delta is taken as the document count at start minus the count now, which means edits that delete words are visible as a lower pace rather than hidden. State is kept through the shared browser-storage hook, so the draft persists across reloads in this browser while never leaving it.\n\n- The pace counts net words: deleting while you sprint lowers the figure.\n- No account, no cloud and no sync; clearing site data loses the stored draft.\n- The timer runs against page state, so closing the tab ends the session rather than pausing it.\n- Pace assumes the whole elapsed window was writing — a break inside the sprint is counted as time.\n- The tool does not judge the words; a sprint that produced revisions rather than additions still records its delta. The draft box is there for the same reason: some sessions produce a paragraph worth keeping and a pace worth forgetting.\n\nSprints work best with a target rather than a duration alone: decide the sprint length by the section you intend to finish, then read the pace afterwards rather than during it. Watching the words-per-minute figure while writing works against the point of a sprint, because the number rewards speed over sense. The summary is for after the timer stops. A second read at the end of the week is more useful still: several pace figures side by side show whether a sprint length suits you or whether you routinely run past it.\n\nThe neighbours cover the adjacent sessions: the writing goal tracker measures a day rather than a sprint, and the distraction-free editor is the surface many writers sprint on without a clock. When the session ends and the count matters more than the pace, the word count tool reports the totals with the frequency table behind them.",
+    "howTo": [
+      "Enter a sprint length in minutes above zero to arm the timer, then start it.",
+      "Write in the draft box or your own editor; words are counted as you go.",
+      "Watch the progress panel for the countdown, words written this sprint and the sprint pace.",
+      "Copy the session summary when the timer stops, and download the draft if the session produced keepers."
+    ],
+    "whenToUse": "Use the writing sprint timer when a clock makes the writing happen. The {{writing-goal-tracker|Writing Goal Tracker}} measures a day's progress against a daily word goal instead of a single timed block, and the {{distraction-free-writing-editor|Distraction-Free Writing Editor}} gives the same counts with no timer attached. When the number you need afterwards is the document total rather than the pace, the {{word-count-tool|Word Count Tool}} reports words with a frequency table, and the reading time estimator converts them into minutes.",
+    "faqs": [
+      {
+        "q": "How is sprint pace calculated?",
+        "a": "Words written this sprint divided by the elapsed time, expressed in words per minute. The sprint delta is the document's word count now minus its count when the sprint began, so deletions lower the pace honestly."
+      },
+      {
+        "q": "Where is my sprint draft kept?",
+        "a": "In this browser only, through the shared local-storage hook. Nothing is uploaded, and clearing site data removes it — use Download draft when a session produces something worth keeping."
+      },
+      {
+        "q": "What if I take a break during the sprint?",
+        "a": "The elapsed window keeps running, so the break is counted as time and the pace drops accordingly. The tool measures the session, not the attention inside it."
+      },
+      {
+        "q": "Does it count words with the same rules as the Word Count Tool?",
+        "a": "Yes, both use the shared Unicode tokenizer, so hyphenated compounds, numbers and apostrophes are counted the same way on both pages."
+      },
+      {
+        "q": "What happens when the timer reaches zero?",
+        "a": "The sprint finishes with a notice showing the words written and the duration, and you can keep writing or start a fresh sprint. The pace figure stays on the progress panel for comparison."
+      }
+    ]
+  },
+  {
+    "slug": "scene-and-chapter-organizer",
+    "keywords": ["scene organizer", "point of view", "scene board", "word count"],
+    "intro": "The Scene and Chapter Organizer reads a scene board with point of view, setting and word count, and reports how the words distribute across scenes and points of view.",
+    "content": "A scene organizer for a novel is a list with opinions: one line per scene, carrying its title, point of view, setting and word count. This scene board reads that list, tallies the statistics a novelist actually uses — how the words distribute across scenes and across points of view, and which scenes are the outliers — and round-trips the whole board as JSON so it survives a refresh without a server. The trailing fields are optional, so a title-only list works and gains detail as you add it.\n\nThe shape-of-the-story panel reports scenes, total words, average scene, median scene, distinct settings, the longest scene and the shortest, plus a point-of-view tally. When a scene has no explicit word count, the summary words of its line stand in, so the numbers are never zero by accident. Each scene can be copied as markdown — one heading per scene — and the board exports as JSON and imports back with every entry validated.\n\n- Scene lines: Title, POV, Setting, Words — trailing fields optional.\n- Scene statistics: count, total words, average and median scene length.\n- Outliers: longest and shortest scenes named on the board.\n- Point-of-view tally: how many scenes and words each perspective carries.\n- Copy board as markdown, one heading per scene.\n- Export the board as JSON and import it back, validating every entry.\n\nParsing splits each line on the pipe separator and coerces the trailing word count when present; statistics are arithmetic over that list. The JSON round trip exists because a board is data: serializeScenes writes the list out and the importer validates each entry on the way back, so a corrupted paste fails with an error instead of silently corrupting the board. Nothing is uploaded — the board lives in the text box and the exported file.\n\n- The board is text, not a drag-and-drop editor: reordering means editing lines.\n- Word counts you enter are used as given; summary words are a fallback, not a correction.\n- A pipe inside a title is not supported, because the separator is literal.\n- POV analysis depends on how consistently the POV field is spelled; case is normalised, nicknames are not.\n- The median on very small boards can sit between two scenes, which is a property of medians rather than a bug. On a small board the longest and shortest rows matter for the same reason: one outlier moves the average while the median stays where the typical scene is.\n\nWork the board from the outliers: read the longest and shortest scenes first, then the point-of-view tally, because an imbalance in either is a structural note before it is a prose problem. A first draft usually reveals a scene that runs twice the median and a POV carrying eighty percent of the words — both are visible on this panel without any counting by hand. A board that starts as three lines and grows to thirty keeps the same panel, so the statistics are there from the first scene rather than only after the draft is finished.\n\nThe story neighbours share the same reference structures: the plot point mapper lays events over a named beat sheet, the story beat builder tracks drafting progress across those beats, and the outline builder shapes the structure before scenes exist.",
+    "howTo": [
+      "Enter one scene per line as Title, POV, Setting, Words — trailing fields optional.",
+      "Read the Shape of the story panel for scene count, total words, average, median, outliers and settings.",
+      "Check the point-of-view tally for balance across perspectives.",
+      "Copy the board as markdown, or export and re-import the JSON board to move it between sessions."
+    ],
+    "whenToUse": "Use the scene and chapter organizer when a draft has enough scenes to need a board. The {{plot-point-mapper|Plot Point Mapper}} lays those scenes over a named structure, and the {{story-beat-builder|Story Beat Builder}} tracks which beats are drafted as progress. For structure before scenes exist, the {{outline-builder|Outline Builder}} renders an indented outline three ways, and the writing goal tracker in this domain counts the daily words those scenes accumulate.",
+    "faqs": [
+      {
+        "q": "What format are the scene lines in?",
+        "a": "Title, POV, Setting, Words separated by pipes, with the trailing fields optional. A line with only a title still counts as a scene, and its summary words stand in for a word count you have not entered."
+      },
+      {
+        "q": "What does the point-of-view tally show?",
+        "a": "How many scenes and how many words each perspective carries. The field is matched case-insensitively, so Alex and alex tally together, but nicknames for the same character do not merge."
+      },
+      {
+        "q": "How do I move a board to another session?",
+        "a": "Export it as JSON and import it back later. The importer validates every entry, so a truncated or corrupted file fails with an error rather than silently replacing your board."
+      },
+      {
+        "q": "Why is the median different from the average?",
+        "a": "One long scene pulls the average up while the median stays near the typical scene. Both are shown because the gap between them is the quickest signal that the distribution is lopsided."
+      },
+      {
+        "q": "Is there a drag-and-drop board view?",
+        "a": "No. The board is text — one line per scene — which is what makes it exportable, diffable and pastable. Reordering means editing the lines, and the statistics update as you type."
+      }
+    ]
+  },
+  {
+    "slug": "plot-point-mapper",
+    "keywords": ["plot point mapper", "beat sheet", "beats mapped", "three-act"],
+    "intro": "The Plot Point Mapper maps your story's own events onto a named beat sheet and reports which beats are covered and which are still blank.",
+    "content": "A beat sheet is a reference, and mapping is where a story meets one. This plot point mapper takes a named structure — three-act, four-act, Save the Cat or the hero's journey — and lays your events over its beats: one line each, in your own words, matched to a beat of the sheet. The map then reports how much of the structure is covered and which beats are still blank, which is the question a writer with a half-finished outline actually has.\n\nThe structure picker selects the sheet; the events box takes one event per line as beat name, then what happens. The coverage panel counts beats mapped out of the total, and the sheet panel lists every beat with its placement percentage and your note beside it. Copy and Download produce the map as a markdown document, one beat per line with its placement, which is how the map becomes a document rather than a session.\n\n- Structures: three-act, four-act, Save the Cat and the hero's journey.\n- Event lines: beat name, a colon, then what happens — one event per line.\n- Coverage: beats mapped out of the total the sheet defines.\n- The sheet: every beat with its conventional placement and your note.\n- Blank beats: the uncovered parts of the structure, visible on the list.\n- Copy and Download for the map as markdown.\n\nThe structures live in one reference module shared with the story beat builder, so the two tools can never disagree about where a beat lands. Each structure is a list of beats carrying the share of the story where that beat conventionally sits, and the map is an ordinary lookup: your notes are parsed into a table and matched against the beats the chosen sheet defines. Nothing here is generated — these are reference outlines, and the pages say the placements are guidance rather than rules.\n\n- Placement percentages are the conventional readings of each structure, not measurements of your story.\n- A note only appears against a beat the chosen sheet defines, so a free-form event name without a matching beat is not shown.\n- Switching structures discards the visual match, because the beats differ between sheets.\n- The mapper records intent rather than drafts; writing the scene is still your work.\n- The four sheets are a finite reference set; a structure of your own is not representable.\n\nThe useful pass is the blank-beat read: choose the structure you are actually writing in, map what you have, and look at what remains empty. Two blanks in a row usually means a missing turn rather than a missing scene, and one blank at the end usually means the resolution is unwritten. When a beat is covered but the note is thin, that is the sheet telling you where the story still needs an event. Mapping is also the cheapest way to test a structure before committing to it: if the beats cannot be named from what you have, the sheet is probably wrong for this story rather than the story being wrong.\n\nThe neighbouring tools share the same structures from the other side: the story beat builder tracks drafting progress instead of notes, the scene board adds point of view and word counts, and the outline builder shapes structure before a beat sheet is chosen. The map is a starting position, not a constraint — plenty of drafts keep it open until the second act, and the coverage panel is equally useful at ten percent as at ninety.",
+    "howTo": [
+      "Pick a structure: three-act, four-act, Save the Cat or the hero's journey.",
+      "Enter your events one per line as beat name, a colon, then what happens.",
+      "Read the coverage panel for beats mapped, then scan the sheet for the beats still blank.",
+      "Copy or download the map as markdown when the structure needs to become a document."
+    ],
+    "whenToUse": "Use the plot point mapper when a story has events and needs a structure to test them against. The {{story-beat-builder|Story Beat Builder}} tracks which beats are drafted rather than what happens in them, and the {{scene-and-chapter-organizer|Scene and Chapter Organizer}} adds point of view and word counts to the same draft. Before a beat sheet is chosen, the {{outline-builder|Outline Builder}} shapes an indented outline three ways, and the distraction-free editor in this domain is where the events get written.",
+    "faqs": [
+      {
+        "q": "Which structures does the mapper support?",
+        "a": "Four: three-act, four-act, Save the Cat and the hero's journey. They are reference outlines held as data and shared with the story beat builder, so both tools show the same placements."
+      },
+      {
+        "q": "How do I enter my events?",
+        "a": "One per line as beat name, a colon, then what happens. The beat name is matched against the chosen sheet, and notes for beats the sheet does not define are not displayed."
+      },
+      {
+        "q": "Are the placement percentages rules?",
+        "a": "No. They are the conventional readings of each structure, reported as guidance. The pages say so explicitly, because plenty of good stories put a turn somewhere else."
+      },
+      {
+        "q": "Why did my notes disappear when I changed structure?",
+        "a": "Different sheets define different beats, so notes are matched against the new sheet rather than carried over positionally. Map against the structure you are actually writing in."
+      },
+      {
+        "q": "Can I export the map?",
+        "a": "Yes, Copy and Download produce the map as markdown — every beat with its placement and your note — so it can sit beside the draft in any editor."
+      }
+    ]
+  },
+  {
+    "slug": "story-beat-builder",
+    "keywords": ["story beat builder", "beat sheet", "beats drafted", "progress board"],
+    "intro": "The Story Beat Builder is a progress board over a named beat sheet: mark beats done and see how far through the structure the draft has reached.",
+    "content": "The story beat builder answers one question: how far through the structure has the draft got? Choose a beat sheet — three-act, four-act, Save the Cat or the hero's journey — mark the beats you have drafted, and the progress panel reports how many beats are drafted and which beat comes next in placement order. It is a progress board rather than a planning tool: the notes belong to the mapper, and this page is about what exists.\n\nThe sheet panel lists every beat of the chosen structure in the structure's own order, each with a done control and its placement percentage. The progress panel counts beats drafted, draws the progress against the sheet and names the next beat by placement, which is the only ordering that matters when a draft is written out of sequence. Copy and Download produce a progress sheet as text, so the board can be checked against a revision plan.\n\n- Structures: three-act, four-act, Save the Cat and the hero's journey, shared with the mapper.\n- Beat rows: every beat in the structure's own order, with a done control.\n- Progress: beats drafted as a count and a bar against the sheet.\n- Next beat: the first undrafted beat in placement order, not list order.\n- Copy and Download for the progress sheet as plain text.\n\nThe beats come from the same reference module the plot point mapper uses, so the placements on both pages are literally the same data. Progress is arithmetic over the done flags: drafted count, share of the sheet, and the next undrafted beat found by walking the rows in placement order. Because the board is state in the browser rather than a document, it is a view of your progress rather than a record of it — the copy control exists so the record can be taken elsewhere. Because the beats come from shared reference data, a copied sheet is readable by anyone else working with the same structure, which makes it a usable thing to attach to a revision plan.\n\n- Done flags are state, not a document: clearing the browser clears the board.\n- Beats are the structure's, so a beat you cannot map to the sheet cannot be marked.\n- Placement order can differ from drafting order; next beat means next by placement.\n- The four sheets are a finite reference set; a custom structure is not representable.\n- Progress measures coverage of the sheet, never quality of the scenes behind it.\n\nThe board works as a weekly check rather than a writing surface: mark what exists, read the next beat, and let the placement order decide what to draft rather than what you feel like drafting. When the count stalls at the same beat across two weeks, the beat is usually the one the story is missing, and the sheet has said so before the feedback did. Read weekly, the board turns structure from an idea into a count — drafted or not — which is much harder to avoid than an intention.\n\nThe neighbouring tools cover the other views of the same structures: the plot point mapper records what happens at each beat, the scene board carries point of view and word counts, and the outline builder shapes structure before any named sheet is chosen.",
+    "howTo": [
+      "Choose a structure: three-act, four-act, Save the Cat or the hero's journey.",
+      "Mark each beat you have drafted on the sheet panel, in whatever order you drafted them.",
+      "Read the progress panel for beats drafted and the next beat in placement order.",
+      "Copy or download the progress sheet when the board needs to leave the browser."
+    ],
+    "whenToUse": "Use the story beat builder when the structure exists and the question is coverage rather than content. The {{plot-point-mapper|Plot Point Mapper}} records what happens at each beat instead of whether it is drafted, and the {{scene-and-chapter-organizer|Scene and Chapter Organizer}} carries the same scenes with point of view and word counts. Structure before any named sheet belongs to the {{outline-builder|Outline Builder}}, and the daily words behind the beats are what the writing goal tracker in this domain measures.",
+    "faqs": [
+      {
+        "q": "How is the next beat decided?",
+        "a": "By placement order: the first undrafted beat whose position in the story comes earliest. A draft written out of sequence still gets the right next beat, because list order never overrides placement."
+      },
+      {
+        "q": "How is this different from the plot point mapper?",
+        "a": "The mapper attaches a note to every beat — what happens. This page tracks whether each beat is drafted, so it is a progress board over the same shared structures."
+      },
+      {
+        "q": "Are my done flags saved?",
+        "a": "They live in this browser as page state rather than a document, so clearing site data clears the board. Copy the progress sheet when a record needs to outlast the session."
+      },
+      {
+        "q": "Can I use a structure of my own?",
+        "a": "No. The four sheets are the reference set held in code and shared with the mapper. For a custom shape, the outline builder will happily track it as indented text."
+      },
+      {
+        "q": "Does a drafted beat mean the scene is finished?",
+        "a": "It means you consider the beat drafted — the board records coverage of the sheet and makes no claim about quality. That judgement stays with you and your readers."
+      }
+    ]
+  },
+  {
+    "slug": "manuscript-formatter",
+    "keywords": ["manuscript formatter", "standard manuscript format", "scene breaks", "em dash"],
+    "intro": "The Manuscript Formatter applies the mechanical typographic clean-up a submission expects — curly quotes, em dashes, scene breaks — and counts what an agent asks for.",
+    "content": "Submission formats ask for the same handful of mechanical substitutions every time, and this manuscript formatter applies them in one pass: straight quotes to curly ones, a spaced double hyphen to an em dash, three dots to an ellipsis, and scene breaks normalised to a centred marker. An optional title page can be prepended with your title, name and contact details. Every change is named on the page, because text in, text out with a list of what happened is the only honest way to format someone else's prose.\n\nThe counts panel reports the numbers a submission asks for: words, chapters, scene breaks, paragraphs, sentences and characters. The what-changed panel lists each class of substitution with its count, so a pass that curly-quoted four hundred quotation marks is visible as arithmetic rather than mystery. The standard manuscript format checklist states what the format actually asks for, which is the part most rejections over formatting are really about.\n\n- Straight quotes converted to curly quotation marks.\n- Spaced double hyphen converted to an em dash.\n- Three dots converted to an ellipsis.\n- Scene breaks normalised to a centred marker.\n- Optional title page: title, author and contact.\n- Counts: words, chapters, scene breaks, paragraphs, sentences and characters.\n- Copy and Download for the formatted text, plus the what-changed report.\n\nThe substitutions are literal and ordered: each rule scans the text once, records how many replacements it made and keeps the source text's line structure intact. Counts come from the shared tokenizer and sentence segmenter, so words and sentences agree with every other counter in this domain. Crucially, the formatter never reflows your words — no rewrapping, no reparagraphing, no changes beyond the named substitutions — which is what makes the output reviewable against the input.\n\n- It does not produce a .docx file, set fonts or margins, or manage page numbers.\n- It never reflows prose: line and paragraph structure survive exactly as typed.\n- Smartening quotes is typographic, not grammatical: an apostrophe used as an omission mark is still converted by position.\n- Chapters are detected from headings, so an unconventional chapter layout may be undercounted.\n- Quoted material is formatted like the rest of the text; a quotation's own punctuation is not preserved separately.\n\nThe workflow is to format last: write and revise first, then run one pass, read the what-changed panel, and copy the result into your submission document. Running it earlier just means doing it again after the next edit. A formatted pass is also worth keeping beside the original: the what-changed panel makes the pair auditable, and the diff viewer can show the substitution-by-substitution difference if a question comes back later. The checklist is worth reading once before submitting anywhere, because most formatting rejections come from the few items it lists rather than from the prose. The counts panel covers the other half of the query — words, chapters, scene breaks, paragraphs, sentences and characters — which is the figure agents ask for alongside the sample itself.\n\nThe mechanical neighbours cover the rest: the style guide checker applies a named guide's preferences, the document diff viewer shows what a formatting pass changed between two versions, and the markdown editor takes the other direction — from clean text back into structured source. Both directions share the same property: the text you started with is still recoverable, because formatting here is substitution rather than interpretation.",
+    "howTo": [
+      "Paste your manuscript text into the input panel.",
+      "Toggle the title page if the submission asks for one, and fill in title, author and contact.",
+      "Read the what-changed panel for every substitution made, and the counts panel for the submission figures.",
+      "Copy or download the formatted text for your submission document."
+    ],
+    "whenToUse": "Use the manuscript formatter when a draft is finished and the submission format is the remaining obstacle. The {{style-guide-adherence-checker|Style Guide Adherence Checker}} applies a named guide's mechanical preferences instead of typographic clean-up, and the {{document-diff-viewer|Document Diff Viewer}} shows exactly what a formatting pass changed between two versions. When the document has to leave as source rather than a submission, the {{markdown-editor|Markdown Editor}} renders and counts it instead, and the rich text editor in this domain exports formatted HTML.",
+    "faqs": [
+      {
+        "q": "What substitutions does the formatter make?",
+        "a": "Straight quotes become curly, a spaced double hyphen becomes an em dash, three dots become an ellipsis, and scene breaks are normalised to a centred marker. Each class of change is listed with its count."
+      },
+      {
+        "q": "Does it reflow or renumber my text?",
+        "a": "No. The formatter never reflows prose — no rewrapping and no reparagraphing — so line and paragraph structure survive exactly as typed, and every change beyond that is named on the page."
+      },
+      {
+        "q": "Will it create a Word document?",
+        "a": "No. This is text in, text out: it does not produce a .docx file or set fonts, margins and page numbers. Copy the result into your submission document after reading what changed."
+      },
+      {
+        "q": "How does it count chapters?",
+        "a": "From headings in the text, alongside the shared tokenizer's counts for words, sentences and paragraphs. An unconventional chapter layout may be undercounted, which is why the counts panel shows each figure separately."
+      },
+      {
+        "q": "Should I format before or after revising?",
+        "a": "After. Formatting is a final pass: run it once the prose is settled, read the what-changed panel, and copy the result out. Every later edit would simply require running it again."
+      }
+    ]
+  },
+  {
+    "slug": "document-diff-viewer",
+    "keywords": ["document diff viewer", "word diff", "unified patch", "lines added"],
+    "intro": "The Document Diff Viewer compares two versions of a text with line, word and patch views and reports lines added, lines removed and words moved.",
+    "content": "Two drafts, one question: what changed? This document diff viewer takes an original and a revised text and answers in three views — a line-by-line diff, a word-level diff for the fine-grained read, and a unified patch in the familiar plus-and-minus form. The summary panel counts what the change actually cost: lines added, lines removed, words added and words removed, with the unchanged block named beside them. Developers will recognise the vocabulary; here it is applied to prose rather than code.\n\nThe two versions go in side-by-side panels and the compare control runs the calculation locally. Each diff row carries its own line numbers from both versions, so a change is traceable to a position rather than guessed at. The word diff shows changed runs inside otherwise identical text, which is how a single swapped adjective becomes visible instead of hiding inside a rewritten line. Copy patch and Download take the result out as text.\n\n- Two inputs: original and revised, compared on demand.\n- Line diff: every row with its old and new line numbers.\n- Word diff: changed runs inside otherwise matching lines.\n- Unified patch: context lines around each hunk, three lines by default.\n- Summary counts: lines added and removed, words added and removed, unchanged.\n- Copy patch and Download for the result as plain text.\n\nThe engine is the project's existing diff library — jsdiff — used for both the line and the word views, so the row tracking and the hunk formatting are the library's, not a home-grown approximation. Everything is computed synchronously in the page: nothing is uploaded, nothing is queued and the same pair of texts always produces the same patch. That reproducibility is the property that makes a diff trustworthy as a record of what a revision did.\n\n- Very large documents are diffed in one pass, so a whole-book comparison takes a moment on first run.\n- Line views depend on line breaks: a rewrapped paragraph reads as many changed lines even when the words barely moved.\n- Whitespace-only changes are shown rather than hidden; there is no ignore-whitespace mode.\n- The patch format is for reading and copying, not for applying to anything.\n- Encoding assumptions are the browser's: the comparison operates on JavaScript strings, not bytes.\n\nThe reading order that works is summary first, word diff second, line diff third: the summary says how big the change was, the word diff says what it did, and the line diff gives the positions. When a paragraph was rewrapped rather than rewritten, the word diff is the view that tells you so — which is the difference between a real edit and a formatting pass. Running the same comparison after every revision builds a habit as well: a diff taken before a rewrite and after it settles arguments about whether the edit actually helped.\n\nThe neighbours cover the workflow around comparison: draft versioning keeps the labelled snapshots you compare, and the manuscript formatter is the kind of pass whose output is worth diffing. For the counts behind either side of the comparison, the word count tool reports words with the frequency table included. Comparison is the only one of these views that shows change rather than state, which is why it is the one worth keeping a record of.",
+    "howTo": [
+      "Paste the original text into one panel and the revised text into the other.",
+      "Press Compare; the summary reports lines and words added, removed and unchanged.",
+      "Read the word diff for what changed inside lines, then the line diff for positions.",
+      "Copy patch or Download to keep the comparison as plain text."
+    ],
+    "whenToUse": "Use the document diff viewer whenever two versions of a text exist and the difference has to be shown rather than described. The {{draft-versioning-tool|Draft Versioning Tool}} keeps the labelled snapshots whose deltas feed this comparison, the {{manuscript-formatter|Manuscript Formatter}} produces the kind of formatting pass worth diffing, and the {{markdown-editor|Markdown Editor}} handles the case where one side is source. For the totals behind either side, the word count tool in this domain counts the same way the summary does.",
+    "faqs": [
+      {
+        "q": "How does the word diff differ from the line diff?",
+        "a": "The line diff compares whole lines and numbers them from both versions; the word diff shows the changed runs inside lines that otherwise match. Use the word view when a line changed only slightly."
+      },
+      {
+        "q": "What is in the unified patch?",
+        "a": "The same change in the conventional plus-and-minus form, with three context lines around each hunk by default. It is a readable record of the comparison, not a patch intended for application."
+      },
+      {
+        "q": "Why does one rewrapped paragraph show as many changes?",
+        "a": "The line view depends on line breaks, so rewrapping replaces lines wholesale. The word diff is the view that shows the words barely moved — the difference between an edit and a formatting pass."
+      },
+      {
+        "q": "Is my text uploaded for comparison?",
+        "a": "No. The diff library runs synchronously in the page; nothing is queued or sent. The same pair of texts always produces the same patch, which is what makes the result trustworthy as a record."
+      },
+      {
+        "q": "Can I compare a whole book?",
+        "a": "Yes, in one pass, though a very large pair takes a moment on first run. Everything is computed in the browser, so the delay is processing rather than transfer."
+      }
+    ]
+  },
+  {
+    "slug": "writing-goal-tracker",
+    "keywords": ["writing goal tracker", "daily word goal", "measured pace", "time to goal"],
+    "intro": "The Writing Goal Tracker sets a daily word goal and reports words written, remaining words, the measured pace of this session and the time to goal at that pace.",
+    "content": "A daily goal is a number, and this writing goal tracker keeps the number in view: set the daily word goal, write in the box below, and the progress panel reports words written, what remains, the measured pace of this session and the time to goal at that pace. The last row is the honest one — it converts today's rate into a finish time, which is what turns a goal from a wish into a schedule.\n\nThe history panel lists previous days with their totals against the goal, each as a bar so a week's consistency reads at a glance. The draft box counts words as you go and autosaves locally through the shared storage hook, with a download control for anything worth keeping. Copy summary produces the session's figures as plain text, which is how a goal becomes a log rather than a dashboard you forget. A week of bars also answers the question a single day cannot — whether yesterday's shortfall was a one-off or the beginning of a pattern.\n\n- Daily word goal: the target the day is measured against.\n- Words written: counted from the text in the box with the shared tokenizer.\n- Remaining: the goal minus today's count, floored at zero.\n- Measured pace: this session's words per minute of writing time.\n- Time to goal: remaining words divided by that pace, shown as a duration.\n- History bars: previous days with their totals against the goal.\n- Copy summary and Download draft for the record.\n\nThe counts run through the same Unicode tokenizer the counters in this domain use, so hyphenated compounds and apostrophes are counted identically everywhere. The pace is measured from this session rather than assumed from a rate, and the time-to-goal projection is that pace applied to the remainder — which is why the projection moves the moment you type. State lives in this browser through the shared local-storage hook: the draft and the goal persist across reloads and never leave the machine.\n\n- Pace assumes the current session's rate continues, which writing rarely does.\n- A goal with a zero or tiny denominator makes time-to-goal meaningless, so the panel says so rather than guessing.\n- The history is local: another device or a cleared cache will not see it.\n- Words are counted net — deletions reduce today's total, because the goal tracks the text that exists.\n- No streaks, no reminders and no notifications; the tracker reports, it does not nag.\n\nThe useful moment is mid-afternoon: read the remaining figure and the time to goal, and decide whether the pace on offer is real. If the projection says two hours and you have forty minutes, the honest response is to lower the goal or raise the pace — both are decisions the numbers support rather than feelings to argue with. The projection is deliberately linear; life is not, and the panel would rather state a simple measured rate than model a schedule it cannot see.\n\nThe neighbours cover the adjacent units of measurement: the writing sprint timer measures a timed block rather than a day, the distraction-free editor gives the same counts with no target attached, and the word count tool reports the finished document with a frequency table behind the total.",
+    "howTo": [
+      "Enter a daily word goal above zero to arm the tracker.",
+      "Write in the draft box; words are counted as you go and the draft autosaves locally.",
+      "Read the progress panel for words written, remaining, measured pace and time to goal.",
+      "Copy the session summary or download the draft when the day is done."
+    ],
+    "whenToUse": "Use the writing goal tracker when the target is a day's total rather than a timed block. The {{writing-sprint-timer|Writing Sprint Timer}} measures a single sprint's words and pace, and the {{distraction-free-writing-editor|Distraction-Free Writing Editor}} provides the same surface with no target attached. When the goal's number is the whole document rather than today's share of it, the {{word-count-tool|Word Count Tool}} reports the total with its frequency table, and the reading time estimator converts the remainder into minutes.",
+    "faqs": [
+      {
+        "q": "How is the measured pace calculated?",
+        "a": "From this session's words over this session's writing time, rather than a published rate. The time-to-goal row then applies that pace to the remaining words, so the projection moves as you type."
+      },
+      {
+        "q": "Where is my goal and draft stored?",
+        "a": "In this browser, through the shared local-storage hook. Nothing is uploaded, the history is local, and clearing site data removes both the goal and the draft."
+      },
+      {
+        "q": "Do deletions reduce today's count?",
+        "a": "Yes. The goal tracks the words that exist in the box now, so cuts lower the total honestly rather than hiding behind a high-water mark."
+      },
+      {
+        "q": "Does it track streaks or send reminders?",
+        "a": "No. There are no streaks, reminders or notifications; the tracker reports the figures and the history bars, and the decision to write stays yours."
+      },
+      {
+        "q": "Why is time to goal blank?",
+        "a": "The projection needs a pace, so an empty box or a goal already met leaves it unreported rather than guessed. Start writing, or lower the goal, and the row fills in."
+      }
+    ]
+  },
+  {
+    "slug": "block-based-editor",
+    "keywords": ["block-based editor", "typed blocks", "to-dos", "markdown export"],
+    "intro": "The Block-Based Editor builds a page from typed blocks with to-dos, reports page stats and exports the whole thing back to Markdown.",
+    "content": "A block-based page is an ordered list of typed units, and this block-based editor builds one the way a Notion page is built: paragraphs, headings, subheadings, quotes, bullets, numbered items, to-dos, dividers and code. Blocks parse from plain text by their markers, which means anything typed in a plain textarea can be pasted in and become a structured page — and the same markers take it back out as Markdown, so the page survives a round trip. The page is built from typed blocks — each with its own kind and text — so structure is explicit rather than implied by formatting.\n\nThe page panel carries a title, which becomes the document's h1, and every block beneath it is editable, reorderable and changeable in kind. Page stats report blocks, words, to-dos done and empty blocks, which is how a page announces both its size and its loose ends. Copy Markdown and Download .md export the document; Copy outline extracts the heading structure for a review. The last block cannot be removed — deleting it replaces it with an empty paragraph, so the document always has somewhere to type.\n\n- Block kinds: paragraph, heading, subheading, quote, bullet, numbered item, to-do, divider and code.\n- Marker parsing: #, ##, -, 1., bracket, greater-than, exclamation and horizontal rules.\n- Page title: the document's own h1, separate from the blocks.\n- Page stats: blocks, words, to-dos done and empty blocks.\n- Reordering: move a block up or down without touching its text.\n- Copy Markdown, Download .md and Copy outline for the exports.\n\nEvery edit is a pure function over the whole document, and block ids are assigned by scanning the highest existing number, so ids stay stable across re-renders without a counter living outside the model. Toggling a to-do, changing a kind or moving a block returns a new document rather than mutating one, which is what keeps the exports consistent with what is on screen. Headings export from h2 down because the page title already holds the h1 slot.\n\n- No collaboration and no comments; the document is one local model.\n- No undo history beyond what the browser provides for the underlying input.\n- Dividers and empty blocks count in the block total, so stats can read higher than visible content.\n- Markdown export covers the fixed kind set; bespoke formatting is not representable.\n- A pasted document parses by its markers, so text without markers arrives as plain paragraphs.\n\nThe workflow is to build the page as blocks while the structure is still moving: a heading per section, to-dos under the ones that remain, quotes where the argument needs a voice. Reading page stats at the end tells you what the page is — how many blocks, how many to-dos still open — which is a different and more useful summary than a word count alone. Empty blocks count too, and they are counted on purpose: an empty block is a section started and not yet written, which is exactly what a page should surface.\n\nThe siblings split the same job by output: the markdown editor writes the same structure as source, the rich text editor marks ranges over plain text instead of types, and the outline builder starts from indented text before any of it exists.",
+    "howTo": [
+      "Set the page title, then add blocks and give each one a kind.",
+      "Parse existing text into blocks by pasting it — markers are recognised as they arrive.",
+      "Read page stats for blocks, words, to-dos done and empty blocks.",
+      "Copy Markdown, Download .md or Copy outline to take the page with you."
+    ],
+    "whenToUse": "Use the block-based editor when the document is a structure of typed parts rather than a stream of prose. The {{markdown-editor|Markdown Editor}} writes the same structure as source with a preview and stats, and the {{rich-text-editor|Rich Text Editor}} marks ranges over plain text instead of typing kinds. For structure before blocks exist, the {{outline-builder|Outline Builder}} renders indented text three ways, and the distraction-free editor in this domain strips the page back to prose.",
+    "faqs": [
+      {
+        "q": "Which block types can I create?",
+        "a": "Paragraph, heading, subheading, quote, bullet, numbered item, to-do, divider and code. Each has a marker for parsing, so plain text pasted with those markers becomes structured blocks automatically."
+      },
+      {
+        "q": "Can I reorder blocks?",
+        "a": "Yes, move a block up or down without touching its text. Every edit returns a new document rather than mutating one, so the exports always match what is on screen."
+      },
+      {
+        "q": "Why can't I delete the last block?",
+        "a": "A page needs somewhere to type, so removing the last block replaces it with an empty paragraph. The document is never left with nowhere to go."
+      },
+      {
+        "q": "How does Markdown export handle headings?",
+        "a": "Headings export from h2 down, because the page title already holds the h1 slot. Copy outline gives the same structure as a plain heading list for a review."
+      },
+      {
+        "q": "Where is my page stored?",
+        "a": "The document is a local model in the page — no collaboration, no comments and no server. Copy Markdown or Download .md when the page needs to outlast the session."
+      }
+    ]
+  },
+  {
+    "slug": "focus-sentence-highlighter",
+    "keywords": ["focus sentence highlighter", "sentence number", "reading time", "longest word"],
+    "intro": "The Focus Sentence Highlighter lets you click the sentence you are editing, dims the rest, and reports that sentence's own counts.",
+    "content": "Editing one sentence while a paragraph surrounds it is the everyday problem of revision, and the focus sentence highlighter solves it with a click: paste a paragraph, click the sentence you want to work on, and it comes forward while the rest dims. The dim control turns the contrast on or off, and the copy control takes the sentence out on its own — which is how a sentence gets worked on in a scratch buffer without losing its place in the paragraph.\n\nThe selected sentence gets its own panel: sentence number in the text, words, characters, longest word in characters and reading time at the default rate. The list below shows every sentence with its own counts, so the neighbours of the selected one are visible at the same time — a 58-word sentence between two 12-word sentences announces itself in the list before it announces itself in the prose. Because the selection and the list come from the same tokenizer, the neighbours are measured exactly like the sentence you picked. Selection is by click, and the panels follow it immediately.\n\n- Click-to-select: choose the sentence you are editing from the rendered paragraph.\n- Dim the other sentences: contrast that keeps the selected sentence foregrounded.\n- Sentence panel: sentence number, words, characters, longest word and reading time.\n- Reading time: the shared 220 words-per-minute default, formatted as minutes and seconds.\n- All sentences: every sentence with its counts, for the neighbours.\n- Copy this sentence: the selected sentence alone, ready for a scratch edit.\n\nSentences and words come from the shared Unicode tokenizer, so the sentence boundaries and counts are identical to the sentence count tool and the word count tool — clicking a sentence here selects exactly what the list there reports. Reading time reuses the shared duration formatter with the default rate, so the figure agrees with the reading time estimator. Nothing is uploaded: the paragraph, the selection and the copy all happen in the page. The panel doubles as a quick reading aid too: click the longest sentence in a paragraph and its reading time tells you which one is slowing the reader down.\n\n- Abbreviations followed by a full stop split sentences, so the selected sentence may be shorter than a reader sees.\n- The selection is index-based, so editing above it moves the highlight to a different sentence.\n- Very long paragraphs render fine, but the all-sentences list grows with them.\n- The tool highlights; it does not rewrite, grade or score the sentence.\n- Reading time assumes continuous reading at the default rate and models no pauses.\n\nThe workflow is click, copy, fix, paste: select the sentence, copy it to a scratch buffer, work on it where nothing else is visible, then paste it back. The counts beside the selection are the sanity checks — if the sentence you are cutting is twice the median in the all-sentences list, the cut is doing measurable work rather than feeling like it.\n\nThe sentence neighbours divide the labour: the sentence count tool lists every sentence with its word count for the whole document, the sentence complexity analyzer estimates clause load for the same units, and the word count tool reports the paragraph-level totals the selection sits inside.",
+    "howTo": [
+      "Paste a paragraph into the input panel.",
+      "Click the sentence you want to work on; it comes forward while the rest dims.",
+      "Read the sentence panel for number, words, characters, longest word and reading time.",
+      "Copy this sentence to a scratch buffer, fix it, and paste it back into the paragraph."
+    ],
+    "whenToUse": "Use the focus sentence highlighter when the unit of work is one sentence inside a paragraph. The {{sentence-count-tool|Sentence Count Tool}} lists every sentence with its word count across the whole document, and the {{sentence-complexity-analyzer|Sentence Complexity Analyzer}} estimates clause load for the same units. For the totals the sentence sits inside, the {{word-count-tool|Word Count Tool}} reports words with the frequency table, and the reading time estimator converts the same count into minutes.",
+    "faqs": [
+      {
+        "q": "How do I select a sentence?",
+        "a": "Click it in the rendered paragraph. It comes forward while the others dim, and the sentence panel updates to its number, words, characters, longest word and reading time."
+      },
+      {
+        "q": "Why did my selection move when I edited an earlier sentence?",
+        "a": "Selection is index-based, so a change above it shifts the highlight by one. Click the intended sentence again after edits above it."
+      },
+      {
+        "q": "Are the counts the same as the Sentence Count Tool?",
+        "a": "Yes. Both use the shared Unicode tokenizer for sentence boundaries and words, so the sentence selected here is the same unit the list there reports."
+      },
+      {
+        "q": "Does it split sentences at abbreviations?",
+        "a": "It uses the same Unicode sentence-boundary rule as the rest of this domain, so a period after an abbreviation followed by a capital starts a new segment. The rule is stated rather than hidden."
+      },
+      {
+        "q": "Can the tool suggest a rewrite?",
+        "a": "No. It highlights and counts; rewriting belongs to the sentence-level tools elsewhere in this domain. The copy control exists so you can work on the sentence wherever you like."
+      }
+    ]
+  }
+]

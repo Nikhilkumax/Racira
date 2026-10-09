@@ -8,19 +8,19 @@
  *   4. whether the <audio> element's currentTime actually advances
  *
  * By default it generates once with whatever voice the page loads with (Ryan,
- * standard, WAV). Set PROBE_VOICES to sweep several voices — this is how the
+ * the middle quality tier, MP3). Set PROBE_VOICES to sweep several voices — this is how the
  * catalog is verified to produce *real* audio rather than a silent or corrupt
  * clip, since a decoded peak of 0 is the one failure that a byte-count cannot
  * detect:
  *
  *   PROBE_VOICES='[
  *     {"id":"en_US-ryan-medium"},
- *     {"id":"it_IT-paola-medium","language":"Italian (Italy)","gender":"female","option":"Paola"},
- *     {"id":"cy_GB-gwryw_gogleddol-medium","language":"Welsh","gender":"male","option":"Owain"}
+ *     {"id":"it_IT-paola-medium","language":"Italian (Italy)","option":"Paola"},
+ *     {"id":"cy_GB-gwryw_gogleddol-medium","language":"Welsh","option":"Owain"}
  *   ]' node scripts/tts-probe.mjs
  *
- * `language`/`gender`/`option` are the strings the picker shows; a descriptor
- * with none of them uses the page's current selection. Every synthesized clip
+ * `language` and `option` are the strings the picker shows; a descriptor with
+ * neither uses the page's current selection. Every synthesized clip
  * is written to scripts/.tts-probe-out/ and the process exits non-zero if any
  * voice produced silence (peak below SILENCE_PEAK), so this can gate a release.
  *
@@ -44,7 +44,8 @@ fs.mkdirSync(OUT, { recursive: true });
 // ── Voice sweep configuration ───────────────────────────────────────────
 
 // Default: one run with the page's own default selection (English (US) / male /
-// Ryan / WAV), which is exactly what this probe did before it could sweep.
+// Ryan / the middle quality tier / MP3), which is exactly what this probe did
+// before it could sweep.
 let VOICES = [{ id: "(page default)" }];
 
 if (process.env.PROBE_VOICES) {
@@ -111,12 +112,8 @@ async function selectVoice(voice) {
     await page.locator('[data-testid="language-select"]').click();
     await page.getByRole("option", { name: voice.language, exact: true }).click();
   }
-  if (voice.gender) {
-    const label = voice.gender.toLowerCase() === "male" ? "Male" : "Female";
-    await page.locator('[data-testid="gender-select"]').click();
-    // exact: "Female" substring-matches "Male".
-    await page.getByRole("option", { name: label, exact: true }).click();
-  }
+  // No gender filter any more: the voice list carries every voice for the
+  // language, and the label itself names the gender, so `option` alone picks.
   if (voice.option) {
     await page.locator('[data-testid="voice-select"]').click();
     await page.getByRole("option", { name: voice.option, exact: false }).first().click();

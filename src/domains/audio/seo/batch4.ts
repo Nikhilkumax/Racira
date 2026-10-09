@@ -1,0 +1,354 @@
+/**
+ * AUTO-GENERATED — do not edit by hand.
+ *
+ * Source: src/domains/audio/seo/source/batch-04-audio-cleanup.json
+ * Regenerate: node scripts/audio-json-to-seo.mjs src/domains/audio/seo/source/batch-04-audio-cleanup.json <this file> audioSeoBatch4
+ * Validate first: node scripts/validate-audio-seo-json.mjs src/domains/audio/seo/source/batch-04-audio-cleanup.json
+ */
+import type { ToolSeo } from "@/components/shared/seo-types";
+
+export const audioSeoBatch4: Record<string, ToolSeo> = {
+  "noise-reducer": {
+    keywords: [
+      "noise profile",
+      "spectral subtraction",
+      "gain reduction",
+      "noise floor",
+    ],
+    intro:
+      "Noise Reducer strips steady broadband noise from a whole recording by measuring the noise from the quietest stretch of the file itself. No sample has to be marked by hand, and nothing is uploaded.",
+    content:
+      "Load a file, choose a strength and the tool cleans the entire recording in one pass. The noise profile is taken automatically from the calmest part of the audio, so the tool wants material that contains a genuine stretch of the noise floor alone, such as a pause or a room tone at the head of a take. That single estimate is what every other part of the file is judged against.\n\nWhat you control and what you get back:\n\n- A strength slider from 0 to 100 percent in steps of 5, defaulting to 50.\n- An automatically measured noise profile, taken from the quietest stretch of the recording.\n- A report line listing the strength used, the mean gain reduction in dB and the number of channels written out.\n- A WAV download named after the source file with a denoised suffix added.\n- Plain language errors, so an undecodable file or a failed pass says so rather than failing silently.\n\nThe engine is spectral subtraction with overlap-add resynthesis. The signal is analysed in short windows, the noise magnitude spectrum is estimated from that quietest stretch, a strength-scaled copy of it is subtracted from every window's spectrum and the result is put back together with the overlap-add method so the window seams never become audible. The mean gain reduction in the report is how much level the process removed on average, and it is worth reading as an amount of work done rather than a score: a bigger number can simply mean a heavier hand. Strength scales the subtraction, with 0 leaving the file untouched and the top of the range trading a lot of noise for the hollow, watery artifact that over-subtraction is known for.\n\nWhere it stops being the right tool:\n\n- The profile comes from one quiet stretch, so a recording with no pause of pure noise gives it nothing reliable to estimate from.\n- Noise that changes as it goes, such as traffic, crowd murmur or a passing fan, is not steady enough for a single profile to describe.\n- High strengths introduce a swirling artifact that is frequently more distracting than the noise they removed; 40 to 70 percent is usually the sweet spot.\n- Anything sharing the noise spectrum is reduced alongside it, so breaths, room tails and air around a voice can lose body.\n- It is not a separator: a conversation recorded in a busy room comes back cleaner but not clean, because speech and noise overlap in the same bands.\n- The pass writes a fresh WAV, so there is no live preview and no undo inside the tool.\n\nUse it when the noise is constant and the signal of interest sits somewhere else in the spectrum, which is the case for most hiss, hum-laced room tone, preamp noise and steady tape noise. Start around the halfway point and compare a few strengths on the same passage by ear rather than trusting the reduction figure, because the measured gain reduction says nothing about how natural the result sounds.",
+    howTo: [
+      { step: "Choose an audio file that contains a short passage of noise alone, such as a pause before the first word." },
+      { step: "Set the strength slider, starting around 40 to 70 percent for most material." },
+      { step: "Click Reduce noise and wait for the pass to finish; the report shows the strength, mean gain reduction and channel count." },
+      { step: "Download the file and compare it with the original before deciding whether to run a second pass at a different strength." },
+    ],
+    whenToUse:
+      "Noise Reducer handles broadband, steady noise that spans the spectrum, which is a different job from the targeted tools beside it. {{background-noise-remover|Background Noise Remover}} notches out electrical hum and its harmonics instead, {{hiss-remover|Hiss Remover}} rolls off tape and preamp hiss above a chosen corner, and {{hum-remover|Hum Remover}} does the same narrow work with mains-oriented defaults. When the problem is speech dropping into gaps rather than noise riding on top of it, {{audio-gate|Audio Gate}} mutes the quiet parts outright.",
+    faqs: [
+      {
+        q: "How does the tool know what the noise sounds like?",
+        a: "It measures it instead of asking. The quietest stretch of the recording is assumed to be the noise floor, and its spectrum becomes the profile that everything else is compared against. That works well whenever the take has a genuine pause in it, and it is the reason the tool asks for material with a moment of just the noise.",
+      },
+      {
+        q: "What does mean gain reduction mean in the report?",
+        a: "It is the average amount of level the subtraction removed across the file, in decibels. A larger number means the process worked harder, not that the result is better; heavy settings raise it while also raising the chance of watery artifacts, so compare by ear rather than chasing the figure.",
+      },
+      {
+        q: "Why does my recording sound hollow after reducing noise?",
+        a: "That is over-subtraction. The profile is subtracted from every window, so bands where signal and noise overlap lose energy along with the noise, and pushing the strength past about 70 percent makes the effect obvious. Lower the strength, or accept a little remaining noise in exchange for natural tone.",
+      },
+      {
+        q: "Can it remove traffic or a crowd?",
+        a: "No, not reliably. The method assumes the noise is steady enough that one profile describes it throughout, and traffic, crowds and wind gusts all change over time. For moving or intermittent noise the targeted repair tools, or a re-record with a tighter microphone position, will get you further.",
+      },
+      {
+        q: "Is the original file changed?",
+        a: "No. The decoded audio is held in the browser, processed in memory and written out as a new WAV under a denoised suffix. Your original file is untouched and nothing is uploaded at any point, so a pass you dislike costs nothing but the time to run it again.",
+      },
+    ],
+  },
+
+  "background-noise-remover": {
+    keywords: [
+      "hum",
+      "harmonics",
+      "notch filter",
+      "mains frequency",
+    ],
+    intro:
+      "Background Noise Remover takes out the steady electrical or mechanical backdrop that sits under a recording, by notching its fundamental and every harmonic of it. It is built for the broadband constant drone — transformer hum, fridge whine, mains buzz — rather than for hiss or clicks.",
+    content:
+      "Pick the fundamental, decide how many harmonics to chase and set how wide each notch should be, then run the file through the chain. Because the fundamental and its multiples are removed as a family, a 50 Hz buzz takes its 100, 150 and 200 Hz companions with it, which is what makes the drone disappear rather than half-disappear.\n\nThe controls, with their real ranges:\n\n- A fundamental of 50 Hz, 60 Hz or 100 Hz, presented as three buttons and defaulting to 60.\n- A harmonic count from 1 to 16, defaulting to 8, with the chain stopping before it reaches the top of the spectrum.\n- A notch width expressed as Q from 8 to 40 in steps of 2, defaulting to 20.\n- A report line naming the fundamental, the number of harmonics actually applied and the Q used.\n- A WAV download named after the source with a cleaned suffix.\n\nEach harmonic is a second order notch filter built from the standard RBJ biquad formulas and applied in series, one filter per harmonic per channel, which makes the chain a bank of narrow notches rather than one broad cut. The chain stops as soon as a harmonic would land within a hundred hertz of the Nyquist limit, so no attempt is made to build a filter that cannot exist at the rate you are running. Wider notches, meaning a lower Q, catch a hum that wanders with load while taking some legitimate tone with it, and narrower notches leave more of the music intact but need the source frequency to be stable. This is deliberately the broader variant of the idea: more harmonics and a slightly wider notch than the mains-focused Hum Remover, which is why it reports what it removed.\n\nWhat it cannot do:\n\n- It only removes energy at exact multiples of one frequency, so broadband noise such as air conditioning or hiss passes straight through.\n- If the true mains frequency is not on one of the three offered buttons, every notch lands in the wrong place and the drone survives untouched.\n- A hum that drifts with load needs a wider notch, which costs tone around every removed band.\n- Removing many harmonics at wide Q can hollow out the low end of a bass-heavy recording.\n- It is a fixed chain rather than an adaptive canceller, so it cannot track a changing buzz in real time.\n- There is no measurement step: the tool does not tell you which frequency the noise is actually at, so you are choosing from experience.\n\nReach for it when you can hear a steady pitch under everything and you know roughly where it lives: 50 Hz for European mains, 60 Hz for North American, and 100 Hz for the mechanical whine of fans and motors that sit an octave above the mains. If the source frequency is unknown, guess from where the recording originated, because a comb aimed at the wrong fundamental removes nothing while still thinning the spectrum around each misplaced notch. Start with the default harmonic count, listen, and reduce Q only if the hum is still moving after the pass.",
+    howTo: [
+      { step: "Load the recording and choose the fundamental that matches the noise, starting with 50 or 60 Hz for mains hum." },
+      { step: "Set how many harmonics to remove; the default of 8 covers a typical buzz up past the midrange." },
+      { step: "Set the notch width with the Q control, using a lower value if the hum wanders in pitch." },
+      { step: "Click Remove background noise, read the report to see which harmonics were applied, then download the cleaned WAV." },
+    ],
+    whenToUse:
+      "Background Noise Remover is the broad hum tool, so choose it when the drone is clearly a family of tones and you want the whole comb gone. {{hum-remover|Hum Remover}} does the same job with mains-oriented defaults and a sharper notch, which suits a steady 50 or 60 Hz buzz you do not want to disturb anything else for. When the noise is not tonal at all, {{noise-reducer|Noise Reducer}} works on broadband noise instead, and when the low end is being stolen by rumble rather than a fixed pitch, {{wind-noise-remover|Wind Noise Remover}} is the cleaner answer.",
+    faqs: [
+      {
+        q: "Which fundamental should I pick, 50 Hz or 60 Hz?",
+        a: "It depends on where the recording was made. Europe and most of the world run mains at 50 Hz, North America and parts of Asia at 60 Hz, and the buzz you hear is that frequency plus its multiples. The 100 Hz button is for mechanical whine and motor noise that sits above the mains rather than at it.",
+      },
+      {
+        q: "What does the harmonics control actually change?",
+        a: "A real hum is never a single tone; it is the fundamental plus a stack of multiples created by the equipment producing it. Each harmonic you add places one more notch at a multiple of the fundamental. Eight is a sensible default because the upper harmonics are usually weak, so chasing them all costs filtering for very little removal.",
+      },
+      {
+        q: "Why would I lower the Q value?",
+        a: "Because a lower Q widens each notch. Mains frequency wanders slightly with grid load, and equipment sometimes shifts the hum as it warms, so a wide notch keeps catching it. The trade is that a wide notch removes more legitimate energy around every harmonic, so keep Q high when the tone is rock steady.",
+      },
+      {
+        q: "Will this remove hiss or air conditioning noise?",
+        a: "No. The tool removes energy at exact multiples of one frequency, and hiss or air noise is spread across the whole spectrum rather than concentrated at a pitch. For that kind of constant broadband backdrop you want the spectral approach in Noise Reducer, which estimates and subtracts a noise profile instead.",
+      },
+      {
+        q: "How do I know which frequency the hum is at?",
+        a: "The tool does not measure it, so you judge it by ear or from the context of the recording. Mains-derived buzz almost always sits at 50 or 60 Hz, motor and fan whine on top of that is usually an octave up, and if the three buttons do not fix it, the noise is probably not a harmonic comb at all and a different tool fits better.",
+      },
+    ],
+  },
+
+  "hiss-remover": {
+    keywords: [
+      "tape hiss",
+      "lowpass filter",
+      "cutoff",
+      "high frequency",
+    ],
+    intro:
+      "Hiss Remover takes the steady high-frequency noise of tape, preamps and cheap converters down with a single gentle filter. It is the artifact-free kind of hiss removal: one lowpass with a corner you choose, rather than a spectral reconstruction.",
+    content:
+      "Load a file, drag the cutoff and the tool applies one lowpass filter across every channel. Tape hiss and preamp hiss both live above roughly ten kilohertz, while the musical energy of most material does not, and that gap is the whole basis of the approach. Everything well above the corner rolls off quickly and everything well below it passes through effectively untouched, which is why the honest guidance is to set the corner as high as the material will tolerate.\n\nWhat the panel gives you:\n\n- A cutoff slider from 4000 to 16000 Hz in steps of 500, defaulting to 10000.\n- A second order lowpass, which is a 12 decibel per octave roll off rather than a brick wall.\n- A report line quoting the corner, the slope and the frequency below which content is effectively untouched.\n- A WAV download named after the source with a dehissed suffix.\n- Written guidance in the panel itself: 10 to 12 kHz for music, 6 to 8 kHz for speech.\n\nThe filter is a second order biquad lowpass designed with the standard RBJ coefficients and a Butterworth damping factor, which puts the response 3 decibels down at the corner and then falls away at 12 decibels per octave. That is a real filter rather than a noise model, and the distinction matters: it cannot tell hiss from cymbals, so it removes everything up top in equal measure. The payoff is that it introduces no artifacts of its own, which is more than can be said for aggressive spectral processing on quiet, wideband noise. Because the touch is so light, the whole file is processed in one pass with no tuning beyond the corner frequency.\n\nWhen it is the wrong tool:\n\n- Hiss that overlaps the music's own high frequency content cannot be filtered away without dulling that content at the same time.\n- The roll off is shallow, so the noise is reduced rather than eliminated; near the corner you keep a good portion of it.\n- Setting the corner low to kill more noise costs you cymbals, consonants and air on voices.\n- Speech that has already been dulled by a lossy codec can sound noticeably muffled once more high end goes.\n- It removes treble from the entire file, including passages where no hiss is audible.\n- The processing is offline, so there is no way to audition corners inside the tool and no undo beyond reloading the original and running the pass again with a different corner.\n\nUse it on transfers of tape, vinyl captures and any recording where the noise floor is bright and the useful content is not. Match the corner to the material: music with cymbals usually tolerates 10 to 12 kHz, while a spoken-word interview can go down to 6 or 8 kHz and sound better for it. If the hiss is not the only problem, deal with hum and clicks first, because a lowpass will not touch either of them, and a pass that dulls the top end is far easier to judge once the noise underneath has already gone.",
+    howTo: [
+      { step: "Choose the file that needs brightening down, such as a tape or vinyl transfer." },
+      { step: "Set the cutoff: about 10 to 12 kHz for music, and 6 to 8 kHz for speech-heavy recordings." },
+      { step: "Click Remove hiss to run the lowpass across every channel in one pass." },
+      { step: "Download the dehissed WAV and check that cymbals or consonants still sound natural before accepting the setting." },
+    ],
+    whenToUse:
+      "Hiss Remover suits bright, steady noise sitting above the useful content, which is why it is the first thing to try on a tape or vinyl transfer. {{noise-reducer|Noise Reducer}} is the spectral alternative for broadband noise that runs across the spectrum rather than above it, and {{background-noise-remover|Background Noise Remover}} handles tonal hum instead of a spread of high frequencies. When the excessive brightness is concentrated on sibilants rather than the whole top end, {{sibilance-reducer|Sibilance Reducer}} ducks just the offending band instead of everything above a corner.",
+    faqs: [
+      {
+        q: "Where should I set the cutoff?",
+        a: "As high as the material allows. Music with cymbals and acoustic detail usually survives a corner in the 10 to 12 kHz region, while speech can go down to 6 or 8 kHz because very little consonant energy lives above that. Lower corners remove more hiss and more of the sound you wanted to keep.",
+      },
+      {
+        q: "Why does my recording sound dull afterwards?",
+        a: "Because a lowpass removes everything above the corner, including the air and sparkle in the original. The response is only 3 decibels down at the corner and rolls off at 12 decibels per octave, so the effect is gradual rather than abrupt but still real. Raise the cutoff or accept a little remaining hiss in exchange for the top end.",
+      },
+      {
+        q: "How is this different from the noise reduction tool?",
+        a: "This one applies a single filter and makes no attempt to model the noise, so it cannot introduce artifacts but also cannot separate noise from signal. The spectral approach estimates a noise profile and subtracts it, which removes more of the noise across the whole spectrum at the cost of a watery character when pushed.",
+      },
+      {
+        q: "Will it remove hiss from a recording where music is playing?",
+        a: "It will reduce it, with a catch: the filter takes the music's own high frequencies down alongside the hiss. If the hiss and the music overlap in the same range there is no filter that can tell them apart, so the result is a trade between brightness and noise rather than a free win.",
+      },
+      {
+        q: "What if the recording also has hum or clicks?",
+        a: "Deal with those first. A lowpass filter has no effect on a 50 or 60 Hz hum and none on impulsive clicks, so run the hum and click tools before this one, then finish with the hiss removal once the other problems are no longer masking the top end.",
+      },
+    ],
+  },
+
+  "hum-remover": {
+    keywords: [
+      "mains hum",
+      "notch",
+      "harmonics",
+      "ground loop",
+    ],
+    intro:
+      "Hum Remover notches the mains fundamental and as many harmonics as you ask for, which is exactly the comb of tones that ground loops and poor cables inject into a recording. Set the mains frequency for your region, choose the harmonic count and run it.",
+    content:
+      "Choose 50 Hz or 60 Hz to match your mains, decide how many harmonics to remove and how sharp each notch should be, then process the file. A ground loop or a badly shielded cable injects that comb into every take recorded through it, so this is the repair that matches the damage most exactly. Because every notch sits on an exact multiple of the chosen fundamental, the filter chain is invisible everywhere else in the spectrum, which is what makes it safe to apply to finished music as well as speech.\n\nThe real controls:\n\n- A mains frequency of 50 Hz for Europe or 60 Hz for the United States, shown as two buttons and defaulting to 50.\n- A harmonic count from 1 to 10, defaulting to 5, covering the fundamental plus four multiples.\n- A notch sharpness expressed as Q from 10 to 60 in steps of 5, defaulting to 30.\n- A report line that lists the fundamental, the harmonic count and every notched frequency in hertz.\n- A WAV download named after the source with a dehummed suffix.\n\nEvery harmonic in the chain is a second order notch built from the standard RBJ biquad formulas and applied in series per channel. The measured behaviour is what you would hope for: at a Q of 30 the fundamental is knocked down below a twentieth of its original amplitude, stacked notches drive 60, 120, 180 and 240 Hz to under two percent residue in steady state, and gain elsewhere in the spectrum stays at unity. Sharpness is the interesting control. A high Q keeps the notches narrow so almost no music is removed alongside the hum, but it also means a hum that drifts in frequency as the grid load changes can slide partly out of the notch. Lower Q widens each one and catches the wander at the cost of a little more tone around every removed band, and the panel notes that mains drift is exactly the case where you need the wider setting.\n\nIts honest limits:\n\n- Mains hum that is genuinely broadband has energy between the harmonics too, and notches cannot touch what does not sit on a multiple.\n- The chain is fixed at the frequencies you chose, so it never tracks a hum that changes pitch during the recording.\n- Very wide notches on a bass-heavy mix can thin the low end audibly, since the lower harmonics live in the same region as the bass.\n- It cannot identify the hum for you; if the fundamental is not 50 or 60 Hz the chain is aimed at the wrong place.\n- Filtering removes energy but does not remove the cause, so the hum will come back on the next take recorded the same way.\n- The tool writes a new file and offers no live audition, so you judge the settings after the pass rather than during it.\n\nUse it on anything recorded through a dirty mains supply or a laptop charger that was humming into the interface: interviews, voiceovers, guitar DI tracks and transfers where the buzz is a clear low pitch. Set the mains button for your region, leave the harmonic count at five, and widen the notch only if the hum still blinks in and out of the result.",
+    howTo: [
+      { step: "Load the recording and press the mains button that matches your region, 50 Hz or 60 Hz." },
+      { step: "Choose how many harmonics to notch; the default of 5 usually covers the audible part of a ground loop buzz." },
+      { step: "Adjust the Q control, keeping it high unless the hum pitch wanders." },
+      { step: "Click Remove hum, check the reported frequencies, then download the dehummed WAV." },
+    ],
+    whenToUse:
+      "Hum Remover is the precise instrument for a recognised mains buzz, so reach for it when you can hear a steady low pitch and know the frequency. {{background-noise-remover|Background Noise Remover}} is the broader relative, with more harmonics and a wider notch for a comber backdrop, while {{noise-reducer|Noise Reducer}} works on broadband noise that has no pitch at all. If the low end is full of rumble rather than a fixed tone, {{wind-noise-remover|Wind Noise Remover}} clears it in one highpass instead, and {{dc-offset-remover|DC Offset Remover}} deals with the related problem of a waveform that sits off centre.",
+    faqs: [
+      {
+        q: "How many harmonics do I need?",
+        a: "Five covers most cases, because a real ground loop buzz puts most of its audible energy in the fundamental and the first few multiples. Raise the count if the buzz still has an edge to it after a pass, and remember that each extra harmonic is one more band where legitimate low-frequency content is being removed.",
+      },
+      {
+        q: "What does the Q control change?",
+        a: "It sets how narrow each notch is. A high Q removes a very thin slice of the spectrum and leaves almost everything else alone, which is ideal for a stable hum, while a low Q widens the notches so they still catch a hum whose frequency drifts with mains load. Widening always costs some nearby tone.",
+      },
+      {
+        q: "Is 50 Hz or 60 Hz the right choice?",
+        a: "Match the mains supply where the recording was made: 50 Hz across Europe, most of Asia and much of the rest of the world, 60 Hz in North America and a few other regions. Choosing the wrong one leaves the hum completely untouched while thinning two narrow bands for no reason.",
+      },
+      {
+        q: "Why is there still a buzz after I remove the hum?",
+        a: "Because notches only remove what sits exactly on the harmonic series. Energy between the harmonics, and noise that changes its character as equipment warms up, is not on the grid and therefore passes through. If the residual is not tonal, the spectral noise reduction tool is the better second step.",
+      },
+      {
+        q: "Does this fix the cause of the hum?",
+        a: "No. It removes the evidence from a recording that already exists. Ground loops, unbalanced cables and humming power supplies will inject the same buzz into every new take, so treat the tool as a rescue for material you cannot re-record and fix the signal chain before the next session.",
+      },
+    ],
+  },
+
+  "click-pop-remover": {
+    keywords: [
+      "click repair",
+      "vinyl",
+      "pops",
+      "declicker",
+    ],
+    intro:
+      "Click and Pop Remover repairs the sharp ticks and thumps that vinyl and dirty electrical contacts leave behind, by finding them and splicing them out. Detection is local and repair is surgical, so clean stretches come back byte for byte identical.",
+    content:
+      "Load a file, set the sensitivity and the tool scans each channel for impulsive events, performs a click repair on each one and reports how many it found. It is designed around the shape of the damage rather than the material, which is why it can work on a vinyl transfer and on a clean digital recording with a handful of stray ticks without any retuning.\n\nWhat it gives you:\n\n- A sensitivity slider from 3 to 12, defaulting to 6, where lower numbers catch more events.\n- Detection by comparing each sample against the median of its neighbourhood and against a robust local scale estimate.\n- Repair by a zero-tangent cubic Hermite splice, which replaces the event and rejoins the waveform smoothly.\n- A report line with the total number of clicks repaired across all channels and the sensitivity used.\n- A WAV download named after the source with a declicked suffix.\n\nThe detection works on a seven-sample median residual: each sample is compared against the median of its immediate neighbours, and the size of that residual is judged against a robust estimate of the local scale rather than against a fixed threshold. That is what lets the same sensitivity cope with a quiet acoustic passage and a loud chorus, because the test is relative to the neighbourhood rather than to the file as a whole. When an event is found, a short window around it is replaced with a cubic Hermite curve whose tangents match the surrounding waveform, so the repair rejoins with no step and no ringing. The verified behaviour is that a single full-scale impulse is repaired within bounds and the signal is byte-identical outside a window of about six samples either side, which is why the tool is safe to leave switched on for a whole side of vinyl.\n\nWhere it is the wrong answer:\n\n- Very wide flat-topped bursts, such as a chopped note head or digital dropout, look nothing like a click and are better fixed by hand.\n- Sibilants and true transients such as snare hits are loud and abrupt, so an aggressive sensitivity setting can start shaving real musical attacks.\n- The repair is local, so it cannot restore information that was lost across a long stretch of damage.\n- Detection runs per channel, so a stereo event that appears in only one channel is reported once and repaired only there.\n- It does not remove the crackle bed of badly worn vinyl, which is a dense texture of many tiny clicks and pops rather than a series of isolated events. Treat it as a declicker rather than a restorer: it fixes the events a listener would point at, and leaves the general character of the surface noise alone.\n- The count in the report tells you how many events fired, not how audible they were, so a high number can be trivially correct or over-eager.\n\nUse it on transfers from vinyl, tape and old hardware where the damage is impulsive, and lower the sensitivity only when you can still hear ticks in the result. If snare drums or plosive consonants start sounding softened, you have gone past the point where the detector distinguishes damage from performance and the setting needs to come back up.",
+    howTo: [
+      { step: "Load the recording and set the sensitivity from 3 to 12, remembering that lower values catch more events." },
+      { step: "Run the pass and read the report line to see how many clicks were repaired." },
+      { step: "Listen to a passage you know had ticks to check they are gone, and to a percussive passage to check nothing was shaved." },
+      { step: "Adjust the sensitivity in one step increments and re-run if either check fails, then download the declicked WAV." },
+    ],
+    whenToUse:
+      "Click and Pop Remover is for isolated impulsive damage, which makes it the natural partner of a vinyl transfer. {{clipping-distortion-remover|Clipping Distortion Remover}} addresses a different failure, where a waveform was flattened by too much level rather than punctured by a tick, and {{hiss-remover|Hiss Remover}} clears the steady bright noise that usually accompanies the same old recordings. When the noise is broadband rather than impulsive, {{noise-reducer|Noise Reducer}} works across the whole spectrum instead of hunting individual events.",
+    faqs: [
+      {
+        q: "What does the sensitivity number mean?",
+        a: "It is a threshold multiplier between 3 and 12, and it works backwards from what you might expect: lower values catch more events because the bar an event has to clear is lower. The default of 6 is a middle setting, so start there and move down one step at a time if ticks survive, or up if real transients start sounding clipped.",
+      },
+      {
+        q: "How does the tool decide what counts as a click?",
+        a: "By comparing each sample with the median of its neighbours and judging that residual against a robust estimate of the local scale. Because the test is relative to the neighbourhood, the same setting behaves sensibly in a quiet passage and a loud one, and it does not need a level threshold tuned per file.",
+      },
+      {
+        q: "Does the repair leave an audible hole?",
+        a: "No. The affected window is replaced with a cubic Hermite curve whose tangents match the waveform on both sides, so the splice rejoins without a step or ringing. Measured behaviour is that the repair stays within bounds and that samples outside roughly six samples either side of the event come back completely unchanged.",
+      },
+      {
+        q: "Can it clean up worn vinyl crackle?",
+        a: "Only partly. Sparse ticks and pops are exactly what it is built for, but heavy wear produces a dense texture of very small clicks that a detector tuned for isolated events will not address. Light pressure here plus the hiss filter, or a better copy of the record, gets you further than pushing the sensitivity down.",
+      },
+      {
+        q: "Is it safe to run on studio recordings?",
+        a: "It is safe in the sense that clean signal passes through untouched, but it will act on genuine transients if you set the sensitivity low enough, because a snare hit and a click are both sudden broadband events. Use it on studio material only when you can hear specific defects you want gone, and check percussive passages afterwards.",
+      },
+    ],
+  },
+
+  "plosive-remover": {
+    keywords: [
+      "plosives",
+      "voice",
+      "low frequency",
+      "gate",
+    ],
+    intro:
+      "Plosive Remover tames the low-frequency thumps that p and b sounds make when they are spoken too close to a microphone. A gate fires only when a passage is both low-heavy and much louder than its surroundings, so steady bass never gets touched.",
+    content:
+      "Load a voice recording, set how much reduction you want available and how strict the trigger should be, then run the pass. The tool is aimed at plosives from the letters p and b, which are the commonest cause of a low frequency thump in a close-miked voice take. The output is the same performance with the breath blasts softened, and the report tells you how many events the gate acted on.\n\nThe two controls and what they do:\n\n- A sensitivity slider from 4 to 20 dB, defaulting to 10, which sets how far a window's low band must stand above the surrounding level before the gate opens.\n- A maximum reduction slider from 3 to 24 dB, defaulting to 12, which caps how hard the low band can be pulled down.\n- A report line giving the number of plosive events gated and the maximum reduction applied to the low band.\n- A WAV download named after the source with a deplosived suffix.\n\nThe processor splits the signal into a low band and the rest, tracks the local level of each and only reduces the low band when both conditions are met at once: the window is low-frequency dominant and it is significantly louder than the audio around it. Requiring both is what makes the tool usable on music. A steady bass line is low-frequency dominant but is not a sudden burst, and a loud cymbal is a sudden burst but is not low-heavy, so neither triggers a cut. When the two line up, which is precisely the signature of a breath blast, the low band is attenuated by up to the maximum reduction you allowed. The verified behaviour is that steady bass and quiet low-frequency content pass sample-identical, and that the cut itself is monotone and component exact rather than a filter that rings.\n\nWhat it will not do:\n\n- It cannot repair a plosive that already distorted the capsule, because the clipping is baked in above the low band.\n- A very deep or very close blast needs a high maximum reduction, and at that point the voice can lose some body on the affected syllable.\n- If the sensitivity is set too generously the gate can catch genuine low notes from a male voice or a bass instrument.\n- Detection is per channel and per window, so a plosive that was only ever recorded on one channel is treated as one event.\n- It removes the symptom in post rather than the cause, and the same microphone technique will produce the same blasts next time.\n- There is no visual map of where the events occurred, only the count in the report.\n\nUse it whenever a spoken take is punctuated by thumps that make the whole mix duck, which is the usual consequence of a pop filter being too far from the capsule. Start with the defaults, listen to a couple of the worst sentences, and raise the maximum reduction only until the thumps stop poking out; beyond that the trade is voice weight for nothing.",
+    howTo: [
+      { step: "Load a spoken recording and leave the sensitivity at its default of 10 dB to begin with." },
+      { step: "Set the maximum reduction, starting at 12 dB and raising it only if blasts still break through." },
+      { step: "Run the pass and read the report to see how many plosive events were gated." },
+      { step: "Compare the worst sentences against the original, checking the voice has not lost its low end, then download the WAV." },
+    ],
+    whenToUse:
+      "Plosive Remover is the specific fix for p and b blasts in a spoken recording, which makes it first choice for narration, podcast interviews and voiceover. {{wind-noise-remover|Wind Noise Remover}} covers the different case where the whole take is thick with low-frequency rumble rather than punctuated by blasts, and {{sibilance-reducer|Sibilance Reducer}} handles the problem at the other end of the spectrum. When the issue is breaths and gaps rather than thumps, {{audio-gate|Audio Gate}} is the tool, and {{voice-recorder|Voice Recorder}} is where a take with better microphone discipline starts.",
+    faqs: [
+      {
+        q: "Why does a plosive need a special tool rather than a highpass filter?",
+        a: "Because a highpass removes low end from the entire recording, while a plosive is a short event. This tool acts only on the windows that are both low-heavy and much louder than their surroundings, so the voice keeps its weight everywhere else. A highpass would dull the whole performance to fix a handful of syllables.",
+      },
+      {
+        q: "Will it damage bass instruments in the same recording?",
+        a: "It is designed not to. A bass line is low-frequency dominant but not a sudden burst, so the second condition fails and no cut is applied; verified behaviour is that steady low-frequency content passes sample-identical. The risk only appears if you make the trigger so sensitive that ordinary low notes start counting as bursts.",
+      },
+      {
+        q: "What do the two sliders really change?",
+        a: "The sensitivity sets how far above the surrounding level a window's low band must sit before the gate opens, so a lower figure makes it trigger more readily. The maximum reduction caps the cut, so it controls how much of the blast is removed. Together they decide how aggressive the pass is.",
+      },
+      {
+        q: "Can it fix a plosive that already distorted?",
+        a: "No. When a blast clips the capsule, the distortion appears well above the low band, and this tool only reduces low-frequency energy. A mild case can be helped by a declipper, but a hard clip is permanent, which is why microphone distance and a pop filter matter more than any repair step.",
+      },
+      {
+        q: "How many events should I expect it to find?",
+        a: "It depends entirely on how the recording was made. A narration recorded with good technique may show very few, while a close-miked take with no filter can fire on most sentences. The count is a rough indication of how much the tool acted, not a quality measure, so judge the result by listening to the affected phrases.",
+      },
+    ],
+  },
+
+  "sibilance-reducer": {
+    keywords: [
+      "de-esser",
+      "sibilance",
+      "sibilants",
+      "frequency band",
+    ],
+    intro:
+      "Sibilance Reducer softens harsh s and sh sounds by ducking only the band where they live and only while they dominate. The voiced part of the signal stays untouched, and the tool never amplifies anything.",
+    content:
+      "Load a voice recording and the tool behaves as a de-esser: it splits the signal into a frequency band and the rest, measures how much energy that band is carrying and pulls it down when it takes over the signal. Because the band is only ducked while it is dominant, ordinary speech comes through unprocessed and cymbals in a full mix mostly survive.\n\nThe controls and the readout:\n\n- A sensitivity slider from 10 to 30 dB, defaulting to 20, expressed as the share of energy the band must carry before a cut is applied.\n- A maximum reduction slider from 2 to 15 dB, defaulting to 6.\n- A report line giving the number of sibilance events softened and the maximum reduction applied.\n- The affected band, which the tool works in around the 5 to 9 kHz region where sibilants concentrate.\n- A WAV download named after the source with a deessed suffix.\n\nThe band split is done with zero-phase filtering, which means the same corner pairs are applied forwards and backwards so no phase shift is left behind by the split itself. That matters because the two halves of the signal are recombined afterwards: a conventional split would leave the high band rotated in time relative to the low one and the recombination would no longer be transparent. The detector compares the band's energy against the total, and when the share crosses your sensitivity threshold the band is scaled down by up to the maximum reduction, smoothly and monotonically, so there is no filter ringing added at the moment of the cut. Verified behaviour is that a six kilohertz burst is attenuated by at least twenty percent while the voiced part of the same signal is byte-identical, that normal speech is untouched, and that the processor never boosts anything. That last property matters in practice, because a de-esser that overshoots its target leaves the consonant sounding worse rather than merely softer.\n\nWhat it does not do:\n\n- Cymbals and airy percussion share the band, so on a full mix the duck can still catch them when they dominate on their own.\n- A lisped or unusually bright voice may need a low maximum reduction to avoid sounding dulled rather than fixed.\n- It cannot undo distortion that a sibilant already caused in the microphone chain.\n- The band is fixed around the sibilant region, so it is not a general purpose dynamic equaliser.\n- Detection works per channel, so an aggressive sibilant that appears in only one channel of a stereo pair is handled only there.\n- It processes offline with no visual map of where events fired, only a count in the report.\n\nUse it on close-miked spoken word, where bright consonants are the most common complaint, and on any vocal take where the esses cut through the mix in an unpleasant way. Start at the defaults, listen to a sentence with several s sounds, and lower the maximum reduction if the voice starts to lose its presence rather than its harshness, since the aim is to remove the sting and not the character.",
+    howTo: [
+      { step: "Load a recording with prominent s and sh sounds and leave the sensitivity at its default." },
+      { step: "Set the maximum reduction, beginning at 6 dB and going lower if the voice starts to sound dull." },
+      { step: "Run the pass and read the report for the number of sibilance events and the maximum reduction applied." },
+      { step: "Check a sentence with several sibilants against the original, then download the deessed WAV." },
+    ],
+    whenToUse:
+      "Sibilance Reducer targets the bright, harsh consonants of close-miked speech, which is a narrow job by design. {{plosive-remover|Plosive Remover}} addresses the opposite end of the same problem, taming low-frequency blasts instead of high ones, and {{hiss-remover|Hiss Remover}} takes down broadband top-end noise rather than concentrating on a band. When the whole recording needs its balance changed rather than one problem band ducked, {{equalizer|Equalizer}} gives you the bass, mid and treble shelves, and {{voice-recorder|Voice Recorder}} is where a take with better microphone placement comes from.",
+    faqs: [
+      {
+        q: "Which frequencies does the tool work on?",
+        a: "The band where sibilants concentrate, around five to nine kilohertz. Rather than filtering that range out, the tool only scales it down while it dominates the signal, so normal speech and voicing are passed through as they were. The report quotes the band along with the reduction applied.",
+      },
+      {
+        q: "How is this different from just cutting the treble?",
+        a: "A treble cut applies all the time, so a voice loses its air, presence and intelligibility everywhere. This is a dynamic processor: it watches the band's share of the total energy and ducks it only during the moments that are actually harsh. Most of a sentence is untouched, which is why de-essing sounds natural where a shelf does not.",
+      },
+      {
+        q: "Why do my cymbals sound slightly different afterwards?",
+        a: "Because cymbals put a lot of energy in the same band the detector is watching. On a full mix they can occasionally dominate it, and when they do the tool ducks them just as it would a sibilant. On speech-led material this is rarely noticeable; on a drum bus it is the reason to keep the maximum reduction low.",
+      },
+      {
+        q: "Can it make a lisp worse?",
+        a: "It can only reduce the band, never boost it, so it will not exaggerate a lisp. What it can do is make a bright voice sound dull if you push the maximum reduction too far, because some of the character of the consonants is genuinely being removed. Use the smallest reduction that fixes the harshness.",
+      },
+      {
+        q: "Does the band split leave any artifacts?",
+        a: "No. The split is done with zero-phase filtering, applying the same corners forwards and backwards, so the two halves recombine exactly with no phase rotation left over. Verified behaviour is that a high-frequency burst is attenuated while the voiced part of the signal passes byte-identical.",
+      },
+    ],
+  },
+
+  "wind-noise-remover": {
+    keywords: [
+      "wind noise",
+      "rumble",
+      "highpass filter",
+      "microphone",
+    ],
+    intro:
+      "Wind Noise Remover deletes the sub-100 Hz rumble that gusts of wind put into a microphone, with a single 12 decibel per octave highpass and a corner you choose. Wind is almost pure low-frequency energy, so this is one of the few repairs that costs the voice nothing.",
+    content:
+      "Load a recording, drag the corner frequency and the tool applies one highpass filter to every channel. Wind noise is concentrated well below a hundred hertz, while speech and most musical content are not, which is the gap this filter is built to sit in. Rumble below the corner rolls off quickly, content an octave above it passes effectively untouched, and the report tells you both figures so you can see exactly where the line was drawn.\n\nWhat you set and what you see:\n\n- A corner frequency from 40 to 400 Hz in steps of 10, defaulting to 150.\n- A second order highpass, which is a 12 decibel per octave roll off rather than a brick wall.\n- A report line quoting the corner, the slope and the frequency above which content is effectively untouched.\n- Panel guidance suggesting a start of 80 to 150 Hz and noting that male broadcast voices reach down to about 85 Hz.\n- A WAV download named after the source with a dewinded suffix.\n\nThe filter is a second order biquad highpass built from the standard RBJ coefficients with a Butterworth damping factor, which places the response 3 decibels down at the corner and then falls at 12 decibels per octave below it. The measured behaviour is that a 60 Hz component is knocked down by more than eighteen decibels at a 300 Hz corner while a 500 Hz tone passes untouched. That is the useful shape for wind: gusts inject energy concentrated well below a hundred hertz, while the lowest notes of most voices sit around the eighty to one hundred hertz region, so a corner placed carefully sits in the gap between the two. Unlike the spectral repairs, this filter has nothing to estimate and no artifact to introduce, which makes it safe on any material that genuinely has no useful sub-bass.\n\nWhere it stops being the right tool:\n\n- Once the corner is set above the fundamental of a male voice, the low end of speech starts to thin out audibly.\n- It cannot repair the distortion a violent gust causes above the rumble, because that clipping is permanent and beyond any filter.\n- If the recording carries music with real bass content, the filter removes that bass along with the wind.\n- The roll off is shallow, so noise an octave or more above the corner survives.\n- It treats the whole file, including passages with no wind at all, so the low end is affected everywhere.\n- There is no preview inside the tool, so the corner is chosen before you hear the result.\n\nUse it on field recordings, phone interviews, outdoor vlogs and any take where the microphone was exposed, and choose the corner by asking what the material actually needs down low. For a male broadcast voice, 80 to 120 Hz usually clears the rumble while leaving weight behind; for speech with no low-frequency interest at all, or for material you are going to highpass again later in the chain, going higher is harmless.",
+    howTo: [
+      { step: "Load the recording and start with a corner between 80 and 150 Hz." },
+      { step: "Check what the material needs below the corner; a male voice can go down to about 85 Hz, so leave room beneath it." },
+      { step: "Click Remove wind rumble to run the highpass across every channel in one pass." },
+      { step: "Download the dewinded WAV and confirm the voice still has weight before accepting the setting." },
+    ],
+    whenToUse:
+      "Wind Noise Remover is the one-pass answer when low-frequency rumble has taken over a recording and nothing musical lives down there. {{plosive-remover|Plosive Remover}} is the targeted version of the same idea for speech, acting only on the syllables that blast rather than filtering the whole file. When the low-frequency problem is a steady electrical tone rather than wind, {{hum-remover|Hum Remover}} removes it by frequency, and {{dc-offset-remover|DC Offset Remover}} fixes a waveform whose centre has drifted. {{hiss-remover|Hiss Remover}} covers the opposite end of the spectrum.",
+    faqs: [
+      {
+        q: "Where should I set the corner frequency?",
+        a: "Start between 80 and 150 Hz. The panel notes that male broadcast voices go down to roughly 85 Hz, so going much higher begins to thin the voice's weight. Wind energy sits well below that, so a corner in this region usually separates the two cleanly.",
+      },
+      {
+        q: "Why is this described as one of the cheap repairs?",
+        a: "Because a highpass does not have to model anything. There is no noise profile to estimate and no spectral reconstruction, so there is nothing to introduce a watery or hollow artifact. The cost is simply the low-frequency content below the corner, which for wind-damaged speech is noise rather than signal.",
+      },
+      {
+        q: "Will it fix the distortion from a strong gust?",
+        a: "No. A hard gust can drive the capsule into clipping, and that distortion appears across the full spectrum, not just in the rumble. The highpass removes the low thumps, leaving the clipped, rattly character above them, which no amount of filtering can restore.",
+      },
+      {
+        q: "Can I use it on music?",
+        a: "Only if the music genuinely has no content down there, which is rare. Because the filter applies to the whole file, choosing it would remove the bass of the recording along with the wind. For music the better approach is a wind-free take, since no filter can separate a bass line from wind recorded in the same low band.",
+      },
+      {
+        q: "Is the original file modified?",
+        a: "No. Processing happens in the browser and the result is written out as a new WAV with a dewinded suffix. Nothing is uploaded, so you can try several corner settings on the same source and keep whichever sounds best without any risk to the original.",
+      },
+    ],
+  },
+};

@@ -1,0 +1,322 @@
+[
+  {
+    "slug": "text-summarizer",
+    "keywords": [
+      "text summarizer",
+      "extractive summary",
+      "TextRank",
+      "sentence scoring"
+    ],
+    "intro": "The text summarizer ranks every sentence with a published three-part score and returns the highest-ranked ones in document order, so every line of the extractive summary is a sentence you wrote. It selects, and never rewrites.",
+    "content": "Paste a draft and this text summarizer splits it into sentences, scores each one with the same method every time, and shows the ranking before you choose a length. This is an extractive summary built from sentences you wrote: nothing is generated, and joining the selected sentences reproduces your own words in the order they appear.\n\n- Length: about 10%, 20%, 30% or 40% of the sentences, defaulting to 20%, applied to the sentence count and rounded to at least one sentence.\n- Sentence scoring table: every sentence's centrality, frequency and position parts, each normalised to its best sentence, plus the weighted total and rank.\n- Key terms: up to 40 content terms, most frequent first, each with its count and its 1 + log count weight.\n- Export: Copy summary, Copy report and Download extractive-summary.txt, with compression and key-term coverage figures in the report.\n\nThe sentence scoring is TextRank, the Mihalcea-Tarau construction: a PageRank walk over a graph whose nodes are sentences and whose edges are content-word overlap, with similarity measured as shared content words divided by the log sizes of the two sentences. The iteration is deterministic — no random start, damping 0.85, 30 fixed passes. Three parts are then added with published weights: 0.55 centrality, 0.35 frequency and 0.10 position. Frequency sums each content word's 1 + log(count) weight and divides by the square root of the sentence length, so a long sentence cannot win by size. Position decays as 1 / (1 + 0.12 x index), which keeps an opening sentence in the running without letting it dominate. Stopwords, single characters and bare punctuation are excluded from the content words, and the combined score is normalised so the best sentence is 1.000. Selection keeps document order, and compression and coverage are reported so you can see how much was kept and which of the top ten terms survived.\n\n- The ranking cannot know what matters to you. A pivotal sentence with unusual wording can rank below one that repeats common terms.\n- Sentences are selected whole, so a single long sentence can dominate a short percentage.\n- Headings and list lines are treated as sentences like any other, because the splitter does not know what a heading is.\n- Key-term coverage counts the top ten terms only, so it is an indicator rather than a guarantee.\n- Nothing is generated, which is the honest limit as well as the point: a text with no clear topic has no clearly central sentences to find.\n- Stopwords are removed with a published list, so a sentence built from common words scores lower than its meaning may warrant.\n\nUse the sentence scoring table as the audit, not the summary: it shows the three parts behind each rank. Start at 20%, raise the percentage until every point you need is present, and watch coverage rather than length. The key terms panel belongs to the same audit: if a subject you expected is missing from the terms, no percentage will put it in the summary. Compression is the third figure to watch — a 40% selection of a short note is usually the right answer, while the same percentage of a long report is a different kind of document.",
+    "howTo": [
+      "Paste the text; every sentence is scored as you type and the ranked table appears.",
+      "Pick a length from about 10% to 40% of the sentences and watch the selected count update.",
+      "Read the sentence scoring table to see which sentences the ranking chose and why.",
+      "Check key-term coverage, then Copy summary, Copy report or Download extractive-summary.txt."
+    ],
+    "whenToUse": "Use the summariser when the result needs to read as prose and scale with the text. For a one-line gist instead, the {{tldr-generator|TL;DR Generator}} fills a character budget with the same ranking, and the {{key-points-extractor|Key Points Extractor}} returns the winners as a numbered list rather than a flowing extract.\n\nIf the reason you are summarising is an edit, the {{important-sentence-highlighter|Important Sentence Highlighter}} marks the top-ranked sentences where they sit in the draft, so you can see the load-bearing lines before you cut anything.",
+    "faqs": [
+      {
+        "q": "Does the summariser write new sentences?",
+        "a": "No. It is extractive: every sentence in the summary appears in your text, selected by score and returned in document order. Nothing is paraphrased, merged or generated."
+      },
+      {
+        "q": "What are the three parts of a sentence score?",
+        "a": "Centrality is a TextRank PageRank walk over sentence similarity, frequency sums each content word's 1 + log count weight divided by the square root of the sentence length, and position decays as 1 / (1 + 0.12 x index). They are combined at 0.55, 0.35 and 0.10."
+      },
+      {
+        "q": "How is the percentage length turned into a number of sentences?",
+        "a": "The sentence count is multiplied by the percentage and rounded, with a minimum of one sentence. The selected count is shown beside the control, so a 20% choice over 30 sentences selects six."
+      },
+      {
+        "q": "What does key-term coverage measure?",
+        "a": "The share of the weight of the ten most frequent content terms that the selected sentences actually contain. A low figure means a recurring subject was left out of the selection, not that the scoring failed."
+      },
+      {
+        "q": "Why did a short sentence outrank a longer one?",
+        "a": "Because frequency is divided by the square root of the sentence length. The division is deliberate: without it, the longest sentence in any document would win by size alone rather than by content."
+      }
+    ]
+  },
+  {
+    "slug": "key-points-extractor",
+    "keywords": [
+      "key points extractor",
+      "ranked sentences",
+      "key terms",
+      "best first"
+    ],
+    "intro": "The Key Points Extractor turns the highest-ranked sentences of a text into a numbered list, best first, with up to 20 points and the key terms behind the ranking shown beside it.",
+    "content": "Where a summary keeps the prose flowing, this key points extractor returns the same ranked sentences as a list you can work through, with no sentence merged, dropped or joined to a neighbour. Each point is one sentence from the text, shown with its rank, its score and up to four of its highest-weight terms, and the list is ordered best first.\n\n- Maximum points: 1 to 20, default 5, with a Reset to 5 points button.\n- Every point carries its rank, its score and up to four of its highest-weight terms.\n- The key terms table lists the top 12 content terms with their counts and the 1 + log(count) weight the ranking used.\n- Points as a continuous extract, plus Copy points and Download key-points.txt.\n- The continuous extract joins the same points with spaces, in document order, for pasting where a list would be wrong.\n\nThe scoring is the same published method the summariser uses: TextRank centrality over a sentence-similarity graph, weighted 0.55, plus a frequency part weighted 0.35 and a position part weighted 0.10, each normalised to its best sentence. Content words exclude stopwords, single characters and punctuation, and rank 1 is simply the highest combined score; ties fall back to document order so the result is deterministic. The key terms panel shows the same weights the frequency part used, which is why a point's terms and the term table often overlap: the terms are the evidence, and the score is the conclusion.\n\nWhen you ask for more points than a short text can support, the page says so rather than repeating itself: the extractor never returns the same sentence twice, and the count beside the control reflects what was actually extracted. Ties are broken by document order, so two equally scored sentences always appear in the order the author wrote them.\n\n- The ranking measures centrality, not importance to your argument, so a point you cannot lose may sit below one that repeats.\n- A point is a whole sentence; a verbose sentence occupies a slot a tighter one might fill better, and the engine never trims it.\n- The list is in score order, so it is a set of claims rather than an outline; sequencing them is your job.\n- A short text can return fewer points than the maximum you set, and the page shows what was extracted.\n- The engine cannot merge, split or edit sentences; every point is exactly as written.\n- Sentence scoring has no memory: each point is scored in isolation from the others, so two similar sentences can both make the list.\n\nUse the points as an outline rather than an output: read them best first, reorder them into the argument you want, and use the continuous extract when a list would be the wrong shape for the final document. If a point reads as two ideas, that is a sentence to fix in the source rather than a reason to ignore the point. A point is a starting position, not a verdict: the score says the sentence is central, and only you can say it is true.",
+    "howTo": [
+      "Paste the text; the points are ranked as you type.",
+      "Set Maximum points between 1 and 20, or use Reset to 5 points.",
+      "Read the key points best first, with each point's score and terms beside it.",
+      "Copy points or Download key-points.txt to use the list as an outline."
+    ],
+    "whenToUse": "Use the extractor when you want a list to work from. The {{text-summarizer|Text Summarizer}} returns the same selection as continuous prose, and the {{bullet-point-extractor|Bullet Point Extractor}} takes the other approach entirely, turning every sentence into a bullet rather than ranking them.\n\nWhen the constraint is a single line rather than a list, the {{tldr-generator|TL;DR Generator}} quotes the top-ranked sentences inside a character cap.",
+    "faqs": [
+      {
+        "q": "How is this different from the Text Summarizer?",
+        "a": "The scoring is identical. The summariser selects a percentage and returns continuous prose in document order; this tool returns the top-ranked sentences as a list, best first, with an explicit maximum you control."
+      },
+      {
+        "q": "What do the terms beside a point mean?",
+        "a": "They are up to four of the sentence's highest-weight content words, ranked by the same 1 + log(count) weight the frequency score uses. They show why the sentence ranked where it did."
+      },
+      {
+        "q": "Can I extract more than twenty points?",
+        "a": "No. The Maximum points field accepts 1 to 20. Longer lists stop being key points; if you need every sentence, the Bullet Point Extractor is the right tool."
+      },
+      {
+        "q": "Two points share the same score — how is the order decided?",
+        "a": "Ties are broken by document order, so the same text always produces the same list. There is no random element anywhere in the ranking."
+      },
+      {
+        "q": "Is the key terms table the same as key-term coverage?",
+        "a": "No. The table lists the top 12 terms with counts and weights; coverage, shown by the summariser, measures how much of the top ten terms' weight a selection contains."
+      }
+    ]
+  },
+  {
+    "slug": "tldr-generator",
+    "keywords": [
+      "TL;DR generator",
+      "character cap",
+      "top-ranked sentences",
+      "document order"
+    ],
+    "intro": "The TL;DR Generator quotes the highest-scoring sentences that fit a character cap — 220 characters by default — and never more than the sentence limit you set. If nothing fits, it says so instead of inventing a shorter line.",
+    "content": "A short gist is a budget problem, and this TL;DR generator is built around the budget: you set a character cap and a maximum sentence count, and it fills them from the top-ranked sentences, quoted exactly and returned in document order. The defaults — 220 characters and three sentences — suit a chat reply or an email opener, and both can be changed before or after pasting.\n\n- Character cap: 40 to 2000 characters, default 220.\n- Maximum sentences: default 3, within whatever the character cap can hold.\n- Budget behaviour: the best sentence is always shown; if even it exceeds the cap, the page reports that rather than dropping it silently.\n- Stats and export: characters in the gist, words, sentences used and the share of the text, plus Copy TL;DR, Copy report and Download tldr.txt.\n- The character count shown is the gist's own length after joining, not the sum of the selected sentences, so it always matches what you would paste in.\n\nThe selection runs on the shared sentence scoring: TextRank centrality weighted 0.55, term frequency weighted 0.35 and position weighted 0.10, normalised so the best sentence is 1.000, and the same input always produces the same gist. Sentences are then visited in rank order and kept while the projected length — including the joining space — stays inside the cap and the sentence limit. Nothing is paraphrased, trimmed or reordered: the chosen sentences are joined with single spaces in the order they appear in the source, so the TL;DR reads as an excerpt rather than a patchwork. The over-budget flag exists because a cap can be smaller than every sentence in the text, and a tool that pretended otherwise would be lying about what it did. The report spells out the arithmetic: characters, words, sentences used and the share of the source, with a method line naming the three weights.\n\n- A character cap is a budget, not a judgement: the last sentence that fits can be weaker than one that did not.\n- Dense text may fit only one sentence inside 220 characters, and the page shows that plainly.\n- The gist inherits the ranking's blind spots, so repetitive text can produce a repetitive gist.\n- Sentence boundaries come from the shared splitter; an abbreviation it misreads can affect which sentences fit.\n- A gist of one long sentence can read as a fragment of a thought, which is why the report shows how much of the text was used.\n- It cannot summarise ideas spread across short fragments; several short sentences can crowd out one strong one.\n- The sentence limit is applied as a stop: three strong sentences end the gist even when a fourth would still fit the character budget.\n\nUse the TL;DR as a first line, not as a summary: it is the best sentence-sized answer to what is this, and the full summariser remains the right tool when the answer needs to scale with the text. Raise the cap to about 280 characters when the gist opens an email, lower it for chat, and read the sentence table when the result feels off: it shows which sentence forced the budget. A gist that fits the cap but misses the point is a signal to raise the cap rather than to distrust the ranking.",
+    "howTo": [
+      "Paste the text; the gist is chosen as you type.",
+      "Set the character cap between 40 and 2000, and the maximum sentences.",
+      "Read the one-line gist and the sentence table showing why each sentence was used.",
+      "Copy TL;DR, Copy report or Download tldr.txt."
+    ],
+    "whenToUse": "Use the TL;DR when the answer has to fit a fixed slot such as a chat reply or an email opener. When the length should scale with the text instead, the {{text-summarizer|Text Summarizer}} takes a percentage, and when the output should be a list rather than a line, the {{key-points-extractor|Key Points Extractor}} is the better shape.\n\nFor a brief with a bottom line and findings, the {{executive-summary-builder|Executive Summary Builder}} arranges the same ranking around the way briefs are actually read.",
+    "faqs": [
+      {
+        "q": "What happens if no sentence fits the character cap?",
+        "a": "The best sentence is still shown, and the page flags that it is over budget. Nothing shorter scored highly enough to replace it, and the tool reports that situation rather than truncating a sentence."
+      },
+      {
+        "q": "Are sentences shortened to fit the cap?",
+        "a": "Never. Whole sentences are selected or skipped. Trimming would put words in your text that you did not write, which is exactly what an extractive tool must not do."
+      },
+      {
+        "q": "Why is the gist in document order?",
+        "a": "Because an excerpt should read like the source. The sentences are chosen by rank but joined in the order they appear, so the gist scans as a passage rather than as a jump-cut between unrelated lines."
+      },
+      {
+        "q": "What does the over-budget note mean?",
+        "a": "It means the highest-ranked sentence is longer than your cap. Lower the sentence limit cannot help; either raise the cap or accept that this text has no short strong sentence."
+      },
+      {
+        "q": "Can this tool make a longer summary?",
+        "a": "Not directly. Raise the character cap and the sentence limit, but for a multi-paragraph result the Text Summarizer is the right tool: same scoring, length expressed as a percentage instead of a budget."
+      }
+    ]
+  },
+  {
+    "slug": "executive-summary-builder",
+    "keywords": [
+      "executive summary builder",
+      "bottom line",
+      "findings in document order",
+      "key-term coverage"
+    ],
+    "intro": "The Executive Summary Builder separates the single highest-ranked sentence as a bottom line and lists the rest of the brief as findings in document order, so the brief reads like the document it came from.",
+    "content": "Briefs are read from the top down and often stopped after the first line, so this executive summary builder does two things at once: it lifts the strongest sentence into a bottom line, and it keeps the remaining findings in document order so the brief reads like the document rather than like a ranking. Everything in the brief is quoted from the document; the builder's contribution is the shape, not the wording.\n\n- Brief length: Short (about 20% of sentences), Standard (about 30%, the default) or Full (about 40%).\n- Bottom line: the highest-ranked sentence, shown on its own above the findings.\n- Findings in document order, each with its rank and score so the selection stays auditable.\n- Overview figures: sentences in the brief, document words, brief words and key-term coverage.\n- Export: Copy brief and Download executive-summary.txt.\n- A brief can be regenerated after an edit, and because the scoring is deterministic the differences are the document's, not the tool's.\n\nThe engine is the same published extractive scoring used across this family: TextRank centrality weighted 0.55, frequency weighted 0.35 and position weighted 0.10, normalised to the best sentence. The selection is computed by percentage and then re-sorted into document order, and the bottom line is simply rank 1, which is why the page names it rather than hiding it. Key-term coverage measures the share of the top ten terms' weight that the brief contains, so a low figure is a signal that the brief skipped a recurring subject rather than a failure of the scoring itself. Nothing is written, merged or paraphrased. The rank and score beside each finding come from the same table the summariser shows, so any finding can be traced back to the sentence that earned it. Coverage is computed over the top ten terms and shown as a percentage beside the brief's other figures. The overview lists the sentence and word counts above the bottom line, which is the fastest way to spot a brief too thin to send.\n\n- One sentence becomes the bottom line whether or not it is the one you would have chosen; the score table shows why.\n- A brief at 20% of a long document is still a set of sentences, not an argument; the connective work is yours.\n- If the document never states a conclusion, the brief cannot state one either.\n- Findings inherit repetition from the source, and a repetitious document produces a repetitious brief.\n- Coverage counts the top ten terms only, so it is a signal rather than a proof that nothing was missed.\n- The brief cannot tell a quote from an assertion; a sentence someone else is quoted as saying is selected like any other.\n\nRead the bottom line first and treat it as a claim to check, then work down the findings in document order and delete anything the bottom line already covers; that edit is where a brief stops being an extract and starts being a brief. Keep the bottom line under about 30 words where you can; a bottom line that needs a second sentence is usually a finding in disguise. If the bottom line surprises you, the score table in the summariser shows the three parts behind it.",
+    "howTo": [
+      "Paste the full document; the brief and the bottom line update as you type.",
+      "Choose Short, Standard or Full for the brief length.",
+      "Read the bottom line first, then the findings with their ranks and scores.",
+      "Copy brief or Download executive-summary.txt, and check key-term coverage in the overview."
+    ],
+    "whenToUse": "Use the builder when the result will be read by someone with seconds to spare and the document is longer than a page. When the reader wants continuous prose rather than a brief structure, the {{text-summarizer|Text Summarizer}} is the plainer shape, and the {{key-points-extractor|Key Points Extractor}} suits a list of claims instead.\n\nFor notes from a meeting rather than a written document, the {{meeting-summary-formatter|Meeting Summary Formatter}} sorts sentences into decisions, actions and open questions before a brief is even possible.",
+    "faqs": [
+      {
+        "q": "How is the bottom line chosen?",
+        "a": "It is rank 1: the highest combined score on the same published TextRank, frequency and position weighting the whole family uses. The score table shows the three parts, so the choice can be audited."
+      },
+      {
+        "q": "What do the three brief lengths mean?",
+        "a": "Short selects about 20% of the sentences, Standard about 30% and Full about 40%, each rounded with a minimum of one sentence. The selected count is shown beside the control."
+      },
+      {
+        "q": "Are the findings reordered into importance?",
+        "a": "No, and deliberately so. The bottom line is lifted out by rank, but the findings stay in document order so the brief reads as a continuous argument rather than as a scoreboard."
+      },
+      {
+        "q": "What is key-term coverage telling me?",
+        "a": "It is the share of the top ten content terms' weight that the brief contains. A brief that scores low skipped a subject the document kept returning to, which is worth checking before you send it."
+      },
+      {
+        "q": "Can I use this on a document I did not write?",
+        "a": "Yes, and the bottom line is a useful first check. But the brief selects sentences out of context, so any figure or quotation it lifts should be verified against the source before it travels further."
+      }
+    ]
+  },
+  {
+    "slug": "bullet-point-extractor",
+    "keywords": [
+      "bullet point extractor",
+      "one sentence per bullet",
+      "leading connector",
+      "existing list lines"
+    ],
+    "intro": "The Bullet Point Extractor turns every sentence into one bullet, with an optional removal of a leading connector from its published list of 23 and a capital letter after it.",
+    "content": "Formatting prose as bullets is a layout job, and this bullet point extractor treats it as one: the rule is one sentence per bullet, and the only edit it can make is dropping a leading connector from its published list and capitalising what follows. Because the edit is that small, it is also reversible by hand: the change table gives you the source sentence for every bullet.\n\n- One sentence per bullet, with the source sentence kept beside the bullet in a change table.\n- Leading connector removal: 23 forms such as Additionally, However, Therefore, Moreover, First, Finally and That said, matched at the start of a sentence, comma included.\n- Existing list lines are preserved verbatim as their own items by default, so a half-formatted document does not lose the items it already had.\n- Two options: Preserve existing list lines and Drop a single trailing period — one final full stop only, never a question mark, exclamation mark or semicolon.\n- Export: Copy bullets, Copy report and Download bullet-points.txt.\n- The bullet count equals the sentence count of the prose; blank lines and existing list lines do not add bullets.\n\nThe engine splits the prose with the shared sentence tokeniser and treats Markdown-style list lines separately: a line that starts with a dash, a bullet character, or a number followed by a full stop or a closing bracket is kept as an item rather than re-split. Connector matching is a case-insensitive prefix test against the published list, and the matched text, comma included, is removed before the remainder is capitalised. The trailing-period option has a guard for the ellipsis: a sentence ending in two or more dots keeps them. The output is a plain Markdown list, which is why it can be pasted into most editors without cleanup. Existing list lines are detected per line before any sentence splitting, which keeps a numbered list intact instead of turning each number into prose.\n\n- It does not summarise: a forty-sentence passage produces forty bullets.\n- A connector outside the 23-item list is left in place, and the change table will not show it.\n- Bullets keep the sentence's own shape, including clauses that would read better split on a second pass.\n- The trailing-period option removes one mark and never touches ? ! or ; because those carry meaning.\n- List lines are preserved rather than parsed, so a nested list keeps its original markers only as text.\n- A preserved list line is kept as one item even when it contains several sentences, so it can be longer than the bullets around it.\n\nRead the change table before the bullets: it lists every source sentence, every bullet and every connector removed, so a removal you disagree with can be caught in a second. Then run the result through the Key Points Extractor if the order matters, or the Bullet to Prose Converter when the formatting job runs the other way. If a bullet needs a rewrite rather than a connector removal, that is a sentence to fix at source: this tool's contract is that it never rewrites.",
+    "howTo": [
+      "Paste paragraphs, and lists too if you have them, into the source panel.",
+      "Decide whether to preserve existing list lines and whether to drop a single trailing period.",
+      "Check the What changed, and why table for every connector that was removed.",
+      "Copy bullets or Download bullet-points.txt."
+    ],
+    "whenToUse": "Use the extractor when the text is already written and the deliverable is a list. When the list has to be short rather than complete, the {{text-summarizer|Text Summarizer}} selects by score instead, and the {{key-points-extractor|Key Points Extractor}} ranks the sentences it keeps.\n\nWhen the formatting job runs the other way and a list has to become a paragraph, the {{bullet-to-prose-converter|Bullet to Prose Converter}} joins the items without inventing connectives.",
+    "faqs": [
+      {
+        "q": "Which connectors are removed?",
+        "a": "A published list of 23 forms, including Additionally, Also, However, Therefore, Thus, Moreover, Furthermore, Finally, First, Second and That said, each matched with its trailing comma at the start of a sentence."
+      },
+      {
+        "q": "Are my existing bullet lines kept?",
+        "a": "Yes, verbatim, when Preserve existing list lines is on, which is the default. They are shown in their own panel and included in the copied output as their own items."
+      },
+      {
+        "q": "Will it strip a question mark from a bullet?",
+        "a": "No. The trailing-period option removes a single final full stop only. Question marks, exclamation marks and semicolons are never touched because they change what the sentence is doing."
+      },
+      {
+        "q": "Why did a bullet lose its capital letter?",
+        "a": "It should not have. The engine only changes capitalisation when it removes a connector, and then it capitalises the next word. If a bullet looks wrong, the change table shows the source sentence for comparison."
+      },
+      {
+        "q": "Is the output Markdown?",
+        "a": "Yes, a plain list with a dash and a space before each item. Preserved list lines are rendered as ordinary items too, so the copied result is uniform even when the input was mixed."
+      }
+    ]
+  },
+  {
+    "slug": "important-sentence-highlighter",
+    "keywords": [
+      "important sentence highlighter",
+      "in place",
+      "highlighted sentences",
+      "top-ranked sentences"
+    ],
+    "intro": "The Important Sentence Highlighter marks the top-ranked sentences where they already sit — top 3, 5, 8 or 12 — and lists the same selection, best first, beneath the text.",
+    "content": "Pulling sentences out of a draft loses the place they held, which is why this important sentence highlighter works in place: the top-ranked sentences are marked where they sit, with their rank, and the text itself is left exactly as written. Choose how many sentences to mark and the tool re-scores the document as you type, so the marks always describe the text on screen.\n\n- How many to highlight: Top 3, Top 5 (the default), Top 8 or Top 12 sentences.\n- In-place marking, with the rank shown for each highlighted sentence.\n- A ranked list of the highlighted sentences below the text, best first.\n- The segments are built so that joining every part in order reproduces the original text exactly.\n- The in-place view and the ranked list are two views of one selection, so a sentence cannot be marked in one and missing from the other.\n- Export: Copy highlighted sentences and Download important-sentences.txt.\n- The ranked list repeats the highlighted sentences with their scores, so a mark in the text and an entry in the list can be matched by rank.\n\nThe selection uses the shared sentence scoring — TextRank centrality at 0.55, term frequency at 0.35 and position at 0.10, normalised to the best sentence — and the highlight is drawn from the sentence offsets rather than from a copy of the text, so spacing and line breaks survive untouched. The count is clamped to the number of sentences, which is why choosing Top 12 over a five-sentence note simply marks all five. Because the page returns segments rather than a rendered block, nothing can be silently reflowed: the alternation of plain and marked runs is what you copy, already in place. The offsets come from the same sentence tokeniser the summariser uses, so the highlight and any extract always agree on where a sentence starts and ends. The count is clamped to the number of sentences, and the ranked list is sorted by score rather than position, so it doubles as a reading order for a second pass.\n\n- Highlighting shows ranking, not meaning: a marked sentence can be repetitive rather than pivotal.\n- The count is fixed at 3, 5, 8 or 12; there is no percentage mode on this tool.\n- A dense paragraph can have several adjacent sentences marked, which reads as a block rather than as emphasis.\n- Nothing is extracted, so if you want the sentences alone you have to copy the ranked list.\n- Sentence boundaries come from the shared splitter, so a misread abbreviation shifts the marks around it.\n- Highlights describe one version of the text: edit and paste the draft again and the scoring re-runs, because no highlighting state is saved.\n\nUse it as a reading aid before an edit, not after: the marks show which sentences the document leans on, and the ranked list underneath is the fastest way to check that the sentences carrying the piece are the ones you intended. A mark on a sentence you would keep anyway is confirmation; a mark on one you were about to cut is the ranking telling you what its removal would cost.",
+    "howTo": [
+      "Paste the text; the highlights update as you type.",
+      "Choose Top 3, Top 5, Top 8 or Top 12 sentences.",
+      "Read the marked sentences in place, using the rank to see the order of importance.",
+      "Copy highlighted sentences or Download important-sentences.txt."
+    ],
+    "whenToUse": "Use the highlighter when you are editing the text itself and need to see its load-bearing sentences where they sit. When you want those sentences separated out, the {{text-summarizer|Text Summarizer}} returns them as an extract, and the {{key-points-extractor|Key Points Extractor}} returns them as a ranked list.\n\nThe {{focus-sentence-highlighter|Focus Sentence Highlighter}} answers a different question — which sentence am I editing right now — and is a working aid rather than a ranking.",
+    "faqs": [
+      {
+        "q": "Why does highlighting not change the text?",
+        "a": "Because the result is built from segments that reproduce the source exactly. Joining every plain and highlighted run in order gives back the original characters, spacing included, so nothing can be lost or reflowed."
+      },
+      {
+        "q": "What do the ranks mean?",
+        "a": "Rank 1 is the highest combined score under the shared TextRank, frequency and position weighting. The number beside a highlight tells you where that sentence stood in the ranking, not how it reads."
+      },
+      {
+        "q": "Can I highlight more than twelve sentences?",
+        "a": "Not on this tool. The choices are 3, 5, 8 and 12, and the count is clamped to the number of sentences available, so a short note simply marks all of its sentences."
+      },
+      {
+        "q": "Why are several adjacent sentences sometimes all highlighted?",
+        "a": "Because a topic-rich stretch shares content words, which raises both term frequency and centrality for everything in it. A block of highlights is a signal that the passage is dense, not that every sentence in it is a keeper."
+      },
+      {
+        "q": "Is this the same as the Focus Sentence Highlighter?",
+        "a": "No. The Focus Sentence Highlighter marks the sentence you are currently editing so your eyes stay on it. This tool ranks sentences by score and marks the highest-ranked ones, which is an editorial question rather than a working one."
+      }
+    ]
+  },
+  {
+    "slug": "abstract-generator",
+    "keywords": [
+      "abstract generator",
+      "five parts",
+      "word band",
+      "structured abstract"
+    ],
+    "intro": "The Abstract Generator assembles five labelled parts — Background, Objective, Methods, Results and Conclusions — into a structured abstract or a single paragraph, and checks it against a published word band.",
+    "content": "An abstract is read before a paper is chosen, and this abstract generator treats it as five parts in the order readers expect: Background, Objective, Methods, Results and Conclusions. You supply every sentence; the tool supplies the order, the labels and the checks. Each part carries a hint and a live word count, and empty parts are left out of the output rather than rendered as blanks. The page shows a filled-parts count and the shape — structured or unstructured — as you work, so the distance to a complete abstract is visible.\n\n- Word band: 150-250 words for a journal abstract (the default), 100-150 for a short note, or 250-350 for a review article.\n- Label each part: on gives a structured abstract with each part labelled; off joins the parts into one unstructured paragraph.\n- Checks: a missing part, Methods under 15 words, Results with no figures, Conclusions longer than Results, and a total outside the chosen band.\n- Export: a Copy control on the assembled abstract and Download abstract.txt.\n- Empty parts are omitted from the output, so three filled parts produce a three-part abstract with no placeholders.\n\nThe parts are assembled in a fixed order and whitespace-collapsed, then checked with rules a pattern engine can genuinely test. The figures check is a digit test on the Results part, which is deliberately blunt: it can prove a number is present but not that the number is the right one. The length checks compare the parts with each other and the total with the band you selected, and the Methods threshold exists because a methods sentence shorter than 15 words rarely lets a reader picture the study. Nothing is generated, so an empty part is reported as empty rather than filled in. The structured output prefixes each non-empty part with its label and a colon, one part per line, and the word band is checked against the sum of all five parts. The length checks are the only ones a journal's own guidance can override, which is why the band is a choice rather than a constant.\n\n- It cannot write the parts; every sentence in the output is yours.\n- The figure check is a digit test, so a number can satisfy it without being a finding.\n- The thresholds are published heuristics, not a journal's submission requirements.\n- An unstructured abstract loses the labels, and some venues require one shape or the other.\n- Word counts come from the shared tokeniser and can differ from a journal's counter by a word or two.\n- The checks compare parts and totals; they cannot tell a supported claim from an overreach.\n\nFill the parts in order, clear the checks, and read the result aloud once: an abstract is the one paragraph in a paper that is read by people who have not yet decided to read the paper. Two passes are usually enough: one to fill the parts, one to cut back to the band after the checks stop complaining. A labelled abstract with every part filled and every check clear is ready to paste; anything still flagged deserves a minute of your own judgement.",
+    "howTo": [
+      "Fill the five parts; each has a hint and a live word count.",
+      "Choose a word band and whether to label each part.",
+      "Work through the checks until none are reported.",
+      "Copy the assembled abstract or Download abstract.txt."
+    ],
+    "whenToUse": "Use the generator when you have already written the study and need the abstract assembled and audited. The {{scientific-abstract-builder|Scientific Abstract Builder}} works from five abstract roles instead, which suits drafting before the results exist.\n\nFor the summary of a whole document rather than a paper, the {{executive-summary-builder|Executive Summary Builder}} extracts a bottom line and findings, and when the register itself is the question, the {{academic-writing-tone-checker|Academic Writing Tone Checker}} reads the text for formality and hedging.",
+    "faqs": [
+      {
+        "q": "What counts as a figure in the Results part?",
+        "a": "Any digit. The check is a simple digit test, so it proves a number is present but not that the number matters. A p-value or a sample size satisfies it; the check is a prompt to look, not a verdict."
+      },
+      {
+        "q": "Why is the Methods part checked for length?",
+        "a": "Under 15 words it is flagged, because a methods sentence that short rarely names the design, the sample and the analysis, which are the three things a reader needs to picture the study."
+      },
+      {
+        "q": "What is the difference between structured and unstructured output?",
+        "a": "Structured prefixes each part with its label, so the abstract reads as Background, Objective, Methods, Results and Conclusions. Unstructured joins the same sentences into one paragraph, which some journals require."
+      },
+      {
+        "q": "Why is Conclusions longer than Results flagged?",
+        "a": "Because at that point the interpretation outweighs the findings. An abstract is supposed to let the reader weigh what was found before hearing what it means, so the flagged ratio is worth a second look."
+      },
+      {
+        "q": "Does the generator rewrite my sentences?",
+        "a": "No. It orders and labels your sentences and runs checks over them. Every clause in the output came from one of the five fields exactly as you typed it, with surrounding whitespace collapsed."
+      }
+    ]
+  },
+  {
+    "slug": "meeting-summary-formatter",
+    "keywords": [
+      "meeting summary formatter",
+      "cue-phrase scan",
+      "decisions, actions",
+      "open questions"
+    ],
+    "intro": "The Meeting Summary Formatter scans raw notes for documented cue phrases and sorts each sentence into decisions, actions or open questions, with owner and due suggestions flagged as patterns to confirm.",
+    "content": "Notes arrive as a blur of sentences, and this meeting summary formatter does not pretend to understand the meeting: it is a cue-phrase scan, and a sentence lands in a bucket because it carries a listed phrase, starts with an explicit label, or ends in a question mark. The three buckets are decisions, actions and open questions, and the counts are shown before the lists. Everything else is returned unclassified rather than guessed at, and the cue lists are printed on the page.\n\n- Explicit labels: Action:, Action item:, Next step:, Todo:, To do:, Decision:, Decided:, Resolution:, Question:, Open question: and TBD.\n- Action cues: 19 phrases such as will send, will follow up, needs to, assigned to, owner: and by end of week.\n- Decision cues: 12 phrases such as we decided, we agreed, approved, signed off, final call and agreed to.\n- Question cues: 6 phrases such as open question, to be determined and needs input, plus any sentence ending in a question mark.\n- Owner and due: suggestions from owner: X or X will patterns and by, due or before phrases, reported as patterns rather than facts.\n- Counts per category, the unclassified list, and Copy summary plus Download meeting-summary.txt.\n\nOne sentence lands in exactly one bucket, by a published priority: an explicit label first, then an action cue, then a decision cue, then a question cue or a question mark. That order is a choice — an action is the most useful thing to surface — and it is why a sentence that mentions both a decision and a task is filed as a task. Owner extraction is two small documented patterns, owner: followed by a capitalised name, and a capitalised name followed by will; the due pattern recognises phrases such as by Friday, due next week or an ISO date. Neither is extracted as a fact: both are shown as suggestions, and the page says so. The counts give the shape of the meeting before you read a line, and the three cue lists and the priority order are printed on the page so every filing decision can be traced to the phrase that made it.\n\n- It does not understand the meeting; a phrasing that is not on a cue list is unclassified.\n- Owner and due matches can be wrong, which is why they are labelled suggestions rather than fields.\n- A sentence carrying two kinds of cue is filed once, by the published priority order.\n- No dates are resolved or normalised, so by Friday stays a phrase to check against your calendar.\n- The cue lists are finite and published; a team's private shorthand is invisible to the scan.\n- A sentence with no cue but a clear meaning still ends up unclassified; the fix is one of the published labels, not a smarter guess.\n\nWork through the unclassified list before the sorted buckets: those are the lines the scan could not place, and they are where a decision that nobody phrased formally usually hides. Then confirm every owner and due suggestion against the original sentence before copying the summary into the minutes.",
+    "howTo": [
+      "Paste the raw notes; one idea per sentence works best.",
+      "Read the scan result counts and the three sorted lists.",
+      "Check every owner and due suggestion against the original sentence.",
+      "Work through the unclassified list, then Copy summary or Download meeting-summary.txt."
+    ],
+    "whenToUse": "Use the formatter when minutes have to be produced from notes and the decisions need to be visible. When the notes are prose rather than a list of outcomes, the {{text-summarizer|Text Summarizer}} extracts the load-bearing sentences instead, and the {{key-points-extractor|Key Points Extractor}} ranks them as points.\n\nOnce the decisions are sorted, the {{executive-summary-builder|Executive Summary Builder}} can turn an accompanying document into a bottom line and findings for the people who missed the meeting.",
+    "faqs": [
+      {
+        "q": "Which cue wins when a sentence contains two?",
+        "a": "The published priority order: an explicit label first, then an action cue, then a decision cue, then a question cue or a trailing question mark. A sentence is filed once, so no duplicate appears in two buckets."
+      },
+      {
+        "q": "How are owners and due dates found?",
+        "a": "Two documented patterns — owner: followed by a capitalised name, and a capitalised name followed by will — plus by, due or before phrases such as by Friday or an ISO date. They are suggestions, never extracted facts."
+      },
+      {
+        "q": "What does unclassified mean?",
+        "a": "The sentence carried no listed cue and did not end in a question mark, so it was not guessed at. The unclassified list is deliberately kept and shown, because that is where informally phrased decisions tend to sit."
+      },
+      {
+        "q": "Does it work on notes that are already bulleted?",
+        "a": "Yes. The notes are split into sentences first, so a bullet that contains one sentence becomes one item, and labels such as Action: are recognised wherever they start a sentence."
+      },
+      {
+        "q": "Are the notes uploaded anywhere?",
+        "a": "No. The scan runs in the page, like every tool on this site, and the notes never leave the browser. Closing the tab clears them."
+      }
+    ]
+  }
+]

@@ -9,6 +9,7 @@ import { CATEGORIES, ALL_TOOLS, SEARCH_REGISTRY, type Tool } from "@/domains/pho
 import { PHOTO_SITE } from "@/domains/photo/site";
 import { copyrightLine } from "@/lib/site-identity";
 import { onlyLive, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
 
 const LIVE_PHOTO_COUNT = onlyLive(ALL_TOOLS, "photo").length;
 
@@ -87,9 +88,10 @@ function SearchResults({ results }: { results: typeof ALL_TOOLS }) {
 
 function ToolCard({ tool }: { tool: Tool }) {
   const Icon = tool.icon as React.ComponentType<{ className?: string }>;
-  // Photo tool pages all render the coming-soon template (no wired component),
-  // so every card is non-interactive with the "Soon" badge.
+  // Live tools open the wired component; upcoming tools open their Coming Soon
+  // page — every card is navigable, and the badge marks what is not built yet.
   const isLive = isLiveTool(tool, "photo");
+  const clickable = isLive || hasComingSoonPage(tool, "photo");
 
   const cardBody = (
     <>
@@ -106,7 +108,7 @@ function ToolCard({ tool }: { tool: Tool }) {
     </>
   );
 
-  if (!isLive) {
+  if (!clickable) {
     return (
       <div className="tool-card group relative cursor-default">
         {cardBody}

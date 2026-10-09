@@ -1,0 +1,422 @@
+[
+  {
+    "slug": "voice-recorder",
+    "keywords": ["microphone", "16-bit wav", "browser", "download"],
+    "intro": "Voice Recorder captures whatever your microphone hears and hands it back as a downloadable WAV, with nothing uploaded and no software to install. It is the general purpose voice tool: notes, dictation, ideas, a spoken draft.",
+    "content": "Press start, grant microphone access when the browser asks, and a timer begins counting as a pulsing indicator marks the live take. Press stop when you are done and the panel builds the file, shows a player and offers a download.\n\nThe interface and what happens behind it:\n\n- A single start control that reads Start recording before the take and Stop recording while it runs.\n- A live elapsed timer shown as REC with minutes and seconds, refreshed ten times a second.\n- A preview player and a download button once the take has been processed.\n- A label stating the capture's duration, whether it is mono or stereo, its sample rate and that it was converted to 16-bit WAV.\n- A filename built from the word voice-recording plus the date and time of capture, so takes do not overwrite one another.\n\nCapture uses the browser's own media pipeline. The microphone stream is handed to a media recorder, which writes a compressed container rather than raw samples, and on stop that container is decoded back to sample data and re-encoded as 16-bit WAV. That round trip is deliberate: the compressed form is what the browser can produce live, and the WAV is what an editor or an upload expects. The result is a plain uncompressed file at whatever sample rate the microphone delivered, with no processing applied on the way through. Permissions are handled with plain language: a denied microphone request is reported as such rather than as a silent failure, and a take that comes back empty says so instead of producing a zero length file.\n\nWhat the tool does not do:\n\n- It applies no processing: no noise reduction, no level control and no equalisation, so the room and the microphone are what you hear.\n- It cannot record for longer than the browser tab stays open and awake, and backgrounding the tab may interrupt a long take.\n- There is no pause and resume, only start and stop, so a break means a second file.\n- It cannot record system or tab audio, which needs one of the capture tools beside it.\n- Levels are not metered while recording, so a take can come back too quiet or too hot with no warning.\n- The output is one file per take, with no naming scheme beyond the timestamp.\n\nUse it for spoken material that you intend to keep or edit, and check the preview before discarding a take. Because nothing is processed, a recording made this way responds well to the cleanup tools afterwards, and the flat, unprocessed character is exactly what post production wants. The download is a plain WAV at the microphone's own sample rate, with no compression step of its own, which is why a take made this way survives repeated editing without accumulating artefacts and why the file is larger than a compressed alternative would be. If you need a specific input rather than the system default, the microphone recorder is the variant that lets you choose one.",
+    "howTo": [
+      "Press Start recording and allow microphone access when the browser prompts you.",
+      "Watch the elapsed timer while the take runs, since there is no level meter to check.",
+      "Press Stop recording when you are finished; the file is decoded and encoded in the browser.",
+      "Listen to the preview and use the download button to save the WAV, whose name includes the capture time."
+    ],
+    "whenToUse": "Voice Recorder is the general purpose spoken capture tool, so it suits anything from a draft narration to a dictated note. {{voice-memo|Voice Memo}} is the same capture pointed at quick notes, and {{microphone-recorder|Microphone Recorder}} adds a device picker when the system default is not the input you want. When the take needs cleaning afterwards, {{noise-reducer|Noise Reducer}} is the natural next step, and {{podcast-recorder|Podcast Recorder}} is the version built for a session with chapters.",
+    "faqs": [
+      {
+        "q": "Is the recording uploaded anywhere?",
+        "a": "No. The microphone stream is captured with the browser's own media pipeline, decoded and re-encoded as a WAV entirely on your machine, and the download comes from a local object URL. Nothing is sent to a server at any point, which is why no account or sign in is involved."
+      },
+      {
+        "q": "Why is the download a WAV rather than an MP3?",
+        "a": "Because WAV is lossless and universally editable, which is what a recording you intend to work on should be. The browser captures a compressed form internally because that is what it can write live, but that intermediate is decoded before the file is produced, so what you download has no lossy generation in it."
+      },
+      {
+        "q": "What happens if I deny microphone access?",
+        "a": "The tool reports it plainly, saying that microphone permission was denied and that access needs to be allowed in the browser. The distinction between a denied permission and unavailable hardware is made for you, so the message tells you which problem you actually have."
+      },
+      {
+        "q": "Can I pause in the middle of a recording?",
+        "a": "No. There is only start and stop, so a pause means ending the take and beginning a second file. If you need a continuous file with gaps, the practical approach is to record through the break and remove the quiet section afterwards with the silence tools."
+      },
+      {
+        "q": "How is this different from the Voice Memo tool?",
+        "a": "The capture path is identical; the difference is framing. This one is presented for general voice work such as notes and dictation, while Voice Memo is positioned for quick captures you will not necessarily keep. Either produces the same kind of 16-bit WAV."
+      }
+    ]
+  },
+  {
+    "slug": "microphone-recorder",
+    "keywords": ["input device", "device picker", "microphone", "enumerate"],
+    "intro": "Microphone Recorder records from any input the browser can see, with an explicit device picker above the record control. Pinning a specific input is the whole point: the system default is not always the microphone you want.",
+    "content": "Use the device picker to choose an input, press record and the selected device is used rather than whatever the operating system has marked as default. The tool enumerates the browser's audio inputs to build the list, and it refreshes if a device is plugged in or removed while the page is open.\n\nThe panel and its behaviour:\n\n- An input device select listing System default microphone first, then every audio input the browser reports.\n- Labels taken from the device itself, falling back to a short identifier when the browser hides names.\n- A live refresh: the list is rebuilt when the system reports that devices have changed.\n- A record control that requests the chosen input by exact identifier, so the browser cannot substitute another.\n- The same post-processing as the other capture tools: a preview player, a download and a duration, channel and sample rate label.\n\nSelecting a device passes an exact identifier constraint into the capture request rather than a preference, which is what stops the browser quietly falling back to a different input. Order matters for a practical reason: the browser withholds device names until permission has been granted at least once, so labels can appear as generic numbered microphones on a first visit and become meaningful afterwards. Enumeration is treated as best effort, and if it fails the capture path still falls back to the system default and keeps working, which is better than refusing to record at all. The recording itself follows the same route as the rest of this family: a live compressed capture, then a decode and a re-encode to 16-bit WAV for the download, with the duration, channel count and sample rate reported once the file is built.\n\nWhere a picker does not help:\n\n- If the browser will not reveal names until permission is granted, the first visit shows unhelpful labels.\n- Some system inputs, such as loopback devices, appear in the list but may deliver silence depending on the platform.\n- Pinning an exact device fails if that device is removed for the take, rather than falling back to another microphone.\n- Bluetooth headsets often switch to a narrowband profile when the microphone is opened, so the recording can sound worse than the device did for playback.\n- There is no per device level calibration, so switching inputs changes the recorded level.\n- Only one input can be recorded at a time, so a multi microphone session is out of scope here.\n\nUse it when you have several inputs and want to be certain which one is being used: a laptop's built in microphone versus an interface, a headset versus a desk microphone, or an external device that the operating system has not made the default. Check the preview before accepting the take, since a wrong input usually announces itself immediately. One practical note: a device connected part way through a session is worth confirming in the picker before you rely on it, because enumeration happens in the browser and the list only rebuilds when the system reports a change.",
+    "howTo": [
+      "Pick the input you want from the device dropdown, which lists System default first and then every audio input.",
+      "Grant microphone permission if this is the first visit, because device names may only appear after that.",
+      "Record the take, then check the duration and channel count in the label to confirm the right device was used.",
+      "Download the WAV, or re-record with a different input if the preview reveals the wrong one."
+    ],
+    "whenToUse": "Microphone Recorder is for sessions where the choice of input matters, which makes it the right tool on a machine with several audio devices. {{voice-recorder|Voice Recorder}} is the simpler capture when the system default is fine, and {{interview-recorder|Interview Recorder}} applies high quality constraints to the same capture path. When a take needs tidying afterwards, {{noise-reducer|Noise Reducer}} handles steady noise, and {{voice-memo|Voice Memo}} covers the case where speed matters more than device selection.",
+    "faqs": [
+      {
+        "q": "Why do device names show up as numbers at first?",
+        "a": "Because browsers hide device labels until microphone permission has been granted at least once. Until then the picker shows a short identifier in place of the real name. Grant access, then reopen the list and the labels appear properly."
+      },
+      {
+        "q": "Does selecting a device guarantee it is used?",
+        "a": "Yes, within the limits of the platform. The chosen identifier is passed as an exact constraint rather than a preference, so the browser cannot substitute a different input. The trade is that if that device disappears mid session, the request fails instead of quietly using another one."
+      },
+      {
+        "q": "Why does my Bluetooth headset sound worse when recording?",
+        "a": "That is a property of the headset rather than of this tool. Opening a Bluetooth microphone usually drops the link to a narrowband hands free profile, which sounds noticeably duller than the same headset does for playback. A wired input avoids the problem entirely."
+      },
+      {
+        "q": "Can I record two microphones at once?",
+        "a": "No. One input is captured per take, so a two microphone session means either a hardware interface that presents both as a single stereo device or two separate takes. That limitation comes from the browser's capture model rather than from the tool."
+      },
+      {
+        "q": "What if the list is empty?",
+        "a": "Enumeration is best effort, so an empty list does not stop you recording. The capture falls back to the system default microphone, and the remaining controls behave exactly as normal. Reloading the page after granting access usually populates the list properly."
+      }
+    ]
+  },
+  {
+    "slug": "browser-tab-recorder",
+    "keywords": ["tab audio", "browser tab", "capture", "wav"],
+    "intro": "Browser Tab Recorder captures the sound of one browser tab and writes it to a WAV. It records that tab specifically, not the whole machine, and it keeps recording even if you switch to another tab.",
+    "content": "Press the record control, choose the tab that is playing in the browser's share dialog and make sure the option to share tab audio is ticked. The take starts as soon as you confirm, and the panel returns a player and a download when you stop.\n\nWhat you see and what actually happens:\n\n- A single record control that opens the browser's own share dialog rather than a custom picker.\n- A hint stating exactly what to choose and which checkbox to enable, because tab audio is off by default in that dialog.\n- A live timer and a pulsing indicator while the take runs.\n- A preview player plus a download, with a label giving duration, channels, sample rate and the WAV conversion.\n- An error message written for the common failure, where the dialog was confirmed without the audio box ticked.\n\nThe technical detail worth knowing is why a video track appears at all. The browser only offers the option to share tab audio when video is also requested, so the capture asks for both and then stops the video track immediately, keeping the audio track flowing. The stream that reaches the media recorder therefore contains audio only, which is why the file never ends up with a stray video element in it. If the resulting stream has no audio track at all, that is the signature of a share confirmed with the audio option left unticked, and the tool says so directly rather than reporting a generic failure. Capture continues while you move between tabs, because the sharing relationship is with the chosen tab rather than with the one you are looking at. Everything stays local, from the live capture through the decode and the 16-bit WAV write.\n\nWhat tab capture cannot do:\n\n- It cannot record a tab whose playback stops when it is hidden, which some players do deliberately.\n- Audio that was already playing before you started is not included, since capture begins at confirmation.\n- Protected content may arrive silent or refuse to be shared at all, because the platform blocks capture of it.\n- The whole tab's output is captured, so every sound that tab makes ends up in the file, including notifications played in that page.\n- There is no level control and no metering, so a quiet or clipping source is captured as it is.\n- Only one tab at a time, and mixing two tabs into one take is not possible.\n\nReach for it when you want one page's audio without the rest of the machine: a lecture playing in a tab, a web player, or a call that lives in the browser. Start the capture before the audio you want begins, because the take begins the moment the dialog is confirmed. Working with a browser tab rather than with the machine's output keeps the capture scoped to one page, which is often what separates a usable file from one full of unrelated sounds, and the dialog remembers your last choice in some browsers so a repeat capture is quicker than the first.",
+    "howTo": [
+      "Press the record control, which opens the browser's screen and tab sharing dialog.",
+      "Choose the exact tab that is playing and tick the option to share its audio, since that box is off by default.",
+      "Let the take run; switching to another tab does not interrupt the capture.",
+      "Press stop and download the WAV from the preview panel."
+    ],
+    "whenToUse": "Browser Tab Recorder suits capturing one page's output, which makes it the right choice for a web player or a browser based call. {{system-audio-recorder|System Audio Recorder}} casts a wider net and takes everything the machine plays, while {{quick-sound-capture|Quick Sound Capture}} is the same capture framed for grabbing a sound you just heard. {{streaming-audio-recorder|Streaming Audio Recorder}} covers the same technique with delivery and rights guidance attached.",
+    "faqs": [
+      {
+        "q": "Why do I have to enable tab audio in the dialog?",
+        "a": "Because browsers default that option to off, and a share confirmed without it produces a stream with no audio track. The tool detects that case specifically and tells you it happened, which is more useful than a generic failure message. The fix is simply to repeat the share with the checkbox ticked."
+      },
+      {
+        "q": "Why does the capture ask to share video?",
+        "a": "Because the option to share tab audio only appears when video is also requested. The video track is stopped immediately after the share is confirmed, so nothing visual is recorded and the file contains audio only, but the request itself has to include video for the audio option to exist."
+      },
+      {
+        "q": "Can I use the browser while it records?",
+        "a": "Yes. The sharing relationship is with the tab you selected rather than with the one in front, so you can switch tabs and keep working. What you cannot do is close the recorded tab, because that ends the take along with the audio."
+      },
+      {
+        "q": "The recording is silent. What went wrong?",
+        "a": "Either the audio option was not ticked in the share dialog, in which case the tool reports that no audio was shared, or the source is protected content that the platform will not allow to be captured. A silent file with a normal duration points at the second case, and a refused share points at the first."
+      },
+      {
+        "q": "Does it capture my microphone too?",
+        "a": "No. Tab capture takes the audio that the tab is producing, which is playback rather than your input. If you need both, record the tab first and then record your microphone separately, since the two are different sources and this tool takes one at a time."
+      }
+    ]
+  },
+  {
+    "slug": "system-audio-recorder",
+    "keywords": ["system audio", "screen share", "chrome", "windows"],
+    "intro": "System Audio Recorder captures everything the computer is playing, rather than one tab or one application. It works through the browser's screen sharing dialog, where the whole screen option carries the machine's output audio.",
+    "content": "Press the record control, complete the screen share dialog by choosing an entire screen, and the machine's audio starts being written to a WAV. The panel builds the file on stop and offers a preview and a download, exactly as the rest of this family does.\n\nThe controls and the platform reality:\n\n- One record control that opens the browser's screen sharing dialog.\n- A hint telling you to choose an entire screen rather than a window, because that is what carries system audio.\n- A live timer and indicator while recording, and a preview plus download afterwards.\n- A label reporting the duration, mono or stereo, the sample rate and the WAV conversion.\n- An error path that distinguishes a dismissed share from a browser context where the capture is unavailable.\n\nTwo details decide whether this works. The first is the choice in the dialog: a single window carries that window's audio, while an entire screen carries the machine's output, so the whole screen option is the one that fulfils the promise of recording system sound. The second is the platform. Chrome and Edge on Windows offer a whole screen option whose audio is genuinely the system output, and on other platforms the browser can typically only offer tab audio, which means the same tool produces a different result. The capture requests audio and video because the audio option only appears alongside video, and the video track is stopped immediately so nothing visual is retained. From there the route is the usual one: a live compressed capture, a decode, and a 16-bit WAV written locally with no upload at any stage.\n\nWhere it falls short:\n\n- On platforms whose browsers only offer tab audio, this cannot reach the machine's output at all.\n- Choosing a single window instead of the whole screen records only that window's sound, which surprises people who expected everything.\n- System notifications and alert sounds made by the operating system itself are not part of the browser's audio path and may be missing.\n- There is no per application control, so you cannot exclude one program while capturing the rest.\n- Levels are whatever the machine happens to be playing at the time; there is no metering and no gain control, so a quiet source stays quiet and a hot one stays hot.\n- Anything played through hardware that bypasses the browser's audio pipeline may not be captured.\n\nUse it when the sound you need is coming from outside the browser, or from several applications at once: a desktop application, a game, a call in another program, or a mix of sources. Check the platform limitation first, because on some systems the tab recorder will be the only option that actually captures anything. Two checks are worth making before you start: silence anything you do not want in the file, since everything the machine outputs is captured, and keep the recording as short as the job allows, because a long system capture accumulates a great deal of material that has to be cut away afterwards.",
+    "howTo": [
+      "Press the record control to open the browser's screen sharing dialog.",
+      "Choose an entire screen rather than a single window, since only the whole screen carries system audio in Chromium browsers.",
+      "Record the take; every sound the machine plays is written into the capture.",
+      "Press stop, then download the WAV from the preview panel."
+    ],
+    "whenToUse": "System Audio Recorder is for output that comes from outside the browser or from several programs at once. {{browser-tab-recorder|Browser Tab Recorder}} is the more reliable choice when the sound lives in one page, because tab audio is offered on every platform rather than just some. When the source is a stream being played in a tab, {{streaming-audio-recorder|Streaming Audio Recorder}} frames that same job with its own guidance, and {{audio-trimmer|Audio Trimmer}} is the natural follow up for cutting the useful section out of a long capture.",
+    "faqs": [
+      {
+        "q": "Why did my recording come back silent?",
+        "a": "Two common causes. The first is choosing a single window rather than an entire screen, which captures only that window's audio and can miss the sound you wanted. The second is the platform: on systems where the browser only offers tab audio, there is no path to the machine output at all."
+      },
+      {
+        "q": "Which platforms support whole screen audio?",
+        "a": "Chromium browsers on Windows are the reliable case, where the whole screen option carries the system output. On other platforms the same dialog typically offers tab audio only, so the tool reduces to tab capture and the hint about choosing an entire screen no longer applies."
+      },
+      {
+        "q": "Can I record just one application?",
+        "a": "Not selectively. The choice offered is between a window and a whole screen, and a window is not the same thing as an application when the program has several windows. If you need to isolate a single source, the tab recorder is a cleaner fit whenever that source happens to be a web page."
+      },
+      {
+        "q": "Does it capture the microphone as well?",
+        "a": "No. This is an output capture, so your own voice is not part of it unless a program that is playing includes it, which is what happens in a call where both sides are mixed to the output. Recording your microphone separately is a different take."
+      },
+      {
+        "q": "What happens to the video track?",
+        "a": "It is stopped immediately after the share is confirmed. Video has to be requested for the audio option to be offered at all, so it is asked for and then discarded, which keeps the saved file audio only and avoids any video data being retained."
+      }
+    ]
+  },
+  {
+    "slug": "streaming-audio-recorder",
+    "keywords": ["stream capture", "tab audio", "rights", "wav"],
+    "intro": "Streaming Audio Recorder captures a stream playing in a browser tab and saves it as a WAV. Technically it is tab capture, framed for the job of recording a web player from start to finish.",
+    "content": "Press record, pick the tab that is playing the stream and enable its audio in the share dialog. The take runs for as long as the stream does, and the panel produces a player and a download when you stop.\n\nWhat the tool provides beyond the capture itself:\n\n- A record control that opens the browser's share dialog, with a hint naming the tab audio option specifically.\n- Guidance written for the job: record as long as the stream runs, and only what you have the right to record.\n- A live timer while the take is in progress, with a pulsing indicator.\n- A preview player and a download once processing finishes, labelled with duration, channels, sample rate and the WAV conversion.\n- A filename built from the prefix stream-recording plus the capture timestamp.\n\nThe capture mechanism is tab audio, which means the audio that page is producing rather than the machine's output. Video is requested only because the audio option appears alongside it in the share dialog, and the video track is stopped immediately so the saved file holds audio alone. The stream passes through the browser's media recorder in a compressed form, is decoded on stop and is written out as 16-bit WAV. Because the share relationship is with the chosen tab rather than with the visible one, you can keep working while the recording runs; closing the tab ends it. The limits that matter here are legal as much as technical: a recording of a protected stream arrives silent or refuses to be shared, and a personal recording is not permission to redistribute what was recorded.\n\nWhat it cannot do:\n\n- Protected or digital rights managed content is not captured, either because the share is refused or because the audio arrives empty.\n- Adverts, stingers and station idents in the stream are recorded along with the content, since the capture takes the tab's whole output.\n- A stream that pauses when its tab is hidden will produce gaps, because the page stops producing audio.\n- There is no splitting, so a long capture comes back as one large file to be cut afterwards.\n- Levels come from the source, with no metering and no gain to compensate for a quiet player.\n- It records what the tab plays, not what a service holds, so quality can never exceed the stream being played.\n\nThis is stream capture rather than session recording, so the length of the file is set by the stream rather than by you. Use it when you need a local copy of something you have the right to record, such as your own stream, a permitted broadcast or a public domain performance. Start before the content begins, leave the tab open for the duration, and trim the ends afterwards with the editing tools rather than trying to time the start and stop precisely. A practical habit is to note what you recorded and when, because an hour long capture has no internal markers to tell you where anything happened, so cutting it down starts with knowing roughly where the interesting part sits.",
+    "howTo": [
+      "Press record, pick the tab that is playing the stream, and tick the option to share its audio.",
+      "Leave the tab open for as long as the stream runs; the capture continues if you switch tabs.",
+      "Watch the elapsed timer to confirm the take is progressing.",
+      "Stop when the content ends, then download the WAV and trim it afterwards."
+    ],
+    "whenToUse": "Streaming Audio Recorder is tab capture framed for long form playback, with the rights reminder attached. {{browser-tab-recorder|Browser Tab Recorder}} is the same mechanism without the streaming framing, and {{system-audio-recorder|System Audio Recorder}} reaches beyond the browser where the platform allows it. Once the capture exists, {{audio-cutter|Audio Cutter}} removes the unwanted sections and {{audio-trimmer|Audio Trimmer}} tidies the ends, while {{quick-sound-capture|Quick Sound Capture}} covers the case of grabbing one short sound.",
+    "faqs": [
+      {
+        "q": "Can it record protected streams?",
+        "a": "No. Content protected by digital rights management is either refused by the share dialog or shared with no usable audio, which is the platform enforcing the restriction rather than a limitation added here. Absolutely nothing in the tool attempts to work around that."
+      },
+      {
+        "q": "Is recording a stream legal?",
+        "a": "That depends on the content and your jurisdiction, and it is not something a tool can answer for you. The guidance in the panel is deliberately plain: record only what you have the right to record, because a personal copy is not a licence to redistribute. Many services permit it only for personal use, and some not at all."
+      },
+      {
+        "q": "Will the recording include adverts?",
+        "a": "Yes, if they play in that tab. Capture takes the tab's whole output, so anything the page produces during the recording ends up in the file, including adverts, idents and notification sounds from that page. Trimming afterwards is the way to remove them."
+      },
+      {
+        "q": "What happens if the stream stops when I change tabs?",
+        "a": "The capture simply records silence from that point, because there is nothing left to capture. The share survives a tab switch, but a player that deliberately suspends playback when hidden produces a gap. Some services do this on purpose; others keep playing."
+      },
+      {
+        "q": "Does the quality suffer?",
+        "a": "Only in the sense that the file cannot be better than the stream. The capture is decoded and written as a lossless WAV, so there is one encode of the intermediate compressed capture and no further loss, but the source was already compressed by whoever streamed it."
+      }
+    ]
+  },
+  {
+    "slug": "scheduled-recorder",
+    "keywords": ["countdown", "auto-stop", "timer", "microphone"],
+    "intro": "Scheduled Recorder arms a microphone recording with a countdown before it starts and an automatic stop when it has run long enough. It is built for the take you cannot be watching: a call, a session or a timed block.",
+    "content": "Set a start delay and a duration, press arm, and the tool waits, counts down, then records for exactly as long as you asked before stopping itself and building the file.\n\nThe two controls and the lifecycle:\n\n- A start delay from 3 to 60 seconds in single second steps, defaulting to 10.\n- An auto-stop duration from 15 seconds to 3600 seconds in steps of 15, defaulting to 300, displayed in seconds or minutes depending on how long it is.\n- An arm control whose label counts down while it waits, then switches to a live indicator once recording begins.\n- The familiar preview and download panel once the take completes.\n- A hint stating the countdown length, the stop time and the reminder to keep the tab visible.\n\nThe reason this exists is that starting a recording by hand and then leaving it is unreliable, and so is remembering to stop it. The countdown gives you time to move away from the machine and to settle the room, and the automatic stop means a session that overruns cannot fill the file with hours of nothing. Both behaviours live in the shared recorder and are simply configured by the two sliders here. Once the countdown finishes, the capture path is the usual one: the microphone stream into a media recorder, a decode on stop, and a 16-bit WAV written to disk. If the microphone request is denied the arm fails with a clear message rather than recording nothing, and the timer that drives the auto-stop is cleared properly when you stop early. Keeping the tab visible matters because browsers throttle background tabs, which can interrupt a long take.\n\nWhat scheduling does not give you:\n\n- It is a delay, not a clock: you cannot set it to begin at a specific time of day.\n- Closing the tab, sleeping the machine or switching off cancels everything, because the timer lives in the page.\n- Background tab throttling can affect a long take even when the tab is technically open, which is why the panel asks you to keep it visible.\n- Only one take is armed at a time, with no queue of recordings.\n- There is no level metering, so an armed recording cannot be monitored while it runs.\n- The maximum duration is one hour, so longer sessions need either a second take or a different approach.\n\nUse it when you know a session is about to start and want it captured without staying at the keyboard, or when you want a fixed length block such as ten minutes of dictation. Set the delay long enough to step away, set the duration to the length you actually need rather than a very generous figure, and leave the tab open and in front. It is also worth testing the setup once with a short delay and a short duration, because a failed capture discovered after a long session is an expensive way to find out; that test costs a minute and proves the input, the permission and the timer all work together.",
+    "howTo": [
+      "Set the start delay between 3 and 60 seconds, choosing long enough to leave the machine.",
+      "Set the auto-stop duration, from 15 seconds up to an hour, in fifteen second steps.",
+      "Press arm; the control counts down and recording begins automatically when it reaches zero.",
+      "Let the take stop itself at the set duration, then download the WAV from the completed panel."
+    ],
+    "whenToUse": "Scheduled Recorder is for captures you cannot babysit, which makes it the right answer for a session with a known start time and length. {{voice-recorder|Voice Recorder}} is the manual version of the same capture, and {{interview-recorder|Interview Recorder}} is the high quality variant with a long safety stop built in. When the two sides of the conversation may end up at different levels, {{multi-guest-leveler|Multi-Guest Leveler}} is the follow up step.",
+    "faqs": [
+      {
+        "q": "Can I schedule a recording for a specific time of day?",
+        "a": "No. The control is a delay of up to sixty seconds before the take begins, not a clock. For a session at a known hour you arm it at that hour rather than setting a start time, and the automatic stop then handles the other end of the take."
+      },
+      {
+        "q": "Why does the panel say to keep the tab visible?",
+        "a": "Because browsers throttle background tabs to save power, and a throttled page can interrupt a long media capture. The timer driving the auto-stop also lives in the page, so a frozen tab would fail to stop. Keeping the window in front avoids both problems."
+      },
+      {
+        "q": "What happens if the countdown finishes but the microphone is blocked?",
+        "a": "The arm fails and reports the permission problem in plain language, the same way the manual recorder does. Nothing is written, so there is no empty file to clean up. Grant microphone access before arming to avoid the wasted countdown."
+      },
+      {
+        "q": "Can I stop it early?",
+        "a": "Yes. While the take is running the arm control has become a stop control, and pressing it ends the recording immediately and builds the file. The pending automatic stop is cancelled along with it, so the two timers cannot conflict."
+      },
+      {
+        "q": "How long can an armed recording run?",
+        "a": "Up to one hour, in fifteen second increments, with five minutes as the default. That ceiling is a practical one rather than a hard technical limit, since a very long capture in a single browser tab is fragile, and the recording is much more reliable when the tab stays in front."
+      }
+    ]
+  },
+  {
+    "slug": "voice-memo",
+    "keywords": ["voice memo", "microphone", "wav", "dictation"],
+    "intro": "Voice Memo records a quick spoken note from the microphone and saves it as a WAV, with no setup and no processing in the way. It is the fastest route from a thought to a file.",
+    "content": "Press record, speak, press stop, and the take is ready to play or download. There is nothing to configure first, which is the point: the tool is shaped around capturing an idea rather than around producing a finished recording.\n\nHow the panel behaves:\n\n- One control that alternates between starting and stopping the take.\n- A minimal hint about microphone access, shown until the recording completes.\n- A live timer with a pulsing indicator so you can see that the take is running and how long it has been.\n- A preview player and a download button, with a filename built from the prefix voice-memo plus the capture timestamp.\n- A short summary naming the duration, whether the take is mono or stereo, the sample rate and the WAV conversion.\n\nCapturing is handled by the browser's media recorder, which writes a compressed stream while you speak; on stop that stream is decoded and re-encoded as 16-bit WAV. The memorable detail is how little stands between you and the file. There is no level control, no noise gate and no naming prompt, so a memo takes exactly as long to record as it takes to speak. The absence of processing is a feature rather than a gap once the file exists, because a flat unprocessed take is the easiest thing to clean up later if the memo turns into something more than a note. Errors are reported in the same plain way as the rest of the recording family: a refused permission says so, and a take that produced no data says the recording came back empty rather than handing over a zero length file.\n\nWhat a memo tool will not do:\n\n- There is no pause, no retake over the top of a previous take and no trimming inside the tool.\n- It cannot label or title the memo, so files are distinguished only by their timestamps.\n- Nothing is transcribed or indexed, so finding the right memo later means listening.\n- It records from the system default microphone only, with no device choice.\n- Long recordings are not protected by an automatic stop, so leaving it running is your responsibility.\n- As with any single take, the level and the room are whatever they happened to be.\n\nUse it for the spoken equivalent of a note to yourself: a reminder, an idea, a first pass at a sentence you want to use, or a dictated paragraph. Keep the take short and check the preview before you rely on it, and if the memo turns out to matter, move it into the editing or cleanup tools rather than trying to improve it in place. It is equally suited to dictation, where the aim is to say a paragraph once and have it recorded without any setup standing between the thought and the file. A voice memo is also only ever as good as the room it was captured in, so one made in a quiet corner will clean up far better than one made next to a fan, and renaming or filing a session of takes is a job the batch renamer can do in one pass.",
+    "howTo": [
+      "Press the record control and allow microphone access if this is the first time.",
+      "Speak your note, watching the timer to confirm the take is running.",
+      "Press stop; the capture is decoded and written as a 16-bit WAV in the browser.",
+      "Play the preview and download the file, which is named voice-memo followed by the capture time."
+    ],
+    "whenToUse": "Voice Memo is for the shortest path from speech to a saved file, which suits notes, ideas and dictated snippets. {{voice-recorder|Voice Recorder}} is the same capture presented for more deliberate spoken material, and {{microphone-recorder|Microphone Recorder}} adds a device picker when the default input is not the right one. When a memo grows into something that needs polishing, {{noise-reducer|Noise Reducer}} and {{wind-noise-remover|Wind Noise Remover}} are the usual first repairs.",
+    "faqs": [
+      {
+        "q": "Is there a limit on how long a memo can be?",
+        "a": "No fixed limit is imposed, but nothing stops the recording automatically either, so a forgotten take keeps running and produces a very long file. For anything longer than a note, the scheduled recorder with its automatic stop is the more sensible tool."
+      },
+      {
+        "q": "Can I name the file?",
+        "a": "Not inside the tool. Each memo is named with the voice-memo prefix and the date and time of capture, which keeps takes from overwriting one another. Renaming afterwards is a job for the batch file renamer, which can label a whole set of takes in one pass."
+      },
+      {
+        "q": "Does it transcribe what I say?",
+        "a": "No. The tool only captures audio, so there is no text output to search. If you need a transcript, it has to be produced elsewhere and then matched to the recording, which is a separate workflow from capturing the take."
+      },
+      {
+        "q": "Which microphone does it use?",
+        "a": "Whatever the system treats as the default input. There is no device list here by design, because choosing a device works against the idea of a one press capture. If the default is wrong for your setup, the microphone recorder is the version that lets you pin a specific input."
+      },
+      {
+        "q": "Why does the memo sound dull compared to what I heard?",
+        "a": "Usually because the operating system applies processing such as gain control or noise suppression to live monitoring but the recorded stream is somewhat different, and because laptop microphones are physically small. Recording with an external input and the microphone recorder gives a noticeably better result when quality matters."
+      }
+    ]
+  },
+  {
+    "slug": "podcast-recorder",
+    "keywords": ["chapter marker", "cue sheet", "recording", "episode"],
+    "intro": "Podcast Recorder records a microphone take while you drop chapter markers as you go, then exports a cue sheet describing them. It is a recording session and a running chapter list in the same panel.",
+    "content": "Start recording and a marker control becomes available. Each time you press it you are asked for a chapter name, and the marker is stamped at the time elapsed since the take began. When you stop, the WAV is built as usual and the cue file can be downloaded alongside it.\n\nWhat the panel gives you:\n\n- A marker control that opens a prompt for the chapter title and records its position in the take.\n- A numbered list of the chapters so far, showing each one's timestamp and its name.\n- An export control that becomes available once at least one chapter exists, naming how many will be written.\n- The usual preview player and download for the recording itself.\n- A summary label naming the episode length, its channel count and the fact that chapters reset for the next take.\n\nTimestamps are measured from the moment recording actually begins rather than from when the page was opened, and the counter restarts for every take. That matters because a second take with markers carried over from the first would produce a cue sheet pointing at times that no longer exist, so the chapter list is cleared automatically each time recording starts. The cue sheet is written in the standard format, with each entry's start time expressed in minutes, seconds and frames at 75 frames per second, and a single implicit track numbered 01. Names that contain the format's reserved punctuation are quoted properly so the file remains valid, and entries are written in time order. The cue references the downloaded WAV by name, which is why the two are meant to be kept together: most players and editors that read cue files will then show the chapters.\n\nWhat this workflow cannot do:\n\n- The cue sheet is a separate file, so the chapters are not embedded in the recording itself.\n- Dropping a marker is manual, so a chapter can only be as accurate as your reaction time.\n- Names are entered through a prompt, one at a time, with no way to edit the list first.\n- There is no marker for the end of the last chapter beyond the length of the recording.\n- Recording is microphone only, so an interview captured elsewhere cannot be chaptered here.\n- Nothing is written into the audio's metadata, so a player that ignores cue files shows a single file.\n\nUse it for episodes you are recording in one sitting and want chaptered, particularly interviews and solo shows where you know the structure as you go. Keep the cue file next to the WAV, since it refers to the recording by name and loses its meaning if the pair is separated. If the finished episode needs real chapter markers inside an MP3 instead, that is a separate job once the take is on disk. One caution worth remembering: the cue sheet refers to the recording by name, so renaming the WAV afterwards breaks the link unless the cue text is edited to match, and keeping the pair in the same folder is what keeps the arrangement working.",
+    "howTo": [
+      "Start recording, then press the marker control whenever a new section begins.",
+      "Type a chapter name when prompted; the marker is stamped at the elapsed time automatically.",
+      "Check the numbered chapter list during the session to confirm the order and names.",
+      "Stop recording, download the WAV, then export the cue file while the two are still linked by name."
+    ],
+    "whenToUse": "Podcast Recorder is for sessions where the structure is known as you record, so that chapters can be marked live. {{podcast-chapter-marker-tool|Podcast Chapter Marker Tool}} writes real chapter frames into a finished MP3 afterwards, which is what a podcast player displays, and {{show-notes-timestamp-generator|Show Notes Timestamp Generator}} turns the times into text for a description. When the episode needs its title, artist and album fields fixed as well, {{id3-tag-editor|ID3 Tag Editor}} handles those, and {{voice-recorder|Voice Recorder}} is the plain capture if chapters are not needed.",
+    "faqs": [
+      {
+        "q": "Where do the chapters end up?",
+        "a": "In a cue sheet, a small text file that lists each chapter's start time and name and points at the recording by filename. It is not embedded in the WAV, so the two files belong together. Most editors and players that understand cue files will show the chapters as soon as they are side by side."
+      },
+      {
+        "q": "What time format does the cue sheet use?",
+        "a": "The standard one: minutes, seconds and frames, with 75 frames to a second, and a single implicit track numbered 01. That is the format cue readers expect, and names containing the punctuation the format treats specially are quoted so the file stays valid."
+      },
+      {
+        "q": "Why were my chapters cleared when I started again?",
+        "a": "Because timestamps are measured from the start of the current take. Carrying markers over from a previous recording would produce a cue sheet pointing at times that do not exist in the new file, so the list is reset deliberately the moment recording begins."
+      },
+      {
+        "q": "Can I edit the chapter list afterwards?",
+        "a": "Not in this panel. Names are set through a prompt when each marker is dropped, and the list is read only. If you want to rename chapters after the fact, writing the cue sheet again from the finished episode with the chapter marker tool is the cleaner route."
+      },
+      {
+        "q": "Will my podcast app show these chapters?",
+        "a": "Only if it reads cue files alongside the audio, which many editors do but few playback apps do. Players normally expect chapter data inside the file, which is what the podcast chapter marker tool produces for an MP3. Treat the cue sheet as an editing aid rather than as the published chapter list."
+      }
+    ]
+  },
+  {
+    "slug": "interview-recorder",
+    "keywords": ["48 khz", "stereo", "echo cancellation", "auto gain"],
+    "intro": "Interview Recorder captures a conversation at the microphone's best quality, asking for 48 kHz stereo and turning the browser's own processing off. It is the take you intend to edit rather than to use as it comes.",
+    "content": "Press record and the capture requests the highest quality the input can offer: stereo where available, 48 kHz preferred, and with echo cancellation, noise suppression and automatic gain all disabled. A safety stop ends the take automatically at twenty four minutes.\n\nWhat the capture asks for and why:\n\n- A channel count of two where the device supports it, so the recorded file can be manipulated as a stereo pair.\n- A preferred sample rate of 48 kHz, the standard for spoken production and the rate most interfaces run at.\n- Echo cancellation turned off, because it damages a voice when it mistakes reverb for an echo to remove.\n- Noise suppression turned off, because it is tuned for calls rather than for programme material and leaves artefacts a cleanup pass would rather start from a clean slate.\n- Auto gain turned off, so the level does not ride up and down with the conversation.\n- An automatic stop at twenty four minutes as a safety net rather than a target, together with the standard preview and download panel.\n\nA word on the constraints: these are requests, not commands. A device that cannot deliver stereo or 48 kHz will deliver what it can, and the label after the take reports the channel count and sample rate that actually arrived. Disabling the browser's processing is the substantive choice, and it is the opposite of what a conferencing tool does. The point is to keep the raw room: a little reverb and a little background noise can be reduced later with proper tools, whereas processing applied during capture cannot be undone. That trade is worth stating plainly because a take made this way will sound less polished than a call recording when you first play it back.\n\nWhat it cannot promise:\n\n- The requested stereo and sample rate are best effort, so a mono input produces a mono take.\n- With processing off, room echo and background noise are preserved, which means a poor room stays audible.\n- Twenty four minutes is a hard ceiling per take, so a longer session needs two recordings.\n- It records the microphone only, so a remote participant on a call is not captured unless the speaker output is picked up by the microphone.\n- There is no level metering, so an input set too high will clip without warning.\n- Nothing here separates the speakers afterwards; that is processing applied to the finished file.\n\nUse it for a conversation you will edit: an interview, a two hander segment, or any spoken take where the room will be dealt with afterwards. Record with the microphone close enough to keep the direct sound ahead of the reflections, and plan for the twenty four minute ceiling by taking a fresh file at a natural break rather than mid sentence. Because the browser's processing is off, the room is part of the recording, so the most valuable preparation is to move the microphone closer to the speaker and to soften the hardest surface in the room; both are free, and both reduce how much repair the take needs later.",
+    "howTo": [
+      "Press record and allow microphone access; the capture requests stereo at 48 kHz with browser processing off.",
+      "Keep an eye on the elapsed timer, since the take stops automatically at twenty four minutes.",
+      "Press stop at a natural break if the conversation runs longer and start a fresh file.",
+      "Check the reported channels and sample rate in the label, then download the WAV for editing."
+    ],
+    "whenToUse": "Interview Recorder is for conversations destined for post production, which is why it disables the processing that a call app would apply. {{microphone-recorder|Microphone Recorder}} lets you pin a specific input when the interview is recorded through an interface, and {{scheduled-recorder|Scheduled Recorder}} handles the case where the session starts without you at the keyboard. Afterwards, {{noise-reducer|Noise Reducer}} deals with the room and {{multi-guest-leveler|Multi-Guest Leveler}} evens out the speakers.",
+    "faqs": [
+      {
+        "q": "Why turn the browser's audio processing off?",
+        "a": "Because echo cancellation, noise suppression and automatic gain are all designed to make a call intelligible, not to preserve a recording for editing. Echo cancellation in particular misjudges reverb in a room and damages the voice. With them off you keep the raw room, which is exactly what a cleanup pass wants as its starting point."
+      },
+      {
+        "q": "Will the recording be stereo and 48 kHz?",
+        "a": "The tool requests both, but a request is not a guarantee. If the input device cannot deliver stereo or that sample rate, the capture uses what is available, and the summary after the take states the channel count and rate that actually arrived, so there is no ambiguity about what you have."
+      },
+      {
+        "q": "Why is there an automatic stop at twenty four minutes?",
+        "a": "It is a safety net for a recording left running rather than a target to work towards. A long single take in a browser tab is more fragile, so ending the file at a natural point is safer than relying on the tab staying awake indefinitely."
+      },
+      {
+        "q": "My take sounds echoey. Is something wrong?",
+        "a": "No, that is the intended behaviour. Turning off echo cancellation and noise suppression means the room is captured as it sounds. The trade is deliberate: this is the state a cleanup pass wants, and tools that reduce steady noise and tame reverb can work on it afterwards, which they could not if processing had already altered the signal."
+      },
+      {
+        "q": "Can it record a phone call or a remote guest?",
+        "a": "Only what reaches the microphone. A remote participant on a call is captured if the speaker output is loud enough for the microphone to pick up, which is usually a poor result. A proper remote interview needs the far side recorded on their own machine, or the system audio captured separately and the two takes aligned later."
+      }
+    ]
+  },
+  {
+    "slug": "song-recorder",
+    "keywords": ["44.1 khz", "stereo", "line-in", "take"],
+    "intro": "Song Recorder captures a full performance in stereo at forty four point one kilohertz, with echo cancellation and automatic gain off. It is a take ready for practice review or for later processing.",
+    "content": "Press record and the capture asks for stereo at the CD sample rate, keeping the browser's echo cancellation and automatic gain out of the path. The take stops by itself after thirty minutes, and the panel returns a preview and a download.\n\nThe capture settings and the intent behind them:\n\n- A channel count of two where the device allows it, so a line-in or a stereo pair comes back as a stereo file.\n- Forty four point one kilohertz requested, matching the rate that music delivery and most consumer hardware use.\n- Echo cancellation disabled, because it is a speech tool that leaves artefacts on sustained tones.\n- Automatic gain disabled so a performance with a quiet verse and a loud chorus keeps its own dynamics.\n- A thirty minute ceiling on the take, with the usual preview and download panel afterwards.\n- A note in the panel pointing out that separating instruments is a processing step applied to a finished take rather than something capture can do.\n\nThe reason the settings lean on stereo and a fixed rate is that the usual sources here are line level rather than a microphone: a phone playing a backing track while you play along, an interface feed from an instrument, or a single stereo pair in a room. Asking for 44.1 kHz means the recorded file lines up with the way music is normally distributed, and leaving automatic gain off means the performance's own dynamic shape survives. What the tool will not pretend to do is separate anything. The honest scope is capture, and the note in the panel says so: taking the parts of a finished mix apart is a job for the isolation tools applied afterwards, not a property of the recording. As with every other capture in this family, the file is built locally from a decode and a 16-bit WAV write, with nothing uploaded.\n\nWhat it cannot do:\n\n- It cannot separate instruments, despite how the tool is sometimes described; that is post-processing on the recorded file.\n- Stereo and forty four point one kilohertz are requests, so a mono interface records a mono take.\n- There is no monitoring path, click track or count in, so timing against the backing comes from your own count.\n- Thirty minutes is the maximum per take, which is generous for a song but not for a full set.\n- No level metering means an input set too high clips silently.\n- It records one input at a time, so a band needs a mixed feed rather than separate channels.\n\nUse it to capture a rehearsal, a practice take against a backing track, or a single stereo feed from an interface. Because the dynamics are preserved, the take responds well to later processing: compressing or levelling it in the dynamics tools keeps more of the original performance than a take recorded with automatic gain riding the level during capture would. If the take is only for review, an honest stereo capture with its dynamics intact is more useful than a polished version produced during recording, because you can still hear what needs work.",
+    "howTo": [
+      "Press record and allow microphone access; stereo at 44.1 kHz is requested with echo cancellation and auto gain off.",
+      "Perform the take, watching the elapsed timer and remembering the thirty minute ceiling.",
+      "Press stop when the performance ends, or let the automatic stop finish the file.",
+      "Check the summary label for channels and sample rate, then download the WAV."
+    ],
+    "whenToUse": "Song Recorder is for capturing a performance in one pass, whether that is a rehearsal, a practice run or a stereo feed from an interface. {{microphone-recorder|Microphone Recorder}} is the right tool when the concern is choosing the input, and {{loop-recorder|Loop Recorder}} covers building a performance up layer by layer instead. For keeping time against a backing track, {{metronome|Metronome}} is the companion, and {{audio-trimmer|Audio Trimmer}} trims the take once it is on disk.",
+    "faqs": [
+      {
+        "q": "Does it separate the instruments?",
+        "a": "No, and the panel says so plainly. Capture is the whole job here: the file is one stereo recording. Taking a finished mix apart into parts is a processing step applied to the file afterwards, using the isolation tools, and even then it works best on material that was mixed relatively simply."
+      },
+      {
+        "q": "Why 44.1 kHz rather than 48?",
+        "a": "Because the usual sources are line level and the usual destination is a music player or a distribution platform, both of which centre on the CD rate. It is worth knowing that 48 kHz would be the more common choice for anything headed into video, and the request can be overridden by whatever the device actually supports."
+      },
+      {
+        "q": "Why not use automatic gain to keep the level even?",
+        "a": "Because a performance has its own dynamics, and automatic gain flattens them while you record, irreversibly. With it disabled, a quiet verse stays quiet and a loud chorus stays loud, and a levelling or compressing step afterwards can make whatever decisions the music actually needs instead of undoing the browser's."
+      },
+      {
+        "q": "Can I record a whole band?",
+        "a": "Not as separate channels. One input is captured per take, so a band needs a mixed stereo feed from a desk or an interface. Per instrument tracks would require a multi input interface that presents them as one device, plus an application that can record several channels at once."
+      },
+      {
+        "q": "The take clipped. What can I do?",
+        "a": "Very little, which is why the input level matters. Clipping flattens the waveform at the moment of capture, and repair tools can smooth the flat tops back into curves but cannot restore the harmonics that were destroyed. Lower the input gain and record again rather than relying on a fix."
+      }
+    ]
+  },
+  {
+    "slug": "loop-recorder",
+    "keywords": ["loop", "layer", "overdub", "loop length"],
+    "intro": "Loop Recorder builds a performance up layer by layer, using the first take to set the loop length and mixing later takes into it. Each layer plays back in sync while the next is recorded over the top.",
+    "content": "Record a base loop, press play to hear it while you record the next layer, and repeat. Every take after the first is fitted to the loop length and mixed in, and the result can be downloaded as a single WAV.\n\nThe controls and the rules they follow:\n\n- A record control that reads Record base loop for the first take and Record layer plus its number afterwards.\n- A play control that loops the current mix, and continues running while you record over it.\n- A stop playback control, and a download control that produces the mixed loop as a WAV.\n- A clear all control that discards every take and resets the loop length.\n- A status line naming the loop length in seconds, noting that take one set it and how many takes exist so far.\n- A mix readout reporting the combined peak, with a warning when the mix is loud enough to clip on playback.\n\nTake one defines the loop, because it is the only take whose length is unconstrained. Every later layer is padded with silence if it is shorter or trimmed if it is longer, then summed with the others, which is what makes a slightly late second take land in time with the first rather than shifting everything. Playback runs through an audio context with the mixed buffer set to loop, so you hear the accumulated performance while recording the next part over it. Each channel is checked for a combined peak above the ceiling, and when it exceeds it the panel warns that the mix will clip on playback and suggests lowering the input for the next take. That warning exists because layers are summed, so a stack of individually sensible takes drifts upwards until the sum runs out of room. A safety stop ends any take after roughly four loop lengths, or sixty seconds for the first one, so a forgotten take cannot run indefinitely. The download is a 16-bit WAV of the summed mix.\n\nWhere a looper ends and other tools begin:\n\n- Only the microphone input is captured, so an external instrument needs to reach it through a microphone or a mixed feed.\n- The mix is destructive in the sense that layers are summed; there is no way to remove one layer and keep the rest.\n- Every layer shares the loop length, so a part that needs a different length cannot be added.\n- There is no undo, no metering while recording and no per layer volume control.\n- Playback and recording use the same audio path, so monitoring a layer through the computer speakers can bleed into the next take.\n- The first take's length is fixed at capture, so a loop that is slightly the wrong length has to be rebuilt from scratch.\n\nUse it for the classic layering workflow: a rhythm part first, then harmony, then a counter line, each recorded while the previous ones play. Keep the input modest, watch the mix peak readout as layers accumulate, and download the result before adding more takes than the summed level can bear. Each pass after the first is an overdub on the layer beneath it, which means the earlier performances are always present underneath, so the order you record in decides what you can hear while playing the next part.",
+    "howTo": [
+      "Record the base loop, which sets the length every later layer will be fitted to.",
+      "Press play so the loop runs, then record the next layer over it in time.",
+      "Repeat as needed, watching the mix peak readout so accumulating layers do not clip.",
+      "Download the combined mix as a WAV, or clear all and start again with a better base length."
+    ],
+    "whenToUse": "Loop Recorder is for building a part up in layers in one sitting, which is a performance workflow rather than an editing one. {{audio-loop-maker|Audio Loop Maker}} turns an existing recording into a seamless loop instead of capturing one, and {{metronome|Metronome}} keeps the timing honest while the base take is recorded. Once a mix exists, {{audio-trimmer|Audio Trimmer}} tidies it, and {{click-track-generator|Click Track Generator}} is the alternative way to hold tempo for the first layer.",
+    "faqs": [
+      {
+        "q": "What decides the loop length?",
+        "a": "The first take does, and it is the only one whose length is free. Every later layer is padded with silence or trimmed to match that length before it is mixed in, which is what keeps a slightly short or long second take in time rather than shifting the whole loop."
+      },
+      {
+        "q": "Why does the panel warn about the mix peak?",
+        "a": "Because layers are summed, so several healthy takes can add up to a level that clips. The readout reports the combined peak, and when it crosses the ceiling the panel says the mix will clip on playback and suggests lowering the input next time. Keeping each layer modest is the way to build up several without running out of room."
+      },
+      {
+        "q": "Can I remove one layer and keep the rest?",
+        "a": "No. The takes are mixed into a single summed performance, and there is no per layer control afterwards. The available options are to download what you have, or to clear everything and start again, which is why it is worth getting the base loop right before layering much over it."
+      },
+      {
+        "q": "How long can a single take run?",
+        "a": "It stops itself at roughly four loop lengths once a loop exists, or at sixty seconds for the first take. The limit is a safety net for a forgotten recording rather than a musical constraint, and it scales with the loop so a longer loop permits a longer overdub."
+      },
+      {
+        "q": "Why does the next layer sound like it has my previous take in it?",
+        "a": "Because monitoring through speakers means the microphone hears the playback along with your performance. The audio path is shared between playback and capture, so headphones are the fix. Recording the next layer without monitoring at all avoids the bleed but makes timing harder."
+      }
+    ]
+  },
+  {
+    "slug": "quick-sound-capture",
+    "keywords": ["tab audio", "quick capture", "browser", "download"],
+    "intro": "Quick Sound Capture records whatever a browser tab is playing, aimed at grabbing a sound you just heard rather than at a planned session. Confirm the share and the take begins immediately.",
+    "content": "Press the record control, pick the tab that is making the sound and tick the box that shares its audio. Recording starts as soon as you confirm, so the useful part is to have the sound ready to play again or to start it after the share is set up.\n\nWhat the panel does and what it asks of you:\n\n- One record control that opens the browser's share dialog instead of its own device list.\n- A hint telling you to select the playing tab and enable its audio, since that option is off by default.\n- A live timer with a pulsing indicator while the take runs.\n- A preview player and a download once the take is processed, with a label giving duration, channels and sample rate.\n- A filename built from the prefix sound-capture plus the timestamp of the take.\n\nEverything hard about this is timing rather than encoding. Capture begins when the share is confirmed, so a sound that has already finished cannot be included, and the practical approach is to set up the share with the tab paused and then start playback. The audio route is the usual one for tab capture: video is requested only because the audio option requires it, the video track is stopped at once, and the audio stream goes into a media recorder. On stop that compressed capture is decoded and written as a 16-bit WAV locally. If the share was confirmed without the audio option, the tool detects that there is no audio track and says so in the words of the situation, which is the most common way this goes wrong on a first attempt.\n\nWhat you cannot do with it:\n\n- You cannot capture a sound that has already passed; the take starts at confirmation, not before.\n- There is no trimming inside the tool, so the useful moment is surrounded by whatever else was playing.\n- Protected content is refused or arrives silent, since the platform blocks its capture.\n- Only one tab is recorded, so a sound made by another tab or by the machine at large is not included.\n- Nothing is metered, so a very quiet or a clipping source is captured exactly as it was.\n- It captures the whole tab's output, including any other sound that page happens to make.\n\nUse it for a short grab: a notification sound, a bark of laughter from a video, a jingle, or a short line you need for something else. Because the take starts at the moment of confirmation, set the page up so the audio is one press away, and plan to trim the ends afterwards rather than trying to catch the exact start and stop. This is a quick capture by design: the point is that a sound is grabbed in two presses rather than by opening a recording application. Because tab audio is off by default in the share dialog, the most common failure is a silent file from a share confirmed in a hurry, which is the case the panel names directly.",
+    "howTo": [
+      "Get the tab ready with the sound cued but not yet playing, since capture starts the moment you confirm the share.",
+      "Press record, choose that tab and enable the option to share its audio.",
+      "Start playback in the page immediately after confirming, and let the sound finish.",
+      "Stop the take, then download the WAV and trim the ends afterwards."
+    ],
+    "whenToUse": "Quick Sound Capture is for short grabs from a page, where speed matters more than length. {{browser-tab-recorder|Browser Tab Recorder}} is the same mechanism presented for longer takes, and {{streaming-audio-recorder|Streaming Audio Recorder}} is the version built for a whole stream with its own guidance. {{system-audio-recorder|System Audio Recorder}} reaches outside the browser where the platform permits it, and {{audio-trimmer|Audio Trimmer}} is the obvious follow up for cutting a short sound out of the take.",
+    "faqs": [
+      {
+        "q": "Can I record a sound that already played?",
+        "a": "No. Capture begins when you confirm the share, so anything that has already passed is not in the file. The practical approach is to have the page paused with the sound ready, confirm the share, and then press play in the page so that only the sound you want is captured."
+      },
+      {
+        "q": "Why is my recording silent?",
+        "a": "Almost always because the share was confirmed without ticking the option to share the tab's audio, which is off by default. The tool detects the missing audio track and says so specifically. Otherwise the source is protected content, which the platform will not let be captured at all."
+      },
+      {
+        "q": "Do I need to trim the result?",
+        "a": "Usually, yes. Capture starts at confirmation and ends when you press stop, so there is normally a second or two of silence or of unrelated sound at each end. The trimmer and the cutter are the tools for tidying that up, and neither is part of the capture itself."
+      },
+      {
+        "q": "Can it capture sound from another application?",
+        "a": "No. This captures a browser tab's audio, which is playback from that page. Sound made by a desktop application needs the system audio recorder, and even that depends on the browser and platform offering a whole screen option whose audio is genuinely the machine output."
+      },
+      {
+        "q": "What format do I get?",
+        "a": "A 16-bit WAV. The live capture is held in a compressed form because that is what the browser can write continuously, and it is decoded on stop before being written out, so the file you download is uncompressed and ready for editing."
+      }
+    ]
+  }
+]
