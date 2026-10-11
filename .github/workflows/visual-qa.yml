@@ -45,6 +45,13 @@ jobs:
         working-directory: racira-nextjs
         run: node _scripts/adsense-verify-check.mjs
 
+      # Served-response check: GET /ads.txt must answer 200 with the exact
+      # record, text/plain, and no redirect, and robots.txt must leave the
+      # AdSense crawler open. Mirrors the same e2e in .husky/pre-push.
+      - name: AdSense served-response e2e
+        working-directory: racira-nextjs
+        run: npx playwright test e2e/adsense-verification.test.ts
+
       - name: Run visual QA sweep (build → next start → scans)
         working-directory: racira-nextjs
         run: npm run qa:visual

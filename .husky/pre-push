@@ -104,6 +104,19 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# AdSense served-response e2e — the static guard proves the file on disk, this
+# proves GET /ads.txt actually answers 200 with the exact bytes and no
+# redirect, and that robots.txt leaves the AdSense crawler alone. Reuses a
+# running dev server on :3002 when one is up.
+npx playwright test e2e/adsense-verification.test.ts
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ AdSense served-response e2e failed — push blocked."
+  echo "   GET /ads.txt must return 200 with the exact record and no redirect."
+  echo ""
+  exit 1
+fi
+
 # Audio SEO rendered-DOM contract — the FAQ accordion must load collapsed, the
 # related row must carry four live non-self picks, body copy must be plain
 # (no bold/emphasis), the privacy block must be the verbatim shared text, and

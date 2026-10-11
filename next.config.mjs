@@ -46,6 +46,17 @@ const nextConfig = {
       { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
     ];
     return [
+      // ADS.TXT — Google's AdSense crawler fetches https://racira.com/ads.txt
+      // at the domain root. Serve it explicitly as plain text so the parser
+      // never sees HTML, and with a *short* max-age (never immutable) so a
+      // future publisher-id change propagates without a cache purge.
+      {
+        source: '/ads.txt',
+        headers: [
+          { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
+          { key: 'Cache-Control', value: 'public, max-age=3600' },
+        ],
+      },
       // /tools/ route (general — unused but preserved for future)
       {
         source: '/tools/:path*',
