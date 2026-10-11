@@ -21,6 +21,7 @@
     "validate:writing-seo-drift": "node scripts/writing-seo-drift-check.mjs",
     "validate:writing-seo-render": "node scripts/validate-writing-seo-render.mjs",
     "check:ads": "node _scripts/adsense-verify-check.mjs",
+    "test:ads:e2e": "playwright test e2e/adsense-verification.test.ts",
     "reconcile:writing": "node _scripts/writing-reconcile.mjs",
     "audit:seo-quality": "node scripts/audit-seo-quality.mjs",
     "audit:seo-quality:report": "node scripts/audit-seo-quality.mjs --report-only",

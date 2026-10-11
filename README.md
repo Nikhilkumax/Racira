@@ -48,11 +48,19 @@ delete, rename, reformat, or git-ignore it: nothing in the app imports it, so
 losing it is invisible locally and only surfaces as ads failing to serve in
 production. It must remain this single line, in `public/`, committed:
 
-    google.com, pub-7147460072564518, DIRECT, f08c47fec0942fa0
+    google.com, pub-3924503352309890, DIRECT, f08c47fec0942fa0
+
+It is the single source of truth: no route handler, rewrite, or generated copy
+serves this path, and next.config.mjs sends `text/plain; charset=utf-8` with
+`Cache-Control: public, max-age=3600` (never immutable). `.gitattributes` pins
+it to LF so the served bytes are exact on every OS.
 
 `npm run check:ads` (node _scripts/adsense-verify-check.mjs) fails the build and
 the pre-push hook when the file is missing, not byte-exact, git-ignored, or
-untracked.
+untracked — or when the old publisher id lingers anywhere, a second ads.txt is
+introduced, a route/rewrite shadows the path, or the middleware matcher would
+intercept it. `npx playwright test e2e/adsense-verification.test.ts` additionally
+asserts the served response (200, text/plain, exact body, no redirect).
 
 ## 📄 License
 
