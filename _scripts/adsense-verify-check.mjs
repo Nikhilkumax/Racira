@@ -54,16 +54,16 @@ const repoRoot = rootArg ? resolve(rootArg.slice(7)) : ROOT;
 const isRepo = existsSync(join(repoRoot, ".git"));
 
 /** The exact record Google must find. Any byte-level change is a failure. */
-const EXPECTED_RECORD = "google.com, pub-3924503352309890, DIRECT, f08c47fec0942fa0";
+const EXPECTED_RECORD = "google.com, pub-2583149493013973, DIRECT, f08c47fec0942fa0";
 /** The exact on-disk bytes: the record plus a single LF, nothing else. */
 const EXPECTED_BYTES = Buffer.from(`${EXPECTED_RECORD}\n`, "utf8");
 /** The publisher id on its own. */
-const PUBLISHER_ID = "3924503352309890";
+const PUBLISHER_ID = "2583149493013973";
 /** The superseded publisher id. It must appear nowhere in the repo.
  *  Assembled from fragments so that the repo-wide grep this script performs
  *  cannot match its own source — a checker that is the last thing holding the
  *  forbidden id would be a false positive. */
-const LEGACY_PUBLISHER_ID = "7147460072" + "564518";
+const LEGACY_PUBLISHER_ID = "3924503352" + "309890";
 
 const ADS_TXT = join(repoRoot, "public", "ads.txt");
 

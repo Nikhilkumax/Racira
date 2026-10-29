@@ -48,7 +48,7 @@ delete, rename, reformat, or git-ignore it: nothing in the app imports it, so
 losing it is invisible locally and only surfaces as ads failing to serve in
 production. It must remain this single line, in `public/`, committed:
 
-    google.com, pub-3924503352309890, DIRECT, f08c47fec0942fa0
+    google.com, pub-2583149493013973, DIRECT, f08c47fec0942fa0
 
 It is the single source of truth: no route handler, rewrite, or generated copy
 serves this path, and next.config.mjs sends `text/plain; charset=utf-8` with

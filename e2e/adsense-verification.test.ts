@@ -29,11 +29,11 @@ import { execFileSync } from "child_process";
 import { join } from "path";
 
 const ADS_TXT_PATH = join(process.cwd(), "public", "ads.txt");
-const EXPECTED_RECORD = "google.com, pub-3924503352309890, DIRECT, f08c47fec0942fa0";
+const EXPECTED_RECORD = "google.com, pub-2583149493013973, DIRECT, f08c47fec0942fa0";
 const EXPECTED_BODY = `${EXPECTED_RECORD}\n`;
 // Assembled from fragments so the repo-wide grep in this test cannot match the
 // test's own source.
-const LEGACY_PUBLISHER_ID = "7147460072" + "564518";
+const LEGACY_PUBLISHER_ID = "3924503352" + "309890";
 
 test.describe("AdSense site verification", () => {
   test("public/ads.txt is present and byte-exact", () => {
